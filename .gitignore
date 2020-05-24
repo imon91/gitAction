@@ -1,0 +1,55 @@
+bin/
+/db
+.eclipse
+/lib/
+/logs/
+/modules
+/project/target
+/target
+tmp/
+test-result
+server.pid
+*.eml
+/dist/
+.cache
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+classes/
+
+# generated files
+gen/
+out/
+build/
+target/
+
+# Local configuration file (sdk path, etc)
+local.attributes
+
+# Eclipse project files
+.classpath
+.project
+
+# Windows thumbnail db
+.DS_Store
+
+# IDEA/Android Studio project files, because
+# the project can be imported from settings.gradle
+.idea
+*.iml
+
+# Old-style IDEA project files
+*.ipr
+*.iws
+
+local.properties
+
+# Gradle cache
+.gradle
+
+# Sandbox stuff
+_sandbox
+.idea/
