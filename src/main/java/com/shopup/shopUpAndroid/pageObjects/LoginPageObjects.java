@@ -72,6 +72,14 @@ public class LoginPageObjects {
         myActions.action_click(proceedButton);
     }
 
+    private void clickOnEditMobileNumberButton(){
+        myActions.action_click(editMobileNumberButton);
+    }
+
+    private void clickOnResendOtpButton(){
+        myActions.action_click(resendOtpButton);
+    }
+
 
 
     /*----Functions*/
