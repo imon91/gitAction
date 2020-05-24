@@ -80,6 +80,14 @@ public class LoginPageObjects {
         myActions.action_click(resendOtpButton);
     }
 
+    private void getLoginLabelText(){
+        myActions.action_getText(loginLabelTextView);
+    }
+
+    private void getOTPLabelText(){
+        myActions.action_getText(otpLabelTextView);
+    }
+
 
 
     /*----Functions*/
