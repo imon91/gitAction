@@ -1,2 +1,2 @@
 # shopf
-Reseller Android UI Automation 
+Reseller Android UI Automation
