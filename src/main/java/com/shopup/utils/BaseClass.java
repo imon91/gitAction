@@ -1,11 +1,11 @@
 package com.shopup.utils;
 
-import io.appium.java_client.AppiumDriver;
+
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.net.ServerSocket;
@@ -91,20 +91,11 @@ public class BaseClass {
     }
 
 
-    public AndroidDriver getDriver()throws Exception{
-        DesiredCapabilities cap= new DesiredCapabilities();
-        cap.setCapability("deviceName", Constants.ANDROID_DEVICE_NAME);
-        cap.setCapability("platformName", Constants.PLATFORM_ANDROID);
-        //cap.setCapability("platformVersion", Constants.ANDROID_PLATFORM_VERSION);
-        cap.setCapability("app",FileUtils.apkFilePath);
-        cap.setCapability("appPackage", Constants.APP_PACKAGE);
-        cap.setCapability("automationName", Constants.ANDROID_AUTOMATION_NAME);
-        //cap.setCapability("appActivity", Constants.ANDROID_SPLASH_SCREEN);
-        cap.setCapability("locationServicesAuthorized", true);
-        cap.setCapability("autoAcceptAlerts", true);
+    public AndroidDriver<AndroidElement> getDriver()throws Exception{
+        // 1 : Create the URL with port for Appium  to run
         URL url = new URL(getProtocol() + getHost() + ":" + getPort() + getDriverAsHub());
-        AndroidDriver driver=new AndroidDriver(url,cap);
-        return driver;
+        // 2 : Return AndroidDriver to tests with added capabilities
+        return new AndroidDriver(url,new ResellerAndroidCapabilities().setCapabilities());
     }
 
 

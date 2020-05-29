@@ -1,13 +1,14 @@
 package com.shopup.utils;
 
 import java.util.concurrent.TimeUnit;
-import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 
 public class DriverControls {
 
-    AppiumDriver driver;
+    AndroidDriver<AndroidElement> driver;
 
-    public DriverControls(AppiumDriver driver){
+    public DriverControls(AndroidDriver<AndroidElement> driver){
         this.driver = driver;
     }
 
