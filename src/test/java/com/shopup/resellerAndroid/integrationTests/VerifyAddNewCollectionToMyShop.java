@@ -33,7 +33,7 @@ public class VerifyAddNewCollectionToMyShop extends BaseClass {
     public void verifyAddCollection() throws Exception{
 
         // 1 : Start Appium Service
-        startService();
+        //startService();
 
         // 2 : Get Driver
         androidDriver = getDriver();

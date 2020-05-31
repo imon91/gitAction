@@ -21,6 +21,7 @@ public class ResellerAndroidCapabilities {
     private static final String CAP_KEY_CHROME_DRIVER_MAPPING_FILE="chromedriverChromeMappingFile";
     private static final String CAP_KEY_CHROME_DRIVER_EXECUTABLE_DIR="chromedriverExecutableDir";
     private static final String CAP_KEY_CHROME_DRIVER_EXECUTABLE="chromedriverExecutable";
+    private static final String CAP_UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = "uiautomator2ServerInstallTimeout";
     private static final String CAP_KEY_IS_HEADLESS="isHeadless";
     private static final String CAP_KEY_ADV_ARGS="-no-window";
     private static final String CAP_KEY_APPIUM_CHROME_OPTIONS = "appium:chromeOptions";
@@ -44,6 +45,7 @@ public class ResellerAndroidCapabilities {
         cap.setCapability(CAP_KEY_ADB_EXEC_TIME_OUT,Constants.ABD_EXEC_TIME_OUT);
         cap.setCapability(CAP_KEY_ENSURE_WEB_VIEWS_HAVE_PAGES,Constants.TRUE);
         cap.setCapability(CAP_KEY_CHROME_DRIVER_USE_SYSTEM_EXECUTABLE,Constants.FALSE);
+        cap.setCapability(CAP_UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT,20000);
         cap.setCapability(CAP_KEY_APPIUM_CHROME_OPTIONS, ImmutableMap.of(CAP_KEY_W3C, Constants.FALSE));
         //cap.setCapability(CAP_KEY_CHROME_DRIVER_MAPPING_FILE,"/Users/vogo-1161/AutomationTests/Shopf-Ui-Automation/src/main/resources/chromeDrivers/chromedrivers.json");
         //cap.setCapability(CAP_KEY_CHROME_DRIVER_EXECUTABLE_DIR,"/Users/vogo-1161/AutomationTests/Shopf-Ui-Automation/src/main/resources/chromeDrivers/chromeDriver");
