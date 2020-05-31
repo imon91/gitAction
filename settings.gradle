@@ -1,2 +1,6 @@
 rootProject.name = 'Shopf Ui Automation'
+include 'core'
+include 'webui'
+include 'androidui'
+include 'mobilewebui'
 
