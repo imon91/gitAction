@@ -91,7 +91,7 @@ task smokeTests(type: Test) { // we define a task with name ‘smokeTests’
 task cucumberTestRunner(type: Test){
     useTestNG() {
         useDefaultListeners = true
-        suites 'src/test/resources/mySuites/suite.xml'
+        suites 'src/test/resources/mySuites/smokeSuite.xml'
     }
 }
 
