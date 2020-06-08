@@ -1,4 +1,4 @@
-package com.shopf.automation.tests;
+package myScripts;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
