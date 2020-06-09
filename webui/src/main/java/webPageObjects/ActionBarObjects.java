@@ -44,18 +44,18 @@ public class ActionBarObjects {
     @FindBy(xpath = "//li[starts-with(@class,\"cart-icon mrvoonik-cart-icon\")]")
     private WebElement bagButton;
 
-    public void clickOnShopupIcon{myActions.action_click(shopupIcon);}
+    public void clickOnShopupIcon(){myActions.action_click(shopupIcon);}
 
-    public void clickOnSearchBarText{myActions.action_click(searchBarText);}
+    public void clickOnSearchBarText(){myActions.action_click(searchBarText);}
 
-    public void clickOnSearchIcon{myActions.action_click(searchIcon);}
+    public void clickOnSearchIcon(){myActions.action_click(searchIcon);}
 
-    public void clickOnLoginButton{myActions.action_click(loginButton);}
+    public void clickOnLoginButton(){myActions.action_click(loginButton);}
 
-    public void clickOnTrackOrder{myActions.action_click(trackOrderButton);}
+    public void clickOnTrackOrder(){myActions.action_click(trackOrderButton);}
 
-    public void clickOnMyshopButton{myActions.action_click(myshopButton);}
+    public void clickOnMyshopButton(){myActions.action_click(myshopButton);}
 
-    public void clickOnBagButton{myActions.action_click(bagButton);}
+    public void clickOnBagButton(){myActions.action_click(bagButton);}
 
 }
