@@ -20,19 +20,19 @@ public class BottomNavigationObjects {
 
 
     // Bottom-Navigation-Bar HomeIcon
-    @FindBy(css = "#content > div > div:nth-child(4) > div:nth-child(1) > div.bottomHeader___GLrO8 > div > a:nth-child(1)")
+    @FindBy(xpath = "//a[@class='footerLink___2zo0t' and @href='/r']")
     private WebElement bottomBarHomeIcon;
 
     // Bottom-Navigation-Bar MyShopIcon
-    @FindBy(css = "#content > div > div:nth-child(4) > div:nth-child(1) > div.bottomHeader___GLrO8 > div > a:nth-child(2)")
+    @FindBy(xpath = "//a[@class='footerLink___2zo0t' and @href='/wishlist']")
     private WebElement bottomBarMyShopIcon;
 
     // Bottom-Navigation-Bar MyOrders
-    @FindBy(css = "#content > div > div:nth-child(4) > div:nth-child(1) > div.bottomHeader___GLrO8 > div > a:nth-child(3)")
+    @FindBy(xpath = "//a[@class='footerLink___2zo0t' and @href='/orders/myorders']")
     private WebElement bottomBarMyOrdersIcon;
 
     // Bottom-Navigation-Bar PaymentsIcon
-    @FindBy(css = "#content > div > div:nth-child(4) > div:nth-child(1) > div.bottomHeader___GLrO8 > div > a:nth-child(4)")
+    @FindBy(xpath = "//a[@class='footerLink___2zo0t' and @href='/myaccount/income']")
     private WebElement bottomBarPaymentsIcon;
 
 
