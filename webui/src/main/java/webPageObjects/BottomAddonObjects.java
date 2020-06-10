@@ -14,7 +14,7 @@ public class BottomAddonObjects {
 
     public BottomAddonObjects(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(new (driver), this);
+        PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
 

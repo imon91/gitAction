@@ -13,7 +13,7 @@ public class ActionBarObjects {
 
     public ActionBarObjects(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(new (driver), this);
+        PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
     //Shopup icon

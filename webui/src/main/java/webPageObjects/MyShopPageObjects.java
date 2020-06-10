@@ -17,7 +17,7 @@ public class MyShopPageObjects {
 
     public MyShopPageObjects(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(new (driver), this);
+        PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
      /*--------------------Left corner Informations options--------*/
