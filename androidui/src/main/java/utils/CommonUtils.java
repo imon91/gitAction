@@ -1,9 +1,8 @@
 package utils;
 
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.WebDriver;
 
 import java.util.Set;
 
@@ -26,8 +25,8 @@ public class CommonUtils {
         contextData = contextNames.toArray(contextData);
         for(int i=0;i<contextData.length;i++){
             System.out.println(contextData[i]);
-            if(contextData[i].equalsIgnoreCase(Constants.SHOP_UP_RESELLER_WEB_VIEW)){
-                androidDriver.context(Constants.SHOP_UP_RESELLER_WEB_VIEW);
+            if(contextData[i].equalsIgnoreCase(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW)){
+                androidDriver.context(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
                 return androidDriver;
             }
         }

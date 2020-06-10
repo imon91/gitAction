@@ -14,7 +14,7 @@ public class WebApp extends BaseClass
     public void WebAppAutomationSample() throws Exception
     {
         startService();
-        driver = getDriver();
+        driver = getDriver(null,null);
         driverControls = new DriverControls(driver);
         driver.get("https://uatwap.shopups1.xyz/r");
         driverControls.setImplicitWait(30);

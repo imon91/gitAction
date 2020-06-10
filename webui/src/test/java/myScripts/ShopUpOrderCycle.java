@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class ShopUpOrderCycle {
     public static void main(String[] args) throws InterruptedException
     {
-        System.setProperty("webdriver.chrome.driver", "/Users/nikhiljustus/Downloads/chromedriver");
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir")+"/src/main/resources/chromeDrivers/drivers/chromedriver83");
         WebDriver sul = new ChromeDriver();
         sul.get("https://uatwap.shopups1.xyz/r");
         sul.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
