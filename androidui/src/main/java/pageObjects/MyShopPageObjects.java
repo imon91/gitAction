@@ -1,6 +1,6 @@
 package pageObjects;
 
-import utils.CommonUtils;
+
 import utils.MyActions;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;

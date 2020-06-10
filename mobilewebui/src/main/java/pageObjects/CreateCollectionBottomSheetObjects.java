@@ -5,7 +5,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import MyUtils.MyActions;
+import utils.MyActions;
 
 public class CreateCollectionBottomSheetObjects {
 

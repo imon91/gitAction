@@ -76,14 +76,14 @@ test{
     }
 }
 
-task smokeTests(type: Test) { // we define a task with name ‘smokeTests’
+task androiduiTest(type: Test) { // we define a task with name ‘smokeTests’
     useTestNG() {
         useDefaultListeners = true
         scanForTestClasses = false
         jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
         suites 'src/test/resources/mySuites/smokeSuite.xml'
-        //includeGroups 'smoke' // We define the group name by using ‘includeGroups’ parameter.
+        systemProperties project.properties.subMap(["Host"])
     }
 
 }
@@ -91,7 +91,7 @@ task smokeTests(type: Test) { // we define a task with name ‘smokeTests’
 task cucumberTestRunner(type: Test){
     useTestNG() {
         useDefaultListeners = true
-        suites 'src/test/resources/mySuites/suite.xml'
+        suites 'src/test/resources/mySuites/smokeSuite.xml'
     }
 }
 
