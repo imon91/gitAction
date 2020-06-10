@@ -17,7 +17,7 @@ public class MyShopPageObjects {
 
     public MyShopPageObjects(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements((driver), this);
+        PageFactory.initElements(new (driver), this);
         myActions = new MyActions();
     }
      /*--------------------Left corner Informations options--------*/
@@ -40,13 +40,13 @@ public class MyShopPageObjects {
 
 
 
-    public void clickOnMyincomeOption(){myActions.action_click(myincomeButton);}
+    public void clickOnMyincomeOption{myActions.action_click(myincomeButton);}
 
-    public void clickOnMycreditOPtion(){myActions.action_click(mycreditButton);}
+    public void clickOnMycreditOPtion{myActions.action_click(mycreditButton);}
 
-    public void clickOnPersonalInformationOption(){myActions.action_click(personalinformationButton);}
+    public void clickOnPersonalInformationOption{myActions.action_click(personalinformationButton);}
 
-    public void clickOnMyshopOption(){myActions.action_click(myshopbutton);}
+    public void clickOnMyshopOption{myActions.action_click(myshopbutton);}
 
 
 
