@@ -22,7 +22,6 @@ public class LoginPageObjects {
     @AndroidFindBy(id = "com.shopup.reseller:id/text_login_label")
     private AndroidElement loginLabelTextView;
 
-
     // Mobile Number Edit text
     @AndroidFindBy(id = "com.shopup.reseller:id/et_mobile_number")
     private AndroidElement mobileNumberEditTextView;
