@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import java.util.concurrent.TimeUnit;
 
 public class DriverControls {
+
     AndroidDriver<WebElement> driver;
 
     public DriverControls(AndroidDriver<WebElement> driver){

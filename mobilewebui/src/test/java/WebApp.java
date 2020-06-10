@@ -7,14 +7,20 @@ import utils.DriverControls;
 
 public class WebApp extends BaseClass
 {
+
     private AndroidDriver<WebElement> driver;
     private DriverControls driverControls;
     private HomePageObjects homePageObjects;
 
-    public void WebAppAutomationSample() throws Exception
-    {
+public static void main(String[] args) throws Exception {
+    new WebApp().webAppAutomationSample();
+
+}
+
+    public void webAppAutomationSample() throws Exception {
         startService();
         driver = getDriver(null,null);
+
         driverControls = new DriverControls(driver);
         driver.get("https://uatwap.shopups1.xyz/r");
         driverControls.setImplicitWait(30);
