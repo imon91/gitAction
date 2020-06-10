@@ -1,4 +1,4 @@
-package utils;
+package MyUtils;
 
 public class FileUtils {
     public static final String apkFile = FileRouters.apkPath+"app-universal-debug.apk";

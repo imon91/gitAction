@@ -1,4 +1,4 @@
-package utils;
+package MyUtils;
 
 public class Constants {
     /*-----Global Constants-----*/

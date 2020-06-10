@@ -1,20 +1,19 @@
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import pageObjects.HomePageObjects;
-import utils.BaseClass;
-import utils.DriverControls;
+import MyPageObjects.HomePageObjects;
+import MyUtils.BaseClass;
+import MyUtils.DriverControls;
 
 
 public class WebApp extends BaseClass
 {
-    private AndroidDriver<WebElement> driver;
-    private DriverControls driverControls;
-    private HomePageObjects homePageObjects;
-
-    public void WebAppAutomationSample() throws Exception
-    {
-        startService();
-        driver = getDriver();
+    public static void main(String[] args) throws Exception {
+        BaseClass baseClass = new BaseClass();
+        AndroidDriver<WebElement> driver;
+        DriverControls driverControls;
+        HomePageObjects homePageObjects = null;
+        baseClass.startService();
+        driver= baseClass.getDriver();
         driverControls = new DriverControls(driver);
         driver.get("https://uatwap.shopups1.xyz/r");
         driverControls.setImplicitWait(30);

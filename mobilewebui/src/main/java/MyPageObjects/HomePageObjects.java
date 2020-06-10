@@ -1,13 +1,11 @@
-package pageObjects;
+package MyPageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import net.bytebuddy.asm.Advice;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import utils.MyActions;
+import MyUtils.MyActions;
 
 public class HomePageObjects {
     private AndroidDriver<WebElement> driver;
@@ -83,6 +81,34 @@ public class HomePageObjects {
     @FindBy(xpath = "//div[@class='myaccount-icon']")
     private WebElement ProfileButton;
 
+    //NavigateToHome
+    @FindBy(xpath = "//p[contains(text(),'Home')]")
+    private WebElement NavigateToHome;
+
+    //NavigateToMyOrders
+    @FindBy(xpath = "//p[contains(text(),'My Orders')]")
+    private WebElement NavigateToMyOrders;
+
+    //NavigateToMyShop
+    @FindBy(xpath = "//p[contains(text(),'My Shop')]")
+    private WebElement NavigateToMyShop;
+
+    //NavigateToMyAccount
+    @FindBy(xpath = "//p[contains(text(),'My Account')]")
+    private WebElement NavigateToMyAccount;
+
+    //NavigateToResellerPolicy
+    @FindBy(xpath = "//p[contains(text(),'Reseller Policy')]")
+    private WebElement NavigateToResellerPolicy;
+
+    //NavigateToFAQ
+    @FindBy(xpath = "//p[contains(text(),'FAQ')]")
+    private WebElement NavigateToFAQ;
+
+    //NavigateToContactUs
+    @FindBy(xpath = "//p[contains(text(),'Contact us')]")
+    private WebElement NavigateToContactUs;
+
     //SignOut
     @FindBy(xpath = "//p[contains(text(),'Sign Out')]")
     private WebElement SignOut;
@@ -129,11 +155,25 @@ public class HomePageObjects {
 
     private void clickOnUserProfile(){myActions.action_click(ProfileButton);}
 
+    public void clickOnHome(){myActions.action_click(NavigateToHome);}
+
+    public void clickOnMyOrders(){myActions.action_click(NavigateToMyOrders);}
+
+    public void clickOnMyShop(){myActions.action_click(NavigateToMyShop);}
+
+    public void clickOnMyAccount(){myActions.action_click(NavigateToMyAccount);}
+
+    public void clickOnresellerPolicy(){myActions.action_click(NavigateToResellerPolicy);}
+
+    public void clickOnFAQ(){myActions.action_click(NavigateToFAQ);}
+
+    public void clickOncontactUs(){myActions.action_click(NavigateToContactUs);}
+
     private void clickOnSignOut(){myActions.action_click(SignOut);}
 
-    private void clickOnChangeLanguage(){myActions.action_click(ChangeLanguage);}
+    public void clickOnChangeLanguage(){myActions.action_click(ChangeLanguage);}
 
-    private void clickOnCloseProfileButton(){myActions.action_click(CloseProfileButton);}
+    public void clickOnCloseProfileButton(){myActions.action_click(CloseProfileButton);}
 
     /*-------Functions---------*/
 

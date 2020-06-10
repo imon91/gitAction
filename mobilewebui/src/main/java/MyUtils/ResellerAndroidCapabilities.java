@@ -1,4 +1,4 @@
-package utils;
+package MyUtils;
 
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.remote.MobileCapabilityType;
@@ -39,7 +39,7 @@ public class ResellerAndroidCapabilities {
         cap.setCapability(CAP_KEY_DEVICE_NAME, Constants.ANDROID_DEVICE_NAME);
         cap.setCapability(CAP_KEY_PLATFORM_NAME, Constants.PLATFORM_ANDROID);
         //cap.setCapability(CAP_KEY_PLATFORM_VERSION, Constants.ANDROID_PLATFORM_VERSION);
-        cap.setCapability(CAP_KEY_APP,FileUtils.apkFile);
+        //cap.setCapability(CAP_KEY_APP,FileUtils.apkFile);
         //cap.setCapability(CAP_KEY_APP_PACKAGE, Constants.APP_PACKAGE);
         cap.setCapability(CAP_KEY_AUTOMATION_NAME, Constants.ANDROID_AUTOMATION_NAME);
         //cap.setCapability(CAP_KEY_APP_ACTIVITY, Constants. ANDROID_MAIN_ACTIVITY);
@@ -47,7 +47,7 @@ public class ResellerAndroidCapabilities {
         cap.setCapability(CAP_KEY_AUTO_ACCEPT_ALERTS, Constants.TRUE);
         cap.setCapability(CAP_KEY_ADB_EXEC_TIME_OUT,Constants.ABD_EXEC_TIME_OUT);
         cap.setCapability(CAP_KEY_ENSURE_WEB_VIEWS_HAVE_PAGES,Constants.TRUE);
-        cap.setCapability(CAP_KEY_CHROME_DRIVER_USE_SYSTEM_EXECUTABLE,Constants.FALSE);
+        cap.setCapability(CAP_KEY_CHROME_DRIVER_USE_SYSTEM_EXECUTABLE,Constants.TRUE);
         cap.setCapability(CAP_UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT,20000);
         cap.setCapability(CAP_KEY_APPIUM_CHROME_OPTIONS, ImmutableMap.of(CAP_KEY_W3C, Constants.FALSE));
         //cap.setCapability(CAP_KEY_CHROME_DRIVER_MAPPING_FILE,"/Users/vogo-1161/AutomationTests/Shopf-Ui-Automation/src/main/resources/chromeDrivers/chromedrivers.json");
