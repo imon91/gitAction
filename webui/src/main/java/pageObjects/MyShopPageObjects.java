@@ -1,77 +1,76 @@
 package pageObjects;
 
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObjects.CreateCollectionBottomSheetObjects;
 import utils.MyActions;
 
 import java.util.Random;
 
 public class MyShopPageObjects {
-
     private WebDriver driver;
     private MyActions myActions;
 
+
+
     public MyShopPageObjects(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
+     /*--------------------Left corner Informations options--------*/
 
+    //My income option
+    @FindBy(xpath = "//p[text()='My Income']")
+    private WebElement myincomeButton;
 
-    /*-------------Collections Tab Elements------------------*/
+    //My credit option
+    @FindBy(xpath = "//p[text()='My Credits']")
+    private WebElement mycreditButton;
 
-    // MyCollections Tab Item
-    @FindBy (xpath = "//android.view.View[@text='My Collections']")
-    private WebElement myCollectionTabItem;
+    //Personal Imformation Option
+    @FindBy(xpath = "//p[text()='Personal Information']")
+    private WebElement personalinformationButton;
 
-    // ExclusiveCollections Tab Item
-    @FindBy(xpath = "//android.view.View[@text='Exclusive Collections']")
-    private WebElement exclusiveCollectionTabItem;
-
-
-    public void clickOnMyCollectionTabItem(){
-        myActions.action_click(myCollectionTabItem);
-    }
-
-    public void clickOnExclusiveCollectionTabItem(){
-        myActions.action_click(exclusiveCollectionTabItem);
-    }
-
-
-    /*-------------MyCollections Tab Elements------------------*/
-
-    // No-Of-Collection TextView
-    @FindBy(className = "android.view.TextView")
-    private WebElement noOfCollectionTextView;
-
-    // Create New or add to existing Collections View
-    @FindBy(xpath = "//android.view.View[@text='Create New or add to existing Collections']")
-    private WebElement createOrAddToNewCollectionText;
-
-    // CreateNewCollection View
-    @FindBy(xpath = "//p[contains(text(),'Create New Collection')]")
-    private WebElement createNewCollectionButton;
-
-
-    public String getNoOfCollectionText(){
-        return myActions.action_getText(noOfCollectionTextView);
-    }
-
-    public String getCreateOrAddNewCollectionsText(){
-        return myActions.action_getText(createOrAddToNewCollectionText);
-    }
-
-    public void clickOnCreateNewCollectionButton(){
-        myActions.action_click(createNewCollectionButton);
-    }
+    //My shop
+    @FindBy(xpath = "//p[text()='My Shop']")
+    private WebElement myshopbutton;
 
 
 
-    /*-------------ExclusiveCollections Tab Elements------------------*/
+    public void clickOnMyincomeOption(){myActions.action_click(myincomeButton);}
 
+    public void clickOnMycreditOPtion(){myActions.action_click(mycreditButton);}
+
+    public void clickOnPersonalInformationOption(){myActions.action_click(personalinformationButton);}
+
+    public void clickOnMyshopOption(){myActions.action_click(myshopbutton);}
+
+
+
+    /*----------Add New collection tab--------------*/
+
+    //Add new collection Icon
+    @FindBy(xpath = "//div[text()='ADD NEW']")
+    private WebElement addNewCollectionButton;
+
+    //add your collection text
+    @FindBy(xpath = "//input[@type='text'][@id='wl-new-clname']")
+    private WebElement addYourCollectionText;
+
+    //add button
+    @FindBy(xpath = "//button[text()='Add']")
+    private WebElement addButton;
+
+
+
+    public void clickOnAddNewCollectionButton(){myActions.action_click(addNewCollectionButton);}
+
+    public void clickOnAddYourCollectionText(){myActions.action_click(addYourCollectionText);}
+
+    public void clickOnAddButton(){myActions.action_click(addButton);}
 
 
 
@@ -79,15 +78,15 @@ public class MyShopPageObjects {
     /*----------------Functions-------------------*/
 
     public String createNewCollection(){
-            clickOnCreateNewCollectionButton();
-            String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
-            new CreateCollectionBottomSheetObjects(driver).
-                    performAddCollection(collectionName);
-            return collectionName;
+        clickOnAddNewCollectionButton();
+        String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
+        new CreateCollectionBottomSheetObjects(driver).
+                performAddCollection(collectionName);
+        return collectionName;
     }
 
-    public void enterIntoCollectionFromMyCollections(String collectionName){
 
-    }
+
 
 }
+

@@ -7,56 +7,55 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
 public class ActionBarObjects {
-
     private WebDriver driver;
     private MyActions myActions;
 
+
     public ActionBarObjects(WebDriver driver){
         this.driver = driver;
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
+    //Shopup icon
+    @FindBy(xpath = "//img[@alt='logo']")
+    private WebElement shopupIcon;
 
+    //Search bar text
+    @FindBy(xpath = "//input[@type='text'][@id='searchTag']")
+    private WebElement searchBarText;
 
-    // HamburgerMenu Icon
-    @FindBy(id = "com.shopup.reseller:id/side_menu_button")
-    private WebElement hamburgerMenuIcon;
+    //Search Icon
+    @FindBy(xpath = "//i[text()='search']")
+    private WebElement searchIcon;
 
-    // ShopUp Logo
-    @FindBy(id = "com.shopup.reseller:id/app_icon_container")
-    private WebElement shopUpAppIcon;
+    //login icon
+    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.0\")]")
+    private WebElement loginButton;
 
-    // Search Icon
-    @FindBy(className = "android.widget.ImageButton[1]")
-    private WebElement searchImageButton;
+    //Track order icon
+    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.2\")]")
+    private WebElement trackOrderButton;
 
-    // Bag Icon
-    @FindBy(className = "android.widget.ImageButton[2]")
-    private WebElement bagImageButton;
+    //Myshop icon
+    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.3\")]")
+    private WebElement myshopButton;
 
-    // UserProfile Icon
-    @FindBy(className = "android.widget.ImageButton[3]")
-    private WebElement userProfileImageButton;
+    //Bag icon
+    @FindBy(xpath = "//li[starts-with(@class,\"cart-icon mrvoonik-cart-icon\")]")
+    private WebElement bagButton;
 
+    public void clickOnShopupIcon(){myActions.action_click(shopupIcon);}
 
+    public void clickOnSearchBarText(){myActions.action_click(searchBarText);}
 
-    public void clickOnHamburgerMenuIcon(){
-        myActions.action_click(hamburgerMenuIcon);
-    }
+    public void clickOnSearchIcon(){myActions.action_click(searchIcon);}
 
-    public void clickOnShopUpAppIcon(){
-        myActions.action_click(shopUpAppIcon);
-    }
+    public void clickOnLoginButton(){myActions.action_click(loginButton);}
 
-    public void clickOnSearchImageButton(){
-        myActions.action_click(searchImageButton);
-    }
+    public void clickOnTrackOrder(){myActions.action_click(trackOrderButton);}
 
-    public void clickOnBagImageButton(){
-        myActions.action_click(bagImageButton);
-    }
+    public void clickOnMyshopButton(){myActions.action_click(myshopButton);}
 
-    public void clickOnUserProfileImageButton(){
-        myActions.action_click(userProfileImageButton);
-    }
+    public void clickOnBagButton(){myActions.action_click(bagButton);}
+
 }
