@@ -60,7 +60,7 @@ public class AddressPageObject {
 
     //Alternate mobile number
     @FindBy(xpath = "//input[@type='text'][@name='alternative_phone']")
-    private WebElement alternateMobileNumberBArText;
+    private WebElement alternateMobileNumberBarText;
 
     //Select Adobe Dhaka
     @FindBy(xpath = "//div[text()='Adabor, Dhaka']")
@@ -90,4 +90,28 @@ public class AddressPageObject {
     @FindBy(xpath = "//span[text()='DELETE']")
      private WebElement deleteProductIcon;
 
+
+
+
+
+
+    /*----------actions-------*/
+    private void enterName(String name){
+        myActions.action_sendKeys(nameBarText,name);}
+
+    private void enterAddress(String address){
+        myActions.action_sendKeys(addressBarText,address);}
+
+    private void enterLocality(String locality){
+        myActions.action_sendKeys(localityBarText,locality);}
+
+
+    private void enterLandmark(String landmark){
+        myActions.action_sendKeys(landmarkBarText,landmark);}
+
+        private void enterMobileNumber(String mobilenumber){
+        myActions.action_sendKeys(mobilenumberBarText,mobilenumber);}
+
+    private void enterAlternateMobile(String alternatemobilenumber){
+        myActions.action_sendKeys(alternateMobileNumberBarText,alternatemobilenumber);}
 }
