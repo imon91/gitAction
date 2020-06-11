@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
+
 public class HomePageObjects {
     private AndroidDriver<WebElement> driver;
     private MyActions myActions;
@@ -18,87 +19,107 @@ public class HomePageObjects {
     }
 
     //HamBurgerMenuIcon
-    @FindBy(css = "#header > div.mainHeader___1D0Y8 > div.headerLogoNav___2DIqG > button")
+    @FindBy(xpath = "//div/button[@class='navIcon___1s-1K']")
     private WebElement MenuButton;
 
     //ContactUs
-    @FindBy(css = "#navDrawer > div.nav-content > div.top-links > a:nth-child(1)")
+    @FindBy(xpath = "//div/a[@href='/contactus']")
     private WebElement ContactUs;
 
     //ResellerPolicy
-    @FindBy(css = "#navDrawer > div.nav-content > div.top-links > a:nth-child(2)")
+    @FindBy(xpath = "//div/a[@href='/policies']")
     private WebElement ResellerPolicy;
 
     //PrivacyPolicy
-    @FindBy(css = "#navDrawer > div.nav-content > div.top-links > a:nth-child(3)")
+    @FindBy(xpath = "//div/a[@href='/privacy']")
     private WebElement PrivacyPolicy;
 
     //closeMenuButton
-    @FindBy(css = "#navDrawer > div.nav-header.mrvoonik-nav-header > div > svg")
+    @FindBy(xpath = "//*[@id=\"close\"]")
     private WebElement CloseMenuButton;
 
     //ShopUp logo
-    @FindBy(css = "#headerLogoImg")
+    @FindBy(xpath = "//a/img[@class = 'mainLogo___10PZp']")
     private WebElement ShopUpLogo;
 
     //searchicon
-    @FindBy(css = "#header > div.mainHeader___1D0Y8 > div.customHeaderPdp___1MkCO > button")
+    @FindBy(xpath = "//div/button[@class='searchIcon']")
     private WebElement SearchButton;
 
     //Entering the object
-    @FindBy(css = "#searchTag")
+    @FindBy(xpath = "//div[@class='react-autosuggest__container']")
     private WebElement EnterObjectToSearch;
 
     //searching for the object
-    @FindBy(css = "#header > div.mainHeader___1D0Y8 > div.flex___1bJDE.around___2yVgM.middle___1jEMZ.searchBox___17XJm > button")
+    @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']")
     private WebElement SearchTheObject;
 
     //BagIcon
-    @FindBy(css = "#header > div.mainHeader___1D0Y8 > div.customHeaderPdp___1MkCO > a")
+    @FindBy(xpath = "//a[@class='checkout-bag-icon']")
     private WebElement BagButton;
 
     //enterMobileNumber
-    @FindBy()
+    @FindBy(xpath = "//input[@id='newPhone']")
     private WebElement EnterMobileNumber;
 
     //continue
-    @FindBy()
+    @FindBy(xpath = "//button[@class='normal___3nyjx primary___OLr69 button___3btga ripple___1U_Uk']")
     private WebElement Continue;
 
     //enterotp
-    @FindBy()
+    @FindBy(xpath = "//input[@id='newOtp']")
     private WebElement EnterOTP;
 
+    //resendotp
+    @FindBy(xpath = "//button[@class='normal___3nyjx secondary___2pQSN button___3btga ripple___1U_Uk action___2Amzo']")
+    private WebElement ResendOTP;
+
     //submit
-    @FindBy()
+    @FindBy(xpath = "//button[@class='normal___3nyjx primary___OLr69 button___3btga ripple___1U_Uk']")
     private WebElement Submit;
 
     //UserProfileIcon
-    @FindBy(css = "#header > div.mainHeader___1D0Y8 > div.customHeaderPdp___1MkCO > div")
+    @FindBy(xpath = "//div[@class='myaccount-icon']")
     private WebElement ProfileButton;
 
     //NavigateToHome
-    @FindBy(css = "#header > div:nth-child(3) > div > div > div:nth-child(2) > div:nth-child(2) > a:nth-child(1) > p")
-    private WebElement HomeButton;
+    @FindBy(xpath = "//p[contains(text(),'Home')]")
+    private WebElement NavigateToHome;
 
     //NavigateToMyOrders
-    @FindBy(css = "#header > div:nth-child(3) > div > div > div:nth-child(2) > div:nth-child(2) > a:nth-child(2) > p")
-    private WebElement MyOrders;
+    @FindBy(xpath = "//p[contains(text(),'My Orders')]")
+    private WebElement NavigateToMyOrders;
 
     //NavigateToMyShop
-    @FindBy(css = "#header > div:nth-child(3) > div > div > div:nth-child(2) > div:nth-child(2) > a:nth-child(3) > p")
-    private WebElement MyShop;
+    @FindBy(xpath = "//p[contains(text(),'My Shop')]")
+    private WebElement NavigateToMyShop;
+
+    //NavigateToMyAccount
+    @FindBy(xpath = "//p[contains(text(),'My Account')]")
+    private WebElement NavigateToMyAccount;
+
+    //NavigateToResellerPolicy
+    @FindBy(xpath = "//p[contains(text(),'Reseller Policy')]")
+    private WebElement NavigateToResellerPolicy;
+
+    //NavigateToFAQ
+    @FindBy(xpath = "//p[contains(text(),'FAQ')]")
+    private WebElement NavigateToFAQ;
+
+    //NavigateToContactUs
+    @FindBy(xpath = "//p[contains(text(),'Contact us')]")
+    private WebElement NavigateToContactUs;
 
     //SignOut
-    @FindBy(css = "#header > div:nth-child(3) > div > div > div:nth-child(2) > div:nth-child(5)")
+    @FindBy(xpath = "//p[contains(text(),'Sign Out')]")
     private WebElement SignOut;
 
     //changeLanguage
-    @FindBy(css = "#header > div:nth-child(3) > div > div > div:nth-child(2) > div:nth-child(3)")
+    @FindBy(xpath = "//span[contains(text(), 'Change Language (BN)')]")
     private WebElement ChangeLanguage;
 
     //closeUserProfileIcon
-    @FindBy(css = "#header > div:nth-child(3) > div > div > div.close___3yvOX")
+    @FindBy(xpath = "//div[@class='close___3yvOX']")
     private WebElement CloseProfileButton;
 
     /*---------Actions----------*/
@@ -129,21 +150,31 @@ public class HomePageObjects {
 
     private void clickOnEnterOTP(String OTP){myActions.action_sendKeys(EnterOTP,OTP);}
 
+    private void clickOnResendOTP(){myActions.action_click(ResendOTP);}
+
     private void clickOnSubmitButton(){myActions.action_click(Submit);}
 
     private void clickOnUserProfile(){myActions.action_click(ProfileButton);}
 
-    private void clickOnHomeButton(){myActions.action_click(HomeButton);}
+    public void clickOnHome(){myActions.action_click(NavigateToHome);}
 
-    private void clickOnMyOrders(){myActions.action_click(MyOrders);}
+    public void clickOnMyOrders(){myActions.action_click(NavigateToMyOrders);}
 
-    private void clickOnMyShop(){myActions.action_click(MyShop);}
+    public void clickOnMyShop(){myActions.action_click(NavigateToMyShop);}
+
+    public void clickOnMyAccount(){myActions.action_click(NavigateToMyAccount);}
+
+    public void clickOnresellerPolicy(){myActions.action_click(NavigateToResellerPolicy);}
+
+    public void clickOnFAQ(){myActions.action_click(NavigateToFAQ);}
+
+    public void clickOncontactUs(){myActions.action_click(NavigateToContactUs);}
 
     private void clickOnSignOut(){myActions.action_click(SignOut);}
 
-    private void clickOnChangeLanguage(){myActions.action_click(ChangeLanguage);}
+    public void clickOnChangeLanguage(){myActions.action_click(ChangeLanguage);}
 
-    private void clickOnCloseProfileButton(){myActions.action_click(CloseProfileButton);}
+    public void clickOnCloseProfileButton(){myActions.action_click(CloseProfileButton);}
 
     /*-------Functions---------*/
 

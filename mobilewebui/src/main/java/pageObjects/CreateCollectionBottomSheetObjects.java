@@ -22,23 +22,23 @@ public class CreateCollectionBottomSheetObjects {
 
 
     // CreateNewCollection Text
-    @FindBy(css = "#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div.drawerContainer___7enVI.containerBottom___790KD > div > form > div > div")
+    @FindBy(xpath = "//div[@class='flex___1bJDE column___2CDPf center___10Hxv middle___1jEMZ createNewCollection___2kZdj']")
     private WebElement createNewCollectionText;
 
     // EnterCollectionName EditText
-    @FindBy(css = "#name")
+    @FindBy(xpath = "//input[@class='input___tfjvP']")
     private WebElement enterYourCollectionNameEditText;
 
     // SaveCollection Button
-    @FindBy(css = "#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div.drawerContainer___7enVI.containerBottom___790KD > div > form > div > button")
+    @FindBy(xpath = "//button[@class='rounded___vgOiV primary___OLr69 button___3btga ripple___1U_Uk contain___ux0BW save___tLdNx']")
     private WebElement saveCollectionButton;
 
     // Cancel Button
-    @FindBy(css = "#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div.drawerContainer___7enVI.containerBottom___790KD > div > div")
+    @FindBy(xpath = "//div[@class='close___3yvOX']")
     private WebElement cancelCollectionButton;
 
     // Field Required Error Message
-    @FindBy(css = "#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div.drawerContainer___7enVI.containerBottom___790KD > div > form > div > div > p")
+    @FindBy(xpath = "//p[@class='error___2Dq0y weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 inputError inputError___1KOfy']")
     private WebElement fieldRequiredErrorMessage;
 
 

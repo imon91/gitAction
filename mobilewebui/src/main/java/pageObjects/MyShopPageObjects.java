@@ -1,10 +1,11 @@
-package pageObjects;
+package MyPageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import pageObjects.CreateCollectionBottomSheetObjects;
 import utils.MyActions;
 
 import java.util.Random;
@@ -23,11 +24,11 @@ public class MyShopPageObjects {
     /*-------------Collections Tab Elements------------------*/
 
     // MyCollections Tab Item
-    @FindBy(css = "#tab_1")
+    @FindBy(xpath = "//p[contains(text(),'My Collections')]")
     private WebElement myCollectionTabItem;
 
     // ExclusiveCollections Tab Item
-    @FindBy(css = "#tab_2")
+    @FindBy(xpath = "//p[contains(text(),'Exclusive Collections')]")
     private WebElement exclusiveCollectionTabItem;
 
 
@@ -43,15 +44,15 @@ public class MyShopPageObjects {
     /*-------------MyCollections Tab Elements------------------*/
 
     // No-Of-Collection TextView
-    @FindBy(css = "#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div.flex___1bJDE.column___2CDPf.center___10Hxv.middle___1jEMZ.title___3RaA5 > span")
+    @FindBy(xpath = "//span[@class='primary___3k9Ts weight-4___ZQvdQ text-16___-Np8V bold___3nNae text-flat___3AZ-6']")
     private WebElement noOfCollectionTextView;
 
     // Create New or add to existing Collections View
-    @FindBy(css = "#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div.flex___1bJDE.wrap___tCzfQ.grid-2___1YlpV.grid___3egso > div:nth-child(1) > div")
+    @FindBy(xpath = "//p[contains(text(),'Create New or add to existing Collections')]")
     private WebElement createOrAddToNewCollectionText;
 
     // CreateNewCollection View
-    @FindBy(css = "#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div.drawerContainer___7enVI.containerBottom___790KD > div > form > div > div")
+    @FindBy(xpath = "//p[contains(text(),'Create New Collection')]")
     private WebElement createNewCollectionButton;
 
 
