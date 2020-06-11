@@ -18,3 +18,10 @@ dependencies {
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.3.0'
 
 }
+
+test{
+    useTestNG(){
+        useDefaultListeners = true
+        //suites 'src/test/resources/mySuites/suite.xml'
+    }
+}
