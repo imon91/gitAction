@@ -1,4 +1,4 @@
-package webPageObjects;
+package pageObjects;
 
 
 
