@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
+import pageObjects.CreateCollectionBottomSheetObjects;
 import utils.MyActions;
 
 import java.util.Random;
@@ -77,6 +77,13 @@ public class MyShopPageObjects {
 
     /*----------------Functions-------------------*/
 
+    public String createNewCollection(){
+        clickOnAddNewCollectionButton();
+        String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
+        new CreateCollectionBottomSheetObjects(driver).
+                performAddCollection(collectionName);
+        return collectionName;
+    }
 
 
 
