@@ -1,12 +1,11 @@
-package com.shopup.resellerAndroid.integrationTests;
-
+package integrationTests;
+import coreUtils.CoreConstants;
 import pageObjects.BottomNavigationObjects;
 import pageObjects.CreateCollectionBottomSheetObjects;
 import pageObjects.LoginPageObjects;
 import pageObjects.MyShopPageObjects;
 import utils.BaseClass;
 import utils.CommonUtils;
-import utils.Constants;
 import utils.DriverControls;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -30,7 +29,7 @@ public class VerifyAddNewCollectionToMyShop extends BaseClass {
         //startService();
 
         // 2 : Get Driver
-        androidDriver = getDriver();
+        androidDriver = getDriver(null,null);
 
         // 3 : Set DriverControls
         driverControls = new DriverControls(androidDriver);
@@ -49,7 +48,7 @@ public class VerifyAddNewCollectionToMyShop extends BaseClass {
             System.out.println(contextName);
         }
 
-        androidDriver.context(Constants.SHOP_UP_RESELLER_WEB_VIEW);
+        androidDriver.context(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
 
         new MyShopPageObjects(androidDriver).clickOnCreateNewCollectionButton();
 

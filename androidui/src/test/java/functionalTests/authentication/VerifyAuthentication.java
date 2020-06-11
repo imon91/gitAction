@@ -1,4 +1,4 @@
-package functioalTests.authentication;
+package functionalTests.authentication;
 import io.qameta.allure.Attachment;
 import org.apache.commons.codec.binary.Base64;
 import pageObjects.LoginPageObjects;
