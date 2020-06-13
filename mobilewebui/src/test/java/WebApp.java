@@ -1,29 +1,23 @@
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
 import pageObjects.HomePageObjects;
-import utils.BaseClass;
-import utils.DriverControls;
+import static utils.WebAppBaseClass.*;
 
 
-public class WebApp extends BaseClass
-{
+public class WebApp{
 
     private AndroidDriver<WebElement> driver;
-    private DriverControls driverControls;
     private HomePageObjects homePageObjects;
 
-public static void main(String[] args) throws Exception {
-    new WebApp().webAppAutomationSample();
 
-}
-
+    @Test
     public void webAppAutomationSample() throws Exception {
-        startService();
-        driver = getDriver(null,null);
 
-        driverControls = new DriverControls(driver);
+        driver = getBaseDriver();
+        setImplicitWait(30);
         driver.get("https://uatwap.shopups1.xyz/r");
-        driverControls.setImplicitWait(30);
+       homePageObjects = new HomePageObjects(driver);
         homePageObjects.searchForObject("Shirt");
         driver.findElementByCssSelector("#content > div > div:nth-child(4) > div.page-body > div > div > div > div > div:nth-child(2) > div > div > div > div:nth-child(2) > div > div.feed-grid-main > div > div.feed-grid-container > ul > li:nth-child(1) > div > a").click();
         driver.findElementByXPath("//input[@class='hide' and @value='M']").click();
