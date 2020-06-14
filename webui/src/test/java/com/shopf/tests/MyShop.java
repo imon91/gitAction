@@ -5,13 +5,14 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pageObjects.MyShopPageObjects;
 import utils.WebBaseClass;
 
 
 public class MyShop extends WebBaseClass {
 
     private WebDriver driver;
-
+    private MyShopPageObjects myShopPageObjects;
 
 
     @BeforeClass(alwaysRun = true)
@@ -26,6 +27,8 @@ public class MyShop extends WebBaseClass {
             dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
     public void someTest(){
         System.out.println("MyShop Is Called");
+        MyShopPageObjects myShopPageObjects =new MyShopPageObjects(driver);
+        myShopPageObjects.createNewCollection();
     }
 
 

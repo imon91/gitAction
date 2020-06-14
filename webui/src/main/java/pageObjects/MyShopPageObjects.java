@@ -89,11 +89,13 @@ public class MyShopPageObjects {
 
     public String createNewCollection()
     {
+        ActionBarObjects actionBarObjects = new ActionBarObjects(driver);
+        actionBarObjects.clickOnMyshopButton();
         clickOnAddNewCollectionButton();
         String collectionName = "TestingCollection : " + new Random().nextInt(5000);
-        //return collectionName;
         clickOnAddYourCollectionText(collectionName);
         clickOnAddButton();
+        return collectionName;
     }
 
 }
