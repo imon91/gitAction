@@ -51,23 +51,23 @@ public class CheckoutObjects {
 
     /*--------------Actions-------------------*/
 
-    private void clickQuantityPlus(){
+    public void clickQuantityPlus(){
         myActions.action_click(quantityPlus);
     }
 
-    private void clickQuantityMinus(){
+    public void clickQuantityMinus(){
         myActions.action_click(quantityMinus);
     }
 
-    private void enterCustomPrice(String customPrice){ myActions.action_sendKeys(customPriceEntry,customPrice); }
+    public void enterCustomPrice(String customPrice){ myActions.action_sendKeys(customPriceEntry,customPrice); }
 
-    private void saveCustomPrice(){ myActions.action_click(customPriceSaveButton);}
+    public void saveCustomPrice(){ myActions.action_click(customPriceSaveButton);}
 
-    private void enterDeliveryCharge(String deliveryCharge){ myActions.action_sendKeys(deliveryChargeEntry,deliveryCharge); }
+    public void enterDeliveryCharge(String deliveryCharge){ myActions.action_sendKeys(deliveryChargeEntry,deliveryCharge); }
 
-    private void saveDeliveryCharge(){ myActions.action_click(deliveryChargeSaveButton);}
+    public void saveDeliveryCharge(){ myActions.action_click(deliveryChargeSaveButton);}
 
-    private void clickContinueShopping(){ myActions.action_click(continueShopping);}
+    public void clickContinueShopping(){ myActions.action_click(continueShopping);}
 
-    private void clickPlaceOrder(){ myActions.action_click(placeOrderButton);}
+    public void clickPlaceOrder(){ myActions.action_click(placeOrderButton);}
 }

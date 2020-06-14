@@ -96,22 +96,22 @@ public class AddressPageObject {
 
 
     /*----------actions-------*/
-    private void enterName(String name){
+    public void enterName(String name){
         myActions.action_sendKeys(nameBarText,name);}
 
-    private void enterAddress(String address){
+    public void enterAddress(String address){
         myActions.action_sendKeys(addressBarText,address);}
 
-    private void enterLocality(String locality){
+    public void enterLocality(String locality){
         myActions.action_sendKeys(localityBarText,locality);}
 
 
-    private void enterLandmark(String landmark){
+    public void enterLandmark(String landmark){
         myActions.action_sendKeys(landmarkBarText,landmark);}
 
-        private void enterMobileNumber(String mobilenumber){
+        public void enterMobileNumber(String mobilenumber){
         myActions.action_sendKeys(mobilenumberBarText,mobilenumber);}
 
-    private void enterAlternateMobile(String alternatemobilenumber){
+    public void enterAlternateMobile(String alternatemobilenumber){
         myActions.action_sendKeys(alternateMobileNumberBarText,alternatemobilenumber);}
 }
