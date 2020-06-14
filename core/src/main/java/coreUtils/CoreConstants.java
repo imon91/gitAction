@@ -21,7 +21,7 @@ public class CoreConstants {
     public static final String ANDROID_DEVICE_NAME =  "JagaEmulator";
     public static final String ANDROID_AUTOMATION_NAME = "UiAutomator2";
     public static final String ANDROID_MAIN_ACTIVITY = "com.shopup.reseller.MainActivity";
-    public static final int ABD_EXEC_TIME_OUT = 20000;
+    public static final int ABD_EXEC_TIME_OUT = 50000;
 
 
     /*------App Contexts--------*/
@@ -39,4 +39,8 @@ public class CoreConstants {
     public static final String GROUP_SMOKE = "smoke";
     public static final String GROUP_FUNCTIONAL = "functional";
     public static final String GROUP_INTEGRATION = "integration";
+    public static final String GROUP_REGRESSION = "regression";
+
+    /*-----------Reseller WebUrls---------------*/
+    public static final String RESELLER_STAGE_BASE_URL = "https://uatwap.shopups1.xyz/r";
 }

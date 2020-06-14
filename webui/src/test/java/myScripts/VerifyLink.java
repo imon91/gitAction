@@ -1,21 +1,18 @@
 package myScripts;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class VerifyLink {
-    public static void main(String[] args) throws InterruptedException
-    {
-        System.setProperty("webdriver.chrome.driver", "/Users/nikhiljustus/Downloads/chromedriver");
-        WebDriver sra = new ChromeDriver();
+
+    WebDriver sra;
+    @Test
+    public void verifyAllLinks() throws Exception{
+        //WebDriver sra = getBaseDriver();
         sra.get("https://shopup.com.bd/r");
         Thread.sleep(1000);
         int dl = 1,wl = 0,nwl=0,att=0; String l=" ",cl=" ";
@@ -44,7 +41,9 @@ public class VerifyLink {
             all = sra.findElements(By.tagName("a"));
 
         }
-    }}}
+    }}
+
+}
     /*public boolean clickOn(WebElement element, WebDriver driver, int timeout)
     {
         try{
