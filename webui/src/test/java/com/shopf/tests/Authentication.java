@@ -16,7 +16,7 @@ public class Authentication extends WebBaseClass {
 
 
     @BeforeSuite(alwaysRun = true)
-    public void resellerAndroidBeforeSuite() throws Exception{
+    public void resellerWebBeforeSuite() throws Exception{
         System.out.println("ResellerWebBeforeSuite is called");
         driver = getBaseDriver();
         setImplicitWait(10000);
@@ -29,6 +29,7 @@ public class Authentication extends WebBaseClass {
     public void authenticationSetUp(){
         System.out.println("authenticationSetUp is called");
         loginPageObject = new LoginPageObject(driver);
+        browserMaximize();
     }
 
 
@@ -54,6 +55,7 @@ public class Authentication extends WebBaseClass {
         driver.get(CoreConstants.RESELLER_STAGE_BASE_URL);
         sleep(4000);
         // Verification Step Pending
+        loginPageObject.performAuthentication("01877755590","666666");
     }
 
 
@@ -103,7 +105,7 @@ public class Authentication extends WebBaseClass {
 
 
     @AfterSuite(alwaysRun = true)
-    public void resellerAndroidAfterSuite(){
+    public void resellerWebAfterSuite(){
         System.out.println("AfterSuite Is Called");
         quitBaseDriver();
     }

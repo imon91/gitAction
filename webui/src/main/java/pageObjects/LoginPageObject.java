@@ -11,6 +11,7 @@ import utils.MyActions;
 public class LoginPageObject {
     private WebDriver driver;
     private MyActions myActions;
+    private ActionBarObjects actionBarObjects;
 
 
     public LoginPageObject(WebDriver driver){
@@ -24,7 +25,7 @@ public class LoginPageObject {
     private WebElement loginIconButton;
 
     //Mobile number entry text
-    @FindBy(xpath = "//span[text()='Mobile Number']")
+    @FindBy(xpath = "//input[@id='newPhone']")
     private WebElement mobileNumberTextView;
 
     //Skip button
@@ -36,7 +37,7 @@ public class LoginPageObject {
     private WebElement continueButton;
 
     //otp entry Text box
-    @FindBy(xpath = "//span[text()='OTP']")
+    @FindBy(xpath = "//input[@id='newOtp']")
     private WebElement otpTextView;
 
     //otp submit button
@@ -49,8 +50,7 @@ public class LoginPageObject {
 
 
     /*--------------Actions-------------------*/
-    private void enterMobileNumber(String mobileNumber) {
-        myActions.action_sendKeys(mobileNumberTextView, mobileNumber); }
+    private void enterMobileNumber(String mobileNumber) { myActions.action_sendKeys(mobileNumberTextView, mobileNumber); }
 
     private void clickContinueButton(){
         myActions.action_click(continueButton);
@@ -59,8 +59,6 @@ public class LoginPageObject {
     private void enterOtp(String otp){ myActions.action_sendKeys(otpTextView,otp); }
 
     private void clickSubmitButton(){myActions.action_click(otpSubmitButton);}
-
-    private void clickOnLoginButton(){myActions.action_click(loginIconButton);}
 
     private void clickOnResentOtpButton(){myActions.action_click(resentOtpButton);}
 
@@ -73,7 +71,8 @@ public class LoginPageObject {
 
     //1.Normal Authentication Function
         public void performAuthentication(String mobileNumber, String otp){
-            clickOnLoginButton();
+            ActionBarObjects actionBarObjects = new ActionBarObjects(driver);
+            actionBarObjects.clickOnLoginButton();
             enterMobileNumber(mobileNumber);
             clickContinueButton();
             enterOtp(otp);

@@ -13,13 +13,12 @@ public class MyShopPageObjects {
     private MyActions myActions;
 
 
-
-    public MyShopPageObjects(WebDriver driver){
+    public MyShopPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
-     /*--------------------Left corner Informations options--------*/
+    /*--------------------Left corner Informations options--------*/
 
     //My income option
     @FindBy(xpath = "//p[text()='My Income']")
@@ -38,14 +37,21 @@ public class MyShopPageObjects {
     private WebElement myshopbutton;
 
 
+    public void clickOnMyincomeOption() {
+        myActions.action_click(myincomeButton);
+    }
 
-    public void clickOnMyincomeOption(){myActions.action_click(myincomeButton);}
+    public void clickOnMycreditOPtion() {
+        myActions.action_click(mycreditButton);
+    }
 
-    public void clickOnMycreditOPtion(){myActions.action_click(mycreditButton);}
+    public void clickOnPersonalInformationOption() {
+        myActions.action_click(personalinformationButton);
+    }
 
-    public void clickOnPersonalInformationOption(){myActions.action_click(personalinformationButton);}
-
-    public void clickOnMyshopOption(){myActions.action_click(myshopbutton);}
+    public void clickOnMyshopOption() {
+        myActions.action_click(myshopbutton);
+    }
 
 
 
@@ -64,27 +70,31 @@ public class MyShopPageObjects {
     private WebElement addButton;
 
 
+    public void clickOnAddNewCollectionButton() {
+        myActions.action_click(addNewCollectionButton);
+    }
 
-    public void clickOnAddNewCollectionButton(){myActions.action_click(addNewCollectionButton);}
+    public void clickOnAddYourCollectionText(String collectionName) {
+        myActions.action_sendKeys(addYourCollectionText, collectionName);
+    }
 
-    public void clickOnAddYourCollectionText(){myActions.action_click(addYourCollectionText);}
-
-    public void clickOnAddButton(){myActions.action_click(addButton);}
+    public void clickOnAddButton() {
+        myActions.action_click(addButton);
+    }
 
 
 
 
     /*----------------Functions-------------------*/
 
-    public String createNewCollection(){
+    public String createNewCollection()
+    {
         clickOnAddNewCollectionButton();
-        String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
-
-        return collectionName;
+        String collectionName = "TestingCollection : " + new Random().nextInt(5000);
+        //return collectionName;
+        clickOnAddYourCollectionText(collectionName);
+        clickOnAddButton();
     }
-
-
-
 
 }
 

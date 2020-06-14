@@ -61,7 +61,7 @@ public class ActionBarObjects {
 
 
     /*------FUNCTION-----*/
-    public void searchForObject(String Object)
+    public void searchToObject(String Object)
     {
         clickOnSearchBarText(Object);
         clickOnSearchIcon();
