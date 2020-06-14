@@ -20,8 +20,8 @@ public class LoginPageObject {
     }
 
     //Login icon
-    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.0\")]")
-    private WebElement loginiconText;
+    @FindBy(xpath = "//p[text()='Login']")
+    private WebElement loginIconButton;
 
     //Mobile number entry text
     @FindBy(xpath = "//span[text()='Mobile Number']")
@@ -60,10 +60,12 @@ public class LoginPageObject {
 
     private void clickSubmitButton(){myActions.action_click(otpSubmitButton);}
 
+    private void clickOnLoginButton(){myActions.action_click(loginIconButton);}
+
     private void clickOnResentOtpButton(){myActions.action_click(resentOtpButton);}
 
     public String getLoginLabelText(){
-        return myActions.action_getText(loginiconText); }
+        return myActions.action_getText(loginIconButton); }
 
 
 
@@ -71,6 +73,7 @@ public class LoginPageObject {
 
     //1.Normal Authentication Function
         public void performAuthentication(String mobileNumber, String otp){
+            clickOnLoginButton();
             enterMobileNumber(mobileNumber);
             clickContinueButton();
             enterOtp(otp);

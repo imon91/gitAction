@@ -3,8 +3,8 @@ package pageObjects;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import utils.MyActions;
 import org.openqa.selenium.support.PageFactory;
+import utils.MyActions;
 
 public class AddressPageObject {
     private WebDriver driver;

@@ -1,8 +1,6 @@
 package smokeTests;
 
-import helper.GetDriverFromCore;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import utils.BaseClass;

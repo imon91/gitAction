@@ -29,7 +29,7 @@ public class ActionBarObjects {
     private WebElement searchIcon;
 
     //login icon
-    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.0\")]")
+    @FindBy(xpath = "//p[text()='Login']")
     private WebElement loginButton;
 
     //Track order icon
@@ -46,7 +46,7 @@ public class ActionBarObjects {
 
     public void clickOnShopupIcon(){myActions.action_click(shopupIcon);}
 
-    public void clickOnSearchBarText(){myActions.action_click(searchBarText);}
+    public void clickOnSearchBarText(String Object){myActions.action_click(searchBarText);myActions.action_sendKeys(searchBarText,Object);}
 
     public void clickOnSearchIcon(){myActions.action_click(searchIcon);}
 
@@ -57,5 +57,14 @@ public class ActionBarObjects {
     public void clickOnMyshopButton(){myActions.action_click(myshopButton);}
 
     public void clickOnBagButton(){myActions.action_click(bagButton);}
+
+
+
+    /*------FUNCTION-----*/
+    public void searchForObject(String Object)
+    {
+        clickOnSearchBarText(Object);
+        clickOnSearchIcon();
+    }
 
 }
