@@ -61,7 +61,7 @@ dependencies {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
 
-
+    // Including Core module as dependency
     implementation project(path : ':core')
 }
 
@@ -72,28 +72,49 @@ configurations {
 test{
     useTestNG(){
         useDefaultListeners = true
-        suites 'src/test/resources/mySuites/suite.xml'
+        systemProperties project.properties.subMap(["Host","Device","Version"])
     }
 }
 
-task androiduiTest(type: Test) { // we define a task with name ‘smokeTests’
+
+task androiduiTest(type: Test) {// we define a task with name ‘androiduiTest’
     useTestNG() {
         useDefaultListeners = true
         scanForTestClasses = false
-        jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+        //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        suites 'src/test/resources/mySuites/smokeSuite.xml'
-        systemProperties project.properties.subMap(["Host"])
-    }
+        systemProperties project.properties.subMap(["Host","Device","Version"])
+        def smoke = project.hasProperty("Smoke")
+        def integration = project.hasProperty("Int")
+        def functional = project.hasProperty("Fun")
+        def regression = project.hasProperty("Reg")
 
+        if(smoke) {
+            suites "src/test/resources/mySuites/smokeSuite.xml"
+        }
+        if(integration) {
+            suites "src/test/resources/mySuites/integrationSuite.xml"
+        }
+        if(functional) {
+            suites "src/test/resources/mySuites/functionalSuite.xml"
+        }
+        if(regression){
+            suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+    }
 }
 
-task cucumberTestRunner(type: Test){
+
+task androidUiDebug(type: Test) {
     useTestNG() {
         useDefaultListeners = true
-        suites 'src/test/resources/mySuites/smokeSuite.xml'
+        scanForTestClasses = false
+        //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+        testLogging.showStandardStreams = true
+        systemProperties project.properties.subMap(["Host", "Device", "Version"])
+        suites "src/test/resources/mySuites/debugSuite.xml"
     }
-}
 
+}
 
 
