@@ -3,7 +3,6 @@ package com.shopf.tests;
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ActionBarObjects;
@@ -42,14 +41,6 @@ public class MyShop extends WebBaseClass {
     @AfterClass(alwaysRun = true)
     public void myShopAfterClass(){
         System.out.println("myShopAfterClass is called");
-    }
-
-
-
-    @AfterSuite(alwaysRun = true)
-    public void myShopAfterSuite(){
-        System.out.println("AfterSuite Is Called");
-        quitBaseDriver();
     }
 
 }

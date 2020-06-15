@@ -54,6 +54,7 @@ public class Authentication extends WebBaseClass {
         driver.get(CoreConstants.RESELLER_STAGE_BASE_URL);
         sleep(4000);
         // Verification Step Pending
+        loginPageObject.performAuthentication("01877755590","666666");
     }
 
 
