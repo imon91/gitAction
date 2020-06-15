@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
+import static utils.WebAppBaseClass.sleep;
+
 
 public class HomePageObjects {
     private AndroidDriver<WebElement> driver;
@@ -73,6 +75,10 @@ public class HomePageObjects {
     //resendotp
     @FindBy(xpath = "//button[@class='normal___3nyjx secondary___2pQSN button___3btga ripple___1U_Uk action___2Amzo']")
     private WebElement ResendOTP;
+
+    //escfromotptextbox
+    @FindBy(xpath = "//div[@class='cont']")
+    private WebElement Login;
 
     //submit
     @FindBy(xpath = "//button[@class='normal___3nyjx primary___OLr69 button___3btga ripple___1U_Uk']")
@@ -152,6 +158,8 @@ public class HomePageObjects {
 
     private void clickOnResendOTP(){myActions.action_click(ResendOTP);}
 
+    private void clickOnLogin(){myActions.action_click(Login);}
+
     private void clickOnSubmitButton(){myActions.action_click(Submit);}
 
     private void clickOnUserProfile(){myActions.action_click(ProfileButton);}
@@ -185,10 +193,13 @@ public class HomePageObjects {
     }
 
     public void login(String MobileNumber, String OTP){
-        clickOnMyBag();
+        clickOnMyShop();
+        sleep(3000);
         clickOnEnterMobileNumber(MobileNumber);
         clickOnContinueButton();
         clickOnEnterOTP(OTP);
+        clickOnLogin();
+        sleep(3000);
         clickOnSubmitButton();
     }
 

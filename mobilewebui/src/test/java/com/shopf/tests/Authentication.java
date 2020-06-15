@@ -4,12 +4,14 @@ import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
+import pageObjects.HomePageObjects;
 import utils.WebAppBaseClass;
 
 
 public class Authentication extends WebAppBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
+    private HomePageObjects homepageobject;
 
 
 
@@ -25,6 +27,7 @@ public class Authentication extends WebAppBaseClass {
     @BeforeClass(alwaysRun = true)
     public void authenticationSetUp(){
         System.out.println("authenticationSetUp is called");
+        homepageobject = new HomePageObjects(androidDriver);
     }
 
 
@@ -49,6 +52,8 @@ public class Authentication extends WebAppBaseClass {
         androidDriver.get("https://uatwap.shopups1.xyz/r");
         sleep(10000);
         // Verification Step Pending
+        homepageobject.login("1877755590","666666");//= verifyAuthenticationWithValidCredentials(mobileNumber, otp);
+        sleep(3000);
     }
 
 
