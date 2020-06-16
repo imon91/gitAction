@@ -99,7 +99,7 @@ public class WarehousesPageObjects {
 
 
     /*--------------Actions-------------------*/
-    public void clickAddWarehouse() {myActions.action_click(addWarehouseTab);}
+    public void clickAddWarehouseTab() {myActions.action_click(addWarehouseTab);}
 
     public void clickWarehouseListTab(){myActions.action_click(warehousesListTab);}
 
@@ -107,31 +107,69 @@ public class WarehousesPageObjects {
 
     public void clickBinDetailsTab(){myActions.action_click(binDetailsTab);}
 
+    public void enterWarehouseCode(String binCode){myActions.action_sendKeys(warehouseCodeEntry, binCode);}
+
+    public void enterName(String name){myActions.action_sendKeys(warehouseNameEntry, name);}
+
+    public void enterAddress1(String address1){myActions.action_sendKeys(warehouseAddressEntry1, address1);}
+
+    public void enterAddress2(String address2){myActions.action_sendKeys(warehouseAddressEntry2, address2);}
+
+    public void enterLandmark(String landmark){myActions.action_sendKeys(warehouseLandmarkEntry, landmark);}
+
+    public void enterCity(String city){myActions.action_sendKeys(warehouseCityEntry, city);}
+
+    public void enterState(String state){myActions.action_sendKeys(warehouseStateEntry, state);}
+
+    public void enterCountry(String country){myActions.action_sendKeys(warehouseCountryEntry, country);}
+
+    public void enterZipcode(String zipcode){myActions.action_sendKeys(warehouseZipcodeEntry,zipcode);}
+
+    public void enterPhoneNo(String phone_no){myActions.action_sendKeys(warehousePhoneNumberEntry, phone_no);}
+
+    public void enterAlterPhoneNo(String alter_phone_no){myActions.action_sendKeys(warehouseAlternativePhoneEntry, alter_phone_no);}
+
+    public void clickAddWarehouseButton(){myActions.action_click(addWarehouseButton);}
+
+    public void enterBinCodeUpdateCapacity(String binCode){myActions.action_sendKeys(binCodeUpdateCapacity,binCode);}
+
+    public void enterCapacity(String capacity){myActions.action_sendKeys(binCapacityUpdateCapacity,capacity);}
+
+    public void clickUpdateCapacityButton(){myActions.action_click(updateCapacityButton);}
+
+    public void enterBinCodeBinDetails(String binCode){myActions.action_sendKeys(binCodeBinDetails,binCode);}
+
 
 
     /*--------------Functions-------------------*/
     public void addNewWarehouse(String binCode, String name, String address1, String address2,
                                 String landmark, String city, String state, String country,
                                 String zipcode, String phone_no, String alter_phone_no) {
-        myActions.action_sendKeys(warehouseCodeEntry, binCode);
-        myActions.action_sendKeys(warehouseNameEntry, name);
-        myActions.action_sendKeys(warehouseAddressEntry1, address1);
-        myActions.action_sendKeys(warehouseAddressEntry2, address2);
-        myActions.action_sendKeys(warehouseLandmarkEntry, landmark);
-        myActions.action_sendKeys(warehouseCityEntry, city);
-        myActions.action_sendKeys(warehouseStateEntry, state);
-        myActions.action_sendKeys(warehouseCountryEntry, country);
-        myActions.action_sendKeys(warehouseZipcodeEntry,zipcode);
-        myActions.action_sendKeys(warehousePhoneNumberEntry, phone_no);
-        myActions.action_sendKeys(warehouseAlternativePhoneEntry, alter_phone_no);
-        myActions.action_click(addWarehouseButton);
+        //clickAddWarehouseTab();
+        enterWarehouseCode(binCode);
+        enterName(name);
+        enterAddress1(address1);
+        enterAddress2(address2);
+        enterLandmark(landmark);
+        enterCity(city);
+        enterState(state);
+        enterCountry(country);
+        enterZipcode(zipcode);
+        enterPhoneNo(phone_no);
+        enterAlterPhoneNo(alter_phone_no);
+        clickAddWarehouseButton();
     }
 
     public void updateBinCapacity(String binCode, String capacity){
-        myActions.action_sendKeys(binCodeUpdateCapacity,binCode);
-        myActions.action_sendKeys(binCapacityUpdateCapacity,capacity);
-        myActions.action_click(updateCapacityButton);
+        //clickUpdateBinCapacityTab();
+        enterBinCodeUpdateCapacity(binCode);
+        enterCapacity(capacity);
+        clickUpdateCapacityButton();
     }
 
-    public void getBinDetails(String binCode){myActions.action_sendKeys(binCodeBinDetails,binCode);}
-}
+    public void getBinDetails (String binCode){
+        //clickBinDetailsTab();
+        enterBinCodeBinDetails(binCode);
+    }
+    }
+
