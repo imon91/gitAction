@@ -21,11 +21,11 @@ public class LoginPageObject {
 
     //Email Entry Text
     @FindBy(xpath = "//input[@id='email']")
-    private WebElement emailTextView;
+    private WebElement emailEntry;
 
     //Password Entry Text
     @FindBy(xpath = "//input[@id='password']")
-    private  WebElement passwordTextView;
+    private  WebElement passwordEntry;
 
     //Submit Button
     @FindBy(xpath = "//button[@type='submit']")
@@ -34,9 +34,9 @@ public class LoginPageObject {
 
 
     /*--------------Actions-------------------*/
-    private void enterEmail(String email){myActions.action_sendKeys(emailTextView,email);}
+    private void enterEmail(String email){myActions.action_sendKeys(emailEntry,email);}
 
-    private void enterPassword(String password){myActions.action_sendKeys(passwordTextView,password);}
+    private void enterPassword(String password){myActions.action_sendKeys(passwordEntry,password);}
 
     private void clickOnSubmitButton(){myActions.action_click(submitButton);}
 
