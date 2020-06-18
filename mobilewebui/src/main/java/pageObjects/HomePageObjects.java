@@ -1,6 +1,8 @@
 package pageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -45,15 +47,15 @@ public class HomePageObjects {
     private WebElement ShopUpLogo;
 
     //searchicon
-    @FindBy(xpath = "//div/button[@class='searchIcon']")
+    @FindBy(xpath = "//div[@class='searchContainer___3DkO8 searchContainer']")
     private WebElement SearchButton;
 
     //Entering the object
-    @FindBy(xpath = "//div[@class='react-autosuggest__container']")
+    @FindBy(xpath = "//input[@id='searchTag']")
     private WebElement EnterObjectToSearch;
 
     //searching for the object
-    @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']")
+    @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']/*")
     private WebElement SearchTheObject;
 
     //BagIcon
@@ -193,13 +195,13 @@ public class HomePageObjects {
     }
 
     public void login(String MobileNumber, String OTP){
-        clickOnMyShop();
-        sleep(3000);
         clickOnEnterMobileNumber(MobileNumber);
+        driver.hideKeyboard();
         clickOnContinueButton();
+        //sleep(3500);
         clickOnEnterOTP(OTP);
-        clickOnLogin();
-        sleep(3000);
+        driver.hideKeyboard();
+        //myActions.swipe(200,20);
         clickOnSubmitButton();
     }
 
@@ -207,6 +209,22 @@ public class HomePageObjects {
         clickOnUserProfile();
         clickOnChangeLanguage();
         clickOnCloseProfileButton();
+    }
+
+    public void navigateToMyShop(){
+        clickOnUserProfile();
+        clickOnMyShop();
+    }
+
+    public void navigateToMyOrder(){
+        clickOnUserProfile();
+        clickOnMyOrders();
+    }
+
+    public void SignOut(){
+        clickOnUserProfile();
+        clickOnSignOut();
+        sleep(2000);
     }
 
 }
