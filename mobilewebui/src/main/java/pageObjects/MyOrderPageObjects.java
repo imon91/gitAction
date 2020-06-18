@@ -17,12 +17,29 @@ public class MyOrderPageObjects {
         myActions = new MyActions();
     }
 
+
+//selectfirstOrderId
+    @FindBy(xpath = "//div[@class='column___37VPa']/p")
+    private WebElement selectOrder;
+
+//orderNo
+    @FindBy(xpath = "//p[@class='thankyou_order_no']/*[2]")
+    private WebElement orderno;
+
+//navigateTohome
+    @FindBy(xpath = "//a[@href='/r']")
+    private WebElement home;
+
 //searchOrder
     @FindBy(xpath = "//input[@class='fullWidth___3mngV inputSearch___18p3g']")
     private WebElement searchOrder;
 
+//enterorderno
+    @FindBy(xpath = "//input[@class='fullWidth___3mngV inputSearch___18p3g']")
+    private WebElement EnterID;
+
 //clickOnSearchIcon
-    @FindBy(xpath = "//*[@id=\"myorderSearch\"]/div/svg")
+    @FindBy(xpath = "//div[@class='flex___1bJDE search___I30gU']/*[2]")
     private WebElement searchIcon;
 
 //sortTab
@@ -98,7 +115,11 @@ public class MyOrderPageObjects {
 
 public void clickOnSearchOrder(){myActions.action_click(searchOrder);}
 
+public void EnterID(String data){myActions.action_sendKeys(EnterID,data);}
+
 public void clickOnSearchIcon(){myActions.action_click(searchIcon);}
+
+public String getRecentOrderId(){return myActions.action_getText(selectOrder);}
 
 public void clickOnSortTab(){myActions.action_click(sortTab);}
 
@@ -134,21 +155,27 @@ public void clickOnDelivered(){myActions.action_click(delivered);}
 
 public void clickOnCancelled(){myActions.action_click(cancelled);}
 
+public String getOrderNo(){return myActions.action_getText(orderno);}
 
-/*---------Functions*---------/
-
- */
-
+public void navigationToHome(){myActions.action_click(home);}
 
 
 
 
+/*---------Functions---------*/
 
 
 
+public void orderConfirmation(){
+      getOrderNo();
+      navigationToHome();
+}
 
-
-
+public void verifyOrder(String ID){
+     clickOnSearchOrder();
+     EnterID(ID);
+     clickOnSearchIcon();
+}
 
 
 

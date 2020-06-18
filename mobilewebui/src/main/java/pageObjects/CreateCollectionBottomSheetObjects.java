@@ -22,7 +22,7 @@ public class CreateCollectionBottomSheetObjects {
 
 
     // CreateNewCollection Text
-    @FindBy(xpath = "//div[@class='flex___1bJDE column___2CDPf center___10Hxv middle___1jEMZ createNewCollection___2kZdj']")
+    @FindBy(xpath = "//div[@class='gridItems___2yFJ9 items___vci1r']")
     private WebElement createNewCollectionText;
 
     // EnterCollectionName EditText
@@ -42,8 +42,8 @@ public class CreateCollectionBottomSheetObjects {
     private WebElement fieldRequiredErrorMessage;
 
 
-    private String getCreateNewCollectionText(){
-        return myActions.action_getText(createNewCollectionText);
+    private void CreateNewCollection(){
+         myActions.action_click(createNewCollectionText);
     }
 
     private void enterCollectionName(String collectionName){
@@ -66,6 +66,7 @@ public class CreateCollectionBottomSheetObjects {
     /*-----------Functions---------------*/
 
     public void performAddCollection(String collectionName){
+        CreateNewCollection();
         enterCollectionName(collectionName);
         clickOnSaveCollectionButton();
     }

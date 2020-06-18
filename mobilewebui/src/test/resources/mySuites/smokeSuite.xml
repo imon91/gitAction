@@ -10,6 +10,12 @@
         <classes>
             <class name="com.shopf.tests.Authentication"></class>
             <class name="com.shopf.tests.MyShop"></class>
+            <class name="com.shopf.tests.Search"></class>
+            <class name="com.shopf.tests.Filter"></class>
+            <class name="com.shopf.tests.AddingItems"></class>
+            <class name="com.shopf.tests.PDP"></class>
+            <class name="com.shopf.tests.Checkout"></class>
+            <class name="com.shopf.tests.Address"></class>
         </classes>
     </test>
 </suite>

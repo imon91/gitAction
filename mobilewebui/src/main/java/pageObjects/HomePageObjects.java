@@ -1,11 +1,15 @@
 package pageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+
+import static utils.WebAppBaseClass.sleep;
 
 
 public class HomePageObjects {
@@ -43,15 +47,15 @@ public class HomePageObjects {
     private WebElement ShopUpLogo;
 
     //searchicon
-    @FindBy(xpath = "//div/button[@class='searchIcon']")
+    @FindBy(xpath = "//div[@class='searchContainer___3DkO8 searchContainer']")
     private WebElement SearchButton;
 
     //Entering the object
-    @FindBy(xpath = "//div[@class='react-autosuggest__container']")
+    @FindBy(xpath = "//input[@id='searchTag']")
     private WebElement EnterObjectToSearch;
 
     //searching for the object
-    @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']")
+    @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']/*")
     private WebElement SearchTheObject;
 
     //BagIcon
@@ -73,6 +77,10 @@ public class HomePageObjects {
     //resendotp
     @FindBy(xpath = "//button[@class='normal___3nyjx secondary___2pQSN button___3btga ripple___1U_Uk action___2Amzo']")
     private WebElement ResendOTP;
+
+    //escfromotptextbox
+    @FindBy(xpath = "//div[@class='cont']")
+    private WebElement Login;
 
     //submit
     @FindBy(xpath = "//button[@class='normal___3nyjx primary___OLr69 button___3btga ripple___1U_Uk']")
@@ -152,6 +160,8 @@ public class HomePageObjects {
 
     private void clickOnResendOTP(){myActions.action_click(ResendOTP);}
 
+    private void clickOnLogin(){myActions.action_click(Login);}
+
     private void clickOnSubmitButton(){myActions.action_click(Submit);}
 
     private void clickOnUserProfile(){myActions.action_click(ProfileButton);}
@@ -185,10 +195,13 @@ public class HomePageObjects {
     }
 
     public void login(String MobileNumber, String OTP){
-        clickOnMyBag();
         clickOnEnterMobileNumber(MobileNumber);
+        driver.hideKeyboard();
         clickOnContinueButton();
+        //sleep(3500);
         clickOnEnterOTP(OTP);
+        driver.hideKeyboard();
+        //myActions.swipe(200,20);
         clickOnSubmitButton();
     }
 
@@ -196,6 +209,22 @@ public class HomePageObjects {
         clickOnUserProfile();
         clickOnChangeLanguage();
         clickOnCloseProfileButton();
+    }
+
+    public void navigateToMyShop(){
+        clickOnUserProfile();
+        clickOnMyShop();
+    }
+
+    public void navigateToMyOrder(){
+        clickOnUserProfile();
+        clickOnMyOrders();
+    }
+
+    public void SignOut(){
+        clickOnUserProfile();
+        clickOnSignOut();
+        sleep(2000);
     }
 
 }
