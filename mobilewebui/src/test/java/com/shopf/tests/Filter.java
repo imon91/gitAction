@@ -31,7 +31,7 @@ public class Filter extends WebAppBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifyFiltering(){
         System.out.println("control came to verifyFiltering");
-        //plp.FilteringProduct();
+        plp.FilteringProduct();
     }
 
 

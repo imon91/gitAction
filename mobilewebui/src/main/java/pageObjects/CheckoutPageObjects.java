@@ -61,6 +61,7 @@ public class CheckoutPageObjects {
     private WebElement PlaceOrderButton;
 
 
+
 /*-----------Actions------------*/
 
 
@@ -81,6 +82,7 @@ public class CheckoutPageObjects {
     public void clickOnContinueShopping(){myActions.action_click(ContinueShoppingButton);};
 
     public void clickOnPlaceOrder(){myActions.action_click(PlaceOrderButton);};
+
 
 
 /*-------Functions---------*/

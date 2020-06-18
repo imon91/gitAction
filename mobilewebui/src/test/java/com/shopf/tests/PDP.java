@@ -41,12 +41,13 @@ public class PDP {
     @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifyPDPPage() throws Exception {
         System.out.println("control came to verifyPDPPage");
-        home.searchForObject("Shirts");
-        WebElement name = androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][3]/div[@class='feedItem___2QWNJ']/div[@class='productNameContainer___M7bIM']");
+        home.navigateToMyShop();
+        home.searchForObject("Dettol");
+        WebElement name = androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][1]/div[@class='feedItem___2QWNJ']/div[@class='productNameContainer___M7bIM']");
         String original_selection = myActions.action_getText(name);
         System.out.println(original_selection);
         touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,40)).release().perform();
-        androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][3]").click();
+        androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][1]").click();
         WebElement name1 = androidDriver.findElementByXPath("//div[@class='pdp-det-box']/h1");
         String title = myActions.action_getText(name1);
         System.out.println(title + "2");

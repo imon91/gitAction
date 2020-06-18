@@ -9,6 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pageObjects.CheckoutPageObjects;
 import pageObjects.PDPPageObjects;
 import pageObjects.PLPPageObjects;
 import utils.MyActions;
@@ -33,7 +34,7 @@ public class AddingItems extends WebAppBaseClass {
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 0)
+    @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifyProductIsClicking() throws Exception {
         System.out.println("control came to verify Product is clicking");
         androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][2]").click();
@@ -42,7 +43,7 @@ public class AddingItems extends WebAppBaseClass {
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 1)
+    @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void AddingItemsToMyShopCollection() throws Exception {
         System.out.println("control came to adding items to myshop collections");
         pdp.clickOnAddToMyShop();
