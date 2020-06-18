@@ -1,6 +1,7 @@
 package utils;
 
 
+import coreUtils.CoreConstants;
 import helper.GetDriverFromCore;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,8 @@ public class WebAppBaseClass extends GetDriverFromCore{
 
     private static String HOST_LOCAL = "local";
     private static String HOST_BROWSER_STACK = "bs";
+    private static String ENV_RESELLER = "Reseller";
+    private static String ENV_UNICORN = "Unicorn";
     private static AndroidDriver<WebElement> driver = null;
     private static String host = System.getProperty("Host");
 
@@ -24,6 +27,17 @@ public class WebAppBaseClass extends GetDriverFromCore{
         return  driver;
     }
 
+
+    public static String getWAPBaseUrl(){
+        String environment = System.getProperty("Env");
+        if(environment.equalsIgnoreCase(ENV_RESELLER)){
+            return CoreConstants.RESELLER_STAGE_BASE_URL;
+        }else if(environment.equalsIgnoreCase(ENV_UNICORN)){
+            return CoreConstants.UNICORN_STAGE_BASE_URL;
+        }else {
+            return ENV_RESELLER;
+        }
+    }
 
 
     private static void setUpDriver()throws Exception{
