@@ -28,7 +28,7 @@ public class Search extends WebAppBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifySearchingObject(){
         System.out.println("Control come to verifySeearchingObject");
-        homepageobject.searchForObject("Shirts");
+        homepageobject.searchForObject("Dettol");
     }
 
 
