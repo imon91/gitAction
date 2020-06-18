@@ -9,43 +9,54 @@ import utils.MyActions;
 public class BottomAddonObjects {
     private WebDriver driver;
     private MyActions myActions;
-    //Reseller policy
-    @FindBy(xpath = "//a[text()='Reseller Policy']")
-    private WebElement resellerPolicyButton;
-
-    /*---various policy options ----*/
-    //Payment policy
-    @FindBy(xpath = "//a[text()='Payments Policy']")
-    private WebElement paymentPolicyButton;
-    //privacy policy
-    @FindBy(xpath = "//a[text()='Privacy Policy']")
-    private WebElement privacyPolicyButton;
-    //facebook logo
-    @FindBy(xpath = "//img[@src='//shopimages1.vstores.io/web_images/facebook.png']\t")
-    private WebElement facebookIcon;
-    //Instagram logo
-    @FindBy(xpath = "//img[@src='//shopimages1.vstores.io/web_images/instagram-logo.png']")
-    private WebElement instagramIcon;
-    //Youtube logo
-    @FindBy(xpath = "//img[@src='//shopimages1.vstores.io/web_images/youtube.png']")
-    private WebElement youtubeIcon;
-    //Delivery app
-    @FindBy(xpath = "//span[text()='DELIVERY APP']")
-    private WebElement deliveryAppIcon;
-
-
-
-
-    /*-------Socialmedia options------*/
-    //Eloan app
-    @FindBy(xpath = "//text()[.='eLoan APP']/ancestor::a[1]")
-    private WebElement eLoanAppIcon;
 
     public BottomAddonObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
+
+
+    /*---various policy options ----*/
+
+    //Reseller policy
+    @FindBy(xpath = "//a[text()='Reseller Policy']")
+    private WebElement resellerPolicyButton;
+
+    //Payment policy
+    @FindBy(xpath = "//a[text()='Payments Policy']")
+    private WebElement paymentPolicyButton;
+
+    //privacy policy
+    @FindBy(xpath = "//a[text()='Privacy Policy']")
+    private WebElement privacyPolicyButton;
+
+
+
+
+
+
+    /*-------Socialmedia options------*/
+
+    //facebook logo
+    @FindBy(xpath = "//img[@src='//shopimages1.vstores.io/web_images/facebook.png']\t")
+    private WebElement facebookIcon;
+
+    //Instagram logo
+    @FindBy(xpath = "//img[@src='//shopimages1.vstores.io/web_images/instagram-logo.png']")
+    private WebElement instagramIcon;
+
+    //Youtube logo
+    @FindBy(xpath = "//img[@src='//shopimages1.vstores.io/web_images/youtube.png']")
+    private WebElement youtubeIcon;
+
+    //Delivery app
+    @FindBy(xpath = "//span[text()='DELIVERY APP']")
+    private WebElement deliveryAppIcon;
+    //Eloan app
+    @FindBy(xpath = "//text()[.='eLoan APP']/ancestor::a[1]")
+    private WebElement eLoanAppIcon;
+
 
     public void clickOnResellerPolicyButton() {
         myActions.action_click(resellerPolicyButton);

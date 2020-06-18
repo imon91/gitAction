@@ -14,6 +14,7 @@ public class Authentication extends WebBaseClass {
     private LoginPageObject loginPageObject;
 
 
+
     @BeforeSuite(alwaysRun = true)
     public void resellerWebBeforeSuite() throws Exception {
         System.out.println("ResellerWebBeforeSuite is called");
@@ -22,12 +23,14 @@ public class Authentication extends WebBaseClass {
     }
 
 
+
     @BeforeClass(alwaysRun = true)
     public void authenticationSetUp() {
-        System.out.println("authenticationSetUp is called");
+        System.out.println("authenticationBeforeclass is called");
         loginPageObject = new LoginPageObject(driver);
         browserMaximize();
     }
+
 
 
     @DataProvider(name = "getUserAuthenticationData")
@@ -36,6 +39,7 @@ public class Authentication extends WebBaseClass {
                 {"01877755590", "666666"}
         };
     }
+
 
 
     @Test(groups = {"Authentication.verifyAuthenticationWithValidCredentials",
@@ -48,10 +52,11 @@ public class Authentication extends WebBaseClass {
     public void verifyAuthenticationWithValidCredentials(String mobileNumber, String otp) {
         System.out.println("verifyAuthentication is called");
         driver.get(CoreConstants.RESELLER_STAGE_BASE_URL);
-        sleep(4000);
+        sleep(1000);
         loginPageObject.performAuthentication("01877755590", "666666");
         // Verification Step Pending
     }
+
 
 
     @Test(groups = {CoreConstants.GROUP_FUNCTIONAL,
@@ -65,6 +70,7 @@ public class Authentication extends WebBaseClass {
     }
 
 
+
     @Test(groups = {CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_INTEGRATION,
             CoreConstants.GROUP_REGRESSION},
@@ -74,6 +80,7 @@ public class Authentication extends WebBaseClass {
 
         // Verification Step Pending
     }
+
 
 
     @Test(groups = {CoreConstants.GROUP_FUNCTIONAL,
@@ -87,6 +94,7 @@ public class Authentication extends WebBaseClass {
     }
 
 
+
     @AfterClass(alwaysRun = true)
     public void closeAuthenticationClass() {
         System.out.println("AfterClass Is Called");
@@ -94,9 +102,12 @@ public class Authentication extends WebBaseClass {
     }
 
 
+
     @AfterSuite(alwaysRun = true)
     public void resellerWebAfterSuite() {
         System.out.println("AfterSuite Is Called");
         quitBaseDriver();
     }
+
+
 }

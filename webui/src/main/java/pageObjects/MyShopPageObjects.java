@@ -9,12 +9,24 @@ import utils.MyActions;
 import java.util.Random;
 
 public class MyShopPageObjects {
+
+
     private WebDriver driver;
     private MyActions myActions;
+
+
+
+    public MyShopPageObjects(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements((driver), this);
+        myActions = new MyActions();
+    }
+
+    /*--------------------Left corner Informations options--------*/
+
     //My income option
     @FindBy(xpath = "//p[text()='My Income']")
     private WebElement myincomeButton;
-    /*--------------------Left corner Informations options--------*/
     //My credit option
     @FindBy(xpath = "//p[text()='My Credits']")
     private WebElement mycreditButton;
@@ -24,6 +36,10 @@ public class MyShopPageObjects {
     //My shop
     @FindBy(xpath = "//p[text()='My Shop']")
     private WebElement myshopbutton;
+
+    //OrderNowButton
+    @FindBy(xpath = "//button[text()='ORDER NOW']")
+    private WebElement orderNowButton;
     //Add new collection Icon
     @FindBy(xpath = "//div[text()='ADD NEW']")
     private WebElement addNewCollectionButton;
@@ -34,11 +50,13 @@ public class MyShopPageObjects {
     @FindBy(xpath = "//button[text()='Add']")
     private WebElement addButton;
 
-    public MyShopPageObjects(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements((driver), this);
-        myActions = new MyActions();
-    }
+    // product name-1
+    @FindBy(xpath = "//div[@class='item-name']/p[1]")
+    private WebElement productName1;
+
+
+
+
 
     public void clickOnMyincomeOption() {
         myActions.action_click(myincomeButton);
@@ -70,6 +88,14 @@ public class MyShopPageObjects {
 
     public void clickOnAddButton() {
         myActions.action_click(addButton);
+    }
+
+    public void clickOnOrderNow() {
+        myActions.action_click(orderNowButton);
+    }
+
+    public void getProductName1() {
+        myActions.action_click(productName1);myActions.action_getText(productName1);
     }
 
 

@@ -19,7 +19,7 @@ public class ActionBarObjects {
     @FindBy(xpath = "//i[text()='search']")
     private WebElement searchIcon;
     //login icon
-    @FindBy(xpath = "//p[text()='Login']")
+    @FindBy(xpath = "//ul[@class='right-items text-right']/li[1]/a")
     private WebElement loginButton;
     //Track order icon
     @FindBy(xpath = "//p[text()='Track order']")
@@ -30,6 +30,17 @@ public class ActionBarObjects {
     //Bag icon
     @FindBy(xpath = "//p[text()='bag']")
     private WebElement bagButton;
+    //Dropdown Myorder
+    @FindBy(xpath = "//div[@class='my-account-dropdown text-left']/a[3]")
+    private WebElement dropdownmyorder;
+    //Dropdown Logout
+    @FindBy(xpath = "//div[@class='my-account-dropdown text-left']/a[4]")
+    private WebElement dropdownlogout;
+    //myorder page product -1
+    @FindBy(xpath = "//div[@class='myorders-list-main']/div[1]/ul/li/div/div[1]/div/p[1]/b")
+    private WebElement ordernumber_myorder;
+
+
 
     public ActionBarObjects(WebDriver driver) {
         this.driver = driver;
@@ -66,11 +77,26 @@ public class ActionBarObjects {
         myActions.action_click(bagButton);
     }
 
+    public void dropDownMyOrder() {
+        myActions.action_click(dropdownmyorder);
+    }
+
+    public void dropDownLogout(){
+        myActions.action_click(dropdownlogout);
+    }
+
 
     /*------FUNCTION-----*/
     public void searchToObject(String Object) {
         clickOnSearchBarText(Object);
         clickOnSearchIcon();
     }
+
+    //get ordenumbet at myorder
+    public String getOrderNumberAtMyorder() {
+        String orderNumber=myActions.action_getText(ordernumber_myorder);
+        return orderNumber ;
+    }
+
 
 }
