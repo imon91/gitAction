@@ -32,7 +32,7 @@ task mobilewebuiTest(type: Test) {// we define a task with name ‘androiduiTest
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
         def smoke = project.hasProperty("Smoke")
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
