@@ -52,7 +52,7 @@ public class Authentication extends WebAppBaseClass {
             dataProvider = "getUserAuthenticationData" )
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
-        androidDriver.get("https://uatwap.shopups1.xyz/r");
+        androidDriver.get(getWAPBaseUrl());
         sleep(1000);
         bottomnavigationobject.clickOnBottomBarMyShopIcon();
         homepageobject.login("1877755590","666666");
