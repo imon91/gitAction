@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import utils.MyActions;
 
 public class VariantsPageObjects {
@@ -88,11 +89,11 @@ public class VariantsPageObjects {
         public void enterDescriptionAddVariant(String description) {
             myActions.action_sendKeys(descriptionAddVariantEntry, description);
         }
-
-        //pending
+        
         public void enterCategoryDropdownAddVariant(String category) {
+            Select categoryDropdown = new Select(categoryDropdownAddVariantEntry);
+            categoryDropdown.selectByValue(category);
         }
-        //pending
 
         public void enterPriceAddVariant(String price) {
             myActions.action_sendKeys(priceAddVariantEntry, price);
@@ -144,10 +145,11 @@ public class VariantsPageObjects {
 
 
         /*--------------Actions-------------------*/
-        //pending
-        public void enterSellerDropdownBinsForSku(String skuCode) {
+
+        public void enterSellerDropdownBinsForSku(String seller) {
+            Select sellerDropdown = new Select(sellerDropdownBinsForSku);
+            sellerDropdown.selectByValue(seller);
         }
-        //pending
 
         public void enterSkuCodeBinsForSku(String binCode) {
             myActions.action_sendKeys(skuCodeEntryBinsForSku, binCode);
