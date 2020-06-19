@@ -1,5 +1,7 @@
 package utils;
 
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import helper.GetDriverFromCore;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
@@ -71,6 +73,24 @@ public class AndroidBaseClass extends GetDriverFromCore{
         }
     }
 
+
+    public static String getAppPackage(){
+        System.out.println("Get AppPackage is Called");
+        String packageName = null;
+        if(System.getProperty(BuildParameterKeys.KEY_APP).
+                equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+           packageName =  CoreConstants.RESELLER_APP_PACKAGE;
+        }else if(System.getProperty(BuildParameterKeys.KEY_APP).
+                equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            packageName =  CoreConstants.MOKAM_APP_PACKAGE;
+        }else {
+            //Default
+            packageName =  CoreConstants.RESELLER_APP_PACKAGE;
+        }
+        System.out.println("PackageName Returned is : "+packageName);
+        return packageName;
+    }
+
     public static Boolean switchFromNativeToWeb(String webContext){
         sleep(2000);
         // Context Switching
@@ -89,6 +109,11 @@ public class AndroidBaseClass extends GetDriverFromCore{
             return false;
         }
     }
+
+    public static void switchFromWebToNative(){
+        driver.context(CoreConstants.SHOP_UP_NATIVE_VIEW);
+    }
+
 
 
     public static void quitBaseDriver(){

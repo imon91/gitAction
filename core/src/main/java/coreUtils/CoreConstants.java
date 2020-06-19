@@ -17,8 +17,9 @@ public class CoreConstants {
 
     public static final String PLATFORM_ANDROID = "Android";
     public static final String ANDROID_PLATFORM_VERSION = "9";
-    public static final String APP_PACKAGE = "com.shopup.reseller";;
-    public static final String ANDROID_DEVICE_NAME =  "JagaEmulator";
+    public static final String RESELLER_APP_PACKAGE = "com.shopup.reseller";
+    public static final String MOKAM_APP_PACKAGE = "com.mokam.app";
+    public static final String ANDROID_DEVICE_NAME =  "ShopUpAndroidDevice";
     public static final String ANDROID_AUTOMATION_NAME = "UiAutomator2";
     public static final String ANDROID_MAIN_ACTIVITY = "com.shopup.reseller.MainActivity";
     public static final int ABD_EXEC_TIME_OUT = 50000;
@@ -42,8 +43,21 @@ public class CoreConstants {
     public static final String GROUP_REGRESSION = "regression";
 
     /*----------- WebUrls---------------*/
-    public static final String RESELLER_STAGE_BASE_URL = "https://uatwap.shopups1.xyz/r";
-    public static final String UNICORN_STAGE_BASE_URL = "https://ucwap.shopups1.xyz/r";
-    public static final String UNICORN_PRODUCTION_BASE_URL = "https://ucwap.vnksrvc.com/";
-    public static final String WMS_STAGE_BASE_URL = "https://uatwms.vnksrvc.com/";
+    public static final String RESELLER_WAP_STAGE_BASE_URL = "https://uatwap.shopups1.xyz/r";
+    public static final String RESELLER_WEB_STAGE_BASE_URL = "https://uatwap.shopups1.xyz/r";
+    public static final String MOKAM_WAP_STAGE_BASE_URL = "https://ucwap.shopups1.xyz/r";
+    public static final String MOKAM_WEB_STAGE_BASE_URL = "";
+    public static final String RESELLER_WAP_PROD_BASE_URL = "https://uatwap.vnksrvc.com/";
+    public static final String RESELLER_WEB_PROD_BASE_URL = "https://uatwap.vnksrvc.com";
+    public static final String MOKAM_WAP_PROD_BASE_URL = "https://ucwap.vnksrvc.com/";
+    public static final String MOKAM_WEB_PROD_BASE_URL = "";
+    public static final String WMS_WEB_STAGE_BASE_URL = "https://uatwms.vnksrvc.com/";
+    public static final String WMS_WEB_PROD_BASE_URL = "https://uatwms.vnksrvc.com/";
+
+    /*----------- Environments---------------*/
+    public static final String APP_RESELLER = "Reseller";
+    public static final String APP_MOKAM = "Mokam";
+    public static final String APP_WMS = "Wms";
+    public static final String ENV_STAGE = "Stage";
+    public static final String ENV_PROD = "Prod";
 }
