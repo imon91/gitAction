@@ -1,12 +1,16 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WmsBaseClass;
 
-public class WarehousesPageObjects {
+import java.util.List;
+
+public class WarehousesPageObjects extends WmsBaseClass {
     private WebDriver driver;
     private MyActions myActions;
 
@@ -229,7 +233,7 @@ public class WarehousesPageObjects {
     }
 
 
-    /*--------------Warehouse Bin Details-------------------*/
+    /*--------------Warehouse Bin Details Tab-------------------*/
     public class WarehouseBinDetailsTab {
         private WebDriver driver;
         private MyActions myActions;
@@ -248,12 +252,128 @@ public class WarehousesPageObjects {
         /*--------------Actions-------------------*/
         public void enterBinCodeBinDetails(String binCode) {
             myActions.action_sendKeys(binCodeBinDetails, binCode);
+            myActions.action_enter(binCodeBinDetails);
+            sleep(2000);
         }
 
 
         /*--------------Functions-------------------*/
-        public void getBinDetails(String binCode) {
+        public void binCodeEntry(String binCode) {
             enterBinCodeBinDetails(binCode);
+        }
+
+        public int getTotalProducts() {
+            List<WebElement> products = driver.findElements(By.xpath("//div[@id='WarehouseBinDetail']//tbody/tr"));
+            return products.size();
+        }
+
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='WarehouseBinDetail']//tbody/tr[" + index + "]/td[1]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
+        }
+
+        public String getQuantity(int index) {
+            String quantityXpath = "//div[@id='WarehouseBinDetail']//tbody/tr[" + index + "]/td[2]";
+            WebElement quantity = driver.findElement(By.xpath(quantityXpath));
+            return myActions.action_getText(quantity);
+        }
+
+        public String getPackageIds(int index) {
+            String packageIdsXpath = "//div[@id='WarehouseBinDetail']//tbody/tr[" + index + "]/td[3]";
+            WebElement packageIds = driver.findElement(By.xpath(packageIdsXpath));
+            return myActions.action_getText(packageIds);
+        }
+
+        public String getScannedCount(int index) {
+            String scannedCountXpath = "//div[@id='WarehouseBinDetail']//tbody/tr[" + index + "]/td[4]";
+            WebElement scannedCount = driver.findElement(By.xpath(scannedCountXpath));
+            return myActions.action_getText(scannedCount);
+        }
+
+        public String getScannedPackageIds(int index) {
+            String scannedPackageIdsXpath = "//div[@id='WarehouseBinDetail']//tbody/tr[" + index + "]/td[5]";
+            WebElement scannedPackageIds = driver.findElement(By.xpath(scannedPackageIdsXpath));
+            return myActions.action_getText(scannedPackageIds);
+        }
+
+    }
+
+
+    /*--------------Warehouse List Tab-------------------*/
+    public class WarehouseListTab {
+        private WebDriver driver;
+        private MyActions myActions;
+
+        public WarehouseListTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+        public int getTotalWarehouses() {
+            List<WebElement> warehouses = driver.findElements(By.xpath("//div[@id='WarehousesList']//tr/td[1]"));
+            return warehouses.size();
+        }
+
+        public String getWarehouseCode(int index) {
+            String warehouseCodeXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[1]";
+            WebElement warehouseCode = driver.findElement(By.xpath(warehouseCodeXpath));
+            return myActions.action_getText(warehouseCode);
+        }
+
+        public String getAddress1(int index) {
+            String address1Xpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[2]";
+            WebElement address1 = driver.findElement(By.xpath(address1Xpath));
+            return myActions.action_getText(address1);
+        }
+
+        public String getAddress2(int index) {
+            String address2Xpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[3]";
+            WebElement address2 = driver.findElement(By.xpath(address2Xpath));
+            return myActions.action_getText(address2);
+        }
+
+        public String getLandmark(int index) {
+            String landmarkXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[4]";
+            WebElement landmark = driver.findElement(By.xpath(landmarkXpath));
+            return myActions.action_getText(landmark);
+        }
+
+        public String getCity(int index) {
+            String cityXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[5]";
+            WebElement city = driver.findElement(By.xpath(cityXpath));
+            return myActions.action_getText(city);
+        }
+
+        public String getState(int index) {
+            String stateXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[6]";
+            WebElement state = driver.findElement(By.xpath(stateXpath));
+            return myActions.action_getText(state);
+        }
+
+        public String getCountry(int index) {
+            String countryXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[7]";
+            WebElement country = driver.findElement(By.xpath(countryXpath));
+            return myActions.action_getText(country);
+        }
+
+        public String getZipCode(int index) {
+            String zipcodeXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[8]";
+            WebElement zipcode = driver.findElement(By.xpath(zipcodeXpath));
+            return myActions.action_getText(zipcode);
+        }
+
+        public void displayBinDetails(int index) {
+            String binDetailsXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[9]/a";
+            WebElement binDetails = driver.findElement(By.xpath(binDetailsXpath));
+            myActions.action_click(binDetails);
+        }
+
+        public void printBinLabels(int index) {
+            String printLabelXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[10]/a";
+            WebElement printLabel = driver.findElement(By.xpath(printLabelXpath));
+            myActions.action_click(printLabel);
         }
     }
 }

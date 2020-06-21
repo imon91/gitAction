@@ -1,11 +1,13 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 import utils.MyActions;
+
+import java.util.List;
 
 public class VariantsPageObjects {
     private WebDriver driver;
@@ -91,8 +93,7 @@ public class VariantsPageObjects {
         }
         
         public void enterCategoryDropdownAddVariant(String category) {
-            Select categoryDropdown = new Select(categoryDropdownAddVariantEntry);
-            categoryDropdown.selectByValue(category);
+            myActions.action_select(categoryDropdownAddVariantEntry, category);
         }
 
         public void enterPriceAddVariant(String price) {
@@ -147,12 +148,12 @@ public class VariantsPageObjects {
         /*--------------Actions-------------------*/
 
         public void enterSellerDropdownBinsForSku(String seller) {
-            Select sellerDropdown = new Select(sellerDropdownBinsForSku);
-            sellerDropdown.selectByValue(seller);
+            myActions.action_select(sellerDropdownBinsForSku, seller);
         }
 
         public void enterSkuCodeBinsForSku(String binCode) {
             myActions.action_sendKeys(skuCodeEntryBinsForSku, binCode);
+            myActions.action_enter(skuCodeEntryBinsForSku);
         }
 
 
@@ -160,6 +161,29 @@ public class VariantsPageObjects {
         public void checkVariantBins(String skuCode, String binCode) {
             enterSellerDropdownBinsForSku(skuCode);
             enterSkuCodeBinsForSku(binCode);
+        }
+
+        public int getTotalBins() {
+            List<WebElement> bins = driver.findElements(By.xpath("//div[@id='SkuBinList']//tbody/tr"));
+            return bins.size();
+        }
+
+        public String getBinCode(int index) {
+            String binCodeXpath = "//div[@id='SkuBinList']//tbody/tr[" + index + "]/td[1]";
+            WebElement binCode = driver.findElement(By.xpath(binCodeXpath));
+            return myActions.action_getText(binCode);
+        }
+
+        public String getQuantity(int index) {
+            String quantityXpath = "//div[@id='SkuBinList']//tbody/tr[" + index + "]/td[1]";
+            WebElement quantity = driver.findElement(By.xpath(quantityXpath));
+            return myActions.action_getText(quantity);
+        }
+
+        public String getPackageIds(int index) {
+            String packageIdsXpath = "//div[@id='SkuBinList']//tbody/tr[" + index + "]/td[1]";
+            WebElement packageIds = driver.findElement(By.xpath(packageIdsXpath));
+            return myActions.action_getText(packageIds);
         }
     }
 }

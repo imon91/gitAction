@@ -18,35 +18,39 @@ public class HomePageObject {
     }
 
     //Warehouses
-    @FindBy(xpath = "//a[text()='Warehouses']")
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[1]/a")
     private WebElement warehouseModule;
 
     //Suppliers
-    @FindBy(xpath = "//a[text()='Suppliers']")
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[2]/a")
     private WebElement suppliersModule;
 
     //Variants
-    @FindBy(xpath = "//a[text()='Variants']")
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[3]/a")
     private WebElement variantsModule;
 
     //Purchase Orders
-    @FindBy(xpath = "//a[text()='Purchase Orders']")
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[4]/a")
     private WebElement purchaseOrdersModule;
 
     //Packages
-    @FindBy(xpath = "//a[text()='Packages']")
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[5]/a")
     private WebElement packagesModule;
 
+    //Pick Orders
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[6]/a")
+    private WebElement pickOrdersModule;
+
     //Order Process
-    @FindBy(xpath = "//a[text()='Order Process']")
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[7]/a")
     private WebElement orderProcessModule;
 
     //Returns
-    @FindBy(xpath = "//a[text()='Returns']")
+    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[8]/a")
     private WebElement returnsModule;
 
     //Logout
-    @FindBy(xpath = "//a[text()='Log out']")
+    @FindBy(xpath = "//h3/a")
     private WebElement logoutButton;
 
 
@@ -69,6 +73,10 @@ public class HomePageObject {
 
     public void clickPackages() {
         myActions.action_click(packagesModule);
+    }
+
+    public void clickPickOrders() {
+        myActions.action_click(pickOrdersModule);
     }
 
     public void clickOrderProcess() {
