@@ -61,26 +61,41 @@ public class VariantsPageObjects {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//input[@name='sku_code']")
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='sku_code']")
         private WebElement skuCodeAddVariantEntry;
 
-        @FindBy(xpath = "//input[@name='notes']")
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='notes']")
         private WebElement descriptionAddVariantEntry;
 
-        @FindBy(xpath = "//select[@name='category']")
+        @FindBy(xpath = "//div[@id='AddVariant']//select[@name='category']")
         private WebElement categoryDropdownAddVariantEntry;
 
-        @FindBy(xpath = "//input[@name='variant_price']")
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='variant_price']")
         private WebElement priceAddVariantEntry;
 
-        @FindBy(xpath = "//input[@name='reorder_point']")
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='reorder_point']")
         private WebElement reorderPointAddVariantEntry;
 
-        @FindBy(xpath = "//button[text()='Add Variant']")
+        @FindBy(xpath = "//div[@id='AddVariant']/div/form[@id='addVariantForm']/div/button[1]")
         private WebElement addVariantButton;
 
-        @FindBy(xpath = "//input[@name='mappings']")
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='mappings']")
         private WebElement voonikCheckBox;
+
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='uvid']")
+        private WebElement mpVIDEntry;
+
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='product_id']")
+        private WebElement mpPIDEntry;
+
+        @FindBy(xpath = "//div[@id='AddVariant']//input[@name='sku']")
+        private WebElement mpSKUEntry;
+
+        @FindBy(xpath = "//div[@id='AddVariant']//div[4]/button")
+        private WebElement fetchVIDButton;
+
+        @FindBy(xpath = "//div[@id='AddVariant']//div[1]/div[5]/button")
+        private WebElement fetchPIDSKUButton;
 
 
         /*--------------Actions-------------------*/
@@ -91,7 +106,7 @@ public class VariantsPageObjects {
         public void enterDescriptionAddVariant(String description) {
             myActions.action_sendKeys(descriptionAddVariantEntry, description);
         }
-        
+
         public void enterCategoryDropdownAddVariant(String category) {
             myActions.action_select(categoryDropdownAddVariantEntry, category);
         }
@@ -112,6 +127,15 @@ public class VariantsPageObjects {
             myActions.action_click(addVariantButton);
         }
 
+        public void enterMPVID(String mp_vid){myActions.action_sendKeys(mpVIDEntry,mp_vid);}
+
+        public void enterMPPID(String mp_pid){myActions.action_sendKeys(mpPIDEntry,mp_pid);}
+
+        public void enterMPSKU(String mp_sku){myActions.action_sendKeys(mpSKUEntry,mp_sku);}
+
+        public void clickFetchVIDButton(){myActions.action_click(fetchVIDButton);}
+
+        public void clickFetchPIDSKUButton(){myActions.action_click(fetchPIDSKUButton);}
 
         /*--------------Functions-------------------*/
         public void addNewVariant(String skuCode, String description, String category, String price, String reorderPoint) {
@@ -138,10 +162,10 @@ public class VariantsPageObjects {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//select[@id='ManualPickListSellerId']")
+        @FindBy(xpath = "//div[@id='SkuBinList']//select[@id='ManualPickListSellerId']")
         private WebElement sellerDropdownBinsForSku;
 
-        @FindBy(xpath = "//input[@id='binDetailSkuData']")
+        @FindBy(xpath = "//div[@id='SkuBinList']//input[@id='binDetailSkuData']")
         private WebElement skuCodeEntryBinsForSku;
 
 

@@ -29,7 +29,7 @@ public class MyActions extends WmsBaseClass {
     public void action_select(WebElement element, String data){
         sleep(1000);
         Select select = new Select(element);
-        select.selectByValue(data);
+        select.selectByVisibleText(data);
     }
 
     public void action_enter(WebElement element){

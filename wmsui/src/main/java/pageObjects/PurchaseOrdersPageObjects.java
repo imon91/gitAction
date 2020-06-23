@@ -8,33 +8,44 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 import utils.WmsBaseClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseOrdersPageObjects extends WmsBaseClass {
     private WebDriver driver;
     private MyActions myActions;
-    @FindBy(xpath = "//a[text()='Create Purchase Order']")
-    private WebElement createPurchaseOrderTab;
-    @FindBy(xpath = "//a[text()='Create Bulk PO']")
-    private WebElement createBulkPOTab;
-    @FindBy(xpath = "//a[text()='Create TO']")
-    private WebElement createTOTab;
-    @FindBy(xpath = "//a[text()='Qc Scan']")
-    private WebElement qcScanTab;
-    @FindBy(xpath = "//a[text()='Edit PurchaseOrder']")
-    private WebElement editPurchaseOrderTab;
-    @FindBy(xpath = "//a[text()='Purchase Order List']")
-    private WebElement purchaseOrderListTab;
-    @FindBy(xpath = "//a[text()='TO List']")
-    private WebElement tOListTab;
-    @FindBy(xpath = "//a[text()='Create GRN']")
-    private WebElement createGRNTab;
+
 
     public PurchaseOrdersPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
     }
+
+    @FindBy(xpath = "//a[text()='Create Purchase Order']")
+    private WebElement createPurchaseOrderTab;
+
+    @FindBy(xpath = "//a[text()='Create Bulk PO']")
+    private WebElement createBulkPOTab;
+
+    @FindBy(xpath = "//a[text()='Create TO']")
+    private WebElement createTOTab;
+
+    @FindBy(xpath = "//a[text()='Qc Scan']")
+    private WebElement qcScanTab;
+
+    @FindBy(xpath = "//a[text()='Edit PurchaseOrder']")
+    private WebElement editPurchaseOrderTab;
+
+    @FindBy(xpath = "//a[text()='Purchase Order List']")
+    private WebElement purchaseOrderListTab;
+
+    @FindBy(xpath = "//a[text()='TO List']")
+    private WebElement tOListTab;
+
+    @FindBy(xpath = "//a[text()='Create GRN']")
+    private WebElement createGRNTab;
+
 
     /*--------------Actions-------------------*/
     public void clickCreatePurchaseOrderTab() {
@@ -74,24 +85,32 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
     public class CreatePurchaseOrderTab {
         private WebDriver driver;
         private MyActions myActions;
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_warehouse']/following-sibling::select")
-        private WebElement warehouseDropdown;
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_seller']/following-sibling::select")
-        private WebElement sellerDropdown;
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_supplier']/following-sibling::select")
-        private WebElement supplierDropdown;
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_address']/following-sibling::select")
-        private WebElement addressDropdown;
-        @FindBy(xpath = "//button[text()='+ Add Sku Input Fields']")
-        private WebElement addSkuInputFields;
-        @FindBy(xpath = "//button[text()='Create PO']")
-        private WebElement createPOButton;
+
+
 
         public CreatePurchaseOrderTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
         }
+
+        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_warehouse']/following-sibling::select")
+        private WebElement warehouseDropdown;
+
+        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_seller']/following-sibling::select")
+        private WebElement sellerDropdown;
+
+        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_supplier']/following-sibling::select")
+        private WebElement supplierDropdown;
+
+        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_address']/following-sibling::select")
+        private WebElement addressDropdown;
+
+        @FindBy(xpath = "//button[text()='+ Add Sku Input Fields']")
+        private WebElement addSkuInputFields;
+
+        @FindBy(xpath = "//button[text()='Create PO']")
+        private WebElement createPOButton;
 
         public void selectWarehouseDropdown(String warehouse) {
             myActions.action_select(warehouseDropdown, warehouse);
@@ -166,22 +185,15 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
                     clickAddSkuInputFields();
                 }
             }
+            clickCreatePOButton();
         }
     }
 
+
+    /*--------------Edit Purchase Order Tab-------------------*/
     public class EditPurchaseOrder {
         private WebDriver driver;
         private MyActions myActions;
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//input[@type='text']")
-        private WebElement poIDEntry;
-        @FindBy(xpath = "//button[text()='Close PO']")
-        private WebElement closePOButton;
-        @FindBy(xpath = "//a[text()='Print Purchase order']")
-        private WebElement printPurchaseOrder;
-        @FindBy(xpath = "//a[text()='Print using barcode printer']")
-        private WebElement printUsingBarcodePrinter;
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b")
-        private WebElement purchaseOrderStatus;
 
         public EditPurchaseOrder(WebDriver driver) {
             this.driver = driver;
@@ -193,6 +205,21 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions.action_sendKeys(poIDEntry, poID);
             myActions.action_enter(poIDEntry);
         }
+
+        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//input[@type='text']")
+        private WebElement poIDEntry;
+
+        @FindBy(xpath = "//button[text()='Close PO']")
+        private WebElement closePOButton;
+
+        @FindBy(xpath = "//a[text()='Print Purchase order']")
+        private WebElement printPurchaseOrder;
+
+        @FindBy(xpath = "//a[text()='Print using barcode printer']")
+        private WebElement printUsingBarcodePrinter;
+
+        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b")
+        private WebElement purchaseOrderStatus;
 
         public void clickClosePOButton() {
             myActions.action_click(closePOButton);
@@ -283,21 +310,28 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             return myActions.action_getText(supplier);
         }
 
-        //pending
-
         public String getSkuCode(int index) {
             String skuCodeXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[7]/table/tbody/tr[1]";
-            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
-            return myActions.action_getText(skuCode);
+            List<WebElement> skuCode = driver.findElements(By.xpath(skuCodeXpath));
+            String skuCodes = "";
+            for (WebElement element : skuCode)
+                skuCodes += myActions.action_getText(element) + ",";
+            return skuCodes;
         }
 
         public String getQuantity(int index) {
-            String quantityXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[8]/table/tbody/tr[1]";
-            WebElement quantity = driver.findElement(By.xpath(quantityXpath));
-            return myActions.action_getText(quantity);
+            String quantityXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[8]/table/tbody/tr";
+            List<WebElement> quantity = driver.findElements(By.xpath(quantityXpath));
+            String quantities = "";
+            for (int i = 1; i <= quantity.size(); i++) {
+                String quantityXpathI = quantityXpath + "[" + i + "]";
+                WebElement quantityI = driver.findElement(By.xpath(quantityXpath));
+                quantities += myActions.action_getText(quantityI) + ",";
+            }
+            return quantities;
+
         }
 
-        //pending
         public void printPurchaseOrder(int index) {
             String printPurchaseOrderXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[9]/div/a[1]";
             WebElement printPurchaseOrderElement = driver.findElement(By.xpath(printPurchaseOrderXpath));
@@ -308,6 +342,149 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             String printUsingBarcodePrinterXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[9]/div/a[2]";
             WebElement printUsingBarcodePrinterElement = driver.findElement(By.xpath(printUsingBarcodePrinterXpath));
             myActions.action_click(printUsingBarcodePrinterElement);
+        }
+
+        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Next Page']")
+        private WebElement nextPage;
+
+        @FindBy(xpath = "//div[@id='PurchaseOrderList']//select[@type='text']")
+        private WebElement pageSize;
+
+        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Previous Page']")
+        private WebElement previousPage;
+
+        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='First Page']")
+        private WebElement firstPage;
+
+        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Current Page Number']/span")
+        private WebElement pageNo;
+
+        public void goToNextPage() {
+            myActions.action_click(nextPage);
+        }
+
+        public void selectPageSize(String size) {
+            myActions.action_select(pageSize, size);
+        }
+
+        public void goToPreviousPage() {
+            myActions.action_click(previousPage);
+        }
+
+        public void goToFirstPage() {
+            myActions.action_click(firstPage);
+        }
+
+        public int getPageNumber() {
+            int pageNoInteger = Integer.valueOf(myActions.action_getText(pageNo));
+            return pageNoInteger;
+        }
+    }
+
+
+    /*--------------Create GRN Tab-------------------*/
+    public class CreateGRNTab {
+        private WebDriver driver;
+        private MyActions myActions;
+
+        public CreateGRNTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+        @FindBy(xpath = "//div[@id='CreateGrn']//input[@type='text']")
+        private WebElement poIDEntryField;
+
+        @FindBy(xpath = "//div[@id='CreateGrn']//div/button")
+        private WebElement createGRNButton;
+
+        public void poIDEntry(String poID) {
+            myActions.action_sendKeys(poIDEntryField, poID);
+            myActions.action_enter(poIDEntryField);
+        }
+
+        public void clickGRNButton() {
+            myActions.action_click(createGRNButton);
+        }
+
+        public int getTotalProducts() {
+            List<WebElement> products = driver.findElements(By.xpath("//div[@id='CreateGrn']//table/tbody/tr"));
+            return products.size();
+        }
+
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='CreateGrn']//tbody/tr[" + index + "]/td[1]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
+        }
+
+        public String getProductName(int index) {
+            String productNameXpath = "//div[@id='CreateGrn']//tbody/tr[" + index + "]/td[2]";
+            WebElement productName = driver.findElement(By.xpath(productNameXpath));
+            return myActions.action_getText(productName);
+        }
+
+        public String getOrderedQuantity(int index) {
+            String orderedQuantityXpath = "//div[@id='CreateGrn']//tbody/tr[" + index + "]/td[3]";
+            WebElement orderedQuantity = driver.findElement(By.xpath(orderedQuantityXpath));
+            return myActions.action_getText(orderedQuantity);
+        }
+
+        public String getReceivableQuantity(int index) {
+            String receivableQuantityXpath = "//div[@id='CreateGrn']//tbody/tr[" + index + "]/td[4]";
+            WebElement receivableQuantity = driver.findElement(By.xpath(receivableQuantityXpath));
+            return myActions.action_getText(receivableQuantity);
+        }
+
+        public void receivedQuantityEntry(int index, String quantityReceived) {
+            String receivedQuantityXpath = "//div[@id='CreateGrn']//tbody/tr[" + index + "]/td[5]//input";
+            WebElement receivedQuantity = driver.findElement(By.xpath(receivedQuantityXpath));
+            myActions.action_sendKeys(receivedQuantity, quantityReceived);
+        }
+    }
+
+
+    /*--------------Qc Scan Tab-------------------*/
+    public class QcScanTab {
+        private WebDriver driver;
+        private MyActions myActions;
+
+        public QcScanTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+        @FindBy(xpath = "//div[@id='QcScan']//div[@class='inner-in-scan ']//input[@type='text']")
+        private WebElement packageIDEntry;
+
+        @FindBy(xpath = "//div[@id='QcScan']//div[@class='inner-in-scan ']//input[@type='text']")
+        private WebElement skuCode;
+
+        @FindBy(xpath = "//div[@id='QcScan']//div[@class='inner-in-scan ']//input[@type='text']")
+        private WebElement description;
+
+        @FindBy(xpath = "//div[@id='QcScan']//div[@class='inner-in-scan ']//input[@type='text']")
+        private WebElement image;
+
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='QcScan']//table/tbody/tr/td[1]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
+        }
+
+        public String getDescription(int index) {
+            String descriptionXpath = "//div[@id='QcScan']//table/tbody/tr/td[2]";
+            WebElement description = driver.findElement(By.xpath(descriptionXpath));
+            return myActions.action_getText(description);
+        }
+
+        public String productImage() {
+            String productImageXpath = "//div[@id='QcScan']//table/tbody/tr/td[3]";
+            WebElement productImageElement = driver.findElement(By.xpath(productImageXpath));
+            String src = productImageElement.getAttribute("src");
+            return src;
         }
     }
 }
