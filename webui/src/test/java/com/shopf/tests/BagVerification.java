@@ -40,6 +40,7 @@ public class BagVerification extends WebBaseClass {
         System.out.println("bagVerification is called");
         bagPageObjects.enterQuantity(2);
         sleep(2000);
+        bagPageObjects.enterCustomPrice();
         bagPageObjects.enterCustomPrice("500");
         bagPageObjects.saveCustomPrice();
         sleep(2000);

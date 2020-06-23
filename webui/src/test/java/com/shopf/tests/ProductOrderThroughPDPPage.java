@@ -1,6 +1,7 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -34,7 +35,10 @@ public class ProductOrderThroughPDPPage extends WebBaseClass {
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
     public void verifyOrderThroughPDPPage() {
+        sleep(2500);
+        //driver.findElement(By.xpath("//ul[@class='right-items text-right']")).click();
         pdpPageObject.clickOnSizeL();
+        sleep(500);
         pdpPageObject.clickOnOrderNowButtonPDPPage();
     }
 

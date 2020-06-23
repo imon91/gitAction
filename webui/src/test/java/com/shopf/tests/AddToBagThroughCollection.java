@@ -36,8 +36,9 @@ public class AddToBagThroughCollection extends WebBaseClass {
     public void addToBagThroughCollection() {
         System.out.println("VerifyAddToBagThroughCollection is called");
         myShopPageObjects.getProductName1();
-        pdpPageObject.clickOnSizeL();
+        myShopPageObjects.clickOnProductSizeL();
         myShopPageObjects.clickOnOrderNow();
+        sleep(2500);
         bagPageObjects.clickProduct1();
         sleep(5000);
     }

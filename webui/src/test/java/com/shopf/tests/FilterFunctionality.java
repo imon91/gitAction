@@ -1,13 +1,16 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ActionBarObjects;
 import pageObjects.LatestPageObjects;
 import pageObjects.PLPPageObject;
+import utils.MyActions;
 import utils.WebBaseClass;
 
 public class FilterFunctionality extends WebBaseClass {
@@ -17,6 +20,7 @@ public class FilterFunctionality extends WebBaseClass {
     private ActionBarObjects actionBarObjects;
     private LatestPageObjects latestPageObjects;
     private PLPPageObject plpPageObject;
+    private MyActions myActions;
 
 
 
@@ -37,7 +41,7 @@ public class FilterFunctionality extends WebBaseClass {
         sleep(1000);
         plpPageObject.clickOnPrice();
         sleep(1000);
-        plpPageObject.clickOnDiscount();
+        plpPageObject.clickOnSizeL();
         sleep(1000);
     }
 

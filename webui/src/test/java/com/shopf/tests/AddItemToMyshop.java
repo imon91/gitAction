@@ -37,11 +37,12 @@ public class AddItemToMyshop extends WebBaseClass {
     public void verifyAddToMyshopFunction() {
         System.out.println("VerifyAddToMyshopFunction is called");
         pdpPageObject.clickOnAddToMyshopButton();
-        String collectionName = pdpPageObject.addItemToNewCollection();
+        String collectionName = pdpPageObject.addToMyshopNewCollection();
         sleep(2000);
         actionBarObjects.clickOnMyshopButton();
         sleep(1000);
         pdpPageObject.clickNewlyAddedCollection();
+        sleep(2500);
     }
 
 

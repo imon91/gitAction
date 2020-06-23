@@ -1,12 +1,15 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ActionBarObjects;
 import pageObjects.LatestPageObjects;
+import utils.MyActions;
 import utils.WebBaseClass;
 
 public class VerifySortFunctionality extends WebBaseClass {
@@ -15,6 +18,7 @@ public class VerifySortFunctionality extends WebBaseClass {
     private WebDriver driver;
     private ActionBarObjects actionBarObjects;
     private LatestPageObjects latestPageObjects;
+    private MyActions myActions;
 
 
 
@@ -32,9 +36,9 @@ public class VerifySortFunctionality extends WebBaseClass {
             dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
     public void verifySortFunction() {
         System.out.println("VerifySort is called");
-        //latestPageObjects.clickOnSortByPersonalizeOption();
-        //sleep(1000);
         latestPageObjects.clickOnSortByNewOption();
+        sleep(1000);
+        latestPageObjects.clickOnSortByPersonalizeOption();
         sleep(1000);
         //latestPageObjects.clickOnSortByDiscountOption();
         //sleep(1000);

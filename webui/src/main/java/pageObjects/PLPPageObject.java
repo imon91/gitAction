@@ -1,14 +1,19 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
+import java.util.List;
+import java.util.Random;
+
 public class PLPPageObject {
     private WebDriver driver;
     private MyActions myActions;
+    Random random = new Random();
 
     public PLPPageObject(WebDriver driver) {
         this.driver = driver;
@@ -29,6 +34,10 @@ public class PLPPageObject {
     @FindBy(xpath = "//label[@for='offer_1048']")
     private WebElement discount10andAbove;
 
+    //sizeL
+    @FindBy(xpath = "//div[@class='filter-inner']/div[5]//ul/li[4]//label")
+    private WebElement filterSizeL;
+
     //searchButton from action bar
     @FindBy(xpath = "//i[text()='search']")
     private WebElement searchIcon;
@@ -41,6 +50,10 @@ public class PLPPageObject {
 
     public void clickOnPrice() {
         myActions.action_click(price500to1500);
+    }
+
+    public void clickOnSizeL() {
+        myActions.action_click(filterSizeL);
     }
 
     public void clickOnDiscount() {
@@ -191,6 +204,153 @@ public class PLPPageObject {
         String ProductName=myActions.action_getText(productname3);
         return ProductName ;
     }
+
+
+       /////////////////////////*************Dynamic Xpath functions****************///////////
+    /*----------Filter functionality -------*/
+
+    public String ApplyFilter(int filterType,int filterIndex){
+        String filterItemLabelClicked = "";
+        String filterInnerXpath = "//div[@class='filter-inner']/div[@class='filter-main']["+filterType+"]//ul/li";
+        List<WebElement> filterItemList = driver.findElements(By.xpath(filterInnerXpath));
+        if((filterIndex!=0)&&(filterIndex<=filterItemList.size()))
+        {
+            String  item = filterInnerXpath+"["+filterIndex+"]//input";
+            WebElement itemClicked = driver.findElement(By.xpath(item));
+            myActions.action_click(itemClicked);
+            String itemLable = filterInnerXpath+"["+filterIndex+"]//label/span[1]";
+            WebElement filterItemLabel = driver.findElement(By.xpath(itemLable));
+            filterItemLabelClicked = myActions.action_getText(filterItemLabel);
+        }
+        else{
+            int index =  random.nextInt(filterItemList.size());
+            index++;
+            String item = filterInnerXpath+"["+index+"]//input";
+            WebElement itemClicked = driver.findElement(By.xpath(item));
+            myActions.action_click(itemClicked);
+            String itemLabel = filterInnerXpath+"["+index+"]//label/span[1]";
+            WebElement filterItemLabel = driver.findElement(By.xpath(itemLabel));
+            filterItemLabelClicked = myActions.action_getText(filterItemLabel);
+        }
+
+        return filterItemLabelClicked;
+    }
+
+
+
+    /*--------------------product Selection---------------*/
+
+    public String product(int productNumber){
+        String productNameClicked = "";
+        String productsXpath = "//ul[@class='col-4 grid-list list-inline text-left']/li";
+        List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
+        if((productNumber!=0)&&(productNumber<=productList.size()))
+        {
+            String  product = productsXpath+"["+productNumber+"]";
+            WebElement productClicked = driver.findElement(By.xpath(product));
+            myActions.action_click(productClicked);
+            String productLable = productsXpath+"["+productNumber+"]//div[@class='item-name']";
+            WebElement clickedProductName = driver.findElement(By.xpath(productLable));
+            productNameClicked = myActions.action_getText(clickedProductName);
+        }
+        else{
+            int index =  random.nextInt(productList.size());
+            index++;
+            String product = productsXpath+"["+index+"]";
+            WebElement productClicked = driver.findElement(By.xpath(product));
+            myActions.action_click(productClicked);
+            String productName = productsXpath+"["+index+"]//div[@class='item-name']";
+            WebElement clickedProductName = driver.findElement(By.xpath(productName));
+            productNameClicked = myActions.action_getText(clickedProductName);
+        }
+
+        return productNameClicked;
+    }
+
+    /*--------------------------sort function--------------------*/
+
+
+    public String applySort(int sortNumber)
+    {
+        String sortLabelClicked = "";
+        String sortInnerXpath = "//div[@class='flex-end sort-texts mrvoonik-sort-texts']/p[1]/span";
+        List<WebElement> sortList = driver.findElements(By.xpath(sortInnerXpath));
+        if (sortNumber!=0&&sortNumber<=sortList.size())
+        {
+            String sort = sortInnerXpath+"["+sortNumber+"]";
+            WebElement sortnumber = driver.findElement(By.xpath(sort));
+            sortLabelClicked=myActions.action_getText(sortnumber);
+            myActions.action_click(sortnumber);
+        }
+        else
+        {
+            int index = random.nextInt(sortList.size());
+            index++;
+            String sort = sortInnerXpath+"["+index+"]";
+            WebElement sortnumber = driver.findElement(By.xpath(sort));
+            sortLabelClicked=myActions.action_getText(sortnumber);
+            myActions.action_click(sortnumber);
+        }
+        return sortLabelClicked;
+    }
+
+    public String applyPriceSort(int sortNumber)
+    {
+        String priceLabelClicked = "";
+        String price;
+        String priceInnerXpath = "//div[@class='flex-end sort-texts mrvoonik-sort-texts']/p[2]/span";
+        List<WebElement> priceList = driver.findElements(By.xpath(priceInnerXpath));
+        if (sortNumber!=0&&sortNumber<=priceList.size())
+        {
+            price = priceInnerXpath+"["+sortNumber+"]";
+        }
+        else
+        {
+            int index=random.nextInt(priceList.size());
+             price = priceInnerXpath+"["+ ++index +"]";
+        }
+        WebElement pricenumber = driver.findElement(By.xpath(price));
+        priceLabelClicked=myActions.action_getText(pricenumber);
+        myActions.action_click(pricenumber);
+        return priceLabelClicked;
+    }
+
+
+    public String applyShow(int showNumber)
+    {
+        String showLabelClicked="";
+        String showXpath= "//div[@id='catalog-view']/button";
+        List<WebElement> showList= driver.findElements(By.xpath(showXpath));
+        if (showNumber!=0&&showNumber<=showList.size())
+        {
+            String show=showXpath+"["+showNumber+"]";
+            WebElement shownumber= driver.findElement(By.xpath(show));
+            showLabelClicked=myActions.action_getText(shownumber);
+            myActions.action_click(shownumber);
+        }
+        else
+        {
+            int index = random.nextInt(showList.size());
+            index++;
+            String show=showXpath+"["+index+"]";
+            WebElement shownumber= driver.findElement(By.xpath(show));
+            showLabelClicked=myActions.action_getText(shownumber);
+            myActions.action_click(shownumber);
+        }
+        return showLabelClicked;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -16,7 +16,7 @@ public class ActionBarObjects {
     @FindBy(xpath = "//input[@type='text'][@id='searchTag']")
     private WebElement searchBarText;
     //Search Icon
-    @FindBy(xpath = "//i[text()='search']")
+    @FindBy(xpath = "//div[@class='search-container']/i")
     private WebElement searchIcon;
     //login icon
     @FindBy(xpath = "//ul[@class='right-items text-right']/li[1]/a")
@@ -25,7 +25,7 @@ public class ActionBarObjects {
     @FindBy(xpath = "//p[text()='Track order']")
     private WebElement trackOrderButton;
     //Myshop icon
-    @FindBy(xpath = "//p[text()='My Shop']")
+    @FindBy(xpath = "//ul[@class='right-items text-right']/li[3]/a")
     private WebElement myshopButton;
     //Bag icon
     @FindBy(xpath = "//p[text()='bag']")
@@ -36,6 +36,7 @@ public class ActionBarObjects {
     //Dropdown Logout
     @FindBy(xpath = "//div[@class='my-account-dropdown text-left']/a[4]")
     private WebElement dropdownlogout;
+
     //myorder page product -1
     @FindBy(xpath = "//div[@class='myorders-list-main']/div[1]/ul/li/div/div[1]/div/p[1]/b")
     private WebElement ordernumber_myorder;
@@ -53,7 +54,7 @@ public class ActionBarObjects {
     }
 
     public void clickOnSearchBarText(String Object) {
-        myActions.action_click(searchBarText);
+        //myActions.action_click(searchBarText);
         myActions.action_sendKeys(searchBarText, Object);
     }
 
@@ -85,6 +86,10 @@ public class ActionBarObjects {
         myActions.action_click(dropdownlogout);
     }
 
+    public void dropDown(){
+        myActions.action_click(dropdownlogout);
+    }
+
 
     /*------FUNCTION-----*/
     public void searchToObject(String Object) {
@@ -92,7 +97,7 @@ public class ActionBarObjects {
         clickOnSearchIcon();
     }
 
-    //get ordenumbet at myorder
+    //get ordenumber at myorder
     public String getOrderNumberAtMyorder() {
         String orderNumber=myActions.action_getText(ordernumber_myorder);
         return orderNumber ;
