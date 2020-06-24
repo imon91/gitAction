@@ -28,6 +28,7 @@ public class AddingItems extends WebAppBaseClass {
     public void AddingItemsBeforeClass() throws Exception {
         System.out.println("AddingItemBeforeClass is called");
         androidDriver = getBaseDriver();
+        plp = new PLPPageObjects(androidDriver);
         pdp = new PDPPageObjects(androidDriver);
         touch = new TouchAction(androidDriver);
     }
@@ -37,18 +38,20 @@ public class AddingItems extends WebAppBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifyProductIsClicking() throws Exception {
         System.out.println("control came to verify Product is clicking");
-        androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][2]").click();
+        //androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][2]").click();
+        plp.chooseProductFromFeed(2);
         System.out.println("Product is clicked");
     }
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyProductIsClicking")
     public void AddingItemsToMyShopCollection() throws Exception {
         System.out.println("control came to adding items to myshop collections");
         pdp.clickOnAddToMyShop();
-        touch.press(PointOption.point(0,600)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
-        androidDriver.findElementByXPath("//button[contains(text(),'shirts')][1]").click();
+        //touch.press(PointOption.point(0,600)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
+        //androidDriver.findElementByXPath("//button[contains(text(),'shirts')][1]").click();
+        pdp.additemtoCollection(0);
     }
 
 

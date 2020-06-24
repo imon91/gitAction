@@ -15,27 +15,34 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 
 import java.awt.geom.Area;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-import static utils.WebAppBaseClass.setImplicitWait;
-import static utils.WebAppBaseClass.sleep;
+import static utils.WebAppBaseClass.*;
 
 public class AddressPageObjects {
-    private AndroidDriver<WebElement> driver;
+    private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
+    private Random random;
     TouchAction touch;
 
-    public AddressPageObjects(AndroidDriver<WebElement> androidDriver) {
+    public AddressPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         myActions = new MyActions();
+        random = new Random();
         touch = new TouchAction(driver);
     }
 
+    //movetohome
+    @FindBy(xpath = "//div[@class='text-center']/a/img")
+    private WebElement home;
+
     //ProceedToPayment
-    @FindBy(xpath = "//div[@class='summary_checkout text-center place-order ']")
+    @FindBy(xpath = "//button[@type='submit']")
     private WebElement ProceedToPaymentButton;
 
     //selectAddress
@@ -102,6 +109,10 @@ public class AddressPageObjects {
     @FindBy(xpath = "//p[contains(text(),'Click for Payment Breakup')]")
     private WebElement PaymentBreakup;
 
+    //closepaymentbreakup
+    @FindBy(xpath = "//div[@class='modal-footer']/p")
+    private WebElement close;
+
     //selectCashonDelivery
     @FindBy(xpath = "//a[@class='collapsed']")
     private WebElement CashOnDelivery;
@@ -111,6 +122,8 @@ public class AddressPageObjects {
     private WebElement MakePayment;
 
 /*----------Actions---------*/
+
+    public void moveToHome(){myActions.action_click(home);}
 
     public void clickOnProceedToPaymentButton(){myActions.action_click(ProceedToPaymentButton);};
 
@@ -148,14 +161,17 @@ public class AddressPageObjects {
 
     public void clickOnPaymentBreakup(){myActions.action_click(PaymentBreakup);};
 
+    public void closePaymentBreakup(){myActions.action_click(close);}
+
     public void clickOnCashOnDelivery(){myActions.action_click(CashOnDelivery);};
 
     public void clickOnMakePayment(){myActions.action_click(MakePayment);};
 
 /*-------Functions----------*/
 
-     public void placingOrderwithExistingAddress(){
-         clickOnAddress();
+     public void placingOrderwithExistingAddress() throws Exception {
+         clickOnShowMoreAddressesButton();
+         selectaddress(0);
          clickOnProceedToPaymentButton();
      }
 
@@ -175,7 +191,87 @@ public class AddressPageObjects {
          clickOnSaveAddress();
          sleep(3500);
          clickOnCashOnDelivery();
+         sleep(2000);
          clickOnMakePayment();
      }
+
+
+   /*-------dynamicfunctions-------*/
+
+    String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
+    List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
+
+    public int selectaddress(int addressid) throws Exception {
+        String address;
+        int Address;
+        if(addressid != 0){
+            address = addressXpath+"["+addressid+"]/label";
+            Address = addressid;
+        } else {
+            int id = random.nextInt(addresslist.size());
+            address = addressXpath+"["+ ++id +"]/label";
+            Address = id;
+        }
+        WebElement addresselement = driver.findElement(By.xpath(address));
+        myActions.action_click(addresselement);
+        sleep(2000);
+        for(int i = Address; i < addresslist.size(); i+=4){
+            myActions.swipe(1,0);
+        }
+        return Address;
+    }
+
+    public void editaddress(int addressid){
+        String address;
+        if(addressid != 0){
+            address = addressXpath+"["+addressid+"]//div[@class='edit-delete-address editAddress']/p/span";
+        } else {
+            int id = random.nextInt(addresslist.size());
+            address = addressXpath+"["+ ++id +"]//div[@class='edit-delete-address editAddress']/p/span";
+        }
+        WebElement addresselement = driver.findElement(By.xpath(address));
+        myActions.action_click(addresselement);
+    }
+
+    public void deleteaddress(int addressid){
+        String address;
+        if(addressid != 0){
+            address = addressXpath+"["+addressid+"]//div[@class='edit-delete-address']/span";
+        } else {
+            int id = random.nextInt(addresslist.size());
+            address = addressXpath+"["+ ++id +"]//div[@class='edit-delete-address']/span";
+        }
+        WebElement addresselement = driver.findElement(By.xpath(address));
+        myActions.action_click(addresselement);
+    }
+
+    String productXpath = "//div[@class='text-left']/ul/li";
+    List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+
+    public String getEstimatedDeliverytime(int productid){
+        String product;
+        if(productid != 0){
+            product = productXpath+"["+productid+"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[1]/span";
+        }else {
+            int id = random.nextInt(productslist.size());
+            product = productXpath+"["+ ++id +"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[1]/span";
+        }
+        WebElement productElement = driver.findElement(By.xpath(product));
+        return myActions.action_getText(productElement);
+    }
+
+    public void deleteProduct(int productid){
+        String product;
+        if(productid != 0){
+            product = productXpath+"["+productid+"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[2]/span";
+        }else {
+            int id = random.nextInt(productslist.size());
+            product = productXpath+"["+ ++id +"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[2]/span";
+        }
+        WebElement productElement = driver.findElement(By.xpath(product));
+        myActions.action_click(productElement);
+    }
+
+
 
 }

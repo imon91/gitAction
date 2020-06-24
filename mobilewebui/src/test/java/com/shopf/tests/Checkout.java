@@ -31,12 +31,12 @@ public class Checkout extends WebAppBaseClass {
         pdp = new PDPPageObjects(androidDriver);
         checkoutpageobject = new CheckoutPageObjects(androidDriver);
         touch = new TouchAction(androidDriver);
-        homepageobject.navigateToMyShop();
+        //homepageobject.navigateToMyShop();
     }
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
+    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false)
     public void verifyAddingItemsToMyBag() {
         System.out.println("control came to verify adding items to my shop");
         checkoutpageobject.clickOnContinueShopping();
@@ -57,14 +57,6 @@ public class Checkout extends WebAppBaseClass {
         checkoutpageobject.confirmingOrder();
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
         //checkoutpageobject.clickOnPlaceOrder();
-    }
-
-
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false)
-    public void verifyThingsOnMyBag(){
-        System.out.println("control came to my bag");
-        checkoutpageobject.confirmingOrder();
     }
 
 

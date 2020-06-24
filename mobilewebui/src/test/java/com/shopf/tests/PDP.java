@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 import pageObjects.CheckoutPageObjects;
 import pageObjects.HomePageObjects;
 import pageObjects.PDPPageObjects;
+import pageObjects.PLPPageObjects;
 import utils.MyActions;
 
 import static utils.WebAppBaseClass.getBaseDriver;
@@ -22,6 +23,7 @@ public class PDP {
     private CheckoutPageObjects checkoutpageobject;
     private HomePageObjects home;
     private PDPPageObjects pdp;
+    private PLPPageObjects plp;
     TouchAction touch;
     MyActions myActions = new MyActions();
 
@@ -33,6 +35,7 @@ public class PDP {
         home = new HomePageObjects(androidDriver);
         checkoutpageobject = new CheckoutPageObjects(androidDriver);
         pdp = new PDPPageObjects(androidDriver);
+        plp = new PLPPageObjects(androidDriver);
         touch = new TouchAction(androidDriver);
     }
 
@@ -42,15 +45,18 @@ public class PDP {
     public void verifyPDPPage() throws Exception {
         System.out.println("control came to verifyPDPPage");
         home.navigateToMyShop();
-        home.searchForObject("Dettol");
-        WebElement name = androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][1]/div[@class='feedItem___2QWNJ']/div[@class='productNameContainer___M7bIM']");
+        home.searchForObject("shirts");
+        /*WebElement name = androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][1]/div[@class='feedItem___2QWNJ']/div[@class='productNameContainer___M7bIM']");
         String original_selection = myActions.action_getText(name);
         System.out.println(original_selection);
         touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,40)).release().perform();
         androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][1]").click();
         WebElement name1 = androidDriver.findElementByXPath("//div[@class='pdp-det-box']/h1");
         String title = myActions.action_getText(name1);
-        System.out.println(title + "2");
+        System.out.println(title + "2");*/
+        String title =plp.nameOfProduct(10);
+        plp.chooseProductFromFeed(10);
+        String original_selection = pdp.getItemText();
         if (title.equalsIgnoreCase(original_selection)){
               System.out.println("PDP working properly");
         }
@@ -59,13 +65,15 @@ public class PDP {
 
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyPDPPage")
-    public void verifyProductOrder(){
+    public void verifyProductOrder() throws Exception {
         System.out.println("control came to verifyProductOrder");
-        touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,100)).release().perform();
-        androidDriver.findElementByXPath("//div[@class='select-size-radio mrvoonik-select-size-radio size-radio-success text-center'][1]").click();
+        //touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,100)).release().perform();
+        //androidDriver.findElementByXPath("//div[@class='select-size-radio mrvoonik-select-size-radio size-radio-success text-center'][1]").click();
+        myActions.swipe(0.6,0.4);
+        pdp.selectSize(0);
         pdp.clickOnBuyNow();
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
-        //sleep(2500);
+        sleep(3500);
         //checkoutpageobject.clickOnPlaceOrder();
     }
 
