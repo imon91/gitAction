@@ -26,17 +26,20 @@ public class MyActions extends WmsBaseClass {
         return element.getTagName();
     }
 
+    //Select DropDown By Visible Text
     public void action_select(WebElement element, String data){
         sleep(1000);
         Select select = new Select(element);
         select.selectByVisibleText(data);
     }
 
+    //Press Enter explicitly once Entry Fields are filled
     public void action_enter(WebElement element){
         sleep(1000);
         element.sendKeys(Keys.ENTER);
     }
 
+    //Select DropDown By Index
     public void action_select_index(WebElement element, int index){
         sleep(1000);
         Select select = new Select(element);

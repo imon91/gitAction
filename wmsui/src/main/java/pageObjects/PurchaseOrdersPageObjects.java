@@ -22,6 +22,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         myActions = new MyActions();
     }
 
+
+    /*--------------Tabs-------------------*/
     @FindBy(xpath = "//a[text()='Create Purchase Order']")
     private WebElement createPurchaseOrderTab;
 
@@ -106,12 +108,14 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_address']/following-sibling::select")
         private WebElement addressDropdown;
 
-        @FindBy(xpath = "//button[text()='+ Add Sku Input Fields']")
+        @FindBy(xpath = "//div[@id='Addpurchage']//div[@class='skuInput-main']/button")
         private WebElement addSkuInputFields;
 
-        @FindBy(xpath = "//button[text()='Create PO']")
+        @FindBy(xpath = "//div[@id='Addpurchage']//div[@class='text-center']/button")
         private WebElement createPOButton;
 
+
+        /*--------------Actions-------------------*/
         public void selectWarehouseDropdown(String warehouse) {
             myActions.action_select(warehouseDropdown, warehouse);
         }
@@ -126,14 +130,6 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
         public void selectAddressDropdown(String address) {
             myActions.action_select(addressDropdown, address);
-        }
-
-        public void enterWarehouseDetails(String warehouse, String seller, String supplier, String address) {
-            selectWarehouseDropdown(warehouse);
-            selectSellerDropdown(seller);
-            selectSupplierDropdown(supplier);
-            selectAddressDropdown(address);
-            sleep(10000);
         }
 
         public void skuCodeInput(int index, String skuCode) {
@@ -173,6 +169,16 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
         public void clickCreatePOButton() {
             myActions.action_click(createPOButton);
+        }
+
+
+        /*--------------Functions-------------------*/
+        public void enterWarehouseDetails(String warehouse, String seller, String supplier, String address) {
+            selectWarehouseDropdown(warehouse);
+            selectSellerDropdown(seller);
+            selectSupplierDropdown(supplier);
+            selectAddressDropdown(address);
+            sleep(10000);
         }
 
         public void createPO(int no_of_products, String skuCode[], String quantity[], String price[]) {
@@ -221,6 +227,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b")
         private WebElement purchaseOrderStatus;
 
+
+        /*--------------Actions-------------------*/
         public void clickClosePOButton() {
             myActions.action_click(closePOButton);
         }
@@ -237,6 +245,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions.action_getText(purchaseOrderStatus);
         }
 
+
+        /*--------------Functions-------------------*/
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='EditPurchaseOrder']//tbody/tr"));
             return products.size();
@@ -269,6 +279,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
+
+        /*--------------Functions-------------------*/
         public int getTotalPurchaseOrders() {
             List<WebElement> purchaseOrders = driver.findElements(By.xpath("//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr"));
             return purchaseOrders.size();
@@ -310,12 +322,12 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             return myActions.action_getText(supplier);
         }
 
-        public String getSkuCode(int index) {
-            String skuCodeXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[7]/table/tbody/tr[1]";
+        public ArrayList<String> getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[7]/table/tbody/tr";
             List<WebElement> skuCode = driver.findElements(By.xpath(skuCodeXpath));
-            String skuCodes = "";
+            ArrayList<String> skuCodes = new ArrayList<String>();
             for (WebElement element : skuCode)
-                skuCodes += myActions.action_getText(element) + ",";
+                skuCodes.add(myActions.action_getText(element));
             return skuCodes;
         }
 
@@ -344,6 +356,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions.action_click(printUsingBarcodePrinterElement);
         }
 
+
+        /*--------------Page Handling-------------------*/
         @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Next Page']")
         private WebElement nextPage;
 
@@ -359,6 +373,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Current Page Number']/span")
         private WebElement pageNo;
 
+
+        /*--------------Actions-------------------*/
         public void goToNextPage() {
             myActions.action_click(nextPage);
         }
@@ -399,6 +415,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//div[@id='CreateGrn']//div/button")
         private WebElement createGRNButton;
 
+
+        /*--------------Actions-------------------*/
         public void poIDEntry(String poID) {
             myActions.action_sendKeys(poIDEntryField, poID);
             myActions.action_enter(poIDEntryField);
@@ -408,6 +426,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions.action_click(createGRNButton);
         }
 
+
+        /*--------------Functions-------------------*/
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='CreateGrn']//table/tbody/tr"));
             return products.size();
@@ -468,6 +488,15 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//div[@id='QcScan']//div[@class='inner-in-scan ']//input[@type='text']")
         private WebElement image;
 
+
+        /*--------------Actions-------------------*/
+        public void packageIDInput(String packageID){
+            myActions.action_sendKeys(packageIDEntry,packageID);
+            myActions.action_enter(packageIDEntry);
+        }
+
+
+        /*--------------Functions-------------------*/
         public String getSkuCode(int index) {
             String skuCodeXpath = "//div[@id='QcScan']//table/tbody/tr/td[1]";
             WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));

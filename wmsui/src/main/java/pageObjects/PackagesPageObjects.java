@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.Select;
 import utils.MyActions;
 
 public class PackagesPageObjects {
@@ -18,6 +17,8 @@ public class PackagesPageObjects {
         myActions = new MyActions();
     }
 
+
+    /*--------------Tabs-------------------*/
     @FindBy(xpath = "//div[@class='packages-container']//ul/li[1]/a")
     private WebElement packagesListTab;
 
@@ -33,6 +34,8 @@ public class PackagesPageObjects {
     @FindBy(xpath = "//div[@class='packages-container']//ul/li[5]/a")
     private WebElement packageDetailsTab;
 
+
+    /*--------------Actions-------------------*/
     public void clickPackagesListTab() {
         myActions.action_click(packagesListTab);
     }
@@ -72,10 +75,16 @@ public class PackagesPageObjects {
         private WebElement selectAllButton;
 
 
+        /*--------------Actions-------------------*/
         public void selectStatus(String status) {
             myActions.action_select(selectStatusDropdown, status);
         }
 
+        public void clickSelectAllButton() {
+            myActions.action_click(selectAllButton);
+        }
+
+        /*--------------Functions-------------------*/
         public String getSkuCode(int index) {
             String skuCodeXpath = "//div[@id='PackagesList']//table/tbody/tr[" + index + "]/td[2]";
             WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
@@ -98,10 +107,6 @@ public class PackagesPageObjects {
             String quantityXpath = "//div[@id='PackagesList']//table/tbody/tr[" + index + "]/td[4]";
             WebElement quantity = driver.findElement(By.xpath(quantityXpath));
             return myActions.action_getText(quantity);
-        }
-
-        public void clickSelectAllButton() {
-            myActions.action_click(selectAllButton);
         }
     }
 
@@ -129,6 +134,8 @@ public class PackagesPageObjects {
         @FindBy(xpath = "//div[@id='Create-Putaway-List']//div/button")
         private WebElement createPutawayListButton;
 
+
+        /*--------------Actions-------------------*/
         public void selectStatus(String status) {
             myActions.action_select(selectStatusDropdown, status);
         }
@@ -145,6 +152,8 @@ public class PackagesPageObjects {
             myActions.action_click(createPutawayListButton);
         }
 
+
+        /*--------------Functions-------------------*/
         public void createPutawayList(String status, String packageID, String allocationType) {
             selectStatus(status);
             inputPackageID(packageID);
@@ -177,6 +186,8 @@ public class PackagesPageObjects {
         @FindBy(xpath = "//div[@id='BinReset']//div[2]/button[2]")
         private WebElement resetBinButton;
 
+
+        /*--------------Actions-------------------*/
         public void inputPackageID(String packageID) {
             myActions.action_sendKeys(selectStatusDropdown, packageID);
         }
@@ -193,6 +204,8 @@ public class PackagesPageObjects {
             myActions.action_click(resetBinButton);
         }
 
+
+        /*--------------Functions-------------------*/
         public void resetBin(String packageID, String status) {
             inputPackageID(packageID);
             selectStatus(status);
@@ -215,6 +228,8 @@ public class PackagesPageObjects {
         @FindBy(xpath = "//div[@id='PackageDetail']//input[@id='PackageDetailPackageID']")
         private WebElement packageIDEntry;
 
+
+        /*--------------Actions-------------------*/
         public void enterPackageID(String packageID) {
             myActions.action_sendKeys(packageIDEntry, packageID);
             myActions.action_enter(packageIDEntry);
@@ -223,6 +238,8 @@ public class PackagesPageObjects {
         @FindBy(xpath = "//div[@id='PackageDetail']//div[9]/button")
         private WebElement printPackageButton;
 
+
+        /*--------------Functions-------------------*/
         public String getPackageID() {
             String packageIDXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[1]";
             WebElement packageID = driver.findElement(By.xpath(packageIDXpath));
@@ -324,6 +341,8 @@ public class PackagesPageObjects {
         @FindBy(xpath = "//div[@id='InScan']//div/button[2]")
         private WebElement inScanButton;
 
+
+        /*--------------Actions-------------------*/
         public void binCodeInput(String binCode) {
             myActions.action_sendKeys(binCodeEntry, binCode);
         }
@@ -340,6 +359,8 @@ public class PackagesPageObjects {
             myActions.action_click(inScanButton);
         }
 
+
+        /*--------------Functions-------------------*/
         public void performInScan(String binCode, String packageId) {
             binCodeInput(binCode);
             packageIdInput(packageId);

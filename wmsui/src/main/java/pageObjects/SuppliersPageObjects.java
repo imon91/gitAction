@@ -95,6 +95,8 @@ public class SuppliersPageObjects {
             myActions = new MyActions();
         }
 
+
+        /*--------------Functions-------------------*/
         public int getTotalSuppliers() {
             List<WebElement> suppliers = driver.findElements(By.xpath("//div[@id='SuppliersList']//tbody/tr"));
             return suppliers.size();

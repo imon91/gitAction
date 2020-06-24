@@ -138,7 +138,22 @@ public class VariantsPageObjects {
         public void clickFetchPIDSKUButton(){myActions.action_click(fetchPIDSKUButton);}
 
         /*--------------Functions-------------------*/
-        public void addNewVariant(String skuCode, String description, String category, String price, String reorderPoint) {
+        public void addNewVariantVoonik(String skuCode, String description, String category, String price, String reorderPoint,
+                                  String mp_vid, String mp_pid, String mp_sku) {
+            enterSkuCodeAddVariant(skuCode);
+            enterDescriptionAddVariant(description);
+            enterCategoryDropdownAddVariant(category);
+            enterPriceAddVariant(price);
+            enterReorderPointAddVariant(reorderPoint);
+            checkVoonikCheckBox();
+            enterMPVID(mp_vid);
+            enterMPPID(mp_pid);
+            enterMPSKU(mp_sku);
+            clickAddVariantButton();
+
+        }
+
+        public void addNewVariantNonVOONIK(String skuCode, String description, String category, String price, String reorderPoint){
             enterSkuCodeAddVariant(skuCode);
             enterDescriptionAddVariant(description);
             enterCategoryDropdownAddVariant(category);
@@ -146,7 +161,6 @@ public class VariantsPageObjects {
             enterReorderPointAddVariant(reorderPoint);
             clickAddVariantButton();
         }
-
 
     }
 
@@ -170,7 +184,6 @@ public class VariantsPageObjects {
 
 
         /*--------------Actions-------------------*/
-
         public void enterSellerDropdownBinsForSku(String seller) {
             myActions.action_select(sellerDropdownBinsForSku, seller);
         }
@@ -210,4 +223,71 @@ public class VariantsPageObjects {
             return myActions.action_getText(packageIds);
         }
     }
+
+
+    /*--------------Variant List Tab-------------------*/
+    public class VariantListTab{
+        private WebDriver driver;
+        private MyActions myActions;
+
+        public VariantListTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+        public String getVariantId(int index) {
+            String variantIdXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[1]";
+            WebElement variantId = driver.findElement(By.xpath(variantIdXpath));
+            return myActions.action_getText(variantId);
+        }
+
+        public String getSellerName(int index) {
+            String sellerNameXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[2]";
+            WebElement sellerName = driver.findElement(By.xpath(sellerNameXpath));
+            return myActions.action_getText(sellerName);
+        }
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[3]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
+        }
+
+        public String getDescription(int index) {
+            String descriptionXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[4]";
+            WebElement description = driver.findElement(By.xpath(descriptionXpath));
+            return myActions.action_getText(description);
+        }
+
+        public String getCategory(int index) {
+            String categoryXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[5]";
+            WebElement category = driver.findElement(By.xpath(categoryXpath));
+            return myActions.action_getText(category);
+        }
+
+        public String getPrice(int index) {
+            String priceXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[6]";
+            WebElement price = driver.findElement(By.xpath(priceXpath));
+            return myActions.action_getText(price);
+        }
+
+        public String getReorderPoint(int index) {
+            String reorderPointXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[7]";
+            WebElement reorderPoint = driver.findElement(By.xpath(reorderPointXpath));
+            return myActions.action_getText(reorderPoint);
+        }
+
+        public String getMarketPlace(int index) {
+            String marketPlaceXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[8]/table/tbody/tr/td";
+            WebElement marketPlace = driver.findElement(By.xpath(marketPlaceXpath));
+            return myActions.action_getText(marketPlace);
+        }
+
+        public String getMPVariantId(int index) {
+            String mPVariantIdXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[9]/table/tbody/tr/td";
+            WebElement mPVariantId = driver.findElement(By.xpath(mPVariantIdXpath));
+            return myActions.action_getText(mPVariantId);
+        }
+    }
+
 }
