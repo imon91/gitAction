@@ -1,14 +1,19 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
+import java.util.List;
+import java.util.Random;
+
 public class AddressPageObject {
     private WebDriver driver;
     private MyActions myActions;
+    private Random random;
 
 
     public AddressPageObject(WebDriver driver) {
@@ -154,5 +159,118 @@ public class AddressPageObject {
         enterMobileNumber("01877755590");
         clickOnSaveButton();
     }
+
+
+  ////////////////////////////*Dynamic Xpath function*//////////////////////////////
+    public String editAddress (int addressIndex)
+    {
+        String addressXpath = "//ul[@class='list-inline select_address_radio_list flex']/li";
+        List<WebElement> addressList = driver.findElements(By.xpath(addressXpath));
+        String address, addressName, addressname;
+        if (addressIndex != 0)
+        {
+            address = addressXpath + "[" + addressIndex + "]//input";
+            addressname = addressXpath + "[" + addressIndex + "]/label/p[1]";
+        }
+        else
+            {
+            int index = random.nextInt(addressList.size());
+            address = addressXpath + "[" + ++index + "]//input";
+            addressname = addressXpath + "[" + ++index + "]/label/p[1]";
+        }
+        WebElement clickaddress = driver.findElement(By.xpath(address));
+        WebElement addressnam = driver.findElement(By.xpath(addressname));
+        addressName = myActions.action_getText(addressnam);
+        myActions.action_click(clickaddress);
+        return addressName;
+    }
+
+
+    //Click edit address Button
+    public String editAddress(int addressIndex,String address_Name)
+    {
+        String addressXpath = "//ul[@class='list-inline select_address_radio_list flex']/li";
+        List<WebElement> addressList = driver.findElements(By.xpath(addressXpath));
+        String addressName,addressname,edit;
+        if (addressIndex!=0)
+        {
+            edit = addressXpath+"[" +addressIndex +"]//p[@class='edit-delete']/span[1]";
+            addressname = addressXpath + "[" + addressIndex + "]/label/p[1]";
+        }
+        else
+        {
+            int index = random.nextInt(addressList.size());
+            edit = addressXpath+"["+ ++index +"]//p[@class='edit-delete']/span[1]";
+            addressname = addressXpath+"["+ ++index +"]/label/p[1]";
+        }
+        WebElement clickedit = driver.findElement(By.xpath(edit));
+        WebElement addressnam = driver.findElement(By.xpath(addressname));
+        addressName = myActions.action_getText(addressnam);
+        myActions.action_click(clickedit);
+        return addressName;
+    }
+
+    //Click on delete Button
+    public String deleteAddress(int addressIndex)
+    {
+        String addressXpath = "//ul[@class='list-inline select_address_radio_list flex']/li";
+        List<WebElement> addressList = driver.findElements(By.xpath(addressXpath));
+        String addressName,addressname,delete;
+        if (addressIndex!=0)
+        {
+            delete = addressXpath+"[" +addressIndex +"]//p[@class='edit-delete']/span[2]";
+            addressname = addressXpath + "[" + addressIndex + "]/label/p[1]";
+        }
+        else
+        {
+            int index = random.nextInt(addressList.size());
+            delete = addressXpath+"["+ ++index +"]//p[@class='edit-delete']/span[2]";
+            addressname = addressXpath+"["+ ++index +"]/label/p[1]";
+        }
+        WebElement clickdelete = driver.findElement(By.xpath(delete));
+        WebElement addressnam = driver.findElement(By.xpath(addressname));
+        addressName = myActions.action_getText(addressnam);
+        myActions.action_click(clickdelete);
+        return addressName;
+    }
+
+    //delete product in address page
+    //Click on delete product at address page
+    public void deleteProduct(int productIndex)
+    {
+        String productXpath = "//ul[@class='list_of_estimated_deliverys list-unstyled']/li";
+        List<WebElement> productList = driver.findElements(By.xpath(productXpath));
+        String addressname,delete;
+        if (productIndex!=0)
+        {
+            delete = productXpath+"[" +productIndex +"]//p[2]/span";
+        }
+        else
+        {
+            int index = random.nextInt(productList.size());
+            delete = productXpath+"["+ ++index +"]//p[2]/span";
+        }
+        WebElement clickdelete = driver.findElement(By.xpath(delete));
+        myActions.action_click(clickdelete);
+    }
+
+    //total item in address page
+    public String getTotalQuantityInAddressPage ()
+    {
+        String quantitypath = "//div[@class='cart-value-right_header']/p/span[2]";
+        WebElement totQuantity = driver.findElement(By.xpath(quantitypath));
+        String totalQuantity = myActions.action_getText(totQuantity);
+        return totalQuantity;
+    }
+
+    //total cost or value at addresspage
+    public String getTotalCostInAddressPage ()
+    {
+        String costpath = "//div[@class='cart-value-right_header']/h2/span[2]";
+        WebElement totCost = driver.findElement(By.xpath(costpath));
+        String totalCost = myActions.action_getText(totCost);
+        return totalCost;
+    }
+
 
 }
