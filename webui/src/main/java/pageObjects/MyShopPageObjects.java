@@ -67,7 +67,7 @@ public class MyShopPageObjects {
 
     public void clickOnAddNewCollectionButton(){myActions.action_click(addNewCollectionButton);}
 
-    public void clickOnAddYourCollectionText(){myActions.action_click(addYourCollectionText);}
+    //public void clickOnAddYourCollectionText(){myActions.action_click(addYourCollectionText);}
 
     public void clickOnAddButton(){myActions.action_click(addButton);}
 
@@ -75,6 +75,15 @@ public class MyShopPageObjects {
 
 
     /*----------------Functions-------------------*/
+
+    public String createNewCollection(){
+        clickOnAddNewCollectionButton();
+        String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
+        myActions.action_sendKeys(addYourCollectionText,collectionName);
+
+        clickOnAddButton();
+        return collectionName;
+    }
 
 
 
