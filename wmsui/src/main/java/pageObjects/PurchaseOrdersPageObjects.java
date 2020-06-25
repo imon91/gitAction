@@ -516,4 +516,184 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             return src;
         }
     }
+
+
+    /*--------------Create Bulk Purchase Order Tab-------------------*/
+    public class CreateBulkPurchaseOrderTab {
+        private WebDriver driver;
+        private MyActions myActions;
+
+
+        public CreateBulkPurchaseOrderTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+        @FindBy(xpath = "//div[@id='CreateBulkPurchaseOrders']//label[@for='sel_warehouse']/following-sibling::select")
+        private WebElement warehouseDropdown;
+
+        @FindBy(xpath = "//div[@id='CreateBulkPurchaseOrders']//label[@for='sel_seller']/following-sibling::select")
+        private WebElement sellerDropdown;
+
+        @FindBy(xpath = "//div[@id='CreateBulkPurchaseOrders']//label[@for='sel_supplier']/following-sibling::select")
+        private WebElement supplierDropdown;
+
+        @FindBy(xpath = "//div[@id='CreateBulkPurchaseOrders']//label[@for='sel_address']/following-sibling::select")
+        private WebElement addressDropdown;
+
+        @FindBy(xpath = "//div[@id='CreateBulkPurchaseOrders']//div[5]/input")
+        private WebElement addFile;
+
+        @FindBy(xpath = "//div[@id='CreateBulkPurchaseOrders']//div[@class='text-center']/button")
+        private WebElement createPOButton;
+
+        @FindBy(xpath = "//div[@id='CreateBulkPurchaseOrders']//a")
+        private WebElement downloadTemplateButton;
+
+
+        /*--------------Actions-------------------*/
+        public void selectWarehouseDropdown(String warehouse) {
+            myActions.action_select(warehouseDropdown, warehouse);
+        }
+
+        public void selectSellerDropdown(String seller) {
+            myActions.action_select(sellerDropdown, seller);
+        }
+
+        public void selectSupplierDropdown(String supplier) {
+            myActions.action_select(supplierDropdown, supplier);
+        }
+
+        public void selectAddressDropdown(String address) {
+            myActions.action_select(addressDropdown, address);
+        }
+
+        public void clickAddSkuInputFields() {
+            myActions.action_click(addFile);
+        }
+
+        public void clickCreatePOButton() {
+            myActions.action_click(createPOButton);
+        }
+
+        public void clickDownloadTemplateButton() {
+            myActions.action_click(downloadTemplateButton);
+        }
+    }
+
+
+    /*--------------Transfer Order List Tab-------------------*/
+    public class TransferOrderListTab{
+        private WebDriver driver;
+        private MyActions myActions;
+
+
+        public TransferOrderListTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+
+        /*--------------Functions-------------------*/
+        public int getTotalTransferOrders() {
+            List<WebElement> transferOrders = driver.findElements(By.xpath("//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr"));
+            return transferOrders.size();
+        }
+
+        public String getSourceWarehouseName(int index) {
+            String sourceWarehouseXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[2]";
+            WebElement sourceWarehouse = driver.findElement(By.xpath(sourceWarehouseXpath));
+            return myActions.action_getText(sourceWarehouse);
+        }
+
+        public String getDestinationWarehouseName(int index) {
+            String destinationWarehouseXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[3]";
+            WebElement destinationWarehouse = driver.findElement(By.xpath(destinationWarehouseXpath));
+            return myActions.action_getText(destinationWarehouse);
+        }
+
+        public String getTOId(int index) {
+            String tOIDXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[1]";
+            WebElement tOID = driver.findElement(By.xpath(tOIDXpath));
+            return myActions.action_getText(tOID);
+        }
+
+        public String getStatus(int index) {
+            String statusXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[4]";
+            WebElement status = driver.findElement(By.xpath(statusXpath));
+            return myActions.action_getText(status);
+        }
+
+        public ArrayList<String> getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[5]/table/tbody/tr";
+            List<WebElement> skuCode = driver.findElements(By.xpath(skuCodeXpath));
+            ArrayList<String> skuCodes = new ArrayList<String>();
+            for (WebElement element : skuCode)
+                skuCodes.add(myActions.action_getText(element));
+            return skuCodes;
+        }
+
+        public ArrayList<String> getOrderedQuantity(int index) {
+            String quantityXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[6]/table/tbody/tr";
+            List<WebElement> quantity = driver.findElements(By.xpath(quantityXpath));
+            ArrayList<String> quantities = new ArrayList<String>();
+            for (WebElement element : quantity)
+                quantities.add(myActions.action_getText(element));
+            return quantities;
+        }
+
+        public String getPickListID(int index) {
+            String pickListIdXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[7]";
+            WebElement pickListID = driver.findElement(By.xpath(pickListIdXpath));
+            return myActions.action_getText(pickListID);
+        }
+
+        public void closeTO(int index){
+            String closeTOXpath = "//div[@id='TransferOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[8]//button";
+            WebElement closeTOButton = driver.findElement(By.xpath(closeTOXpath));
+            myActions.action_click(closeTOButton);
+        }
+    }
+
+
+    /*--------------Create Transfer Order Tab-------------------*/
+    public class CreateTransferOrderTab{
+        private WebDriver driver;
+        private MyActions myActions;
+
+
+        public CreateTransferOrderTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+        @FindBy(xpath = "//div[@id='CreateTransferOrder']//label[@for='sel_source_warehouse']/following-sibling::select")
+        private WebElement sourceWarehouseDropdown;
+
+        @FindBy(xpath = "//div[@id='CreateTransferOrder']//label[@for='sel_destination_warehouse']/following-sibling::select")
+        private WebElement destinationWarehouseDropdown;
+
+        @FindBy(xpath = "//div[@id='CreateTransferOrder']//label[@for='sel_seller']/following-sibling::select")
+        private WebElement sellerDropdown;
+
+        @FindBy(xpath = "//div[@id='CreateTransferOrder']//div[@class='text-center']/button")
+        private WebElement createTOButton;
+
+
+        /*--------------Actions-------------------*/
+        public void selectSourceWarehouseDropdown(String warehouse) {myActions.action_select(sourceWarehouseDropdown, warehouse);}
+
+        public void selectDestinationWarehouseDropdown(String warehouse) { myActions.action_select(destinationWarehouseDropdown, warehouse);}
+
+        public void selectSellerDropdown(String seller) {
+            myActions.action_select(sellerDropdown, seller);
+        }
+
+        public void clickCreateTOButton() {
+            myActions.action_click(createTOButton);
+        }
+    }
 }

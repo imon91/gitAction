@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -50,5 +51,11 @@ public class LoginPageObject {
         enterEmail(email);
         enterPassword(password);
         clickOnSubmitButton();
+    }
+
+    public String getPopUpMessage(){
+        String popUpMessage = "//div[@id='toastbar-text']";
+        WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
+        return myActions.action_getText(popUpMessageElement);
     }
 }
