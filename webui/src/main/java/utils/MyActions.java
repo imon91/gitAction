@@ -2,24 +2,24 @@ package utils;
 
 import org.openqa.selenium.WebElement;
 
-public class MyActions extends WebBaseClass{
+public class MyActions extends WebBaseClass {
 
-    public void action_click(WebElement element){
+    public void action_click(WebElement element) {
         sleep(1000);
         element.click();
     }
 
-    public void action_sendKeys(WebElement element, String data){
+    public void action_sendKeys(WebElement element, String data) {
         sleep(1000);
         element.sendKeys(data);
     }
 
-    public String action_getText(WebElement element){
+    public String action_getText(WebElement element) {
         sleep(1000);
         return element.getText();
     }
 
-    public String action_getTagName(WebElement element){
+    public String action_getTagName(WebElement element) {
         sleep(1000);
         return element.getTagName();
     }

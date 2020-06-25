@@ -17,42 +17,42 @@ dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.141.59'
     // https://mvnrepository.com/artifact/org.testng/testng
     implementation group: 'org.testng', name: 'testng', version: '6.14.3'
-
     // Including Core module as dependency
-    compile project(path : ':core')
+    compile project(path: ':core')
 
 }
 
 
-test{
+test {
     useTestNG() {
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv"])
+        systemProperties project.properties.subMap(["Host", "Os", "OSv", "Br", "BRv"])
     }
+//c4734975350b0ff11f37b39809ecbba51320e0d0
 }
 
-task webuiTest(type: Test){
+task webuiTest(type: Test) {
     useTestNG() {
         useDefaultListeners = true
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv"])
+        systemProperties project.properties.subMap(["Host", "Os", "OSv", "Br", "BRv"])
         def smoke = project.hasProperty("Smoke")
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
         def regression = project.hasProperty("Reg")
 
-        if(smoke) {
+        if (smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
         }
-        if(integration) {
+        if (integration) {
             suites "src/test/resources/mySuites/integrationSuite.xml"
         }
-        if(functional) {
+        if (functional) {
             suites "src/test/resources/mySuites/functionalSuite.xml"
         }
-        if(regression){
+        if (regression) {
             suites "src/test/resources/mySuites/regressionSuite.xml"
         }
     }
@@ -65,7 +65,7 @@ task webUiDebug(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv"])
+        systemProperties project.properties.subMap(["Host", "Os", "OSv", "Br", "BRv"])
         suites "src/test/resources/mySuites/debugSuite.xml"
     }
 }
