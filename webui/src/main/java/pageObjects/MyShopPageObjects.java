@@ -118,6 +118,7 @@ public class MyShopPageObjects {
 
     /*----------------Functions-------------------*/
 
+
     public String createNewCollection() {
         clickOnAddNewCollectionButton();
         String collectionName = "TestingCollection : " + new Random().nextInt(5000);

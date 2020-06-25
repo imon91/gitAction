@@ -1,21 +1,32 @@
 package pageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
+import java.util.List;
+import java.util.Random;
+
+import static utils.WebAppBaseClass.getBaseDriver;
+import static utils.WebAppBaseClass.sleep;
+
 
 public class HomePageObjects {
-    private AndroidDriver<WebElement> driver;
+    private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
+    private Random random;
 
-    public HomePageObjects(AndroidDriver<WebElement> androidDriver) {
+    public HomePageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         myActions = new MyActions();
+        random = new Random();
     }
 
     //HamBurgerMenuIcon
@@ -43,15 +54,19 @@ public class HomePageObjects {
     private WebElement ShopUpLogo;
 
     //searchicon
-    @FindBy(xpath = "//div/button[@class='searchIcon']")
+    @FindBy(xpath = "//button[@class='searchIcon___3vIuT']")
     private WebElement SearchButton;
 
+    //newsearchicon
+    @FindBy(xpath = "//div[@class='search-container']")
+    private WebElement newSearchButton;
+
     //Entering the object
-    @FindBy(xpath = "//div[@class='react-autosuggest__container']")
+    @FindBy(xpath = "//input[@id='searchTag']")
     private WebElement EnterObjectToSearch;
 
     //searching for the object
-    @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']")
+    @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']/*")
     private WebElement SearchTheObject;
 
     //BagIcon
@@ -73,6 +88,10 @@ public class HomePageObjects {
     //resendotp
     @FindBy(xpath = "//button[@class='normal___3nyjx secondary___2pQSN button___3btga ripple___1U_Uk action___2Amzo']")
     private WebElement ResendOTP;
+
+    //escfromotptextbox
+    @FindBy(xpath = "//div[@class='cont']")
+    private WebElement Login;
 
     //submit
     @FindBy(xpath = "//button[@class='normal___3nyjx primary___OLr69 button___3btga ripple___1U_Uk']")
@@ -138,6 +157,8 @@ public class HomePageObjects {
 
     private void clickOnSearchButton(){myActions.action_click(SearchButton);}
 
+    private void clickOnsearchButton(){myActions.action_click(newSearchButton);}
+
     private void enterTheObject(String object){myActions.action_sendKeys(EnterObjectToSearch,object);}
 
     private void searchTheObject(){myActions.action_click(SearchTheObject);}
@@ -151,6 +172,8 @@ public class HomePageObjects {
     private void clickOnEnterOTP(String OTP){myActions.action_sendKeys(EnterOTP,OTP);}
 
     private void clickOnResendOTP(){myActions.action_click(ResendOTP);}
+
+    private void clickOnLogin(){myActions.action_click(Login);}
 
     private void clickOnSubmitButton(){myActions.action_click(Submit);}
 
@@ -180,15 +203,19 @@ public class HomePageObjects {
 
     public void searchForObject(String object){
         clickOnSearchButton();
+        //clickOnsearchButton();
         enterTheObject(object);
         searchTheObject();
     }
 
     public void login(String MobileNumber, String OTP){
-        clickOnMyBag();
         clickOnEnterMobileNumber(MobileNumber);
+        driver.hideKeyboard();
         clickOnContinueButton();
+        //sleep(3500);
         clickOnEnterOTP(OTP);
+        driver.hideKeyboard();
+        //myActions.swipe(200,20);
         clickOnSubmitButton();
     }
 
@@ -196,6 +223,67 @@ public class HomePageObjects {
         clickOnUserProfile();
         clickOnChangeLanguage();
         clickOnCloseProfileButton();
+    }
+
+    public void navigateToMyShop(){
+        clickOnUserProfile();
+        clickOnMyShop();
+    }
+
+    public void navigateToHome(){
+        clickOnUserProfile();
+        clickOnHome();
+    }
+
+    public void navigateToMyAccount(){
+        clickOnUserProfile();
+        clickOnMyAccount();
+    }
+
+    public void navigateToMyOrder(){
+        clickOnUserProfile();
+        clickOnMyOrders();
+    }
+
+    public void navigateToResellerPolicy(){
+        clickOnUserProfile();
+        clickOnresellerPolicy();
+    }
+
+    public void setNavigateToContactUs(){
+        clickOnUserProfile();
+        clickOncontactUs();
+    }
+
+    public void navigateToFAQ(){
+        clickOnUserProfile();
+        clickOnFAQ();
+    }
+
+    public void SignOut(){
+        clickOnUserProfile();
+        clickOnSignOut();
+        sleep(2000);
+    }
+
+    /*--------dynamicfunctions-----------*/
+
+    public String tabContainer(int tabid){
+        String tab;
+        String tabXpath = "//div[@class='flex___1bJDE middle___1jEMZ']//div";
+        List<WebElement> tablist = driver.findElements(By.xpath(tabXpath));
+        if(tabid != 0){
+            tab = tabXpath+"["+tabid+"]";
+        } else {
+            int id = random.nextInt(tablist.size());
+            tab = tabXpath+"["+ ++id +"]";
+        }
+        String tabName = tab+"/p";
+        WebElement tabelement = driver.findElement(By.xpath(tab));
+        WebElement tabnameelement = driver.findElement(By.xpath(tabName));
+        String tabselected = myActions.action_getText(tabnameelement);
+        myActions.action_click(tabelement);
+        return tabselected;
     }
 
 }

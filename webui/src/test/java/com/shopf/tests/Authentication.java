@@ -55,6 +55,7 @@ public class Authentication extends WebBaseClass {
         sleep(1000);
         loginPageObject.performAuthentication("01877755590", "666666");
         // Verification Step Pending
+        loginPageObject.performAuthentication("01877755590","666666");
     }
 
 
