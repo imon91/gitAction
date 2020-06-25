@@ -3,5 +3,3 @@ include 'core'
 include 'webui'
 include 'androidui'
 include 'mobilewebui'
-include 'androiduiashok'
-

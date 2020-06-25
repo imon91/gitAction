@@ -9,99 +9,53 @@ import utils.MyActions;
 public class ActionBarObjects {
     private WebDriver driver;
     private MyActions myActions;
-    //Shopup icon
-    @FindBy(xpath = "//img[@alt='logo']")
-    private WebElement shopupIcon;
-    //Search bar text
-    @FindBy(xpath = "//input[@type='text'][@id='searchTag']")
-    private WebElement searchBarText;
-    //Search Icon
-    @FindBy(xpath = "//div[@class='search-container']/i")
-    private WebElement searchIcon;
-    //login icon
-    @FindBy(xpath = "//ul[@class='right-items text-right']/li[1]/a")
-    private WebElement loginButton;
-    //Track order icon
-    @FindBy(xpath = "//p[text()='Track order']")
-    private WebElement trackOrderButton;
-    //Myshop icon
-    @FindBy(xpath = "//ul[@class='right-items text-right']/li[3]/a")
-    private WebElement myshopButton;
-    //Bag icon
-    @FindBy(xpath = "//p[text()='bag']")
-    private WebElement bagButton;
-    //Dropdown Myorder
-    @FindBy(xpath = "//div[@class='my-account-dropdown text-left']/a[3]")
-    private WebElement dropdownmyorder;
-    //Dropdown Logout
-    @FindBy(xpath = "//div[@class='my-account-dropdown text-left']/a[4]")
-    private WebElement dropdownlogout;
-
-    //myorder page product -1
-    @FindBy(xpath = "//div[@class='myorders-list-main']/div[1]/ul/li/div/div[1]/div/p[1]/b")
-    private WebElement ordernumber_myorder;
 
 
-
-    public ActionBarObjects(WebDriver driver) {
+    public ActionBarObjects(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
+    //Shopup icon
+    @FindBy(xpath = "//img[@alt='logo']")
+    private WebElement shopupIcon;
 
-    public void clickOnShopupIcon() {
-        myActions.action_click(shopupIcon);
-    }
+    //Search bar text
+    @FindBy(xpath = "//input[@type='text'][@id='searchTag']")
+    private WebElement searchBarText;
 
-    public void clickOnSearchBarText(String Object) {
-        //myActions.action_click(searchBarText);
-        myActions.action_sendKeys(searchBarText, Object);
-    }
+    //Search Icon
+    @FindBy(xpath = "//i[text()='search']")
+    private WebElement searchIcon;
 
-    public void clickOnSearchIcon() {
-        myActions.action_click(searchIcon);
-    }
+    //login icon
+    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.0\")]")
+    private WebElement loginButton;
 
-    public void clickOnLoginButton() {
-        myActions.action_click(loginButton);
-    }
+    //Track order icon
+    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.2\")]")
+    private WebElement trackOrderButton;
 
-    public void clickOnTrackOrder() {
-        myActions.action_click(trackOrderButton);
-    }
+    //Myshop icon
+    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.3\")]")
+    private WebElement myshopButton;
 
-    public void clickOnMyshopButton() {
-        myActions.action_click(myshopButton);
-    }
+    //Bag icon
+    @FindBy(xpath = "//li[starts-with(@class,\"cart-icon mrvoonik-cart-icon\")]")
+    private WebElement bagButton;
 
-    public void clickOnBagButton() {
-        myActions.action_click(bagButton);
-    }
+    public void clickOnShopupIcon(){myActions.action_click(shopupIcon);}
 
-    public void dropDownMyOrder() {
-        myActions.action_click(dropdownmyorder);
-    }
+    public void clickOnSearchBarText(){myActions.action_click(searchBarText);}
 
-    public void dropDownLogout(){
-        myActions.action_click(dropdownlogout);
-    }
+    public void clickOnSearchIcon(){myActions.action_click(searchIcon);}
 
-    public void dropDown(){
-        myActions.action_click(dropdownlogout);
-    }
+    public void clickOnLoginButton(){myActions.action_click(loginButton);}
 
+    public void clickOnTrackOrder(){myActions.action_click(trackOrderButton);}
 
-    /*------FUNCTION-----*/
-    public void searchToObject(String Object) {
-        clickOnSearchBarText(Object);
-        clickOnSearchIcon();
-    }
+    public void clickOnMyshopButton(){myActions.action_click(myshopButton);}
 
-    //get ordenumber at myorder
-    public String getOrderNumberAtMyorder() {
-        String orderNumber=myActions.action_getText(ordernumber_myorder);
-        return orderNumber ;
-    }
-
+    public void clickOnBagButton(){myActions.action_click(bagButton);}
 
 }

@@ -1,6 +1,7 @@
 package pageObjects;
 
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -10,73 +11,74 @@ import utils.MyActions;
 public class LoginPageObject {
     private WebDriver driver;
     private MyActions myActions;
-    private ActionBarObjects actionBarObjects;
+
+
+    public LoginPageObject(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements( (driver), this);
+        myActions = new MyActions();
+    }
+
     //Login icon
-    @FindBy(xpath = "//p[text()='Login']")
-    private WebElement loginIconButton;
+    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.0\")]")
+    private WebElement loginiconText;
+
     //Mobile number entry text
-    @FindBy(xpath = "//input[@id='newPhone']")
+    @FindBy(xpath = "//span[text()='Mobile Number']")
     private WebElement mobileNumberTextView;
+
     //Skip button
     @FindBy(xpath = "//a[text()='SKIP']")
     private WebElement getSkipLoginButton;
+
     //continue button
     @FindBy(xpath = "//button[text()='CONTINUE']")
     private WebElement continueButton;
+
     //otp entry Text box
-    @FindBy(xpath = "//input[@id='newOtp']")
+    @FindBy(xpath = "//span[text()='OTP']")
     private WebElement otpTextView;
+
     //otp submit button
     @FindBy(xpath = "//button[text()='Submit']")
     private WebElement otpSubmitButton;
+
     //Resent otp button
     @FindBy(xpath = "//button[text()='Resend']")
     private WebElement resentOtpButton;
 
-    public LoginPageObject(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements((driver), this);
-        myActions = new MyActions();
-    }
 
     /*--------------Actions-------------------*/
     private void enterMobileNumber(String mobileNumber) {
-        myActions.action_sendKeys(mobileNumberTextView, mobileNumber);
-    }
+        myActions.action_sendKeys(mobileNumberTextView, mobileNumber); }
 
-    private void clickContinueButton() {
+    private void clickContinueButton(){
         myActions.action_click(continueButton);
     }
 
-    private void enterOtp(String otp) {
-        myActions.action_sendKeys(otpTextView, otp);
-    }
+    private void enterOtp(String otp){ myActions.action_sendKeys(otpTextView,otp); }
 
-    private void clickSubmitButton() {
-        myActions.action_click(otpSubmitButton);
-    }
+    private void clickSubmitButton(){myActions.action_click(otpSubmitButton);}
 
-    private void clickOnResentOtpButton() {
-        myActions.action_click(resentOtpButton);
-    }
+    private void clickOnResentOtpButton(){myActions.action_click(resentOtpButton);}
 
-    public String getLoginLabelText() {
-        return myActions.action_getText(loginIconButton);
-    }
+    public String getLoginLabelText(){
+        return myActions.action_getText(loginiconText); }
 
 
 
-    /*FUNCTIONS*/
+        /*FUNCTIONS*/
 
     //1.Normal Authentication Function
-    public void performAuthentication(String mobileNumber, String otp) {
-        ActionBarObjects actionBarObjects = new ActionBarObjects(driver);
-        actionBarObjects.clickOnLoginButton();
-        enterMobileNumber(mobileNumber);
-        clickContinueButton();
-        enterOtp(otp);
-        clickSubmitButton();
-    }
+        public void performAuthentication(String mobileNumber, String otp){
+            enterMobileNumber(mobileNumber);
+            clickContinueButton();
+            enterOtp(otp);
+            clickSubmitButton();
+        }
+
+
+
 
 
 }
