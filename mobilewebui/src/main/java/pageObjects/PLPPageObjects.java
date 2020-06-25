@@ -3,27 +3,33 @@ package pageObjects;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import utils.MyActions;
 import utils.WebAppBaseClass;
 
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 import static org.apache.commons.lang3.RandomUtils.nextInt;
+import static utils.WebAppBaseClass.getBaseDriver;
 import static utils.WebAppBaseClass.sleep;
 
 public class PLPPageObjects {
 
-        private AndroidDriver<WebElement> driver;
+        private AndroidDriver<WebElement> driver = getBaseDriver();
         private MyActions myActions;
+        private Random random;
 
-        public PLPPageObjects(AndroidDriver<WebElement> androidDriver) {
+        public PLPPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
             this.driver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(driver), this);
             myActions = new MyActions();
+            random = new Random();
         }
 
 
@@ -34,6 +40,14 @@ public class PLPPageObjects {
     //list2Object
     @FindBy(xpath = "//button[@class='threeview']")
     private WebElement ListTwoButton;
+
+    //resultofsearch
+    @FindBy(xpath = "//div[@class='flex feed-item-title']/h1")
+    private WebElement resultOfSearch;
+
+    //no.of items
+    @FindBy(xpath = "//div[@class='flex feed-item-title']//span[2]/span")
+    private WebElement noofItems;
 
     //sortTab
     @FindBy(xpath = "//p[contains(text(),'SORT')]")
@@ -167,7 +181,7 @@ public class PLPPageObjects {
     private WebElement ApplyFiltersButton;
 
     //closeFilters
-    @FindBy(xpath = "//*[@id=\"content\"]/div/div[3]/div[2]/div/div/div/div/div[2]/div/div/div/div[1]/div/button/div/svg")
+    @FindBy(xpath = "//button[@class='md-icon-button md-primary md-button md-ink-ripple']")
     private WebElement closeFiltersButton;
 
 /*--------Actions--------*/
@@ -175,6 +189,10 @@ public class PLPPageObjects {
     public void clickToListOneProduct(){myActions.action_click(ListOneButton);};
 
     public void clickToListTwoProduct(){myActions.action_click(ListTwoButton);};
+
+    public String getTheNameOfProductDisplayed(){return myActions.action_getText(resultOfSearch);};
+
+    public String getNoOfItemsOfTheProduct(){return myActions.action_getText(noofItems);}
 
     public void clickOnFilterTab(){myActions.action_click(FilterTab);};
 
@@ -250,6 +268,18 @@ public class PLPPageObjects {
         clickOnApplyFilters();
     }
 
+
+    public void filter(int a,int b){
+        clickOnFilterTab();
+        filterType(a);
+        filterItem(b);
+        sleep(2000);
+        clickOnApplyFilters();
+        System.out.println("filter applied");
+        sleep(3000);
+    }
+
+
     public void switchingcontext(){
         sleep(2000);
         // Context Switching
@@ -270,5 +300,148 @@ public class PLPPageObjects {
         //int x = rand.nextInt();
         driver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][2]").click();
     }
+
+
+/*--------dynamicfunctions----------*/
+
+
+
+             public String filterType(int filterTypeid) {
+                 String filterType;
+                 String filterTypeXpath = "//div[@class='col-md-5 col-sm-5 col-xs-5 filter-category']/ul/li";
+                 List<WebElement> filterTypesList = driver.findElements(By.xpath(filterTypeXpath));
+                 if (filterTypeid != 0) {
+                     filterType = filterTypeXpath + "[" + filterTypeid + "]";
+                 } else {
+                     int id = random.nextInt(filterTypesList.size());
+                     filterType = filterTypeXpath + "[" + ++id + "]";
+                 }
+                 String filterTypeSelected = filterType + "/button";
+                 WebElement filterTypeElement = driver.findElement(By.xpath(filterTypeSelected));
+                 myActions.action_click(filterTypeElement);
+                 return myActions.action_getText(filterTypeElement);
+             }
+
+
+             public String filterItem(int filterItemid) {
+                 String filterItem;
+                 String filterItemXpath = "//div[@class='col-md-7 col-sm-7 col-xs-7 filter-subcat']//div[@class='tab-pane fade active in']//ul/li";
+                 List<WebElement> filterItemsList = driver.findElements(By.xpath(filterItemXpath));
+                 if (filterItemid != 0) {
+                     filterItem = filterItemXpath + "[" + filterItemid + "]";
+                 } else {
+                     int id = random.nextInt(filterItemsList.size());
+                     filterItem = filterItemXpath + "[" + ++id + "]";
+                 }
+                 String filterItemInput = filterItem + "//input";
+                 String filterItemLabel = filterItem + "//label";
+                 WebElement filterItemInputElement = driver.findElement(By.xpath(filterItemInput));
+                 WebElement filterItemLabelElement = driver.findElement(By.xpath(filterItemLabel));
+                 String filterItemLabelSelected = myActions.action_getText(filterItemLabelElement);
+                 myActions.action_click(filterItemLabelElement);
+                 return filterItemLabelSelected;
+             }
+
+
+             public void sorttype(int sortTypeid) {
+                 String sortType;
+                 String sortTypeXpath = "//select";
+                 Select select = new Select(driver.findElement(By.xpath(sortTypeXpath)));
+                 if (sortTypeid != 0) {
+                     select.selectByIndex(sortTypeid);
+                 } else {
+                     int id = random.nextInt(8);
+                     select.selectByIndex(++id);
+                 }
+                 //String sortTypeSelected = select.getFirstSelectedOption().getText();
+                 //myActions.action_click(sortTypeElement);
+                 //return sortTypeSelected;
+             }
+
+
+             String productXpath = "//div[@class='feed-grid-container']/ul/li";
+             List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
+
+             public int chooseProductFromFeed(int feedid) {
+                 String product;
+                 int productid;
+                 if (feedid != 0) {
+                     product = productXpath + "[" + feedid + "]";
+                     productid = feedid;
+                 } else {
+                     int id = random.nextInt(productsList.size());
+                     product = productXpath + "[" + ++id + "]";
+                     productid = id;
+                 }
+                 WebElement chooseProduct = driver.findElement(By.xpath(product));
+                 myActions.action_click(chooseProduct);
+                 return productid;
+             }
+
+
+             public String nameOfProduct(int feedid) {
+                 String productName;
+                 if (feedid != 0) {
+                     productName = productXpath + "[" + feedid + "]/div//div[@class='productNameContainer___M7bIM']/p";
+                 } else {
+                     int id = random.nextInt(productsList.size());
+                     productName = productXpath + "[" + ++id + "]/div//div[@class='productNameContainer___M7bIM']/p";
+                 }
+                 WebElement nameOfProduct = driver.findElement(By.xpath(productName));
+                 String productNameSelected = myActions.action_getText(nameOfProduct);
+                 return productNameSelected;
+             }
+
+
+             public String price(int feedid) {
+                 String price;
+                 if (feedid != 0) {
+                     price = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[1]";
+                 } else {
+                     int id = random.nextInt(productsList.size());
+                     price = productXpath + "[" + ++id + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[1]";
+                 }
+                 WebElement priceofProduct = driver.findElement(By.xpath(price));
+                 String priceOfSelectedProduct = myActions.action_getText(priceofProduct);
+                 return priceOfSelectedProduct;
+             }
+
+
+             public String oldPrice(int feedid) {
+                 String oldPrice;
+                 if (feedid != 0) {
+                     oldPrice = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/del/span";
+                 } else {
+                     int id = random.nextInt(productsList.size());
+                     oldPrice = productXpath + "[" + ++id + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/del/span";
+                 }
+                 WebElement oldPriceofProduct = driver.findElement(By.xpath(oldPrice));
+                 String oldPriceOfSelectedProduct = myActions.action_getText(oldPriceofProduct);
+                 return oldPriceOfSelectedProduct;
+             }
+
+
+             public String discount(int feedid) {
+                 String discount;
+                 if (feedid != 0) {
+                     discount = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[2]";
+                 } else {
+                     int id = random.nextInt(productsList.size());
+                     discount = productXpath + "[" + ++id + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[2]";
+                 }
+                 WebElement discountofProduct = driver.findElement(By.xpath(discount));
+                 String discountOfSelectedProduct = myActions.action_getText(discountofProduct);
+                 return discountOfSelectedProduct;
+             }
+
+
+             public void detailsOfProduct(int data) {
+                 System.out.println(nameOfProduct(data));
+                 System.out.println(price(data));
+                 System.out.println(oldPrice(data));
+                 System.out.println(discount(data));
+             }
+
+
 
 }

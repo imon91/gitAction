@@ -61,6 +61,7 @@ public class CheckoutPageObjects {
     private WebElement PlaceOrderButton;
 
 
+
 /*-----------Actions------------*/
 
 
@@ -83,21 +84,30 @@ public class CheckoutPageObjects {
     public void clickOnPlaceOrder(){myActions.action_click(PlaceOrderButton);};
 
 
+
 /*-------Functions---------*/
 
  public void confirmingOrder(){
      clickOnIncreaseQuantity();
-     sleep(1000);
+     sleep(2000);
      clickOnIncreaseQuantity();
-     sleep(1000);
+     sleep(2000);
      clickOnDecreaseQuantity();
-     sleep(1000);
+     sleep(2000);
      EnterChangeofCustomPrice("500");
      EnterDeliveryCharge("60");
+     sleep(2000);
      clickOnSaveDeliveryCharge();
+     sleep(2000);
      touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
      clickOnPlaceOrder();
  }
+
+
+
+ /*-------dynamicfunctions-----------*/
+
+
 
 }
 

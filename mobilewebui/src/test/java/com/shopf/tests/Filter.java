@@ -32,6 +32,7 @@ public class Filter extends WebAppBaseClass {
     public void verifyFiltering(){
         System.out.println("control came to verifyFiltering");
         //plp.FilteringProduct();
+        plp.filter(0,0);
     }
 
 
@@ -39,7 +40,7 @@ public class Filter extends WebAppBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifySorting(){
         System.out.println("control came to verifySorting");
-        sleep(6000);
+        sleep(6000);/*
         //WebElement element = androidDriver.findElement(By.xpath(""));
         //JavascriptExecutor executor = (JavascriptExecutor)androidDriver;
         //executor.executeScript("arguments[0].click();", element);
@@ -49,7 +50,12 @@ public class Filter extends WebAppBaseClass {
         //System.out.println("switch happened");
         Select select = new Select(androidDriver.findElement(By.xpath("//select")));
         select.selectByIndex(2);
-        sleep(6000);
+        sleep(6000);*/
+        //plp.clickOnSortTab();
+        //System.out.println(plp.sorttype(0));
+        plp.sorttype(0);
+        sleep(2000);
+        //plp.sort(0);
     }
 
 

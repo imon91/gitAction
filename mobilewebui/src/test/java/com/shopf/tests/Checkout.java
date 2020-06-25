@@ -36,9 +36,11 @@ public class Checkout extends WebAppBaseClass {
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
+    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false)
     public void verifyAddingItemsToMyBag() {
         System.out.println("control came to verify adding items to my shop");
+        checkoutpageobject.clickOnContinueShopping();
+        homepageobject.navigateToMyShop();
         touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,100)).release().perform();
         androidDriver.findElementByXPath("//div[@class='gridItems___2yFJ9 items___vci1r'][5]").click();
         androidDriver.findElementByXPath("//a[@class='imageLink___3uqgg'][1]").click();
@@ -55,14 +57,6 @@ public class Checkout extends WebAppBaseClass {
         checkoutpageobject.confirmingOrder();
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
         //checkoutpageobject.clickOnPlaceOrder();
-    }
-
-
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false)
-    public void verifyThingsOnMyBag(){
-        System.out.println("control came to my bag");
-        checkoutpageobject.confirmingOrder();
     }
 
 

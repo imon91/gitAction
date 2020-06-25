@@ -9,7 +9,7 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.Authentication"></class>
-            <class name="com.shopf.tests.MyShop"></class>
+            <!--<class name="com.shopf.tests.MyShop"></class>-->
             <class name="com.shopf.tests.Search"></class>
             <class name="com.shopf.tests.Filter"></class>
             <class name="com.shopf.tests.AddingItems"></class>

@@ -27,7 +27,7 @@ public class Authentication extends WebAppBaseClass {
 
 
     @BeforeClass(alwaysRun = true)
-    public void authenticationSetUp(){
+    public void authenticationSetUp() throws Exception {
         System.out.println("authenticationSetUp is called");
         homepageobject = new HomePageObjects(androidDriver);
         bottomnavigationobject = new BottomNavigationObjects(androidDriver);
