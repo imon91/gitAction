@@ -41,6 +41,9 @@ public class CoreConstants {
     public static final String GROUP_INTEGRATION = "integration";
     public static final String GROUP_REGRESSION = "regression";
 
-    /*-----------Reseller WebUrls---------------*/
+    /*----------- WebUrls---------------*/
     public static final String RESELLER_STAGE_BASE_URL = "https://uatwap.shopups1.xyz/r";
+    public static final String UNICORN_STAGE_BASE_URL = "https://ucwap.shopups1.xyz/r";
+    public static final String UNICORN_PROD_BASE_URL = "https://ucwap.vnksrvc.com/";
+    public static final String WMS_STAGE_BASE_URL = "https://uatwms.vnksrvc.com/";
 }

@@ -29,19 +29,19 @@ public class ActionBarObjects {
     private WebElement searchIcon;
 
     //login icon
-    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.0\")]")
+    @FindBy(xpath = "//p[text()='Login']")
     private WebElement loginButton;
 
     //Track order icon
-    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.2\")]")
+    @FindBy(xpath = "//p[text()='Track order']")
     private WebElement trackOrderButton;
 
     //Myshop icon
-    @FindBy(xpath = "//li[starts-with(@data-reactid,\".2tilrlk2ns.1.1.0.0.1.3\")]")
+    @FindBy(xpath = "//p[text()='My Shop']")
     private WebElement myshopButton;
 
     //Bag icon
-    @FindBy(xpath = "//li[starts-with(@class,\"cart-icon mrvoonik-cart-icon\")]")
+    @FindBy(xpath = "//p[text()='bag']")
     private WebElement bagButton;
 
     public void clickOnShopupIcon(){myActions.action_click(shopupIcon);}

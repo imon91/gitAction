@@ -2,27 +2,52 @@ package pageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
-public class MyOrderPageObjects {
-    private AndroidDriver<WebElement> driver;
-    private MyActions myActions;
+import java.util.List;
+import java.util.Random;
 
-    public MyOrderPageObjects(AndroidDriver<WebElement> androidDriver) {
+import static utils.WebAppBaseClass.getBaseDriver;
+
+public class MyOrderPageObjects {
+    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private MyActions myActions;
+    private Random random;
+
+    public MyOrderPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver), this);
         myActions = new MyActions();
+        random = new Random();
     }
+
+
+//selectfirstOrderId
+    @FindBy(xpath = "//div[@class='column___37VPa']/p")
+    private WebElement selectOrder;
+
+//orderNo
+    @FindBy(xpath = "//p[@class='thankyou_order_no']/*[2]")
+    private WebElement orderno;
+
+//navigateTohome
+    @FindBy(xpath = "//a[@href='/r']")
+    private WebElement home;
 
 //searchOrder
     @FindBy(xpath = "//input[@class='fullWidth___3mngV inputSearch___18p3g']")
     private WebElement searchOrder;
 
+//enterorderno
+    @FindBy(xpath = "//input[@class='fullWidth___3mngV inputSearch___18p3g']")
+    private WebElement EnterID;
+
 //clickOnSearchIcon
-    @FindBy(xpath = "//*[@id=\"myorderSearch\"]/div/svg")
+    @FindBy(xpath = "//div[@class='flex___1bJDE search___I30gU']/*[2]")
     private WebElement searchIcon;
 
 //sortTab
@@ -93,12 +118,92 @@ public class MyOrderPageObjects {
     @FindBy(xpath = "//input[@id='cancelled']")
     private WebElement cancelled;
 
+//loadMore
+    @FindBy(xpath = "//button[@class='normal___3nyjx primary___OLr69 button___3btga ripple___1U_Uk contain___ux0BW']")
+    private WebElement loadMore;
+
+//totalproductsdelivered
+    @FindBy(xpath = "//div[@class='flex___1bJDE between___1AlI0 middle___1jEMZ yourTotal___3AH2q']")
+    private WebElement totalproductsdelivered;
+
+//advancepayment
+    @FindBy(xpath = "//button[@class='rounded___vgOiV primary___OLr69 button___3btga ripple___1U_Uk contain___ux0BW']")
+    private WebElement advancepayment;
+
+    //transactionnumber
+    @FindBy(xpath = "//div[@class='input___1k2OF']")
+    private WebElement transactionnumber;
+
+    //entertransactionnumber
+    @FindBy(xpath = "//input[@class='input___tfjvP']")
+    private WebElement entertransactionnumber;
+
+    //submit
+    @FindBy(xpath = "//button[@class='flat___n-myg primary___OLr69 button___3btga ripple___1U_Uk contain___ux0BW save___38niZ']")
+    private WebElement submittn;
+
+    //cancel
+    @FindBy(xpath = "//button[@class='flat___n-myg flatSecondary___8V87I button___3btga ripple___1U_Uk contain___ux0BW cancel___16T_c']")
+    private WebElement canceltn;
+
+    //detailsofadvancepayment
+    @FindBy(xpath = "//div[@class='flex___1bJDE center___10Hxv middle___1jEMZ info___HeH-4 info___tUK9g']")
+    private WebElement detailsofpayment;
+
+    //closedetails
+    @FindBy(xpath = "//div[@class='flex___1bJDE end___ihLmU close___3-Y6W']/*")
+    private WebElement closedetails;
+
+    //purchasevalue
+    @FindBy(xpath = "//div[@class='flex___1bJDE between___1AlI0 row___25IZ9'][1]//p")
+    private WebElement purchasevalue;
+
+    //deliverycharge
+    @FindBy(xpath = "//div[@class='flex___1bJDE between___1AlI0 row___25IZ9'][2]//p")
+    private WebElement deliverycharge;
+
+    //advanceamount
+    @FindBy(xpath = "//div[@class='flex___1bJDE between___1AlI0 row___25IZ9'][3]//p")
+    private WebElement advanceamount;
+
+    //balance
+    @FindBy(xpath = "//div[@class='flex___1bJDE between___1AlI0 row___25IZ9 balance___2aFr6']//p")
+    private WebElement balance;
+
+    //income
+    @FindBy(xpath = "//span[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T bold___3nNae text-flat___3AZ-6 yourTotalIncomeText___3tOk1'][2]")
+    private WebElement income;
+
+    //changeAddress
+    @FindBy(xpath = "//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 textAlign-right___yDZfS']")
+    private WebElement address;
+
+    //back
+    @FindBy(xpath = "//div[@class='portlet trackingDetails___33L0H']/button")
+    private WebElement back;
+
+    //backbutton
+    @FindBy(xpath = "//div[@class='productDetails___2adJN']/button")
+    private WebElement backbutton;
+
+    //reasonforcancel
+    @FindBy(xpath = "//select[@name='reason']")
+    private WebElement reasonforcancel;
+
+    //cancelorder
+    @FindBy(xpath = "//button[@class='flat___n-myg primary___OLr69 button___3btga ripple___1U_Uk contain___ux0BW']")
+    private WebElement cancelorder;
+
 
 /*---------Actions--------*/
 
 public void clickOnSearchOrder(){myActions.action_click(searchOrder);}
 
+public void EnterID(String data){myActions.action_sendKeys(EnterID,data);}
+
 public void clickOnSearchIcon(){myActions.action_click(searchIcon);}
+
+public String getRecentOrderId(){return myActions.action_getText(selectOrder);}
 
 public void clickOnSortTab(){myActions.action_click(sortTab);}
 
@@ -134,25 +239,267 @@ public void clickOnDelivered(){myActions.action_click(delivered);}
 
 public void clickOnCancelled(){myActions.action_click(cancelled);}
 
+public String getOrderNo(){return myActions.action_getText(orderno);}
 
-/*---------Functions*---------/
+public void navigationToHome(){myActions.action_click(home);}
 
- */
+public void clickOnLoadMore(){myActions.action_click(loadMore);}
+
+public String getNoofProductsDelivered(){return myActions.action_getText(totalproductsdelivered);}
+
+public void clickOnadvancepayment(){myActions.action_click(advancepayment);}
+
+public void clickOnTransactionnumber(){myActions.action_click(transactionnumber);}
+
+public void enterTransactionnumber(String data){myActions.action_sendKeys(entertransactionnumber,data);}
+
+public void submittnbutton(){myActions.action_click(submittn);}
+
+public void canceltnbutton(){myActions.action_click(canceltn);}
+
+public void clickOndetailsonPayment(){myActions.action_click(detailsofpayment);}
+
+public void closedetails(){myActions.action_click(closedetails);}
+
+public void getPurchaseValue(){myActions.action_getText(purchasevalue);}
+
+public void getdeliveryCharge(){myActions.action_getText(deliverycharge);}
+
+public void getAdvanceAmountpaid(){myActions.action_getText(advanceamount);}
+
+public void getBalanceAmountToBePaid(){myActions.action_getText(balance);}
+
+public void getTotalIncome(){myActions.action_getText(income);}
+
+public void clickOnChangeAddress(){myActions.action_click(address);}
+
+public void clickonbackfromstatus(){myActions.action_click(back);}
+
+public void clickonbackfromdelete(){myActions.action_click(backbutton);}
+
+public void clickOnreasonforCancellation(){myActions.action_click(reasonforcancel);}
+
+public void clickOnCancelOrder(){myActions.action_click(cancelorder);}
+
+
+/*---------Functions---------*/
 
 
 
+public void orderConfirmation(){
+      getOrderNo();
+      navigationToHome();
+}
+
+public void verifyOrder(String ID){
+     clickOnSearchOrder();
+     EnterID(ID);
+     clickOnSearchIcon();
+}
+
+/*------dynamicfunctions---------*/
 
 
 
+         String ordersXpath = "//a[@class='card___30lJu']";
+         List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
+
+         public int clickOnOrder(int orderno){
+             String order;
+             int choosenOrder;
+             if(orderno != 0){
+                 order = ordersXpath+"["+orderno+"]";
+                 choosenOrder = orderno;
+             }
+             else{
+                 int id = random.nextInt(ordersList.size());
+                 order = ordersXpath+"["+ ++id +"]";
+                 choosenOrder = id;
+             }
+             WebElement chooseOrder = driver.findElement(By.xpath(ordersXpath));
+             myActions.action_click(chooseOrder);
+             return choosenOrder;
+         }
+
+         public String orderid(int orderno) {
+                 String orderid;
+                 if (orderno != 0) {
+                     orderid = ordersXpath+"["+orderno+"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                 }
+                 else{
+                     int id = random.nextInt(ordersList.size());
+                     orderid = ordersXpath+"["+ ++id +"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                 }
+                 WebElement idofOrder = driver.findElement(By.xpath(orderid));
+                 String idofSelectedorder = myActions.action_getText(idofOrder);
+                 return idofSelectedorder;
+         }
 
 
+         public String orderdate(int orderno) {
+                 String orderdate;
+                 if (orderno != 0) {
+                     orderdate = ordersXpath+"["+orderno+"]//div[@class='column___37VPa']//p[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                 }
+                 else{
+                     int id = random.nextInt(ordersList.size());
+                     orderdate = ordersXpath+"["+ ++id +"]//div[@class='column___37VPa']//p[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                 }
+                 WebElement dateofOrder = driver.findElement(By.xpath(orderdate));
+                 String dateofSelectedorder = myActions.action_getText(dateofOrder);
+                 return dateofSelectedorder;
+         }
 
 
+         public String name(int orderno) {
+                 String name;
+                 if (orderno != 0) {
+                     name = ordersXpath+"["+orderno+"]//div[@class='flex___1bJDE between___1AlI0 column___37VPa']//p[1]";
+                 }
+                 else{
+                     int id = random.nextInt(ordersList.size());
+                     name = ordersXpath+"["+ ++id +"]//div[@class='flex___1bJDE between___1AlI0 column___37VPa']//p[1]";
+                 }
+                 WebElement nameofcustomer = driver.findElement(By.xpath(name));
+                 String customernameofSelectedorder = myActions.action_getText(nameofcustomer);
+                 return customernameofSelectedorder;
+         }
 
 
+         public void detailsofOrder(int data){
+             System.out.println(orderid(data));
+             System.out.println(orderdate(data));
+             System.out.println(name(data));
+         }
 
 
+         String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+         List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
 
+
+         public String nameofproduct(int productno){
+             String productname;
+             if(productno != 0){
+                 productname = productsXpath+"["+productno+"]//span[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 productName___c9mQB']/font";
+             }
+             else{
+                 int id = random.nextInt(productslist.size());
+                 productname = productsXpath+"["+ ++id +"]//span[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 productName___c9mQB']/font";
+             }
+             WebElement nameElement = driver.findElement(By.xpath(productname));
+             String nameofproduct = myActions.action_getText(nameElement);
+             return nameofproduct;
+         }
+
+
+    public String sizeofproduct(int productno){
+        String productsize;
+        if(productno != 0){
+            productsize = productsXpath+"["+productno+"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//span[1]";
+        }
+        else{
+            int id = random.nextInt(productslist.size());
+            productsize = productsXpath+"["+ ++id +"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//span[1]";
+        }
+        WebElement sizeElement = driver.findElement(By.xpath(productsize));
+        String sizeofproduct = myActions.action_getText(sizeElement);
+        return sizeofproduct;
+    }
+
+    public String quantityofproduct(int productno){
+        String productquantity;
+        if(productno != 0){
+            productquantity = productsXpath+"["+productno+"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//span[2]";
+        }
+        else{
+            int id = random.nextInt(productslist.size());
+            productquantity = productsXpath+"["+ ++id +"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//span[2]";
+        }
+        WebElement quantityElement = driver.findElement(By.xpath(productquantity));
+        String quantityofproduct = myActions.action_getText(quantityElement);
+        return quantityofproduct;
+    }
+
+    public String priceofproduct(int productno){
+        String productprice;
+        if(productno != 0){
+            productprice = productsXpath+"["+productno+"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//p[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 textAlign-right___yDZfS']/font";
+        }
+        else {
+            int id = random.nextInt(productslist.size());
+            productprice = productsXpath + "[" + ++id + "]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//p[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 textAlign-right___yDZfS']/font";
+        }
+        WebElement priceElement = driver.findElement(By.xpath(productprice));
+            String priceofproduct = myActions.action_getText(priceElement);
+            return priceofproduct;
+         }
+
+    public String incomefromproduct(int productno){
+        String productincome;
+        if(productno != 0){
+            productincome = productsXpath+"["+productno+"]//div[@class='sectionBig___3NAav']//p[@class='success___3Wbvy weight-4___ZQvdQ text-16___-Np8V bold___3nNae text-flat___3AZ-6 textAlign-right___yDZfS']/font";
+        }
+        else{
+            int id = random.nextInt(productslist.size());
+            productincome = productsXpath+"["+ ++id +"]//div[@class='sectionBig___3NAav']//p[@class='success___3Wbvy weight-4___ZQvdQ text-16___-Np8V bold___3nNae text-flat___3AZ-6 textAlign-right___yDZfS']/font";
+        }
+        WebElement incomeElement = driver.findElement(By.xpath(productincome));
+        String incomeofproduct = myActions.action_getText(incomeElement);
+        return incomeofproduct;
+    }
+
+    public void productdetails(int data){
+             System.out.println(nameofproduct(data));
+             System.out.println(sizeofproduct(data));
+             System.out.println(quantityofproduct(data));
+             System.out.println(priceofproduct(data));
+             System.out.println(incomefromproduct(data));
+    }
+
+    public void getstatusofproduct(int productno){
+        String productstatus;
+        if(productno != 0){
+            productstatus = productsXpath+"["+productno+"]//a/*";
+        }
+        else{
+            int id = random.nextInt(productslist.size());
+            productstatus = productsXpath+"["+ ++id +"]//a/*";
+        }
+        WebElement statusElement = driver.findElement(By.xpath(productstatus));
+        myActions.action_getText(statusElement);
+    }
+
+
+    public String deleteproduct(int productno){
+        String productname;
+        if(productno != 0){
+            productname = productsXpath+"["+productno+"]//div[@class='deleteActive___SWGaJ']/*";
+        }
+        else{
+            int id = random.nextInt(productslist.size());
+            productname = productsXpath+"["+ ++id +"]//div[@class='deleteActive___SWGaJ']/*";
+        }
+        WebElement nameElement = driver.findElement(By.xpath(productname));
+        String nameofproduct = myActions.action_getText(nameElement);
+        return nameofproduct;
+    }
+
+
+    public String selectreason(int optionid){
+             String option;
+             String optionXpath = "//select[@class='selectText___2iGx7']//option";
+             List<WebElement> optionslist = driver.findElements(By.xpath(optionXpath));
+             if(optionid != 0){
+                 option = optionXpath+"["+optionid+"]/font";
+             } else{
+                 int id = random.nextInt(optionslist.size());
+                 option = optionXpath+"["+ ++id +"]/font";
+             }
+             WebElement optionElement = driver.findElement(By.xpath(option));
+             String reasonSelected = myActions.action_getText(optionElement);
+             myActions.action_click(optionElement);
+             return reasonSelected;
+    }
 
 
 
