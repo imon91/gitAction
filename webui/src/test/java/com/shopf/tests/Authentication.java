@@ -1,6 +1,7 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import pageObjects.*;
@@ -20,6 +21,7 @@ public class Authentication extends WebBaseClass {
         System.out.println("ResellerWebBeforeSuite is called");
         driver = getBaseDriver();
         setImplicitWait(10000);
+        driver.get(getWebBaseUrl());
     }
 
 
@@ -29,6 +31,7 @@ public class Authentication extends WebBaseClass {
     public void authenticationSetUp(){
         System.out.println("authenticationSetUp is called");
         loginPageObject = new LoginPageObject(driver);
+
     }
 
 
@@ -51,9 +54,6 @@ public class Authentication extends WebBaseClass {
             dataProvider = "getUserAuthenticationData"  )
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
-        driver.get(CoreConstants.RESELLER_STAGE_BASE_URL);
-        sleep(4000);
-        // Verification Step Pending
     }
 
 

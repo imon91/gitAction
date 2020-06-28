@@ -1,8 +1,7 @@
 package pageObjects;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
+import io.appium.java_client.android.*;
+import io.appium.java_client.pagefactory.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
@@ -39,44 +38,44 @@ public class RightNavigationDrawer {
     private AndroidElement navigationItemMyAccount;
 
     // NavigationItem My Orders
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='My Orders']")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='5']")
     private AndroidElement navigationItemMyOrders;
 
     // NavigationItem My Shop
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='My Shop']")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='4']")
     private AndroidElement navigationItemMyShop;
 
     // NavigationItem Change Language
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='Change Language']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Change Language']")
     private AndroidElement navigationItemChangeLanguage;
 
     // NavigationItem Reseller Policy
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='Reseller Policy']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reseller Policy']")
     private AndroidElement navigationItemResellerPolicy;
 
 
     // NavigationItem Privacy Policy
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='Privacy Policy']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Privacy Policy']")
     private AndroidElement navigationItemPrivacyPolicy;
 
     // NavigationItem Help
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='Help']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Help']")
     private AndroidElement navigationItemHelp;
 
     // NavigationItem FAQ
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='FAQ']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='FAQ']")
     private AndroidElement navigationItemFAQ;
 
     // NavigationItem Privacy Tutorial
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='Tutorial']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Tutorial']")
     private AndroidElement navigationItemTutorial;
 
     // NavigationItem Contact us
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='Contact us']")
+    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Contact us']")
     private AndroidElement navigationItemContactUs;
 
     // NavigationItem Logout
-    @AndroidFindBy(xpath = "android.widget.TextView[@text='Logout']")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='13']")
     private AndroidElement navigationItemLogout;
 
 

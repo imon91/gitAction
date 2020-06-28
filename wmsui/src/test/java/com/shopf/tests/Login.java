@@ -19,7 +19,8 @@ public class Login extends WmsBaseClass {
         System.out.println("WMSBeforeSuite is called");
         driver = getBaseDriver();
         setImplicitWait(10000);
-        driver.get(CoreConstants.WMS_STAGE_BASE_URL);
+        driver.get(getWmsBaseUrl());
+        sleep(5000);
     }
 
 
@@ -42,9 +43,10 @@ public class Login extends WmsBaseClass {
 
 
 
-    @Test
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dataProvider = "getUserAuthenticationData")
     public void verifyAuthenticationWithValidCredentials(String email,String password){
         System.out.println("verifyAuthentication is called");
+        System.out.println(email + ":" + password);
 
     }
 

@@ -1,29 +1,30 @@
 package pageObjects;
 
-import utils.MyActions;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.*;
+import utils.*;
+import io.appium.java_client.android.*;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.support.PageFactory;
 
 public class LoginPageObjects {
 
     private AndroidDriver<AndroidElement> androidDriver;
     private MyActions myActions;
+    private String myPackage;
 
     public LoginPageObjects(AndroidDriver<AndroidElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        myPackage = AndroidBaseClass.getAppPackage();
     }
 
-    // SignUp Label
-    @AndroidFindBy(id = "com.shopup.reseller:id/text_login_label")
+
+    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.mokam.app:id/text_login_label']")
     private AndroidElement loginLabelTextView;
 
     // Mobile Number Edit text
-    @AndroidFindBy(id = "com.shopup.reseller:id/et_mobile_number")
+    @AndroidFindBy(id = "com.mokam.app:id/et_mobile_number")
     private AndroidElement mobileNumberEditTextView;
 
     // otp verify button
@@ -57,6 +58,8 @@ public class LoginPageObjects {
     /*--------------Actions-------------------*/
 
     private void enterMobileNumber(String mobileNumber){
+        WebElement mobileNumberEditTextView = androidDriver.
+                findElement(By.xpath("//android.widget.EditText[@resource-id='"+myPackage+":id/et_mobile_number']"));
         myActions.action_sendKeys(mobileNumberEditTextView,mobileNumber);
     }
 

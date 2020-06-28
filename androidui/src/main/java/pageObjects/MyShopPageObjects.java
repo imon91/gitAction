@@ -1,15 +1,13 @@
 package pageObjects;
 
-
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
 import utils.MyActions;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import io.appium.java_client.android.*;
+import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.support.*;
+import java.util.*;
 
-import java.util.Random;
 
 public class MyShopPageObjects {
 
@@ -87,6 +85,26 @@ public class MyShopPageObjects {
                     performAddCollection(collectionName);
             return collectionName;
     }
+
+
+
+    public int getPositionOfCollectionName(String collectionName){
+        WebDriverWait webDriverWait = new WebDriverWait(androidDriver,30);
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='share___2_Him']")));
+        int position=0;
+        List<AndroidElement> listOfCollections =
+                androidDriver.findElements(By.xpath("//div[@class='itemInner___2jJUL']/div[2]/p"));
+        for(WebElement element : listOfCollections){
+            if(element.getText().equals(collectionName)){
+                position =  (listOfCollections.indexOf(element) + 1);
+                break;
+            }
+        }
+        System.out.println("Position of element "+collectionName+" is :" +position);
+        return position;
+    }
+
+
 
     public void enterIntoCollectionFromMyCollections(String collectionName){
 

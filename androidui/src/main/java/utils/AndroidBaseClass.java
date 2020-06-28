@@ -1,13 +1,11 @@
 package utils;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import helper.GetDriverFromCore;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.*;
 import java.time.Duration;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.*;
 
 
 public class AndroidBaseClass extends GetDriverFromCore{
@@ -44,6 +42,8 @@ public class AndroidBaseClass extends GetDriverFromCore{
                 System.exit(1);
             }
     }
+
+
 
     public static void setImplicitWait(long seconds){
         driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
@@ -91,6 +91,8 @@ public class AndroidBaseClass extends GetDriverFromCore{
         return packageName;
     }
 
+
+
     public static Boolean switchFromNativeToWeb(String webContext){
         sleep(2000);
         // Context Switching
@@ -123,7 +125,6 @@ public class AndroidBaseClass extends GetDriverFromCore{
             stopService();
         }
     }
-
 
 
 }

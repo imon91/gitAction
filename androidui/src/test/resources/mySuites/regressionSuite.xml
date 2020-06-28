@@ -8,9 +8,6 @@
                 </run>
             </groups>
             <classes>
-<!--                <class name="com.shopf.tests.Authentication"></class>-->
-<!--                <class name="com.shopf.tests.MyShop"></class>-->
-                <class name="com.shopf.tests.Kart"></class>
             </classes>
         </test>
 </suite>
