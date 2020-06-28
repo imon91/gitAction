@@ -18,8 +18,9 @@ public class Login extends WmsBaseClass {
     public void wmsBeforeSuite() throws Exception{
         System.out.println("WMSBeforeSuite is called");
         driver = getBaseDriver();
-        setImplicitWait(30);
-        driver.get("https://uatwms.vnksrvc.com/");
+        setImplicitWait(10000);
+        driver.get(getWmsBaseUrl());
+        sleep(5000);
     }
 
 
@@ -39,23 +40,22 @@ public class Login extends WmsBaseClass {
     }
 
 
-
     @Test (groups = {CoreConstants.GROUP_SMOKE},
             description = "Verify Authentication with Valid Credentials",
             dataProvider = "getUserAuthenticationData"
     )
-    public void verifyAuthenticationWithValidCredentials(String email,String password){
+    public void verifyAuthenticationWithValidCredentials(String email,String password) {
         System.out.println("verifyAuthentication is called");
-        loginPageObject.performLogin("operator1@voonik.com","password");
+        loginPageObject.performLogin("operator1@voonik.com", "password");
         String url = driver.getCurrentUrl();
+        System.out.println(email + ":" + password);
         System.out.println(url);
-    }
 
+    }
 
     @AfterClass(alwaysRun = true)
     public void loginAfterClass(){
         System.out.println("LoginAfterClass Is Called");
-
     }
 
 

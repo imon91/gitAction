@@ -13,33 +13,29 @@ import utils.WebBaseClass;
 public class MyShop extends WebBaseClass {
 
     private WebDriver driver;
-    private ActionBarObjects actionBarObjects;
     private MyShopPageObjects myShopPageObjects;
-
-
+    private ActionBarObjects actionBarObjects;
 
     @BeforeClass(alwaysRun = true)
-    public void myShopBeforeClass() throws Exception{
+    public void myShopBeforeClass() throws Exception {
         System.out.println("myShopBeforeClass is called");
         driver = getBaseDriver();
-        actionBarObjects = new ActionBarObjects(driver);
         myShopPageObjects = new MyShopPageObjects(driver);
+        actionBarObjects = new ActionBarObjects(driver);
     }
-
 
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
-    public void verifyAddingNewCollection(){
-        System.out.println("Verify Adding New Collection Is Called");
-        myShopPageObjects.clickOnMyshopOption();
+    public void verifyAddingNewCollection() {
+        System.out.println("VerifyAddingNewCollecton is called");
+        actionBarObjects.clickOnMyshopButton();
         String collectionName = myShopPageObjects.createNewCollection();
-        System.out.println("New Collection added is : " + collectionName);
     }
 
 
     @AfterClass(alwaysRun = true)
-    public void myShopAfterClass(){
+    public void myShopAfterClass() {
         System.out.println("myShopAfterClass is called");
     }
 

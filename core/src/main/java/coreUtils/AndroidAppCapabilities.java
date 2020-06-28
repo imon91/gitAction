@@ -23,6 +23,7 @@ public class AndroidAppCapabilities {
     private static final String CAP_KEY_CHROME_DRIVER_EXECUTABLE_DIR="chromedriverExecutableDir";
     private static final String CAP_KEY_CHROME_DRIVER_EXECUTABLE="chromedriverExecutable";
     private static final String CAP_UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT = "uiautomator2ServerInstallTimeout";
+    private static final String CAP_ANDROID_INSTALL_TIME_OUT = "androidInstallTimeout";
     private static final String CAP_KEY_IS_HEADLESS="isHeadless";
     private static final String CAP_KEY_ADV_ARGS="-no-window";
     private static final String CAP_KEY_APPIUM_CHROME_OPTIONS = "appium:chromeOptions";
@@ -31,13 +32,31 @@ public class AndroidAppCapabilities {
 
 
     public DesiredCapabilities setCapabilities(){
-
+        String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+        String app = System.getProperty(BuildParameterKeys.KEY_APP);
         DesiredCapabilities cap= new DesiredCapabilities();
         cap.setCapability(CAP_KEY_DEVICE_NAME, CoreConstants.ANDROID_DEVICE_NAME);
         cap.setCapability(CAP_KEY_PLATFORM_NAME, CoreConstants.PLATFORM_ANDROID);
         //cap.setCapability(CAP_KEY_PLATFORM_VERSION, Constants.ANDROID_PLATFORM_VERSION);
-        cap.setCapability(CAP_KEY_APP, CoreFileUtils.apkFile);
-        cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.APP_PACKAGE);
+
+        if(env.equalsIgnoreCase(CoreConstants.ENV_STAGE) &&
+                app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            cap.setCapability(CAP_KEY_APP, CoreFileUtils.resellerStageApk);
+            cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RESELLER_APP_PACKAGE);
+        }else if(env.equalsIgnoreCase(CoreConstants.ENV_PROD) &&
+                app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            cap.setCapability(CAP_KEY_APP, CoreFileUtils.resellerProdApk);
+            cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RESELLER_APP_PACKAGE);
+        }else if(env.equalsIgnoreCase(CoreConstants.ENV_STAGE) &&
+                app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            cap.setCapability(CAP_KEY_APP, CoreFileUtils.mokamStageApk);
+            cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.MOKAM_APP_PACKAGE);
+        }else if(env.equalsIgnoreCase(CoreConstants.ENV_PROD) &&
+                app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            cap.setCapability(CAP_KEY_APP, CoreFileUtils.mokamProdApk);
+            cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.MOKAM_APP_PACKAGE);
+        }
+
         cap.setCapability(CAP_KEY_AUTOMATION_NAME, CoreConstants.ANDROID_AUTOMATION_NAME);
         cap.setCapability(CAP_KEY_APP_ACTIVITY, CoreConstants. ANDROID_MAIN_ACTIVITY);
         cap.setCapability(CAP_KEY_LOCATION_SERVICES_AUTHORIZED, CoreConstants.TRUE);
@@ -46,6 +65,7 @@ public class AndroidAppCapabilities {
         cap.setCapability(CAP_KEY_ENSURE_WEB_VIEWS_HAVE_PAGES, CoreConstants.TRUE);
         cap.setCapability(CAP_KEY_CHROME_DRIVER_USE_SYSTEM_EXECUTABLE, CoreConstants.FALSE);
         cap.setCapability(CAP_UIAUTOMATOR2_SERVER_INSTALL_TIMEOUT,20000);
+        cap.setCapability(CAP_ANDROID_INSTALL_TIME_OUT,900000);
         cap.setCapability(CAP_KEY_APPIUM_CHROME_OPTIONS, ImmutableMap.of(CAP_KEY_W3C, CoreConstants.FALSE));
         //cap.setCapability(CAP_KEY_CHROME_DRIVER_MAPPING_FILE,"/Users/vogo-1161/AutomationTests/Shopf-Ui-Automation/src/main/resources/chromeDrivers/chromedrivers.json");
         cap.setCapability(CAP_KEY_CHROME_DRIVER_EXECUTABLE_DIR, CoreFileUtils.chromeDriversFolderPath);

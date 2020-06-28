@@ -24,7 +24,7 @@ dependencies {
 test{
     useTestNG() {
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env"])
     }
 }
 
@@ -34,7 +34,7 @@ task wmsuiTest(type: Test){
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env"])
         def smoke = project.hasProperty("Smoke")
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
@@ -62,7 +62,7 @@ task wmsUiDebug(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env"])
         suites "src/test/resources/mySuites/debugSuite.xml"
     }
 }

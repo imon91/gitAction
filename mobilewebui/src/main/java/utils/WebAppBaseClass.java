@@ -1,6 +1,8 @@
 package utils;
 
 
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import helper.GetDriverFromCore;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -24,6 +26,25 @@ public class WebAppBaseClass extends GetDriverFromCore{
         return  driver;
     }
 
+
+    public static String getWAPBaseUrl(){
+        String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+        String app = System.getProperty(BuildParameterKeys.KEY_APP);
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)
+                && env.equalsIgnoreCase(CoreConstants.ENV_STAGE)){
+            return CoreConstants.RESELLER_WAP_STAGE_BASE_URL;
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)
+                && env.equalsIgnoreCase(CoreConstants.ENV_PROD)){
+            return CoreConstants.RESELLER_WAP_PROD_BASE_URL;
+        }if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)
+                && env.equalsIgnoreCase(CoreConstants.ENV_STAGE)){
+            return CoreConstants.MOKAM_WAP_STAGE_BASE_URL;
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)
+                && env.equalsIgnoreCase(CoreConstants.ENV_PROD)){
+            return CoreConstants.MOKAM_WAP_PROD_BASE_URL;
+        }
+        return CoreConstants.RESELLER_WAP_STAGE_BASE_URL;
+    }
 
 
     private static void setUpDriver()throws Exception{

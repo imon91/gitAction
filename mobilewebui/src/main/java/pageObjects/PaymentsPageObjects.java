@@ -57,9 +57,15 @@ public class PaymentsPageObjects {
     @FindBy(xpath = "//span[contains(text(),'Adjustments')]")
     private WebElement Adjustments;
 
+    //back
+    @FindBy(xpath = "//div[@class='page-container home-search-box-sidepanel']//button")
+    private WebElement back;
+
  /*-----------Actions------------*/
 
-public void clickOnEarnings(){myActions.action_click(Earnings);}
+    public void clickOnEarnings(){myActions.action_click(Earnings);}
+
+    public void clickOnBack(){myActions.action_click(back);}
 
     public void clickOnbackFromEarnings(){myActions.action_click(BackFromEarnings);}
 

@@ -1,6 +1,6 @@
 package helper;
 
-import coreUtils.BrowserStackCapabilities;
+import coreUtils.*;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileBrowserType;
@@ -14,9 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import coreUtils.AndroidAppCapabilities;
-import coreUtils.CoreConstants;
-import coreUtils.CoreFileUtils;
+
 import java.net.ServerSocket;
 import java.net.URL;
 
@@ -24,12 +22,13 @@ import java.net.URL;
 public class GetDriverFromCore {
 
 
-
     private static final String CHROME_DRIVER = "chrome";
     private static final String FIREFOX_DRIVER = "firefox";
     private static final String USERNAME = "jagadeeshb4";
     private static final String AUTOMATE_KEY="fCxvFMgRR1xx9YxX5TcQ";
     private static final String APP = "bs://c51201e9e1baeb46e7d44a18541d6558caac9df1";
+    private static final String APP_RESELLER = "bs://f769656feb2a3a6395ca908346db0e5d02c438b7";
+    private static final String APP_MOKAM = "bs://3e9fabcff33f12fa17798f9be86231922c267277";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";
     private static final String KEY_BROWSER_NAME = "browserName";
@@ -200,7 +199,11 @@ public class GetDriverFromCore {
             caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "ResellerUI");
             caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerAndroidApp");
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "AndroidAppTest");
-            caps.setCapability(BrowserStackCapabilities.KEY_APP, APP);
+            if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_MOKAM);
+            }else if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_RESELLER);
+            }
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);
             System.out.println("URL is :"+url);
             return new AndroidDriver<AndroidElement>(url,caps);

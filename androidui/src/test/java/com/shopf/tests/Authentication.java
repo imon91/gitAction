@@ -1,11 +1,11 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import utils.AndroidBaseClass;
+import utils.*;
+
 
 public class Authentication extends AndroidBaseClass {
 
@@ -16,18 +16,24 @@ public class Authentication extends AndroidBaseClass {
 
 
     @BeforeSuite(alwaysRun = true)
-    public void resellerAndroidBeforeSuite(){
+    public void resellerAndroidBeforeSuite() throws Exception{
         System.out.println("resellerAndroidBeforeSuite is called");
+        androidDriver = getBaseDriver();
+        setImplicitWait(60);
     }
 
+
+
+    public void pageInitializer() throws Exception{
+        androidDriver = getBaseDriver();
+        loginPageObjects = new LoginPageObjects(androidDriver);
+    }
 
 
     @BeforeClass(alwaysRun = true)
     public void authenticationSetUp() throws Exception{
         System.out.println("authenticationSetUp is called");
-        androidDriver = getBaseDriver();
-        setImplicitWait(10);
-        loginPageObjects = new LoginPageObjects(androidDriver);
+        pageInitializer();
     }
 
 
@@ -89,9 +95,8 @@ public class Authentication extends AndroidBaseClass {
 
     @AfterClass(alwaysRun = true)
     public void closeAuthenticationClass(){
-        System.out.println("AfterSuite Is Called");
-        // Update Driver to Shared place
-        //System.out.println("Driver is Updated from AuthenticationClass");
+        System.out.println("AuthenticationAfter Is Called");
+        //closeApp();
     }
 
 

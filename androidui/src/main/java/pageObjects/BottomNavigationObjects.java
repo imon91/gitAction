@@ -1,10 +1,8 @@
 package pageObjects;
 
 import utils.MyActions;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.android.*;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.support.PageFactory;
 
 public class BottomNavigationObjects {
@@ -36,6 +34,9 @@ public class BottomNavigationObjects {
     @AndroidFindBy(id = "com.shopup.reseller:id/myIncomeBottomBar")
     private AndroidElement bottomBarPaymentsIcon;
 
+
+
+    /*--------------Actions-------------------*/
 
 
     public void clickOnBottomBarHomeIcon(){
