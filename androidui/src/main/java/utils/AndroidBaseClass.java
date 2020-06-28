@@ -1,11 +1,11 @@
 package utils;
 
+import coreUtils.*;
 import helper.GetDriverFromCore;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import io.appium.java_client.android.*;
 import java.time.Duration;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
+import java.util.concurrent.*;
 
 
 public class AndroidBaseClass extends GetDriverFromCore{
@@ -43,6 +43,8 @@ public class AndroidBaseClass extends GetDriverFromCore{
             }
     }
 
+
+
     public static void setImplicitWait(long seconds){
         driver.manage().timeouts().implicitlyWait(seconds, TimeUnit.SECONDS);
     }
@@ -71,6 +73,26 @@ public class AndroidBaseClass extends GetDriverFromCore{
         }
     }
 
+
+    public static String getAppPackage(){
+        System.out.println("Get AppPackage is Called");
+        String packageName = null;
+        if(System.getProperty(BuildParameterKeys.KEY_APP).
+                equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+           packageName =  CoreConstants.RESELLER_APP_PACKAGE;
+        }else if(System.getProperty(BuildParameterKeys.KEY_APP).
+                equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            packageName =  CoreConstants.MOKAM_APP_PACKAGE;
+        }else {
+            //Default
+            packageName =  CoreConstants.RESELLER_APP_PACKAGE;
+        }
+        System.out.println("PackageName Returned is : "+packageName);
+        return packageName;
+    }
+
+
+
     public static Boolean switchFromNativeToWeb(String webContext){
         sleep(2000);
         // Context Switching
@@ -90,6 +112,11 @@ public class AndroidBaseClass extends GetDriverFromCore{
         }
     }
 
+    public static void switchFromWebToNative(){
+        driver.context(CoreConstants.SHOP_UP_NATIVE_VIEW);
+    }
+
+
 
     public static void quitBaseDriver(){
         driver.quit();
@@ -98,7 +125,6 @@ public class AndroidBaseClass extends GetDriverFromCore{
             stopService();
         }
     }
-
 
 
 }

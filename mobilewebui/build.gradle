@@ -22,7 +22,7 @@ dependencies {
 test{
     useTestNG(){
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Device","Version"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
     }
 }
 
@@ -60,7 +60,7 @@ task mobileWebUiDebug(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host", "Device", "Version"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
         suites "src/test/resources/mySuites/debugSuite.xml"
     }
 

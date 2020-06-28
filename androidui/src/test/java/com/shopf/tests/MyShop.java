@@ -1,17 +1,13 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.ActionBarObjects;
-import pageObjects.BottomNavigationObjects;
-import pageObjects.MyShopPageObjects;
-import pageObjects.RightNavigationDrawer;
+import io.appium.java_client.android.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
+import pageObjects.*;
 import static utils.AndroidBaseClass.*;
 import java.util.Random;
+
 
 public class MyShop {
 
@@ -29,21 +25,34 @@ public class MyShop {
     public void myShopSetUp() throws Exception{
        System.out.println("MyShopBeforeClass is called");
        androidDriver = getBaseDriver();
+       setImplicitWait(30);
+       // Make a call to scriptRouter to get control on MyShop
+       // getTheControlToMyShop();
+       // 1) First get the current page/activity/Context = HomePage
+       // 2) HomePages
+       // 3) Search for possibilities(RootCoded)
+       // Navigated to MyShop
+
        bottomNavigationObjects = new BottomNavigationObjects(androidDriver);
        actionBarObjects = new ActionBarObjects(androidDriver);
        rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
        myShopPageObjects = new MyShopPageObjects(androidDriver);
+
+       // Get The List Of Collections
+       //new ShopUpPostMan(CoreConstants.MODULE_ANDROID_UI).
+
    }
 
 
 
-   @Test(  groups = {CoreConstants.GROUP_SMOKE,
+   @Test(  groups = {"MyShop.verifyAddingNewCollection",
+           CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Adding New Collection",
             dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
     public void verifyAddingNewCollection(){
-
+       System.out.println("Current Activity at MyShop is : "+androidDriver.currentActivity());
         Random random = new Random();
         //int decider = random.nextInt(4);
         int decider = 3;
@@ -61,9 +70,14 @@ public class MyShop {
             System.out.println("New collection created is : "+collectionName);
             /* Verify the Added Collection Part By Calling
             / the Api that gives List of collections for this user*/
+            System.out.println("Current URL at MyShop is : "+androidDriver.getCurrentUrl());
+            // Here the position is asserted for 1 : Because New collection has to be created always at this position
+            Assert.assertEquals(myShopPageObjects.getPositionOfCollectionName(collectionName),1);
+
         }else {
             System.out.println("Switch Context to Web Failed");
         }
+        switchFromWebToNative();
     }
 
 
@@ -75,6 +89,7 @@ public class MyShop {
         verifyAddingNewCollection();
 
     }
+
 
 
     @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
@@ -96,8 +111,9 @@ public class MyShop {
 
 
     @AfterClass(alwaysRun = true)
-    public void updateDriverFromMyShop(){
+    public void myShopAfterClass(){
         System.out.println("MyShopAfterClass is called");
+        switchFromWebToNative();
     }
 
 

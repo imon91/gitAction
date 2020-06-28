@@ -1,6 +1,7 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import pageObjects.LoginPageObject;
@@ -19,7 +20,8 @@ public class Authentication extends WebBaseClass {
     public void resellerWebBeforeSuite() throws Exception {
         System.out.println("ResellerWebBeforeSuite is called");
         driver = getBaseDriver();
-        setImplicitWait(30);
+        setImplicitWait(10000);
+        driver.get(getWebBaseUrl());
     }
 
 
@@ -55,7 +57,7 @@ public class Authentication extends WebBaseClass {
         sleep(1000);
         loginPageObject.performAuthentication("01877755590", "666666");
         // Verification Step Pending
-        loginPageObject.performAuthentication("01877755590","666666");
+    
     }
 
 

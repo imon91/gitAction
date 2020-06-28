@@ -1,5 +1,7 @@
 package utils;
 
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import helper.GetDriverFromCore;
 import org.openqa.selenium.WebDriver;
 
@@ -44,6 +46,17 @@ public class WmsBaseClass extends GetDriverFromCore{
             System.exit(1);
         }
     }
+
+
+    public static String getWmsBaseUrl(){
+        String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+        switch (env){
+            case CoreConstants.ENV_STAGE : return CoreConstants.WMS_WEB_STAGE_BASE_URL;
+            case CoreConstants.ENV_PROD : return CoreConstants.WMS_WEB_PROD_BASE_URL;
+        }
+        return CoreConstants.WMS_WEB_STAGE_BASE_URL;
+    }
+
 
 
 
