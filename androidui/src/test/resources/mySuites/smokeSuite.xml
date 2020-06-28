@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SmokeSuite">
-    <test name="SmokeTests">
+<suite name="SmokeTestSuite">
+    <test name="SmokeTests" preserve-order="true" parallel="false">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
         <classes>
-            <class name="smokeTests.SmokeTests"/>
+            <class name="com.shopf.tests.Authentication"></class>
+            <class name="com.shopf.tests.Search"></class>
+            <class name="com.shopf.tests.PLP"></class>
+            <class name="com.shopf.tests.PDP"></class>
+            <class name="com.shopf.tests.MyBag"></class>
+<!--            <class name="com.shopf.tests.MyShop"></class>-->
+            <class name="com.shopf.tests.Logout"></class>
         </classes>
     </test>
 </suite>

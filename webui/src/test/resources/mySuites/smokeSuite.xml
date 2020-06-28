@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SmokeTestSuite">
+    <test name="SmokeTests">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.shopf.tests.Authentication"></class>
+            <class name="com.shopf.tests.MyShop"></class>
+            <class name="com.shopf.tests.VerifySearchFunctionality"></class>
+            <class name="com.shopf.tests.VerifyItemClickablePLPPage"></class>
+            <class name="com.shopf.tests.FilterFunctionality"></class>
+            <class name="com.shopf.tests.VerifySortFunctionality"></class>
+            <class name="com.shopf.tests.VerifyItemInPDPPage"></class>
+            <class name="com.shopf.tests.AddItemToMyshop"></class>
+            <class name="com.shopf.tests.AddToBagThroughCollection"></class>
+            <class name="com.shopf.tests.ProductOrderThroughPDPPage"></class>
+            <class name="com.shopf.tests.BagVerification"></class>
+            <class name="com.shopf.tests.AddressVerification"></class>
+            <class name="com.shopf.tests.PlacingOrderVerification"></class>
+            <class name="com.shopf.tests.LogOutFunction"></class>
+        </classes>
+    </test>
+</suite>

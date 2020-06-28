@@ -53,3 +53,12 @@ local.properties
 # Sandbox stuff
 _sandbox
 .idea/
+
+# modules
+androiduiashok/
+
+# Project Files
+listerners/
+
+# xml files
+.testSuite.xml
