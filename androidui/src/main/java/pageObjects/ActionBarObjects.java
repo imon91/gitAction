@@ -1,13 +1,12 @@
 package pageObjects;
 
-import coreUtils.*;
+import org.openqa.selenium.By;
+import utils.AndroidBaseClass;
 import utils.MyActions;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.*;
-import org.openqa.selenium.support.PageFactory;
 
 
-public class ActionBarObjects {
+public class ActionBarObjects extends AndroidBaseClass {
 
     private AndroidDriver<AndroidElement> androidDriver;
     private MyActions myActions;
@@ -15,80 +14,41 @@ public class ActionBarObjects {
 
     public ActionBarObjects(AndroidDriver<AndroidElement> androidDriver){
         this.androidDriver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
-        if(System.getProperty(BuildParameterKeys.KEY_APP).
-                equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-            this.packageName = CoreConstants.RESELLER_APP_PACKAGE;
-        }else if(System.getProperty(BuildParameterKeys.KEY_APP).
-                equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            this.packageName = CoreConstants.MOKAM_APP_PACKAGE;
-        }else {
-            //Default
-            this.packageName = CoreConstants.RESELLER_APP_PACKAGE;
-        }
+       packageName = getAppPackage();
     }
-
-
-    // HamburgerMenu Icon
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@resource-id='com.shopup.reseller:id/side_menu_button']")
-    private AndroidElement hamburgerMenuIcon;
-
-    // ShopUp Logo
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.shopup.reseller:id/app_icon_container']")
-    private AndroidElement shopUpAppIcon;
-
-    // Search Icon
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@resource-id='com.shopup.reseller:id/searchButton']")
-    private AndroidElement searchImageButton;
-
-    // Bag Icon
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@resource-id='com.shopup.reseller:id/cartButton']")
-    private AndroidElement bagImageButton;
-
-    // Cart Count
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/actionbar_cart_count']")
-    private AndroidElement cartCount;
-
-    // UserProfile Icon
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@resource-id='com.shopup.reseller:id/profile']")
-    private AndroidElement userProfileImageButton;
 
 
     /*--------------Actions-------------------*/
 
-    public void clickOnHamburgerMenuIcon(){
-        myActions.action_click(hamburgerMenuIcon);
+    private void clickOnHamburgerMenuIcon(){
+        myActions.action_click(androidDriver.
+                findElement(By.xpath("//android.widget.ImageButton[@resource-id='"+packageName+":id/side_menu_button']")));
     }
 
     public void clickOnShopUpAppIcon(){
-        myActions.action_click(shopUpAppIcon);
+        myActions.action_click(androidDriver.
+                findElement(By.xpath("//android.widget.ImageView[@resource-id='"+packageName+":id/app_icon_container']")));
     }
 
     public void clickOnSearchImageButton(){
-        myActions.action_click(searchImageButton);
+        myActions.action_click(androidDriver.
+                findElement(By.xpath("//android.widget.ImageButton[@resource-id='"+packageName+":id/searchButton']")));
     }
 
     public void clickOnBagImageButton(){
-        myActions.action_click(bagImageButton);
+        myActions.action_click(androidDriver.
+                findElement(By.xpath("//android.widget.ImageButton[@resource-id='"+packageName+":id/cartButton']")));
     }
 
     public String getTextFromCartCountHolder(){
-        return myActions.action_getText(cartCount);
+        return myActions.action_getText(androidDriver.
+                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/cartCount']")));
     }
 
     public void clickOnUserProfileImageButton(){
-        myActions.action_click(userProfileImageButton);
+        myActions.action_click(androidDriver.
+                findElement(By.xpath("//android.widget.ImageButton[@resource-id='"+packageName+":id/profile']")));
     }
 
-//    public void clickOnImageButton(String value){
-//        List<AndroidElement> list = androidDriver.findElements(By.className("android.widget.ImageButton"));
-//        System.out.println(list.size());
-//        switch (value) {
-//            case "HamburgerIcon" : myActions.action_click(list.get(0));break;
-//            case "SearchIcon" : myActions.action_click(list.get(1));break;
-//            case "BagIcon" : myActions.action_click(list.get(2));break;
-//            case "ProfileIcon" : myActions.action_click(list.get(3));break;
-//        }
-//    }
 }
