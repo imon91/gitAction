@@ -9,6 +9,7 @@ import utils.MyActions;
 import utils.WmsBaseClass;
 
 import java.util.List;
+import java.util.Random;
 
 public class WarehousesPageObjects extends WmsBaseClass {
     private WebDriver driver;
@@ -59,11 +60,13 @@ public class WarehousesPageObjects extends WmsBaseClass {
     public class AddWarehouseTab {
         private WebDriver driver;
         private MyActions myActions;
+        private Random random;
 
         public AddWarehouseTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
         }
 
         //Enter Warehouse Code
@@ -166,21 +169,23 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
 
         /*--------------Functions-------------------*/
-        public void addNewWarehouse(String binCode, String name, String address1, String address2,
-                                    String landmark, String city, String state, String country,
-                                    String zipcode, String phone_no, String alter_phone_no) {
+        public String addNewWarehouse() {
+            int randomNum = random.nextInt(5000);
+            String binCode = "WMSTesting" + randomNum;
+            String name = "TestName" + randomNum;
             enterWarehouseCode(binCode);
             enterName(name);
-            enterAddress1(address1);
-            enterAddress2(address2);
-            enterLandmark(landmark);
-            enterCity(city);
-            enterState(state);
-            enterCountry(country);
-            enterZipcode(zipcode);
-            enterPhoneNo(phone_no);
-            enterAlterPhoneNo(alter_phone_no);
+            enterAddress1("First Line Of Address");
+            enterAddress2("Second Line Of Address");
+            enterLandmark("Near Lank Mark");
+            enterCity("Testing City");
+            enterState("Testing State");
+            enterCountry("India");
+            enterZipcode("123456");
+            enterPhoneNo("9442139828");
+            enterAlterPhoneNo("9943225871");
             clickAddWarehouseButton();
+            return binCode;
         }
     }
 

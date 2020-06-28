@@ -224,7 +224,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//a[text()='Print using barcode printer']")
         private WebElement printUsingBarcodePrinter;
 
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b")
+        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b/text()[2]")
         private WebElement purchaseOrderStatus;
 
 
@@ -250,6 +250,12 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='EditPurchaseOrder']//tbody/tr"));
             return products.size();
+        }
+
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='EditPurchaseOrder']//tbody/tr[" + index + "]/td[1]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
         }
 
         public String getDescription(int index) {

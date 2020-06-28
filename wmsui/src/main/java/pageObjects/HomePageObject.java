@@ -1,12 +1,14 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WmsBaseClass;
 
-public class HomePageObject {
+public class HomePageObject extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
@@ -89,5 +91,12 @@ public class HomePageObject {
 
     public void clickLogout() {
         myActions.action_click(logoutButton);
+    }
+
+    public String getPopUpMessage(){
+        sleep(1000);
+        String popUpMessage = "//div[@id='toastbar-text']";
+        WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
+        return myActions.action_getText(popUpMessageElement);
     }
 }
