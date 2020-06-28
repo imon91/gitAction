@@ -44,6 +44,7 @@ public class CoreConstants {
     public static final String GROUP_REGRESSION = "regression";
 
     /*----------- WebUrls---------------*/
+
     public static final String RESELLER_APP_STAGE_BASE_URL = "https://uatapi.shopups1.xyz/";
     public static final String RESELLER_APP_PROD_BASE_URL = "";
     public static final String MOKAM_APP_STAGE_BASE_URL = "https://ucapi.shopups1.xyz/";
@@ -72,4 +73,5 @@ public class CoreConstants {
     public static final String MODULE_MOBILE_WEB_UI = "wap";
     public static final String MODULE_WEB_UI = "web";
     public static final String MODULE_WMS_UI = "wms";
+
 }

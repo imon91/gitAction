@@ -4,12 +4,16 @@ import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
+import pageObjects.BottomNavigationObjects;
+import pageObjects.HomePageObjects;
 import utils.WebAppBaseClass;
 
 
 public class Authentication extends WebAppBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
+    private HomePageObjects homepageobject;
+    private BottomNavigationObjects bottomnavigationobject;
 
 
 
@@ -24,8 +28,10 @@ public class Authentication extends WebAppBaseClass {
 
 
     @BeforeClass(alwaysRun = true)
-    public void authenticationSetUp(){
+    public void authenticationSetUp() throws Exception {
         System.out.println("authenticationSetUp is called");
+        homepageobject = new HomePageObjects(androidDriver);
+        bottomnavigationobject = new BottomNavigationObjects(androidDriver);
     }
 
 
@@ -44,11 +50,16 @@ public class Authentication extends WebAppBaseClass {
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Authentication With Valid Credentials",
-            dataProvider = "getUserAuthenticationData"  )
+            dataProvider = "getUserAuthenticationData" )
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
         sleep(3000);
         // Verification Step Pending
+        androidDriver.get(getWAPBaseUrl());
+        sleep(1000);
+        bottomnavigationobject.clickOnBottomBarMyShopIcon();
+        homepageobject.login("1877755590","666666");
+
     }
 
 

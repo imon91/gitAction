@@ -10,15 +10,14 @@ public class BottomAddonObjects {
     private WebDriver driver;
     private MyActions myActions;
 
-
-
-    public BottomAddonObjects(WebDriver driver){
+    public BottomAddonObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
 
-      /*---various policy options ----*/
+
+    /*---various policy options ----*/
 
     //Reseller policy
     @FindBy(xpath = "//a[text()='Reseller Policy']")
@@ -33,13 +32,6 @@ public class BottomAddonObjects {
     private WebElement privacyPolicyButton;
 
 
-
-
-    public void clickOnResellerPolicyButton(){myActions.action_click(resellerPolicyButton);}
-
-    public void clickOnPaymentPolicyButton(){myActions.action_click(paymentPolicyButton);}
-
-    public void clickOnPrivacyPolicyButton(){myActions.action_click(privacyPolicyButton);}
 
 
 
@@ -58,32 +50,50 @@ public class BottomAddonObjects {
     @FindBy(xpath = "//img[@src='//shopimages1.vstores.io/web_images/youtube.png']")
     private WebElement youtubeIcon;
 
+    //Delivery app
+    @FindBy(xpath = "//span[text()='DELIVERY APP']")
+    private WebElement deliveryAppIcon;
+    //Eloan app
+    @FindBy(xpath = "//text()[.='eLoan APP']/ancestor::a[1]")
+    private WebElement eLoanAppIcon;
 
 
-    public void clickOnFacebookIcon(){myActions.action_click(facebookIcon);}
+    public void clickOnResellerPolicyButton() {
+        myActions.action_click(resellerPolicyButton);
+    }
 
-    public void clickOnInstagramIcon(){myActions.action_click(instagramIcon);}
+    public void clickOnPaymentPolicyButton() {
+        myActions.action_click(paymentPolicyButton);
+    }
 
-    public void clickOnYoutubeIcon(){myActions.action_click(youtubeIcon);}
+    public void clickOnPrivacyPolicyButton() {
+        myActions.action_click(privacyPolicyButton);
+    }
+
+    public void clickOnFacebookIcon() {
+        myActions.action_click(facebookIcon);
+    }
 
 
 
 
     /*-----Download app icons-------*/
 
-    //Delivery app
-    @FindBy(xpath = "//span[text()='DELIVERY APP']")
-    private WebElement deliveryAppIcon;
+    public void clickOnInstagramIcon() {
+        myActions.action_click(instagramIcon);
+    }
 
-    //Eloan app
-    @FindBy(xpath = "//text()[.='eLoan APP']/ancestor::a[1]")
-    private WebElement eLoanAppIcon;
+    public void clickOnYoutubeIcon() {
+        myActions.action_click(youtubeIcon);
+    }
 
+    public void clickOnDeliveryAppIcon() {
+        myActions.action_click(deliveryAppIcon);
+    }
 
-    public void clickOnDeliveryAppIcon(){myActions.action_click(deliveryAppIcon);}
-
-    public void clickOneELoanAppIcon(){myActions.action_click(eLoanAppIcon);}
-
+    public void clickOneELoanAppIcon() {
+        myActions.action_click(eLoanAppIcon);
+    }
 
 
 }
