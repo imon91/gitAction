@@ -84,20 +84,22 @@ public class LoginPageObjects extends AndroidBaseClass{
     }
 
     // 3 : Edit Mobile Number Function
-    public void performEditMobileNumberFunctionality(String mobileNumber1,String mobileNumber2,String otp){
+    public void performEditMobileNumberFunctionality(String mobileNumber1,String otp){
         enterMobileNumber(mobileNumber1);
         clickOnVerifyOtpButton();
         clickOnEditMobileNumberButton();
-        enterMobileNumber(mobileNumber2);
+        enterMobileNumber(mobileNumber1);
         enterOtp(otp);
         clickOnProceedButton();
     }
 
     // 4 : Wrong OTP Function
-    public void performWrongOTPFunctionality(String mobileNumber,String otp){
+    public void performWrongOTPFunctionality(String mobileNumber,String otp1){
         enterMobileNumber(mobileNumber);
         clickOnVerifyOtpButton();
-        enterOtp(otp);
+        enterOtp("777777");
+        clickOnProceedButton();
+        enterOtp(otp1);
         clickOnProceedButton();
     }
 
