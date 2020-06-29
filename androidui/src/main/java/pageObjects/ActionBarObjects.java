@@ -21,7 +21,7 @@ public class ActionBarObjects extends AndroidBaseClass {
 
     /*--------------Actions-------------------*/
 
-    private void clickOnHamburgerMenuIcon(){
+    public void clickOnHamburgerMenuIcon(){
         myActions.action_click(androidDriver.
                 findElement(By.xpath("//android.widget.ImageButton[@resource-id='"+packageName+":id/side_menu_button']")));
     }
