@@ -6,8 +6,9 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.HomePageObject;
+import utils.WmsBaseClass;
 
-public class Logout {
+public class Logout extends WmsBaseClass {
     private WebDriver driver;
     private HomePageObject homePageObject;
 
@@ -18,11 +19,13 @@ public class Logout {
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},
-            description = "Logout on click")
+            description = "Logout on click",
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
     public void verifyLogout(){
+        System.out.println("Verify Logout is being called");
+        sleep(2000);
         homePageObject.clickLogout();
-        String message = homePageObject.getPopUpMessage();
-        System.out.println(message);
+        sleep(2000);
     }
 
     @AfterClass(alwaysRun = true)

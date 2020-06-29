@@ -9,8 +9,7 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.Login"></class>
-            <class name="com.shopf.tests.AddingWarehouse"></class>
-            <class name="com.shopf.tests.Logout"></class>
+            <class name="com.shopf.tests.GRNCreation"></class>
         </classes>
     </test>
 </suite>

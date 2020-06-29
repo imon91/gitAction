@@ -180,7 +180,7 @@ public class WarehousesPageObjects extends WmsBaseClass {
             enterLandmark("Near Lank Mark");
             enterCity("Testing City");
             enterState("Testing State");
-            enterCountry("India");
+            //enterCountry("India");
             enterZipcode("123456");
             enterPhoneNo("9442139828");
             enterAlterPhoneNo("9943225871");

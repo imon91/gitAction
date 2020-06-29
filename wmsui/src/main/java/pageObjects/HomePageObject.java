@@ -1,8 +1,10 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
@@ -52,7 +54,7 @@ public class HomePageObject extends WmsBaseClass {
     private WebElement returnsModule;
 
     //Logout
-    @FindBy(xpath = "//h3/a")
+    @FindBy(xpath = "//div[@id='root']//h3//a[text()='Log out']")
     private WebElement logoutButton;
 
 
@@ -90,7 +92,9 @@ public class HomePageObject extends WmsBaseClass {
     }
 
     public void clickLogout() {
+        sleep(2000);
         myActions.action_click(logoutButton);
+        sleep(5000);
     }
 
     public String getPopUpMessage(){
