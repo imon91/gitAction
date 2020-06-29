@@ -13,11 +13,13 @@ public class MyShopPageObjects {
 
     private AndroidDriver<AndroidElement> androidDriver;
     private MyActions myActions;
+    private Random random;
 
     public MyShopPageObjects(AndroidDriver<AndroidElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        random = new Random();
     }
 
 
@@ -108,6 +110,79 @@ public class MyShopPageObjects {
 
     public void enterIntoCollectionFromMyCollections(String collectionName){
 
+    }
+
+
+
+    String collectionXpath = "//div[@class='gridItems___2yFJ9 items___vci1r']";
+    List<AndroidElement> collectionslist = androidDriver.findElements(By.xpath(collectionXpath));
+    int size = collectionslist.size();
+
+    public int chooseCollection ( int collectionid){
+        String collection;
+        int collectionselected;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]";
+            collectionselected = collectionid;
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]";
+            collectionselected = id;
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        myActions.action_click(choosencollection);
+        return collectionselected;
+    }
+
+    public String CollectionName ( int collectionid){
+        String collection;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]//p";
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]//p";
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        String collectionselected = myActions.action_getText(choosencollection);
+        return collectionselected;
+    }
+
+    public String shareCollection ( int collectionid){
+        String collection;
+        int collectionShared;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]//button";
+            collectionShared = collectionid;
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]//button";
+            collectionShared = id;
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        String share = CollectionName(collectionShared);
+        myActions.action_click(choosencollection);
+        return share;
+    }
+
+    public String deleteCollection ( int collectionid){
+        String collection;
+        int collectionDeleted;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]//div[@class='flex___1bJDE middle___1jEMZ delete___IOgcz']/*";
+            collectionDeleted = collectionid;
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]//div[@class='flex___1bJDE middle___1jEMZ delete___IOgcz']/*";
+            collectionDeleted = id;
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        myActions.action_click(choosencollection);
+        String delete = CollectionName(collectionDeleted);
+        return delete;
     }
 
 }
