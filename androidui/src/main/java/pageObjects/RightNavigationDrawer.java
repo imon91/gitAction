@@ -3,22 +3,18 @@ package pageObjects;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
-import utils.AndroidBaseClass;
 import utils.MyActions;
 
 public class RightNavigationDrawer {
 
     private AndroidDriver<AndroidElement> androidDriver;
     private MyActions myActions;
-    private String packageName;
 
     public RightNavigationDrawer(AndroidDriver<AndroidElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
-        packageName = AndroidBaseClass.getAppPackage();
     }
 
     // Name TextView
@@ -30,15 +26,15 @@ public class RightNavigationDrawer {
     private AndroidElement emailIdTextView;
 
     // NavigationItem Home
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Home']")
+    @AndroidFindBy(xpath = "android.widget.TextView[@text='Home']")
     private AndroidElement navigationItemHome;
 
     // NavigationItem MyNotifications
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='My Notifications']")
+    @AndroidFindBy(xpath = "android.widget.TextView[@text='My Notifications']")
     private AndroidElement navigationItemMyNotifications;
 
     // NavigationItem My Account
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='My Account']")
+    @AndroidFindBy(xpath = "android.widget.TextView[@text='My Account']")
     private AndroidElement navigationItemMyAccount;
 
     // NavigationItem My Orders
@@ -88,13 +84,11 @@ public class RightNavigationDrawer {
 
 
     public String getUserNameText(){
-        return myActions.action_getText(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/name_text_view']")));
+        return myActions.action_getText(userNameTextView);
     }
 
     public String getUserEmailText(){
-        return myActions.action_getText(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/email_text_view']")));
+        return myActions.action_getText(emailIdTextView);
     }
 
     public void clickOnItemHome(){
