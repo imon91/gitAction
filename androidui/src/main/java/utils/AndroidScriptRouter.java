@@ -84,8 +84,7 @@ public class AndroidScriptRouter extends AndroidBaseClass{
             }else if(activityName.equalsIgnoreCase(AndroidAppConstants.SEARCH_ACTIVITY)){
 
             }else if(activityName.equalsIgnoreCase(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY)){
-                    myActions.clickOnHardKeyBack();
-                    actionBarObjects.clickOnShopUpAppIcon();
+
             }else if(activityName.equalsIgnoreCase(AndroidAppConstants.WEB_VIEW_ACTIVITY)){
 
             }else {
