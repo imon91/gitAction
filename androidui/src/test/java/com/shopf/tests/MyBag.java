@@ -161,9 +161,14 @@ public class MyBag extends AndroidBaseClass {
             description = "Verify Select Address From MyBag",
             dependsOnMethods = "verifyPlaceOrderInMyBag"  )
     public void verifySelectAddressInMyBag(){
-        selectAddress.clickOnShowMoreAddress();
         System.out.println("Address List is : "+selectAddress.getListOfVisibleAddress().size());
-        selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(1));
+        if(selectAddress.getListOfVisibleAddress().size()>1){
+            selectAddress.clickOnShowMoreAddress();
+            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(1));
+        }else {
+            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(0));
+        }
+
     }
 
 
