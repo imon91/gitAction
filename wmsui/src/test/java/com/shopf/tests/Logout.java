@@ -1,7 +1,9 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -25,7 +27,8 @@ public class Logout extends WmsBaseClass {
         System.out.println("Verify Logout is being called");
         sleep(2000);
         homePageObject.clickLogout();
-        sleep(2000);
+        setImplicitWait(5);
+        homePageObject.getPopUpMessage();
     }
 
     @AfterClass(alwaysRun = true)

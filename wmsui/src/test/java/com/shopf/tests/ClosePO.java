@@ -36,7 +36,8 @@ public class ClosePO extends WmsBaseClass {
         int i,total = purchaseOrderList.getTotalPurchaseOrders();
         for(i=1;i <= total;i++)
             if(!purchaseOrderList.getStatus(i).equalsIgnoreCase("CLOSED"))
-                break;
+                if(!purchaseOrderList.getStatus(i).equalsIgnoreCase("RECEIVED"))
+                    break;
         String poId = purchaseOrderList.getPOID(i);
         purchaseOrdersPageObjects.clickEditPurchaseOrderTab();
         sleep(2000);

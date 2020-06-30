@@ -269,7 +269,7 @@ public class PackagesPageObjects {
         }
 
         public String getBinCode() {
-            String binCodeXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[5]/text()[2]";
+            String binCodeXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[5]";
             WebElement binCode = driver.findElement(By.xpath(binCodeXpath));
             String binCodeText = myActions.action_getText(binCode);
             return binCodeText;

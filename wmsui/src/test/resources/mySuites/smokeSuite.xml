@@ -9,7 +9,7 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.Login"></class>
-            <class name="com.shopf.tests.GRNCreation"></class>
+            <class name="com.shopf.tests.PickListReturn"></class>
         </classes>
     </test>
 </suite>
