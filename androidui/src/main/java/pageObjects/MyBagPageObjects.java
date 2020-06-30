@@ -4,9 +4,13 @@ import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 
 import java.util.List;
+
+import static utils.AndroidBaseClass.sleep;
 
 
 public class MyBagPageObjects {
@@ -139,6 +143,64 @@ public class MyBagPageObjects {
         public String getSalePriceIncomeLabelOnContainer(int containerId){
             String salePriceIncomeLabel = containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']/div[1]/span[1]";
             return myActions.action_getText(androidDriver.findElement(By.xpath(salePriceIncomeLabel)));
+        }
+
+        public void enterSalePriceOnContainer(int containerId,String salePrice){
+            String salepriceinput = containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input";
+            myActions.action_sendKeys(androidDriver.findElement(By.xpath(salepriceinput)),salePrice);
+        }
+
+        int minPrice = Integer.parseInt(System.getProperty("minSalePrice"));
+        int maxPrice = Integer.parseInt(System.getProperty("maxSalePrice"));
+        String min = Integer.toString(minPrice);
+        String max = Integer.toString(maxPrice);
+
+        public void checkingLessThanMinPrice(int containerId){
+            int min_Price = minPrice-5;
+            String min_ = Integer.toString(min_Price);
+            enterSalePriceOnContainer(containerId,min_);
+            getSalePriceIncomeLabelOnContainer(containerId);
+            WebDriverWait wait = new WebDriverWait(androidDriver,30);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            String original = myActions.action_getText(androidDriver.findElement(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            if(original.equalsIgnoreCase("Price Should be in between "+min+" and "+max)){
+                System.out.println("Lesser Than Minimum Sale Price is Entered");
+            }
+        }
+
+        public void checkingMinPrice(int containerId){
+            enterSalePriceOnContainer(containerId,min);
+            getSalePriceIncomeLabelOnContainer(containerId);
+            WebDriverWait wait = new WebDriverWait(androidDriver,30);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            String original = myActions.action_getText(androidDriver.findElement(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            if(original.equalsIgnoreCase("Price updated to "+min)){
+                System.out.println("Min Sale Price is Entered");
+            }
+        }
+
+        public void checkingMaxPrice(int containerId){
+            enterSalePriceOnContainer(containerId,max);
+            getSalePriceIncomeLabelOnContainer(containerId);
+            WebDriverWait wait = new WebDriverWait(androidDriver,30);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            String original = myActions.action_getText(androidDriver.findElement(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            if(original.equalsIgnoreCase("Price updated to "+max)){
+                System.out.println("Max Sale Price is Entered");
+            }
+        }
+
+        public void checkingMoreThanMaxPrice(int containerId){
+            int max_Price = maxPrice+5;
+            String max_ = Integer.toString(max_Price);
+            enterSalePriceOnContainer(containerId,max_);
+            getSalePriceIncomeLabelOnContainer(containerId);
+            WebDriverWait wait = new WebDriverWait(androidDriver,30);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            String original = myActions.action_getText(androidDriver.findElement(By.xpath("//div[@id = 'toastbar-header-basic']//div")));
+            if(original.equalsIgnoreCase("Price Should be in between "+min+" and "+max)){
+                System.out.println("Greater Than Maximum Sale Price is Entered");
+            }
         }
 
         public String getYourEarningsLabelOnContainer(int containerId){

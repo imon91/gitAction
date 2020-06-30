@@ -2,10 +2,15 @@ package com.shopf.tests;
 
 import coreUtils.*;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
 
+import java.text.ParseException;
 import java.util.Random;
 
 
@@ -51,8 +56,8 @@ public class MyBag extends AndroidBaseClass {
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
-            description = "Verify ItemIncrement Functionality On MyBag",
-            dependsOnGroups = "PDP.verifyPlaceOrderThroughPDP"  )
+            description = "Verify ItemIncrement Functionality On MyBag")
+            //dependsOnGroups = "PDP.verifyPlaceOrderThroughPDP"  )
     public void verifyItemIncrementFunctionalityOnMyBag(){
         int containersSize = itemContainer.getListOfItemContainers();
         System.out.println("List Of Item Containers is : "+containersSize);
@@ -95,12 +100,35 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
+
+    @Test(  groups = {"MyBag.verifyMinAndMaxSalePrice",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_FUNCTIONAL,
+            CoreConstants.GROUP_REGRESSION},
+            description = "verify Min and Max Sale Price",
+            dependsOnMethods = "verifyDeleteItemFromMyBag"  )
+    public void verifyMinAndMaxSalePrice(){
+        sleep(5000);
+        int itemCounterSize = itemContainer.getListOfItemContainers();
+        System.out.println("itemContainer Size is : "+itemCounterSize);
+        if(itemCounterSize>0){
+            Random random = new Random();
+            int count = random.nextInt(itemCounterSize);
+            System.out.println("Container Selected is : "+count);
+            itemContainer.checkingLessThanMinPrice(count);
+            itemContainer.checkingMoreThanMaxPrice(count);
+            itemContainer.checkingMinPrice(count);
+            itemContainer.checkingMaxPrice(count);
+        }
+    }
+
+
     @Test(  groups = {"MyBag.verifyApplyingShippingCharges",
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verify Applying Shipping Charges From MyBag",
-            dependsOnMethods = "verifyDeleteItemFromMyBag"  )
+            dependsOnMethods = "verifyMinAndMaxSalePrice"  )
     public void verifyApplyingShippingCharges() {
         sleep(5000);
         String shippingCharges = "70";
@@ -191,6 +219,25 @@ public class MyBag extends AndroidBaseClass {
             description = "Verify Proceed Payment Without Change Address",
             dependsOnMethods = "verifyCheckoutProceedInMyBag"  )
     public void verifyProceedPaymentWithoutChangeAddress(){
+        paymentModePageObjects.proceedPaymentWithoutChangeAddressThroughTopButton();
+        sleep(3000);
+    }
+
+
+
+    @Test(  groups = {"MyBag.verifyProceedPaymentWithChangeAddress",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_FUNCTIONAL,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verify Proceed Payment With Change Address",
+            dependsOnMethods = "verifyCheckoutProceedInMyBag"  )
+    public void verifyProceedPaymentWithChangeAddress(){
+        paymentModePageObjects.clickOnChangeAddress();
+        sleep(3000);
+        selectAddress.clickOnShowMoreAddress();
+        selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(4));
+        sleep(3000);
+        checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
         paymentModePageObjects.proceedPaymentWithoutChangeAddressThroughTopButton();
         sleep(3000);
     }
