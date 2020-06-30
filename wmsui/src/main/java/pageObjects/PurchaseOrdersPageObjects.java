@@ -136,6 +136,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             String skuCodeXPath = "//div[@id='Addpurchage']//input[@id='select" + index + "']";
             WebElement skuCodeEntry = driver.findElement(By.xpath(skuCodeXPath));
             myActions.action_sendKeys(skuCodeEntry, skuCode);
+            myActions.action_enter(skuCodeEntry);
         }
 
         public void quantityInput(int index, String quantity) {
@@ -173,14 +174,24 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
 
         /*--------------Functions-------------------*/
-        public void enterWarehouseDetails(String warehouse, String seller, String supplier, String address) {
-            selectWarehouseDropdown(warehouse);
-            selectSellerDropdown(seller);
-            selectSupplierDropdown(supplier);
-            selectAddressDropdown(address);
+        public void enterWarehouseDetails() {
+            selectWarehouseDropdown("Shopup Dhaka");
+            sleep(2000);
+            selectSellerDropdown("DFW");
+            sleep(1000);
+            selectSupplierDropdown("Dhaka Fashion Wear");
+            sleep(1000);
+            selectAddressDropdown("House no. 33 Road:3 Block - D , Mirpur-1");
             sleep(10000);
         }
 
+        public void createPurchaseOrder(){
+            skuCodeInput(0,"140882");
+            sleep(1000);
+            quantityInput(0,"1");
+            clickCreatePOButton();
+            sleep(1000);
+        }
         public void createPO(int no_of_products, String skuCode[], String quantity[], String price[]) {
             for (int i = 0; i < no_of_products; i++) {
                 skuCodeInput(i, skuCode[i]);
@@ -224,13 +235,22 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//a[text()='Print using barcode printer']")
         private WebElement printUsingBarcodePrinter;
 
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b")
+        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b/text()[2]")
         private WebElement purchaseOrderStatus;
+
+        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//button[text()='Yes']")
+        private WebElement clickYes;
 
 
         /*--------------Actions-------------------*/
+        public void  poIdInput(String poId){
+            myActions.action_sendKeys(poIDEntry,poId);
+            myActions.action_enter(poIDEntry);
+        }
         public void clickClosePOButton() {
             myActions.action_click(closePOButton);
+            sleep(1000);
+            myActions.action_click(clickYes);
         }
 
         public void clickPrintPurchaseOrder() {
@@ -250,6 +270,12 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='EditPurchaseOrder']//tbody/tr"));
             return products.size();
+        }
+
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='EditPurchaseOrder']//tbody/tr[" + index + "]/td[1]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
         }
 
         public String getDescription(int index) {

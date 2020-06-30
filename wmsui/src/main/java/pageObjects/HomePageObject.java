@@ -1,12 +1,16 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WmsBaseClass;
 
-public class HomePageObject {
+public class HomePageObject extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
@@ -50,7 +54,7 @@ public class HomePageObject {
     private WebElement returnsModule;
 
     //Logout
-    @FindBy(xpath = "//h3/a")
+    @FindBy(xpath = "//div[@id='root']//h3//a[text()='Log out']")
     private WebElement logoutButton;
 
 
@@ -88,6 +92,15 @@ public class HomePageObject {
     }
 
     public void clickLogout() {
+        sleep(2000);
         myActions.action_click(logoutButton);
+        sleep(5000);
+    }
+
+    public String getPopUpMessage(){
+        sleep(1000);
+        String popUpMessage = "//div[@id='toastbar-text']";
+        WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
+        return myActions.action_getText(popUpMessageElement);
     }
 }

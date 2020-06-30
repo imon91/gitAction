@@ -241,38 +241,38 @@ public class PackagesPageObjects {
 
         /*--------------Functions-------------------*/
         public String getPackageID() {
-            String packageIDXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[1]";
+            String packageIDXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[1]/text()[2]";
             WebElement packageID = driver.findElement(By.xpath(packageIDXpath));
-            String packageIDText[] = myActions.action_getText(packageID).split(" ");
-            return packageIDText[1];
+            String packageIDText = myActions.action_getText(packageID);
+            return packageIDText;
         }
 
         public String getCurrentStatus() {
-            String currentStatusXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[2]";
+            String currentStatusXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[2]/text()[2]";
             WebElement currentStatus = driver.findElement(By.xpath(currentStatusXpath));
-            String currentStatusText[] = myActions.action_getText(currentStatus).split(" ");
-            return currentStatusText[1];
+            String currentStatusText = myActions.action_getText(currentStatus);
+            return currentStatusText;
         }
 
         public String getSkuCode() {
-            String skuCodeXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[3]";
+            String skuCodeXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[3]/text()[2]";
             WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
-            String skuCodeText[] = myActions.action_getText(skuCode).split(" ");
-            return skuCodeText[1];
+            String skuCodeText = myActions.action_getText(skuCode);
+            return skuCodeText;
         }
 
         public String getSellerName() {
-            String sellerNameXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[4]";
+            String sellerNameXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[4]/text()[2]";
             WebElement sellerName = driver.findElement(By.xpath(sellerNameXpath));
-            String sellerNameText[] = myActions.action_getText(sellerName).split(" ");
-            return sellerNameText[1];
+            String sellerNameText = myActions.action_getText(sellerName);
+            return sellerNameText;
         }
 
         public String getBinCode() {
             String binCodeXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[5]";
             WebElement binCode = driver.findElement(By.xpath(binCodeXpath));
-            String binCodeText[] = myActions.action_getText(binCode).split(" ");
-            return binCodeText[1];
+            String binCodeText = myActions.action_getText(binCode);
+            return binCodeText;
         }
 
         public String getImage() {
