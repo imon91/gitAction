@@ -1,6 +1,7 @@
 package services.commerceMethods;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import coreUtils.CoreConstants;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -157,8 +158,8 @@ public class GetCommerceApiResponse {
     }
 
 
-    public List getProductWithValidSize(String searchName){
-        List productDetails = new ArrayList();
+    public Map<String,Object> getProductWithValidSize(String searchName){
+        Map<String,Object> productDetailsMap = new HashMap<>();
         for(int k=1;k<10;k++){
             if (!module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
                 response = shopUpPostMan.
@@ -174,10 +175,10 @@ public class GetCommerceApiResponse {
                         if(productSizes.get(j).getCount_on_hand() > 0 &&
                                 productSizes.get(j).getCorrected_count_on_hand() > 0){
                             // This is a product with valid
-                            productDetails.add(i);
-                            productDetails.add(productListingResultsModel.getResults().get(i));
-                            productDetails.add(j);
-                            return productDetails;
+                            productDetailsMap.put("ValidProductIndex",i);
+                            productDetailsMap.put("ValidProductDetails",productListingResultsModel.getResults().get(i));
+                            productDetailsMap.put("ValidSizeIndex",j);
+                            return productDetailsMap;
                         }
                     }
                 }
@@ -205,6 +206,80 @@ public class GetCommerceApiResponse {
             System.out.println("Product Description is not available for this module : "+module);
             return null;
         }
+    }
+
+
+    public LoggedInUserDataModel getLoggedInUserData(){
+        if (!module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
+            response = shopUpPostMan.
+                    getCall(EndPoints.APP_PREFERENCES +EndPoints.LOGGED_IN_USER_DATA_JSON);
+            LoggedInUserDataModel loggedInUserDataModel =
+                    gson.fromJson(response.getBody().asString(),LoggedInUserDataModel.class);
+            return loggedInUserDataModel;
+        }else {
+            System.out.println("LoggedIn User Details is not available for this module : "+module);
+            return null;
+        }
+    }
+
+
+    // This methods returns Category,Sub-Category pair as a List<String> respectively.
+    public List<String> getValidCategoryPair() {
+
+        response = shopUpPostMan.
+                getCall(EndPoints.APP_PREFERENCES +EndPoints.LOGGED_IN_USER_DATA_JSON);
+        LoggedInUserDataModel loggedInUserDataModel =
+                gson.fromJson(response.getBody().asString(),LoggedInUserDataModel.class);
+        //System.out.println(loggedInUserDataModel.getMain_menu().size());
+        Map<Integer,String> dataMain = new HashMap<>();
+        Map<Integer,String> dataSub = new HashMap<>();
+        for(int i=1;i<loggedInUserDataModel.getMain_menu().size();i++){
+            try {
+                if(loggedInUserDataModel.getMain_menu().get(i)
+                        .getIs_low_level().equalsIgnoreCase("true")){
+                    dataSub.put(i,loggedInUserDataModel.getMain_menu().get(i).getLabel());
+                }
+            }catch (Exception e){
+                dataMain.put(i,loggedInUserDataModel.getMain_menu().get(i).getLabel());
+            }
+        }
+        Object[] mainDataSet = dataMain.keySet().toArray();
+        List mainCategoryIndices = Arrays.asList(mainDataSet);
+        Collections.sort(mainCategoryIndices);
+
+        Object[] subDataSet = dataSub.keySet().toArray();
+        List subCategoryIndices = Arrays.asList(subDataSet);
+        Collections.sort(subCategoryIndices);
+
+//        System.out.println(mainCategoryIndices);
+//        System.out.println(subCategoryIndices);
+//
+//
+//        List<LinkedHashMap> mainCategoryIndices =
+//                JsonPath.from(response.getBody().asString()).param("is_category","true")
+//                        .get("main_menu.findAll { main_menu -> main_menu.is_category == is_category}");
+//        List<String> mainCategoryLabels = new ArrayList<>();
+//        for(int i=0;i<mainCategoryIndices.size();i++){
+//            mainCategoryLabels.add(mainCategoryIndices.get(i).get("label").toString());
+//        }
+
+        // Select a Random SubCategory
+        int randomSubCategoryIndex = new Random().nextInt(subCategoryIndices.size());
+        int actualSubCategory = (int)subCategoryIndices.get(randomSubCategoryIndex);
+        // Find the nearest Category
+        //System.out.println(actualSubCategory);
+        int actualCategory=0;
+        for(int i=0;i<mainCategoryIndices.size();i++){
+            if(actualSubCategory > (int)mainCategoryIndices.get(i)){
+                actualCategory = (int)mainCategoryIndices.get(i);
+            }
+        }
+//        System.out.println("Category is : "+actualCategory+
+//                ", subCategory is : "+actualSubCategory);
+        List<String> finalData = new ArrayList<>();
+        finalData.add(loggedInUserDataModel.getMain_menu().get(actualCategory).getLabel()); // Category
+        finalData.add(loggedInUserDataModel.getMain_menu().get(actualSubCategory).getLabel()); // Sub-Category
+        return finalData;
     }
 
 
