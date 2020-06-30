@@ -7,8 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import services.commerceMethods.GetCommerceApiResponse;
 import services.responseModels.commerceModels.ProductListingResultsModel;
 import utils.*;
-
-import java.util.List;
+import java.util.*;
 
 public class ProductListingPageObjects extends AndroidBaseClass{
 
@@ -161,27 +160,31 @@ public class ProductListingPageObjects extends AndroidBaseClass{
 
     /*-------Functions-----------*/
 
-    public void selectValidSizeProduct(String searchTerm){
+    public void selectValidProduct(String searchTerm){
         GetCommerceApiResponse getCommerceApiResponse =
                 serviceRequestLayer.getControlOverServices();
-        List productDetails =
+        Map<String,Object> productDetails =
                 getCommerceApiResponse.getProductWithValidSize(searchTerm);
-        int productIndex = (int)productDetails.get(0);
+        int productIndex = (int)productDetails.get("ValidProductIndex"); // Returns product Index
         ProductListingResultsModel.ResultsBean productResult =
-                (ProductListingResultsModel.ResultsBean)productDetails.get(1); // Returns the Whole Product
-        int sizeIndex = (int)productDetails.get(2); // Returns the Valid Size-Id
+                (ProductListingResultsModel.ResultsBean)productDetails.get("ValidProductDetails"); // Returns the Whole Product
+        int sizeIndex = (int)productDetails.get("ValidSizeIndex"); // Returns the Valid Size-Id
         System.out.println("Product Index is : "+productIndex);
         System.out.println("Product Name : "+productResult.getName());
         System.out.println("Valid Product Size Index : "+sizeIndex);
         System.setProperty("validProductSizeIndex",""+sizeIndex+"");
-        System.out.println("validProductSizeIndex : "+sizeIndex);
+        System.setProperty("minSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+        System.setProperty("maxSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
         // Scroll into View that product by its name and perform click on that
 //        System.out.println(androidDriver.findElementByAndroidUIAutomator(
 //                "new UiScrollable(new UiSelector().resourceId(\"com.shopup.reseller:id/recycler_feed_item\")).scrollIntoView("
 //                        + "new UiSelector().text(\""+productResult.getName()+"\"))").getText());
         // Click on that Item
         clickOnProductItem(getItemImages().get(productIndex));
-        sleep(5000);
+        sleep(2000);
     }
+
 
 }

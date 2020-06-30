@@ -158,8 +158,8 @@ public class GetCommerceApiResponse {
     }
 
 
-    public List getProductWithValidSize(String searchName){
-        List productDetails = new ArrayList();
+    public Map<String,Object> getProductWithValidSize(String searchName){
+        Map<String,Object> productDetailsMap = new HashMap<>();
         for(int k=1;k<10;k++){
             if (!module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
                 response = shopUpPostMan.
@@ -175,10 +175,10 @@ public class GetCommerceApiResponse {
                         if(productSizes.get(j).getCount_on_hand() > 0 &&
                                 productSizes.get(j).getCorrected_count_on_hand() > 0){
                             // This is a product with valid
-                            productDetails.add(i);
-                            productDetails.add(productListingResultsModel.getResults().get(i));
-                            productDetails.add(j);
-                            return productDetails;
+                            productDetailsMap.put("ValidProductIndex",i);
+                            productDetailsMap.put("ValidProductDetails",productListingResultsModel.getResults().get(i));
+                            productDetailsMap.put("ValidSizeIndex",j);
+                            return productDetailsMap;
                         }
                     }
                 }
@@ -281,5 +281,6 @@ public class GetCommerceApiResponse {
         finalData.add(loggedInUserDataModel.getMain_menu().get(actualSubCategory).getLabel()); // Sub-Category
         return finalData;
     }
+
 
 }
