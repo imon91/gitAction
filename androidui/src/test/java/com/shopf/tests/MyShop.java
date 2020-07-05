@@ -2,10 +2,16 @@ package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import utils.MyActions;
+
 import static utils.AndroidBaseClass.*;
+
+import java.util.List;
 import java.util.Random;
 
 
@@ -18,6 +24,7 @@ public class MyShop {
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
     private MyShopPageObjects myShopPageObjects;
+    MyActions myActions;
 
 
 
@@ -37,6 +44,7 @@ public class MyShop {
        actionBarObjects = new ActionBarObjects(androidDriver);
        rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
        myShopPageObjects = new MyShopPageObjects(androidDriver);
+       myActions = new MyActions();
 
        // Get The List Of Collections
        //new ShopUpPostMan(CoreConstants.MODULE_ANDROID_UI).
@@ -47,10 +55,11 @@ public class MyShop {
 
    @Test(  groups = {"MyShop.verifyAddingNewCollection",
            CoreConstants.GROUP_SMOKE,
-            CoreConstants.GROUP_FUNCTIONAL,
-            CoreConstants.GROUP_REGRESSION},
-            description = "Verifies Adding New Collection",
-            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
+           CoreConstants.GROUP_FUNCTIONAL,
+           CoreConstants.GROUP_REGRESSION},
+           enabled = false,
+           description = "Verifies Adding New Collection",
+           dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
     public void verifyAddingNewCollection(){
        System.out.println("Current Activity at MyShop is : "+androidDriver.currentActivity());
         Random random = new Random();
@@ -102,10 +111,21 @@ public class MyShop {
 
 
     @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
-            CoreConstants.GROUP_REGRESSION},
-            description = "Verifies Delete Collection Functionality"  )
+            CoreConstants.GROUP_REGRESSION,
+            CoreConstants.GROUP_SANITY},
+            description = "Verifies Delete Collection Functionality",
+            dependsOnMethods = "verifyAddingNewCollection"  )
     public void verifyDeleteCollection(){
-
+        bottomNavigationObjects.clickOnBottomBarMyShopIcon();
+        // Switch To WebView
+        Boolean context = switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        if(context){
+            String collectionName = myShopPageObjects.deleteCollection(0);
+            System.out.println("Deleted collection is "+collectionName);
+        }else{
+            System.out.println("Switch Context to Web Failed");
+        }
+        switchFromWebToNative();
     }
 
 

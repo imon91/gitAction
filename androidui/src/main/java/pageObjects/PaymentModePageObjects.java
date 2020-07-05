@@ -25,6 +25,9 @@ public class PaymentModePageObjects {
     @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
     private WebElement makePaymentTopButton;
 
+    @FindBy(xpath = "//div[@class='home-deliver-text']/a")
+    private WebElement changeAddress;
+
 
     public void selectPaymentOptionCOD(){
         myActions.action_click(codPaymentMode);
@@ -32,6 +35,10 @@ public class PaymentModePageObjects {
 
     public void clickOnPayTopButton(){
         myActions.action_click(makePaymentTopButton);
+    }
+
+    public void clickOnChangeAddress(){
+        myActions.action_click(changeAddress);
     }
 
 

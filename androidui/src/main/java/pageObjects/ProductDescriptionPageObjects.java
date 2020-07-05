@@ -417,6 +417,8 @@ public class ProductDescriptionPageObjects {
         myActions.action_click(imagePageHolder);
     }
 
+    public void clickOnImagePageViewer(){ myActions.action_click(imagePageViewer);}
+
     public void clickOnZoomCancelButton(){
         myActions.action_click(buttonCloseZoom);
     }

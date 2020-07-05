@@ -32,7 +32,7 @@ public class PDP extends AndroidBaseClass {
 
 
 
-    @Test(  groups = {"PDP.verifyAddItemToMyShopThoughPDP",
+    @Test(  groups = {"PDP.verifyAddItemToMyShopThroughPDP",
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
@@ -44,6 +44,19 @@ public class PDP extends AndroidBaseClass {
 //       productDescriptionPageObjects.clickOnAdToMyShopButton();
 //        sleep(3000);
 //       productDescriptionPageObjects.selectCollectionToAddProduct();
+    }
+
+
+    @Test(   groups = {"PDP.verifyImageZoomOfProduct",
+             CoreConstants.GROUP_SMOKE,
+             CoreConstants.GROUP_FUNCTIONAL,
+             CoreConstants.GROUP_REGRESSION},
+             description = "verify Image Zoom Of a Product",
+             dependsOnMethods = "verifyAddItemToMyShopThroughPDP")
+    public void verifyImageZoomOfProduct(){
+        productDescriptionPageObjects.clickOnImagePageHolder();
+        productDescriptionPageObjects.clickOnImagePageViewer();
+        productDescriptionPageObjects.clickOnZoomCancelButton();
     }
 
 
@@ -71,7 +84,7 @@ public class PDP extends AndroidBaseClass {
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Applying Product To Cart/Bag",
-            dependsOnMethods = "verifyAddItemToMyShopThroughPDP"  )
+            dependsOnMethods = "verifyImageZoomOfProduct"  )
     public void verifyAddItemToBagThroughPDP(){
         sleep(5000);
 //        String bagItemCount = actionBarObjects.getTextFromCartCountHolder();
@@ -104,7 +117,7 @@ public class PDP extends AndroidBaseClass {
             dependsOnMethods = "verifyAddItemToBagThroughPDP"  )
     public void verifyPlaceOrderThroughPDP(){
         //sleep(5000);
-        productDescriptionPageObjects.clickOnPlaceOrderButton();
+        /*productDescriptionPageObjects.clickOnPlaceOrderButton();
         //sleep(3000);
         productDescriptionPageObjects.
                 selectGivenSizeFromSizeList(Integer.parseInt(System.getProperty("validProductSizeIndex")));
@@ -112,7 +125,7 @@ public class PDP extends AndroidBaseClass {
 //        int count = random.nextInt(10);
 //        System.out.println("Count is : "+count);
         // Enter Amount
-        sleep(3000);
+        sleep(3000);*/
         productDescriptionPageObjects.clickOnPlaceOrderButton();
     }
 
