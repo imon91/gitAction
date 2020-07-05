@@ -1,10 +1,16 @@
 package com.shopf.tests;
 
 import coreUtils.*;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.*;
+import io.appium.java_client.touch.offset.PointOption;
+import org.openqa.selenium.By;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
+
+import java.util.List;
+import java.util.Random;
 
 
 public class MyOrders extends AndroidBaseClass {
@@ -13,6 +19,10 @@ public class MyOrders extends AndroidBaseClass {
     private MyOrdersPageObjects myOrdersPageObjects;
     private MyOrdersPageObjects.OrderDetails orderDetails;
     private BottomNavigationObjects bottomNavigationObjects;
+    private MyActions myActions;
+    private Random random;
+    private TouchAction touchAction;
+    private ActionBarObjects actionBarObjects;
 
     @BeforeClass(alwaysRun = true)
     public void myOrdersBeforeClass() throws Exception{
@@ -23,8 +33,10 @@ public class MyOrders extends AndroidBaseClass {
         bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();
         myOrdersPageObjects = new MyOrdersPageObjects(androidDriver);
         orderDetails = myOrdersPageObjects.new OrderDetails(androidDriver);
+        myActions = new MyActions();
+        touchAction = new TouchAction(androidDriver);
         // This Block is responsible to get the control from anywhere to MyOrders
-        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
     }
 
 
@@ -32,9 +44,46 @@ public class MyOrders extends AndroidBaseClass {
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
+            enabled = false,
             description = "Verify Selecting An Order From MyOrders"  )
     public void verifySelectingAnOrderFromMyOrders(){
         orderDetails.clickOnRandomOrderItem();
+    }
+
+    @Test(  groups = {"MyOrders.verifyCancellingAnOrderFromMyOrders",
+            CoreConstants.GROUP_SANITY},
+            description = "Verify Cancelling An Order From MyOrders"  )
+    public void verifyCancellingAnOrderFromMyOrders(){
+        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        sleep(2000);
+       touchAction.press(PointOption.point(10,1500)).waitAction().moveTo(PointOption.point(10,500)).release().perform();
+        sleep(5500);
+        AndroidElement loadmore = androidDriver.findElement(By.xpath("//div[@class='loadMore___2udG1']/button"));
+        myActions.action_click(loadmore);
+        sleep(6000);
+        //clicking of order id
+        orderDetails.clickOnOrderItemByIndex(4);
+        sleep(10000);
+
+        //switch to native
+        switchFromWebToNative();
+
+        //del button
+        androidDriver.findElement(By.xpath("//android.view.View[@index='23']/android.widget.Image")).click();
+        sleep(20000);
+        //cancel reason icon
+        androidDriver.findElement(By.xpath("//android.widget.Spinner[@index='0']")).click();
+        sleep(10000);
+        //click reasons
+        androidDriver.findElement(By.xpath("//android.widget.CheckedTextView[@index='1']")).click();
+        sleep(1000);
+        //click cancel button
+        androidDriver.findElement(By.xpath("//android.widget.Button[@index='2']")).click();
+        sleep(3000);
+        //go to home page
+        androidDriver.navigate().back();
+        actionBarObjects.clickOnShopUpAppIcon();
+
     }
 
 
