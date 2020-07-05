@@ -53,7 +53,7 @@ public class Authentication extends WebBaseClass {
             dataProvider = "getUserAuthenticationData")
     public void verifyAuthenticationWithValidCredentials(String mobileNumber, String otp) {
         System.out.println("verifyAuthentication is called");
-        driver.get(CoreConstants.RESELLER_STAGE_BASE_URL);
+        driver.get(CoreConstants.RESELLER_WEB_STAGE_BASE_URL);
         sleep(1000);
         loginPageObject.performAuthentication("01877755590", "666666");
         // Verification Step Pending
