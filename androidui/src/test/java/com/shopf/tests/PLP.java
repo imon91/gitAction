@@ -101,11 +101,47 @@ public class PLP extends AndroidBaseClass {
     @Test(groups = {"PLP.verifySelectingItemOnPLP",
             CoreConstants.GROUP_SMOKE
     },
+            enabled = false,
             description = "Verifies Selecting Item On PLP",
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions" )
     public void verifySelectingValidSizeItemOnPLP(){
         String searchTerm = System.getProperty("androidSearchTerm");
         productListingPageObjects.selectValidProduct(searchTerm);
+    }
+
+    @Test(  groups = {"PLP.verifyApplying/RemovingFilterOnPLP",
+            CoreConstants.GROUP_SANITY},
+            description = "Verifies Applying / Removing Filter On The PLP Page",
+            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
+    public void verifyApplyingAndRemovingFilterOnPLP(){
+
+       String totalItem= productListingPageObjects.getTextOnTitleHeader();
+        //adding filter
+        productListingPageObjects.clickOnFilterButton();
+
+        productFilterPageObjects.
+                clickOnFilterName(productFilterPageObjects.
+                        getListOfFilterNames().get(0));
+
+        System.out.println("Current Activity at PLP on Filter is : "+androidDriver.currentActivity());
+
+        productFilterPageObjects.
+                clickOnFilterItemByValue("Men Shirts");
+        productFilterPageObjects.
+                clickOnFilterName(productFilterPageObjects.
+                        getListOfFilterNames().get(1));
+        productFilterPageObjects.
+                clickOnFilterItemByValue("500 - 1000 Tk");
+        productFilterPageObjects.clickOnApplyFilter();
+
+        //removing filter
+        productListingPageObjects.clickOnFilterButton();
+        productFilterPageObjects.clickOnClearFilter();
+        productFilterPageObjects.clickOnApplyFilter();
+        String totalitem = productListingPageObjects.getTextOnTitleHeader();
+
+        if(totalItem.equalsIgnoreCase(totalitem)){System.out.println(totalItem);System.out.println("Remove Filter Function was verified");
+        }
     }
 
 
