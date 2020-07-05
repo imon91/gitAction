@@ -55,11 +55,11 @@ public class MyShop {
 
    @Test(  groups = {"MyShop.verifyAddingNewCollection",
            CoreConstants.GROUP_SMOKE,
-            CoreConstants.GROUP_FUNCTIONAL,
-            CoreConstants.GROUP_REGRESSION},
+           CoreConstants.GROUP_FUNCTIONAL,
+           CoreConstants.GROUP_REGRESSION},
            enabled = false,
-            description = "Verifies Adding New Collection",
-            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
+           description = "Verifies Adding New Collection",
+           dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
     public void verifyAddingNewCollection(){
        System.out.println("Current Activity at MyShop is : "+androidDriver.currentActivity());
         Random random = new Random();
@@ -113,7 +113,8 @@ public class MyShop {
     @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION,
             CoreConstants.GROUP_SANITY},
-            description = "Verifies Delete Collection Functionality"  )
+            description = "Verifies Delete Collection Functionality",
+            dependsOnMethods = "verifyAddingNewCollection"  )
     public void verifyDeleteCollection(){
         bottomNavigationObjects.clickOnBottomBarMyShopIcon();
         // Switch To WebView
