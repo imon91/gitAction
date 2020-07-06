@@ -38,7 +38,7 @@ public class Logout extends AndroidBaseClass {
 //        System.out.println("Going to Press Back Key");
 //        //myActions.clickOnHardKeyBack();
 //        System.out.println("Going to Press Back Key DONE");
-        actionBarObjects.clickOnShopUpAppIcon();
+        //actionBarObjects.clickOnShopUpAppIcon();
     }
 
 

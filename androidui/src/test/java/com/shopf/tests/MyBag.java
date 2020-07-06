@@ -46,7 +46,7 @@ public class MyBag extends AndroidBaseClass {
         estimatedDeliveryDatesItems = estimatedDeliveryDates.new EstimatedDeliveryDatesItems(androidDriver);
         myActions = new MyActions();
         // This Block is responsible to get the control from anywhere to MyBag
-        actionBarObjects.clickOnBagImageButton();
+        //actionBarObjects.clickOnBagImageButton();
         sleep(3000);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         // This Block is responsible to get the control from anywhere to MyBag

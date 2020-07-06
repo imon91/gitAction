@@ -1,31 +1,44 @@
-package com.shopf.tests.IntegrationTests;
+package com.shopf.tests.integrationTests;
 
 import com.shopf.tests.*;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pageObjects.LoginPageObjects;
+import pageObjects.ActionBarObjects;
+import pageObjects.OrderSuccessFulPageObjects;
 import utils.AndroidBaseClass;
 
 public class SmokeFlow extends AndroidBaseClass {
 
-    private Authentication authentication = new Authentication();
-    private MyBag myBag = new MyBag();
-    private MyShop myShop = new MyShop();
-    private PDP pdp = new PDP();
-    private PLP plp = new PLP();
-    private Search search = new Search();
-    private Logout logout = new Logout();
-    private AndroidDriver<AndroidElement> androidDriver;
+    private Authentication authentication;
+    private MyBag myBag;
+    private MyShop myShop;
+    private PDP pdp;
+    private PLP plp;
+    private Search search;
+    private Logout logout;
+    private AndroidDriver<WebElement> androidDriver;
+    private OrderSuccessFulPageObjects orderSuccessFulPageObjects;
+    private ActionBarObjects actionBarObjects;
 
 
-    @BeforeClass
-    public void smokeTestBeforeClass() throws Exception {
+    @BeforeClass(alwaysRun = true)
+    public void smokeTestBeforeClass(){
+        System.out.println("Smoke Test Started");
         androidDriver = getBaseDriver();
-        setImplicitWait(10);
+        authentication = new Authentication();
+        myBag = new MyBag();
+        myShop = new MyShop();
+        pdp = new PDP();
+        plp = new PLP();
+        search = new Search();
+        logout = new Logout();
+        orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
+        actionBarObjects = new ActionBarObjects(androidDriver);
+        setImplicitWait(30);
     }
 
 
@@ -36,8 +49,8 @@ public class SmokeFlow extends AndroidBaseClass {
 
         //Step 1 : Login with valid credentials
         authentication.verifyAuthenticationWithValidCredentials("1877755590","666666");
-        myShop.myShopSetUp();
-        sleep(6000);
+//        myShop.myShopSetUp();
+//        sleep(6000);
 
         //Step 2 : Adding a new collection
         //myShop.verifyAddingNewCollection();
@@ -48,10 +61,10 @@ public class SmokeFlow extends AndroidBaseClass {
         plp.productListingPageBeforeClass();
 
         //Step 4 : Sorting the product list
-        plp.verifyApplyingSortOnPLP();
+        //plp.verifyApplyingSortOnPLP();
 
         //Step 5 : Filtering the product list
-        plp.verifyApplyingFilterOnPLP();
+        plp.verifyApplyingFilterOnPLP("Category","Men Shirts");
 
         //Step 6 : Selecting a product with valid size from the list
         plp.verifySelectingValidSizeItemOnPLP();
@@ -82,14 +95,19 @@ public class SmokeFlow extends AndroidBaseClass {
 
         //Step 14 : Proceed payment
         myBag.verifyProceedPaymentWithoutChangeAddress();
-        logout.logoutBeforeClass();
+
+        sleep(4000);
+        orderSuccessFulPageObjects.clickOnClickHereButton();
+
+        //actionBarObjects.clickOnShopUpAppIcon();
 
         //Step 15 : Logging out
+        logout.logoutBeforeClass();
         logout.verifyLogoutFunctionality();
     }
 
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void smokeTestAfterClass(){
         System.out.println("SmokeTest completed");
     }

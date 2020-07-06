@@ -4,11 +4,11 @@
     <test name="SmokeTests" preserve-order="true" parallel="false">
         <groups>
             <run>
-                <include name="sanity"/>
+                <include name="smoke"/>
             </run>
         </groups>
         <classes>
-                <!---Add the Smoke Test Class-->
+              <class name="com.shopf.tests.integrationTests.SmokeFlow"></class>
         </classes>
     </test>
 </suite>
