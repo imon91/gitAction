@@ -1,7 +1,7 @@
 package pageObjects;
 
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.*;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import services.commerceMethods.GetCommerceApiResponse;
@@ -11,104 +11,99 @@ import java.util.*;
 
 public class ProductListingPageObjects extends AndroidBaseClass{
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private ServiceRequestLayer serviceRequestLayer;
     private String packageName;
-    public ProductListingPageObjects(AndroidDriver<AndroidElement> androidDriver){
+
+    public ProductListingPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         serviceRequestLayer = new ServiceRequestLayer();
         packageName = getAppPackage();
     }
 
 
     // Filter LinearLayout
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/filter_with_sort']")
-    private AndroidElement filterButton;
+    private WebElement filterButton;
 
     // Filter Text
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Filter']")
-    private AndroidElement filterText;
+    private WebElement filterText;
 
     // Sort LinearLayout
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/sort_app']")
-    private AndroidElement sortButton;
+    private WebElement sortButton;
 
     // Filter Text
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Sort']")
-    private AndroidElement sortText;
+    private WebElement sortText;
 
     // Recycler Feed Items
-    @AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView[@resource-id='com.shopup.reseller:id/recycler_feed_item']")
-    private AndroidElement recyclerFeedItem;
+    private WebElement recyclerFeedItem;
 
     // HeaderContainer RelativeLayout
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/header_container']")
-    private AndroidElement headerContainer;
+    private WebElement headerContainer;
 
     // Header Text
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/title_header_text']")
-    private AndroidElement headerText;
+    private WebElement headerText;
+
+    public void getFeedItemRecyclerView(){
+        recyclerFeedItem =
+                xpathSetter("//androidx.recyclerview.widget.RecyclerView[@resource-id='"+packageName+":id/recycler_feed_item']");
+    }
+
+    public void getHeaderContainerRelativeLayout(){
+        recyclerFeedItem =
+                xpathSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/header_container']");
+    }
 
 
+    public List<WebElement> getItemContainers(){
 
-    public List<AndroidElement> getItemContainers(){
-
-        List<AndroidElement> itemContainerList =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/item_container']"));
+        List<WebElement> itemContainerList =
+                xpathListSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/item_container']");
         return itemContainerList;
     }
 
-    public List<AndroidElement>  getItemImages(){
-        List<AndroidElement> itemImages =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.ImageView[@resource-id='com.shopup.reseller:id/image']"));
+    public List<WebElement>  getItemImages(){
+        List<WebElement> itemImages =
+                xpathListSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/image']");
         return itemImages;
     }
 
-    public List<AndroidElement> getItemBrands(){
-        List<AndroidElement> itemBrands =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/brand']"));
+    public List<WebElement> getItemBrands(){
+        List<WebElement> itemBrands =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/brand']");
         return itemBrands;
     }
 
-    public List<AndroidElement> getItemPriceContainers(){
-        List<AndroidElement> itemPriceContainers =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/price_container']"));
+    public List<WebElement> getItemPriceContainers(){
+        List<WebElement> itemPriceContainers =
+                xpathListSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/price_container']");
         return itemPriceContainers;
     }
 
-    public List<AndroidElement> getItemPrices(){
-        List<AndroidElement> itemPrice =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/price']"));
+    public List<WebElement> getItemPrices(){
+        List<WebElement> itemPrice =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/price']");
         return itemPrice;
     }
 
-    public List<AndroidElement> getItemOriginalPrices(){
-        List<AndroidElement> itemOriginalPrice =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/original_price']"));
+    public List<WebElement> getItemOriginalPrices(){
+        List<WebElement> itemOriginalPrice =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/original_price']");
         return itemOriginalPrice;
     }
 
-    public List<AndroidElement> getItemDiscountPrices(){
-        List<AndroidElement> itemDiscountPrice =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/discount']"));
+    public List<WebElement> getItemDiscountPrices(){
+        List<WebElement> itemDiscountPrice =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/discount']");
         return itemDiscountPrice;
     }
 
-    public List<AndroidElement> getListOfStockOutItems(){
-        List<AndroidElement> itemDiscountPrice =
-                androidDriver. findElements(By.
-                        xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/discount']"));
-        for(AndroidElement item : itemDiscountPrice){
+    public List<WebElement> getListOfStockOutItems(){
+        List<WebElement> itemDiscountPrice =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/discount']");
+        for(WebElement item : itemDiscountPrice){
 
         }
         return itemDiscountPrice;
@@ -118,42 +113,47 @@ public class ProductListingPageObjects extends AndroidBaseClass{
     /*-------Actions---------*/
 
     public void clickOnFilterButton(){
+        filterButton = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/filter_with_sort']");
         myActions.action_click(filterButton);
     }
 
     public void clickOnSortButton(){
+        sortButton = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/sort_app']");
         myActions.action_click(sortButton);
     }
 
     public String getTextOnFilterButton(){
+        filterText = xpathSetter("//android.widget.TextView[@text='Filter']");
         return myActions.action_getText(filterText);
     }
 
     public String getTextOnSortButton(){
+        sortText = xpathSetter("//android.widget.TextView[@text='Sort']");
         return myActions.action_getText(sortText);
     }
 
     public String getTextOnTitleHeader(){
+        headerText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/title_header_text']");
         return myActions.action_getText(headerText);
     }
 
-    public String getBrandTextForItem(AndroidElement brandContainer){
+    public String getBrandTextForItem(WebElement brandContainer){
         return myActions.action_getText(brandContainer);
     }
 
-    public String getPriceForItem(AndroidElement priceContainer){
+    public String getPriceForItem(WebElement priceContainer){
         return myActions.action_getText(priceContainer);
     }
 
-    public String getOriginalPriceForItem(AndroidElement originalPriceContainer){
+    public String getOriginalPriceForItem(WebElement originalPriceContainer){
         return myActions.action_getText(originalPriceContainer);
     }
 
-    public String getDiscountForItem(AndroidElement discountContainer){
+    public String getDiscountForItem(WebElement discountContainer){
         return myActions.action_getText(discountContainer);
     }
 
-    public void clickOnProductItem(AndroidElement productItem){
+    public void clickOnProductItem(WebElement productItem){
         myActions.action_click(productItem);
         System.out.println("Element Clicked");
     }
@@ -179,7 +179,7 @@ public class ProductListingPageObjects extends AndroidBaseClass{
                 Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
         // Scroll into View that product by its name and perform click on that
 //        System.out.println(androidDriver.findElementByAndroidUIAutomator(
-//                "new UiScrollable(new UiSelector().resourceId(\"com.shopup.reseller:id/recycler_feed_item\")).scrollIntoView("
+//                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_item\")).scrollIntoView("
 //                        + "new UiSelector().text(\""+productResult.getName()+"\"))").getText());
         // Click on that Item
         clickOnProductItem(getItemImages().get(productIndex));

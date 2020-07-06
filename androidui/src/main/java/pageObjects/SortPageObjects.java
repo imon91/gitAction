@@ -5,35 +5,40 @@ import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.*;
+import java.util.*;
 
-import java.util.List;
+public class SortPageObjects extends AndroidBaseClass{
 
-public class SortPageObjects {
-
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
+    private String packageName;
 
-    public SortPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public SortPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        packageName = getAppPackage();
     }
 
 
     // Sort Items Container
-    @AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView[@resource-id='com.shopup.reseller:id/sort_recycler']")
-    private AndroidElement sortRecycler;
+    private WebElement sortRecycler;
+
+    public void getSortRecycler(){
+        sortRecycler =
+                xpathSetter("//androidx.recyclerview.widget.RecyclerView[@resource-id='"+packageName+":id/sort_recycler']");
+    }
 
 
-    public List<AndroidElement> getSortTexts(){
-        List<AndroidElement> sortTextList =
-                androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/sort_text']"));
+    public List<WebElement> getSortTexts(){
+        List<WebElement> sortTextList =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_text']");
         return sortTextList;
     }
 
 
     public void clickOnSortElement(String sortText){
-        AndroidElement sortElement = androidDriver.findElement(By.xpath("//android.widget.TextView[@text='"+sortText+"']"));
+        WebElement sortElement = xpathSetter("//android.widget.TextView[@text='"+sortText+"']");
         myActions.action_click(sortElement);
     }
 

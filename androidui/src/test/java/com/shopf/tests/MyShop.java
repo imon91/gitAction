@@ -2,30 +2,40 @@ package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import utils.MyActions;
+import utils.*;
+import java.util.*;
 
-import static utils.AndroidBaseClass.*;
-
-import java.util.List;
-import java.util.Random;
-
-
-public class MyShop {
+public class MyShop extends AndroidBaseClass {
 
 
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private BottomNavigationObjects bottomNavigationObjects;
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
     private MyShopPageObjects myShopPageObjects;
     MyActions myActions;
 
+
+    public void myShopPageInitializer(){
+        System.out.println("MyShopPageInitializer is called");
+        androidDriver = getBaseDriver();
+        switchFromWebToNative();
+        // Make a call to scriptRouter to get control on MyShop
+        // getTheControlToMyShop();
+        // 1) First get the current page/activity/Context = HomePage
+        // 2) HomePages
+        // 3) Search for possibilities(RootCoded)
+        // Navigated to MyShop
+        bottomNavigationObjects = new BottomNavigationObjects(androidDriver);
+        actionBarObjects = new ActionBarObjects(androidDriver);
+        rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        myShopPageObjects = new MyShopPageObjects(androidDriver);
+    }
 
 
    @BeforeClass(alwaysRun = true)
@@ -48,18 +58,19 @@ public class MyShop {
 
        // Get The List Of Collections
        //new ShopUpPostMan(CoreConstants.MODULE_ANDROID_UI).
+       myShopPageInitializer();
+       actionBarObjects.clickOnShopUpAppIcon();
+       //rightNavigationDrawer.clickOnItemHome();
 
    }
 
 
 
    @Test(  groups = {"MyShop.verifyAddingNewCollection",
-           CoreConstants.GROUP_SMOKE,
-           CoreConstants.GROUP_FUNCTIONAL,
-           CoreConstants.GROUP_REGRESSION},
-           enabled = false,
-           description = "Verifies Adding New Collection",
-           dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
+            CoreConstants.GROUP_FUNCTIONAL,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Adding New Collection",
+            dependsOnGroups = "MyBag.verifyProceedPaymentWithoutChangeAddress"  )
     public void verifyAddingNewCollection(){
        System.out.println("Current Activity at MyShop is : "+androidDriver.currentActivity());
         Random random = new Random();
@@ -67,6 +78,7 @@ public class MyShop {
         int decider = 3;
         System.out.println("Decider is : "+decider);
         if(decider!=4){
+            switchFromWebToNative();
             bottomNavigationObjects.clickOnBottomBarMyShopIcon();
         }else {
             actionBarObjects.clickOnUserProfileImageButton();
@@ -86,7 +98,6 @@ public class MyShop {
         }else {
             System.out.println("Switch Context to Web Failed");
         }
-        switchFromWebToNative();
     }
 
 
@@ -95,17 +106,27 @@ public class MyShop {
             CoreConstants.GROUP_REGRESSION},
             description = "Creates a collection and verifies the empty collection"  )
     public void verifyEmptyCollection(){
-        verifyAddingNewCollection();
 
     }
 
 
 
-    @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
+    @Test(  groups = {"MyShop.verifyCancelCreateCollection",
+            CoreConstants.GROUP_SMOKE,
+            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
+            enabled = true,
+            dependsOnMethods = {"verifyAddingNewCollection"},
             description = "Verifies Cancel Collection Functionality"  )
-    public void verifyCancelCollection(){
-
+    public void verifyCancelCreateCollection(){
+        String collectionName = myShopPageObjects.cancelTheCreateCollection();
+        System.out.println("New collection create cancelled is : "+collectionName);
+        // Here the position is asserted for 1 : Because New collection should not be created in the collections list
+//        try{
+//            myShopPageObjects.getPositionOfCollectionName(collectionName);
+//        }catch (NullPointerException e){
+////            Assert.assertTrue(e.toString().contains("NullPointerException"));
+//        }
     }
 
 
@@ -114,7 +135,7 @@ public class MyShop {
             CoreConstants.GROUP_REGRESSION,
             CoreConstants.GROUP_SANITY},
             description = "Verifies Delete Collection Functionality",
-            dependsOnMethods = "verifyAddingNewCollection"  )
+            dependsOnMethods = "verifyCancelCreateCollection"  )
     public void verifyDeleteCollection(){
         bottomNavigationObjects.clickOnBottomBarMyShopIcon();
         // Switch To WebView
@@ -134,6 +155,7 @@ public class MyShop {
     public void myShopAfterClass(){
         System.out.println("MyShopAfterClass is called");
         switchFromWebToNative();
+        bottomNavigationObjects.clickOnBottomBarHomeIcon();
     }
 
 

@@ -4,18 +4,16 @@ import coreUtils.*;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.*;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
-
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class MyOrders extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyOrdersPageObjects myOrdersPageObjects;
     private MyOrdersPageObjects.OrderDetails orderDetails;
     private BottomNavigationObjects bottomNavigationObjects;
@@ -28,13 +26,16 @@ public class MyOrders extends AndroidBaseClass {
     public void myOrdersBeforeClass() throws Exception{
         System.out.println("MyOrdersBeforeClass is called");
         androidDriver = getBaseDriver();
-        setImplicitWait(30);
         bottomNavigationObjects = new BottomNavigationObjects(androidDriver);
         bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();
         myOrdersPageObjects = new MyOrdersPageObjects(androidDriver);
         orderDetails = myOrdersPageObjects.new OrderDetails(androidDriver);
         myActions = new MyActions();
         touchAction = new TouchAction(androidDriver);
+        sleep(5000);
+        myOrdersPageObjects.clickOnCompleteTabItem();
+        sleep(1000);
+        myOrdersPageObjects.clickOnActiveTabItem();
         // This Block is responsible to get the control from anywhere to MyOrders
         //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
     }
@@ -46,8 +47,42 @@ public class MyOrders extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},
             enabled = false,
             description = "Verify Selecting An Order From MyOrders"  )
-    public void verifySelectingAnOrderFromMyOrders(){
-        orderDetails.clickOnRandomOrderItem();
+    public void verifySelectingAnOrderFromMyOrders() throws Exception{
+       ArrayList<WebElement> data =  (ArrayList) orderDetails.getListOfOrderItems();
+        System.out.println(data.size());
+        for(int i=0;i<data.size();i++){
+            System.out.println(data.get(i).getText());
+        }
+        int randomValue = new Random().nextInt((data.size()));
+        System.out.println("Item Clicked is : "+randomValue);
+        data.get(randomValue).click();
+        //orderDetails.clickOnOrderItemByIndex(new Random().nextInt((data.size())+1));
+//        sleep(10000);
+//        List<WebElement> dataList =
+//                androidDriver.findElements(By.xpath("//button"));
+//        System.out.println(dataList.size());
+//        dataList.get(0).click();
+//        sleep(10000);
+//        System.out.println("List of delete buttons are : "+dataList.size());
+        switchFromWebToNative();sleep(5000);
+        androidDriver.findElement(By.xpath("//android.view.View[@index='23']/android.widget.Image")).click();
+        //new MyActions().clickOnHardKeyBack();
+        sleep(10000);
+        androidDriver.findElement(By.xpath("//android.widget.Spinner[@index='0']")).click();
+//        sleep(3000);
+//        androidDriver.findElement(By.xpath("//android.widget.CheckedTextView[@index='1']")).click();
+        sleep(3000);
+        androidDriver.findElement(By.xpath("//android.widget.Button[@text='Cancel Order']")).click();
+        //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        //androidDriver.findElement(By.xpath("//div[@class='deleteActive___SWGaJ']//*[name()='svg']")).click();
+        sleep(20000);
+//        ArrayList<String> dataNew = new ArrayList();
+//        Set<String> setData = androidDriver.getContextHandles();
+//        for (String x : setData)
+//            dataNew.add(x);
+//        System.out.println(dataNew);
+//        System.out.println(androidDriver.getCurrentUrl());
+        //System.out.println(androidDriver.findElementByXPath("//div[@class='flex___1bJDE middle___1jEMZ']/p[1]").getText());
     }
 
     @Test(  groups = {"MyOrders.verifyCancellingAnOrderFromMyOrders",
@@ -58,7 +93,7 @@ public class MyOrders extends AndroidBaseClass {
         sleep(2000);
        touchAction.press(PointOption.point(10,1500)).waitAction().moveTo(PointOption.point(10,500)).release().perform();
         sleep(5500);
-        AndroidElement loadmore = androidDriver.findElement(By.xpath("//div[@class='loadMore___2udG1']/button"));
+        WebElement loadmore = androidDriver.findElement(By.xpath("//div[@class='loadMore___2udG1']/button"));
         myActions.action_click(loadmore);
         sleep(6000);
         //clicking of order id

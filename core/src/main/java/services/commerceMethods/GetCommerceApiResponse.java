@@ -1,7 +1,6 @@
 package services.commerceMethods;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import coreUtils.CoreConstants;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -281,6 +280,15 @@ public class GetCommerceApiResponse {
         finalData.add(loggedInUserDataModel.getMain_menu().get(actualSubCategory).getLabel()); // Sub-Category
         return finalData;
     }
+
+
+    public void getOrderDetails(){
+        response = shopUpPostMan.
+                getCall(EndPoints.APP_PREFERENCES +EndPoints.LOGGED_IN_USER_DATA_JSON);
+        LoggedInUserDataModel loggedInUserDataModel =
+                gson.fromJson(response.getBody().asString(),LoggedInUserDataModel.class);
+    }
+
 
 
 }

@@ -2,13 +2,14 @@ package utils;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.WebElement;
 import pageObjects.*;
 import java.util.*;
 
 
 public class AndroidScriptRouter extends AndroidBaseClass{
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private static final String KEY_ACTIVITY = "activity";
     private static final String KEY_PAGE = "page";
     private ActionBarObjects actionBarObjects;

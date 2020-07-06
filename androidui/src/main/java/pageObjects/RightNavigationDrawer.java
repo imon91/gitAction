@@ -3,84 +3,98 @@ package pageObjects;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.PageFactory;
 import utils.AndroidBaseClass;
 import utils.MyActions;
 
-public class RightNavigationDrawer {
+public class RightNavigationDrawer extends AndroidBaseClass{
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
 
-    public RightNavigationDrawer(AndroidDriver<AndroidElement> androidDriver){
+    public RightNavigationDrawer(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
-        packageName = AndroidBaseClass.getAppPackage();
+        packageName = getAppPackage();
     }
 
     // Name TextView
-    @AndroidFindBy(id = "com.shopup.reseller:id/name_text_view")
-    private AndroidElement userNameTextView;
+    private WebElement userNameTextView;
 
     // Email TextView
-    @AndroidFindBy(id = "com.shopup.reseller:id/email_text_view")
-    private AndroidElement emailIdTextView;
+    private WebElement emailIdTextView;
+
+
+    public String getUserName(){
+        userNameTextView =
+                idSetter(""+packageName+":id/name_text_view");
+        return myActions.action_getText(userNameTextView);
+    }
+
+
+    public String getEmailId(){
+        emailIdTextView =
+                idSetter(""+packageName+":id/email_text_view");
+        return myActions.action_getText(emailIdTextView);
+    }
+
 
     // NavigationItem Home
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Home']")
-    private AndroidElement navigationItemHome;
+    private WebElement navigationItemHome;
 
     // NavigationItem MyNotifications
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='My Notifications']")
-    private AndroidElement navigationItemMyNotifications;
+    private WebElement navigationItemMyNotifications;
 
     // NavigationItem My Account
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='My Account']")
-    private AndroidElement navigationItemMyAccount;
+    private WebElement navigationItemMyAccount;
 
     // NavigationItem My Orders
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='5']")
-    private AndroidElement navigationItemMyOrders;
+    private WebElement navigationItemMyOrders;
 
     // NavigationItem My Shop
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='4']")
-    private AndroidElement navigationItemMyShop;
+    private WebElement navigationItemMyShop;
 
     // NavigationItem Change Language
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Change Language']")
-    private AndroidElement navigationItemChangeLanguage;
+    private WebElement navigationItemChangeLanguage;
 
     // NavigationItem Reseller Policy
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reseller Policy']")
-    private AndroidElement navigationItemResellerPolicy;
+    private WebElement navigationItemResellerPolicy;
 
 
     // NavigationItem Privacy Policy
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Privacy Policy']")
-    private AndroidElement navigationItemPrivacyPolicy;
+    private WebElement navigationItemPrivacyPolicy;
 
     // NavigationItem Help
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Help']")
-    private AndroidElement navigationItemHelp;
+    private WebElement navigationItemHelp;
 
     // NavigationItem FAQ
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='FAQ']")
-    private AndroidElement navigationItemFAQ;
+    private WebElement navigationItemFAQ;
 
     // NavigationItem Privacy Tutorial
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Tutorial']")
-    private AndroidElement navigationItemTutorial;
+    private WebElement navigationItemTutorial;
 
     // NavigationItem Contact us
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Contact us']")
-    private AndroidElement navigationItemContactUs;
+    private WebElement navigationItemContactUs;
 
     // NavigationItem Logout
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='13']")
-    private AndroidElement navigationItemLogout;
+    private WebElement navigationItemLogout;
 
 
 
@@ -148,7 +162,6 @@ public class RightNavigationDrawer {
     public void clickOnItemLogout(){
         myActions.action_click(navigationItemLogout);
     }
-
 
 
 

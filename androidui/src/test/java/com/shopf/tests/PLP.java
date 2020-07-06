@@ -1,7 +1,9 @@
 package com.shopf.tests;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.AndroidBaseClass;
@@ -11,7 +13,7 @@ import java.util.Random;
 
 public class PLP extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private ProductListingPageObjects productListingPageObjects;
     private SortPageObjects sortPageObjects;
     private ProductFilterPageObjects productFilterPageObjects;
@@ -22,9 +24,7 @@ public class PLP extends AndroidBaseClass {
     @BeforeClass(alwaysRun = true)
     public void productListingPageBeforeClass() throws Exception{
         System.out.println("PLPBeforeClass is called");
-        switchFromWebToNative();
         androidDriver = getBaseDriver();
-        setImplicitWait(30);
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
         sortPageObjects = new SortPageObjects(androidDriver);
         productFilterPageObjects = new ProductFilterPageObjects(androidDriver);
@@ -36,11 +36,10 @@ public class PLP extends AndroidBaseClass {
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
-            enabled = false,
+            enabled = true,
             description = "Verifies Applying Sort On The Product List",
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
     public void verifyApplyingSortOnPLP(){
-        sleep(3000);
         productListingPageObjects.clickOnSortButton();
         // Get the value from sort key
         System.out.println("Current Activity at PLP on Sort is : "+androidDriver.currentActivity());
@@ -49,24 +48,44 @@ public class PLP extends AndroidBaseClass {
 
     }
 
+    @DataProvider(name = "dataForApplyFilter")
+    private Object[][] dataForApplyFilter(){
+        String filterCategory = null;
+        String filterItem = null;
+        if(System.getProperty(BuildParameterKeys.KEY_APP)
+                .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            filterCategory = "Category";
+            filterItem = "Men Shirts";
+        }else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                .equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            filterCategory = "Category";
+            filterItem = "Men Shirts";
+        }
+
+        return new Object[][]{
+                {filterCategory,filterItem}
+        };
+    }
+
 
 
     @Test(  groups = {"PLP.verifyApplyingFilterOnPLP",
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
-            enabled = false,
+            dataProvider = "dataForApplyFilter",
             description = "Verifies Applying Filter On The PLP Page",
-            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
-    public void verifyApplyingFilterOnPLP(){
+            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"   )
+    public void verifyApplyingFilterOnPLP(String filterCategory,String filterItem){
         productListingPageObjects.clickOnFilterButton();
         // Get the value from filter_new key
 
         // For Shirts Filter is always based on "Category", "Price" and "Discount"
                 // Select On Category of the filter
-                        productFilterPageObjects.
-                                clickOnFilterName(productFilterPageObjects.
-                                        getListOfFilterNames().get(0));
+//                        productFilterPageObjects.
+//                                clickOnFilterName(productFilterPageObjects.
+//                                        getListOfFilterNames().get(0));
+        productFilterPageObjects.clickOnFilterNameByValue(filterCategory);
 
         System.out.println("Current Activity at PLP on Filter is : "+androidDriver.currentActivity());
 
@@ -74,7 +93,7 @@ public class PLP extends AndroidBaseClass {
                     Random random = new Random();
                     int index = random.nextInt(productFilterPageObjects.getListOfFilterItems().size());
                                 productFilterPageObjects.
-                                        clickOnFilterItemByValue("Men Shirts");
+                                        clickOnFilterItemByValue(filterItem);
 
         // Click on Apply Filter button
         productFilterPageObjects.clickOnApplyFilter();
@@ -82,9 +101,8 @@ public class PLP extends AndroidBaseClass {
     }
 
     @Test(groups = {"PLP.verifySelectingItemOnPLP",
-            CoreConstants.GROUP_SMOKE
-                    },
-            enabled = false,
+            CoreConstants.GROUP_SMOKE},
+            enabled = true,
             description = "Verifies Selecting Item On PLP",
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions" )
     public void verifySelectingItemOnPLP(){
@@ -98,12 +116,11 @@ public class PLP extends AndroidBaseClass {
     }
 
 
-    @Test(groups = {"PLP.verifySelectingItemOnPLP",
-            CoreConstants.GROUP_SMOKE
-    },
-            enabled = false,
+    @Test(groups = {"PLP.verifySelectingValidSizeItemOnPLP",
+            CoreConstants.GROUP_SANITY},
+            enabled = true,
             description = "Verifies Selecting Item On PLP",
-            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions" )
+            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
     public void verifySelectingValidSizeItemOnPLP(){
         String searchTerm = System.getProperty("androidSearchTerm");
         productListingPageObjects.selectValidProduct(searchTerm);
@@ -111,6 +128,7 @@ public class PLP extends AndroidBaseClass {
 
     @Test(  groups = {"PLP.verifyApplying/RemovingFilterOnPLP",
             CoreConstants.GROUP_SANITY},
+            enabled = false,
             description = "Verifies Applying / Removing Filter On The PLP Page",
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
     public void verifyApplyingAndRemovingFilterOnPLP(){

@@ -12,10 +12,21 @@ public class ShopUpPostMan {
     // This Layer is basically to hit the get requests and send back the response
 
     private String baseURL;
+    private String cookie;
 
     public ShopUpPostMan(String module){
         String app = System.getProperty(BuildParameterKeys.KEY_APP);
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            // SET RESELLER COOKIE
+            cookie = "_voonik_session=eyJ0ZXN0NCI6IkIiLCJjb3VudHJ5X2NvZGUiOjEsInRlc3QyIjoiQiIsInRlc3QzIjoiQSIsImdpZCI6IjQ5NjIyMSIsIndhcmRlbi51c2VyLnVzZXIua2V5IjpbIlVzZXIiLFsxMjI2OTRdLCIkMmEkMTAkbTk2VzJoZ0E3c3QuL2x6em1PTDJkLiJdLCJzZXNzaW9uX2lkIjoiYmI3YTdiOWJkNGU2NmMyN2NhYWM2NDg5ODAzODQyZjUiLCJ0ZXN0MSI6IkEiLCJjdXJyZW5jeV9jb2RlIjoiSU5SIn0_--d407c5368285e326358d9d76a678c8984cd596f2;";
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            // SET MOKAM COOKIE
+            cookie = "_voonik_session=eyJ0ZXN0NCI6IkIiLCJjb3VudHJ5X2NvZGUiOjEsInRlc3QyIjoiQiIsInRlc3QzIjoiQSIsImdpZCI6IjQ5NjIyMSIsIndhcmRlbi51c2VyLnVzZXIua2V5IjpbIlVzZXIiLFsxMjI2OTRdLCIkMmEkMTAkbTk2VzJoZ0E3c3QuL2x6em1PTDJkLiJdLCJzZXNzaW9uX2lkIjoiYmI3YTdiOWJkNGU2NmMyN2NhYWM2NDg5ODAzODQyZjUiLCJ0ZXN0MSI6IkEiLCJjdXJyZW5jeV9jb2RlIjoiSU5SIn0_--d407c5368285e326358d9d76a678c8984cd596f2;";
+        }else {
+            // SET WMS COOKIE
+             cookie = "_ga=GA1.2.1936512597.1591177880; _warehouse_mgmt_service_session=WUNlWC9HOXlBSEJTb0FxUFNEOEhZTVJ6UHFuRE9wMU1RQWE2NDNWYTFZTG9GcmRDcGNPSlFxeWdHa09HdFk1VjY4ZXRQK1l1VXdKeXpHcXNzVHBoTVljTWpjVUNIdVBHOHEzcTdqdUo4aWtvQWNhVnRONnFLTWdlSnY4ejFrRkUwOU5YUDdIcWpFUFFRTjNmVndHNFpVR1FBWWJmQ0x0N2t0TTA0R1BxeEFQT1FueEdzYUJFQkJUeUdzNEVTUmdOMEY4aHdmWkloalJSTnBrTVNmeExHSHczVTdrUnZ1ZXB2SGtaTndvYTMxUk5Ha25WT2NGV3ZoRGdnbjJmTWRtc211UXkvRzhTQU9yb3N5dmRXQ285UDV3dzVJWmRlOCtNZkF6OGFEKzJFT1BsK1dRUEZhRld4V3FRdjFkNmlzTDhVQ3Nsc2E0VE1PdU5kLytGMmlZa1Azb1R0aWVsMjNLbFgzUGNodmNZeTAvMDcxQ3g5a25CSTZiL2ZnUHB6dkM2V1dIekpNMGI1ZlowcmJjKzZaYWNVdz09LS01dCs5TmxYM3FJUk1aZm9WcGdlWEJnPT0%3D--5ee1594ceac6ddb6e4e710e6067f1b0cd1b04146";
+        }
 
         switch (module.toLowerCase()){
             case CoreConstants.MODULE_ANDROID_UI :
@@ -99,7 +110,7 @@ public class ShopUpPostMan {
         RestAssured.baseURI = baseURL;
         System.out.println("Final URL is : "+baseURL+path);
         Response  response = given().header("Content-Type","application/json")
-                .header("cookie","_voonik_session=eyJnaWQiOiI0OTYyMjEiLCJndWVzdF91c2VyIjoiMTIyNjk0Iiwic2Vzc2lvbl9pZCI6ImMwNTdhZjFmMTUxYTRhMTg2NTZlMTc2YjUxODg5ZTRmIiwidGVzdDEiOiJCIiwiY3VycmVuY3lfY29kZSI6IklOUiIsInRlc3Q0IjoiQiIsImNvdW50cnlfY29kZSI6MSwidGVzdDIiOiJBIiwidGVzdDMiOiJBIiwiYWJfdGVzdF9ncm91cF9hc3NpZ25fdGltZSI6NDQyNTUwLCJ3YXJkZW4udXNlci51c2VyLmtleSI6WyJVc2VyIixbMTIyNjk0XSwiJDJhJDEwJG05NlcyaGdBN3N0Li9senptT0wyZC4iXSwiYWJfdGVzdF9ncm91cF9pZCI6bnVsbCwib3JkZXJfaWQiOjE0MTAyNH0_--f75285317d600cd275dca9b0146ea4e40af30652")
+                .header("cookie",cookie)
                 .when()
                 .get(path);
         //response.then().log().all();

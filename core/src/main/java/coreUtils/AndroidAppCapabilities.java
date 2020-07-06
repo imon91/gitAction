@@ -71,6 +71,8 @@ public class AndroidAppCapabilities {
         cap.setCapability(CAP_KEY_CHROME_DRIVER_EXECUTABLE_DIR, CoreFileUtils.chromeDriversFolderPath);
         cap.setCapability(CAP_KEY_CHROME_DRIVER_EXECUTABLE, CoreFileUtils.chromeDriver);
         cap.setCapability(MobileCapabilityType.ACCEPT_INSECURE_CERTS,true);
+        cap.setCapability("nativeWebScreenshot",true);
+        cap.setCapability("androidScreenshotPath","target/screenshots");
         //cap.setCapability(CAP_KEY_IS_HEADLESS,true);
         //cap.setCapability(CAP_KEY_ADV_ARGS, "-no-window");
 
