@@ -2,23 +2,21 @@ package pageObjects;
 
 import utils.MyActions;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 
-public class CreateCollectionBottomSheetObjects {
+public class CreateCollectionBottomSheetObjects{
 
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
 
-    public CreateCollectionBottomSheetObjects(AndroidDriver<AndroidElement> androidDriver){
+    public CreateCollectionBottomSheetObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
     }
-
-
-
 
     // CreateNewCollection Text
     @FindBy(xpath = "//p[contains(text(),'Create New Collection')]")

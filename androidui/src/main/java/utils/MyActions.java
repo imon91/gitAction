@@ -1,7 +1,11 @@
 package utils;
 
 import io.appium.java_client.android.nativekey.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyActions extends AndroidBaseClass{
 
@@ -21,6 +25,9 @@ public class MyActions extends AndroidBaseClass{
         }catch (Exception e){
             System.out.println(e);
         }
+        if(getBaseDriver().isKeyboardShown()){
+            getBaseDriver().hideKeyboard();
+        }
     }
 
     public String action_getText(WebElement element){
@@ -37,12 +44,19 @@ public class MyActions extends AndroidBaseClass{
         return element.getTagName();
     }
 
-    public Boolean action_is_selected(WebElement element){
+    public Boolean action_is_selected(WebElement element) {
         sleep(300);
-        if(element.isSelected()){
+        if (element.isSelected()) {
             return true;
-        }else {
+        } else {
             return false;
+        }
+    }
+
+    public void action_clearText(WebElement element){
+        element.clear();
+        if(getBaseDriver().isKeyboardShown()){
+            getBaseDriver().hideKeyboard();
         }
     }
 

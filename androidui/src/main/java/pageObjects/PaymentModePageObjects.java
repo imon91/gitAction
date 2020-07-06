@@ -4,15 +4,15 @@ import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import utils.MyActions;
+import utils.*;
 
-public class PaymentModePageObjects {
+public class PaymentModePageObjects extends AndroidBaseClass {
 
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
 
-    public PaymentModePageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public PaymentModePageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
@@ -25,6 +25,9 @@ public class PaymentModePageObjects {
     @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
     private WebElement makePaymentTopButton;
 
+    @FindBy(xpath = "//div[@class='home-deliver-text']/a")
+    private WebElement changeAddress;
+
 
     public void selectPaymentOptionCOD(){
         myActions.action_click(codPaymentMode);
@@ -34,14 +37,14 @@ public class PaymentModePageObjects {
         myActions.action_click(makePaymentTopButton);
     }
 
+    public void clickOnChangeAddress(){
+        myActions.action_click(changeAddress);
+    }
+
 
     public void proceedPaymentWithoutChangeAddressThroughTopButton(){
         selectPaymentOptionCOD();
-        try {
-            Thread.sleep(5000);
-        }catch (Exception e){
-        }
-
+        sleep(3000);
         clickOnPayTopButton();
 
     }

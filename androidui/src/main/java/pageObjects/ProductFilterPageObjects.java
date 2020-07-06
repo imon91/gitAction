@@ -1,70 +1,69 @@
 package pageObjects;
 
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.*;
+import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import utils.AndroidBaseClass;
 import utils.MyActions;
 
 import java.util.List;
 
-public class ProductFilterPageObjects {
+public class ProductFilterPageObjects extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
+    private String packageName;
 
-    public ProductFilterPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public ProductFilterPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        packageName = getAppPackage();
     }
 
 
     // FilterNames RecyclerView
-    @AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView[@resource-id='com.shopup.reseller:id/filter_names_recycler']")
-    private AndroidElement filterNamesContainer;
+    private WebElement filterNamesContainer;
 
     // FilterNames RecyclerView
-    @AndroidFindBy(xpath = "//androidx.recyclerview.widget.RecyclerView[@resource-id='com.shopup.reseller:id/filter_items_recycler']")
-    private AndroidElement filterItemsContainer;
+    private WebElement filterItemsContainer;
 
     // Clear Filter Button
-    @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/clear_filter']")
-    private AndroidElement clearFilterButton;
+    private WebElement clearFilterButton;
 
     // Apply Filter Button
-    @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/apply_filter']")
-    private AndroidElement applyFilterButton;
+    private WebElement applyFilterButton;
 
 
-    public List<AndroidElement> getListOfFilterNames(){
-        List<AndroidElement> listOfFilterNames =
-                androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/filter_name_text']"));
+    public List<WebElement> getListOfFilterNames(){
+        List<WebElement> listOfFilterNames =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_name_text']");
         return listOfFilterNames;
     }
 
 
-    public List<AndroidElement> getListOfFilterItemCheckBoxes(){
-        List<AndroidElement> listOfFilterItemCheckBoxes =
-                androidDriver.findElements(By.xpath("//android.widget.CheckBox[@resource-id='com.shopup.reseller:id/filter_item_check']"));
+    public List<WebElement> getListOfFilterItemCheckBoxes(){
+        List<WebElement> listOfFilterItemCheckBoxes =
+                xpathListSetter("//android.widget.CheckBox[@resource-id='"+packageName+":id/filter_item_check']");
         return listOfFilterItemCheckBoxes;
     }
 
-    public List<AndroidElement> getListOfFilterItems(){
-        List<AndroidElement> listOfFilterItemTexts =
-                androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/filter_item_text']"));
+    public List<WebElement> getListOfFilterItems(){
+        List<WebElement> listOfFilterItemTexts =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_item_text']");
         return listOfFilterItemTexts;
     }
 
-    public List<AndroidElement> getListOfFilterCountText(){
-        List<AndroidElement> listOfFilterCountTexts =
-                androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/filter_count_text']"));
+    public List<WebElement> getListOfFilterCountText(){
+        List<WebElement> listOfFilterCountTexts =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_count_text']");
         return listOfFilterCountTexts;
     }
 
-    public List<AndroidElement> getListOfOutStockElements(){
-        List<AndroidElement> listOfFilterCountTexts =
-                androidDriver.findElements(By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/tags_stock_out']"));
+    public List<WebElement> getListOfOutStockElements(){
+        List<WebElement> listOfFilterCountTexts =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/tags_stock_out']");
         return listOfFilterCountTexts;
     }
 
@@ -72,38 +71,57 @@ public class ProductFilterPageObjects {
 
     /*------------Actions-----------*/
 
-    public void clickOnFilterName(AndroidElement filterName){
+    public void getFilterNamesContainer(){
+        filterNamesContainer =
+                xpathSetter("//androidx.recyclerview.widget.RecyclerView[@resource-id='"+packageName+":id/filter_names_recycler']");
+    }
+
+
+    public void getFilterItemsContainer(){
+        filterItemsContainer =
+                xpathSetter("//androidx.recyclerview.widget.RecyclerView[@resource-id='"+packageName+":id/filter_items_recycler']");
+    }
+
+    public void clickOnFilterName(WebElement filterName){
         myActions.action_click(filterName);
     }
 
-    public void selectFilterItemCheckBox(AndroidElement filterItemCheckBox){
+    public void clickOnFilterNameByValue(String filterName){
+        WebElement element =
+                xpathSetter("//android.widget.TextView[@text='"+filterName+"']");
+        myActions.action_click(element);
+    }
+
+    public void selectFilterItemCheckBox(WebElement filterItemCheckBox){
         myActions.action_click(filterItemCheckBox);
     }
 
-    public void clickOnFilterItemByIndex(AndroidElement filterItem){
+    public void clickOnFilterItemByIndex(WebElement filterItem){
         myActions.action_click(filterItem);
     }
 
     public void clickOnFilterItemByValue(String filterValue){
-        AndroidElement element =
-                androidDriver.findElementByXPath("//android.widget.TextView[@text='"+filterValue+"']");
+        WebElement element =
+                xpathSetter("//android.widget.TextView[@text='"+filterValue+"']");
         myActions.action_click(element);
 
     }
 
     public void clickOnApplyFilter(){
+        applyFilterButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/apply_filter']");
         myActions.action_click(applyFilterButton);
     }
 
     public void clickOnClearFilter(){
+        clearFilterButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/clear_filter']");
         myActions.action_click(clearFilterButton);
     }
 
-    public String getCountOnFilterCountText(AndroidElement filterCountTextElement){
+    public String getCountOnFilterCountText(WebElement filterCountTextElement){
         return myActions.action_getText(filterCountTextElement);
     }
 
-    public Boolean isFilterItemSelected(AndroidElement filterItemCheckBox){
+    public Boolean isFilterItemSelected(WebElement filterItemCheckBox){
         return myActions.action_is_selected(filterItemCheckBox);
     }
 }

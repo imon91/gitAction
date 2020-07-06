@@ -4,17 +4,11 @@
     <test name="SmokeTests" preserve-order="true" parallel="false">
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="sanity"/>
             </run>
         </groups>
         <classes>
-            <class name="com.shopf.tests.Authentication"></class>
-            <class name="com.shopf.tests.Search"></class>
-            <class name="com.shopf.tests.PLP"></class>
-            <class name="com.shopf.tests.PDP"></class>
-            <class name="com.shopf.tests.MyBag"></class>
-<!--            <class name="com.shopf.tests.MyShop"></class>-->
-            <class name="com.shopf.tests.Logout"></class>
+                <!---Add the Smoke Test Class-->
         </classes>
     </test>
 </suite>
