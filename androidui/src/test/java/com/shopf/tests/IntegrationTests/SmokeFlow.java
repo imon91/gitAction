@@ -110,5 +110,6 @@ public class SmokeFlow extends AndroidBaseClass {
     @AfterClass(alwaysRun = true)
     public void smokeTestAfterClass(){
         System.out.println("SmokeTest completed");
+        quitBaseDriver();
     }
 }
