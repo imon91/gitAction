@@ -2,6 +2,7 @@ package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.ToolBarObjects;
 import utils.AndroidBaseClass;
@@ -9,16 +10,16 @@ import utils.AndroidBaseClass;
 public class Checkout extends AndroidBaseClass {
 
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private ToolBarObjects toolBarObjects;
 
 
 
     @BeforeClass(alwaysRun = true)
-    public void productDescriptionPageBeforeClass() throws Exception{
+    public void productDescriptionPageBeforeClass(){
         System.out.println("PDPBeforeClass is called");
         androidDriver = getBaseDriver();
-        setImplicitWait(30);
+        toolBarObjects = new ToolBarObjects(androidDriver);
     }
 
 

@@ -1,24 +1,25 @@
 package pageObjects;
 
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import utils.AndroidBaseClass;
-import utils.MyActions;
+import utils.*;
 
-public class OrderSuccessFulPageObjects {
+public class OrderSuccessFulPageObjects extends AndroidBaseClass{
 
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String myPackage;
 
-    public OrderSuccessFulPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public OrderSuccessFulPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
+        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
-        myPackage = AndroidBaseClass.getAppPackage();
+        myPackage = getAppPackage();
     }
 
 

@@ -7,58 +7,74 @@ import io.appium.java_client.android.*;
 
 public class LoginPageObjects extends AndroidBaseClass{
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
 
-    public LoginPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public LoginPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         myActions = new MyActions();
-        packageName = AndroidBaseClass.getAppPackage();
+        packageName = getAppPackage();
     }
+
+    private WebElement enterMobileNumberEditText;
+
+    private WebElement verifyOtpButton;
+
+    private WebElement enterOtpEditText;
+
+    private WebElement proceedButton;
+
+    private WebElement editMobileNumberButton;
+
+    private WebElement resendOtpButton;
+
+    private WebElement loginLabelText;
+
+    private WebElement otpLabelText;
 
 
     /*--------------Actions-------------------*/
 
     private void enterMobileNumber(String mobileNumber){
-        myActions.action_sendKeys(androidDriver.
-                findElement(By.xpath("//android.widget.EditText[@resource-id='"+packageName+":id/et_mobile_number']")),mobileNumber);
+        enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/et_mobile_number']");
+        myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
     }
 
     private void clickOnVerifyOtpButton(){
-        myActions.action_click(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_verify']")));
+        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_verify']");
+        myActions.action_click(verifyOtpButton);
     }
 
     private void enterOtp(String otp){
-        myActions.action_sendKeys(androidDriver.
-                findElement(By.xpath("//android.widget.EditText[@resource-id='"+packageName+":id/et_otp']")),otp);
+        enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/et_otp']");
+        myActions.action_sendKeys(enterOtpEditText,otp);
     }
 
     private void clickOnProceedButton(){
-        myActions.action_click(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_proceed']")));
+        proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_proceed']");
+        myActions.action_click(proceedButton);
     }
 
     private void clickOnEditMobileNumberButton(){
-        myActions.action_click(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/text_change_mobile']")));
+        editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_change_mobile']");
+        myActions.action_click(editMobileNumberButton);
     }
 
     private void clickOnResendOtpButton(){
-        myActions.action_click(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/text_resend_otp']")));
+        resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_resend_otp']");
+        myActions.action_click(resendOtpButton);
     }
 
     public String getLoginLabelText(){
-        return myActions.action_getText(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/text_login_label']")));
+        loginLabelText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_login_label']");
+        return myActions.action_getText(loginLabelText);
 
     }
 
     private String getOTPLabelText(){
-        return myActions.action_getText(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+":id/text_otp_label']")));
+        otpLabelText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_otp_label']");
+        return myActions.action_getText(otpLabelText);
     }
 
 
@@ -88,7 +104,9 @@ public class LoginPageObjects extends AndroidBaseClass{
         enterMobileNumber(mobileNumber1);
         clickOnVerifyOtpButton();
         clickOnEditMobileNumberButton();
+        myActions.action_clearText(enterMobileNumberEditText);
         enterMobileNumber(mobileNumber1);
+        clickOnVerifyOtpButton();
         enterOtp(otp);
         clickOnProceedButton();
     }

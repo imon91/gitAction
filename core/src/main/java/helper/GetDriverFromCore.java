@@ -2,7 +2,6 @@ package helper;
 
 import coreUtils.*;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileBrowserType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
@@ -184,11 +183,11 @@ public class GetDriverFromCore {
 
 
 
-    public static AndroidDriver<AndroidElement> getAndroidDriver(String device,String version,String host) throws Exception{
+    public static AndroidDriver<WebElement> getAndroidDriver(String device,String version,String host) throws Exception{
         if(host.equalsIgnoreCase(HOST_LOCAL)){
             System.out.println("Control came to getAndroidDriver for Host : local");
             AndroidAppCapabilities androidAppCapabilities = new AndroidAppCapabilities();
-            return  new AndroidDriver<AndroidElement>(new URL(getProtocol() + getHost() + ":" + getPort() + getDriverAsHub()),
+            return  new AndroidDriver<WebElement>(new URL(getProtocol() + getHost() + ":" + getPort() + getDriverAsHub()),
                     androidAppCapabilities.setCapabilities());
         }else{
             setBrowserStackUrl();
@@ -206,7 +205,7 @@ public class GetDriverFromCore {
             }
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);
             System.out.println("URL is :"+url);
-            return new AndroidDriver<AndroidElement>(url,caps);
+            return new AndroidDriver<WebElement>(url,caps);
 
         }
     }

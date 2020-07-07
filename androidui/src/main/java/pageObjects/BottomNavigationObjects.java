@@ -1,38 +1,34 @@
 package pageObjects;
 
-import utils.MyActions;
+import org.openqa.selenium.*;
+import utils.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.*;
-import org.openqa.selenium.support.PageFactory;
 
-public class BottomNavigationObjects {
+public class BottomNavigationObjects extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
+    private String packageName;
 
-    public BottomNavigationObjects(AndroidDriver<AndroidElement> androidDriver){
+    public BottomNavigationObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        packageName = getAppPackage();
     }
 
 
 
     // Bottom-Navigation-Bar HomeIcon
-    @AndroidFindBy(id = "com.shopup.reseller:id/homeBottomBar")
-    private AndroidElement bottomBarHomeIcon;
+    private WebElement bottomBarHomeIcon;
 
     // Bottom-Navigation-Bar MyShopIcon
-    @AndroidFindBy(id = "com.shopup.reseller:id/myShopBottomBar")
-    private AndroidElement bottomBarMyShopIcon;
+    private WebElement bottomBarMyShopIcon;
 
     // Bottom-Navigation-Bar MyOrders
-    @AndroidFindBy(id = "com.shopup.reseller:id/myOrderBottomBar")
-    private AndroidElement bottomBarMyOrdersIcon;
+    private WebElement bottomBarMyOrdersIcon;
 
     // Bottom-Navigation-Bar PaymentsIcon
-    @AndroidFindBy(id = "com.shopup.reseller:id/myIncomeBottomBar")
-    private AndroidElement bottomBarPaymentsIcon;
+    private WebElement bottomBarPaymentsIcon;
 
 
 
@@ -40,18 +36,22 @@ public class BottomNavigationObjects {
 
 
     public void clickOnBottomBarHomeIcon(){
+        bottomBarHomeIcon = idSetter(""+packageName+":id/homeBottomBar");
         myActions.action_click(bottomBarHomeIcon);
     }
 
     public void clickOnBottomBarMyShopIcon(){
+        bottomBarMyShopIcon = idSetter(""+packageName+":id/myShopBottomBar");
         myActions.action_click(bottomBarMyShopIcon);
     }
 
     public void clickOnBottomBarMyOrdersIcon(){
+        bottomBarMyOrdersIcon = idSetter(""+packageName+":id/myOrderBottomBar");
         myActions.action_click(bottomBarMyOrdersIcon);
     }
 
     public void clickOnBottomBarPaymentsIcon(){
+        bottomBarPaymentsIcon = idSetter(""+packageName+":id/myIncomeBottomBar");
         myActions.action_click(bottomBarPaymentsIcon);
     }
 

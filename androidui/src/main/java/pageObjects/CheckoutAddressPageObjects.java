@@ -7,15 +7,15 @@ import org.openqa.selenium.support.*;
 import utils.*;
 import java.util.*;
 
-public class CheckoutAddressPageObjects {
+public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
 
     // Cart/MyBag os completely a WebView
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
 
-    public CheckoutAddressPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public CheckoutAddressPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
@@ -53,10 +53,10 @@ public class CheckoutAddressPageObjects {
 
     public class SelectAddress{
 
-        private AndroidDriver<AndroidElement> androidDriver;
+        private AndroidDriver<WebElement> androidDriver;
         private MyActions myActions;
 
-        public SelectAddress(AndroidDriver<AndroidElement> androidDriver){
+        public SelectAddress(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
             myActions = new MyActions();
@@ -99,10 +99,10 @@ public class CheckoutAddressPageObjects {
         public class AddressField{
 
 
-            private AndroidDriver<AndroidElement> androidDriver;
+            private AndroidDriver<WebElement> androidDriver;
             private MyActions myActions;
 
-            public AddressField(AndroidDriver<AndroidElement> androidDriver){
+            public AddressField(AndroidDriver<WebElement> androidDriver){
                 this.androidDriver = androidDriver;
                 PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
                 myActions = new MyActions();
@@ -193,10 +193,10 @@ public class CheckoutAddressPageObjects {
 
     public class EstimatedDeliveryDates{
 
-        private AndroidDriver<AndroidElement> androidDriver;
+        private AndroidDriver<WebElement> androidDriver;
         private MyActions myActions;
 
-        public EstimatedDeliveryDates(AndroidDriver<AndroidElement> androidDriver){
+        public EstimatedDeliveryDates(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
             myActions = new MyActions();
@@ -219,10 +219,10 @@ public class CheckoutAddressPageObjects {
 
         public class EstimatedDeliveryDatesItems{
 
-            private AndroidDriver<AndroidElement> androidDriver;
+            private AndroidDriver<WebElement> androidDriver;
             private MyActions myActions;
 
-            public EstimatedDeliveryDatesItems(AndroidDriver<AndroidElement> androidDriver){
+            public EstimatedDeliveryDatesItems(AndroidDriver<WebElement> androidDriver){
                 this.androidDriver = androidDriver;
                 PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
                 myActions = new MyActions();

@@ -2,22 +2,24 @@ package pageObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
-import utils.MyActions;
+import utils.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.support.*;
 import java.util.*;
 
 
-public class MyShopPageObjects {
+public class MyShopPageObjects extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
+    private Random random;
 
-    public MyShopPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public MyShopPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        random = new Random();
     }
 
 
@@ -25,11 +27,11 @@ public class MyShopPageObjects {
 
     // MyCollections Tab Item
     @AndroidFindBy(xpath = "//android.view.View[@text='My Collections']")
-    private AndroidElement myCollectionTabItem;
+    private WebElement myCollectionTabItem;
 
     // ExclusiveCollections Tab Item
     @AndroidFindBy(xpath = "//android.view.View[@text='Exclusive Collections']")
-    private AndroidElement exclusiveCollectionTabItem;
+    private WebElement exclusiveCollectionTabItem;
 
 
     public void clickOnMyCollectionTabItem(){
@@ -45,15 +47,15 @@ public class MyShopPageObjects {
 
     // No-Of-Collection TextView
     @AndroidFindBy(className = "android.view.TextView")
-    private AndroidElement noOfCollectionTextView;
+    private WebElement noOfCollectionTextView;
 
     // Create New or add to existing Collections View
     @AndroidFindBy(xpath = "//android.view.View[@text='Create New or add to existing Collections']")
-    private AndroidElement createOrAddToNewCollectionText;
+    private WebElement createOrAddToNewCollectionText;
 
     // CreateNewCollection View
     @FindBy(xpath = "//p[contains(text(),'Create New Collection')]")
-    private AndroidElement createNewCollectionButton;
+    private WebElement createNewCollectionButton;
 
 
     public String getNoOfCollectionText(){
@@ -87,13 +89,22 @@ public class MyShopPageObjects {
     }
 
 
+    public String cancelTheCreateCollection(){
+        clickOnCreateNewCollectionButton();
+        String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
+        new CreateCollectionBottomSheetObjects(androidDriver).
+                performCancelTheAddCollection(collectionName);
+        return collectionName;
+    }
+
+
 
     public int getPositionOfCollectionName(String collectionName){
         WebDriverWait webDriverWait = new WebDriverWait(androidDriver,30);
-        webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class='share___2_Him']")));
+        webDriverWait.until(ExpectedConditions.elementToBeClickable(xpathSetter("//button[@class='share___2_Him']")));
         int position=0;
-        List<AndroidElement> listOfCollections =
-                androidDriver.findElements(By.xpath("//div[@class='itemInner___2jJUL']/div[2]/p"));
+        List<WebElement> listOfCollections =
+                xpathListSetter("//div[@class='itemInner___2jJUL']/div[2]/p");
         for(WebElement element : listOfCollections){
             if(element.getText().equals(collectionName)){
                 position =  (listOfCollections.indexOf(element) + 1);
@@ -108,6 +119,79 @@ public class MyShopPageObjects {
 
     public void enterIntoCollectionFromMyCollections(String collectionName){
 
+    }
+
+
+
+    String collectionXpath = "//div[@class='gridItems___2yFJ9 items___vci1r']";
+    List<WebElement> collectionslist = androidDriver.findElements(By.xpath(collectionXpath));
+    int size = collectionslist.size();
+
+    public int chooseCollection ( int collectionid){
+        String collection;
+        int collectionselected;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]";
+            collectionselected = collectionid;
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]";
+            collectionselected = id;
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        myActions.action_click(choosencollection);
+        return collectionselected;
+    }
+
+    public String CollectionName ( int collectionid){
+        String collection;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]//p";
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]//p";
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        String collectionselected = myActions.action_getText(choosencollection);
+        return collectionselected;
+    }
+
+    public String shareCollection ( int collectionid){
+        String collection;
+        int collectionShared;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]//button";
+            collectionShared = collectionid;
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]//button";
+            collectionShared = id;
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        String share = CollectionName(collectionShared);
+        myActions.action_click(choosencollection);
+        return share;
+    }
+
+    public String deleteCollection ( int collectionid){
+        String collection;
+        int collectionDeleted;
+        if (collectionid != 0) {
+            collection = collectionXpath + "[" + collectionid + "]//div[@class='flex___1bJDE middle___1jEMZ delete___IOgcz']/*";
+            collectionDeleted = collectionid;
+        } else {
+            int id = random.nextInt(size);
+            id += 2;
+            collection = collectionXpath + "[" + id + "]//div[@class='flex___1bJDE middle___1jEMZ delete___IOgcz']/*";
+            collectionDeleted = id;
+        }
+        WebElement choosencollection = androidDriver.findElement(By.xpath(collection));
+        myActions.action_click(choosencollection);
+        String delete = CollectionName(collectionDeleted);
+        return delete;
     }
 
 }

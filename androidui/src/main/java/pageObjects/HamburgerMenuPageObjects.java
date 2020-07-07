@@ -1,39 +1,46 @@
 package pageObjects;
 
-import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import utils.*;
+import io.appium.java_client.android.*;
 import java.util.*;
 
 public class HamburgerMenuPageObjects extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
     private ServiceRequestLayer serviceRequestLayer;
 
-    public HamburgerMenuPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public HamburgerMenuPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         myActions = new MyActions();
         packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
     }
 
+    private WebElement hamburgerMenuTitle;
+
+    private WebElement randomCategory;
+
+    private WebElement randomSubCategory;
+
+
     public String getHamburgerMenuTitle(){
-        return myActions.action_getText(androidDriver.
-                findElement(By.xpath("//android.widget.TextView[@resource-id='"+packageName+"::id/title'][0]")));
+        hamburgerMenuTitle = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+"::id/title'][0]");
+        return myActions.action_getText(hamburgerMenuTitle);
     }
 
     public List<String> selectRandomCategoryPair(){
         List<String> categoryPair = serviceRequestLayer
                 .getControlOverServices().getValidCategoryPair();
         // To gt the category
-                myActions.action_click(androidDriver.findElement(
-                        By.xpath("//android.widget.TextView[@text='"+categoryPair.get(0)+"']")));
+        randomCategory = xpathSetter("//android.widget.TextView[@text='"+categoryPair.get(0)+"']");
+                myActions.action_click(randomCategory);
         sleep(1000);
         // To gt the sub-category
-        myActions.action_click(androidDriver.findElement(
-                By.xpath("//android.widget.TextView[@text='"+categoryPair.get(1)+"']")));
+        randomSubCategory = xpathSetter("//android.widget.TextView[@text='"+categoryPair.get(1)+"']");
+        myActions.action_click(randomSubCategory);
         return categoryPair;
     }
 

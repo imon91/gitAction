@@ -1,18 +1,16 @@
 package pageObjects;
 
-import utils.MyActions;
+import org.openqa.selenium.*;
+import utils.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.support.PageFactory;
 
-public class HomePageObjects {
+public class HomePageObjects extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
 
-    public HomePageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public HomePageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
     }
 

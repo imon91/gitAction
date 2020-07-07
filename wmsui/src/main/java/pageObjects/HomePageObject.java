@@ -92,7 +92,16 @@ public class HomePageObject extends WmsBaseClass {
     }
 
     public void clickLogout() {
+        sleep(2000);
         myActions.action_click(logoutButton);
+        sleep(5000);
+    }
+
+    public String getPopUpMessage(){
+        sleep(1000);
+        String popUpMessage = "//div[@id='toastbar-text']";
+        WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
+        return myActions.action_getText(popUpMessageElement);
     }
 
     public String getPopUpMessage(){
