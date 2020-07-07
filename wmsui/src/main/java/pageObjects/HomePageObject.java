@@ -103,4 +103,5 @@ public class HomePageObject extends WmsBaseClass {
         WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
         return myActions.action_getText(popUpMessageElement);
     }
+
 }

@@ -16,6 +16,28 @@ dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.141.59'
     // https://mvnrepository.com/artifact/org.testng/testng
     implementation group: 'org.testng', name: 'testng', version: '6.14.3'
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
+    // https://mvnrepository.com/artifact/io.rest-assured/json-path
+    compile group: 'io.rest-assured', name: 'json-path', version: '4.1.0'
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    compile group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.4', ext: 'pom'
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json
+    compile group: 'org.codehaus.groovy', name: 'groovy-json', version: '3.0.4'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.1'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.1'
+
+
+
+
+
+
+
+
 
     // Including Core module as dependency
     implementation project(path : ':core')
@@ -24,7 +46,7 @@ dependencies {
 test{
     useTestNG() {
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","App"])
     }
 }
 
@@ -34,7 +56,7 @@ task wmsuiTest(type: Test){
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","App"])
         def smoke = project.hasProperty("Smoke")
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")

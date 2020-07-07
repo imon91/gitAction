@@ -44,7 +44,6 @@ public class PickListReturn extends WmsBaseClass {
         int i = 0, total = allPickListsTab.getTotalPickLists();
         Random random = new Random(); int n = random.nextInt(total);
         String pickListId = allPickListsTab.getPickListID(n);
-
         String status = allPickListsTab.getStatus(n);
         if(status.equalsIgnoreCase("out_for_pickup") || status.equalsIgnoreCase("created"))
           i = 1;
