@@ -1,9 +1,9 @@
 package services.responseModels.wmsModels;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class WareHouseBinDetailsModel {
-
+public class VariantsBinDetailsModel {
 
     /**
      * success : true
@@ -29,7 +29,7 @@ public class WareHouseBinDetailsModel {
         this.bin_details = bin_details;
     }
 
-    public static class BinDetailsBean {
+    public static class BinDetailsBean implements Serializable {
         /**
          * id : null
          * bin_code : W100F2R1C1RA1B23

@@ -47,7 +47,7 @@ public class Login extends WmsBaseClass {
     )
     public void verifyAuthenticationWithValidCredentials(String email,String password) {
         System.out.println("verifyAuthentication is called");
-        loginPageObject.performLogin("operator1@voonik.com", "password");
+        loginPageObject.performLogin(email, password);
         sleep(2000);
         String url = driver.getCurrentUrl();
         System.out.println(email + ":" + password);
