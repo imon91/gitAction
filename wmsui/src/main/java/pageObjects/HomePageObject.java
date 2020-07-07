@@ -92,9 +92,7 @@ public class HomePageObject extends WmsBaseClass {
     }
 
     public void clickLogout() {
-        sleep(2000);
         myActions.action_click(logoutButton);
-        sleep(5000);
     }
 
     public String getPopUpMessage(){

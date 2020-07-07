@@ -1,10 +1,9 @@
-package services.wmsModels;
+package services.responseModels.wmsModels;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class VariantsBinDetailsModel {
-
 
     /**
      * success : true

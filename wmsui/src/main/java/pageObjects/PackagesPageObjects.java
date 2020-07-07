@@ -189,7 +189,7 @@ public class PackagesPageObjects {
 
         /*--------------Actions-------------------*/
         public void inputPackageID(String packageID) {
-            myActions.action_sendKeys(selectStatusDropdown, packageID);
+            myActions.action_sendKeys(packageIDEntry, packageID);
         }
 
         public void selectStatus(String status) {
@@ -209,6 +209,11 @@ public class PackagesPageObjects {
         public void resetBin(String packageID, String status) {
             inputPackageID(packageID);
             selectStatus(status);
+            clickResetBinButton();
+        }
+
+        public void resetBinPass(String packageID) {
+            inputPackageID(packageID);
             clickResetBinButton();
         }
     }

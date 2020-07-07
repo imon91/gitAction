@@ -1,4 +1,4 @@
-package services.wmsModels;
+package services.responseModels.wmsModels;
 
 public class SellersListModel {
 
