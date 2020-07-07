@@ -23,10 +23,9 @@ public class GetDriverFromCore {
 
     private static final String CHROME_DRIVER = "chrome";
     private static final String FIREFOX_DRIVER = "firefox";
-    private static final String USERNAME = "jagadeeshb4";
-    private static final String AUTOMATE_KEY="fCxvFMgRR1xx9YxX5TcQ";
-    private static final String APP = "bs://c51201e9e1baeb46e7d44a18541d6558caac9df1";
-    private static final String APP_RESELLER = "bs://f769656feb2a3a6395ca908346db0e5d02c438b7";
+    private static final String USERNAME = "techautomation1";
+    private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
+    private static final String APP_RESELLER = "bs://6c22d7082cced2ec441057558c80f2cea95d04ab";
     private static final String APP_MOKAM = "bs://3e9fabcff33f12fa17798f9be86231922c267277";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";
@@ -156,10 +155,22 @@ public class GetDriverFromCore {
             caps.setCapability(BrowserStackCapabilities.KEY_OS_VERSION, os_version);
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER, browser);
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_VERSION,browser_version);
-            caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "ResellerUI");
-            caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerWebApplication");
+            if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_WMS)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "WMS-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "WMSWebApplicationBuild");
+            }else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Reseller-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerWebApplicationBuild");
+            }else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Mokam-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "MokamWebApplicationBuild");
+            }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "WebApplicationTest");
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);
+            caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_NETWORK_LOGS,CoreConstants.TRUE);
             ChromeOptions chOptions = new ChromeOptions();
             chOptions.addArguments("--disable-plugins", "--disable-extensions",
                     "--disable-popup-blocking","--disable-notifications");
@@ -195,8 +206,15 @@ public class GetDriverFromCore {
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability(BrowserStackCapabilities.KEY_ANDROID_DEVICE, device);
             caps.setCapability(BrowserStackCapabilities.KEY_ANDROID_VERSION, version);
-            caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "ResellerUI");
-            caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerAndroidApp");
+            if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Reseller-Android-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerAndroidBuild");
+            } else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Mokam-Android-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "MokamAndroidBuild");
+            }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "AndroidAppTest");
             if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
                 caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_MOKAM);
@@ -204,6 +222,7 @@ public class GetDriverFromCore {
                 caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_RESELLER);
             }
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);
+            //caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_NETWORK_LOGS,CoreConstants.TRUE);
             System.out.println("URL is :"+url);
             return new AndroidDriver<WebElement>(url,caps);
 
@@ -212,7 +231,7 @@ public class GetDriverFromCore {
 
 
 
-    public static AndroidDriver<WebElement> getAndroidDriverForChrome(String device,String version,String host) throws Exception{
+    public static AndroidDriver<WebElement> getAndroidDriverForChrome(String device,String version,String host,String browser,String browserVersion) throws Exception{
         if(host.equalsIgnoreCase(HOST_LOCAL)) {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setCapability(KEY_PLATFORM_NAME, "Android");
@@ -234,12 +253,20 @@ public class GetDriverFromCore {
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability(BrowserStackCapabilities.KEY_ANDROID_DEVICE, device);
             caps.setCapability(BrowserStackCapabilities.KEY_ANDROID_VERSION, version);
-            caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "ResellerUI");
-            caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerWebApp");
-            caps.setCapability(BrowserStackCapabilities.KEY_NAME, "AndroidWebAppTest");
-            caps.setCapability(BrowserStackCapabilities.KEY_BROWSER,MobileBrowserType.CHROME);
-            caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_VERSION,"83.0");
+            if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Reseller-WAP-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerWAPBuild");
+            } else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Mokam-WAP-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "MokamWAPBuild");
+            }
+            caps.setCapability(BrowserStackCapabilities.KEY_NAME, "WAPTest");
+            caps.setCapability(BrowserStackCapabilities.KEY_BROWSER,browser);
+            caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_VERSION,browserVersion);
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);
+            caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_NETWORK_LOGS,CoreConstants.TRUE);
             ChromeOptions chOptions = new ChromeOptions();
             chOptions.addArguments("--disable-plugins", "--disable-extensions",
                     "--disable-popup-blocking","--disable-notifications");

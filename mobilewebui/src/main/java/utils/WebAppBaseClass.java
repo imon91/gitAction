@@ -50,11 +50,13 @@ public class WebAppBaseClass extends GetDriverFromCore{
     private static void setUpDriver()throws Exception{
         if (host.equalsIgnoreCase(HOST_LOCAL)) {
             startService();
-            driver = GetDriverFromCore.getAndroidDriverForChrome(null,null,host);
+            driver = GetDriverFromCore.getAndroidDriverForChrome(null,null,host,null,null);
         }else if(host.equalsIgnoreCase(HOST_BROWSER_STACK)){
-            String device = System.getProperty("Device");
-            String version = System.getProperty("Version");
-            driver = GetDriverFromCore.getAndroidDriverForChrome(device,version,host);
+            String device = System.getProperty(BuildParameterKeys.KEY_DEVICE);
+            String deviceVersion = System.getProperty(BuildParameterKeys.KEY_VERSION);
+            String browser = System.getProperty(BuildParameterKeys.KEY_Browser);
+            String browserVersion = System.getProperty(BuildParameterKeys.KEY_BROWSER_VERSION);
+            driver = GetDriverFromCore.getAndroidDriverForChrome(device,deviceVersion,host,browser,browserVersion);
         }else {
             System.out.println(host+" is something not a valid environment, please select 'local' or 'bs' ");
             System.exit(1);

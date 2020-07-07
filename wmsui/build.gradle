@@ -24,7 +24,7 @@ dependencies {
 test{
     useTestNG() {
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","App"])
     }
 }
 
@@ -34,7 +34,7 @@ task wmsuiTest(type: Test){
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","App"])
         def smoke = project.hasProperty("Smoke")
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
