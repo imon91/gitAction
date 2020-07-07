@@ -2,7 +2,9 @@ package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -18,6 +20,7 @@ public class ProductOrderThroughPDPPage extends WebBaseClass {
     private ActionBarObjects actionBarObjects;
     private PLPPageObject plpPageObject;
     private PDPPageObject pdpPageObject;
+    private Actions actions;
 
 
 
@@ -28,6 +31,7 @@ public class ProductOrderThroughPDPPage extends WebBaseClass {
         actionBarObjects = new ActionBarObjects(driver);
         plpPageObject = new PLPPageObject(driver);
         pdpPageObject = new PDPPageObject(driver);
+        actions = new Actions(driver);
     }
 
 
@@ -35,9 +39,10 @@ public class ProductOrderThroughPDPPage extends WebBaseClass {
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
     public void verifyOrderThroughPDPPage() {
+        actions.sendKeys(Keys.ESCAPE).build().perform();
         sleep(2500);
-        //driver.findElement(By.xpath("//ul[@class='right-items text-right']")).click();
-        pdpPageObject.clickOnSizeL();
+
+        pdpPageObject.selectSize(3);
         sleep(500);
         pdpPageObject.clickOnOrderNowButtonPDPPage();
     }
