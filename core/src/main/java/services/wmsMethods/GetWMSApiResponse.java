@@ -1,14 +1,11 @@
 package services.wmsMethods;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 import com.google.gson.reflect.TypeToken;
 import coreUtils.CoreConstants;
 import io.restassured.response.Response;
 import services.responseModels.wmsModels.*;
-import services.serviceUtils.ShopUpPostMan;
 import services.serviceUtils.WmsPostMan;
 
 import java.lang.reflect.Type;
@@ -17,7 +14,6 @@ import java.util.List;
 
 public class GetWMSApiResponse {
 
-    private ShopUpPostMan shopUpPostMan;
     private String module;
     private Gson gson;
     private Response response;
@@ -25,7 +21,6 @@ public class GetWMSApiResponse {
 
     public GetWMSApiResponse(String module){
         this.module = module;
-        shopUpPostMan = new ShopUpPostMan(module);
         gson = new Gson();
         wmsPostMan = new WmsPostMan();
     }
@@ -69,7 +64,7 @@ public class GetWMSApiResponse {
 
     public VariantDetailsModel getVariantDetails(){
         gson = new Gson();
-        response = shopUpPostMan.getCall("suppliers/variant_details.json");
+        response = wmsPostMan.getCall("suppliers/variant_details.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             VariantDetailsModel variantDetailsModel =
                     gson.fromJson(response.getBody().asString(), VariantDetailsModel.class);
@@ -80,7 +75,7 @@ public class GetWMSApiResponse {
 
     public SuppliersListModel getSuppliersDetails(){
         gson = new Gson();
-        response = shopUpPostMan.getCall("suppliers.json");
+        response = wmsPostMan.getCall("suppliers.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             SuppliersListModel suppliersListModel =
                     gson.fromJson(response.getBody().asString(), SuppliersListModel.class);
@@ -91,7 +86,7 @@ public class GetWMSApiResponse {
 
     public SellersListModel getSellerDetails(){
         gson = new Gson();
-        response = shopUpPostMan.getCall("sellers/sellers_list.json");
+        response = wmsPostMan.getCall("sellers/sellers_list.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             SellersListModel sellersListModel =
                     gson.fromJson(response.getBody().asString(), SellersListModel.class);

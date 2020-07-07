@@ -14,7 +14,7 @@ import java.util.List;
 public class TestClass extends WmsBaseClass {
 
     @Test(groups = CoreConstants.GROUP_SMOKE)
-    public void tester() throws JsonProcessingException {
+    public void tester(){
         GetWMSApiResponse getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         List<WareHouseListModel.WareHousesBean> list = getWMSApiResponse.getListOfWarehouses();
         System.out.println(list.get(2).getFirstname());
