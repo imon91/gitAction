@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 public class AddressPageObject {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     private Random random;
 
 

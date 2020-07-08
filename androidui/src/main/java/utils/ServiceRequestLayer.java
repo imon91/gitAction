@@ -6,7 +6,7 @@ import services.commerceMethods.GetCommerceApiResponse;
 
 public class ServiceRequestLayer implements CommerceServices {
 
-    private String module;
+    private final String module;
 
     public ServiceRequestLayer(){
         this.module = CoreConstants.MODULE_ANDROID_UI;

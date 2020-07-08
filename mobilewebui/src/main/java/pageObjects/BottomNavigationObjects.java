@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
 public class BottomNavigationObjects {
-    private AndroidDriver<WebElement> driver;
-    private MyActions myActions;
+    private final AndroidDriver<WebElement> driver;
+    private final MyActions myActions;
 
     public BottomNavigationObjects(AndroidDriver<WebElement> androidDriver){
         this.driver = androidDriver;

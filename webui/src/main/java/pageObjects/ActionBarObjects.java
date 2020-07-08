@@ -7,8 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
 public class ActionBarObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     //Shopup icon
     @FindBy(xpath = "//img[@alt='logo']")
     private WebElement shopupIcon;

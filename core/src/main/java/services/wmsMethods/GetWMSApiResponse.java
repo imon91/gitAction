@@ -14,10 +14,10 @@ import java.util.List;
 
 public class GetWMSApiResponse {
 
-    private String module;
+    private final String module;
     private Gson gson;
     private Response response;
-    private WmsPostMan wmsPostMan;
+    private final WmsPostMan wmsPostMan;
 
     public GetWMSApiResponse(String module){
         this.module = module;

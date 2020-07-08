@@ -123,7 +123,7 @@ public class PLP extends AndroidBaseClass {
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
     public void verifySelectingValidSizeItemOnPLP(){
         String searchTerm = System.getProperty("androidSearchTerm");
-        productListingPageObjects.selectValidSizeProduct(searchTerm);
+        productListingPageObjects.selectValidProduct(searchTerm);
     }
 
     @Test(  groups = {"PLP.verifyApplying/RemovingFilterOnPLP",

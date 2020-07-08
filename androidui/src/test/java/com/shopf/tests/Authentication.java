@@ -38,7 +38,7 @@ public class Authentication extends AndroidBaseClass {
     @DataProvider(name = "getUserAuthenticationData")
     public Object[][] getUserAuthenticationData(){
         return new Object[][]{
-                {"01877755590","666666"}
+                {"1877755590","666666"}
         };
     }
 
@@ -48,7 +48,7 @@ public class Authentication extends AndroidBaseClass {
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Authentication With Valid Credentials",
-            dataProvider = "getUserAuthenticationData"  )
+            dataProvider = "getUserAuthenticationData")
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
         loginPageObjects.performAuthentication(mobileNumber,otp);
@@ -57,17 +57,13 @@ public class Authentication extends AndroidBaseClass {
 
 
 
-<<<<<<< HEAD
-    @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
-=======
     @Test(  groups = {CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
->>>>>>> 66dc0c11558ad67d33881a18accf5188bdc727d9
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Authentication With InValid Credentials",
             dataProvider = "getUserAuthenticationData"  )
-    public void verifyAuthenticationWithInvalidOtp(String mobileNumber,String otp){
-        loginPageObjects.performAuthentication(mobileNumber,otp);
+    public void verifyAuthenticationWithInvalidOtp(String mobileNumber,String otp1){
+        loginPageObjects.performWrongOTPFunctionality(mobileNumber,otp1);
         // Verification Step Pending
     }
 

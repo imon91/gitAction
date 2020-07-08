@@ -12,8 +12,8 @@ import utils.MyActions;
 import static utils.WebAppBaseClass.sleep;
 
 public class CheckoutPageObjects {
-    private AndroidDriver<WebElement> driver;
-    private MyActions myActions;
+    private final AndroidDriver<WebElement> driver;
+    private final MyActions myActions;
     TouchAction touch;
 
     public CheckoutPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -65,27 +65,27 @@ public class CheckoutPageObjects {
 /*-----------Actions------------*/
 
 
-    public void clickOnSizeOptions(){myActions.action_click(SizeOptionsButton);};
+    public void clickOnSizeOptions(){myActions.action_click(SizeOptionsButton);}
 
-    public void clickOnIncreaseQuantity(){myActions.action_click(IncreaseQuantityButton);};
+    public void clickOnIncreaseQuantity(){myActions.action_click(IncreaseQuantityButton);}
 
-    public void clickOnDecreaseQuantity(){myActions.action_click(DecreaseQuantityButton);};
+    public void clickOnDecreaseQuantity(){myActions.action_click(DecreaseQuantityButton);}
 
-    public void EnterChangeofCustomPrice(String price){myActions.action_sendKeys(ChangeOfCustomPriceValue,price);};
+    public void EnterChangeofCustomPrice(String price){myActions.action_sendKeys(ChangeOfCustomPriceValue,price);}
 
-    public void EnterDeliveryCharge(String Delivery){myActions.action_sendKeys(Delivery_Charge,Delivery);};
+    public void EnterDeliveryCharge(String Delivery){myActions.action_sendKeys(Delivery_Charge,Delivery);}
 
-    public void clickOnSaveDeliveryCharge(){myActions.action_click(SaveDelivery_Charge);};
+    public void clickOnSaveDeliveryCharge(){myActions.action_click(SaveDelivery_Charge);}
 
-    public void clickOnCouponApply(){myActions.action_click(CouponApplyButton);};
+    public void clickOnCouponApply(){myActions.action_click(CouponApplyButton);}
 
-    public void clickOnContinueShopping(){myActions.action_click(ContinueShoppingButton);};
+    public void clickOnContinueShopping(){myActions.action_click(ContinueShoppingButton);}
 
-    public void clickOnPlaceOrder(){myActions.action_click(PlaceOrderButton);};
+    public void clickOnPlaceOrder(){myActions.action_click(PlaceOrderButton);}
 
 
 
-/*-------Functions---------*/
+    /*-------Functions---------*/
 
  public void confirmingOrder(){
      clickOnIncreaseQuantity();

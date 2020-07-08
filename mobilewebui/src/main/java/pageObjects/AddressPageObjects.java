@@ -25,8 +25,8 @@ import static utils.WebAppBaseClass.*;
 
 public class AddressPageObjects {
     private AndroidDriver<WebElement> driver = getBaseDriver();
-    private MyActions myActions;
-    private Random random;
+    private final MyActions myActions;
+    private final Random random;
     TouchAction touch;
 
     public AddressPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
@@ -125,49 +125,49 @@ public class AddressPageObjects {
 
     public void moveToHome(){myActions.action_click(home);}
 
-    public void clickOnProceedToPaymentButton(){myActions.action_click(ProceedToPaymentButton);};
+    public void clickOnProceedToPaymentButton(){myActions.action_click(ProceedToPaymentButton);}
 
     public void clickOnAddress(){myActions.action_click(selectAddress);}
 
-    public void clickOnShowMoreAddressesButton(){myActions.action_click(ShowMoreAddressesButton);};
+    public void clickOnShowMoreAddressesButton(){myActions.action_click(ShowMoreAddressesButton);}
 
-    public void clickOnAddNewAddressButton(){myActions.action_click(AddNewAddressButton);};
+    public void clickOnAddNewAddressButton(){myActions.action_click(AddNewAddressButton);}
 
-    public void EnterFirstName(String Name){myActions.action_sendKeys(FirstName,Name);};
+    public void EnterFirstName(String Name){myActions.action_sendKeys(FirstName,Name);}
 
-    public void EnterPhoneNumber(String Number){myActions.action_sendKeys(PhoneNumber,Number);};
+    public void EnterPhoneNumber(String Number){myActions.action_sendKeys(PhoneNumber,Number);}
 
-    public void EnterAlternativePhoneNumber(String Alternative){myActions.action_sendKeys(AlternativePhoneNumber,Alternative);};
+    public void EnterAlternativePhoneNumber(String Alternative){myActions.action_sendKeys(AlternativePhoneNumber,Alternative);}
 
-    public void EnterAddress(String Address){myActions.action_sendKeys(Address_S,Address);};
+    public void EnterAddress(String Address){myActions.action_sendKeys(Address_S,Address);}
 
     public void chooseArea(){myActions.action_click(chooseFromDropDown);}
 
-    public void EnterLocality(String Locality){myActions.action_sendKeys(Locality_S,Locality);};
+    public void EnterLocality(String Locality){myActions.action_sendKeys(Locality_S,Locality);}
 
-    public void EnterLandmark(String Landmark){myActions.action_sendKeys(Landmark_S,Landmark);};
+    public void EnterLandmark(String Landmark){myActions.action_sendKeys(Landmark_S,Landmark);}
 
     public void ChooseArea(){myActions.action_click(Area_s);}
 
-    public void EnterArea(String Area){myActions.action_sendKeys(Area_s,Area);};
+    public void EnterArea(String Area){myActions.action_sendKeys(Area_s,Area);}
 
-    public void clickOnSaveAddress(){myActions.action_click(TemporarySave);};
+    public void clickOnSaveAddress(){myActions.action_click(TemporarySave);}
 
-    public void clickOnSave(){myActions.action_click(PermanentSave);};
+    public void clickOnSave(){myActions.action_click(PermanentSave);}
 
-    public void clickOnbackToAddress(){myActions.action_click(BacktoAddressesButton);};
+    public void clickOnbackToAddress(){myActions.action_click(BacktoAddressesButton);}
 
-    public void clickOnChangeAddress(){myActions.action_click(ChangeAddress);};
+    public void clickOnChangeAddress(){myActions.action_click(ChangeAddress);}
 
-    public void clickOnPaymentBreakup(){myActions.action_click(PaymentBreakup);};
+    public void clickOnPaymentBreakup(){myActions.action_click(PaymentBreakup);}
 
     public void closePaymentBreakup(){myActions.action_click(close);}
 
-    public void clickOnCashOnDelivery(){myActions.action_click(CashOnDelivery);};
+    public void clickOnCashOnDelivery(){myActions.action_click(CashOnDelivery);}
 
-    public void clickOnMakePayment(){myActions.action_click(MakePayment);};
+    public void clickOnMakePayment(){myActions.action_click(MakePayment);}
 
-/*-------Functions----------*/
+    /*-------Functions----------*/
 
      public void placingOrderwithExistingAddress() throws Exception {
          clickOnShowMoreAddressesButton();

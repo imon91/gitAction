@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Random;
 
 public class PLPPageObject {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     Random random = new Random();
 
     public PLPPageObject(WebDriver driver) {

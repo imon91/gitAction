@@ -10,8 +10,8 @@ import utils.MyActions;
 import java.util.List;
 
 public class OrderProcessPageObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public OrderProcessPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -46,8 +46,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Order Pack Tab-------------------*/
     public class OrderPackTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public OrderPackTab(WebDriver driver) {
             this.driver = driver;
@@ -84,8 +84,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Create Manifest Tab-------------------*/
     public class CreateManifestTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public CreateManifestTab(WebDriver driver) {
             this.driver = driver;
@@ -97,8 +97,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Upload Manifest Tab-------------------*/
     public class UploadManifestTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public UploadManifestTab(WebDriver driver) {
             this.driver = driver;
@@ -198,8 +198,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Order Details Tab-------------------*/
     public class OrderDetailTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public OrderDetailTab(WebDriver driver) {
             this.driver = driver;

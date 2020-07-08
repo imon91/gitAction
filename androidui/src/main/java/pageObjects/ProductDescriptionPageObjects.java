@@ -12,11 +12,12 @@ import java.util.*;
 
 public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
-    private AndroidDriver<WebElement> androidDriver;
-    private MyActions myActions;
-    private ServiceRequestLayer serviceRequestLayer;
-    private String packageName;
-    private int minSalePrice,maxSalePrice;
+    private final AndroidDriver<WebElement> androidDriver;
+    private final MyActions myActions;
+    private final ServiceRequestLayer serviceRequestLayer;
+    private final String packageName;
+    private final int minSalePrice;
+    private final int maxSalePrice;
 
     public ProductDescriptionPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -438,8 +439,8 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
     public class PDPTutorial{
 
-        private AndroidDriver<WebElement> androidDriver;
-        private MyActions myActions;
+        private final AndroidDriver<WebElement> androidDriver;
+        private final MyActions myActions;
 
         public PDPTutorial(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = getBaseDriver();
@@ -491,8 +492,8 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
     public class BottomSheetHolder{
 
-        private AndroidDriver<WebElement> androidDriver;
-        private MyActions myActions;
+        private final AndroidDriver<WebElement> androidDriver;
+        private final MyActions myActions;
 
         public BottomSheetHolder(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;

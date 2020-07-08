@@ -9,8 +9,8 @@ import utils.*;
 public class PaymentModePageObjects extends AndroidBaseClass {
 
 
-    private AndroidDriver<WebElement> androidDriver;
-    private MyActions myActions;
+    private final AndroidDriver<WebElement> androidDriver;
+    private final MyActions myActions;
 
     public PaymentModePageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

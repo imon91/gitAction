@@ -12,8 +12,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
     // Cart/MyBag os completely a WebView
 
-    private AndroidDriver<WebElement> androidDriver;
-    private MyActions myActions;
+    private final AndroidDriver<WebElement> androidDriver;
+    private final MyActions myActions;
 
     public CheckoutAddressPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -53,8 +53,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
     public class SelectAddress{
 
-        private AndroidDriver<WebElement> androidDriver;
-        private MyActions myActions;
+        private final AndroidDriver<WebElement> androidDriver;
+        private final MyActions myActions;
 
         public SelectAddress(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
@@ -99,8 +99,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
         public class AddressField{
 
 
-            private AndroidDriver<WebElement> androidDriver;
-            private MyActions myActions;
+            private final AndroidDriver<WebElement> androidDriver;
+            private final MyActions myActions;
 
             public AddressField(AndroidDriver<WebElement> androidDriver){
                 this.androidDriver = androidDriver;
@@ -193,8 +193,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
     public class EstimatedDeliveryDates{
 
-        private AndroidDriver<WebElement> androidDriver;
-        private MyActions myActions;
+        private final AndroidDriver<WebElement> androidDriver;
+        private final MyActions myActions;
 
         public EstimatedDeliveryDates(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
@@ -219,8 +219,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
         public class EstimatedDeliveryDatesItems{
 
-            private AndroidDriver<WebElement> androidDriver;
-            private MyActions myActions;
+            private final AndroidDriver<WebElement> androidDriver;
+            private final MyActions myActions;
 
             public EstimatedDeliveryDatesItems(AndroidDriver<WebElement> androidDriver){
                 this.androidDriver = androidDriver;

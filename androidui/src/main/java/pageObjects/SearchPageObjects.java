@@ -9,9 +9,9 @@ import java.util.*;
 
 public class SearchPageObjects extends AndroidBaseClass {
 
-    private AndroidDriver<WebElement> androidDriver;
-    private MyActions myActions;
-    private String packageName;
+    private final AndroidDriver<WebElement> androidDriver;
+    private final MyActions myActions;
+    private final String packageName;
 
     public SearchPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

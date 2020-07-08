@@ -15,8 +15,8 @@ import java.util.Random;
 public class PDPPageObjects extends WebAppBaseClass {
 
     private AndroidDriver<WebElement> driver = getBaseDriver();
-    private MyActions myActions;
-    private Random random;
+    private final MyActions myActions;
+    private final Random random;
 
     public PDPPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
@@ -81,11 +81,11 @@ public class PDPPageObjects extends WebAppBaseClass {
 
 
 
-    public void clickOnAddToMyShop(){myActions.action_click(AddToMyShopButton);};
+    public void clickOnAddToMyShop(){myActions.action_click(AddToMyShopButton);}
 
-    public void clickOnBuyNow(){myActions.action_click(BuyNowButton);};
+    public void clickOnBuyNow(){myActions.action_click(BuyNowButton);}
 
-    public void clickOnImageOfProduct(){myActions.action_click(ImageofProduct);};
+    public void clickOnImageOfProduct(){myActions.action_click(ImageofProduct);}
 
     public void clickOnCloseButton(){myActions.action_click(CloseImage);}
 

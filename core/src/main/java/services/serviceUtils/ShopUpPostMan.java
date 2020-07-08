@@ -12,7 +12,7 @@ public class ShopUpPostMan {
     // This Layer is basically to hit the get requests and send back the response
 
     private String baseURL;
-    private String cookie;
+    private final String cookie;
 
     public ShopUpPostMan(String module){
         String app = System.getProperty(BuildParameterKeys.KEY_APP);

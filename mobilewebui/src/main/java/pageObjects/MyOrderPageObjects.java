@@ -15,8 +15,8 @@ import static utils.WebAppBaseClass.getBaseDriver;
 
 public class MyOrderPageObjects {
     private AndroidDriver<WebElement> driver = getBaseDriver();
-    private MyActions myActions;
-    private Random random;
+    private final MyActions myActions;
+    private final Random random;
 
     public MyOrderPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;

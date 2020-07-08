@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PurchaseOrdersPageObjects extends WmsBaseClass {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
 
     public PurchaseOrdersPageObjects(WebDriver driver) {
@@ -85,8 +85,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Create Purchase Order Tab-------------------*/
     public class CreatePurchaseOrderTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
 
 
@@ -192,7 +192,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             clickCreatePOButton();
             sleep(1000);
         }
-        public void createPO(int no_of_products, String skuCode[], String quantity[], String price[]) {
+        public void createPO(int no_of_products, String[] skuCode, String[] quantity, String[] price) {
             for (int i = 0; i < no_of_products; i++) {
                 skuCodeInput(i, skuCode[i]);
                 quantityInput(i, quantity[i]);
@@ -209,8 +209,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Edit Purchase Order Tab-------------------*/
     public class EditPurchaseOrder {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public EditPurchaseOrder(WebDriver driver) {
             this.driver = driver;
@@ -296,8 +296,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
     /*--------------Purchase Order List Tab-------------------*/
     public class PurchaseOrderList {
         String purchaseOrderListTabXpath = "//div[@id='PurchaseOrderList']";
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public PurchaseOrderList(WebDriver driver) {
             this.driver = driver;
@@ -426,8 +426,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Create GRN Tab-------------------*/
     public class CreateGRNTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public CreateGRNTab(WebDriver driver) {
             this.driver = driver;
@@ -493,8 +493,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Qc Scan Tab-------------------*/
     public class QcScanTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public QcScanTab(WebDriver driver) {
             this.driver = driver;
@@ -546,8 +546,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Create Bulk Purchase Order Tab-------------------*/
     public class CreateBulkPurchaseOrderTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
 
         public CreateBulkPurchaseOrderTab(WebDriver driver) {
@@ -611,8 +611,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Transfer Order List Tab-------------------*/
     public class TransferOrderListTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
 
         public TransferOrderListTab(WebDriver driver) {
@@ -686,8 +686,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Create Transfer Order Tab-------------------*/
     public class CreateTransferOrderTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
 
         public CreateTransferOrderTab(WebDriver driver) {

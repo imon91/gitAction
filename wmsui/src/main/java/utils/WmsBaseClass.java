@@ -10,14 +10,14 @@ import java.util.concurrent.TimeUnit;
 
 public class WmsBaseClass extends GetDriverFromCore{
 
-    private static String HOST_LOCAL = "local";
-    private static String HOST_BROWSER_STACK = "bs";
-    private static String OS = "Os";
-    private static String OS_VERSION = "OSv";
-    private static String BROWSER = "Br";
-    private static String BROWSER_VERSION = "BRv";
+    private static final String HOST_LOCAL = "local";
+    private static final String HOST_BROWSER_STACK = "bs";
+    private static final String OS = "Os";
+    private static final String OS_VERSION = "OSv";
+    private static final String BROWSER = "Br";
+    private static final String BROWSER_VERSION = "BRv";
     private static WebDriver driver=null;
-    private static String host = System.getProperty("Host");
+    private static final String host = System.getProperty("Host");
 
 
 

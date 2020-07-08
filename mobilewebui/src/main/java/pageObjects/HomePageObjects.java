@@ -19,9 +19,9 @@ import static utils.WebAppBaseClass.*;
 
 public class HomePageObjects {
     private AndroidDriver<WebElement> driver = getBaseDriver();
-    private MyActions myActions;
-    private Random random;
-    private String app;
+    private final MyActions myActions;
+    private final Random random;
+    private final String app;
 
     public HomePageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
