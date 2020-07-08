@@ -2,34 +2,36 @@ package pageObjects;
 
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.*;
 import utils.*;
 
-public class ToolBarObjects {
+public class ToolBarObjects extends AndroidBaseClass{
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
+    private String packageName;
 
-    public ToolBarObjects(AndroidDriver<AndroidElement> androidDriver){
+    public ToolBarObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        packageName = getAppPackage();
     }
 
     // Tool Bar Parent
-    @AndroidFindBy(xpath = "//android.view.ViewGroup[@resource-id='com.shopup.reseller:id/toolbar']")
-    private AndroidElement toolBar;
+    private WebElement toolBar;
 
     // Back Button
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@content-desc='Navigate up']")
-    private AndroidElement toolBarBackButton;
+    private WebElement toolBarBackButton;
 
     // Back Button
     @AndroidFindBy(className = "android.widget.TextView")
-    private AndroidElement toolBarPageName;
+    private WebElement toolBarPageName;
 
 
     public void navigateBack(){
+        toolBarBackButton = xpathSetter("//android.widget.ImageButton[@content-desc='Navigate up']");
         myActions.action_click(toolBarBackButton);
     }
 

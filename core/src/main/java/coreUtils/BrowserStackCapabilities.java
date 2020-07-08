@@ -13,4 +13,5 @@ public class BrowserStackCapabilities {
     public static final String KEY_ANDROID_VERSION = "version";
     public static final String KEY_APP = "app";
     public static final String KEY_BROWSER_STACK_VIDEO = "browserstack.video";
+    public static final String KEY_BROWSER_STACK_NETWORK_LOGS = "browserstack.networkLogs";
 }

@@ -29,7 +29,7 @@ public class PickOrdersPageObjects extends WmsBaseClass {
     @FindBy(xpath = "//div[@class='packages-details-tabs']/ul/li[2]/a")
     private WebElement demandLessPickListTab;
 
-    @FindBy(xpath = "//div[@class='packages-details-tabs']/ul/li[3]/a")
+    @FindBy(xpath = "//a[text()='All Pick Lists']")
     private WebElement allPickListsTab;
 
     @FindBy(xpath = "//div[@class='packages-details-tabs']/ul/li[4]/a")
@@ -108,6 +108,7 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             String skuCodeXPath = "//div[@id='NewPickList']//input[@id='select" + index + "']";
             WebElement skuCodeEntry = driver.findElement(By.xpath(skuCodeXPath));
             myActions.action_sendKeys(skuCodeEntry, skuCode);
+            myActions.action_enter(skuCodeEntry);
         }
 
         public void quantityInput(int index, String quantity) {
@@ -137,12 +138,21 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
 
         /*--------------Functions-------------------*/
-        public void enterWarehouseDetails(String warehouse, String seller, String pickup_agent, String picklist_type) {
-            selectWarehouse(warehouse);
-            selectSeller(seller);
-            selectPickupAgent(pickup_agent);
-            selectType(picklist_type);
+        public void enterWarehouseDetails() {
+            selectWarehouse("Shopup Dhaka");
+            sleep(2000);
+            selectSeller("DFW");
+            sleep(1000);
+            selectType("PHOTOSHOOT");
             sleep(10000);
+        }
+
+        public void createPickListOrder(){
+            skuCodeInput(0,"139743");
+            sleep(1000);
+            quantityInput(0,"2");
+            clickCreatePickListButton();
+            sleep(1000);
         }
 
         public void createPickList(int no_of_products, String skuCode[], String quantity[], String price[]) {

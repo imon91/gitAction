@@ -8,13 +8,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.shopf.tests.Authentication"></class>
-            <class name="com.shopf.tests.Search"></class>
-            <class name="com.shopf.tests.PLP"></class>
-            <class name="com.shopf.tests.PDP"></class>
-            <class name="com.shopf.tests.MyBag"></class>
-<!--            <class name="com.shopf.tests.MyShop"></class>-->
-            <class name="com.shopf.tests.Logout"></class>
+              <class name="com.shopf.tests.integrationTests.SmokeFlow"></class>
         </classes>
     </test>
 </suite>

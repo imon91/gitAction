@@ -4,17 +4,17 @@ import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import utils.MyActions;
-
-import java.util.List;
-
-public class MyOrdersPageObjects {
+import utils.*;
+import java.util.*;
 
 
-    private AndroidDriver<AndroidElement> androidDriver;
+public class MyOrdersPageObjects extends AndroidBaseClass {
+
+
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
 
-    public MyOrdersPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public MyOrdersPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
@@ -23,15 +23,15 @@ public class MyOrdersPageObjects {
 
     // Active Tab Item
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='ACTIVE ']")
-    private AndroidElement activeTab;
+    private WebElement activeTab;
 
     // Completed Tab Item
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='COMPLETED ']")
-    private AndroidElement completeTab;
+    private WebElement completeTab;
 
     // Cancelled Tab Item
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='CANCELLED ']")
-    private AndroidElement cancelledTab;
+    private WebElement cancelledTab;
 
 
     public void clickOnActiveTabItem(){
@@ -51,10 +51,10 @@ public class MyOrdersPageObjects {
 
     public class MyOrderSearch{
 
-        private AndroidDriver<AndroidElement> androidDriver;
+        private AndroidDriver<WebElement> androidDriver;
         private MyActions myActions;
 
-        public MyOrderSearch(AndroidDriver<AndroidElement> androidDriver){
+        public MyOrderSearch(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
             myActions = new MyActions();
@@ -62,44 +62,47 @@ public class MyOrdersPageObjects {
 
         // MyOrderSearch Form
         @FindBy(xpath = "//form[@class='myorderSearch']")
-        private AndroidElement formMyOrderSearch;
+        private WebElement formMyOrderSearch;
 
         // SearchBar
         @FindBy(xpath = "//input[@name='term']")
-        private AndroidElement myOrdersSearchBar;
+        private WebElement myOrdersSearchBar;
 
         // SearchIcon
         @FindBy(xpath = "//input[@name='term']/ancestor::div[1]/following-sibling::*[name()='svg']")
-        private AndroidElement myOrdersSearchIcon;
+        private WebElement myOrdersSearchIcon;
 
     }
 
 
     @FindBy(xpath = "//form[@id='myorderSearch']/following-sibling::div[1]/div[1]/div[1]")
-    private AndroidElement sortButton;
+    private WebElement sortButton;
 
 
     @FindBy(xpath = "//form[@id='myorderSearch']/following-sibling::div[1]/div[1]/div[2]")
-    private AndroidElement filterButton;
+    private WebElement filterButton;
 
 
     public class OrderDetails{
 
-        private AndroidDriver<AndroidElement> androidDriver;
+        private AndroidDriver androidDriver;
         private MyActions myActions;
         private final String parentXpath = "//form[@id='myorderSearch']/following-sibling::div[2]/";
 
-        public OrderDetails(AndroidDriver<AndroidElement> androidDriver){
+        public OrderDetails(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
             myActions = new MyActions();
         }
 
         @FindBy(xpath = parentXpath+"div[1]/span[1]")
-        private AndroidElement totalProductsDeliveredLabel;
+        private WebElement totalProductsDeliveredLabel;
 
         @FindBy(xpath = parentXpath+"div[1]/span[2]")
-        private AndroidElement totalProductsDeliveredCount;
+        private WebElement totalProductsDeliveredCount;
+
+        @FindBy(xpath = "//button")
+        private WebElement loadMoreButton;
 
 
         public String getTotalProductsDeliveredLabel(){
@@ -112,16 +115,18 @@ public class MyOrdersPageObjects {
 
 
         @FindBy(xpath = parentXpath+"div[2]/div[1]/span")
-        private AndroidElement orderIdDateLabel;
+        private WebElement orderIdDateLabel;
 
         @FindBy(xpath = parentXpath+"div[2]/div[2]/span")
-        private AndroidElement nameAddressLabel;
+        private WebElement nameAddressLabel;
 
 
 
-        public List<AndroidElement> getListOfOrderItems(){
-            List<AndroidElement> listOfOrderItems =
-                    androidDriver.findElements(By.xpath("//div[@class='column___37VPa']"));
+        public List<WebElement> getListOfOrderItems(){
+            sleep(3000);
+            List<WebElement> listOfOrderItems =
+                    xpathListSetter("//div[@class='column___37VPa']/p[1]");
+            System.out.println("Size is : "+listOfOrderItems.size());
             return listOfOrderItems;
         }
 
@@ -134,7 +139,8 @@ public class MyOrdersPageObjects {
                   System.out.println("Please Specify Valid Order Index, input is :"
                           +orderIndex+" min is : 0");
               }else {
-                  AndroidElement orderItem = getListOfOrderItems().get(orderIndex);
+                  WebElement orderItem = getListOfOrderItems().get(orderIndex);
+                  System.out.println("Clicked Order is : "+ getListOfOrderItems().get(orderIndex).getText());
                   myActions.action_click(orderItem);
               }
         }

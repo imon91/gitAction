@@ -3,93 +3,78 @@ package pageObjects;
 import org.openqa.selenium.*;
 import utils.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.*;
-import org.openqa.selenium.support.PageFactory;
 
-public class LoginPageObjects {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+public class LoginPageObjects extends AndroidBaseClass{
+
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
-    private String myPackage;
+    private String packageName;
 
-    public LoginPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public LoginPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
-        myPackage = AndroidBaseClass.getAppPackage();
+        packageName = getAppPackage();
     }
 
+    private WebElement enterMobileNumberEditText;
 
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.mokam.app:id/text_login_label']")
-    private AndroidElement loginLabelTextView;
+    private WebElement verifyOtpButton;
 
-    // Mobile Number Edit text
-    @AndroidFindBy(id = "com.mokam.app:id/et_mobile_number")
-    private AndroidElement mobileNumberEditTextView;
+    private WebElement enterOtpEditText;
 
-    // otp verify button
-    @AndroidFindBy(id = "com.shopup.reseller:id/text_button_verify")
-    private AndroidElement verifyOTPButton;
+    private WebElement proceedButton;
 
-    // OTP Label
-    @AndroidFindBy(id = "com.shopup.reseller:id/text_otp_label")
-    private AndroidElement otpLabelTextView;
+    private WebElement editMobileNumberButton;
 
-    // OTP Edit text
-    @AndroidFindBy(id = "com.shopup.reseller:id/et_otp")
-    private AndroidElement otpNumberEditTextView;
+    private WebElement resendOtpButton;
 
-    // Proceed button
-    @AndroidFindBy(id = "com.shopup.reseller:id/text_button_proceed")
-    private AndroidElement proceedButton;
+    private WebElement loginLabelText;
 
-    // Edit Mobile Number button
-    @AndroidFindBy(id = "com.shopup.reseller:id/text_change_mobile")
-    private AndroidElement editMobileNumberButton;
-
-    // Resend OTP button
-    @AndroidFindBy(id = "com.shopup.reseller:id/text_resend_otp")
-    private AndroidElement resendOtpButton;
-
-
-
+    private WebElement otpLabelText;
 
 
     /*--------------Actions-------------------*/
 
     private void enterMobileNumber(String mobileNumber){
-        WebElement mobileNumberEditTextView = androidDriver.
-                findElement(By.xpath("//android.widget.EditText[@resource-id='"+myPackage+":id/et_mobile_number']"));
-        myActions.action_sendKeys(mobileNumberEditTextView,mobileNumber);
+        enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/et_mobile_number']");
+        myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
     }
 
     private void clickOnVerifyOtpButton(){
-        myActions.action_click(verifyOTPButton);
+        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_verify']");
+        myActions.action_click(verifyOtpButton);
     }
 
     private void enterOtp(String otp){
-        myActions.action_sendKeys(otpNumberEditTextView,otp);
+        enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/et_otp']");
+        myActions.action_sendKeys(enterOtpEditText,otp);
     }
 
     private void clickOnProceedButton(){
+        proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_proceed']");
         myActions.action_click(proceedButton);
     }
 
     private void clickOnEditMobileNumberButton(){
+        editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_change_mobile']");
         myActions.action_click(editMobileNumberButton);
     }
 
     private void clickOnResendOtpButton(){
+        resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_resend_otp']");
         myActions.action_click(resendOtpButton);
     }
 
     public String getLoginLabelText(){
-        return myActions.action_getText(loginLabelTextView);
+        loginLabelText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_login_label']");
+        return myActions.action_getText(loginLabelText);
 
     }
 
-    private void getOTPLabelText(){
-        myActions.action_getText(otpLabelTextView);
+    private String getOTPLabelText(){
+        otpLabelText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_otp_label']");
+        return myActions.action_getText(otpLabelText);
     }
 
 
@@ -105,9 +90,35 @@ public class LoginPageObjects {
     }
 
     // 2 : Resend Otp Function
+    public void performResendOTPFunction(String mobileNumber,String otp){
+        enterMobileNumber(mobileNumber);
+        clickOnVerifyOtpButton();
+        sleep(30000); // Sleep for 30 seconds to get the Resend OPT button get activated
+        clickOnResendOtpButton();
+        enterOtp(otp);
+        clickOnProceedButton();
+    }
 
     // 3 : Edit Mobile Number Function
+    public void performEditMobileNumberFunctionality(String mobileNumber1,String otp){
+        enterMobileNumber(mobileNumber1);
+        clickOnVerifyOtpButton();
+        clickOnEditMobileNumberButton();
+        myActions.action_clearText(enterMobileNumberEditText);
+        enterMobileNumber(mobileNumber1);
+        clickOnVerifyOtpButton();
+        enterOtp(otp);
+        clickOnProceedButton();
+    }
 
     // 4 : Wrong OTP Function
+    public void performWrongOTPFunctionality(String mobileNumber,String otp1){
+        enterMobileNumber(mobileNumber);
+        clickOnVerifyOtpButton();
+        enterOtp("777777");
+        clickOnProceedButton();
+        enterOtp(otp1);
+        clickOnProceedButton();
+    }
 
 }

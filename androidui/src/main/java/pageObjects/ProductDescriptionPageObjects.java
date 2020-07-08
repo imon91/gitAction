@@ -1,112 +1,201 @@
 package pageObjects;
 
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.*;
+import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import utils.*;
+
+import java.time.Duration;
 import java.util.*;
 
-public class ProductDescriptionPageObjects {
+public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private ServiceRequestLayer serviceRequestLayer;
+    private String packageName;
+    private int minSalePrice,maxSalePrice;
 
-    public ProductDescriptionPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public ProductDescriptionPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
+        minSalePrice = Integer.parseInt(System.getProperty("minSalePrice"));
+        maxSalePrice = Integer.parseInt(System.getProperty("maxSalePrice"));
+        System.out.println(minSalePrice+" , "+maxSalePrice);
     }
 
 
     // Product Details ScrollView
-    @AndroidFindBy(xpath = "//android.widget.ScrollView[@resource-id='com.shopup.reseller:id/product_details_scroll_view']")
-    private AndroidElement productDetailsScrollView;
+    private WebElement productDetailsScrollView;
 
     // Product Details ScrollView Sub View : Parent -> productDetailsScrollView
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/product_details_scroll_view_sub_view']")
-    private AndroidElement productDetailsScrollViewSubView;
+    private WebElement productDetailsScrollViewSubView;
 
     // Image PageHolder : Parent -> productDetailsScrollViewSubView
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/image_page_holder']")
-    private AndroidElement imagePageHolder;
+    private WebElement imagePageHolder;
+
+
+    public void getProductDetailsScrollView(){
+        productDetailsScrollView =
+                xpathSetter("//android.widget.ScrollView[@resource-id='"+packageName+":id/product_details_scroll_view']");
+    }
+
+
+    public void getProductDetailsScrollViewSubView(){
+        productDetailsScrollViewSubView =
+                xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/product_details_scroll_view_sub_view']");
+    }
+
 
     /*-------ImagePageHolder Items starts Here--------*/
 
     // Image PageViewer
-    @AndroidFindBy(xpath = "//androidx.viewpager.widget.ViewPager[@resource-id='com.shopup.reseller:id/pager']")
-    private AndroidElement imagePageViewer;
+    private WebElement imagePageViewer;
 
     // Button CloseZoom
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@resource-id='com.shopup.reseller:id/btn_close_zoom']")
-    private AndroidElement buttonCloseZoom;
+    private WebElement buttonCloseZoom;
 
     // Button LeftArrow
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@resource-id='com.shopup.reseller:id/btn_left_arrow']")
-    private AndroidElement buttonLeftArrow;
+    private WebElement buttonLeftArrow;
 
     // Button RightArrow
-    @AndroidFindBy(xpath = "//android.widget.ImageButton[@resource-id='com.shopup.reseller:id/btn_right_arrow']")
-    private AndroidElement buttonRightZoom;
+    private WebElement buttonRightZoom;
+
+
+    public void getImagePageViewer(){
+        productDetailsScrollViewSubView =
+                xpathSetter("//androidx.viewpager.widget.ViewPager[@resource-id='"+packageName+":id/pager']");
+    }
+
+
+    public void clickOnButtonLeftArrow(){
+        buttonLeftArrow = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_left_arrow']");
+        myActions.action_click(buttonLeftArrow);
+    }
+
+
+    public void clickOnButtonRightArrow(){
+        buttonLeftArrow = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_right_arrow']");
+        myActions.action_click(buttonLeftArrow);
+    }
 
     /*-------ImagePageHolder Items Ends Here--------*/
 
     // Product Price Details : Parent -> productDetailsScrollViewSubView
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/product_price_details']")
-    private AndroidElement productPriceDetails;
+    private WebElement productPriceDetails;
 
     // Price Det Container : Parent -> productPriceDetails
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/price_det_container']")
-    private AndroidElement priceDetContainer;
+    private WebElement priceDetContainer;
 
     // Price Container : Parent -> priceDetContainer
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/priceContainer']")
-    private AndroidElement priceContainer;
+    private WebElement priceContainer;
+
+
+    public void getProductPriceDetailsLinearLayout(){
+        productPriceDetails =
+                xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/product_price_details']");
+    }
+
+
+    public void getPriceDetContainer(){
+        priceDetContainer =
+                xpathSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/price_det_container']");
+    }
+
+
+    public void getPriceContainer(){
+        priceContainer =
+                xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/priceContainer']");
+    }
 
     /*-----priceContainer Items starts--------*/
 
     // Product Name
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/product_name']")
-    private AndroidElement productName;
+    private WebElement productName;
 
     // Price Jazz
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/price_jazz']")
-    private AndroidElement priceJazz;
+    private WebElement priceJazz;
+
+
+    public String getProductName(){
+        productName =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_name']");
+        return myActions.action_getText(productName);
+    }
+
+    public void getPriceJazzContainer(){
+        priceJazz =
+                xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/price_jazz']");
+    }
 
     /*-----priceJazz Items Starts--------*/
 
     // Price
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/price']")
-    private AndroidElement finalPrice;
+    private WebElement finalPrice;
 
     // Original Price
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/original_price']")
-    private AndroidElement originalPrice;
+    private WebElement originalPrice;
 
     // Discount Price
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/discount']")
-    private AndroidElement discountPrice;
+    private WebElement discountPrice;
+
+
+    public String getFinalPrice(){
+        finalPrice =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/price']");
+        return myActions.action_getText(finalPrice);
+    }
+
+
+    public String getOriginalPrice(){
+        originalPrice =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/original_price']");
+        return myActions.action_getText(originalPrice);
+    }
+
+    public String getDiscountPrice(){
+        discountPrice =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/discount']");
+        return myActions.action_getText(discountPrice);
+    }
 
     /*-----priceJazz Items Ends--------*/
 
 
     // Set MinMax Product Price
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/minandmax']")
-    private AndroidElement minMaxProductPrice;
-
+    private WebElement minMaxProductPrice;
 
     // Flex Box
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/flexBox']")
-    private AndroidElement flexBox;
+    private WebElement flexBox;
+
+
+    public String getMinMaxPriceText(){
+        minMaxProductPrice =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/minandmax']");
+        return myActions.action_getText(minMaxProductPrice);
+    }
+
+
+    public void getFlexBoxContainer(){
+        flexBox = xpathSetter("//android.view.ViewGroup[@resource-id='"+packageName+":id/flexBox']");
+    }
 
     /*-----FlexBox Items Starts--------*/
 
     // Text
-    @AndroidFindBy(xpath = "//android.widget.TextView[@com.shopup.reseller:id/text']")
-    private AndroidElement text;
+    private WebElement textTag;
+
+
+    public String getItemFlexTag(){
+        textTag =
+                xpathSetter("//android.widget.TextView[@"+packageName+":id/text']");
+        return myActions.action_getText(textTag);
+    }
 
     /*-----FlexBox Items Ends--------*/
 
@@ -114,37 +203,64 @@ public class ProductDescriptionPageObjects {
 
 
     // Select Size Label
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/select_size_label']")
-    private AndroidElement selectSizeLabel;
+    private WebElement selectSizeLabel;
+
+    public String getSelectSizeLabel(){
+        selectSizeLabel =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/select_size_label']");
+        return myActions.action_getText(selectSizeLabel);
+    }
 
     /*---Size Guide Sheet Elements starts--*/
 
     // Select Size Cancel
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/size_guide_close']")
-    private AndroidElement sizeGuideClose;
+    private WebElement sizeGuideClose;
+
+
+    public void clickOnSizeGuideCloseButton(){
+        sizeGuideClose =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/size_guide_close']");
+        myActions.action_click(sizeGuideClose);
+    }
 
     /*---Size Guide Sheet Elements Ends--*/
 
     // SelectSize HorizontalScrollView
-    @AndroidFindBy(xpath = "//android.widget.HorizontalScrollView[@resource-id='com.shopup.reseller:id/horizontalScrollView']")
-    private AndroidElement selectSizeHorizontalScrollView;
+    private WebElement selectSizeHorizontalScrollView;
+
+    public void getSelectSizeHorizontalScrollView(){
+        selectSizeHorizontalScrollView =
+                xpathSetter("//android.widget.HorizontalScrollView[@resource-id='"+packageName+":id/horizontalScrollView']");
+    }
 
     /*-----selectSizeHorizontalScrollView Items Starts Here--------*/
 
     // Size List
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/size_list']")
-    private AndroidElement sizeList;
+    private WebElement sizeList;
 
+    public void getSizeListRelativeLayout(){
+        sizeList = xpathSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/size_list']");
+    }
 
     // Size Each Element
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/size_each_element']")
-    private AndroidElement sizeEachElement;
+    private List<WebElement> sizeEachElementList;
+
+    public List<WebElement> getSizeEachElementList(){
+        sizeEachElementList =
+                xpathListSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/size_each_element']");
+        return sizeEachElementList;
+    }
 
     /*-----sizeEachElement Items Starts Here--------*/
 
     // Size Each Element's Value
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/size_value']")
-    private AndroidElement sizeEachValue;
+    private List<WebElement> sizeEachValueList;
+
+    public List<WebElement> getSizeEachValueList(){
+        sizeEachValueList =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/size_value']");
+        return sizeEachValueList;
+    }
 
     /*-----sizeEachElement Items Ends Here--------*/
 
@@ -152,55 +268,105 @@ public class ProductDescriptionPageObjects {
 
 
     // Size Guide Label
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/size_guide_label']")
-    private AndroidElement sizeGuideLabel;
+    private WebElement sizeGuideLabel;
 
     // ShareContainer
-    @AndroidFindBy(xpath = "//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/shareContainer']")
-    private AndroidElement shareContainer;
+    private WebElement shareContainer;
+
+    public void getShareContainer(){
+        shareContainer =
+                xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/shareContainer']");
+    }
 
     /*-----ShareContainer Items Starts Here--------*/
 
     // Download Image
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/download_image']")
-    private AndroidElement downloadImage;
+    private WebElement downloadImage;
+
+    public void clickOnDownloadImageButton(){
+        downloadImage =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/download_image']");
+        myActions.action_click(downloadImage);
+    }
 
     // Share Image
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/share']")
-    private AndroidElement shareImage;
+    private WebElement shareImage;
+
+    public void clickOnShareImageButton(){
+        shareImage =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/share']");
+        myActions.action_click(shareImage);
+    }
 
     // CopyDetails Image
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/copy_details']")
-    private AndroidElement copyDetailsImage;
+    private WebElement copyDetailsImage;
+
+    public void clickOnCopyDetailsImage(){
+        copyDetailsImage =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/copy_details']");
+        myActions.action_click(copyDetailsImage);
+    }
 
     /*-----ShareContainer Items Ends Here--------*/
 
     // Product Description Label;
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/prod_desc_label']")
-    private AndroidElement productDescriptionLabel;
+    private WebElement productDescriptionLabel;
 
+    public String getProductDescriptionLabel(){
+        productDescriptionLabel =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/prod_desc_label']");
+        return myActions.action_getText(productDescriptionLabel);
+    }
 
     // Product Details Grid
-    @AndroidFindBy(xpath = "//android.widget.TableLayout[@resource-id='com.shopup.reseller:id/prod_details_grid']")
-    private AndroidElement descriptionDetailsGrid;
+    private WebElement descriptionDetailsGrid;
+
+    public void getProductGridDetailsGrid(){
+        descriptionDetailsGrid =
+                xpathSetter("//android.widget.TableLayout[@resource-id='"+packageName+":id/prod_details_grid']");
+    }
 
 
     public class DescriptionGridDetails{
+
         // Product Code Label
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/product_code_label']")
-        private AndroidElement productCodeLabel;
+        private WebElement productCodeLabel;
 
         // Product Code
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/product_code']")
-        private AndroidElement productCode;
+        private WebElement productCode;
 
         // Product Info Category Label
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/product_info_category_label']")
-        private AndroidElement productInfoCategoryLabel;
+        private WebElement productInfoCategoryLabel;
 
         // Product Info Category
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/product_info_category']")
-        private AndroidElement productInfoCategory;
+        private WebElement productInfoCategoryName;
+
+        public String getProductCodeLabel(){
+            productCodeLabel =
+                    xpathSetter("");
+            return myActions.action_getText(productCodeLabel);
+        }
+
+
+        public String getProductCode(){
+            productCode =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_code']");
+            return myActions.action_getText(productCode);
+        }
+
+
+        public String getProductInfoCategoryLabel(){
+            productInfoCategoryLabel =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_info_category_label']");
+            return myActions.action_getText(productInfoCategoryLabel);
+        }
+
+
+        public String getProductInfoCategory(){
+            productInfoCategoryName =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_info_category']");
+            return myActions.action_getText(productInfoCategoryName);
+        }
     }
 
     public DescriptionGridDetails getDescriptionDetails(){
@@ -208,74 +374,114 @@ public class ProductDescriptionPageObjects {
     }
 
     // Product Info Description
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/product_info_description']")
-    private AndroidElement productInfoDescription;
+    private WebElement productInfoDescription;
+
+    public String geProductInfoDescription(){
+        productInfoDescription =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_info_description']");
+        return myActions.action_getText(productInfoDescription);
+    }
 
     // Recently Viewed By You Label
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/widget_id']")
-    private AndroidElement recentlyViewedByYouLabel;
+    private WebElement recentlyViewedByYouLabel;
+
+    public String recentlyViewedByYouLabel(){
+        recentlyViewedByYouLabel =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/widget_id']");
+        return myActions.action_getText(recentlyViewedByYouLabel);
+    }
 
 
     // RecentlyViewedByYouRecyclerContainer Info Description
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/widget_recycler']")
-    private AndroidElement recentlyViewedByYouRecyclerContainer;
+    private WebElement recentlyViewedByYouRecyclerContainer;
+
+    public void getRecentlyViewedByYouRecyclerContainer(){
+        recentlyViewedByYouRecyclerContainer =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/widget_recycler']");
+    }
 
     /*----RecentlyViewedByYouRecyclerContainer Items Are Pending---*/
 
+    // A New Class is being created to make it as a modular component
 
     /*----RecentlyViewedByYouRecyclerContainer Items Are Pending---*/
 
 
     // Add To MyShop Button
-    @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/add_to_my_shop']")
-    private AndroidElement addToMyShopButton;
-
+    private WebElement addToMyShopButton;
 
     // Place Order Button
-    @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/buy_new']")
+    @AndroidFindBy(xpath = "//android.widget.Button[@text='PLACE ORDER']")
     private AndroidElement placeOrderButton;
 
     // Place Order By CallButton
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/order_by_call']")
-    private AndroidElement placeOrderByCall;
-
+    private WebElement placeOrderByCall;
 
     // Bottom Sheet CollectionItems
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/sort_text']")
-    private AndroidElement bottomSheetCollectionItems;
+    private WebElement bottomSheetCollectionItems;
+
+
+    public void clickOnPlaceOrderByCall(){
+        placeOrderByCall = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/order_by_call']");
+        myActions.action_click(placeOrderByCall);
+    }
+
+
+    public String getBottomSheetCollectionItems(){
+        bottomSheetCollectionItems =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_text']");
+        return myActions.action_getText(bottomSheetCollectionItems);
+    }
+
 
 
 
     public class PDPTutorial{
 
-        private AndroidDriver<AndroidElement> androidDriver;
+        private AndroidDriver<WebElement> androidDriver;
         private MyActions myActions;
 
-        public PDPTutorial(AndroidDriver<AndroidElement> androidDriver){
-            this.androidDriver = androidDriver;
-            PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
+        public PDPTutorial(AndroidDriver<WebElement> androidDriver){
+            this.androidDriver = getBaseDriver();
             myActions = new MyActions();
         }
 
 
         // Tutorial Parent Layout
-        @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/RLPDPTutorial']")
-        private AndroidElement pdpTutorialHolder;
+        private WebElement pdpTutorialHolder;
 
         // Swipe up Image
-        @AndroidFindBy(xpath = "//android.widget.ImageView")
-        private AndroidElement swipeUpImage;
+        private WebElement swipeUpImage;
 
         // Swipe Up For Product Information Text
-        @AndroidFindBy(xpath = "//android.widget.TextView[@text='Swipe Up For Product Information']")
-        private AndroidElement swipeUpForProductInfoText;
+        private WebElement swipeUpForProductInfoText;
 
         // GotIt button
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/btnOKTutorial']")
-        private AndroidElement gotItButton;
+        private WebElement gotItButton;
+
+
+        public void getPDPTutorialHolderRelativeLayout(){
+            pdpTutorialHolder =
+                    xpathSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/RLPDPTutorial']");
+        }
+
+
+        public void clickOnSwipeUpImage(){
+            swipeUpImage =
+                    xpathSetter("//android.widget.ImageView");
+            myActions.action_click(swipeUpImage);
+        }
+
+
+        public String getOnSwipeUpForProductInfoText(){
+            swipeUpForProductInfoText =
+                    xpathSetter("//android.widget.TextView[@text='Swipe Up For Product Information']");
+            return myActions.action_getText(swipeUpForProductInfoText);
+        }
 
 
         public void clickOnGotItButton(){
+            gotItButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/btnOKTutorial']");
             myActions.action_click(gotItButton);
         }
 
@@ -285,102 +491,136 @@ public class ProductDescriptionPageObjects {
 
     public class BottomSheetHolder{
 
-        private AndroidDriver<AndroidElement> androidDriver;
+        private AndroidDriver<WebElement> androidDriver;
         private MyActions myActions;
 
-        public BottomSheetHolder(AndroidDriver<AndroidElement> androidDriver){
+        public BottomSheetHolder(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
-            PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
+            PageFactory.initElements(new AppiumFieldDecorator(androidDriver,
+                    Duration.ofMillis(10000)),30);
             myActions = new MyActions();
         }
 
 
         // Bottom Sheet Select Quantity Label
-        @AndroidFindBy(xpath = "//android.widget.TextView[@text='Select Quantity']")
-        private AndroidElement selectQuantityLabel;
+        private WebElement selectQuantityLabel;
+
+        public String getSelectQuantityLabel(){
+            selectQuantityLabel =
+                    xpathSetter("//android.widget.TextView[@text='Select Quantity']");
+            return myActions.action_getText(selectQuantityLabel);
+        }
 
         // Select Quantity Subtract button
-        @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/subtract_btn']")
-        private AndroidElement selectQuantitySubtractButton;
+        private WebElement selectQuantitySubtractButton;
 
         // Select Quantity Number Counter
-        @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/number_counter']")
-        private AndroidElement selectQuantityNumberCounter;
+        private WebElement selectQuantityNumberCounter;
 
         // Select Quantity Add button
-        @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/add_btn']")
-        private AndroidElement selectQuantityAddButton;
+        private WebElement selectQuantityAddButton;
 
         // Enter your sale price text
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/enter_text']")
-        private AndroidElement enterYourSalePriceLabel;
+        private WebElement enterYourSalePriceLabel;
 
         // Your Earnings Label
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/totalEarningsHint']")
-        private AndroidElement yourEarningsLabel;
+        private WebElement yourEarningsLabel;
 
         // Price Symbol
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/priceSymbol']")
-        private AndroidElement priceSymbol;
+        private WebElement priceSymbol;
 
         // Price Change EditText
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/price_change_edittext']")
-        private AndroidElement priceChangeEditText;
+        private WebElement priceChangeEditText;
 
         // Total Earnings Text
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/totalEarnings']")
-        private AndroidElement totalEarnings;
-
-//        // Price Min and Max
-//        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/minandmax']")
-//        private AndroidElement priceMinAndMax;
+        private WebElement totalEarnings;
 
         // Your Total Bag
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/yourTotalBag']")
-        private AndroidElement yourTotalBag;
+        private WebElement yourTotalBag;
 
         // Total Price
-        @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/totalPrice']")
-        private AndroidElement totalPrice;
+        private WebElement totalPrice;
 
         // Add To Cart
-        @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/add_to_cart_new']")
-        private AndroidElement addToCartButton;
+        private WebElement addToCartButton;
 
-        // Place Order
-        @AndroidFindBy(xpath = "//android.widget.Button[@resource-id='com.shopup.reseller:id/buy_new']")
-        private AndroidElement placeOrderButton;
+        // Price Min and Max
+        private WebElement priceMinAndMax;
+
+
+
+        public String getEnterYourSalePriceText(){
+            enterYourSalePriceLabel =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/enter_text']");
+            return myActions.action_getText(enterYourSalePriceLabel);
+        }
+
+
+        public String getYourEarningsLabel(){
+            yourEarningsLabel =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/totalEarningsHint']");
+            return myActions.action_getText(yourEarningsLabel);
+        }
+
+
+        public String getPriceSymbolText(){
+            priceSymbol =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/priceSymbol']");
+            return myActions.action_getText(priceSymbol);
+        }
+
+
+        public String getPriceMinAndMaxText(){
+            priceMinAndMax =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/minandmax']");
+            return myActions.action_getText(priceMinAndMax);
+        }
+
+
+        public String getYourTotalBagValueText(){
+            yourTotalBag =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/yourTotalBag']");
+            return myActions.action_getText(yourTotalBag);
+        }
 
 
         /*--------Actions--------*/
 
         public void enterSalePriceEditText(String salePrice){
+            priceChangeEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/price_change_edittext']");
+            myActions.action_clearText(priceChangeEditText);
             myActions.action_sendKeys(priceChangeEditText,salePrice);
         }
 
         public void clickOnAddToBagButton(){
+            addToCartButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/add_to_cart_new']");
             myActions.action_click(addToCartButton);
         }
 
 
         public void clickOnAddQuantityButton(){
+            selectQuantityAddButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/add_btn']");
             myActions.action_click(selectQuantityAddButton);
         }
 
 
         public void clickOnSubtractQuantityButton(){
+            selectQuantitySubtractButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/subtract_btn']");
             myActions.action_click(selectQuantitySubtractButton);
         }
 
         public String getTheQuantityCounterValue(){
+            selectQuantityNumberCounter = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/number_counter']");
             return myActions.action_getText(selectQuantityNumberCounter);
         }
 
         public String getEarning(){
+            totalEarnings = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/totalEarnings']");
             return myActions.action_getText(totalEarnings);
         }
 
         public String getTotalBagValue(){
+            totalPrice = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/totalPrice']");
             return myActions.action_getText(totalPrice);
         }
 
@@ -414,14 +654,19 @@ public class ProductDescriptionPageObjects {
 
 
     public void clickOnImagePageHolder(){
+        imagePageHolder = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/image_page_holder']");
         myActions.action_click(imagePageHolder);
     }
 
+    public void clickOnImagePageViewer(){ myActions.action_click(imagePageViewer);}
+
     public void clickOnZoomCancelButton(){
+        buttonCloseZoom = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_close_zoom']");
         myActions.action_click(buttonCloseZoom);
     }
 
     public void clickOnSizeGuide(){
+        sizeGuideLabel = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/size_guide_label']");
         myActions.action_click(sizeGuideLabel);
     }
 
@@ -430,9 +675,8 @@ public class ProductDescriptionPageObjects {
     /*------Functions--------*/
 
     public void selectRandomSizeFromSizeList(){
-        List<AndroidElement> sizeListItems =
-                androidDriver.findElements
-                        (By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/size_value']"));
+        List<WebElement> sizeListItems =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/size_value']");
         System.out.println("SizeListLength is : "+sizeListItems.size());
         Random random = new Random();
         int item = random.nextInt(sizeListItems.size());
@@ -442,43 +686,42 @@ public class ProductDescriptionPageObjects {
 
 
     public void selectGivenSizeFromSizeList(int sizeIndex){
-        List<AndroidElement> sizeListItems =
-                androidDriver.findElements
-                        (By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/size_value']"));
+        List<WebElement> sizeListItems =
+                idListSetter(""+packageName+":id/size_value");
+        System.out.println("Product Size List is : "+sizeListItems.size());
         myActions.action_click(sizeListItems.get(sizeIndex));
         System.out.println("Selected Size : "+sizeListItems.get(sizeIndex).getText());
     }
 
 
 
-
     public void clickOnAddToMyShopButton(){
+        addToMyShopButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/add_to_my_shop']");
         myActions.action_click(addToMyShopButton);
     }
 
 
-    public void selectCollectionToAddProduct(){
-//        List<AndroidElement> collectionList =
-//                androidDriver.findElements
-//                        (By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/sort_text']"));
-//        System.out.println("CollectionList is : "+collectionList);
-//        if(collectionList.size()==1){
-//            System.out.println("No Collections Found to Add one : " +
-//                    "Please add a functionality to add collection from here");
-//        }else {
-//            Random random = new Random();
-//            int item = random.nextInt(collectionList.size());
-//            if(item==0) {
-//                item = item + 1;
-//            }
-//            myActions.action_click(collectionList.get(item));
-//            System.out.println("Selected Collection is : "+collectionList.get(item).getText());
-//        }
 
-        androidDriver.findElement(By.xpath("//android.widget.TextView[@resource-id='com.shopup.reseller:id/sort_text'][1]")).click();
+    public void selectCollectionToAddProduct(){
+        List<WebElement> collectionList =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_text']");
+        System.out.println("CollectionList is : "+collectionList);
+        if(collectionList.size()==1){
+            System.out.println("No Collections Found to Add one : " +
+                    "Please add a functionality to add collection from here");
+        }else {
+            Random random = new Random();
+            int item = random.nextInt(collectionList.size());
+            if(item==0) {
+                item = item + 1;
+            }
+            myActions.action_click(collectionList.get(item));
+            System.out.println("Selected Collection is : "+collectionList.get(item).getText());
+        }
     }
 
     public void clickOnPlaceOrderButton(){
+        //placeOrderButton = xpathSetter("//android.widget.Button[@text='PLACE ORDER']");
         myActions.action_click(placeOrderButton);
     }
 

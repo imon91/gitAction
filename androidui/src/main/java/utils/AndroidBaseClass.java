@@ -3,6 +3,12 @@ package utils;
 import coreUtils.*;
 import helper.GetDriverFromCore;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.*;
@@ -14,17 +20,22 @@ public class AndroidBaseClass extends GetDriverFromCore{
 
     private static String HOST_LOCAL = "local";
     private static String HOST_BROWSER_STACK = "bs";
-    private static AndroidDriver<AndroidElement> driver = null;
+    private static AndroidDriver<WebElement> driver = null;
     private static String host = System.getProperty("Host");
 
 
 
 
-    public static AndroidDriver<AndroidElement> getBaseDriver() throws Exception{
-        if(driver==null){
-            setUpDriver();
+    public static AndroidDriver<WebElement> getBaseDriver(){
+        try {
+            if(driver==null){
+                setUpDriver();
+            }
+            return  driver;
+        }catch (Exception e){
+            System.out.println(e);
         }
-        return  driver;
+        return driver;
     }
 
 
@@ -114,6 +125,7 @@ public class AndroidBaseClass extends GetDriverFromCore{
 
     public static void switchFromWebToNative(){
         driver.context(CoreConstants.SHOP_UP_NATIVE_VIEW);
+        System.out.println("Context Switched From Web To Native");
     }
 
 
@@ -125,6 +137,62 @@ public class AndroidBaseClass extends GetDriverFromCore{
             stopService();
         }
     }
+
+
+    public static WebElement xpathSetter(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),30)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    sleep(2000);
+                    xpathListSetter(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
+
+    public static List<WebElement> xpathListSetter(String xpath){
+        List<WebElement> elementList;
+        try {
+             elementList = getBaseDriver().findElements(By.xpath(xpath));
+            return elementList;
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+
+    public static WebElement idSetter(String id){
+        try {
+            return getBaseDriver().findElementById(id);
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+
+    public static List<WebElement> idListSetter(String id){
+        List<WebElement> elementList;
+        try {
+            elementList = getBaseDriver().findElements(By.id(id));
+            return elementList;
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
@@ -10,22 +11,18 @@ import utils.*;
 public class Authentication extends AndroidBaseClass {
 
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private LoginPageObjects loginPageObjects;
 
 
 
     @BeforeSuite(alwaysRun = true)
-    public void resellerAndroidBeforeSuite() throws Exception{
+    public void resellerAndroidBeforeSuite(){
         System.out.println("resellerAndroidBeforeSuite is called");
         androidDriver = getBaseDriver();
-        setImplicitWait(60);
     }
 
-
-
-    public void pageInitializer() throws Exception{
-        androidDriver = getBaseDriver();
+    public void pageInitializer(){
         loginPageObjects = new LoginPageObjects(androidDriver);
     }
 
@@ -60,7 +57,12 @@ public class Authentication extends AndroidBaseClass {
 
 
 
+<<<<<<< HEAD
     @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
+=======
+    @Test(  groups = {CoreConstants.GROUP_SMOKE,
+            CoreConstants.GROUP_FUNCTIONAL,
+>>>>>>> 66dc0c11558ad67d33881a18accf5188bdc727d9
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Authentication With InValid Credentials",
             dataProvider = "getUserAuthenticationData"  )
@@ -71,12 +73,15 @@ public class Authentication extends AndroidBaseClass {
 
 
 
-    @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
+    @Test(  groups = {"Authentication.verifyEditMobileNumber",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Authentication By Editing The MobilNumber",
             dataProvider = "getUserAuthenticationData"  )
     public void verifyEditMobileNumber(String mobileNumber,String otp){
-        loginPageObjects.performAuthentication(mobileNumber,otp);
+        System.out.println("verifyEditMobileNumber is called");
+        loginPageObjects.performEditMobileNumberFunctionality(mobileNumber,otp);
         // Verification Step Pending
     }
 

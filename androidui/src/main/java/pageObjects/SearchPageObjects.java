@@ -3,67 +3,77 @@ package pageObjects;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.support.PageFactory;
-import utils.MyActions;
+import org.openqa.selenium.WebElement;
+import utils.*;
+import java.util.*;
 
-public class SearchPageObjects {
+public class SearchPageObjects extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
+    private String packageName;
 
-    public SearchPageObjects(AndroidDriver<AndroidElement> androidDriver){
+    public SearchPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        packageName = getAppPackage();
     }
 
 
 
     // Back Button
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.shopup.reseller:id/btnBack']")
-    private AndroidElement searchBackButton;
+    private WebElement searchBackButton;
 
     // Search EditText
-    @AndroidFindBy(xpath = "//android.widget.EditText[@resource-id='com.shopup.reseller:id/etSearch']")
-    private AndroidElement searchBarEditText;
+    private WebElement searchBarEditText;
 
     // Search Button
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.shopup.reseller:id/btnSearch']")
-    private AndroidElement searchButton;
+    private WebElement searchButton;
 
     // Search Cancel Button
-    @AndroidFindBy(xpath = "//android.widget.ImageView[@resource-id='com.shopup.reseller:id/btnSearch']")
-    private AndroidElement searchCancelButton;
+    private WebElement searchCancelButton;
 
     // Recent Searches TextView
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/trending']")
-    private AndroidElement recentSearchesText;
+    private List<WebElement> recentSearchesText;
 
     // Recent Suggestions RecyclerView
-    @AndroidFindBy(xpath = "//android.widget.TextView[@resource-id='com.shopup.reseller:id/suggestions_recycler_recent']")
-    private AndroidElement recentSuggestionsRecycler;
+    private WebElement recentSuggestionsRecycler;
 
 
-    public class RecentSuggestionsRecycler{
-
-    }
 
 
     /*--------------Actions-------------------*/
 
     public void clickOnSearchBackButton(){
+        searchBackButton = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnBack']");
         myActions.action_click(searchBackButton);
     }
 
     public void enterProductName(String product){
+        searchBarEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/etSearch']");
         myActions.action_sendKeys(searchBarEditText,product);
     }
 
     public void clickOnSearchButton(){
+        searchButton = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnSearch']");
         myActions.action_click(searchButton);
     }
 
     public void clickOnSearchCancelButton(){
+        searchCancelButton = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnSearch']");
         myActions.action_click(searchCancelButton);
+    }
+
+    public List<WebElement> getListOfRecentSearchesText(){
+        recentSearchesText =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/trending']");
+        return recentSearchesText;
+    }
+
+    public void getSuggestionsRecycler(){
+        recentSuggestionsRecycler =
+                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/suggestions_recycler_recent']");
     }
 
 

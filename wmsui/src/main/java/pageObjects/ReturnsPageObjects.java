@@ -114,22 +114,30 @@ public class ReturnsPageObjects extends WmsBaseClass {
             return myActions.action_getText(productName);
         }
 
-        public String getOrderedQuantity(int index) {
+        public int getOrderedQuantity(int index) {
             String orderedQuantityXpath = "//div[@id='RtnInScan']/div[1]/div[2]/div[1]/div[2]//table/tbody/tr["+index+"]/td[3]";
             WebElement orderedQuantity = driver.findElement(By.xpath(orderedQuantityXpath));
-            return myActions.action_getText(orderedQuantity);
+            int n = Integer.parseInt(myActions.action_getText(orderedQuantity));
+            return n;
         }
 
-        public String getReturnedQuantity(int index) {
+        public int getReturnedQuantity(int index) {
             String returnedQuantityXpath = "//div[@id='RtnInScan']/div[1]/div[2]/div[1]/div[2]//table/tbody/tr["+index+"]/td[4]";
             WebElement returnedQuantity = driver.findElement(By.xpath(returnedQuantityXpath));
-            return myActions.action_getText(returnedQuantity);
+            int n = Integer.parseInt(myActions.action_getText(returnedQuantity));
+            return n;
         }
 
         public void returnQuantityInput(int index, String quantityReturn) {
             String returnQuantityXpath = "//div[@id='RtnInScan']/div[1]/div[2]/div[1]/div[2]//table/tbody/tr["+index+"]/td[5]//input";
             WebElement returnQuantity = driver.findElement(By.xpath(returnQuantityXpath));
             myActions.action_sendKeys(returnQuantity,quantityReturn);
+        }
+
+        public void enterPickListId(String pickListId){
+            clickPickListReturnsSection();
+            pickListIdInput(pickListId);
+            clickPickListIdSubmitButton();
         }
 
 

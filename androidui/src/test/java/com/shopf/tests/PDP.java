@@ -2,6 +2,7 @@ package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
@@ -9,7 +10,7 @@ import utils.*;
 
 public class PDP extends AndroidBaseClass {
 
-    private AndroidDriver<AndroidElement> androidDriver;
+    private AndroidDriver<WebElement> androidDriver;
     private ProductDescriptionPageObjects productDescriptionPageObjects;
     private ProductDescriptionPageObjects.PDPTutorial pdpTutorial;
     private ProductDescriptionPageObjects.BottomSheetHolder bottomSheetHolder;
@@ -19,7 +20,7 @@ public class PDP extends AndroidBaseClass {
 
 
     @BeforeClass(alwaysRun = true)
-    public void productDescriptionPageBeforeClass() throws Exception{
+    public void productDescriptionPageBeforeClass(){
         System.out.println("PDPBeforeClass is called");
         androidDriver = getBaseDriver();
         productDescriptionPageObjects = new ProductDescriptionPageObjects(androidDriver);
@@ -32,18 +33,31 @@ public class PDP extends AndroidBaseClass {
 
 
 
-    @Test(  groups = {"PDP.verifyAddItemToMyShopThoughPDP",
+    @Test(  groups = {"PDP.verifyAddItemToMyShopThroughPDP",
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Adding Product to Collection",
-            dependsOnGroups = "PLP.verifySelectingItemOnPLP"  )
+            dependsOnGroups = "PLP.verifySelectingValidSizeItemOnPLP"  )
     public void verifyAddItemToMyShopThroughPDP(){
-//        System.out.println("Current Activity at PDP is : "+androidDriver.currentActivity());
-//        sleep(3000);
-//       productDescriptionPageObjects.clickOnAdToMyShopButton();
-//        sleep(3000);
-//       productDescriptionPageObjects.selectCollectionToAddProduct();
+        System.out.println("Current Activity at PDP is : "+androidDriver.currentActivity());
+        sleep(1000);
+       productDescriptionPageObjects.clickOnAddToMyShopButton();
+        sleep(1000);
+       productDescriptionPageObjects.selectCollectionToAddProduct();
+    }
+
+
+    @Test(   groups = {"PDP.verifyImageZoomOfProduct",
+             CoreConstants.GROUP_SANITY,
+             CoreConstants.GROUP_FUNCTIONAL,
+             CoreConstants.GROUP_REGRESSION},
+             description = "verify Image Zoom Of a Product",
+            dependsOnGroups = "PLP.verifySelectingValidSizeItemOnPLP")
+    public void verifyImageZoomOfProduct(){
+        productDescriptionPageObjects.clickOnImagePageHolder();
+        //productDescriptionPageObjects.clickOnImagePageViewer();
+        productDescriptionPageObjects.clickOnZoomCancelButton();
     }
 
 
@@ -67,16 +81,18 @@ public class PDP extends AndroidBaseClass {
 
 
     @Test(  groups = {"PDP.verifyAddItemToBagThroughPDP",
+            CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
+            enabled = false,
             description = "Verifies Applying Product To Cart/Bag",
-            dependsOnMethods = "verifyAddItemToMyShopThroughPDP"  )
+            dependsOnMethods = "verifyImageZoomOfProduct"  )
     public void verifyAddItemToBagThroughPDP(){
-        sleep(5000);
+        sleep(1000);
 //        String bagItemCount = actionBarObjects.getTextFromCartCountHolder();
         productDescriptionPageObjects.clickOnPlaceOrderButton();
-        sleep(3000);
+        sleep(1000);
         productDescriptionPageObjects.
                 selectGivenSizeFromSizeList(Integer.parseInt(System.getProperty("validProductSizeIndex")));
         System.out.println("Current Activity at PDP is : "+androidDriver.currentActivity());
@@ -84,7 +100,11 @@ public class PDP extends AndroidBaseClass {
 //        int count = random.nextInt(10);
 //        System.out.println("Count is : "+count);
 //        bottomSheetHolder.enterProductQuantity(count);
-        sleep(3000);
+
+        //Enter Sale Price
+        bottomSheetHolder.enterSalePriceEditText(System.getProperty("minSalePrice"));
+
+        sleep(1000);
         bottomSheetHolder.clickOnAddToBagButton();
 //        Assert.assertEquals(
 //                Integer.parseInt(actionBarObjects.getTextFromCartCountHolder()),
@@ -97,14 +117,15 @@ public class PDP extends AndroidBaseClass {
 
 
     @Test(  groups = {"PDP.verifyPlaceOrderThroughPDP",
+            CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Applying Product To Cart/Bag",
-            dependsOnMethods = "verifyAddItemToBagThroughPDP"  )
+            dependsOnMethods = "verifyImageZoomOfProduct"  )
     public void verifyPlaceOrderThroughPDP(){
         //sleep(5000);
-        productDescriptionPageObjects.clickOnPlaceOrderButton();
+        /*productDescriptionPageObjects.clickOnPlaceOrderButton();
         //sleep(3000);
         productDescriptionPageObjects.
                 selectGivenSizeFromSizeList(Integer.parseInt(System.getProperty("validProductSizeIndex")));
@@ -112,12 +133,22 @@ public class PDP extends AndroidBaseClass {
 //        int count = random.nextInt(10);
 //        System.out.println("Count is : "+count);
         // Enter Amount
+        sleep(3000);*/
         sleep(3000);
+        productDescriptionPageObjects.clickOnPlaceOrderButton();
+        sleep(1000);
+        productDescriptionPageObjects.
+                selectGivenSizeFromSizeList(Integer.parseInt(System.getProperty("validProductSizeIndex")));
+        sleep(1000);
+        //Enter Sale Price
+        bottomSheetHolder.enterSalePriceEditText(System.getProperty("minSalePrice"));
+        sleep(1000);
+        // Click on PlaceOrder
         productDescriptionPageObjects.clickOnPlaceOrderButton();
     }
 
 
-    @AfterClass(alwaysRun = true,groups = {"PDP.AfterClass"})
+    @AfterClass(alwaysRun = true)
     public void productDescriptionPageAfterClass(){
         System.out.println("ProductDescriptionPageAfterClass is called");
     }
