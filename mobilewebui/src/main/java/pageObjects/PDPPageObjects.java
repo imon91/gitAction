@@ -74,6 +74,10 @@ public class PDPPageObjects extends WebAppBaseClass {
     @FindBy(xpath = "//ul[@class='list-unstyled']//li[3]//a")
     private WebElement Subcategory;
 
+    //selectsizetext
+    @FindBy(xpath = "//div[@class='pdp-det-box available-sizes']/h3/span")
+    private WebElement selectSizeText;
+
 
 
 
@@ -133,8 +137,9 @@ public class PDPPageObjects extends WebAppBaseClass {
         String size, sizeButton, sizeLabel;
         String sizeXpath = "//div[@class='pdp-det-box available-sizes']/ul/li";
         List<WebElement> sizeslist = driver.findElements(By.xpath(sizeXpath));
-        if(sizeid != 0){
-            size = sizeXpath+"["+sizeid+"]";
+        sizeid++;
+        if(sizeid != 0) {
+            size = sizeXpath + "[" + sizeid + "]";
         }
         else{
             int id = random.nextInt(sizeslist.size());

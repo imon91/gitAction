@@ -45,8 +45,8 @@ public class Address {
         System.out.println("control came to verifyAddress");
         //addresspageobject.placingOrderwithNewAddress("Siva","shop street","F colony","1877755590");
         addresspageobject.clickOnShowMoreAddressesButton();
-        int a = addresspageobject.selectaddress(12);
-        for(int i = a;i<31;i+=4){myActions.swipe(1,0);}
+        addresspageobject.selectaddress(1);
+        //for(int i = a;i<31;i+=4){myActions.swipe(1,0);}
         //sleep(2000);
         //myActions.swipe(1,0);
         //sleep(60000);
@@ -55,16 +55,20 @@ public class Address {
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyAddress")
     public void verifyMyOrder(){
         System.out.println("control came to my orders");
+        sleep(2000);
+        addresspageobject.clickOnCashOnDelivery();
+        sleep(1000);
+        addresspageobject.clickOnMakePayment();
         String orderno = order.getOrderNo();
         System.out.println(orderno);
-        sleep(4000);
+        sleep(1500);
         order.navigationToHome();
         bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();
-        sleep(4000);
-        //home.navigateToMyOrder();
+        sleep(1500);
+        home.navigateToMyOrder();
         //String Orderno = order.getRecentOrderId();
         //System.out.println(Orderno);
         String Orderno = order.orderid(1);
@@ -74,7 +78,7 @@ public class Address {
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyMyOrder")
     public void verifySignOut(){
         System.out.println("Control came to verifySignout");
         home.SignOut();

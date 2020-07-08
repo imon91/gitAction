@@ -39,8 +39,9 @@ public class AddingItems extends WebAppBaseClass {
     public void verifyProductIsClicking() throws Exception {
         System.out.println("control came to verify Product is clicking");
         //androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][2]").click();
-        plp.chooseProductFromFeed(2);
-        System.out.println("Product is clicked");
+        String searchTerm = System.getProperty("searchTerm");
+        plp.selectValidProduct(searchTerm);
+        System.out.println("Valid Product is clicked");
     }
 
 

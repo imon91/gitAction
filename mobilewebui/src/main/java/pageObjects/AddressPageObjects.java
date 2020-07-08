@@ -215,9 +215,9 @@ public class AddressPageObjects {
         WebElement addresselement = driver.findElement(By.xpath(address));
         myActions.action_click(addresselement);
         sleep(2000);
-        for(int i = Address; i < addresslist.size(); i+=4){
+        /*for(int i = Address; i < addresslist.size(); i+=4){
             myActions.swipe(1,0);
-        }
+        }*/
         return Address;
     }
 
