@@ -235,7 +235,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//a[text()='Print using barcode printer']")
         private WebElement printUsingBarcodePrinter;
 
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//b/text()[2]")
+        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//div//div//div//div//b")
         private WebElement purchaseOrderStatus;
 
         @FindBy(xpath = "//div[@id='EditPurchaseOrder']//button[text()='Yes']")
@@ -261,8 +261,9 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions.action_click(printUsingBarcodePrinter);
         }
 
-        public void getPOStatus() {
-            myActions.action_getText(purchaseOrderStatus);
+        public String getPOStatus() {
+
+           return myActions.action_getText(purchaseOrderStatus);
         }
 
 
