@@ -290,5 +290,19 @@ public class GetCommerceApiResponse {
     }
 
 
+    public List<Integer> getCodNotAvailableItemsFromShoppingCart(){
+        List<Integer> codNotAvailableItemIndices = new ArrayList<>();
+        response = shopUpPostMan.
+                getCall(EndPoints.SHOPPING_CART_JSON);
+        ShoppingCartResponseModel shoppingCartResponseModel =
+                gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
+//        System.out.println("Shopping Cart Item Size is : "+shoppingCartResponseModel.getCart_items().size());
+        for(int i=0;i<shoppingCartResponseModel.getCart_items().size();i++){
+            if(!shoppingCartResponseModel.getCart_items().get(i).isCod_availability()){
+                codNotAvailableItemIndices.add(i);
+            }
+        }
+        return codNotAvailableItemIndices;
+    }
 
 }
