@@ -242,6 +242,7 @@ public class AddressPageObjects extends WebAppBaseClass {
 
     String productXpath = "//div[@class='text-left']/ul/li";
     List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+    int productsSize = productslist.size();
 
     public String getEstimatedDeliverytime(int productid){
         String product;
@@ -268,14 +269,13 @@ public class AddressPageObjects extends WebAppBaseClass {
     }
 
     public void deleteProductWithCODDisabled(){
-        int size = productslist.size();
-        for(int i=1;i<=size;i++){
+        for(int i=1;i<=productsSize;i++){
             String codOfProductNotAvailableXpath = productXpath+"["+i+"]//span[@class='cod-not-available']";
             try{
-                String codOfProductNotAvailable = myActions.action_getText(driver.findElement(By.xpath(codOfProductNotAvailableXpath)));
-                if(codOfProductNotAvailable.equalsIgnoreCase("COD is not available")){
-                    deleteProduct(i);
-                }
+                myActions.action_getText(driver.findElement(By.xpath(codOfProductNotAvailableXpath)));
+                deleteProduct(i);
+                i--;
+                sleep(2000);
             } catch(Exception e){
                 System.out.println("COD is available");
             }
