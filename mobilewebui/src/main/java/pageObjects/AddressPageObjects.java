@@ -5,25 +5,16 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
-import java.awt.geom.Area;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
-import static utils.WebAppBaseClass.*;
-
-public class AddressPageObjects {
+public class AddressPageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;
@@ -120,6 +111,10 @@ public class AddressPageObjects {
     //makepayment
     @FindBy(xpath = "//div[@class='proceed-checkout text-center']")
     private WebElement MakePayment;
+
+    //CODnotAvailable
+    @FindBy(xpath = "//div[@class='estimated_delivery_dates']//ul/li[1]//span[@class='cod-not-available']")
+    private WebElement codNotAvailable;
 
 /*----------Actions---------*/
 
@@ -270,6 +265,21 @@ public class AddressPageObjects {
         }
         WebElement productElement = driver.findElement(By.xpath(product));
         myActions.action_click(productElement);
+    }
+
+    public void deleteProductWithCODDisabled(){
+        int size = productslist.size();
+        for(int i=1;i<=size;i++){
+            String codOfProductNotAvailableXpath = productXpath+"["+i+"]//span[@class='cod-not-available']";
+            try{
+                String codOfProductNotAvailable = myActions.action_getText(driver.findElement(By.xpath(codOfProductNotAvailableXpath)));
+                if(codOfProductNotAvailable.equalsIgnoreCase("COD is not available")){
+                    deleteProduct(i);
+                }
+            } catch(Exception e){
+                System.out.println("COD is available");
+            }
+        }
     }
 
 

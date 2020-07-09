@@ -3,7 +3,6 @@ package pageObjects;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,19 +10,18 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-import static utils.WebAppBaseClass.sleep;
-
-public class CheckoutPageObjects {
-    private AndroidDriver<WebElement> driver;
+public class CheckoutPageObjects extends WebAppBaseClass {
+    private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;
     TouchAction touch;
 
-    public CheckoutPageObjects(AndroidDriver<WebElement> androidDriver) {
+    public CheckoutPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         myActions = new MyActions();

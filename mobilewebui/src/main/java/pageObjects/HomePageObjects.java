@@ -2,22 +2,18 @@ package pageObjects;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-import static utils.WebAppBaseClass.*;
-
-
-public class HomePageObjects {
+public class HomePageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;

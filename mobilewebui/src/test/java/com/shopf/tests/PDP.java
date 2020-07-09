@@ -73,7 +73,7 @@ public class PDP {
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,100)).release().perform();
         //JavascriptExecutor js = (JavascriptExecutor) androidDriver;
         //js.executeScript("window.scrollBy(0,350)", "");
-        myActions.scrollVerticallyToElement("//div[@class='pdp-det-box available-sizes']/h3/span");
+        myActions.scrollVerticallyToElement("//div[@class='pdp-det-box']//h2");
         int size = Integer.parseInt(System.getProperty("validProductSizeIndex"));
         pdp.selectSize(++size);
         pdp.clickOnBuyNow();

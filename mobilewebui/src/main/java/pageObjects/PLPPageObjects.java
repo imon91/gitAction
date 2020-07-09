@@ -1,7 +1,6 @@
 package pageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,11 +18,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import static org.apache.commons.lang3.RandomUtils.nextInt;
-import static utils.WebAppBaseClass.getBaseDriver;
-import static utils.WebAppBaseClass.sleep;
-
-public class PLPPageObjects {
+public class PLPPageObjects extends WebAppBaseClass {
 
         private AndroidDriver<WebElement> driver = getBaseDriver();
         private MyActions myActions;
