@@ -1,35 +1,36 @@
 package pageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.ProductListingResultsModel;
 import utils.MyActions;
+import utils.ServiceRequestLayer;
 import utils.WebAppBaseClass;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import static org.apache.commons.lang3.RandomUtils.nextInt;
-import static utils.WebAppBaseClass.getBaseDriver;
-import static utils.WebAppBaseClass.sleep;
-
-public class PLPPageObjects {
+public class PLPPageObjects extends WebAppBaseClass {
 
         private AndroidDriver<WebElement> driver = getBaseDriver();
         private MyActions myActions;
         private Random random;
+        private ServiceRequestLayer serviceRequestLayer;
 
         public PLPPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
             this.driver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(driver), this);
             myActions = new MyActions();
             random = new Random();
+            serviceRequestLayer = new ServiceRequestLayer();
         }
 
 
@@ -441,6 +442,35 @@ public class PLPPageObjects {
                  System.out.println(oldPrice(data));
                  System.out.println(discount(data));
              }
+
+
+
+    public String selectValidProduct(String searchTerm){
+        GetCommerceApiResponse getCommerceApiResponse =
+                serviceRequestLayer.getControlOverServices();
+        Map<String,Object> productDetails =
+                getCommerceApiResponse.getProductWithValidSize(searchTerm);
+        int productIndex = (int)(productDetails.get("ValidProductIndex")); // Returns product Index
+        ProductListingResultsModel.ResultsBean productResult =
+                (ProductListingResultsModel.ResultsBean)productDetails.get("ValidProductDetails"); // Returns the Whole Product
+        int sizeIndex = (int)productDetails.get("ValidSizeIndex"); // Returns the Valid Size-Id
+        System.out.println("Product Index is : "+productIndex);
+        System.out.println("Product Name : "+productResult.getName());
+        System.out.println("Valid Product Size Index : "+sizeIndex);
+        System.setProperty("validProductSizeIndex",""+sizeIndex+"");
+        System.setProperty("minSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+        System.setProperty("maxSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+        // Scroll into View that product by its name and perform click on that
+//        System.out.println(androidDriver.findElementByAndroidUIAutomator(
+//                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_item\")).scrollIntoView("
+//                        + "new UiSelector().text(\""+productResult.getName()+"\"))").getText());
+        // Click on that Item
+        chooseProductFromFeed(++productIndex);
+        sleep(2000);
+        return productResult.getName();
+    }
 
 
 

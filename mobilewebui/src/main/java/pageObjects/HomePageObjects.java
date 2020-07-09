@@ -1,32 +1,30 @@
 package pageObjects;
 
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-import static utils.WebAppBaseClass.getBaseDriver;
-import static utils.WebAppBaseClass.sleep;
-
-
-public class HomePageObjects {
+public class HomePageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;
+    private String app;
 
     public HomePageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         myActions = new MyActions();
         random = new Random();
+        app = getAppName();
     }
 
     //HamBurgerMenuIcon
@@ -53,11 +51,11 @@ public class HomePageObjects {
     @FindBy(xpath = "//a/img[@class = 'mainLogo___10PZp']")
     private WebElement ShopUpLogo;
 
-    //searchicon
+    //searchiconforMokam
     @FindBy(xpath = "//button[@class='searchIcon___3vIuT']")
     private WebElement SearchButton;
 
-    //newsearchicon
+    //newsearchiconforReseller
     @FindBy(xpath = "//div[@class='search-container']")
     private WebElement newSearchButton;
 
@@ -65,9 +63,13 @@ public class HomePageObjects {
     @FindBy(xpath = "//input[@id='searchTag']")
     private WebElement EnterObjectToSearch;
 
-    //searching for the object
+    //searching for the object Mokam
     @FindBy(xpath = "//button[@class='searchIcon___3fOZ5']/*")
-    private WebElement SearchTheObject;
+    private WebElement searchTheObject;
+
+    //search for object reseller
+    @FindBy(xpath = "//button[@class='other___3TucM']/*")
+    private WebElement newSearchTheObject;
 
     //BagIcon
     @FindBy(xpath = "//a[@class='checkout-bag-icon']")
@@ -153,15 +155,27 @@ public class HomePageObjects {
 
     private void clickOnCloseMenuButton(){myActions.action_click(CloseMenuButton);}
 
-    private void clickOnShopUpLogo(){myActions.action_click(ShopUpLogo);}
+    public void clickOnShopUpLogo(){myActions.action_click(ShopUpLogo);}
 
-    private void clickOnSearchButton(){myActions.action_click(SearchButton);}
+    private void clickOnSearchButton(){
+        clickOnShopUpLogo();
+        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            myActions.action_click(SearchButton);
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            myActions.action_click(newSearchButton);
+        }
 
-    private void clickOnsearchButton(){myActions.action_click(newSearchButton);}
+    }
 
     private void enterTheObject(String object){myActions.action_sendKeys(EnterObjectToSearch,object);}
 
-    private void searchTheObject(){myActions.action_click(SearchTheObject);}
+    private void searchTheObject(){
+        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            myActions.action_click(searchTheObject);
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            myActions.action_click(newSearchTheObject);
+        }
+    }
 
     private void clickOnMyBag(){myActions.action_click(BagButton);}
 

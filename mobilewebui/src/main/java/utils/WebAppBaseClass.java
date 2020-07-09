@@ -100,5 +100,10 @@ public class WebAppBaseClass extends GetDriverFromCore{
     }
 
 
+    public static String getAppName(){
+        return System.getProperty(BuildParameterKeys.KEY_APP);
+    }
+
+
 }
 

@@ -7,13 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-import static utils.WebAppBaseClass.getBaseDriver;
-
-public class MyShopPageObjects {
+public class MyShopPageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;
@@ -83,7 +82,7 @@ public class MyShopPageObjects {
 
     /*----------------Functions-------------------*/
 
-    public String createNewCollection(){
+    public String createNewCollection() throws Exception {
         //clickOnCreateNewCollectionButton();
         String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
         new CreateCollectionBottomSheetObjects(driver).performAddCollection(collectionName);

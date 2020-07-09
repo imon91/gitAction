@@ -11,5 +11,6 @@ public class EndPoints {
     public static final String RECOMMENDATIONS = "recommendations/";
     public static final String LOGGED_IN_USER_DATA_JSON = "loggedin_user_data.json";
     public static final String APP_PREFERENCES = "app_preferences/";
+    public static final String SHOPPING_CART_JSON = "shopping_cart.json";
 
 }

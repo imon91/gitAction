@@ -5,25 +5,16 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
-import java.awt.geom.Area;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
-import static utils.WebAppBaseClass.*;
-
-public class AddressPageObjects {
+public class AddressPageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;
@@ -121,6 +112,10 @@ public class AddressPageObjects {
     @FindBy(xpath = "//div[@class='proceed-checkout text-center']")
     private WebElement MakePayment;
 
+    //CODnotAvailable
+    @FindBy(xpath = "//div[@class='estimated_delivery_dates']//ul/li[1]//span[@class='cod-not-available']")
+    private WebElement codNotAvailable;
+
 /*----------Actions---------*/
 
     public void moveToHome(){myActions.action_click(home);}
@@ -215,9 +210,9 @@ public class AddressPageObjects {
         WebElement addresselement = driver.findElement(By.xpath(address));
         myActions.action_click(addresselement);
         sleep(2000);
-        for(int i = Address; i < addresslist.size(); i+=4){
+        /*for(int i = Address; i < addresslist.size(); i+=4){
             myActions.swipe(1,0);
-        }
+        }*/
         return Address;
     }
 
@@ -247,6 +242,7 @@ public class AddressPageObjects {
 
     String productXpath = "//div[@class='text-left']/ul/li";
     List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+    int productsSize = productslist.size();
 
     public String getEstimatedDeliverytime(int productid){
         String product;
@@ -270,6 +266,20 @@ public class AddressPageObjects {
         }
         WebElement productElement = driver.findElement(By.xpath(product));
         myActions.action_click(productElement);
+    }
+
+    public void deleteProductWithCODDisabled(){
+        for(int i=1;i<=productsSize;i++){
+            String codOfProductNotAvailableXpath = productXpath+"["+i+"]//span[@class='cod-not-available']";
+            try{
+                myActions.action_getText(driver.findElement(By.xpath(codOfProductNotAvailableXpath)));
+                deleteProduct(i);
+                i--;
+                sleep(2000);
+            } catch(Exception e){
+                System.out.println("COD is available");
+            }
+        }
     }
 
 
