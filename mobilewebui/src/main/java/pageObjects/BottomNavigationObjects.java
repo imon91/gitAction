@@ -6,12 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
-public class BottomNavigationObjects {
-    private AndroidDriver<WebElement> driver;
+public class BottomNavigationObjects extends WebAppBaseClass {
+    private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
 
-    public BottomNavigationObjects(AndroidDriver<WebElement> androidDriver){
+    public BottomNavigationObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();

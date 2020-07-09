@@ -6,12 +6,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
-public class PaymentsPageObjects {
-    private AndroidDriver<WebElement> driver;
+public class PaymentsPageObjects extends WebAppBaseClass {
+    private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
 
-    public PaymentsPageObjects(AndroidDriver<WebElement> androidDriver) {
+    public PaymentsPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         myActions = new MyActions();

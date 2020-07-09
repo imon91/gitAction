@@ -50,6 +50,7 @@ public class Address {
         //sleep(2000);
         //myActions.swipe(1,0);
         //sleep(60000);
+        addresspageobject.deleteProductWithCODDisabled();
         addresspageobject.clickOnProceedToPaymentButton();
     }
 

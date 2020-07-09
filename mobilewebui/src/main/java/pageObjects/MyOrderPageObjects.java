@@ -7,13 +7,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-import static utils.WebAppBaseClass.getBaseDriver;
-
-public class MyOrderPageObjects {
+public class MyOrderPageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;
