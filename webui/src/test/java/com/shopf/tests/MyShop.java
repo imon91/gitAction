@@ -25,12 +25,14 @@ public class MyShop extends WebBaseClass {
     }
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
+    @Test(groups ={"verify adding new colection",
+            (CoreConstants.GROUP_SMOKE)},
             dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
     public void verifyAddingNewCollection() {
         System.out.println("VerifyAddingNewCollecton is called");
         actionBarObjects.clickOnMyshopButton();
         String collectionName = myShopPageObjects.createNewCollection();
+        System.out.println("The created collection name was:"+collectionName);
     }
 
 

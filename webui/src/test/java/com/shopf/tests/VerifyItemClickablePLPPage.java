@@ -1,10 +1,9 @@
 package com.shopf.tests;
 
+
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageObjects.ActionBarObjects;
 import pageObjects.LatestPageObjects;
 import pageObjects.PDPPageObject;
@@ -33,13 +32,29 @@ public class VerifyItemClickablePLPPage extends WebBaseClass {
     }
 
 
-
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
-    public void VerifyPLP_Page() {
-        System.out.println("VerifyPLP_Page is called");
-       // plpPageObject.verifyAllProductsAreClickable();
+    @Test(groups = {"PLP.VerifySelectiongValidSizeProduct",
+            CoreConstants.GROUP_SMOKE},
+            description = "Verifies Selecting Item On PLP",
+            dependsOnGroups = "PLP.VerifySortFunctionality")
+    public void verifySelectingValidSizeItemOnPLP(){
+        System.out.println("Verify selecting valid size product");
+        String searchTerm = System.getProperty("webSearchTerm");
+        //save product name to key(productNameInPLP)
+        String productNameInPLP = plpPageObject.getProductNameInPLP(searchTerm);
+        System.setProperty("productNameInPLP",productNameInPLP);
+        //click on valid product
+        int index = plpPageObject.selectValidProduct(searchTerm);
+        System.setProperty("index",""+ index + "");
+        System.out.println("the available size index:"+System.getProperty("index"));
     }
+
+//    @Test(groups = (CoreConstants.GROUP_SMOKE),
+//            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"),
+//            enabled = false)
+//    public void VerifyPLP_Page() {
+//        System.out.println("VerifyPLP_Page is called");
+//        // plpPageObject.verifyAllProductsAreClickable();
+//    }
 
 
 
@@ -49,3 +64,4 @@ public class VerifyItemClickablePLPPage extends WebBaseClass {
     }
 
 }
+

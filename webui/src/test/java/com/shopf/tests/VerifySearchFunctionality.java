@@ -1,17 +1,13 @@
 package com.shopf.tests;
 
+
 import coreUtils.CoreConstants;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageObjects.ActionBarObjects;
 import pageObjects.LatestPageObjects;
 import pageObjects.PDPPageObject;
 import utils.WebBaseClass;
-
-
 
 public class VerifySearchFunctionality  extends WebBaseClass {
 
@@ -33,12 +29,22 @@ public class VerifySearchFunctionality  extends WebBaseClass {
     }
 
 
+    @DataProvider(name = "getProductName")
+    public Object[][] getProductName() {
+        String searchTerm = "shirt";
+        return new Object[][]{{searchTerm}};
+    }
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
-    public void verifySearchToObject() {
+    @Test(groups = {"Search.SearchToObjectNotSelectSuggessions",
+            CoreConstants.GROUP_SMOKE},
+            dependsOnGroups = {"Authentication.verifyAuthenticationWithValidCredentials"},
+            description = "verifySearchToObjectNotSelectingSuggessions",
+            dataProvider = "getProductName")
+    public void verifySearchToObjectNotSelectSuggessions(String objectName) throws InterruptedException {
         System.out.println("VerifySearchToObject is called");
-        actionBarObjects.searchToObject("shirt");
+        System.setProperty("webSearchTerm",objectName);
+        sleep(3000);
+        actionBarObjects.searchToObject(objectName);
         latestPageObjects.totalNumberOFItems();
         sleep(5000);
     }
@@ -52,3 +58,5 @@ public class VerifySearchFunctionality  extends WebBaseClass {
 
 
 }
+
+

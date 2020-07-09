@@ -32,15 +32,17 @@ public class AddItemToMyshop extends WebBaseClass {
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"PDP.VerifyAddToMyShop",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("PDP.VerifyItemInPDP"))
     public void verifyAddToMyshopFunction() {
         System.out.println("VerifyAddToMyshopFunction is called");
         pdpPageObject.clickOnAddToMyshopButton();
         String collectionName = pdpPageObject.addToMyshopNewCollection();
-        sleep(2000);
+        sleep(5000);
+        System.out.println("Product added to collection:"+collectionName);
         actionBarObjects.clickOnMyshopButton();
-        sleep(1000);
+        sleep(3000);
         pdpPageObject.clickNewlyAddedCollection();
         sleep(2500);
     }

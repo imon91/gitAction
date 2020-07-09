@@ -36,13 +36,14 @@ public class ProductOrderThroughPDPPage extends WebBaseClass {
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"PDP.ProductOrderThroughPDP",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("MyShop.VerifyAddProductToBagThroughCollection"))
     public void verifyOrderThroughPDPPage() {
         actions.sendKeys(Keys.ESCAPE).build().perform();
         sleep(2500);
-
-        pdpPageObject.selectSize(3);
+        int index = Integer.parseInt(System.getProperty("index"));
+        pdpPageObject.selectSize(++index);
         sleep(500);
         pdpPageObject.clickOnOrderNowButtonPDPPage();
     }

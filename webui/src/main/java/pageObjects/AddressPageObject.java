@@ -10,6 +10,8 @@ import utils.MyActions;
 import java.util.List;
 import java.util.Random;
 
+import static utils.WebBaseClass.sleep;
+
 public class AddressPageObject {
     private WebDriver driver;
     private MyActions myActions;
@@ -21,6 +23,7 @@ public class AddressPageObject {
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
     }
+
 
     /*-------click  on existing address--------*/
     //click old address
@@ -97,11 +100,17 @@ public class AddressPageObject {
 
     /*----------actions-------*/
 
-    public void clickOnOldAddress() { myActions.action_click(oldAddressICon); }
+    public void clickOnOldAddress() {
+        myActions.action_click(oldAddressICon);
+    }
 
-    public void clickOnProceedToPayment() { myActions.action_click(proceedToPaymentButton); }
+    public void clickOnProceedToPayment() {
+        myActions.action_click(proceedToPaymentButton);
+    }
 
-    private void clickOnAddNewAddressIcon() { myActions.action_click(addNewAddressButton); }
+    private void clickOnAddNewAddressIcon() {
+        myActions.action_click(addNewAddressButton);
+    }
 
     private void clickHome() {
         myActions.action_click(homeIcon);
@@ -139,7 +148,9 @@ public class AddressPageObject {
         myActions.action_sendKeys(mobilenumberBarText, mobilenumber);
     }
 
-    private void enterAlternateMobile(String alternatemobilenumber) { myActions.action_sendKeys(alternateMobileNumberBarText, alternatemobilenumber);}
+    private void enterAlternateMobile(String alternatemobilenumber) {
+        myActions.action_sendKeys(alternateMobileNumberBarText, alternatemobilenumber);
+    }
 
 
 
@@ -148,7 +159,7 @@ public class AddressPageObject {
 
     /*---------Function-----*/
 
-    public void createNewAddress(String name){
+    public void createNewAddress(String name) {
         clickOnAddNewAddressIcon();
         clickHome();
         enterName(name);
@@ -161,19 +172,15 @@ public class AddressPageObject {
     }
 
 
-  ////////////////////////////*Dynamic Xpath function*//////////////////////////////
-    public String editAddress (int addressIndex)
-    {
+    ////////////////////////////*Dynamic Xpath function*//////////////////////////////
+    public String editAddress(int addressIndex) {
         String addressXpath = "//ul[@class='list-inline select_address_radio_list flex']/li";
         List<WebElement> addressList = driver.findElements(By.xpath(addressXpath));
         String address, addressName, addressname;
-        if (addressIndex != 0)
-        {
+        if (addressIndex != 0) {
             address = addressXpath + "[" + addressIndex + "]//input";
             addressname = addressXpath + "[" + addressIndex + "]/label/p[1]";
-        }
-        else
-            {
+        } else {
             int index = random.nextInt(addressList.size());
             address = addressXpath + "[" + ++index + "]//input";
             addressname = addressXpath + "[" + ++index + "]/label/p[1]";
@@ -187,21 +194,17 @@ public class AddressPageObject {
 
 
     //Click edit address Button
-    public String editAddress(int addressIndex,String address_Name)
-    {
+    public String editAddress(int addressIndex, String address_Name) {
         String addressXpath = "//ul[@class='list-inline select_address_radio_list flex']/li";
         List<WebElement> addressList = driver.findElements(By.xpath(addressXpath));
-        String addressName,addressname,edit;
-        if (addressIndex!=0)
-        {
-            edit = addressXpath+"[" +addressIndex +"]//p[@class='edit-delete']/span[1]";
+        String addressName, addressname, edit;
+        if (addressIndex != 0) {
+            edit = addressXpath + "[" + addressIndex + "]//p[@class='edit-delete']/span[1]";
             addressname = addressXpath + "[" + addressIndex + "]/label/p[1]";
-        }
-        else
-        {
+        } else {
             int index = random.nextInt(addressList.size());
-            edit = addressXpath+"["+ ++index +"]//p[@class='edit-delete']/span[1]";
-            addressname = addressXpath+"["+ ++index +"]/label/p[1]";
+            edit = addressXpath + "[" + ++index + "]//p[@class='edit-delete']/span[1]";
+            addressname = addressXpath + "[" + ++index + "]/label/p[1]";
         }
         WebElement clickedit = driver.findElement(By.xpath(edit));
         WebElement addressnam = driver.findElement(By.xpath(addressname));
@@ -211,21 +214,17 @@ public class AddressPageObject {
     }
 
     //Click on delete Button
-    public String deleteAddress(int addressIndex)
-    {
+    public String deleteAddress(int addressIndex) {
         String addressXpath = "//ul[@class='list-inline select_address_radio_list flex']/li";
         List<WebElement> addressList = driver.findElements(By.xpath(addressXpath));
-        String addressName,addressname,delete;
-        if (addressIndex!=0)
-        {
-            delete = addressXpath+"[" +addressIndex +"]//p[@class='edit-delete']/span[2]";
+        String addressName, addressname, delete;
+        if (addressIndex != 0) {
+            delete = addressXpath + "[" + addressIndex + "]//p[@class='edit-delete']/span[2]";
             addressname = addressXpath + "[" + addressIndex + "]/label/p[1]";
-        }
-        else
-        {
+        } else {
             int index = random.nextInt(addressList.size());
-            delete = addressXpath+"["+ ++index +"]//p[@class='edit-delete']/span[2]";
-            addressname = addressXpath+"["+ ++index +"]/label/p[1]";
+            delete = addressXpath + "[" + ++index + "]//p[@class='edit-delete']/span[2]";
+            addressname = addressXpath + "[" + ++index + "]/label/p[1]";
         }
         WebElement clickdelete = driver.findElement(By.xpath(delete));
         WebElement addressnam = driver.findElement(By.xpath(addressname));
@@ -236,27 +235,24 @@ public class AddressPageObject {
 
     //delete product in address page
     //Click on delete product at address page
-    public void deleteProduct(int productIndex)
-    {
-        String productXpath = "//ul[@class='list_of_estimated_deliverys list-unstyled']/li";
-        List<WebElement> productList = driver.findElements(By.xpath(productXpath));
-        String addressname,delete;
-        if (productIndex!=0)
-        {
-            delete = productXpath+"[" +productIndex +"]//p[2]/span";
-        }
-        else
-        {
+    public void deleteProduct(int productIndex) {
+        String addressname, delete;
+        if (productIndex != 0) {
+            String productXpath = "//div[@class='text-left']/ul/li";
+            List<WebElement> productList = driver.findElements(By.xpath(productXpath));
+            delete = productXpath + "[" + productIndex + "]//p[2]/span";
+        } else {
+            String productXpath = "//div[@class='text-left']/ul/li";
+            List<WebElement> productList = driver.findElements(By.xpath(productXpath));
             int index = random.nextInt(productList.size());
-            delete = productXpath+"["+ ++index +"]//p[2]/span";
+            delete = productXpath + "[" + ++index + "]//p[2]/span";
         }
         WebElement clickdelete = driver.findElement(By.xpath(delete));
         myActions.action_click(clickdelete);
     }
 
     //total item in address page
-    public String getTotalQuantityInAddressPage ()
-    {
+    public String getTotalQuantityInAddressPage() {
         String quantitypath = "//div[@class='cart-value-right_header']/p/span[2]";
         WebElement totQuantity = driver.findElement(By.xpath(quantitypath));
         String totalQuantity = myActions.action_getText(totQuantity);
@@ -264,8 +260,7 @@ public class AddressPageObject {
     }
 
     //total cost or value at addresspage
-    public String getTotalCostInAddressPage ()
-    {
+    public String getTotalCostInAddressPage() {
         String costpath = "//div[@class='cart-value-right_header']/h2/span[2]";
         WebElement totCost = driver.findElement(By.xpath(costpath));
         String totalCost = myActions.action_getText(totCost);
@@ -273,4 +268,6 @@ public class AddressPageObject {
     }
 
 
+    //Delete the product which COD was not available
 }
+

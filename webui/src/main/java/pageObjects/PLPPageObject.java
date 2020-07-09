@@ -5,20 +5,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.ProductListingResultsModel;
 import utils.MyActions;
+import utils.ServiceRequestLayer;
+import utils.WebBaseClass;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-public class PLPPageObject {
+public class PLPPageObject extends WebBaseClass {
     private WebDriver driver;
     private MyActions myActions;
+    private ServiceRequestLayer serviceRequestLayer;
     Random random = new Random();
 
     public PLPPageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
+        serviceRequestLayer = new ServiceRequestLayer();
     }
 
 
@@ -206,7 +213,7 @@ public class PLPPageObject {
     }
 
 
-       /////////////////////////*************Dynamic Xpath functions****************///////////
+    /////////////////////////*************Dynamic Xpath functions****************///////////
     /*----------Filter functionality -------*/
 
     public String ApplyFilter(int filterType,int filterIndex){
@@ -240,7 +247,7 @@ public class PLPPageObject {
 
     /*--------------------product Selection---------------*/
 
-    public String product(int productNumber){
+    public String clickOnproduct(int productNumber){
         String productNameClicked = "";
         String productsXpath = "//ul[@class='col-4 grid-list list-inline text-left']/li";
         List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
@@ -248,20 +255,20 @@ public class PLPPageObject {
         {
             String  product = productsXpath+"["+productNumber+"]";
             WebElement productClicked = driver.findElement(By.xpath(product));
-            myActions.action_click(productClicked);
             String productLable = productsXpath+"["+productNumber+"]//div[@class='item-name']";
             WebElement clickedProductName = driver.findElement(By.xpath(productLable));
             productNameClicked = myActions.action_getText(clickedProductName);
+            myActions.action_click(productClicked);
         }
         else{
             int index =  random.nextInt(productList.size());
             index++;
             String product = productsXpath+"["+index+"]";
             WebElement productClicked = driver.findElement(By.xpath(product));
-            myActions.action_click(productClicked);
             String productName = productsXpath+"["+index+"]//div[@class='item-name']";
             WebElement clickedProductName = driver.findElement(By.xpath(productName));
             productNameClicked = myActions.action_getText(clickedProductName);
+            myActions.action_click(productClicked);
         }
 
         return productNameClicked;
@@ -307,7 +314,7 @@ public class PLPPageObject {
         else
         {
             int index=random.nextInt(priceList.size());
-             price = priceInnerXpath+"["+ ++index +"]";
+            price = priceInnerXpath+"["+ ++index +"]";
         }
         WebElement pricenumber = driver.findElement(By.xpath(price));
         priceLabelClicked=myActions.action_getText(pricenumber);
@@ -343,6 +350,48 @@ public class PLPPageObject {
 
 
 
+    public int selectValidProduct(String searchTerm){
+        GetCommerceApiResponse getCommerceApiResponse =
+                serviceRequestLayer.getControlOverServices();
+        Map<String,Object> productDetails =
+                getCommerceApiResponse.getProductWithValidSize(searchTerm);
+        int productIndex = (int)productDetails.get("ValidProductIndex"); // Returns product Index
+        ProductListingResultsModel.ResultsBean productResult =
+                (ProductListingResultsModel.ResultsBean)productDetails.get("ValidProductDetails"); // Returns the Whole Product
+        int sizeIndex = (int)productDetails.get("ValidSizeIndex"); // Returns the Valid Size-Id
+        System.out.println("Product Index is : "+ productIndex);
+        System.out.println("Product Name : "+productResult.getName());
+        System.out.println("Valid Product Size Index : "+sizeIndex);
+        System.setProperty("validProductSizeIndex",""+sizeIndex+"");
+        System.setProperty("minSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+        System.setProperty("maxSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+        // Scroll into View that product by its name and perform click on that
+//        System.out.println(androidDriver.findElementByAndroidUIAutomator(
+//                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_item\")).scrollIntoView("
+//                        + "new UiSelector().text(\""+productResult.getName()+"\"))").getText());
+        // Click on that Item
+        clickOnproduct(++productIndex);
+        sleep(2000);
+        return sizeIndex;
+    }
+
+    public String getProductNameInPLP(String searchTerm)
+    {
+        GetCommerceApiResponse getCommerceApiResponse =
+                serviceRequestLayer.getControlOverServices();
+        Map<String,Object> productDetails =
+                getCommerceApiResponse.getProductWithValidSize(searchTerm);
+        ProductListingResultsModel.ResultsBean productResult =
+                (ProductListingResultsModel.ResultsBean)productDetails.get("ValidProductDetails");
+        String productName = productResult.getName();
+        return productName;
+    }
+
+
+
+
 
 
 
@@ -366,39 +415,40 @@ public class PLPPageObject {
 
     /*--------Function--------*/
 
-   public void verifyAllProductsAreClickable() {
+    public void verifyAllProductsAreClickable() {
 
-       clickOnProduct1();
-       clickOnSearchIcon();
-       clickOnProduct2();
-       clickOnSearchIcon();
-       clickOnProduct3();
-       clickOnSearchIcon();
-       clickOnProduct4();
-       clickOnSearchIcon();
-       clickOnProduct5();
-       clickOnSearchIcon();
-       clickOnProduct6();
-       clickOnSearchIcon();
-       clickOnProduct7();
-       clickOnSearchIcon();
-       clickOnProduct8();
-       clickOnSearchIcon();
-       clickOnProduct9();
-       clickOnSearchIcon();
-       clickOnProduct10();
-       clickOnSearchIcon();
-       clickOnProduct11();
-       clickOnSearchIcon();
-       clickOnProduct12();
-       clickOnSearchIcon();
-       clickOnProduct13();
-       clickOnSearchIcon();
-       clickOnProduct14();
-       clickOnSearchIcon();
-       clickOnProduct15();
-       clickOnSearchIcon();
-   }
+        clickOnProduct1();
+        clickOnSearchIcon();
+        clickOnProduct2();
+        clickOnSearchIcon();
+        clickOnProduct3();
+        clickOnSearchIcon();
+        clickOnProduct4();
+        clickOnSearchIcon();
+        clickOnProduct5();
+        clickOnSearchIcon();
+        clickOnProduct6();
+        clickOnSearchIcon();
+        clickOnProduct7();
+        clickOnSearchIcon();
+        clickOnProduct8();
+        clickOnSearchIcon();
+        clickOnProduct9();
+        clickOnSearchIcon();
+        clickOnProduct10();
+        clickOnSearchIcon();
+        clickOnProduct11();
+        clickOnSearchIcon();
+        clickOnProduct12();
+        clickOnSearchIcon();
+        clickOnProduct13();
+        clickOnSearchIcon();
+        clickOnProduct14();
+        clickOnSearchIcon();
+        clickOnProduct15();
+        clickOnSearchIcon();
+    }
 
 
 }
+
