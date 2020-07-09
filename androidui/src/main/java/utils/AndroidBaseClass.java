@@ -194,6 +194,27 @@ public class AndroidBaseClass extends GetDriverFromCore{
     }
 
 
+    public static List<WebElement> classListSetter(String className){
+        List<WebElement> elementList;
+        try {
+            elementList = getBaseDriver().findElements(By.className(className));
+            return elementList;
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public static WebElement classSetter(String className){
+        try {
+            return getBaseDriver().findElementById(className);
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+
 
 }
 
