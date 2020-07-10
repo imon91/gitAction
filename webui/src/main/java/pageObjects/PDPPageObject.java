@@ -184,9 +184,9 @@ public class PDPPageObject extends WebBaseClass {
         String collectionName = "TestingCollection : " + new Random().nextInt(5000);
         sleep(500);
         clickOnAddYourCollectionText(collectionName);
-        sleep(1000);
+        sleep(200);
         clickOnAddButton();
-        sleep(5000);
+        sleep(500);
         clickOnNewlyCreatedCollection();
         return collectionName;
     }

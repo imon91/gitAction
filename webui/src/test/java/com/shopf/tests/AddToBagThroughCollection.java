@@ -40,17 +40,17 @@ public class AddToBagThroughCollection extends WebBaseClass {
     public void addToBagThroughCollection() {
         System.out.println("VerifyAddToBagThroughCollection is called");
         //get index
-        int sizeIndex=Integer.parseInt(System.getProperty("index"));
-        //product name
-        String productNameAtCollection =  myShopPageObjects.orderProduct(1,++sizeIndex);
-        sleep(2500);
-        System.out.println("Product Name At Collection : "+productNameAtCollection);
-        //click on product by name
-        int indexOfProduct = bagPageObjects.specialFindingIndexOfShirtByName(productNameAtCollection);
-        System.out.println("The index of product which selected:"+indexOfProduct);
-        sleep(4000);
-        bagPageObjects.viewProduct(indexOfProduct);
-        sleep(2000);
+//        int sizeIndex=Integer.parseInt(System.getProperty("index"));
+//        //product name
+//        String productNameAtCollection =  myShopPageObjects.orderProduct(1,++sizeIndex);
+//        sleep(2500);
+//        System.out.println("Product Name At Collection : "+productNameAtCollection);
+//        //click on product by name
+//        int indexOfProduct = bagPageObjects.specialFindingIndexOfShirtByName(productNameAtCollection);
+//        System.out.println("The index of product which selected:"+indexOfProduct);
+//        sleep(4000);
+//        bagPageObjects.viewProduct(indexOfProduct);
+//        sleep(2000);
     }
 
 

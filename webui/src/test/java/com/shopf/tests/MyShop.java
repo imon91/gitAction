@@ -30,9 +30,9 @@ public class MyShop extends WebBaseClass {
             dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
     public void verifyAddingNewCollection() {
         System.out.println("VerifyAddingNewCollecton is called");
-        actionBarObjects.clickOnMyshopButton();
-        String collectionName = myShopPageObjects.createNewCollection();
-        System.out.println("The created collection name was:"+collectionName);
+//        actionBarObjects.clickOnMyshopButton();
+//        String collectionName = myShopPageObjects.createNewCollection();
+//        System.out.println("The created collection name was:"+collectionName);
     }
 
 

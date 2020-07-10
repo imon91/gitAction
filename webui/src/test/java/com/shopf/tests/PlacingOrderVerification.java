@@ -1,7 +1,9 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -18,6 +20,7 @@ public class PlacingOrderVerification extends WebBaseClass {
     private ActionBarObjects actionBarObjects;
     private PLPPageObject plpPageObject;
     private PaymentPageObject paymentPageObject;
+    private Actions actions;
 
 
     @BeforeClass(alwaysRun = true)
@@ -26,6 +29,7 @@ public class PlacingOrderVerification extends WebBaseClass {
         driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         paymentPageObject = new PaymentPageObject(driver);
+        actions = new Actions(driver);
     }
 
 
@@ -44,6 +48,8 @@ public class PlacingOrderVerification extends WebBaseClass {
         System.out.println("OrderIdAtOrderSuccessfullPage:"+ordernumberAtOrderSuccessful);
         sleep(2500);
         paymentPageObject.clickOnStartShopping();
+        sleep(2500);
+        actions.sendKeys(Keys.ESCAPE).build().perform();
         sleep(2500);
         actionBarObjects.clickOnLoginButton();
         actionBarObjects.dropDownMyOrder();

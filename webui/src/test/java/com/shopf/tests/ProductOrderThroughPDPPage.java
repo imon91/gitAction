@@ -40,8 +40,8 @@ public class ProductOrderThroughPDPPage extends WebBaseClass {
             (CoreConstants.GROUP_SMOKE)},
             dependsOnGroups = ("MyShop.VerifyAddProductToBagThroughCollection"))
     public void verifyOrderThroughPDPPage() {
-        actions.sendKeys(Keys.ESCAPE).build().perform();
-        sleep(2500);
+//        actions.sendKeys(Keys.ESCAPE).build().perform();
+//        sleep(2500);
         int index = Integer.parseInt(System.getProperty("index"));
         pdpPageObject.selectSize(++index);
         sleep(500);

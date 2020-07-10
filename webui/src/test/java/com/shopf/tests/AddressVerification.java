@@ -34,10 +34,10 @@ public class AddressVerification extends WebBaseClass {
         System.out.println("addressVerification is called");
         addressPageObject.clickOnOldAddress();
         sleep(2000);
-//        addressPageObject.deleteProductWithCODDisabled();
-        sleep(3000);
+       addressPageObject.deleteProductCODNotAvailable();
+        sleep(4000);
+//        addressPageObject.createNewAddress("testing");
         addressPageObject.clickOnProceedToPayment();
-        addressPageObject.createNewAddress("testing");
         sleep(2500);
     }
 

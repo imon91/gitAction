@@ -1,13 +1,17 @@
 package pageObjects;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import services.commerceMethods.GetCommerceApiResponse;
 import utils.MyActions;
+import utils.ServiceRequestLayer;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import static utils.WebBaseClass.sleep;
@@ -16,12 +20,14 @@ public class AddressPageObject {
     private WebDriver driver;
     private MyActions myActions;
     private Random random;
+    private ServiceRequestLayer serviceRequestLayer;
 
 
     public AddressPageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
+        serviceRequestLayer = new ServiceRequestLayer();
     }
 
 
@@ -31,7 +37,7 @@ public class AddressPageObject {
     private WebElement oldAddressICon;
 
     //Proceed to payment button
-    @FindBy(xpath = "//button[text()='PROCEED TO PAYMENT']")
+    @FindBy(xpath = "//div[@class='proceed-checkout text-center']/button")
     private WebElement proceedToPaymentButton;
 
     //ADD NEW ADDRESS BUTTON
@@ -248,7 +254,8 @@ public class AddressPageObject {
             delete = productXpath + "[" + ++index + "]//p[2]/span";
         }
         WebElement clickdelete = driver.findElement(By.xpath(delete));
-        myActions.action_click(clickdelete);
+        JavascriptExecutor jse = (JavascriptExecutor)driver;
+        jse.executeScript("arguments[0].click()", clickdelete);
     }
 
     //total item in address page
@@ -269,5 +276,23 @@ public class AddressPageObject {
 
 
     //Delete the product which COD was not available
+    public void deleteProductCODNotAvailable()
+    {
+        GetCommerceApiResponse getCommerceApiResponse =
+                serviceRequestLayer.getControlOverServices();
+        List<Integer> indicesOfNonCODProduct = getCommerceApiResponse.getCodNotAvailableItemsFromShoppingCart();
+        int size = indicesOfNonCODProduct.size();
+        System.out.println("The product which not Have COD available:"+size);
+        if (size!=0)
+        {
+        for(int i=size-1;i>=0;i--)
+        {
+           int index =  indicesOfNonCODProduct.get(i);
+           index++;
+           deleteProduct(index);
+        }
+    }
+
+    }
 }
 
