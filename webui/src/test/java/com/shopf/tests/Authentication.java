@@ -54,7 +54,7 @@ public class Authentication extends WebBaseClass {
     public void verifyAuthenticationWithValidCredentials(String mobileNumber, String otp) {
         System.out.println("verifyAuthentication is called");
         sleep(1000);
-        loginPageObject.performAuthentication("01877755590", "666666");
+        loginPageObject.performAuthentication(mobileNumber, otp);
         // Verification Step Pending
     
     }

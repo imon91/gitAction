@@ -30,8 +30,9 @@ public class LogOutFunction extends WebBaseClass {
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"Home.VerifyLogout",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("OrderSuccessfull.VerifyPlacingOrder"))
     public void logoutVerification() {
         System.out.println("logoutVerification is called");
         actionBarObjects.clickOnLoginButton();

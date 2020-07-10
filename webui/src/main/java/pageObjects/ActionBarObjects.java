@@ -92,8 +92,9 @@ public class ActionBarObjects {
 
 
     /*------FUNCTION-----*/
-    public void searchToObject(String Object) {
+    public void searchToObject(String Object) throws InterruptedException {
         clickOnSearchBarText(Object);
+        Thread.sleep(1000);
         clickOnSearchIcon();
     }
 
