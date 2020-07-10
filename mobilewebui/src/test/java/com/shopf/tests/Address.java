@@ -44,7 +44,7 @@ public class Address {
     public void verifyAddress() throws Exception {
         System.out.println("control came to verifyAddress");
         //addresspageobject.placingOrderwithNewAddress("Siva","shop street","F colony","1877755590");
-        addresspageobject.clickOnShowMoreAddressesButton();
+        //addresspageobject.clickOnShowMoreAddressesButton();
         addresspageobject.selectaddress(1);
         //for(int i = a;i<31;i+=4){myActions.swipe(1,0);}
         //sleep(2000);
@@ -74,7 +74,7 @@ public class Address {
         //System.out.println(Orderno);
         String Orderno = order.orderid(1);
         if(orderno.equalsIgnoreCase(Orderno)){System.out.println("Order placed successfully");}
-        sleep(3000);
+        sleep(1500);
     }
 
 
@@ -83,8 +83,8 @@ public class Address {
     public void verifySignOut(){
         System.out.println("Control came to verifySignout");
         home.SignOut();
-        home.navigateToMyShop();
-        sleep(2000);
+        home.navigateToMyOrder();
+        sleep(1000);
     }
 
 

@@ -1,5 +1,6 @@
 package pageObjects;
 
+import coreUtils.CoreConstants;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -8,6 +9,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.ShoppingCartResponseModel;
 import utils.MyActions;
 import utils.WebAppBaseClass;
 
@@ -18,6 +21,7 @@ public class AddressPageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver = getBaseDriver();
     private MyActions myActions;
     private Random random;
+    private GetCommerceApiResponse getCommerceApiResponse;
     TouchAction touch;
 
     public AddressPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
@@ -25,6 +29,7 @@ public class AddressPageObjects extends WebAppBaseClass {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         myActions = new MyActions();
         random = new Random();
+        getCommerceApiResponse = new GetCommerceApiResponse(CoreConstants.MODULE_MOBILE_WEB_UI);
         touch = new TouchAction(driver);
     }
 
@@ -268,8 +273,8 @@ public class AddressPageObjects extends WebAppBaseClass {
         myActions.action_click(productElement);
     }
 
-    public void deleteProductWithCODDisabled(){
-        for(int i=1;i<=productsSize;i++){
+    public void deleteProductWithCODDisabled() {
+        /*for(int i=1;i<=productsSize;i++){
             String codOfProductNotAvailableXpath = productXpath+"["+i+"]//span[@class='cod-not-available']";
             try{
                 myActions.action_getText(driver.findElement(By.xpath(codOfProductNotAvailableXpath)));
@@ -278,6 +283,20 @@ public class AddressPageObjects extends WebAppBaseClass {
                 sleep(2000);
             } catch(Exception e){
                 System.out.println("COD is available");
+            }
+        }*/
+        List<Integer> codNotAvailable = getCommerceApiResponse.getCodNotAvailableItemsFromShoppingCart();
+        int size = codNotAvailable.size();
+        if (size != 0) {
+            for(int i = productsSize;i>0;i--) {
+                for (int j = size - 1; j >= 0; j--) {
+                    int productIndex = (codNotAvailable.get(j));
+                    productIndex++;
+                    if(i == productIndex) {
+                        deleteProduct(i);
+                        sleep(3500);
+                    }
+                }
             }
         }
     }

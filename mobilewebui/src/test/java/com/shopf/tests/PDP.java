@@ -41,11 +41,11 @@ public class PDP {
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
+    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false)
     public void verifyPDPPage() throws Exception {
         System.out.println("control came to verifyPDPPage");
-        home.navigateToMyShop();
-        home.searchForObject(System.getProperty("searchTerm"));
+        //home.navigateToMyShop();
+        //home.searchForObject(System.getProperty("searchTerm"));
         /*WebElement name = androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][1]/div[@class='feedItem___2QWNJ']/div[@class='productNameContainer___M7bIM']");
         String original_selection = myActions.action_getText(name);
         System.out.println(original_selection);
@@ -64,7 +64,7 @@ public class PDP {
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyPDPPage")
+    @Test(groups = {CoreConstants.GROUP_SMOKE})// dependsOnGroups = "AddingItems.verifyProductIsClicking")
     public void verifyProductOrder() throws Exception {
         System.out.println("control came to verifyProductOrder");
         //touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,100)).release().perform();
@@ -78,7 +78,7 @@ public class PDP {
         pdp.selectSize(++size);
         pdp.clickOnBuyNow();
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
-        sleep(3500);
+        sleep(1500);
         //checkoutpageobject.clickOnPlaceOrder();
     }
 
