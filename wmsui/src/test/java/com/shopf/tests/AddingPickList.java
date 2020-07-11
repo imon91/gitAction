@@ -28,15 +28,17 @@ public class AddingPickList extends WmsBaseClass {
     }
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"))
+            dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
+            description = "Adding Pick List")
     public void verifyPickListAddition(){
         System.out.println("Pick List Addition Verification is called");
         homePageObject.clickPickOrders();
-        sleep(1000);
         pickOrdersPageObjects.clickDemandLessPickListTab();
         sleep(1000);
         demandLessPickListTab.enterWarehouseDetails();
         demandLessPickListTab.createPickListOrder();
+        String message = homePageObject.getPopUpMessage();
+        System.out.println(message);
         pickOrdersPageObjects.clickAllPickListsTab();
         String pickListId = allPickListsTab.getPickListID(1);
         System.out.println("The last added Pick List: " + pickListId);

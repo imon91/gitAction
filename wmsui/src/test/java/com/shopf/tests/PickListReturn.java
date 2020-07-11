@@ -73,6 +73,9 @@ public class PickListReturn extends WmsBaseClass {
                 }
             }
             returnInScanTab.clickPickListReturnSubmitButton();
+            setImplicitWait(3);
+            String message = homePageObject.getPopUpMessage();
+            System.out.println(message);
             sleep(2000);
         }
     }

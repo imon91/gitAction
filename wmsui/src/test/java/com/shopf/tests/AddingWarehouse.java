@@ -30,17 +30,19 @@ public class AddingWarehouse extends WmsBaseClass {
     }
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"))
+            dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
+            description = "Adding Warehouse")
     public void verifyWarehouseAddition(){
         System.out.println("Warehouse Addition Verification is called");
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickAddWarehouseTab();
         sleep(1000);
         String binCode = addWarehouseTab.addNewWarehouse();
+        String message = homePageObject.getPopUpMessage();
+        System.out.println(message);
         System.out.println("New Warehouse created is: " + binCode);
         warehousesPageObjects.clickWarehouseListTab();
-        sleep(2000);
-        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        sleep(1000);
         int totalWarehouses = warehouseListTab.getTotalWarehouses();
         String warehouseCode = warehouseListTab.getWarehouseCode(totalWarehouses);
         System.out.println("The last added Warehouse: "+ warehouseCode);

@@ -55,8 +55,6 @@ public class POStatus extends WmsBaseClass {
         sleep(1000);
         String status = editPurchaseOrder.getPOStatus();
         System.out.println(status.substring(8));
-//        Assertion assertion = new Assertion();
-//        assertion.assertEquals();
     }
 
     @BeforeClass(alwaysRun = true)

@@ -39,13 +39,13 @@ public class ClosePO extends WmsBaseClass {
                 if(!purchaseOrderList.getStatus(i).equalsIgnoreCase("RECEIVED"))
                     break;
         String poId = purchaseOrderList.getPOID(i);
-        sleep(2000);
         purchaseOrdersPageObjects.clickEditPurchaseOrderTab();
-        sleep(2000);
         editPurchaseOrder.poIdInput(poId);
-        sleep(2000);
+        sleep(1000);
         editPurchaseOrder.clickClosePOButton();
-        sleep(3000);
+        setImplicitWait(3);
+        String message = homePageObject.getPopUpMessage();
+        System.out.println(message);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
 
     }

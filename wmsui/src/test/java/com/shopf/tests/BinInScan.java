@@ -26,13 +26,13 @@ public class BinInScan extends WmsBaseClass {
         packageDetailsTab = packagesPageObjects.new PackageDetailsTab(driver);
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE, dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = CoreConstants.GROUP_SMOKE,
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+    description = "Perform Bin In Scan")
     public void verifyBinInScan(){
         System.out.println("Verify Bin In Scan is called");
         homePageObject.clickPackages();
-        sleep(1000);
         packagesPageObjects.clickBinInScanTab();
-        sleep(1000);
         binInScanTab.performInScan("W100F2R1C1RA4B71","135972");
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);

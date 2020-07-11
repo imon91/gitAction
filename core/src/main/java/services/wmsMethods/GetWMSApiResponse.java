@@ -41,11 +41,12 @@ public class GetWMSApiResponse {
 
     public WarehouseBinDetails getWarehouseBinDetails(){
         gson = new Gson();
-        response = shopUpPostMan.getCall("warehouse_bins/get_bin_package_details?bin_code=W100F2R1C1RA1B41");
+        response = shopUpPostMan.getCall("warehouse_bins/get_bin_package_details?bin_code=W100F2R1C1RA1B31");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
-
+            String r = response.getBody().asString();
+            System.out.println(r);
             WarehouseBinDetails warehouseBinDetails =
-                    gson.fromJson(response.getBody().asString(), WarehouseBinDetails.class);
+                    gson.fromJson(r,WarehouseBinDetails.class);
             return warehouseBinDetails;
         }
         else return null;
@@ -121,6 +122,33 @@ public class GetWMSApiResponse {
             List<PackagesListModel> packagesLists =
                     gson.fromJson(r,packages);
             return packagesLists;
+        }
+        else return null;
+    }
+
+    public List<VariantDetailsModel> getVariantsDFW(){
+        gson = new Gson();
+        response = shopUpPostMan.getCall("suppliers/variant_details.json?seller_id=29");
+        if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
+            String r = response.getBody().asString();
+            //System.out.println(r);
+            List<VariantDetailsModel> variantDetailsModels =
+                    gson.fromJson(r,new TypeToken<List<VariantDetailsModel>>(){}.getType());
+            return variantDetailsModels;
+        }
+        else return null;
+    }
+
+    public AllPickListModel getAllPickLists(int page){
+        gson = new Gson();
+        response = shopUpPostMan
+                .getCall("https://uatwms.vnksrvc.com/pick_lists.json?page="+page+"&per_page=30&status=all");
+        if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
+            String r = response.getBody().asString();
+            System.out.println(r);
+            AllPickListModel pickListModel =
+                    gson.fromJson(r,AllPickListModel.class);
+            return pickListModel;
         }
         else return null;
     }

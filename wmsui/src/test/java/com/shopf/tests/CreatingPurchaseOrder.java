@@ -34,6 +34,9 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         sleep(2000);
         createPurchaseOrderTab.enterWarehouseDetails();
         createPurchaseOrderTab.createPurchaseOrder();
+        setImplicitWait(3);
+        String message = homePageObject.getPopUpMessage();
+        System.out.println(message);
         sleep(2000);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(2000);
