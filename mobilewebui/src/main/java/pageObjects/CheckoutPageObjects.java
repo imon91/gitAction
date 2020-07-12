@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CheckoutPageObjects extends WebAppBaseClass {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
     TouchAction touch;

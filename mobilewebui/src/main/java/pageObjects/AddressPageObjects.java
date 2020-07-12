@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Random;
 
 public class AddressPageObjects extends WebAppBaseClass {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
     private GetCommerceApiResponse getCommerceApiResponse;
@@ -198,10 +198,11 @@ public class AddressPageObjects extends WebAppBaseClass {
 
    /*-------dynamicfunctions-------*/
 
-    String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
-    List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
+
 
     public int selectaddress(int addressid) throws Exception {
+        String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
+        List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
         String address;
         int Address;
         if(addressid != 0){
@@ -222,6 +223,8 @@ public class AddressPageObjects extends WebAppBaseClass {
     }
 
     public void editaddress(int addressid){
+        String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
+        List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
         String address;
         if(addressid != 0){
             address = addressXpath+"["+addressid+"]//div[@class='edit-delete-address editAddress']/p/span";
@@ -234,6 +237,8 @@ public class AddressPageObjects extends WebAppBaseClass {
     }
 
     public void deleteaddress(int addressid){
+        String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
+        List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
         String address;
         if(addressid != 0){
             address = addressXpath+"["+addressid+"]//div[@class='edit-delete-address']/span";
@@ -245,11 +250,12 @@ public class AddressPageObjects extends WebAppBaseClass {
         myActions.action_click(addresselement);
     }
 
-    String productXpath = "//div[@class='text-left']/ul/li";
-    List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
-    int productsSize = productslist.size();
+
 
     public String getEstimatedDeliverytime(int productid){
+        String productXpath = "//div[@class='text-left']/ul/li";
+        List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+        int productsSize = productslist.size();
         String product;
         if(productid != 0){
             product = productXpath+"["+productid+"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[1]/span";
@@ -262,6 +268,9 @@ public class AddressPageObjects extends WebAppBaseClass {
     }
 
     public void deleteProduct(int productid){
+        String productXpath = "//div[@class='text-left']/ul/li";
+        List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+        int productsSize = productslist.size();
         String product;
         if(productid != 0){
             product = productXpath+"["+productid+"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[2]/span";
@@ -285,6 +294,9 @@ public class AddressPageObjects extends WebAppBaseClass {
                 System.out.println("COD is available");
             }
         }*/
+        String productXpath = "//div[@class='text-left']/ul/li";
+        List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+        int productsSize = productslist.size();
         List<Integer> codNotAvailable = getCommerceApiResponse.getCodNotAvailableItemsFromShoppingCart();
         int size = codNotAvailable.size();
         if (size != 0) {

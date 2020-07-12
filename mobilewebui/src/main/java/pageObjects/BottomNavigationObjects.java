@@ -9,7 +9,7 @@ import utils.MyActions;
 import utils.WebAppBaseClass;
 
 public class BottomNavigationObjects extends WebAppBaseClass {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
 
     public BottomNavigationObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
