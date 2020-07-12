@@ -30,7 +30,9 @@ public class PackageDetails extends WmsBaseClass {
         warehouseBinDetailsTab = warehousesPageObjects.new WarehouseBinDetailsTab(driver);
     }
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = (CoreConstants.GROUP_SMOKE),
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Package Details Verification")
     public void packageDetailsVerification(){
         System.out.println("Package Details Verification is called");
         String pId = "135979";

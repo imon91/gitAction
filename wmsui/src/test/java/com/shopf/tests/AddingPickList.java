@@ -29,7 +29,7 @@ public class AddingPickList extends WmsBaseClass {
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
-            description = "Adding Pick List")
+            description = "Adds Pick List")
     public void verifyPickListAddition(){
         System.out.println("Pick List Addition Verification is called");
         homePageObject.clickPickOrders();
@@ -45,7 +45,7 @@ public class AddingPickList extends WmsBaseClass {
     }
 
     @AfterClass(alwaysRun = true)
-    public void addingPickListAfterClass() throws Exception {
+    public void addingPickListAfterClass(){
         System.out.println("Adding Pick List After Class is called");
     }
 }

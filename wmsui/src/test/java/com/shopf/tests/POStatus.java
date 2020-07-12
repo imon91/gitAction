@@ -4,7 +4,6 @@ import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.Assertion;
 import pageObjects.HomePageObject;
 import pageObjects.PurchaseOrdersPageObjects;
 import services.responseModels.wmsModels.PurchaseOrderListModel;
@@ -41,7 +40,9 @@ public class POStatus extends WmsBaseClass {
         n = random.nextInt(total)-1;
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE,dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = {CoreConstants.GROUP_SANITY},
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Verify PO Status")
     public void verifyPOStatus(){
         System.out.println("Verify PO Status is called");
         String poIDJson = String.valueOf(purchaseOrderListModels.get(n).getId());

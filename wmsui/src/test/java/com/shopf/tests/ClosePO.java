@@ -27,7 +27,9 @@ public class ClosePO extends WmsBaseClass {
         editPurchaseOrder = new PurchaseOrdersPageObjects(driver).new EditPurchaseOrder(driver);
     }
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = (CoreConstants.GROUP_SMOKE),
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Close PO Verification")
     public void closePOVerification(){
         System.out.println("Close PO Verification is called");
         homePageObject.clickPurchaseOrders();

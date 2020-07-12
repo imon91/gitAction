@@ -32,7 +32,9 @@ public class PickListReturn extends WmsBaseClass {
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE,dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = CoreConstants.GROUP_SMOKE,
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Pick List Return Verification")
     public void pickListReturnVerification(){
         System.out.println("Pick List Return Verification is called");
 

@@ -2,6 +2,7 @@ package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.HomePageObject;
@@ -31,8 +32,7 @@ public class WarehouseBinDetail extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
 
-
-    @Test(groups = CoreConstants.GROUP_SMOKE,
+    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Warehouse Bin Details")
     public void verifyWarehouseBinDetail(){
@@ -56,7 +56,7 @@ public class WarehouseBinDetail extends WmsBaseClass {
         }
     }
 
-    @BeforeClass(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void warehouseBinDetailAfterClass(){
         System.out.println("Warehouse Bin Details After Class is called");
     }

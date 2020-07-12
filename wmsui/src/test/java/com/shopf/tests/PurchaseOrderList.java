@@ -6,9 +6,8 @@ import pageObjects.*;
 import services.responseModels.wmsModels.PurchaseOrderListModel;
 import services.wmsMethods.GetWMSApiResponse;
 import utils.WmsBaseClass;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
     public class PurchaseOrderList extends WmsBaseClass
     {
         private WebDriver driver;
@@ -28,7 +27,9 @@ import java.util.List;
             purchaseOrderList = purchaseOrdersPageObjects.new PurchaseOrderList(driver);
             getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         }
-        @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+
+        @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+                dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
                 description = "Verifying Purchase Orders List" )
         public void verifyPurchaseOrdersList()
         {
@@ -64,6 +65,7 @@ import java.util.List;
                 }
             }
         }
+
         @AfterClass(alwaysRun = true)
         public void purchaseOrderListAfterClass()
         {

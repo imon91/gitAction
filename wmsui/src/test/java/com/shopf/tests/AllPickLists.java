@@ -31,8 +31,10 @@ public class AllPickLists extends WmsBaseClass {
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
-            description = "Verifying All Pick List")
+
+    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Verifying All Pick List Tab")
     public void verifyAllPickList() {
         int i;
         System.out.println("Verifying All Pick List Class");
@@ -48,7 +50,7 @@ public class AllPickLists extends WmsBaseClass {
             String created_time = allPickListsTab.getCreatedDate(i+1);
             String reason = allPickListsTab.getPickListReason(i+1);
             String status = allPickListsTab.getStatus(i+1);
-            int total_quantity = list.get(i).getTotal_quantity();
+
             System.out.println(id.equalsIgnoreCase(String.valueOf(list.get(i).getId()))
                     +"-"+ id);
             System.out.println(list.get(i).getCreated_at()
@@ -69,6 +71,7 @@ public class AllPickLists extends WmsBaseClass {
             }
         }
     }
+
     @AfterClass(alwaysRun = true)
     public void allPickListAfterClass()
     {

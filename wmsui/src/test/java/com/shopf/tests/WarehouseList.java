@@ -32,7 +32,9 @@ public class WarehouseList extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE,dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Verify Warehouse List")
     public void verifyWarehouseList(){
         System.out.println("Verify Warehouse List is called");
         int i;

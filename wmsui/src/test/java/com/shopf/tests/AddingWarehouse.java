@@ -31,7 +31,7 @@ public class AddingWarehouse extends WmsBaseClass {
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
-            description = "Adding Warehouse")
+            description = "Adds Warehouse")
     public void verifyWarehouseAddition(){
         System.out.println("Warehouse Addition Verification is called");
         homePageObject.clickWarehouses();

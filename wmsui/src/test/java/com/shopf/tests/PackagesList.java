@@ -7,7 +7,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.HomePageObject;
 import pageObjects.PackagesPageObjects;
-import pageObjects.SuppliersPageObjects;
 import services.responseModels.wmsModels.PackagesListModel;
 import services.wmsMethods.GetWMSApiResponse;
 import utils.WmsBaseClass;
@@ -24,8 +23,8 @@ public class PackagesList extends WmsBaseClass {
     private List<PackagesListModel> packagesListModels;
 
     @BeforeClass(alwaysRun = true)
-    public void suppliersListBeforeClass()throws Exception{
-        System.out.println("Suppliers List Before Class is called");
+    public void packagesListBeforeClass()throws Exception{
+        System.out.println("Packages List Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
         packagesPageObjects = new PackagesPageObjects(driver);
@@ -33,9 +32,11 @@ public class PackagesList extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE,dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
-    public void verifySuppliersList(){
-        System.out.println("Verify Suppliers List is called");
+    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Verify Packages List")
+    public void verifyPackagesList(){
+        System.out.println("Verify Packages List is called");
         int i;
         homePageObject.clickPackages();
         packagesPageObjects.clickPackagesListTab();
@@ -62,7 +63,7 @@ public class PackagesList extends WmsBaseClass {
     }
 
     @AfterClass(alwaysRun = true)
-    public void suppliersListAfterClass(){
-        System.out.println("Suppliers List After Class is called");
+    public void packagesListAfterClass(){
+        System.out.println("Packages List After Class is called");
     }
 }

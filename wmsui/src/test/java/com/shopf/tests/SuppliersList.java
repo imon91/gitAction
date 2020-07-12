@@ -33,11 +33,13 @@ public class SuppliersList extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE,dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Verify Suppliers List")
     public void verifySuppliersList(){
         System.out.println("Verify Suppliers List is called");
         int i;
-        homePageObject.clickSuppliers();;
+        homePageObject.clickSuppliers();
         suppliersPageObjects.clickSuppliersListTab();
         sleep(1000);
         suppliersListModels = getWMSApiResponse.getSuppliersDetails();
