@@ -35,11 +35,10 @@ public class PackageDetails extends WmsBaseClass {
         System.out.println("Package Details Verification is called");
         String pId = "135979";
         homePageObject.clickPackages();
-        sleep(1000);
         packagesPageObjects.clickPackageDetailsTab();
         sleep(1000);
         packageDetailsTab.enterPackageID(pId);
-        sleep(2000);
+        sleep(1000);
         String binCode = packageDetailsTab.getBinCode();
         String code = binCode.substring(binCode.indexOf(':')+2);
         homePageObject.clickWarehouses();

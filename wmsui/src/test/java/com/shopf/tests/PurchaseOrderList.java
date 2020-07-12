@@ -17,6 +17,7 @@ import java.util.List;
         private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
         private List<PurchaseOrderListModel> purchaseOrderListModels;
         private GetWMSApiResponse getWMSApiResponse;
+
         @BeforeClass(alwaysRun = true)
         public void purchaseOrderListBeforeClass() throws Exception
         {
@@ -31,15 +32,11 @@ import java.util.List;
                 description = "Verifying Purchase Orders List" )
         public void verifyPurchaseOrdersList()
         {
-            int i;
-            List<Integer> ordered_quantity = new ArrayList<Integer>();
-            List<String> skuCodes = new ArrayList<String>();
             System.out.println("Verifying Purchase Order Class");
-            sleep(2000);
+            int i;
             homePageObject.clickPurchaseOrders();
-            sleep(2000);
             purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-            sleep(3000);
+            sleep(1000);
             purchaseOrderListModels = getWMSApiResponse.getPurchaseOrderList();
             System.out.println("List Size: " + purchaseOrderListModels.size());
             for(i=0; i<purchaseOrderListModels.size();i++)
@@ -50,6 +47,7 @@ import java.util.List;
                 String status = purchaseOrderListModels.get(i).getStatus();
                 String warehouse_code = purchaseOrderListModels.get(i).getWarehouse().getCode();
                 String supplierName = purchaseOrderListModels.get(i).getSupplier_address().getSupplier().getName();
+
                 System.out.print(PO_ID + " - " + purchaseOrderList.getPOID(i+1).equalsIgnoreCase(PO_ID) + "  ");
                 System.out.print(created_at + " - " + purchaseOrderList.getCreatedDate(i+1).equalsIgnoreCase(created_at) + "  ");
                 System.out.print(PO_Type + " - " + purchaseOrderList.getPOType(i+1).equalsIgnoreCase(PO_Type) + "  ");
@@ -58,12 +56,11 @@ import java.util.List;
                 System.out.println(supplierName + " - " + purchaseOrderList.getSupplierName(i+1).equalsIgnoreCase(supplierName));
                 for(int j=0; j<purchaseOrderListModels.get(i).getPurchase_order_line_items().size();j++)
                 {
-                    ordered_quantity.add(j,purchaseOrderListModels.get(i).getPurchase_order_line_items().get(j).
-                            getOrdered_quantity());
-                    skuCodes.add(j,purchaseOrderListModels.get(i).getPurchase_order_line_items().get(j).getVariant().
-                            getSku_code());
-                    System.out.print(skuCodes.get(j) + " - " + purchaseOrderList.getSkuCode(i+1).get(j).equalsIgnoreCase(skuCodes.get(j)) + "  ");
-                    System.out.println(" ");
+                    int ordered_quantity = purchaseOrderListModels.get(i).getPurchase_order_line_items().get(j).
+                            getOrdered_quantity();
+                    String skuCode = purchaseOrderListModels.get(i).getPurchase_order_line_items().get(j).getVariant().
+                            getSku_code();
+                    System.out.println(skuCode + " - " + purchaseOrderList.getSkuCode(i+1).get(j).equalsIgnoreCase(skuCode) + "  ");
                 }
             }
         }

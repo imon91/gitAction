@@ -30,6 +30,7 @@ public class UpdateBinCapacity extends WmsBaseClass {
         System.out.println("verify Update Bin Capacity is called");
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickUpdateBinCapacityTab();
+        sleep(1000);
         updateBinCapacityTab.updateBinCapacity("W100F2R1C1RA4B71","20");
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);

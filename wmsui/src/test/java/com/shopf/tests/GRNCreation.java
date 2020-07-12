@@ -31,7 +31,7 @@ public class GRNCreation extends WmsBaseClass {
         System.out.println("Close PO Verification is called");
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(2000);
+        sleep(1000);
         int i,total = purchaseOrderList.getTotalPurchaseOrders();
         for(i=1;i <= total;i++)
             if(purchaseOrderList.getStatus(i).equalsIgnoreCase("CREATED"))

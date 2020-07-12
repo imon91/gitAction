@@ -36,9 +36,7 @@ public class WarehouseList extends WmsBaseClass {
     public void verifyWarehouseList(){
         System.out.println("Verify Warehouse List is called");
         int i;
-        sleep(1000);
         homePageObject.clickWarehouses();
-        sleep(1000);
         warehousesPageObjects.clickWarehouseListTab();
         sleep(1000);
         wareHousesBeanList = getWMSApiResponse.getListOfWarehouses();

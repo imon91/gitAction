@@ -37,9 +37,7 @@ public class SuppliersList extends WmsBaseClass {
     public void verifySuppliersList(){
         System.out.println("Verify Suppliers List is called");
         int i;
-        sleep(1000);
         homePageObject.clickSuppliers();;
-        sleep(2000);
         suppliersPageObjects.clickSuppliersListTab();
         sleep(1000);
         suppliersListModels = getWMSApiResponse.getSuppliersDetails();

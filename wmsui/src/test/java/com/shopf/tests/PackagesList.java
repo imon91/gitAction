@@ -37,9 +37,7 @@ public class PackagesList extends WmsBaseClass {
     public void verifySuppliersList(){
         System.out.println("Verify Suppliers List is called");
         int i;
-        sleep(1000);
         homePageObject.clickPackages();
-        sleep(1000);
         packagesPageObjects.clickPackagesListTab();
         sleep(1000);
         packagesListModels = getWMSApiResponse.getPackagesList();

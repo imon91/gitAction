@@ -31,7 +31,6 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
     public void createPurchaseVerification(){
         System.out.println("Create Purchase Verification is Called");
         homePageObject.clickPurchaseOrders();
-        sleep(2000);
         createPurchaseOrderTab.enterWarehouseDetails();
         createPurchaseOrderTab.createPurchaseOrder();
         setImplicitWait(3);

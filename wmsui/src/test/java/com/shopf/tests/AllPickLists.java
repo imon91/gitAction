@@ -36,7 +36,6 @@ public class AllPickLists extends WmsBaseClass {
     public void verifyAllPickList() {
         int i;
         System.out.println("Verifying All Pick List Class");
-        sleep(2000);
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickAllPickListsTab();
         sleep(1000);

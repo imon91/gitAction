@@ -40,12 +40,16 @@ public class PickListReturn extends WmsBaseClass {
         /*--------------Get Random Pick List Id And Status-------------------*/
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickAllPickListsTab();
-        sleep(2000);
+        sleep(1000);
         int i = 0, total = allPickListsTab.getTotalPickLists();
         Random random = new Random(); int n = random.nextInt(total);
         String pickListId = allPickListsTab.getPickListID(n);
         String status = allPickListsTab.getStatus(n);
-        if(status.equalsIgnoreCase("out_for_pickup") || status.equalsIgnoreCase("created"))
+        String reason = allPickListsTab.getPickListReason(n);
+        if(status.equalsIgnoreCase("out_for_pickup")
+                || status.equalsIgnoreCase("created")
+                || reason.equalsIgnoreCase("SINGLE_ORDER")
+                || reason.equalsIgnoreCase("MULTIPLE_ORDERS"))
           i = 1;
         System.out.println(pickListId+" "+status);
 

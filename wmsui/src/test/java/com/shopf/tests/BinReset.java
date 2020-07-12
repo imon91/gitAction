@@ -30,7 +30,6 @@ public class BinReset extends WmsBaseClass {
         public void verifyBinInScan(){
             System.out.println("Verify Bin In Scan is called");
             homePageObject.clickPackages();
-            sleep(1000);
             packagesPageObjects.clickBinResetTab();
             sleep(1000);
             binResetTab.resetBinPass("135972");
