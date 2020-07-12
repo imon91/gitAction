@@ -31,4 +31,8 @@ public class AndroidAppConstants {
     public static final String URL_MY_INCOME_LIST_CANCELLED = "https://uatwap.shopups1.xyz//myaccount/income/list?transaction_id=payment_pending&type=vendor_cancelled";
     public static final String URL_MY_INCOME_LIST_BONUS = "https://uatwap.shopups1.xyz//myaccount/income/list?transaction_id=payment_pending&type=bonus";
     public static final String URL_MY_INCOME_LIST_ADJUSTMENTS = "https://uatwap.shopups1.xyz//myaccount/income/list?transaction_id=payment_pending&type=adjustments";
+
+
+    public static final String CATEGORY_TYPE_ESSENTIAL = "Essential";
+    public static final String CATEGORY_TYPE_NON_ESSENTIAL = "NonEssential";
 }

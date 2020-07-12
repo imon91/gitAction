@@ -1,5 +1,6 @@
 package pageObjects;
 
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
@@ -17,12 +18,23 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private Random random;
+    private ProductListingPageObjects productListingPageObjects;
+    private String plp_view;
+    private String NEW_PLP = "New";
+    private String OLD_PLP = "New";
 
     public MyBagPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
         random = new Random();
+        productListingPageObjects = new ProductListingPageObjects(androidDriver);
+        plp_view = productListingPageObjects.plpView;
+        if(plp_view.equalsIgnoreCase(NEW_PLP)){
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
+        }else if(plp_view.equalsIgnoreCase(OLD_PLP)){
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        }
     }
 
 
@@ -69,9 +81,13 @@ public class MyBagPageObjects extends AndroidBaseClass {
             this.androidDriver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
             myActions = new MyActions();
-            minSalePrice = Integer.parseInt(System.getProperty("minSalePrice"));
-            maxSalePrice = Integer.parseInt(System.getProperty("maxSalePrice"));
-            System.out.println(minSalePrice+" , "+maxSalePrice);
+            try{
+                minSalePrice = Integer.parseInt(PropertyReader.getValueOfKey(PropertyReader.Keys.PRODUCT_MIN_QUANTITY));
+                maxSalePrice = Integer.parseInt(PropertyReader.getValueOfKey(PropertyReader.Keys.PRODUCT_MAX_QUANTITY));
+                System.out.println(minSalePrice+" , "+maxSalePrice);
+            }catch (Exception e){
+                System.out.println("Exception At ItemContainer Constructor : Reading min and max");
+            }
         }
 
 
@@ -449,7 +465,10 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private WebElement continueShoppingButton;
 
     @FindBy(xpath = "(//a[@href='/checkout/address']/button)[2]")
-    private WebElement placeOrderButton;
+    private WebElement placeOrderButtonReseller;
+
+    @FindBy(xpath = "//div[@class='unicornButton___G3iNs']//button")
+    private WebElement placeOrderButtonUnicorn;
 
 
     public void clickOnContinueShoppingButton(){
@@ -457,7 +476,11 @@ public class MyBagPageObjects extends AndroidBaseClass {
     }
 
     public void clickOnPlaceOrderButton(){
-        myActions.action_click(placeOrderButton);
+        if(plp_view.equalsIgnoreCase(NEW_PLP)){
+            myActions.action_click(placeOrderButtonUnicorn);
+        }else if(plp_view.equalsIgnoreCase(OLD_PLP)){
+            myActions.action_click(placeOrderButtonReseller);
+        }
     }
 
 }

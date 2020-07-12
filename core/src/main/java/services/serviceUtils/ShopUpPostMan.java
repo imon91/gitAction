@@ -17,6 +17,9 @@ public class ShopUpPostMan {
     public ShopUpPostMan(String module){
         String app = System.getProperty(BuildParameterKeys.KEY_APP);
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+//        String app = CoreConstants.APP_MOKAM;
+//        String env = CoreConstants.ENV_STAGE;
+
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             // SET RESELLER COOKIE
             cookie = "_voonik_session=eyJ0ZXN0NCI6IkIiLCJjb3VudHJ5X2NvZGUiOjEsInRlc3QyIjoiQiIsInRlc3QzIjoiQSIsImdpZCI6IjQ5NjIyMSIsIndhcmRlbi51c2VyLnVzZXIua2V5IjpbIlVzZXIiLFsxMjI2OTRdLCIkMmEkMTAkbTk2VzJoZ0E3c3QuL2x6em1PTDJkLiJdLCJzZXNzaW9uX2lkIjoiYmI3YTdiOWJkNGU2NmMyN2NhYWM2NDg5ODAzODQyZjUiLCJ0ZXN0MSI6IkEiLCJjdXJyZW5jeV9jb2RlIjoiSU5SIn0_--d407c5368285e326358d9d76a678c8984cd596f2;";

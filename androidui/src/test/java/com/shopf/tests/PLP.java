@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.AndroidBaseClass;
+import utils.PropertyReader;
 
 import java.util.Random;
 
@@ -43,9 +44,11 @@ public class PLP extends AndroidBaseClass {
         productListingPageObjects.clickOnSortButton();
         // Get the value from sort key
         System.out.println("Current Activity at PLP on Sort is : "+androidDriver.currentActivity());
-        sortPageObjects.clickOnSortElement("By Relevance");
+        Random random1 = new Random();
+        int randomSortIndex = random1.nextInt(sortPageObjects.getSortTexts().size());
+        sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
+                .get(randomSortIndex).getText());
         // Verify sorted products from their sort orders
-
     }
 
     @DataProvider(name = "dataForApplyFilter")
@@ -76,29 +79,28 @@ public class PLP extends AndroidBaseClass {
             dataProvider = "dataForApplyFilter",
             description = "Verifies Applying Filter On The PLP Page",
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"   )
-    public void verifyApplyingFilterOnPLP(String filterCategory,String filterItem){
+    public void verifyApplyingFilterOnPLP(String filterCategory,String filterItem) {
         productListingPageObjects.clickOnFilterButton();
-        // Get the value from filter_new key
+        Random random1 = new Random();
+        int randomCategory = random1.nextInt(productFilterPageObjects.getListOfFilterNames().size());
+        // Select Some Random Filter Parent
+                        productFilterPageObjects.
+                                clickOnFilterName(productFilterPageObjects.
+                                        getListOfFilterNames().get(randomCategory));
+            //productFilterPageObjects.clickOnFilterNameByValue(filterCategory);
 
-        // For Shirts Filter is always based on "Category", "Price" and "Discount"
-                // Select On Category of the filter
-//                        productFilterPageObjects.
-//                                clickOnFilterName(productFilterPageObjects.
-//                                        getListOfFilterNames().get(0));
-        productFilterPageObjects.clickOnFilterNameByValue(filterCategory);
-
-        System.out.println("Current Activity at PLP on Filter is : "+androidDriver.currentActivity());
-
-                        // select Random Item
-                    Random random = new Random();
-                    int index = random.nextInt(productFilterPageObjects.getListOfFilterItems().size());
-                                productFilterPageObjects.
-                                        clickOnFilterItemByValue(filterItem);
-
-        // Click on Apply Filter button
-        productFilterPageObjects.clickOnApplyFilter();
-
+            // select Random Item
+            Random random2 = new Random();
+            int randomValue = random2.nextInt(productFilterPageObjects.getListOfFilterItemCheckBoxes().size());
+//            productFilterPageObjects.
+//                    clickOnFilterItemByValue(filterItem);
+            productFilterPageObjects
+                    .clickOnFilterItemByIndex(productFilterPageObjects.
+                                        getListOfFilterItemCheckBoxes().get(randomValue));
+            // Click on Apply Filter button
+            productFilterPageObjects.clickOnApplyFilter();
     }
+
 
     @Test(groups = {"PLP.verifySelectingItemOnPLP",
             CoreConstants.GROUP_SMOKE},
@@ -121,10 +123,23 @@ public class PLP extends AndroidBaseClass {
             enabled = true,
             description = "Verifies Selecting Item On PLP",
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
-    public void verifySelectingValidSizeItemOnPLP(){
-        String searchTerm = System.getProperty("androidSearchTerm");
-        productListingPageObjects.selectValidProduct(searchTerm);
+    public void verifySelectingValidSizeItemOnPlpToPDP(){
+        try {
+            String searchTerm = PropertyReader.getValueOfKey(PropertyReader.Keys.SEARCH_TERM);
+            productListingPageObjects.selectValidProductToPDP(searchTerm);
+        }catch (Exception e){
+            System.out.println("Exception At VerifySelectingValidSizeItemOnPlpToPDP : While Reading SEARCH_TERM");
+        }
+
     }
+
+
+    public void verifyValidItemAddToCartThroughPLPMain(int qty){
+
+    }
+
+
+
 
     @Test(  groups = {"PLP.verifyApplying/RemovingFilterOnPLP",
             CoreConstants.GROUP_SANITY},
@@ -158,7 +173,9 @@ public class PLP extends AndroidBaseClass {
         productFilterPageObjects.clickOnApplyFilter();
         String totalitem = productListingPageObjects.getTextOnTitleHeader();
 
-        if(totalItem.equalsIgnoreCase(totalitem)){System.out.println(totalItem);System.out.println("Remove Filter Function was verified");
+        if(totalItem.equalsIgnoreCase(totalitem)){
+            System.out.println(totalItem);
+        System.out.println("Remove Filter Function was verified");
         }
     }
 

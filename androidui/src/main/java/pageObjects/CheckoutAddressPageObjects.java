@@ -2,6 +2,7 @@ package pageObjects;
 
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.*;
 import utils.*;
@@ -27,7 +28,7 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[3]/span[2]")
     private WebElement totalItemsCountValue;
 
-    @FindBy(xpath = "(//button[contains(text(),'Proceed to Payment')])[1]")
+    @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
     private WebElement proceedToPaymentButtonTop;
 
     @FindBy(xpath = "(//button[contains(text(),'Proceed to Payment')])[2]")
