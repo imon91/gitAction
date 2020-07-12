@@ -30,6 +30,7 @@ public class CoreConstants {
     public static final String SHOP_UP_NATIVE_VIEW = "NATIVE_APP";
     public static final String CHROME_WEB_VIEW = "WEBVIEW_chrome";
     public static final String SHOP_UP_RESELLER_WEB_VIEW = "WEBVIEW_com.shopup.reseller";
+    public static final String SHOP_UP_MOKAM_WEB_VIEW = "WEBVIEW_com.mokam.app";
 
     /*------Driver Constants----*/
 

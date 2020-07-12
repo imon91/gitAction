@@ -9,6 +9,7 @@ import utils.*;
 
 import java.time.Duration;
 import java.util.*;
+import java.util.NoSuchElementException;
 
 public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
@@ -725,6 +726,96 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
         myActions.action_click(placeOrderButton);
     }
 
+
+    public class NewProductDescriptionObjects{
+
+        private MyActions myActions;
+        private AndroidDriver<WebElement> androidDriver;
+
+        public NewProductDescriptionObjects(AndroidDriver<WebElement> androidDriver){
+            this.myActions = new MyActions();
+            this.androidDriver = androidDriver;
+        }
+
+        // Pager Image
+
+        // Details Product Brand
+
+        // Details Product title
+        private WebElement detailsProductTitle;
+
+        // Details Product Price
+
+        // Details Product Margin
+
+        // Detail Title Variants
+
+        // Text Variant Title
+
+        // Text Variant Price
+
+        // Text Variant Margin
+
+        // Remove From Cart Button
+
+        // Item Count EditText
+        private WebElement itemCountEditText;
+
+        // Add To Cart Button
+        private WebElement addToCartButton;
+
+        // Action Go To Cart Details Button
+        private WebElement actionGoToCartButton;
+
+        // Action Continue Shopping Details
+
+
+        /*--------Actions--------*/
+
+        public String getDetailsProductTitle(){
+            detailsProductTitle =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/details_product_title']");
+            return myActions.action_getText(detailsProductTitle);
+        }
+
+
+        public String getItemCount(){
+            itemCountEditText =
+                    xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/item_count']");
+            return myActions.action_getText(itemCountEditText);
+        }
+
+
+        public void clickOnAddTOCartButton(int qty){
+            addToCartButton =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_to_cart']");
+            for(int i=0;i<qty;i++){
+                myActions.action_click(addToCartButton);
+            }
+        }
+
+
+        public void clickOnActionGotToCartButton(){
+            actionGoToCartButton =
+                    xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/action_goto_cart_details']");
+            myActions.action_click(actionGoToCartButton);
+        }
+
+
+        /*-------Functions--------*/
+
+        public void placeOrderWithOnlyMinimumQuantity(int qty){
+            try {
+                System.out.println("Item Count : "+getItemCount());
+                if(Integer.parseInt(getItemCount())>=1){
+                    clickOnActionGotToCartButton();
+                }
+            }catch (NullPointerException | NoSuchElementException e){
+                clickOnAddTOCartButton(qty);
+            }
+        }
+
+    }
 
 
 
