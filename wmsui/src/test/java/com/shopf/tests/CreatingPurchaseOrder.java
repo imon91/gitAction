@@ -18,8 +18,8 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
     private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
 
     @BeforeClass(alwaysRun = true)
-    public void creatingPurchaseBeforeClass() throws Exception{
-        System.out.println("Creating Purchase Before Class is Called");
+    public void creatingPurchaseOrderBeforeClass() throws Exception{
+        System.out.println("Creating Purchase Order Before Class is Called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
         purchaseOrdersPageObjects = new PurchaseOrdersPageObjects(driver);
@@ -27,13 +27,17 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         purchaseOrderList = new PurchaseOrdersPageObjects(driver).new PurchaseOrderList(driver);
     }
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE), dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
-    public void createPurchaseVerification(){
-        System.out.println("Create Purchase Verification is Called");
+    @Test(groups = (CoreConstants.GROUP_SMOKE),
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Create Purchase Verification")
+    public void createPurchaseOrderVerification(){
+        System.out.println("Create Purchase Order Verification is Called");
         homePageObject.clickPurchaseOrders();
-        sleep(2000);
         createPurchaseOrderTab.enterWarehouseDetails();
         createPurchaseOrderTab.createPurchaseOrder();
+        setImplicitWait(3);
+        String message = homePageObject.getPopUpMessage();
+        System.out.println(message);
         sleep(2000);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(2000);
@@ -42,8 +46,8 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
     }
 
     @AfterClass(alwaysRun = true)
-    public void creatingPurchaseAfterClass(){
-        System.out.println("Creating Purchase After Class is Called");
+    public void creatingPurchaseOrderAfterClass(){
+        System.out.println("Creating Purchase Order After Class is Called");
     }
 
 }

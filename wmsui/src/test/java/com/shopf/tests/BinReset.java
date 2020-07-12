@@ -18,7 +18,7 @@ public class BinReset extends WmsBaseClass {
 
         @BeforeClass(alwaysRun = true)
         public void binResetBeforeClass()throws Exception{
-            System.out.println("Bin In Scan Before Class is called");
+            System.out.println("Bin Reset Before Class is called");
             driver = getBaseDriver();
             homePageObject = new HomePageObject(driver);
             packagesPageObjects = new PackagesPageObjects(driver);
@@ -26,11 +26,12 @@ public class BinReset extends WmsBaseClass {
             packageDetailsTab = packagesPageObjects.new PackageDetailsTab(driver);
         }
 
-        @Test(groups = CoreConstants.GROUP_SMOKE, dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
-        public void verifyBinInScan(){
-            System.out.println("Verify Bin In Scan is called");
+        @Test(groups = CoreConstants.GROUP_SANITY,
+                dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+                description = "Verify Bin Reset")
+        public void verifyBinReset(){
+            System.out.println("Verify Bin Reset is called");
             homePageObject.clickPackages();
-            sleep(1000);
             packagesPageObjects.clickBinResetTab();
             sleep(1000);
             binResetTab.resetBinPass("135972");
@@ -39,10 +40,11 @@ public class BinReset extends WmsBaseClass {
             packagesPageObjects.clickPackageDetailsTab();
             packageDetailsTab.enterPackageID("135972");
             sleep(2000);
+            System.out.println(packageDetailsTab.getCurrentStatus());
         }
 
         @AfterClass(alwaysRun = true)
-        public void binResetAfterClass() throws Exception {
-            System.out.println("Bin In Scan After Class is called");
+        public void binResetAfterClass(){
+            System.out.println("Bin Reset After Class is called");
         }
     }

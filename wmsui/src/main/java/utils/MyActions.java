@@ -17,7 +17,7 @@ public class MyActions extends WmsBaseClass {
     }
 
     public String action_getText(WebElement element){
-        sleep(1000);
+        sleep(300);
         return element.getText();
     }
 

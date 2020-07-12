@@ -25,18 +25,21 @@ public class UpdateBinCapacity extends WmsBaseClass {
         updateBinCapacityTab = warehousesPageObjects.new UpdateBinCapacityTab(driver);
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE,dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = CoreConstants.GROUP_SANITY,
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Verify Update Bin Capacity")
     public void verifyUpdateBinCapacity(){
-        System.out.println("verify Update Bin Capacity is called");
+        System.out.println("Verify Update Bin Capacity is called");
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickUpdateBinCapacityTab();
+        sleep(1000);
         updateBinCapacityTab.updateBinCapacity("W100F2R1C1RA4B71","20");
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
     }
 
     @AfterClass(alwaysRun = true)
-    public void updateBinCapacityAfterClass() throws Exception {
+    public void updateBinCapacityAfterClass(){
         System.out.println("Update Bin Capacity After Class is called");
     }
     }

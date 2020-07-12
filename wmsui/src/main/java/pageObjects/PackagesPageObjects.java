@@ -246,28 +246,28 @@ public class PackagesPageObjects {
 
         /*--------------Functions-------------------*/
         public String getPackageID() {
-            String packageIDXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[1]/text()[2]";
+            String packageIDXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[1]";
             WebElement packageID = driver.findElement(By.xpath(packageIDXpath));
             String packageIDText = myActions.action_getText(packageID);
             return packageIDText;
         }
 
         public String getCurrentStatus() {
-            String currentStatusXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[2]/text()[2]";
+            String currentStatusXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[2]";
             WebElement currentStatus = driver.findElement(By.xpath(currentStatusXpath));
             String currentStatusText = myActions.action_getText(currentStatus);
             return currentStatusText;
         }
 
         public String getSkuCode() {
-            String skuCodeXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[3]/text()[2]";
+            String skuCodeXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[3]";
             WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
             String skuCodeText = myActions.action_getText(skuCode);
             return skuCodeText;
         }
 
         public String getSellerName() {
-            String sellerNameXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[4]/text()[2]";
+            String sellerNameXpath = "//div[@id='PackageDetail']/div[1]/div[2]/div[4]";
             WebElement sellerName = driver.findElement(By.xpath(sellerNameXpath));
             String sellerNameText = myActions.action_getText(sellerName);
             return sellerNameText;

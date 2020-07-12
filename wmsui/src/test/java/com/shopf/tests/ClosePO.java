@@ -27,25 +27,27 @@ public class ClosePO extends WmsBaseClass {
         editPurchaseOrder = new PurchaseOrdersPageObjects(driver).new EditPurchaseOrder(driver);
     }
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = (CoreConstants.GROUP_SMOKE),
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Close PO Verification")
     public void closePOVerification(){
         System.out.println("Close PO Verification is called");
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(2000);
+        sleep(1000);
         int i,total = purchaseOrderList.getTotalPurchaseOrders();
         for(i=1;i <= total;i++)
             if(!purchaseOrderList.getStatus(i).equalsIgnoreCase("CLOSED"))
                 if(!purchaseOrderList.getStatus(i).equalsIgnoreCase("RECEIVED"))
                     break;
         String poId = purchaseOrderList.getPOID(i);
-        sleep(2000);
         purchaseOrdersPageObjects.clickEditPurchaseOrderTab();
-        sleep(2000);
         editPurchaseOrder.poIdInput(poId);
-        sleep(2000);
+        sleep(1000);
         editPurchaseOrder.clickClosePOButton();
-        sleep(3000);
+        setImplicitWait(3);
+        String message = homePageObject.getPopUpMessage();
+        System.out.println(message);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
 
     }

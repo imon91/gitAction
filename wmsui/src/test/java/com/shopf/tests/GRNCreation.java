@@ -26,12 +26,14 @@ public class GRNCreation extends WmsBaseClass {
         createGRNTab = new PurchaseOrdersPageObjects(driver).new CreateGRNTab(driver);
     }
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
+    @Test(groups = (CoreConstants.GROUP_SMOKE),
+            dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
+            description = "Create GRN Verification")
     public void createGRNVerification(){
-        System.out.println("Close PO Verification is called");
+        System.out.println("Create GRN Verification is called");
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(2000);
+        sleep(1000);
         int i,total = purchaseOrderList.getTotalPurchaseOrders();
         for(i=1;i <= total;i++)
             if(purchaseOrderList.getStatus(i).equalsIgnoreCase("CREATED"))
@@ -42,7 +44,9 @@ public class GRNCreation extends WmsBaseClass {
         createGRNTab.poIDEntry(poId);
         sleep(2000);
         createGRNTab.clickGRNButton();
-        sleep(2000);
+        setImplicitWait(3);
+        String message = homePageObject.getPopUpMessage();
+        System.out.println(message);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(2000);
     }
