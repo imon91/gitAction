@@ -39,17 +39,16 @@ public class VerifyItemInPDPPage extends WebBaseClass {
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"PDP.VerifyItemInPDP",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("PLP.VerifySelectiongValidSizeProduct"))
     public void VerifyItemInPDP_Page() {
         System.out.println("VerifyItemInPDP_Page is called");
-        String productNameInPLP = plpPageObject.productName3();
-        plpPageObject.clickOnProduct3();
+        String productNameInPLP = System.getProperty("productNameInPLP");
         String productNameInPDP = pdpPageObject.getProductName();
         if(productNameInPLP.equalsIgnoreCase(productNameInPDP)){
             System.out.println("ProductWasVerified");
         }
-       //Assert.assertEquals(productNameInPDP,productNameInPLP);
 
     }
 

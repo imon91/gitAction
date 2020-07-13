@@ -15,6 +15,10 @@ public class PDP extends AndroidBaseClass {
     private ProductDescriptionPageObjects.PDPTutorial pdpTutorial;
     private ProductDescriptionPageObjects.BottomSheetHolder bottomSheetHolder;
     private ActionBarObjects actionBarObjects;
+    private ProductDescriptionPageObjects.NewProductDescriptionObjects newProductDescriptionObjects;
+    private String plp_view;
+    private final String NEW_PLP_VIEW = "New";
+    private final String OLD_PLP_VIEW = "Old";
 
 
 
@@ -27,7 +31,11 @@ public class PDP extends AndroidBaseClass {
         pdpTutorial = productDescriptionPageObjects.new PDPTutorial(androidDriver);
         bottomSheetHolder = productDescriptionPageObjects.new BottomSheetHolder(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
-        pdpTutorial.clickOnGotItButton();
+        newProductDescriptionObjects = productDescriptionPageObjects.new NewProductDescriptionObjects(androidDriver);
+        plp_view = new ProductListingPageObjects(androidDriver).plpView;
+        if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
+            pdpTutorial.clickOnGotItButton();
+        }
     }
 
 
@@ -124,27 +132,22 @@ public class PDP extends AndroidBaseClass {
             description = "Verifies Applying Product To Cart/Bag",
             dependsOnMethods = "verifyImageZoomOfProduct"  )
     public void verifyPlaceOrderThroughPDP(){
-        //sleep(5000);
-        /*productDescriptionPageObjects.clickOnPlaceOrderButton();
-        //sleep(3000);
-        productDescriptionPageObjects.
-                selectGivenSizeFromSizeList(Integer.parseInt(System.getProperty("validProductSizeIndex")));
-//        Random random = new Random();
-//        int count = random.nextInt(10);
-//        System.out.println("Count is : "+count);
-        // Enter Amount
-        sleep(3000);*/
-        sleep(3000);
-        productDescriptionPageObjects.clickOnPlaceOrderButton();
-        sleep(1000);
-        productDescriptionPageObjects.
-                selectGivenSizeFromSizeList(Integer.parseInt(System.getProperty("validProductSizeIndex")));
-        sleep(1000);
-        //Enter Sale Price
-        bottomSheetHolder.enterSalePriceEditText(System.getProperty("minSalePrice"));
-        sleep(1000);
-        // Click on PlaceOrder
-        productDescriptionPageObjects.clickOnPlaceOrderButton();
+        if(plp_view.equalsIgnoreCase(NEW_PLP_VIEW)){
+            newProductDescriptionObjects.clickOnAddTOCartButton(1);
+            newProductDescriptionObjects.clickOnActionGotToCartButton();
+        }else {
+            sleep(3000);
+            productDescriptionPageObjects.clickOnPlaceOrderButton();
+            sleep(1000);
+            productDescriptionPageObjects.
+                    selectGivenSizeFromSizeList(Integer.parseInt(System.getProperty("validProductSizeIndex")));
+            sleep(1000);
+            //Enter Sale Price
+            bottomSheetHolder.enterSalePriceEditText(System.getProperty("minSalePrice"));
+            sleep(1000);
+            // Click on PlaceOrder
+            productDescriptionPageObjects.clickOnPlaceOrderButton();
+        }
     }
 
 

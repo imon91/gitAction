@@ -308,12 +308,13 @@ public class MyBag extends AndroidBaseClass {
             dependsOnMethods = "verifyPlaceOrderInMyBag"  )
     public void verifySelectAddressInMyBag(){
         System.out.println("Address List is : "+selectAddress.getListOfVisibleAddress().size());
-        if(selectAddress.getListOfVisibleAddress().size()>1){
-            selectAddress.clickOnShowMoreAddress();
-            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(1));
-        }else {
-            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(0));
-        }
+        selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(1));
+//        if(selectAddress.getListOfVisibleAddress().size()>1){
+//            selectAddress.clickOnShowMoreAddress();
+//            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(1));
+//        }else {
+//            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(0));
+//        }
 
     }
 
@@ -374,7 +375,7 @@ public class MyBag extends AndroidBaseClass {
             dependsOnMethods = "verifyDeleteProductInEstimatedDeliveryPage"  )
     public void verifyCheckoutProceedInMyBag(){
         sleep(5000);
-        checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
+        checkoutAddressPageObjects.clickOnProceedToPaymentTopButton();
     }
 
 
@@ -384,7 +385,7 @@ public class MyBag extends AndroidBaseClass {
             description = "Verify Proceed Payment Without Change Address",
             dependsOnMethods = "verifyCheckoutProceedInMyBag"  )
     public void verifyProceedPaymentWithoutChangeAddress(){
-        sleep(10000);
+        sleep(3000);
         paymentModePageObjects.proceedPaymentWithoutChangeAddressThroughTopButton();
         sleep(3000);
     }

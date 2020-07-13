@@ -34,23 +34,18 @@ public class BagVerification extends WebBaseClass {
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"Bag.VerifyBag",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("PDP.ProductOrderThroughPDP"))
     public void bagVerification() throws InterruptedException {
         System.out.println("bagVerification is called");
-        bagPageObjects.enterQuantity(2);
-        sleep(2000);
-        bagPageObjects.enterCustomPrice();
-        bagPageObjects.enterCustomPrice("500");
-        bagPageObjects.saveCustomPrice();
-        sleep(2000);
+//        bagPageObjects.getMinimumAmountOfProduct(0);
+//        sleep(2000);
+//        bagPageObjects.enterQuantity(2,1);
+//        sleep(3000);
         bagPageObjects.enterDeliveryCharge("60");
         bagPageObjects.saveDeliveryCharge();
-        sleep(2500);
-        bagPageObjects.clickOnCouponButton();
-        bagPageObjects.enterCouponText("RESELLER_15");
-        bagPageObjects.clickOnApplyCoupon();
-        sleep(2500);
+        sleep(3000);
         bagPageObjects.clickOnPlaceOrder();
         sleep(2000);
     }

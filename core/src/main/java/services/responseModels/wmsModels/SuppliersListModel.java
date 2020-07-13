@@ -59,8 +59,8 @@ public class SuppliersListModel {
         this.email = email;
     }
 
-    public long getPhone() {
-        return phone;
+    public String getPhone() {
+        return String.valueOf(phone);
     }
 
     public void setPhone(long phone) {

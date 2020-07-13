@@ -1,7 +1,6 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import utils.WmsBaseClass;
@@ -11,8 +10,6 @@ public class Login extends WmsBaseClass {
 
     private WebDriver driver;
     private LoginPageObject loginPageObject;
-
-
 
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception{
@@ -40,8 +37,11 @@ public class Login extends WmsBaseClass {
         };
     }
 
-
-    @Test (groups = {CoreConstants.GROUP_SMOKE, "Login.verifyAuthenticationWithValidCredentials"},
+    @Test (groups = {CoreConstants.GROUP_SMOKE,
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION,
+            CoreConstants.GROUP_FUNCTIONAL,
+            "Login.verifyAuthenticationWithValidCredentials"},
             description = "Verify Authentication with Valid Credentials",
             dataProvider = "getUserAuthenticationData"
     )

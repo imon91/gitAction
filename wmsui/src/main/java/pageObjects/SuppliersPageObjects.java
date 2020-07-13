@@ -24,7 +24,7 @@ public class SuppliersPageObjects {
     private WebElement migrateSellerTab;
 
     //Migrate Seller Tab
-    @FindBy(xpath = "//a[text()='Migrate Seller']")
+    @FindBy(xpath = "//a[text()='Suppliers List']")
     private WebElement suppliersListTab;
 
     //Sellers List Tab

@@ -8,7 +8,13 @@
                 </run>
             </groups>
             <classes>
-
+                <class name="com.shopf.tests.Login"></class>
+                <class name="com.shopf.tests.WarehouseList"></class>
+                <class name="com.shopf.tests.PurchaseOrderList"></class>
+                <class name="com.shopf.tests.AllPickLists"></class>
+                <class name="com.shopf.tests.SuppliersList"></class>
+                <class name="com.shopf.tests.PackagesList"></class>
+                <class name="com.shopf.tests.WarehouseBinDetail"></class>
             </classes>
         </test>
 </suite>

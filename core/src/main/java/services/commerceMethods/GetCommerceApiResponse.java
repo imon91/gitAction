@@ -47,8 +47,6 @@ public class GetCommerceApiResponse {
         if (!module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             response = shopUpPostMan.
                     getCall(EndPoints.SEARCH_FOR_USER + "term=" + searchName + "&limit=24&page=1");
-            Generic generic =
-                    gson.fromJson(response.getBody().asString(), Generic.class);
 
             /*------- Category-----*/
             HashMap<String, List<String>> categoryMap = new HashMap<>();
@@ -189,6 +187,52 @@ public class GetCommerceApiResponse {
     }
 
 
+    public Map<String,Object> getValidProductWithFilterAndSortApplied(String searchTerm,String filterKey,
+                                                        String filterId,String sortIndex) {
+
+        // Sample : ?page=1&filter_category[]=2160&filter_sort[]=3
+        String createdFilter = null;
+        String createdSort = "filter_sort[]";
+        switch (filterKey.toLowerCase()) {
+            case "category":
+                createdFilter = "filter_category[]";
+                break;
+            case "price":
+                createdFilter = "filter_price[]";
+                break;
+            case "discount":
+                createdFilter = "filter_discount[]";
+                break;
+        }
+        Map<String, Object> productDetailsMap = new HashMap<>();
+        for (int k = 1; k < 10; k++) {
+            response = shopUpPostMan.
+                    getCall(EndPoints.SEARCH_FOR_USER +
+                            "term=" + searchTerm +
+                            "&page="+k+"&" + createdFilter + "=" + filterId + "&" + createdSort + "=" + sortIndex);
+            //response.then().log().all();
+            ProductListingResultsModel productListingResultsModel =
+                    gson.fromJson(response.getBody().asString(), ProductListingResultsModel.class);
+            for (int i = 0; i < productListingResultsModel.getResults().size(); i++) {
+                List<ProductListingResultsModel.ResultsBean.SizesBean> productSizes =
+                        productListingResultsModel.getResults().get(i).getSizes();
+                for (int j = 0; i < productSizes.size(); j++) {
+                    if (productSizes.get(j).getCount_on_hand() > 0 &&
+                            productSizes.get(j).getCorrected_count_on_hand() > 0) {
+                        // This is a product with valid
+                        productDetailsMap.put("ValidProductIndex", i);
+                        productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
+                        productDetailsMap.put("ValidSizeIndex", j);
+                        return productDetailsMap;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+
+
     public void getProductWithInValidSize(){
 
     }
@@ -304,5 +348,6 @@ public class GetCommerceApiResponse {
         }
         return codNotAvailableItemIndices;
     }
+
 
 }

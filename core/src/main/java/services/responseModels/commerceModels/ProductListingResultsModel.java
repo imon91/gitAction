@@ -139,6 +139,16 @@ public class ProductListingResultsModel {
         private List<SizesBean> sizes;
         private List<?> video;
 
+        public int getPlp_view_type() {
+            return plp_view_type;
+        }
+
+        public void setPlp_view_type(int plp_view_type) {
+            this.plp_view_type = plp_view_type;
+        }
+
+        private int plp_view_type;
+
         public String getActivity_object_id() {
             return activity_object_id;
         }
