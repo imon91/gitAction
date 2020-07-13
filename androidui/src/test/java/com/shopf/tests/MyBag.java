@@ -4,6 +4,7 @@ import coreUtils.*;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
@@ -20,6 +21,7 @@ public class MyBag extends AndroidBaseClass {
     private MyBagPageObjects.CreditsAndCoupons creditsAndCoupons;
     private CheckoutAddressPageObjects checkoutAddressPageObjects;
     private CheckoutAddressPageObjects.SelectAddress selectAddress;
+    private CheckoutAddressPageObjects.SelectAddress.AddressField addressField;
     private PaymentModePageObjects paymentModePageObjects;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates estimatedDeliveryDates;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates.EstimatedDeliveryDatesItems estimatedDeliveryDatesItems;
@@ -41,6 +43,7 @@ public class MyBag extends AndroidBaseClass {
         creditsAndCoupons = myBagPageObjects.new CreditsAndCoupons(androidDriver);
         checkoutAddressPageObjects = new CheckoutAddressPageObjects(androidDriver);
         selectAddress = checkoutAddressPageObjects.new SelectAddress(androidDriver);
+        addressField = selectAddress.new AddressField(androidDriver);
         paymentModePageObjects = new PaymentModePageObjects(androidDriver);
         estimatedDeliveryDates = checkoutAddressPageObjects.new EstimatedDeliveryDates(androidDriver);
         estimatedDeliveryDatesItems = estimatedDeliveryDates.new EstimatedDeliveryDatesItems(androidDriver);
@@ -58,8 +61,6 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(  groups = {"MyBag.verifyItemIncrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_SMOKE,
-            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "Verify ItemIncrement Functionality On MyBag",
@@ -82,9 +83,156 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
+    @Test(  groups = {"MyBag.verifyItemDecrementFunctionalityOnMyBag",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyItemDecrementFunctionalityOnMyBag(){
+        int containersSize = itemContainer.getListOfItemContainers();
+        System.out.println("List Of Item Containers is : "+containersSize);
+        if(containersSize>0){
+            Random random = new Random();
+            int count = random.nextInt(containersSize)+1;
+            System.out.println("Count is : "+count);
+            System.out.println("Container Selected is : "+count);
+            System.out.println("List of Subtract Qt Button is : "+
+                    itemContainer.getListOfSubQuantityButton().size());
+            int quantity = Integer.parseInt(myActions.action_getText(itemContainer.getListOfItemQuantityValues().get(count-1)));
+            if(quantity > 1) {
+                itemContainer.clickOnSubQuantityButton(itemContainer.getListOfSubQuantityButton().get(count - 1));
+            }
+            else{
+                System.out.println("Only Minimum Quantity Present in Bag");
+            }
+        }
+    }
+
+
+    @Test(  groups = {"MyBag.selectSizeInMyBag",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void selectSizeInMyBag(){
+        int containersSize = itemContainer.getListOfItemContainers();
+        System.out.println("List Of Item Containers is : "+containersSize);
+        if(containersSize>0){
+            Random random = new Random();
+            int count = random.nextInt(containersSize)+1;
+            System.out.println("Count is : "+count);
+            System.out.println("Container Selected is : "+count);
+            System.out.println("List of Size Selectors :"+itemContainer.getListOfSizeSelectors().size());
+            myActions.action_click(itemContainer.getDropDownOfSizes().get(count-1));
+            System.out.println("No.Of Sizes available : "+itemContainer.getListOfSizes().size());
+            int sizeIndex = Integer.parseInt(System.getProperty("validProductSizeIndex"));
+            System.out.println("Selected size is "+itemContainer.selectedSize(sizeIndex));
+            myActions.action_click(itemContainer.getListOfSizes().get(sizeIndex));
+        }
+    }
+
+
+    @Test(  groups = {"MyBag.verifyEarningsPerItem",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyEarningsPerItem(){
+        int containersSize = itemContainer.getListOfItemContainers();
+        System.out.println("List Of Item Containers is : "+containersSize);
+        if(containersSize>0) {
+            int salePrice = 0;
+            Random random = new Random();
+            int count = random.nextInt(containersSize) + 1;
+            System.out.println("Count is : " + count);
+            System.out.println("Container Selected is : " + count);
+            int earnings = Integer.parseInt(itemContainer.getEaringsPerItemAmountText(count));
+            int price = Integer.parseInt(itemContainer.getItemPriceText(count));
+            int quantity = Integer.parseInt(myActions.action_getText(itemContainer.getListOfItemQuantityValues().get(count-1)));
+            if(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)).isEmpty()) {
+                salePrice = Integer.parseInt(System.getProperty("minSalePrice"));
+                System.out.println(salePrice);
+            } else{
+                salePrice = Integer.parseInt(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)));
+                System.out.println(salePrice);
+            }
+            Assert.assertEquals((quantity*salePrice)-price,earnings);
+            System.out.println("Earnings per Item is working properly");
+        }
+    }
+
+
+    @Test(  groups = {"MyBag.verifyTotalEarnings",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyTotalEarnings(){
+        int containersSize = itemContainer.getListOfItemContainers();
+        System.out.println("List Of Item Containers is : "+containersSize);
+        int totalEarningsCalculated = 0,deliveryCharges = 0;
+        for(int i = 1;i<=containersSize;i++){
+            int earnings = Integer.parseInt(itemContainer.getEaringsPerItemAmountText(i));
+            totalEarningsCalculated += earnings;
+        }
+        if(myActions.action_getText(xpathSetter("//input[@id='deliveryCharge1']")).isEmpty()){
+            deliveryCharges = 49;
+        }else{
+            deliveryCharges = Integer.parseInt(creditsAndCoupons.getDeliveryChargesText());
+        }
+        totalEarningsCalculated += (deliveryCharges-49);
+        int totalEarnings = Integer.parseInt(creditsAndCoupons.getYourTotalEarningsAmount());
+        Assert.assertEquals(totalEarningsCalculated,totalEarnings);
+        System.out.println("Total Eanings is working properly");
+    }
+
+
+    @Test(  groups = {"MyBag.verifyOrderValuePerItem",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyOrderValuePerItem(){
+        int containersSize = itemContainer.getListOfItemContainers();
+        System.out.println("List Of Item Containers is : "+containersSize);
+        if (containersSize>0){
+            int salePrice = 0;
+            Random random = new Random();
+            int count = random.nextInt(containersSize) + 1;
+            System.out.println("Count is : " + count);
+            System.out.println("Container Selected is : " + count);
+            int orderValue = Integer.parseInt(itemContainer.getOrderValuePerItemAmountText(count));
+            int quantity = Integer.parseInt(myActions.action_getText(itemContainer.getListOfItemQuantityValues().get(count-1)));
+            if(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)).isEmpty()) {
+                salePrice = Integer.parseInt(System.getProperty("minSalePrice"));
+                System.out.println(salePrice);
+            } else{
+                salePrice = Integer.parseInt(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)));
+                System.out.println(salePrice);
+            }
+            Assert.assertEquals(quantity*salePrice,orderValue);
+            System.out.println("Order value per Item is working properly");
+        }
+    }
+
+
+    @Test(  groups = {"MyBag.verifyCartValue",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyCartValue(){
+        int containersSize = itemContainer.getListOfItemContainers();
+        System.out.println("List Of Item Containers is : "+containersSize);
+        int orderValueCalculated = 0,deliveryCharges=0,orderValueForAllItems=0;
+        for (int i =1;i<=containersSize;i++){
+            int orderValue = Integer.parseInt(itemContainer.getOrderValuePerItemAmountText(i));
+            orderValueForAllItems += orderValue;
+            System.out.println(orderValueForAllItems);
+        }
+        if(myActions.action_getText(xpathSetter("//input[@id='deliveryCharge1']")).isEmpty()){
+            deliveryCharges = 49;
+        }else{
+            deliveryCharges = Integer.parseInt(creditsAndCoupons.getDeliveryChargesText());
+        }
+        orderValueCalculated = orderValueForAllItems + deliveryCharges;
+        System.out.println(orderValueCalculated);
+        int orderValue = Integer.parseInt(creditsAndCoupons.getCartTotalValue());
+        Assert.assertEquals(orderValueCalculated,orderValue);
+        System.out.println("Total order value is working properly");
+    }
+
+
     @Test(  groups = {"MyBag.verifyDeleteItemFromMyBag",
             CoreConstants.GROUP_SMOKE,
-            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "Verify Delete Item From MyBag",
@@ -108,7 +256,6 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(   groups = {"MyBag.verifyMinAndMaxSalePrice",
              CoreConstants.GROUP_SANITY,
-             CoreConstants.GROUP_FUNCTIONAL,
              CoreConstants.GROUP_REGRESSION},
             enabled = true,
              description = "verify Min and Max Sale Price",
@@ -119,10 +266,17 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.verifyApplyingShippingCharges",
-            CoreConstants.GROUP_SMOKE,
+    @Test(  groups = {"MyBag.couponApply",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_FUNCTIONAL,
+            CoreConstants.GROUP_REGRESSION})
+    public void couponApply(){
+        String coupon = "";
+        creditsAndCoupons.enterCoupon(coupon);
+    }
+
+
+    @Test(  groups = {"MyBag.verifyApplyingShippingCharges",
+            CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             description = "Verify Applying Shipping Charges From MyBag",
             dependsOnMethods = "verifyMinAndMaxSalePrice"  )
@@ -137,9 +291,7 @@ public class MyBag extends AndroidBaseClass {
 
 
     @Test(  groups = {"MyBag.verifyPlaceOrderInMyBag",
-            CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verify Place Order From MyBag",
             dependsOnMethods = "verifyApplyingShippingCharges"  )
@@ -149,9 +301,7 @@ public class MyBag extends AndroidBaseClass {
 
 
     @Test(  groups = {"MyBag.verifySelectAddressInMyBag",
-            CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "Verify Select Address From MyBag",
@@ -168,10 +318,38 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.verifyDeleteProductInAddressPage",
-            CoreConstants.GROUP_SMOKE,
+    @Test(  groups = {"MyBag.verifyEditAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_FUNCTIONAL,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyEditAddress(){
+        int addressListSize = selectAddress.getListOfVisibleAddress().size();
+        System.out.println("Address List is : "+addressListSize);
+        Random random = new Random();
+        int count = random.nextInt(addressListSize)+1;
+        System.out.println("Address selected is : "+count);
+        System.out.println("List of Edit Address Button is :"+addressField.getListOfEditAddressButtons().size());
+        addressField.clickOnEditAddressButton(addressField.getListOfEditAddressButtons().get(count-1));
+    }
+
+
+    @Test(  groups = {"MyBag.verifyDeleteAddress",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyDeleteAddress(){
+        int addressListSize = selectAddress.getListOfVisibleAddress().size();
+        System.out.println("Address List is : "+addressListSize);
+        if (addressListSize>0) {
+            Random random = new Random();
+            int count = random.nextInt(addressListSize) + 1;
+            System.out.println("Address selected is : " + count);
+            System.out.println("List of Delete Address Button is :" + addressField.getListOfDeleteButtons().size());
+            addressField.clickOnDeleteAddressButton(addressField.getListOfDeleteButtons().get(count - 1));
+        }
+    }
+
+
+    @Test(  groups = {"MyBag.verifyDeleteProductInAddressPage",
+            CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "verify Delete Product",
@@ -190,9 +368,7 @@ public class MyBag extends AndroidBaseClass {
 
 
     @Test(  groups = {"MyBag.verifyCheckoutProceedInMyBag",
-            CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verify Checkout Proceed From MyBag",
             dependsOnMethods = "verifyDeleteProductInEstimatedDeliveryPage"  )
@@ -204,7 +380,6 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(  groups = {"MyBag.verifyProceedPaymentWithoutChangeAddress",
             CoreConstants.GROUP_SMOKE,
-            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verify Proceed Payment Without Change Address",
             dependsOnMethods = "verifyCheckoutProceedInMyBag"  )
@@ -218,7 +393,6 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(  groups = {"MyBag.verifyProceedPaymentWithChangeAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verify Proceed Payment With Change Address",
             dependsOnMethods = "verifyCheckoutProceedInMyBag"  )
