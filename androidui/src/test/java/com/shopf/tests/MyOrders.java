@@ -13,6 +13,9 @@ import java.util.*;
 
 public class MyOrders extends AndroidBaseClass {
 
+
+
+
     private AndroidDriver<WebElement> androidDriver;
     private MyOrdersPageObjects myOrdersPageObjects;
     private MyOrdersPageObjects.OrderDetails orderDetails;
@@ -21,6 +24,9 @@ public class MyOrders extends AndroidBaseClass {
     private Random random;
     private TouchAction touchAction;
     private ActionBarObjects actionBarObjects;
+    private MyOrderDetailsPageObject myOrderDetailsPageObject;
+
+
 
     @BeforeClass(alwaysRun = true)
     public void myOrdersBeforeClass() throws Exception{
@@ -36,6 +42,7 @@ public class MyOrders extends AndroidBaseClass {
         myOrdersPageObjects.clickOnCompleteTabItem();
         sleep(1000);
         myOrdersPageObjects.clickOnActiveTabItem();
+        myOrderDetailsPageObject = new MyOrderDetailsPageObject(androidDriver);
         // This Block is responsible to get the control from anywhere to MyOrders
         //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
     }
@@ -85,6 +92,7 @@ public class MyOrders extends AndroidBaseClass {
         //System.out.println(androidDriver.findElementByXPath("//div[@class='flex___1bJDE middle___1jEMZ']/p[1]").getText());
     }
 
+
     @Test(  groups = {"MyOrders.verifyCancellingAnOrderFromMyOrders",
             CoreConstants.GROUP_SANITY},
             description = "Verify Cancelling An Order From MyOrders"  )
@@ -122,10 +130,62 @@ public class MyOrders extends AndroidBaseClass {
     }
 
 
+    @Test(groups ={ "MyOrder.VerifyFilterInMyorder",
+            CoreConstants.GROUP_REGRESSION},
+    description = "Verifying filter In MyOrderPage",
+   dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyFilterInMyOrder()
+    {
+        switchFromWebToNative();
+        myOrderDetailsPageObject.applyFilterFunction(5);
+    }
+
+
+    @Test(groups ={ "MyOrder.VerifySortInMyorder",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifying sort In MyOrderPage",
+            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifySortInMyOrder()
+    {
+        switchFromWebToNative();
+        sleep(2000);
+        myOrderDetailsPageObject.clickOnSortButton();
+        System.out.println("clicked sort");
+        sleep(3000);
+        myOrderDetailsPageObject.applySortFunctionality(1);
+    }
+
+
+    @Test(groups ={ "MyOrder.VerifySearchInMyorder",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifying search In MyOrderPage",
+            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifySearchInMyOrder()
+    {
+        switchFromWebToNative();
+        sleep(2000);
+        myOrderDetailsPageObject.searchToOrderId("R4088980146");
+        orderDetails.getListOfOrderItems();
+        sleep(1000);
+        myOrderDetailsPageObject.clickOnOrderById("R4088980146");
+        sleep(5000);
+
+        //get id after clicking Orderid
+        String orderid = myOrderDetailsPageObject.getOrderIdAfterClickingOnOrder();
+        System.out.println(orderid);
+
+        if(orderid.equalsIgnoreCase("R4088980146"))
+        {
+            System.out.println("MyOrder Sort Functionality was verified");
+        }
+    }
+
 
     @AfterClass(alwaysRun = true)
     public void myOrdersAfterClass(){
         System.out.println("MyOrdersAfterClass is called");
     }
+
+
 
 }
