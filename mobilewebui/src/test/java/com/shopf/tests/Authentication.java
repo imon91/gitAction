@@ -53,9 +53,9 @@ public class Authentication extends WebAppBaseClass {
             dataProvider = "getUserAuthenticationData" )
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
-        bottomnavigationobject.clickOnBottomBarMyShopIcon();
+        bottomnavigationobject.clickOnBottomBarMyOrdersIcon();
         homepageobject.login("1877755590","666666");
-        sleep(3000);
+        sleep(1000);
     }
 
 

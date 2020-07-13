@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Random;
 
 public class CheckoutPageObjects extends WebAppBaseClass {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
     TouchAction touch;
@@ -118,9 +118,9 @@ public class CheckoutPageObjects extends WebAppBaseClass {
      //sleep(2000);
      //EnterChangeofCustomPrice("500");
      EnterDeliveryCharge("60");
-     sleep(1000);
+     //sleep(1000);
      clickOnSaveDeliveryCharge();
-     sleep(1000);
+     sleep(2000);
      //touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
      myActions.scrollVerticallyToElement("//div[@class='proceed-checkout text-center place-order']");
      clickOnPlaceOrder();

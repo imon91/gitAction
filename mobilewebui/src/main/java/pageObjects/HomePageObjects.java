@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Random;
 
 public class HomePageObjects extends WebAppBaseClass {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
     private String app;

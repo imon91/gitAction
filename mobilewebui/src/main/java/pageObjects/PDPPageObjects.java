@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class PDPPageObjects extends WebAppBaseClass {
 
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
 

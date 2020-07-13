@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class PLPPageObjects extends WebAppBaseClass {
 
-        private AndroidDriver<WebElement> driver = getBaseDriver();
+        private AndroidDriver<WebElement> driver;
         private MyActions myActions;
         private Random random;
         private ServiceRequestLayer serviceRequestLayer;
@@ -360,10 +360,10 @@ public class PLPPageObjects extends WebAppBaseClass {
              }
 
 
-             String productXpath = "//div[@class='feed-grid-container']/ul/li";
-             List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
 
              public int chooseProductFromFeed(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String product;
                  int productid;
                  if (feedid != 0) {
@@ -381,6 +381,8 @@ public class PLPPageObjects extends WebAppBaseClass {
 
 
              public String nameOfProduct(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String productName;
                  if (feedid != 0) {
                      productName = productXpath + "[" + feedid + "]/div//div[@class='productNameContainer___M7bIM']/p";
@@ -395,6 +397,8 @@ public class PLPPageObjects extends WebAppBaseClass {
 
 
              public String price(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String price;
                  if (feedid != 0) {
                      price = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[1]";
@@ -409,6 +413,8 @@ public class PLPPageObjects extends WebAppBaseClass {
 
 
              public String oldPrice(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String oldPrice;
                  if (feedid != 0) {
                      oldPrice = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/del/span";
@@ -423,6 +429,8 @@ public class PLPPageObjects extends WebAppBaseClass {
 
 
              public String discount(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String discount;
                  if (feedid != 0) {
                      discount = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[2]";
