@@ -63,7 +63,7 @@ public class CheckoutPageObjects extends WebAppBaseClass {
     private WebElement ContinueShoppingButton;
 
     //Place Order
-    @FindBy(xpath = "//div[@class='proceed-checkout text-center place-order']")
+    @FindBy(xpath = "(//a[@href='/checkout/address']//button)[2]")
     private WebElement PlaceOrderButton;
 
     // Cart Value Container
@@ -122,7 +122,7 @@ public class CheckoutPageObjects extends WebAppBaseClass {
      clickOnSaveDeliveryCharge();
      sleep(2000);
      //touch.press(PointOption.point(0,400)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
-     myActions.scrollVerticallyToElement("//div[@class='proceed-checkout text-center place-order']");
+     myActions.scrollVerticallyToElement("(//a[@href='/checkout/address']//button)[2]");
      clickOnPlaceOrder();
  }
 
