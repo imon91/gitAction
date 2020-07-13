@@ -38,7 +38,7 @@ public class AddressPageObjects extends WebAppBaseClass {
     private WebElement home;
 
     //ProceedToPayment
-    @FindBy(xpath = "//button[@type='submit']")
+    @FindBy(xpath = "//div[@class='textalgin___39kYz']//button")
     private WebElement ProceedToPaymentButton;
 
     //selectAddress
@@ -114,7 +114,7 @@ public class AddressPageObjects extends WebAppBaseClass {
     private WebElement CashOnDelivery;
 
     //makepayment
-    @FindBy(xpath = "//div[@class='proceed-checkout text-center']")
+    @FindBy(xpath = "//div[@class='textalgin___6gooG']//button")
     private WebElement MakePayment;
 
     //CODnotAvailable

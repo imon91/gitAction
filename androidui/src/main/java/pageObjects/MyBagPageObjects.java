@@ -119,10 +119,40 @@ public class MyBagPageObjects extends AndroidBaseClass {
         }
 
 
+        public String getItemPriceText(int index){
+            String withTakeSymbol = myActions.action_getText(getListOfItemPrices().get(index-1));
+            System.out.println(withTakeSymbol);
+            String[] splitAmount = withTakeSymbol.split(" ");
+            return splitAmount[1];
+        }
+
+
         public List<WebElement> getListOfSizeSelectors(){
             String sizeSelectorXpath = itemContainerPath+"/div[2]/div[1]";
             List<WebElement> sizeSelectorList = androidDriver.findElements(By.xpath(sizeSelectorXpath));
             return sizeSelectorList;
+        }
+
+
+        public List<WebElement> getDropDownOfSizes(){
+            String sizeSelectorXpath = itemContainerPath+"/div[2]/div[1]//div";
+            List<WebElement> sizeSelectorDropDown = androidDriver.findElements(By.xpath(sizeSelectorXpath));
+            return sizeSelectorDropDown;
+        }
+
+
+        public List<WebElement> getListOfSizes(){
+            String sizeXpath = "//div[@class='modal-body']//p";
+            List<WebElement> sizeList = androidDriver.findElements(By.xpath(sizeXpath));
+            return sizeList;
+        }
+
+
+        public String selectedSize(int sizeIndex){
+            String sizeXpath = "//div[@class='modal-body']//p["+ ++sizeIndex +"]";
+            WebElement sizeSelectedElement = xpathSetter(sizeXpath);
+            String sizeSelected = myActions.action_getText(sizeSelectedElement);
+            return sizeSelected;
         }
 
 
@@ -162,7 +192,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfSalePriceEditTexts(){
-            String salePriceEditTextXPath = containerParentPath+"/div[3]/div[2]/div[1]/input[@class='customPrice___3YhPU']";
+            String salePriceEditTextXPath = containerParentPath+"/div[2]//div[3]//div[2]/div//input";
             List<WebElement> salePriceEditTextList = androidDriver.findElements(By.xpath(salePriceEditTextXPath));
             return salePriceEditTextList;
         }
@@ -176,9 +206,17 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfEarningsPerItem(){
-            String yourEarningsLabelXPath = containerParentPath+"/div[3]/div[2]/span";
+            String yourEarningsLabelXPath = containerParentPath+"/div[2]//div[3]/div[2]//span";
             List<WebElement> yourEarningsPerItemList = androidDriver.findElements(By.xpath(yourEarningsLabelXPath));
             return yourEarningsPerItemList;
+        }
+
+
+        public String getEaringsPerItemAmountText(int index){
+            String withTakeSymbol = myActions.action_getText(getListOfEarningsPerItem().get(index-1));
+            System.out.println(withTakeSymbol);
+            String[] splitAmount = withTakeSymbol.split(" ");
+            return splitAmount[1];
         }
 
 
@@ -190,9 +228,17 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfOrderValuePerItem(){
-            String yourOrderValuePerItemXPath = containerParentPath+"/div[4]/span[2]";
+            String yourOrderValuePerItemXPath = containerParentPath+"/div[2]//div[4]/span[2]";
             List<WebElement> yourOrderValuePerItemList = androidDriver.findElements(By.xpath(yourOrderValuePerItemXPath));
             return yourOrderValuePerItemList;
+        }
+
+
+        public String getOrderValuePerItemAmountText(int index){
+            String withTakeSymbol = myActions.action_getText(getListOfOrderValuePerItem().get(index-1));
+            System.out.println(withTakeSymbol);
+            String[] splitAmount = withTakeSymbol.split(" ");
+            return splitAmount[1];
         }
 
 
@@ -280,6 +326,13 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
         public void clickOnAddQuantityButton(WebElement element){
             myActions.action_click(element);
+        }
+
+        public void clickOnSubQuantityButton(WebElement element) {myActions.action_click(element);}
+
+        public void closeSizeListInMyBag(){
+            String closeButton = "//div[@class='modal-footer']/button";
+            myActions.action_click(xpathSetter(closeButton));
         }
 
         public void givingRandomSalePrice(int containerId){
@@ -377,6 +430,15 @@ public class MyBagPageObjects extends AndroidBaseClass {
         @FindBy(xpath = "//div[@class='available-coupon']/p/span[2]/a")
         private WebElement couponApplyNowButton;
 
+        @FindBy(xpath = "")
+        private WebElement enterCoupon;
+
+        @FindBy(xpath = "")
+        private WebElement couponApplyButton;
+
+        @FindBy(xpath = "")
+        private WebElement couponCloseButton;
+
         @FindBy(xpath = "//p[@class='you_save_text']/span")
         private WebElement yourTotalEarningLabel;
 
@@ -411,6 +473,13 @@ public class MyBagPageObjects extends AndroidBaseClass {
             myActions.action_sendKeys(deliveryChargesEditText,deliveryCharge);
         }
 
+        public String getDeliveryChargesText(){
+            String withTakeSymbol = myActions.action_getText(deliveryChargesEditText);
+            System.out.println(withTakeSymbol);
+            String[] splitAmount = withTakeSymbol.split(" ");
+            return splitAmount[1];
+        }
+
         public void clickOnDeliveryChargeSaveButton(){
             myActions.action_click(deliveryChargesSaveButton);
         }
@@ -422,6 +491,12 @@ public class MyBagPageObjects extends AndroidBaseClass {
         public void clickOnApplyCouponNowButton(){
             myActions.action_click(couponApplyNowButton);
         }
+
+        public void enterCoupon(String coupon){myActions.action_sendKeys(enterCoupon,coupon);}
+
+        public void clickOnCouponApplyButton(){myActions.action_click(couponApplyButton);}
+
+        public void clickOnCouponCloseButton(){myActions.action_click(couponCloseButton);}
 
         public String getYourTotalSavingsLabelText(){
             return myActions.action_getText(yourTotalEarningLabel);
@@ -457,6 +532,12 @@ public class MyBagPageObjects extends AndroidBaseClass {
         public void applyShippingCharges(String shippingCharge){
             enterDeliveryCharges(shippingCharge);
             clickOnDeliveryChargeSaveButton();
+        }
+
+        public void applyCoupon(String coupon){
+            clickOnApplyCouponNowButton();
+            enterCoupon(coupon);
+            clickOnCouponApplyButton();
         }
 
     }

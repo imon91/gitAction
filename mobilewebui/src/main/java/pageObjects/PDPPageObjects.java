@@ -139,7 +139,7 @@ public class PDPPageObjects extends WebAppBaseClass {
 
      public String selectSize(int sizeid){
         String size, sizeButton, sizeLabel;
-        String sizeXpath = "//div[@class='pdp-det-box available-sizes']/ul/li";
+        String sizeXpath = "//div[@class='pdp-det-box available-sizes']//ul/li";
         List<WebElement> sizeslist = driver.findElements(By.xpath(sizeXpath));
         if(sizeid != 0) {
             size = sizeXpath + "[" + sizeid + "]";
