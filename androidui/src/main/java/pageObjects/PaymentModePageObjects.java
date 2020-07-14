@@ -28,6 +28,18 @@ public class PaymentModePageObjects extends AndroidBaseClass {
     @FindBy(xpath = "//div[@class='home-deliver-text']/a")
     private WebElement changeAddress;
 
+    @FindBy(xpath = "//div[@class='payment-breakup-link text-center']//p")
+    private WebElement paymentBreakup;
+
+    @FindBy(xpath = "//div[@class='modal-footer']//p")
+    private WebElement closePaymentBreakup;
+
+    @FindBy(xpath = "//div[@class='you-save-left text-left']//p//b")
+    private WebElement earnings;
+
+    @FindBy(xpath = "//div[@class='you-save-right text-right']//p//b")
+    private WebElement orderValue;
+
 
     public void selectPaymentOptionCOD(){
         myActions.action_click(codPaymentMode);
@@ -41,6 +53,21 @@ public class PaymentModePageObjects extends AndroidBaseClass {
         myActions.action_click(changeAddress);
     }
 
+    public void clickOnPaymentBreakup(){myActions.action_click(paymentBreakup);}
+
+    public void clickOnCloseButton(){myActions.action_click(closePaymentBreakup);}
+
+    public int getEarningsAmount(){
+        String withTakeAmount = myActions.action_getText(earnings);
+        String[] splitAmount = withTakeAmount.split("");
+        return Integer.parseInt(String.valueOf(splitAmount));
+    }
+
+    public int getCartValueAmount(){
+        String withTakeAmount = myActions.action_getText(orderValue);
+        String[] splitAmount = withTakeAmount.split("");
+        return Integer.parseInt(String.valueOf(splitAmount));
+    }
 
     public void proceedPaymentWithoutChangeAddressThroughTopButton(){
         selectPaymentOptionCOD();

@@ -7,6 +7,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.ShoppingCartResponseModel;
 import utils.*;
 import java.util.*;
 
@@ -563,5 +565,62 @@ public class MyBagPageObjects extends AndroidBaseClass {
             myActions.action_click(placeOrderButtonReseller);
         }
     }
+
+
+/*-------Data-----*/
+
+
+    public int getPriceDetails(int index, String price){
+        List<ShoppingCartResponseModel.CartItemsBean> priceDetails =
+                new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI).getPriceDetails();
+        int value = 0;
+        String withTakeSymbol;
+        String[] splitAmount;
+        switch (price){
+            case "Earnings" :
+                withTakeSymbol = priceDetails.get(index).getFormatted_income();;
+                splitAmount = withTakeSymbol.split(" ");
+                value = Integer.parseInt(String.valueOf(splitAmount));
+                break;
+
+            case "OrderValue" :
+                withTakeSymbol = priceDetails.get(index).getFormatted_per_item_total();
+                splitAmount = withTakeSymbol.split(" ");
+                value = Integer.parseInt(String.valueOf(splitAmount));
+                break;
+
+            case "SalePrice" :
+                withTakeSymbol = priceDetails.get(index).getFormatted_sale_price();
+                splitAmount = withTakeSymbol.split(" ");
+                value = Integer.parseInt(String.valueOf(splitAmount));
+                break;
+
+            case "VariantPrice" :
+                value = priceDetails.get(index).getVariant_price();
+                break;
+
+            case "Quantity" :
+                value = priceDetails.get(index).getQuantity();
+                break;
+
+            case "MinSalePrice" :
+                value = priceDetails.get(index).getMin_selling_price();
+                break;
+
+            case "MaxSalePrice" :
+                value = priceDetails.get(index).getMax_selling_price();
+                break;
+        }
+        return value;
+    }
+
+
+    public int getChargeandTotalValue(String data){
+        Map<String,Object> productDetailsMap = new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI).getCharges();
+        String withTakeSymbol = String.valueOf(productDetailsMap.get(data));
+        String[] splitAmount = withTakeSymbol.split(" ");
+        return Integer.parseInt(String.valueOf(splitAmount));
+    }
+
 
 }
