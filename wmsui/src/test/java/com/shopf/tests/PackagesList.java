@@ -56,9 +56,9 @@ public class PackagesList extends WmsBaseClass {
                         packagesListTab.getStatus(i + 1).
                                 equalsIgnoreCase(packagesListModels.get(i).getStatus()) + "  ");
 
-//                System.out.println(packagesListModels.get(i).getQuantity() + "-" +
-//                        packagesListTab.getQuantity(i + 1).
-//                                equalsIgnoreCase(String.valueOf(packagesListModels.get(i).getQuantity())));
+                System.out.println(packagesListModels.get(i).getQuantity() + "-" +
+                        packagesListTab.getQuantity(i + 1).
+                                equalsIgnoreCase(String.valueOf(packagesListModels.get(i).getQuantity())));
             }
         }
     }

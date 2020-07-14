@@ -59,7 +59,6 @@ public class PickListReturn extends WmsBaseClass {
         returnInScanTab.enterPickListId(pickListId);
         sleep(3000);
         if (i == 1) {
-            setImplicitWait(4);
             String message = homePageObject.getPopUpMessage();
             System.out.println(message);
         } else {
@@ -75,7 +74,6 @@ public class PickListReturn extends WmsBaseClass {
                 }
             }
             returnInScanTab.clickPickListReturnSubmitButton();
-            setImplicitWait(3);
             String message = homePageObject.getPopUpMessage();
             System.out.println(message);
             sleep(2000);

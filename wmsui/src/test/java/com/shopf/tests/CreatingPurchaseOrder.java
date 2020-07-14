@@ -32,12 +32,10 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         homePageObject.clickPurchaseOrders();
         createPurchaseOrderTab.enterWarehouseDetails();
         createPurchaseOrderTab.createPurchaseOrder();
-        setImplicitWait(3);
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
-        sleep(2000);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(2000);
+        sleep(1000);
         String poId = purchaseOrderList.getPOID(1);
         System.out.println("The last added PO: " + poId);
     }

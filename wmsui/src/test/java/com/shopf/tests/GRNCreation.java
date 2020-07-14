@@ -38,15 +38,14 @@ public class GRNCreation extends WmsBaseClass {
                 break;
         String poId = purchaseOrderList.getPOID(i);
         purchaseOrdersPageObjects.clickCreateGRNTab();
-        sleep(2000);
+        sleep(1000);
         createGRNTab.poIDEntry(poId);
-        sleep(2000);
+        sleep(1000);
         createGRNTab.clickGRNButton();
-        setImplicitWait(3);
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(2000);
+        sleep(1000);
     }
 
     @AfterClass(alwaysRun = true)
