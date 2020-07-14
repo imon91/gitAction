@@ -46,6 +46,10 @@ public class PLP extends AndroidBaseClass {
         System.out.println("Current Activity at PLP on Sort is : "+androidDriver.currentActivity());
         Random random1 = new Random();
         int randomSortIndex = random1.nextInt(sortPageObjects.getSortTexts().size());
+        if(sortPageObjects.getSortTexts()
+                .get(randomSortIndex).getText().equalsIgnoreCase("What's New")){
+            randomSortIndex = randomSortIndex+1;
+        }
         sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
                 .get(randomSortIndex).getText());
         // Verify sorted products from their sort orders

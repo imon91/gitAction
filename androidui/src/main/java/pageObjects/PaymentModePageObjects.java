@@ -5,6 +5,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.*;
+import java.util.*;
 
 public class PaymentModePageObjects extends AndroidBaseClass {
 
@@ -20,7 +21,7 @@ public class PaymentModePageObjects extends AndroidBaseClass {
 
 
     @FindBy(xpath = "//div[@class='panel-heading']/h4/a")
-    private WebElement codPaymentMode;
+    private WebElement paymentMethods;
 
     @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
     private WebElement makePaymentTopButton;
@@ -30,7 +31,12 @@ public class PaymentModePageObjects extends AndroidBaseClass {
 
 
     public void selectPaymentOptionCOD(){
-        myActions.action_click(codPaymentMode);
+        int size = getListOfPaymentMode().size();
+        for(int i=0;i<size;i++){
+            if(getListOfPaymentMode().get(i).getText().equalsIgnoreCase("CASH ON DELIVERY")){
+                myActions.action_click(getListOfPaymentMode().get(i));
+            }
+        }
     }
 
     public void clickOnPayTopButton(){
@@ -39,6 +45,10 @@ public class PaymentModePageObjects extends AndroidBaseClass {
 
     public void clickOnChangeAddress(){
         myActions.action_click(changeAddress);
+    }
+
+    public List<WebElement> getListOfPaymentMode(){
+        return xpathListSetter("//div[@class='panel-heading']/h4/a");
     }
 
 
