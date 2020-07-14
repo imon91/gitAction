@@ -46,13 +46,13 @@ public class CoreConstants {
 
     /*----------- WebUrls---------------*/
 
-    public static final String RESELLER_APP_STAGE_BASE_URL = "https://uatapi.shopups1.xyz/";
+    public static final String RESELLER_APP_STAGE_BASE_URL = "https://uatapi.shopups2.xyz/";
     public static final String RESELLER_APP_PROD_BASE_URL = "";
-    public static final String MOKAM_APP_STAGE_BASE_URL = "https://ucapi.shopups1.xyz/";
+    public static final String MOKAM_APP_STAGE_BASE_URL = "https://ucapi.shopups2.xyz/";
     public static final String MOKAM_APP_PROD_BASE_URL = "https://ucapi.vnksrvc.com/";
-    public static final String RESELLER_WAP_STAGE_BASE_URL = "https://uatwap.shopups1.xyz/";
-    public static final String RESELLER_WEB_STAGE_BASE_URL = "https://uatwap.shopups1.xyz/";
-    public static final String MOKAM_WAP_STAGE_BASE_URL = "https://ucwap.shopups1.xyz/";
+    public static final String RESELLER_WAP_STAGE_BASE_URL = "https://uatwap.shopups2.xyz/";
+    public static final String RESELLER_WEB_STAGE_BASE_URL = "https://uatwap.shopups2.xyz/";
+    public static final String MOKAM_WAP_STAGE_BASE_URL = "https://ucwap.shopups2.xyz/";
     public static final String MOKAM_WEB_STAGE_BASE_URL = "";
     public static final String RESELLER_WAP_PROD_BASE_URL = "https://uatwap.vnksrvc.com/";
     public static final String RESELLER_WEB_PROD_BASE_URL = "https://uatwap.vnksrvc.com";

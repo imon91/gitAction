@@ -1,6 +1,8 @@
 package pageObjects;
 
 import com.google.gson.Gson;
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.support.PageFactory;
@@ -15,6 +17,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     private MyActions myActions;
     private String packageName;
     private ServiceRequestLayer serviceRequestLayer;
+    private String app;
 
     public SearchPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -22,6 +25,7 @@ public class SearchPageObjects extends AndroidBaseClass {
         myActions = new MyActions();
         packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
     }
 
 
@@ -69,6 +73,7 @@ public class SearchPageObjects extends AndroidBaseClass {
                     .getProductWithValidSize(product);
             ProductListingResultsModel.ResultsBean resultsModel =
                     (ProductListingResultsModel.ResultsBean)responseData.get("ValidProductDetails");
+            System.out.println("PLP VIEW TYPE : "+resultsModel.getPlp_view_type());
             if(resultsModel.getPlp_view_type()==2) {
                 PropertyReader.setValue(PropertyReader.Keys.CATEGORY_TYPE, AndroidAppConstants.CATEGORY_TYPE_ESSENTIAL);
                 PropertyReader.setValue(PropertyReader.Keys.PLP_VIEW_TYPE, "2");

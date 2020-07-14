@@ -1,5 +1,6 @@
 package pageObjects;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -20,8 +21,9 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private Random random;
     private ProductListingPageObjects productListingPageObjects;
     private String plp_view;
+    private String app;
     private String NEW_PLP = "New";
-    private String OLD_PLP = "New";
+    private String OLD_PLP = "Old";
 
     public MyBagPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -29,10 +31,11 @@ public class MyBagPageObjects extends AndroidBaseClass {
         myActions = new MyActions();
         random = new Random();
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
-        plp_view = productListingPageObjects.plpView;
-        if(plp_view.equalsIgnoreCase(NEW_PLP)){
+//        plp_view = productListingPageObjects.plpView;
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
+        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
-        }else if(plp_view.equalsIgnoreCase(OLD_PLP)){
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
         }
     }
@@ -557,9 +560,9 @@ public class MyBagPageObjects extends AndroidBaseClass {
     }
 
     public void clickOnPlaceOrderButton(){
-        if(plp_view.equalsIgnoreCase(NEW_PLP)){
+        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             myActions.action_click(placeOrderButtonUnicorn);
-        }else if(plp_view.equalsIgnoreCase(OLD_PLP)){
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             myActions.action_click(placeOrderButtonReseller);
         }
     }
