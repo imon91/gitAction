@@ -1,7 +1,5 @@
 package pageObjects;
 
-import coreUtils.CoreConstants;
-import cucumber.api.java.it.Ma;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
@@ -221,9 +219,9 @@ public class ProductListingPageObjects extends AndroidBaseClass{
     public void clickOnFilterButton(){
         sleep(3000);
         if(plpView.equalsIgnoreCase(OLD_PLP_VIEW)) {
-            filterButton = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/filter_with_sort']");
+            filterButton = xpathSetter("//android.widget.TextView[@text='Filter']");
         }else if(plpView.equalsIgnoreCase(NEW_PLP_VIEW)) {
-            filterButton = xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_filter_feed_container']");
+            filterButton = xpathSetter("//android.widget.TextView[@text='Filter']");
         }
         myActions.action_click(filterButton);
         System.out.println("Element Clicked");
@@ -232,7 +230,7 @@ public class ProductListingPageObjects extends AndroidBaseClass{
     public void clickOnSortButton(){
         sleep(3000);
         if(plpView.equalsIgnoreCase(OLD_PLP_VIEW)) {
-            sortButton = xpathSetter("//android.widget.LinearLayout[@resource-id='" + packageName + ":id/sort_app']");
+            sortButton = xpathSetter("//android.widget.TextView[@text='Sort']");
         }else if(plpView.equalsIgnoreCase(NEW_PLP_VIEW)) {
             sortButton = xpathSetter("//android.widget.TextView[@text='Sort']");
         }
