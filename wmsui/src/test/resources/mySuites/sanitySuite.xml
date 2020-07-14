@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SanityTestSuite">
+    <parameter name="test" value="sanity"></parameter>
+    <test name="SanityTests">
+        <groups>
+            <run>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.shopf.tests.Login"></class>
+            <class name="com.shopf.tests.WarehouseList"></class>
+            <class name="com.shopf.tests.SuppliersList"></class>
+            <class name="com.shopf.tests.SellersList"></class>
+            <class name="com.shopf.tests.AllPickLists"></class>
+            <class name="com.shopf.tests.PurchaseOrderList"></class>
+            <class name="com.shopf.tests.VariantList"></class>
+            <class name="com.shopf.tests.PackagesList"></class>
+            <class name="com.shopf.tests.PickListAction"></class>
+            <class name="com.shopf.tests.VariantBinDetails"></class>
+        </classes>
+    </test>
+</suite>
