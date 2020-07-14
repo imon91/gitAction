@@ -4,7 +4,6 @@ import coreUtils.*;
 import helper.GetDriverFromCore;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
