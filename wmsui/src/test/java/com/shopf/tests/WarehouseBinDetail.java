@@ -1,19 +1,17 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.WarehousesPageObjects;
-import services.responseModels.wmsModels.WarehouseBinDetails;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
-import utils.WmsBaseClass;
+import utils.*;
 
-import java.util.List;
+import java.util.*;
 
 public class WarehouseBinDetail extends WmsBaseClass {
+
     private WebDriver driver;
     private HomePageObject homePageObject;
     private WarehousesPageObjects warehousesPageObjects;
@@ -23,7 +21,7 @@ public class WarehouseBinDetail extends WmsBaseClass {
     List<WarehouseBinDetails.PackageDetailsBean> packageDetails;
 
     @BeforeClass(alwaysRun = true)
-    public void warehouseBinDetailBeforeClass()throws Exception{
+    public void warehouseBinDetailBeforeClass() throws Exception {
         System.out.println("Warehouse Bin Details Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -32,10 +30,10 @@ public class WarehouseBinDetail extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
 
-    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+    @Test(groups = {CoreConstants.GROUP_REGRESSION, CoreConstants.GROUP_SANITY},
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Warehouse Bin Details")
-    public void verifyWarehouseBinDetail(){
+    public void verifyWarehouseBinDetail() {
         System.out.println("Verify Warehouse Bin Details is called");
         int i;
         homePageObject.clickWarehouses();
@@ -45,7 +43,8 @@ public class WarehouseBinDetail extends WmsBaseClass {
         warehouseBinDetails = getWMSApiResponse.getWarehouseBinDetails();
         packageDetails = warehouseBinDetails.getPackage_details();
         System.out.println(packageDetails.size());
-        for (i=0;i<packageDetails.size();i++) {
+        for (i = 0; i < packageDetails.size(); i++) {
+            System.out.println("----------------------------------");
             System.out.println(packageDetails.get(i).getSku_code() + "-" +
                     packageDetails.get(i).getSku_code()
                             .equalsIgnoreCase(warehouseBinDetailsTab.getSkuCode(i + 1)));
@@ -57,7 +56,7 @@ public class WarehouseBinDetail extends WmsBaseClass {
     }
 
     @AfterClass(alwaysRun = true)
-    public void warehouseBinDetailAfterClass(){
+    public void warehouseBinDetailAfterClass() {
         System.out.println("Warehouse Bin Details After Class is called");
     }
 }

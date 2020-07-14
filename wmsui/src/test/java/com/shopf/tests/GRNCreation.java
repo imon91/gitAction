@@ -1,15 +1,13 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.PurchaseOrdersPageObjects;
-import utils.WmsBaseClass;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import utils.*;
 
 public class GRNCreation extends WmsBaseClass {
+
     private WebDriver driver;
     private HomePageObject homePageObject;
     private PurchaseOrdersPageObjects purchaseOrdersPageObjects;
@@ -17,7 +15,7 @@ public class GRNCreation extends WmsBaseClass {
     private PurchaseOrdersPageObjects.CreateGRNTab createGRNTab;
 
     @BeforeClass(alwaysRun = true)
-    public void createGRNBeforeClass() throws Exception{
+    public void createGRNBeforeClass() throws Exception {
         System.out.println("Create GRN Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -29,14 +27,14 @@ public class GRNCreation extends WmsBaseClass {
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Create GRN Verification")
-    public void createGRNVerification(){
+    public void createGRNVerification() {
         System.out.println("Create GRN Verification is called");
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(1000);
-        int i,total = purchaseOrderList.getTotalPurchaseOrders();
-        for(i=1;i <= total;i++)
-            if(purchaseOrderList.getStatus(i).equalsIgnoreCase("CREATED"))
+        int i, total = purchaseOrderList.getTotalPurchaseOrders();
+        for (i = 1; i <= total; i++)
+            if (purchaseOrderList.getStatus(i).equalsIgnoreCase("CREATED"))
                 break;
         String poId = purchaseOrderList.getPOID(i);
         purchaseOrdersPageObjects.clickCreateGRNTab();
@@ -52,7 +50,7 @@ public class GRNCreation extends WmsBaseClass {
     }
 
     @AfterClass(alwaysRun = true)
-    public void createGRNAfterClass(){
+    public void createGRNAfterClass() {
         System.out.println("Create GRN After Class is called");
     }
 }

@@ -1,17 +1,14 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.PackagesPageObjects;
-import services.responseModels.wmsModels.PackagesListModel;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
-import utils.WmsBaseClass;
+import utils.*;
 
-import java.util.List;
+import java.util.*;
 
 public class PackagesList extends WmsBaseClass {
 
@@ -23,7 +20,7 @@ public class PackagesList extends WmsBaseClass {
     private List<PackagesListModel> packagesListModels;
 
     @BeforeClass(alwaysRun = true)
-    public void packagesListBeforeClass()throws Exception{
+    public void packagesListBeforeClass() throws Exception {
         System.out.println("Packages List Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -32,10 +29,11 @@ public class PackagesList extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
 
-    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+    @Parameters({"test"})
+    @Test(groups = {CoreConstants.GROUP_REGRESSION, CoreConstants.GROUP_SANITY},
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Packages List")
-    public void verifyPackagesList(){
+    public void verifyPackagesList(String test) {
         System.out.println("Verify Packages List is called");
         int i;
         homePageObject.clickPackages();
@@ -43,27 +41,30 @@ public class PackagesList extends WmsBaseClass {
         sleep(1000);
         packagesListModels = getWMSApiResponse.getPackagesList();
         System.out.println(packagesListModels.size());
-        for(i=0;i<packagesListModels.size();i++) {
-            System.out.print(packagesListModels.get(i).getSku_code() + "-" +
-                    packagesListTab.getSkuCode(i + 1).
-                            equalsIgnoreCase(packagesListModels.get(i).getSku_code())+ "  ");
+        for (i = 0; i < packagesListModels.size(); i++) {
+            if (i == 0 || i == (packagesListModels.size() - 1) || test.equals("regression")) {
+                System.out.println("----------------------------------");
+                System.out.print(packagesListModels.get(i).getSku_code() + "-" +
+                        packagesListTab.getSkuCode(i + 1).
+                                equalsIgnoreCase(packagesListModels.get(i).getSku_code()) + "  ");
 
-            System.out.print(packagesListModels.get(i).getNotes() + "-" +
-                    packagesListTab.getDescription(i + 1).
-                            equalsIgnoreCase(packagesListModels.get(i).getNotes())+ "  ");
+                System.out.print(packagesListModels.get(i).getNotes() + "-" +
+                        packagesListTab.getDescription(i + 1).
+                                equalsIgnoreCase(packagesListModels.get(i).getNotes()) + "  ");
 
-            System.out.print(packagesListModels.get(i).getStatus() + "-" +
-                    packagesListTab.getStatus(i + 1).
-                            equalsIgnoreCase(packagesListModels.get(i).getStatus())+ "  ");
+                System.out.println(packagesListModels.get(i).getStatus() + "-" +
+                        packagesListTab.getStatus(i + 1).
+                                equalsIgnoreCase(packagesListModels.get(i).getStatus()) + "  ");
 
-            System.out.println(packagesListModels.get(i).getQuantity() + "-" +
-                    packagesListTab.getQuantity(i + 1).
-                            equalsIgnoreCase(String.valueOf(packagesListModels.get(i).getQuantity())));
+//                System.out.println(packagesListModels.get(i).getQuantity() + "-" +
+//                        packagesListTab.getQuantity(i + 1).
+//                                equalsIgnoreCase(String.valueOf(packagesListModels.get(i).getQuantity())));
+            }
         }
     }
 
     @AfterClass(alwaysRun = true)
-    public void packagesListAfterClass(){
+    public void packagesListAfterClass() {
         System.out.println("Packages List After Class is called");
     }
 }

@@ -1,17 +1,14 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.PurchaseOrdersPageObjects;
-import services.responseModels.wmsModels.PurchaseOrderListModel;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
-import utils.WmsBaseClass;
+import utils.*;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class POStatus extends WmsBaseClass {
 
@@ -22,11 +19,11 @@ public class POStatus extends WmsBaseClass {
     private GetWMSApiResponse getWMSApiResponse;
     private List<PurchaseOrderListModel> purchaseOrderListModels;
     private Random random;
-    private int n,total;
+    private int n, total;
 
 
     @BeforeClass(alwaysRun = true)
-    public void poStatusBeforeClass() throws Exception{
+    public void poStatusBeforeClass() throws Exception {
         System.out.println("PO Status Before Class is called");
         driver = getBaseDriver();
         random = new Random();
@@ -37,13 +34,13 @@ public class POStatus extends WmsBaseClass {
         purchaseOrderListModels = getWMSApiResponse.getPurchaseOrderList();
         total = purchaseOrderListModels.size();
         System.out.println(total);
-        n = random.nextInt(total)-1;
+        n = random.nextInt(total) - 1;
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY},
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify PO Status")
-    public void verifyPOStatus(){
+    public void verifyPOStatus() {
         System.out.println("Verify PO Status is called");
         String poIDJson = String.valueOf(purchaseOrderListModels.get(n).getId());
         System.out.println(poIDJson);
@@ -59,7 +56,7 @@ public class POStatus extends WmsBaseClass {
     }
 
     @BeforeClass(alwaysRun = true)
-    public void poStatusAfterClass(){
+    public void poStatusAfterClass() {
         System.out.println("PO Status After Class is called");
     }
 

@@ -1,18 +1,14 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.SuppliersPageObjects;
-import pageObjects.WarehousesPageObjects;
-import services.responseModels.wmsModels.SuppliersListModel;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
-import utils.WmsBaseClass;
+import utils.*;
 
-import java.util.List;
+import java.util.*;
 
 public class SuppliersList extends WmsBaseClass {
 
@@ -24,7 +20,7 @@ public class SuppliersList extends WmsBaseClass {
     private List<SuppliersListModel> suppliersListModels;
 
     @BeforeClass(alwaysRun = true)
-    public void suppliersListBeforeClass()throws Exception{
+    public void suppliersListBeforeClass() throws Exception {
         System.out.println("Suppliers List Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -33,10 +29,11 @@ public class SuppliersList extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
     }
 
-    @Test(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
+    @Parameters({"test"})
+    @Test(groups = {CoreConstants.GROUP_REGRESSION, CoreConstants.GROUP_SANITY},
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Suppliers List")
-    public void verifySuppliersList(){
+    public void verifySuppliersList(String test) {
         System.out.println("Verify Suppliers List is called");
         int i;
         homePageObject.clickSuppliers();
@@ -44,26 +41,28 @@ public class SuppliersList extends WmsBaseClass {
         sleep(1000);
         suppliersListModels = getWMSApiResponse.getSuppliersDetails();
         System.out.println(suppliersListModels.size());
-        for(i=0;i<suppliersListModels.size();i++) {
+        for (i = 0; i < suppliersListModels.size(); i++) {
 
-            System.out.print(suppliersListModels.get(i).getName() + "-" +
-                    suppliersListTab.getSupplierName(i + 1)
-                            .equalsIgnoreCase(suppliersListModels.get(i).getName()) + " ");
+            if (i == 0 || i == (suppliersListModels.size() - 1) || test.equals("regression")) {
+                System.out.print(suppliersListModels.get(i).getName() + "-" +
+                        suppliersListTab.getSupplierName(i + 1)
+                                .equalsIgnoreCase(suppliersListModels.get(i).getName()) + " ");
 
-            System.out.print(suppliersListModels.get(i).getEmail() + "-" +
-                    suppliersListTab.getSupplierEmail(i + 1)
-                            .equalsIgnoreCase(suppliersListModels.get(i).getEmail()) + " ");
+                System.out.print(suppliersListModels.get(i).getEmail() + "-" +
+                        suppliersListTab.getSupplierEmail(i + 1)
+                                .equalsIgnoreCase(suppliersListModels.get(i).getEmail()) + " ");
 
-            System.out.println(suppliersListModels.get(i).getPhone() + "-" +
-                    suppliersListTab.getSupplierPhoneNo(i + 1)
-                            .equalsIgnoreCase(suppliersListModels.get(i).getPhone()));
+                System.out.println(suppliersListModels.get(i).getPhone() + "-" +
+                        suppliersListTab.getSupplierPhoneNo(i + 1)
+                                .equalsIgnoreCase(suppliersListModels.get(i).getPhone()));
 
 
+            }
         }
     }
 
     @AfterClass(alwaysRun = true)
-    public void suppliersListAfterClass(){
+    public void suppliersListAfterClass() {
         System.out.println("Suppliers List After Class is called");
     }
 }

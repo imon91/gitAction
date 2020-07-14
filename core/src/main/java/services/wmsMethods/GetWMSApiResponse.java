@@ -30,7 +30,7 @@ public class GetWMSApiResponse {
         response = shopUpPostMan.getCall("warehouses.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             String r = response.getBody().asString();
-            System.out.println(r);
+            //System.out.println(r);
             Type warehouses = new TypeToken<ArrayList<WareHouseListModel.WareHousesBean>>(){}.getType();
             List<WareHouseListModel.WareHousesBean> wareHousesBean =
                     gson.fromJson(r,warehouses);
@@ -44,7 +44,7 @@ public class GetWMSApiResponse {
         response = shopUpPostMan.getCall("warehouse_bins/get_bin_package_details?bin_code=W100F2R1C1RA1B31");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             String r = response.getBody().asString();
-            System.out.println(r);
+            //System.out.println(r);
             WarehouseBinDetails warehouseBinDetails =
                     gson.fromJson(r,WarehouseBinDetails.class);
             return warehouseBinDetails;
@@ -52,23 +52,26 @@ public class GetWMSApiResponse {
         else return null;
     }
 
-    public VariantsBinDetailsModel getVariantBinDetails(){
+    public VariantsBinDetailsModel getVariantBinDetails(String skuCode,String id){
         gson = new Gson();
-        response = shopUpPostMan.getCall("variants/get_in_bin_details?sku_code=139743&seller_id=29");
+        response = shopUpPostMan.getCall("variants/get_in_bin_details?sku_code="+skuCode+"&seller_id="+id);
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
+            String r = response.getBody().asString();
+            System.out.println(r);
             VariantsBinDetailsModel variantsBinDetailsModel =
-                    gson.fromJson(response.getBody().asString(), VariantsBinDetailsModel.class);
+                    gson.fromJson(r, VariantsBinDetailsModel.class);
             return variantsBinDetailsModel;
         }
         else return null;
     }
 
-    public VariantDetailsModel getVariantDetails(){
+    public List<VariantDetailsModel> getVariantDetails(){
         gson = new Gson();
         response = shopUpPostMan.getCall("suppliers/variant_details.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
-            VariantDetailsModel variantDetailsModel =
-                    gson.fromJson(response.getBody().asString(), VariantDetailsModel.class);
+            String r = response.getBody().asString();
+            List<VariantDetailsModel> variantDetailsModel =
+                    gson.fromJson(r, new TypeToken<List<VariantDetailsModel>>(){}.getType());
             return variantDetailsModel;
         }
         else return null;
@@ -87,12 +90,14 @@ public class GetWMSApiResponse {
         else return null;
     }
 
-    public SellersListModel getSellerDetails(){
+    public List<SellersListModel> getSellerDetails(){
         gson = new Gson();
-        response = shopUpPostMan.getCall("sellers/sellers_list.json");
+        response = shopUpPostMan.getCall("sellers.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
-            SellersListModel sellersListModel =
-                    gson.fromJson(response.getBody().asString(), SellersListModel.class);
+            String r = response.getBody().asString();
+            System.out.println(r);
+            List<SellersListModel> sellersListModel =
+                    gson.fromJson(r, new TypeToken<List<SellersListModel>>(){}.getType());
             return sellersListModel;
         }
         else return null;
@@ -103,7 +108,7 @@ public class GetWMSApiResponse {
         response = shopUpPostMan.getCall("purchase_orders.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             String r = response.getBody().asString();
-            System.out.println(r);
+            //System.out.println(r);
             Type purchaseOrders = new TypeToken<ArrayList<PurchaseOrderListModel>>(){}.getType();
             List<PurchaseOrderListModel> purchaseOrderListModels =
                     gson.fromJson(r,purchaseOrders);
@@ -117,7 +122,7 @@ public class GetWMSApiResponse {
         response = shopUpPostMan.getCall("packages/get_packages_for_allocation.json");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             String r = response.getBody().asString();
-            System.out.println(r);
+            //System.out.println(r);
             Type packages = new TypeToken<List<PackagesListModel>>(){}.getType();
             List<PackagesListModel> packagesLists =
                     gson.fromJson(r,packages);
@@ -145,10 +150,24 @@ public class GetWMSApiResponse {
                 .getCall("https://uatwms.vnksrvc.com/pick_lists.json?page="+page+"&per_page=30&status=all");
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             String r = response.getBody().asString();
-            System.out.println(r);
+            //System.out.println(r);
             AllPickListModel pickListModel =
                     gson.fromJson(r,AllPickListModel.class);
             return pickListModel;
+        }
+        else return null;
+    }
+
+    public PickListActionListModel getPickListAction(String poId){
+        gson = new Gson();
+        response = shopUpPostMan
+                .getCall("https://uatwms.vnksrvc.com/pick_lists/"+poId+"/pending_items.json");
+        if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
+            String r = response.getBody().asString();
+            System.out.println(r);
+            PickListActionListModel pickListActionModel =
+                    gson.fromJson(r,PickListActionListModel.class);
+            return pickListActionModel;
         }
         else return null;
     }

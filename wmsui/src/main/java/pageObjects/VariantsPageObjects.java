@@ -212,13 +212,13 @@ public class VariantsPageObjects {
         }
 
         public String getQuantity(int index) {
-            String quantityXpath = "//div[@id='SkuBinList']//tbody/tr[" + index + "]/td[1]";
+            String quantityXpath = "//div[@id='SkuBinList']//tbody/tr[" + index + "]/td[2]";
             WebElement quantity = driver.findElement(By.xpath(quantityXpath));
             return myActions.action_getText(quantity);
         }
 
         public String getPackageIds(int index) {
-            String packageIdsXpath = "//div[@id='SkuBinList']//tbody/tr[" + index + "]/td[1]";
+            String packageIdsXpath = "//div[@id='SkuBinList']//tbody/tr[" + index + "]/td[3]";
             WebElement packageIds = driver.findElement(By.xpath(packageIdsXpath));
             return myActions.action_getText(packageIds);
         }
@@ -236,43 +236,48 @@ public class VariantsPageObjects {
             myActions = new MyActions();
         }
 
+        public int getTotalProducts(){
+            List<WebElement> products = driver.findElements(By.xpath("//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr"));
+            return products.size();
+        }
+
         public String getVariantId(int index) {
-            String variantIdXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[1]";
+            String variantIdXpath = "//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr[" + index + "]/td[1]";
             WebElement variantId = driver.findElement(By.xpath(variantIdXpath));
             return myActions.action_getText(variantId);
         }
 
         public String getSellerName(int index) {
-            String sellerNameXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[2]";
+            String sellerNameXpath = "//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr[" + index + "]/td[2]";
             WebElement sellerName = driver.findElement(By.xpath(sellerNameXpath));
             return myActions.action_getText(sellerName);
         }
         public String getSkuCode(int index) {
-            String skuCodeXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[3]";
+            String skuCodeXpath = "//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr[" + index + "]/td[3]";
             WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
             return myActions.action_getText(skuCode);
         }
 
         public String getDescription(int index) {
-            String descriptionXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[4]";
+            String descriptionXpath = "//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr[" + index + "]/td[4]";
             WebElement description = driver.findElement(By.xpath(descriptionXpath));
             return myActions.action_getText(description);
         }
 
         public String getCategory(int index) {
-            String categoryXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[5]";
+            String categoryXpath = "//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr[" + index + "]/td[5]";
             WebElement category = driver.findElement(By.xpath(categoryXpath));
             return myActions.action_getText(category);
         }
 
         public String getPrice(int index) {
-            String priceXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[6]";
+            String priceXpath = "//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr[" + index + "]/td[6]";
             WebElement price = driver.findElement(By.xpath(priceXpath));
             return myActions.action_getText(price);
         }
 
         public String getReorderPoint(int index) {
-            String reorderPointXpath = "//div[@class='variant-details-tabs']//table/tbody/tr[" + index + "]/td[7]";
+            String reorderPointXpath = "//div[@class='variant-details-tabs']//thead/following-sibling::tbody/tr[" + index + "]/td[7]";
             WebElement reorderPoint = driver.findElement(By.xpath(reorderPointXpath));
             return myActions.action_getText(reorderPoint);
         }

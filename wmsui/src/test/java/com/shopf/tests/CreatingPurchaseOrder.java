@@ -1,13 +1,10 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.PurchaseOrdersPageObjects;
-import utils.WmsBaseClass;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import utils.*;
 
 public class CreatingPurchaseOrder extends WmsBaseClass {
 
@@ -18,7 +15,7 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
     private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
 
     @BeforeClass(alwaysRun = true)
-    public void creatingPurchaseOrderBeforeClass() throws Exception{
+    public void creatingPurchaseOrderBeforeClass() throws Exception {
         System.out.println("Creating Purchase Order Before Class is Called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -30,7 +27,7 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Create Purchase Verification")
-    public void createPurchaseOrderVerification(){
+    public void createPurchaseOrderVerification() {
         System.out.println("Create Purchase Order Verification is Called");
         homePageObject.clickPurchaseOrders();
         createPurchaseOrderTab.enterWarehouseDetails();
@@ -42,11 +39,11 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(2000);
         String poId = purchaseOrderList.getPOID(1);
-        System.out.println("The last added PO: "+ poId);
+        System.out.println("The last added PO: " + poId);
     }
 
     @AfterClass(alwaysRun = true)
-    public void creatingPurchaseOrderAfterClass(){
+    public void creatingPurchaseOrderAfterClass() {
         System.out.println("Creating Purchase Order After Class is Called");
     }
 
