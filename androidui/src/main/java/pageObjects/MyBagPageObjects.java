@@ -24,6 +24,8 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private String plp_view;
     private String NEW_PLP = "New";
     private String OLD_PLP = "New";
+    private GetCommerceApiResponse getCommerceApiResponse;
+    private ServiceRequestLayer serviceRequestLayer;
 
     public MyBagPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -31,6 +33,8 @@ public class MyBagPageObjects extends AndroidBaseClass {
         myActions = new MyActions();
         random = new Random();
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
+        serviceRequestLayer = new ServiceRequestLayer();
+        getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
         plp_view = productListingPageObjects.plpView;
         if(plp_view.equalsIgnoreCase(NEW_PLP)){
             switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
@@ -571,8 +575,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
     public int getPriceDetails(int index, String price){
-        List<ShoppingCartResponseModel.CartItemsBean> priceDetails =
-                new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI).getPriceDetails();
+        List<ShoppingCartResponseModel.CartItemsBean> priceDetails = getCommerceApiResponse.getListOfCartItems();
         int value = 0;
         String withTakeSymbol;
         String[] splitAmount;
@@ -616,7 +619,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
     public int getChargeandTotalValue(String data){
-        Map<String,Object> productDetailsMap = new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI).getCharges();
+        Map<String,Object> productDetailsMap = getCommerceApiResponse.getCharges();
         String withTakeSymbol = String.valueOf(productDetailsMap.get(data));
         String[] splitAmount = withTakeSymbol.split(" ");
         return Integer.parseInt(String.valueOf(splitAmount));
