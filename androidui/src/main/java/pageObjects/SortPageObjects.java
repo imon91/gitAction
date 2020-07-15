@@ -12,7 +12,6 @@ public class SortPageObjects extends AndroidBaseClass{
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
-    private String plp_view;
     private final String NEW_PLP_VIEW = "New";
     private final String OLD_PLP_VIEW = "Old";
     public String plpView,view_type;
@@ -50,10 +49,10 @@ public class SortPageObjects extends AndroidBaseClass{
 
     public List<WebElement> getSortTexts(){
         List<WebElement> sortTextList = null;
-        if(plp_view.equalsIgnoreCase(NEW_PLP_VIEW)){
+        if(plpView.equalsIgnoreCase(NEW_PLP_VIEW)){
             sortTextList =
                     xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_item_text']");
-        }else if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
+        }else if(plpView.equalsIgnoreCase(OLD_PLP_VIEW)){
             sortTextList =
                     xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_text']");
         }
