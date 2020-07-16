@@ -61,6 +61,7 @@ public class AndroidAppCapabilities {
                 app.equalsIgnoreCase(CoreConstants.APP_RED_X)){
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.redXStageApk);
             cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RED_X_APP_PACKAGE);
+            cap.setCapability(CAP_KEY_APP_ACTIVITY,CoreConstants.RED_X_SPLASH_ACTIVITY);
         }else if(env.equalsIgnoreCase(CoreConstants.ENV_PROD) &&
                 app.equalsIgnoreCase(CoreConstants.APP_RED_X)) {
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.redXProdApk);
