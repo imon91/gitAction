@@ -13,11 +13,13 @@ import java.util.*;
 
 public class SearchPageObjects extends AndroidBaseClass {
 
+
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
     private ServiceRequestLayer serviceRequestLayer;
     private String app;
+
 
     public SearchPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

@@ -42,11 +42,7 @@ public class MyActions extends AndroidBaseClass{
 
     public Boolean action_is_selected(WebElement element) {
         sleep(300);
-        if (element.isSelected()) {
-            return true;
-        } else {
-            return false;
-        }
+        return element.isSelected();
     }
 
     public void action_clearText(WebElement element){

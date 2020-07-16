@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Random;
 
 public class WarehousesPageObjects extends WmsBaseClass {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public WarehousesPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -58,9 +58,9 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
     /*--------------Add Warehouse Tab-------------------*/
     public class AddWarehouseTab {
-        private WebDriver driver;
-        private MyActions myActions;
-        private Random random;
+        private final WebDriver driver;
+        private final MyActions myActions;
+        private final Random random;
 
         public AddWarehouseTab(WebDriver driver) {
             this.driver = driver;
@@ -193,8 +193,8 @@ public class WarehousesPageObjects extends WmsBaseClass {
     /*--------------Update Bin Capacity Tab-------------------*/
     public class UpdateBinCapacityTab {
 
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public UpdateBinCapacityTab(WebDriver driver) {
             this.driver = driver;
@@ -240,8 +240,8 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
     /*--------------Warehouse Bin Details Tab-------------------*/
     public class WarehouseBinDetailsTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public WarehouseBinDetailsTab(WebDriver driver) {
             this.driver = driver;
@@ -307,8 +307,8 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
     /*--------------Warehouse List Tab-------------------*/
     public class WarehouseListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public WarehouseListTab(WebDriver driver) {
             this.driver = driver;

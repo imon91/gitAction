@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PickOrdersPageObjects extends WmsBaseClass {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public PickOrdersPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -48,8 +48,8 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Demand Less Pick List Tab-------------------*/
     public class DemandLessPickListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public DemandLessPickListTab(WebDriver driver) {
             this.driver = driver;
@@ -155,7 +155,7 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             sleep(1000);
         }
 
-        public void createPickList(int no_of_products, String skuCode[], String quantity[], String price[]) {
+        public void createPickList(int no_of_products, String[] skuCode, String[] quantity, String[] price) {
             for (int i = 0; i < no_of_products; i++) {
                 skuCodeInput(i, skuCode[i]);
                 quantityInput(i, quantity[i]);
@@ -172,8 +172,8 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Pick List Action Tab-------------------*/
     public class PickListActionTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public PickListActionTab(WebDriver driver) {
             this.driver = driver;
@@ -285,8 +285,8 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
     /*--------------All Pick Lists Tab-------------------*/
     public class AllPickListsTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public AllPickListsTab(WebDriver driver) {
             this.driver = driver;

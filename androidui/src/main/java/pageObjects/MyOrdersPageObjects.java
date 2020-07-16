@@ -11,8 +11,8 @@ import java.util.*;
 public class MyOrdersPageObjects extends AndroidBaseClass {
 
 
-    private AndroidDriver<WebElement> androidDriver;
-    private MyActions myActions;
+    private final AndroidDriver<WebElement> androidDriver;
+    private final MyActions myActions;
 
     public MyOrdersPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -51,8 +51,8 @@ public class MyOrdersPageObjects extends AndroidBaseClass {
 
     public class MyOrderSearch{
 
-        private AndroidDriver<WebElement> androidDriver;
-        private MyActions myActions;
+        private final AndroidDriver<WebElement> androidDriver;
+        private final MyActions myActions;
 
         public MyOrderSearch(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
@@ -85,8 +85,8 @@ public class MyOrdersPageObjects extends AndroidBaseClass {
 
     public class OrderDetails{
 
-        private AndroidDriver androidDriver;
-        private MyActions myActions;
+        private final AndroidDriver androidDriver;
+        private final MyActions myActions;
         private final String parentXpath = "//form[@id='myorderSearch']/following-sibling::div[2]/";
 
         public OrderDetails(AndroidDriver<WebElement> androidDriver){

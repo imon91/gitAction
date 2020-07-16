@@ -90,6 +90,7 @@ public class SmokeFlow extends AndroidBaseClass {
         search.searchBeforeClass();
 
         //Step 3 : Searching for an object from search icon without choosing from suggestions list
+
         search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
         plp.productListingPageBeforeClass();
 

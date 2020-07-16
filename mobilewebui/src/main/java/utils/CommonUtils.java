@@ -21,7 +21,7 @@ public class CommonUtils {
         // Context Switching
         Set<String> contextNames = androidDriver.getContextHandles();
         int n = contextNames.size();
-        String contextData[] = new String[n];
+        String[] contextData = new String[n];
         contextData = contextNames.toArray(contextData);
         for(int i=0;i<contextData.length;i++){
             System.out.println(contextData[i]);

@@ -10,8 +10,8 @@ import utils.MyActions;
 import java.util.List;
 
 public class VariantsPageObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public VariantsPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -52,8 +52,8 @@ public class VariantsPageObjects {
 
     /*--------------Add Variant Tab-------------------*/
     public class AddVariantTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public AddVariantTab(WebDriver driver) {
             this.driver = driver;
@@ -167,8 +167,8 @@ public class VariantsPageObjects {
 
     /*--------------Bins For Sku Tab-------------------*/
     public class BinsForSkuTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public BinsForSkuTab(WebDriver driver) {
             this.driver = driver;
@@ -227,8 +227,8 @@ public class VariantsPageObjects {
 
     /*--------------Variant List Tab-------------------*/
     public class VariantListTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public VariantListTab(WebDriver driver) {
             this.driver = driver;

@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SuppliersPageObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public SuppliersPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -49,8 +49,8 @@ public class SuppliersPageObjects {
 
     /*--------------Migrate Seller Tab-------------------*/
     public class MigrateSellerTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public MigrateSellerTab(WebDriver driver) {
             this.driver = driver;
@@ -87,8 +87,8 @@ public class SuppliersPageObjects {
 
     /*--------------Suppliers List Tab-------------------*/
     public class SuppliersListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public SuppliersListTab(WebDriver driver) {
             this.driver = driver;
