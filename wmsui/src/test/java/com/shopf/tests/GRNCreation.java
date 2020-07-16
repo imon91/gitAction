@@ -13,6 +13,7 @@ public class GRNCreation extends WmsBaseClass {
     private PurchaseOrdersPageObjects purchaseOrdersPageObjects;
     private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
     private PurchaseOrdersPageObjects.CreateGRNTab createGRNTab;
+    private PurchaseOrdersPageObjects.CreatePurchaseOrderTab createPurchaseOrderTab;
 
     @BeforeClass(alwaysRun = true)
     public void createGRNBeforeClass() throws Exception {
@@ -20,8 +21,18 @@ public class GRNCreation extends WmsBaseClass {
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
         purchaseOrdersPageObjects = new PurchaseOrdersPageObjects(driver);
+        createPurchaseOrderTab = purchaseOrdersPageObjects.new CreatePurchaseOrderTab(driver);
         purchaseOrderList = new PurchaseOrdersPageObjects(driver).new PurchaseOrderList(driver);
         createGRNTab = new PurchaseOrdersPageObjects(driver).new CreateGRNTab(driver);
+    }
+
+    @BeforeMethod(alwaysRun = true)
+    public void createGRNBeforeMethod(){
+        homePageObject.clickPurchaseOrders();
+        purchaseOrdersPageObjects.clickCreatePurchaseOrderTab();
+        sleep(1000);
+        createPurchaseOrderTab.enterWarehouseDetails();
+        createPurchaseOrderTab.createPurchaseOrder();
     }
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
@@ -29,7 +40,6 @@ public class GRNCreation extends WmsBaseClass {
             description = "Create GRN Verification")
     public void createGRNVerification() {
         System.out.println("Create GRN Verification is called");
-        homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(1000);
         int i, total = purchaseOrderList.getTotalPurchaseOrders();

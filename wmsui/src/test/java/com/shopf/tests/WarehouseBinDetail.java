@@ -3,6 +3,7 @@ package com.shopf.tests;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
@@ -17,18 +18,25 @@ public class WarehouseBinDetail extends WmsBaseClass {
     private WarehousesPageObjects warehousesPageObjects;
     private WarehousesPageObjects.WarehouseBinDetailsTab warehouseBinDetailsTab;
     private GetWMSApiResponse getWMSApiResponse;
-    WarehouseBinDetails warehouseBinDetails;
-    List<WarehouseBinDetails.PackageDetailsBean> packageDetails;
+    private WarehouseBinDetails warehouseBinDetails;
+    private List<WarehouseBinDetails.PackageDetailsBean> packageDetails;
+    private Assertion assertion;
+    private String test;
 
+
+    @Parameters({"test"})
     @BeforeClass(alwaysRun = true)
-    public void warehouseBinDetailBeforeClass() throws Exception {
+    public void warehouseBinDetailBeforeClass(String test) throws Exception {
         System.out.println("Warehouse Bin Details Before Class is called");
+        this.test = test;
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
         warehousesPageObjects = new WarehousesPageObjects(driver);
         warehouseBinDetailsTab = warehousesPageObjects.new WarehouseBinDetailsTab(driver);
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
+        assertion = new Assertion();
     }
+
 
     @Test(groups = {CoreConstants.GROUP_REGRESSION, CoreConstants.GROUP_SANITY},
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
@@ -43,17 +51,26 @@ public class WarehouseBinDetail extends WmsBaseClass {
         warehouseBinDetails = getWMSApiResponse.getWarehouseBinDetails();
         packageDetails = warehouseBinDetails.getPackage_details();
         System.out.println(packageDetails.size());
-        for (i = 0; i < packageDetails.size(); i++) {
-            System.out.println("----------------------------------");
-            System.out.println(packageDetails.get(i).getSku_code() + "-" +
-                    packageDetails.get(i).getSku_code()
-                            .equalsIgnoreCase(warehouseBinDetailsTab.getSkuCode(i + 1)));
 
-            System.out.println(packageDetails.get(i).getPackage_ids() + "-" +
-                    packageDetails.get(i).getPackage_ids()
-                            .equalsIgnoreCase(warehouseBinDetailsTab.getPackageIds(i + 1)));
+        for (i = 0; i < packageDetails.size(); i++) {
+            if (i == 0 || i == (packageDetails.size() - 1) || test
+                    .equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+
+                System.out.println("-----------*-----*-----*------------");
+
+                System.out.println(packageDetails.get(i).getSku_code());
+                assertion.assertTrue(packageDetails.get(i).getSku_code()
+                                .equalsIgnoreCase(warehouseBinDetailsTab.getSkuCode(i + 1)),
+                        "Sku_codes Do Not Match");
+
+                System.out.println(packageDetails.get(i).getPackage_ids());
+                assertion.assertTrue(packageDetails.get(i).getPackage_ids()
+                                .equalsIgnoreCase(warehouseBinDetailsTab.getPackageIds(i + 1)),
+                        "Package_ids Do Not Match");
+            }
         }
     }
+
 
     @AfterClass(alwaysRun = true)
     public void warehouseBinDetailAfterClass() {

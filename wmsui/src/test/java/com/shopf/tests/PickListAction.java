@@ -3,6 +3,7 @@ package com.shopf.tests;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.Assertion;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
@@ -18,6 +19,8 @@ public class PickListAction extends WmsBaseClass {
     private PickOrdersPageObjects.PickListActionTab pickListActionTab;
     private GetWMSApiResponse getWMSApiResponse;
     private PickListActionListModel pickListAction;
+    private Assertion assertion;
+
 
     @BeforeClass(alwaysRun = true)
     public void pickListActionBeforeClass() throws Exception {
@@ -28,7 +31,9 @@ public class PickListAction extends WmsBaseClass {
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
         pickListActionTab = pickOrdersPageObjects.new PickListActionTab(driver);
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
+        assertion = new Assertion();
     }
+
 
     @Test(groups = {CoreConstants.GROUP_SANITY, CoreConstants.GROUP_REGRESSION},
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
@@ -53,37 +58,46 @@ public class PickListAction extends WmsBaseClass {
         PickListActionListModel.PickListBean basic = pickListAction.getPick_list();
         List<PickListActionListModel.PickListItemsBean> items = pickListAction.getPick_list_items();
         System.out.println(items.size() + " - " + (total));
+
         for (i = 0; i < items.size(); i++) {
-            System.out.println(items.get(i).getPick_list_id() + " - " +
-                    pickListActionTab.getPickListID(i + 1)
-                            .equalsIgnoreCase(String.valueOf(items.get(i).getPick_list_id())));
+            System.out.println(items.get(i).getPick_list_id());
+            assertion.assertTrue(pickListActionTab.getPickListID(i + 1)
+                            .equalsIgnoreCase(String.valueOf(items.get(i).getPick_list_id())),
+                    "Pick_list_ids Do Not Match");
 
-            System.out.println(items.get(i).getVariant().getSku_code() + " - " +
-                    pickListActionTab.getSkuCode(i + 1)
-                            .equalsIgnoreCase(items.get(i).getVariant().getSku_code()));
+            System.out.println(items.get(i).getVariant().getSku_code());
+            assertion.assertTrue(pickListActionTab.getSkuCode(i + 1)
+                            .equalsIgnoreCase(items.get(i).getVariant().getSku_code()),
+                    "Sku_codes Do Not Match");
 
-            System.out.println(items.get(i).getVariant().getNotes() + " - " +
-                    pickListActionTab.getDescription(i + 1)
-                            .equalsIgnoreCase(items.get(i).getVariant().getNotes()));
+            System.out.println(items.get(i).getVariant().getNotes());
+            assertion.assertTrue(pickListActionTab.getDescription(i + 1)
+                            .equalsIgnoreCase(items.get(i).getVariant().getNotes()),
+                    "Notes Do Not Match");
 
-            System.out.println(items.get(i).getQuantity() + " - " +
-                    pickListActionTab.getQuantity(i + 1)
-                            .equalsIgnoreCase(String.valueOf(items.get(i).getQuantity())));
+            System.out.println(items.get(i).getQuantity());
+            assertion.assertTrue(pickListActionTab.getQuantity(i + 1)
+                            .equalsIgnoreCase(String.valueOf(items.get(i).getQuantity())),
+                    "Quantities Do Not Match");
 
-            System.out.println(items.get(i).getQuantity() - items.get(i).getPicked_quantity() + " - " +
-                    pickListActionTab.getUnpickedQuantity(i + 1)
+            System.out.println(items.get(i).getQuantity() - items.get(i).getPicked_quantity());
+            assertion.assertTrue(pickListActionTab.getUnpickedQuantity(i + 1)
                             .equalsIgnoreCase(String
-                                    .valueOf(items.get(i).getQuantity() - items.get(i).getPicked_quantity())));
+                                    .valueOf(items.get(i).getQuantity() - items.get(i).getPicked_quantity())),
+                    "Unpicked Quantities Do Not Match");
 
-            System.out.println(items.get(i).getWarehouse_bin().getBin_code() + " - " +
-                    pickListActionTab.getBinCode(i + 1)
-                            .equalsIgnoreCase(items.get(i).getWarehouse_bin().getBin_code()));
+            System.out.println(items.get(i).getWarehouse_bin().getBin_code());
+            assertion.assertTrue(pickListActionTab.getBinCode(i + 1)
+                            .equalsIgnoreCase(items.get(i).getWarehouse_bin().getBin_code()),
+                    "BinCodes Do Not Match");
 
-            System.out.println(items.get(i).getStatus() + " - " +
-                    pickListActionTab.getStatus(i + 1)
-                            .equalsIgnoreCase(items.get(i).getStatus()));
+            System.out.println(items.get(i).getStatus());
+            assertion.assertTrue(pickListActionTab.getStatus(i + 1)
+                            .equalsIgnoreCase(items.get(i).getStatus()),
+                    "Do Not Match");
         }
     }
+
 
     @AfterClass(alwaysRun = true)
     public void pickListActionAfterClass() {
