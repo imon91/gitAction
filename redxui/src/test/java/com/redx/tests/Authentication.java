@@ -21,9 +21,7 @@ public class Authentication extends RedXBaseClass {
         androidDriver = getBaseDriver();
     }
 
-    public void pageInitializer(){
-        loginPageObjects = new LoginPageObjects(androidDriver);
-    }
+    public void pageInitializer(){ loginPageObjects = new LoginPageObjects(); }
 
 
     @BeforeClass(alwaysRun = true)
@@ -50,9 +48,11 @@ public class Authentication extends RedXBaseClass {
             dataProvider = "getUserAuthenticationData")
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
-//        loginPageObjects.performAuthentication(mobileNumber,otp);
-
+        sleep(5000);
+        loginPageObjects.performAuthentication(mobileNumber,otp);
     }
+
+
 
     @AfterClass(alwaysRun = true)
     public void closeAuthenticationClass(){
@@ -65,7 +65,6 @@ public class Authentication extends RedXBaseClass {
     @AfterSuite(alwaysRun = true)
     public void redXAndroidAfterSuite(){
         System.out.println("redXAndroidAfterSuite Is Called");
-        sleep(15000);
         quitBaseDriver();
     }
 
