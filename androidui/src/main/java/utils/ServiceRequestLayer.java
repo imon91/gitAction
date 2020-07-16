@@ -3,6 +3,7 @@ package utils;
 import coreUtils.CoreConstants;
 import services.commerceInterfaces.CommerceServices;
 import services.commerceMethods.GetCommerceApiResponse;
+import services.commerceMethods.GetSearchSuggestionsApiResponse;
 
 public class ServiceRequestLayer implements CommerceServices {
 
@@ -37,5 +38,11 @@ public class ServiceRequestLayer implements CommerceServices {
     public void getControlOverMyCartApi() {
 
     }
+
+    @Override
+    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
+        return new GetSearchSuggestionsApiResponse(module);
+    }
+
 
 }
