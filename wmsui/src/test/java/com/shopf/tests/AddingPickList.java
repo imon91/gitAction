@@ -1,13 +1,10 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.PickOrdersPageObjects;
-import utils.WmsBaseClass;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import utils.*;
 
 public class AddingPickList extends WmsBaseClass {
 
@@ -18,7 +15,7 @@ public class AddingPickList extends WmsBaseClass {
     private PickOrdersPageObjects.AllPickListsTab allPickListsTab;
 
     @BeforeClass(alwaysRun = true)
-    public void addingPickListBeforeClass() throws Exception{
+    public void addingPickListBeforeClass() throws Exception {
         System.out.println("Adding Pick List Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -30,7 +27,7 @@ public class AddingPickList extends WmsBaseClass {
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
             description = "Adds Pick List")
-    public void verifyPickListAddition(){
+    public void verifyPickListAddition() {
         System.out.println("Pick List Addition Verification is called");
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickDemandLessPickListTab();
@@ -45,7 +42,7 @@ public class AddingPickList extends WmsBaseClass {
     }
 
     @AfterClass(alwaysRun = true)
-    public void addingPickListAfterClass(){
+    public void addingPickListAfterClass() {
         System.out.println("Adding Pick List After Class is called");
     }
 }

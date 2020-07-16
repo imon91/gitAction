@@ -104,7 +104,7 @@ public class PackagesPageObjects {
         }
 
         public String getQuantity(int index) {
-            String quantityXpath = "//div[@id='PackagesList']//table/tbody/tr[" + index + "]/td[4]";
+            String quantityXpath = "//div[@id='PackagesList']//table/tbody/tr[" + index + "]/td[5]";
             WebElement quantity = driver.findElement(By.xpath(quantityXpath));
             return myActions.action_getText(quantity);
         }

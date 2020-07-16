@@ -286,7 +286,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         }
 
         public String getOrderedQuantity(int index) {
-            String quantityXpath = "///div[@id='EditPurchaseOrder']//tbody/tr[" + index + "]/td[3]";
+            String quantityXpath = "//div[@id='EditPurchaseOrder']//tbody/tr[" + index + "]/td[3]";
             WebElement quantity = driver.findElement(By.xpath(quantityXpath));
             return myActions.action_getText(quantity);
         }
@@ -358,14 +358,12 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             return skuCodes;
         }
 
-        public String getQuantity(int index) {
+        public ArrayList<String> getQuantity(int index) {
             String quantityXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[8]/table/tbody/tr";
             List<WebElement> quantity = driver.findElements(By.xpath(quantityXpath));
-            String quantities = "";
-            for (int i = 1; i <= quantity.size(); i++) {
-                String quantityXpathI = quantityXpath + "[" + i + "]";
-                WebElement quantityI = driver.findElement(By.xpath(quantityXpath));
-                quantities += myActions.action_getText(quantityI) + ",";
+            ArrayList<String> quantities = new ArrayList<String>();
+            for (WebElement element : quantity){
+                quantities.add(myActions.action_getText(element));
             }
             return quantities;
 
