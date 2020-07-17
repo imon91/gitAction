@@ -1,6 +1,6 @@
 package services.commerceInterfaces;
-
 import services.commerceMethods.GetCommerceApiResponse;
+import services.commerceMethods.GetSearchSuggestionsApiResponse;
 
 public interface CommerceServices {
 
@@ -12,5 +12,8 @@ public interface CommerceServices {
 
     void getControlOverCollectionsApi();
 
-    void getControlOverMyCartApi();
+    public void getControlOverMyCartApi();
+
+    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi();
+
 }
