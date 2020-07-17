@@ -46,23 +46,6 @@ public class CoreConstants {
     public static final String GROUP_INTEGRATION = "integration";
     public static final String GROUP_REGRESSION = "regression";
 
-    /*----------- WebUrls---------------*/
-
-    public static final String RESELLER_APP_STAGE_BASE_URL = "https://uatapi.shopups2.xyz/";
-    public static final String RESELLER_APP_PROD_BASE_URL = "";
-    public static final String MOKAM_APP_STAGE_BASE_URL = "https://ucapi.shopups2.xyz/";
-    public static final String MOKAM_APP_PROD_BASE_URL = "https://ucapi.vnksrvc.com/";
-    public static final String RESELLER_WAP_STAGE_BASE_URL = "https://uatwap.shopups2.xyz/";
-    public static final String RESELLER_WEB_STAGE_BASE_URL = "https://uatwap.shopups2.xyz/";
-    public static final String MOKAM_WAP_STAGE_BASE_URL = "https://ucwap.shopups2.xyz/";
-    public static final String MOKAM_WEB_STAGE_BASE_URL = "";
-    public static final String RESELLER_WAP_PROD_BASE_URL = "https://uatwap.vnksrvc.com/";
-    public static final String RESELLER_WEB_PROD_BASE_URL = "https://uatwap.vnksrvc.com";
-    public static final String MOKAM_WAP_PROD_BASE_URL = "https://ucwap.vnksrvc.com/";
-    public static final String MOKAM_WEB_PROD_BASE_URL = "";
-    public static final String WMS_WEB_STAGE_BASE_URL = "https://uatwms.vnksrvc.com/";
-    public static final String WMS_WEB_PROD_BASE_URL = "https://uatwms.vnksrvc.com/";
-
     /*----------- Environments---------------*/
     public static final String APP_RESELLER = "Reseller";
     public static final String APP_MOKAM = "Mokam";
