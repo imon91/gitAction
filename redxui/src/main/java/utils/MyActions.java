@@ -21,9 +21,6 @@ public class MyActions extends RedXBaseClass {
         }catch (Exception e){
             System.out.println(e);
         }
-        if(getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
-        }
     }
 
     public String action_getText(WebElement element){
@@ -51,9 +48,6 @@ public class MyActions extends RedXBaseClass {
 
     public void action_clearText(WebElement element){
         element.clear();
-        if(getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
-        }
     }
 
     public void clickOnHardKeyBack() throws Exception{
