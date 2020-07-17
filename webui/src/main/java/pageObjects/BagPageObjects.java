@@ -15,8 +15,8 @@ import java.util.Random;
 public class BagPageObjects extends WebBaseClass{
 
 
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     Random random = new Random();
 
 

@@ -1,14 +1,10 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.PackagesPageObjects;
-import pageObjects.WarehousesPageObjects;
-import utils.WmsBaseClass;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import utils.*;
 
 public class PackageDetails extends WmsBaseClass {
 
@@ -20,7 +16,7 @@ public class PackageDetails extends WmsBaseClass {
     private WarehousesPageObjects.WarehouseBinDetailsTab warehouseBinDetailsTab;
 
     @BeforeClass(alwaysRun = true)
-    public void packageDetailsBeforeClass() throws Exception{
+    public void packageDetailsBeforeClass() throws Exception {
         System.out.println("Package Details Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -33,7 +29,7 @@ public class PackageDetails extends WmsBaseClass {
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Package Details Verification")
-    public void packageDetailsVerification(){
+    public void packageDetailsVerification() {
         System.out.println("Package Details Verification is called");
         String pId = "135979";
         homePageObject.clickPackages();
@@ -42,18 +38,18 @@ public class PackageDetails extends WmsBaseClass {
         packageDetailsTab.enterPackageID(pId);
         sleep(1000);
         String binCode = packageDetailsTab.getBinCode();
-        String code = binCode.substring(binCode.indexOf(':')+2);
+        String code = binCode.substring(binCode.indexOf(':') + 2);
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickBinDetailsTab();
         sleep(1000);
         warehouseBinDetailsTab.enterBinCodeBinDetails(code);
         sleep(1000);
         int i, total = warehouseBinDetailsTab.getTotalProducts();
-        for (i = 1;i <=total ; i++) {
-           String packages = warehouseBinDetailsTab.getPackageIds(i);
-           if(packages.contains(pId))
-               System.out.println("Found in Row: " + i);
-           else continue;
+        for (i = 1; i <= total; i++) {
+            String packages = warehouseBinDetailsTab.getPackageIds(i);
+            if (packages.contains(pId))
+                System.out.println("Found in Row: " + i);
+            else continue;
 
         }
     }

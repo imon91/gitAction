@@ -43,10 +43,12 @@ public class AndroidAppCapabilities {
                 app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.resellerStageApk);
             cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RESELLER_APP_PACKAGE);
+            cap.setCapability(CAP_KEY_APP_ACTIVITY, CoreConstants.ANDROID_MAIN_ACTIVITY);
         }else if(env.equalsIgnoreCase(CoreConstants.ENV_PROD) &&
                 app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.resellerProdApk);
             cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RESELLER_APP_PACKAGE);
+            cap.setCapability(CAP_KEY_APP_ACTIVITY, CoreConstants.ANDROID_MAIN_ACTIVITY);
         }else if(env.equalsIgnoreCase(CoreConstants.ENV_STAGE) &&
                 app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.mokamStageApk);
@@ -55,10 +57,17 @@ public class AndroidAppCapabilities {
                 app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.mokamProdApk);
             cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.MOKAM_APP_PACKAGE);
+        }else if(env.equalsIgnoreCase(CoreConstants.ENV_STAGE) &&
+                app.equalsIgnoreCase(CoreConstants.APP_RED_X)){
+            cap.setCapability(CAP_KEY_APP, CoreFileUtils.redXStageApk);
+            cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RED_X_APP_PACKAGE);
+            cap.setCapability(CAP_KEY_APP_ACTIVITY,CoreConstants.RED_X_SPLASH_ACTIVITY);
+        }else if(env.equalsIgnoreCase(CoreConstants.ENV_PROD) &&
+                app.equalsIgnoreCase(CoreConstants.APP_RED_X)) {
+            cap.setCapability(CAP_KEY_APP, CoreFileUtils.redXProdApk);
+            cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RED_X_APP_PACKAGE);
         }
-
         cap.setCapability(CAP_KEY_AUTOMATION_NAME, CoreConstants.ANDROID_AUTOMATION_NAME);
-        cap.setCapability(CAP_KEY_APP_ACTIVITY, CoreConstants. ANDROID_MAIN_ACTIVITY);
         cap.setCapability(CAP_KEY_LOCATION_SERVICES_AUTHORIZED, CoreConstants.TRUE);
         cap.setCapability(CAP_KEY_AUTO_ACCEPT_ALERTS, CoreConstants.TRUE);
         cap.setCapability(CAP_KEY_ADB_EXEC_TIME_OUT, CoreConstants.ABD_EXEC_TIME_OUT);

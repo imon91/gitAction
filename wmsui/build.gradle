@@ -58,19 +58,17 @@ task wmsuiTest(type: Test){
         testLogging.showStandardStreams = true
         systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","App"])
         def smoke = project.hasProperty("Smoke")
-        def integration = project.hasProperty("Int")
-        def functional = project.hasProperty("Fun")
+        def sanity = project.hasProperty("Sanity")
         def regression = project.hasProperty("Reg")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
         }
-        if(integration) {
-            suites "src/test/resources/mySuites/integrationSuite.xml"
+
+        if(sanity) {
+            suites "src/test/resources/mySuites/sanitySuite.xml"
         }
-        if(functional) {
-            suites "src/test/resources/mySuites/functionalSuite.xml"
-        }
+
         if(regression){
             suites "src/test/resources/mySuites/regressionSuite.xml"
         }

@@ -7,6 +7,7 @@ import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import services.commerceMethods.GetCommerceApiResponse;
 import utils.*;
 import java.util.*;
 
@@ -25,6 +26,8 @@ public class MyBag extends AndroidBaseClass {
     private PaymentModePageObjects paymentModePageObjects;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates estimatedDeliveryDates;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates.EstimatedDeliveryDatesItems estimatedDeliveryDatesItems;
+    private AddNewAddressPageObjects addNewAddressPageObjects;
+    private GetCommerceApiResponse getCommerceApiResponse;
     private TouchAction touch ;
     private MyActions myActions;
     private OrderSuccessFulPageObjects orderSuccessFulPageObjects;
@@ -47,6 +50,8 @@ public class MyBag extends AndroidBaseClass {
         paymentModePageObjects = new PaymentModePageObjects(androidDriver);
         estimatedDeliveryDates = checkoutAddressPageObjects.new EstimatedDeliveryDates(androidDriver);
         estimatedDeliveryDatesItems = estimatedDeliveryDates.new EstimatedDeliveryDatesItems(androidDriver);
+        addNewAddressPageObjects = new AddNewAddressPageObjects(androidDriver);
+        getCommerceApiResponse = new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI);
         myActions = new MyActions();
         // This Block is responsible to get the control from anywhere to MyBag
         //actionBarObjects.clickOnBagImageButton();
@@ -141,16 +146,16 @@ public class MyBag extends AndroidBaseClass {
             System.out.println("Count is : " + count);
             System.out.println("Container Selected is : " + count);
             int earnings = Integer.parseInt(itemContainer.getEaringsPerItemAmountText(count));
-            int price = Integer.parseInt(itemContainer.getItemPriceText(count));
-            int quantity = Integer.parseInt(myActions.action_getText(itemContainer.getListOfItemQuantityValues().get(count-1)));
-            if(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)).isEmpty()) {
-                salePrice = Integer.parseInt(System.getProperty("minSalePrice"));
-                System.out.println(salePrice);
-            } else{
-                salePrice = Integer.parseInt(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)));
-                System.out.println(salePrice);
-            }
-            Assert.assertEquals((quantity*salePrice)-price,earnings);
+//            int price = Integer.parseInt(itemContainer.getItemPriceText(count));
+//            int quantity = Integer.parseInt(myActions.action_getText(itemContainer.getListOfItemQuantityValues().get(count-1)));
+//            if(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)).isEmpty()) {
+//                salePrice = Integer.parseInt(System.getProperty("minSalePrice"));
+//                System.out.println(salePrice);
+//            } else{
+//                salePrice = Integer.parseInt(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)));
+//                System.out.println(salePrice);
+//            }
+            Assert.assertEquals(earnings,myBagPageObjects.getPriceDetails(count-1,"Earnings"));
             System.out.println("Earnings per Item is working properly");
         }
     }
@@ -162,19 +167,19 @@ public class MyBag extends AndroidBaseClass {
     public void verifyTotalEarnings(){
         int containersSize = itemContainer.getListOfItemContainers();
         System.out.println("List Of Item Containers is : "+containersSize);
-        int totalEarningsCalculated = 0,deliveryCharges = 0;
-        for(int i = 1;i<=containersSize;i++){
-            int earnings = Integer.parseInt(itemContainer.getEaringsPerItemAmountText(i));
-            totalEarningsCalculated += earnings;
-        }
-        if(myActions.action_getText(xpathSetter("//input[@id='deliveryCharge1']")).isEmpty()){
-            deliveryCharges = 49;
-        }else{
-            deliveryCharges = Integer.parseInt(creditsAndCoupons.getDeliveryChargesText());
-        }
-        totalEarningsCalculated += (deliveryCharges-49);
+//        int totalEarningsCalculated = 0,deliveryCharges = 0;
+//        for(int i = 1;i<=containersSize;i++){
+//            int earnings = Integer.parseInt(itemContainer.getEaringsPerItemAmountText(i));
+//            totalEarningsCalculated += earnings;
+//        }
+//        if(myActions.action_getText(xpathSetter("//input[@id='deliveryCharge1']")).isEmpty()){
+//            deliveryCharges = 49;
+//        }else{
+//            deliveryCharges = Integer.parseInt(creditsAndCoupons.getDeliveryChargesText());
+//        }
+//        totalEarningsCalculated += (deliveryCharges-49);
         int totalEarnings = Integer.parseInt(creditsAndCoupons.getYourTotalEarningsAmount());
-        Assert.assertEquals(totalEarningsCalculated,totalEarnings);
+        Assert.assertEquals(totalEarnings,myBagPageObjects.getChargeandTotalValue("totalEarnings"));
         System.out.println("Total Eanings is working properly");
     }
 
@@ -192,15 +197,15 @@ public class MyBag extends AndroidBaseClass {
             System.out.println("Count is : " + count);
             System.out.println("Container Selected is : " + count);
             int orderValue = Integer.parseInt(itemContainer.getOrderValuePerItemAmountText(count));
-            int quantity = Integer.parseInt(myActions.action_getText(itemContainer.getListOfItemQuantityValues().get(count-1)));
-            if(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)).isEmpty()) {
-                salePrice = Integer.parseInt(System.getProperty("minSalePrice"));
-                System.out.println(salePrice);
-            } else{
-                salePrice = Integer.parseInt(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)));
-                System.out.println(salePrice);
-            }
-            Assert.assertEquals(quantity*salePrice,orderValue);
+//            int quantity = Integer.parseInt(myActions.action_getText(itemContainer.getListOfItemQuantityValues().get(count-1)));
+//            if(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)).isEmpty()) {
+//                salePrice = Integer.parseInt(System.getProperty("minSalePrice"));
+//                System.out.println(salePrice);
+//            } else{
+//                salePrice = Integer.parseInt(myActions.action_getText(itemContainer.getListOfSalePriceEditTexts().get(count-1)));
+//                System.out.println(salePrice);
+//            }
+            Assert.assertEquals(orderValue,myBagPageObjects.getPriceDetails(count-1,"OrderValue"));
             System.out.println("Order value per Item is working properly");
         }
     }
@@ -212,21 +217,21 @@ public class MyBag extends AndroidBaseClass {
     public void verifyCartValue(){
         int containersSize = itemContainer.getListOfItemContainers();
         System.out.println("List Of Item Containers is : "+containersSize);
-        int orderValueCalculated = 0,deliveryCharges=0,orderValueForAllItems=0;
-        for (int i =1;i<=containersSize;i++){
-            int orderValue = Integer.parseInt(itemContainer.getOrderValuePerItemAmountText(i));
-            orderValueForAllItems += orderValue;
-            System.out.println(orderValueForAllItems);
-        }
-        if(myActions.action_getText(xpathSetter("//input[@id='deliveryCharge1']")).isEmpty()){
-            deliveryCharges = 49;
-        }else{
-            deliveryCharges = Integer.parseInt(creditsAndCoupons.getDeliveryChargesText());
-        }
-        orderValueCalculated = orderValueForAllItems + deliveryCharges;
-        System.out.println(orderValueCalculated);
+//        int orderValueCalculated = 0,deliveryCharges=0,orderValueForAllItems=0;
+//        for (int i =1;i<=containersSize;i++){
+//            int orderValue = Integer.parseInt(itemContainer.getOrderValuePerItemAmountText(i));
+//            orderValueForAllItems += orderValue;
+//            System.out.println(orderValueForAllItems);
+//        }
+//        if(myActions.action_getText(xpathSetter("//input[@id='deliveryCharge1']")).isEmpty()){
+//            deliveryCharges = 49;
+//        }else{
+//            deliveryCharges = Integer.parseInt(creditsAndCoupons.getDeliveryChargesText());
+//        }
+//        orderValueCalculated = orderValueForAllItems + deliveryCharges;
+//        System.out.println(orderValueCalculated);
         int orderValue = Integer.parseInt(creditsAndCoupons.getCartTotalValue());
-        Assert.assertEquals(orderValueCalculated,orderValue);
+        Assert.assertEquals(orderValue,myBagPageObjects.getChargeandTotalValue("totalCartValue"));
         System.out.println("Total order value is working properly");
     }
 
@@ -330,6 +335,8 @@ public class MyBag extends AndroidBaseClass {
         System.out.println("Address selected is : "+count);
         System.out.println("List of Edit Address Button is :"+addressField.getListOfEditAddressButtons().size());
         addressField.clickOnEditAddressButton(addressField.getListOfEditAddressButtons().get(count-1));
+        addNewAddressPageObjects.editNameInAddress("Hari");
+        addNewAddressPageObjects.editAddressInAddress("TCE Street");
     }
 
 
@@ -376,6 +383,15 @@ public class MyBag extends AndroidBaseClass {
     public void verifyCheckoutProceedInMyBag(){
         sleep(5000);
         checkoutAddressPageObjects.clickOnProceedToPaymentTopButton();
+    }
+
+
+    @Test(  groups = {"MyBag.verifyPaymentBreakup",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION})
+    public void verifyPaymentBreakup(){
+        sleep(3000);
+        paymentModePageObjects.clickOnPaymentBreakup();
     }
 
 

@@ -19,6 +19,7 @@ public class PLPPageObject extends WebBaseClass {
     private WebDriver driver;
     private MyActions myActions;
     private ServiceRequestLayer serviceRequestLayer;
+
     Random random = new Random();
 
     public PLPPageObject(WebDriver driver) {

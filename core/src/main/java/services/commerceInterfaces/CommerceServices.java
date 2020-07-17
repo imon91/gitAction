@@ -4,15 +4,16 @@ import services.commerceMethods.GetSearchSuggestionsApiResponse;
 
 public interface CommerceServices {
 
-    public GetCommerceApiResponse getControlOverServices();
+    GetCommerceApiResponse getControlOverServices();
 
-    public void getControlOverSearchForUserApi();
+    void getControlOverSearchForUserApi();
 
-    public void getControlOverUserProfileApi();
+    void getControlOverUserProfileApi();
 
-    public void getControlOverCollectionsApi();
+    void getControlOverCollectionsApi();
 
     public void getControlOverMyCartApi();
 
     public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi();
+
 }

@@ -8,6 +8,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.ShoppingCartResponseModel;
 import utils.*;
 import java.util.*;
 
@@ -24,19 +26,26 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private String app;
     private String NEW_PLP = "New";
     private String OLD_PLP = "Old";
+    private GetCommerceApiResponse getCommerceApiResponse;
+    private ServiceRequestLayer serviceRequestLayer;
 
-    public MyBagPageObjects(AndroidDriver<WebElement> androidDriver){
+    public MyBagPageObjects(AndroidDriver<WebElement> androidDriver) {
         this.androidDriver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
+        PageFactory.initElements(new AppiumFieldDecorator(androidDriver), this);
         myActions = new MyActions();
         random = new Random();
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
+        serviceRequestLayer = new ServiceRequestLayer();
+        getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
+        plp_view = productListingPageObjects.plpView;
+        if (plp_view.equalsIgnoreCase(NEW_PLP)) {
 //        plp_view = productListingPageObjects.plpView;
-        app = System.getProperty(BuildParameterKeys.KEY_APP);
-        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
-        }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-            switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+            app = System.getProperty(BuildParameterKeys.KEY_APP);
+            if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+                switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
+            } else if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+                switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+            }
         }
     }
 
@@ -58,19 +67,20 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private WebElement cartTotalValue;
 
     // Item Container Path
-    private String itemContainerPath = "//div[@class='lineItemContainer___DdZE9']";
+    private final String itemContainerPath = "//div[@class='lineItemContainer___DdZE9']";
 
 
     public class ItemContainer{
 
-        private AndroidDriver<WebElement> androidDriver;
-        private MyActions myActions;
-        private int minSalePrice,maxSalePrice;
+        private final AndroidDriver<WebElement> androidDriver;
+        private final MyActions myActions;
+        private final int minSalePrice;
+        private final int maxSalePrice;
         
         
 
         // Container Parent Path
-        private String containerParentPath = "//div[@class='seller_info']/ancestor::div[2]/div";
+        private final String containerParentPath = "//div[@class='seller_info']/ancestor::div[2]/div";
 
 
 
@@ -403,8 +413,8 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
         // Cart/MyBag os completely a WebView
 
-        private AndroidDriver<WebElement> androidDriver;
-        private MyActions myActions;
+        private final AndroidDriver<WebElement> androidDriver;
+        private final MyActions myActions;
 
         public CreditsAndCoupons(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
@@ -566,5 +576,61 @@ public class MyBagPageObjects extends AndroidBaseClass {
             myActions.action_click(placeOrderButtonReseller);
         }
     }
+
+
+/*-------Data-----*/
+
+
+    public int getPriceDetails(int index, String price){
+        List<ShoppingCartResponseModel.CartItemsBean> priceDetails = getCommerceApiResponse.getListOfCartItems();
+        int value = 0;
+        String withTakeSymbol;
+        String[] splitAmount;
+        switch (price){
+            case "Earnings" :
+                withTakeSymbol = priceDetails.get(index).getFormatted_income();;
+                splitAmount = withTakeSymbol.split(" ");
+                value = Integer.parseInt(String.valueOf(splitAmount));
+                break;
+
+            case "OrderValue" :
+                withTakeSymbol = priceDetails.get(index).getFormatted_per_item_total();
+                splitAmount = withTakeSymbol.split(" ");
+                value = Integer.parseInt(String.valueOf(splitAmount));
+                break;
+
+            case "SalePrice" :
+                withTakeSymbol = priceDetails.get(index).getFormatted_sale_price();
+                splitAmount = withTakeSymbol.split(" ");
+                value = Integer.parseInt(String.valueOf(splitAmount));
+                break;
+
+            case "VariantPrice" :
+                value = priceDetails.get(index).getVariant_price();
+                break;
+
+            case "Quantity" :
+                value = priceDetails.get(index).getQuantity();
+                break;
+
+            case "MinSalePrice" :
+                value = priceDetails.get(index).getMin_selling_price();
+                break;
+
+            case "MaxSalePrice" :
+                value = priceDetails.get(index).getMax_selling_price();
+                break;
+        }
+        return value;
+    }
+
+
+    public int getChargeandTotalValue(String data){
+        Map<String,Object> productDetailsMap = getCommerceApiResponse.getCharges();
+        String withTakeSymbol = String.valueOf(productDetailsMap.get(data));
+        String[] splitAmount = withTakeSymbol.split(" ");
+        return Integer.parseInt(String.valueOf(splitAmount));
+    }
+
 
 }

@@ -27,6 +27,7 @@ public class GetDriverFromCore {
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
     private static final String APP_RESELLER = "bs://635aae825c9f83d49efe5a44129a019044ca17ef";
     private static final String APP_MOKAM = "bs://3e9fabcff33f12fa17798f9be86231922c267277";
+    private static final String APP_RED_X = "bs://3e9fabcff33f12fa17798f9be86231922c267277";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";
     private static final String KEY_BROWSER_NAME = "browserName";
@@ -201,26 +202,31 @@ public class GetDriverFromCore {
             return  new AndroidDriver<WebElement>(new URL(getProtocol() + getHost() + ":" + getPort() + getDriverAsHub()),
                     androidAppCapabilities.setCapabilities());
         }else{
+            String app = System.getProperty(BuildParameterKeys.KEY_APP);
             setBrowserStackUrl();
             System.out.println("Control came to getAndroidDriver for Host : browserStack");
             DesiredCapabilities caps = new DesiredCapabilities();
             caps.setCapability(BrowserStackCapabilities.KEY_ANDROID_DEVICE, device);
             caps.setCapability(BrowserStackCapabilities.KEY_ANDROID_VERSION, version);
-            if(System.getProperty(BuildParameterKeys.KEY_APP)
-                    .equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Reseller-Android-UI");
                 caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "ResellerAndroidBuild");
-            } else if(System.getProperty(BuildParameterKeys.KEY_APP)
-                    .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_RESELLER);
+            } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Mokam-Android-UI");
                 caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "MokamAndroidBuild");
+                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_MOKAM);
+            }else if(app.equalsIgnoreCase(CoreConstants.APP_RED_X)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "RedX-Android-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "RedXAndroidBuild");
+                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_RED_X);
             }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "AndroidAppTest");
-            if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_MOKAM);
-            }else if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_RESELLER);
-            }
+//            if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+//                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_MOKAM);
+//            }else if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+//                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_RESELLER);
+//            }
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);
             //caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_NETWORK_LOGS,CoreConstants.TRUE);
             System.out.println("URL is :"+url);

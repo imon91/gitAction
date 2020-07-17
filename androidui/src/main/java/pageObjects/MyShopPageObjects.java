@@ -12,8 +12,8 @@ import java.util.*;
 public class MyShopPageObjects extends AndroidBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
-    private MyActions myActions;
-    private Random random;
+    private final MyActions myActions;
+    private final Random random;
 
     public MyShopPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
