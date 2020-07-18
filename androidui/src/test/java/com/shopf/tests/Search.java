@@ -5,9 +5,16 @@ import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
+import services.responseModels.commerceModels.SearchRecentProductsModel;
 import utils.*;
 import java.util.List;
+
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
+import static java.time.Duration.ofSeconds;
+import static io.appium.java_client.touch.offset.ElementOption.element;
+import java.util.concurrent.TimeUnit;
 
 
 
@@ -18,7 +25,7 @@ public class Search extends AndroidBaseClass {
     private SearchPageObjects searchPageObjects;
     MyActions myActions;
     private AndroidDriver<WebElement> androidDriver;
-
+    private String suiteName;
 
 
 
@@ -35,6 +42,12 @@ public class Search extends AndroidBaseClass {
     }
 
 
+   @BeforeTest
+   @Parameters("suite")
+   public void searchModuleTests(String suiteNameFromXMLFile)
+   {
+       suiteName = suiteNameFromXMLFile;
+   }
 
     @DataProvider(name = "getProductName")
     public Object[][] getProductName(){
@@ -75,7 +88,7 @@ public class Search extends AndroidBaseClass {
             enabled = false,
             dependsOnGroups = {"Authentication.verifyEditMobileNumber"},
             description = "Verifies click on recently viewed product")
-    public void verifyRecentlyViewedProduct()
+    public void verifyRecentlyViewedProductClickable()
     {
         System.out.println("verification of recently viewed product was called");
         sleep(5000);
@@ -104,7 +117,7 @@ public class Search extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Search Functionality and Cancelling it",
             dataProvider = "getProductName"  )
-    public void verifySearchFunctionalityandCancelIt(String productName){
+    public void verifySearchFunctionalityAndCancelIt(String productName){
         searchPageObjects.enterTheProductNameAndCancel(productName);
     }
 
@@ -118,39 +131,67 @@ public class Search extends AndroidBaseClass {
         WebElement searchBarText = idSetter("com.shopup.reseller:id/etSearch");
         myActions.action_sendKeys(searchBarText,productName);
         sleep(15000);
-        //verifying data
-          System.out.println(searchPageObjects.searchSuggestionTitleList().size());
-        for(int i=0;i<searchPageObjects.searchSuggestionTitleList().size();i++) {
-            String uiSuggestion = searchPageObjects.getSearchSuggestion(i,"title");
-            sleep(2000);
-            String apiSuggestion = searchPageObjects.getSuggestionFromApi(i,"title");
-            sleep(2000);
-            assertTrue(uiSuggestion.equalsIgnoreCase(apiSuggestion));
-        }
 
-        for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelList().size();j++) {
-            String uiSuggestion1 = searchPageObjects.getSearchSuggestion(j,"inLineLabel");
-            sleep(2000);
-            String apiSuggestion1 = searchPageObjects.getSuggestionFromApi(j,"inLineLabel");
-            sleep(2000);
-            assertTrue(uiSuggestion1.equalsIgnoreCase(apiSuggestion1));
+        //verifying data :title
+        for(int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++) {
+            if (i == 0 || i == searchPageObjects.searchSuggestionTitleListUI().size() || suiteName.equalsIgnoreCase("regression")) {
+                String uiSuggestion = searchPageObjects.getSearchSuggestionDataFromUI(i, "title");
+                sleep(2000);
+                String apiSuggestion = searchPageObjects.searchSuggestionDataFromApi("title").get(i);
+                sleep(2000);
+                assertTrue(uiSuggestion.equalsIgnoreCase(apiSuggestion));
+            }
+            }
+
+        //verifying data inlineLabel
+            for (int j = 0; j < searchPageObjects.searchSuggestionInLineLabelListUI().size(); j++) {
+                if(j==0||j==searchPageObjects.searchSuggestionTitleListUI().size()||suiteName.equalsIgnoreCase("regression")){
+                String uiSuggestion1 = searchPageObjects.getSearchSuggestionDataFromUI(j, "inLineLabel");
+                sleep(2000);
+                String apiSuggestion1 = searchPageObjects.searchSuggestionDataFromApi("inLineLabel").get(j);
+                sleep(2000);
+                assertTrue(uiSuggestion1.equalsIgnoreCase(apiSuggestion1));
+            }
+            System.out.println("The serchSuggestionDataWasVerified");
+            //click on suggession
+            sleep(1000);
+            searchPageObjects.clickOnSearchSuggestion(1);
         }
-        System.out.println("The serchSuggestionDataWasVerified");
-        //click on suggession
-        sleep(1000);
-        searchPageObjects.clickOnSearchSuggestion(1);
     }
 
-   @Test
+
+   @Test(  groups = {"Search.verifySearchFunctionalityWithSelectingSuggestions" ,
+           CoreConstants.GROUP_REGRESSION},
+           description = "Verifies Search Functionality With Selecting Any Suggestions")
+
    public void verifyRecentlyViewedProducts() {
         String productName;
+        String productNameFromUI;
 
-        List<String> productsNameList = searchPageObjects.getNamesOfRecentProductsFromApiList();
-        for (int i = 0; i < searchPageObjects.getNamesOfRecentProductsFromApiList().size(); i++) {
-        productName = productsNameList.get(i);
-            assertTrue(searchPageObjects.scrollToElement(productName));
+        List<SearchRecentProductsModel.ResultsBean> resultsBeansFromApi = searchPageObjects.getResultsOfRecentProductsFromApiList();
+
+        for(int i = 0; i < resultsBeansFromApi.size(); i++) {
+            if (i == 0 || i == searchPageObjects.searchSuggestionTitleListUI().size() || suiteName.equalsIgnoreCase("regression")) {
+
+                productName = resultsBeansFromApi.get(i).getName();
+                searchPageObjects.scrollToElement(productName);
+                sleep(1000);
+
+                for (int j = 0; j < searchPageObjects.searchRecentProductsNameListUI().size(); j++) {
+                    productNameFromUI = myActions.action_getText(searchPageObjects.searchRecentProductsNameListUI().get(j));
+                    if (productName.equals(productNameFromUI)) {
+                        //ui data
+                        List<String> containerDataUI = searchPageObjects.recentProductContainerDataFromUI(j);
+                        //api data
+                        assertEquals(resultsBeansFromApi.get(i).getPer_piece_price(), containerDataUI.get(0));
+                        assertEquals(resultsBeansFromApi.get(i).getOriginal_price(), containerDataUI.get(1));
+                        assertEquals(resultsBeansFromApi.get(i).getProduct_stamp(), containerDataUI.get(2));
+                    }
+                }
+            }
         }
         System.out.println("Recently Viewed Products Was Verified");
+
     }
 
 
