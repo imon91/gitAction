@@ -7,9 +7,7 @@ import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
-import org.testng.Assert;
-import services.commerceMethods.GetCommerceApiResponse;
-import services.responseModels.commerceModels.ShoppingCartResponseModel;
+import services.commerceMethods.GetMyBagApiResponse;
 import utils.*;
 import java.util.*;
 
@@ -26,7 +24,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private String app;
     private String NEW_PLP = "New";
     private String OLD_PLP = "Old";
-    private GetCommerceApiResponse getCommerceApiResponse;
+    private GetMyBagApiResponse getMyBagApiResponse;
     private ServiceRequestLayer serviceRequestLayer;
 
     public MyBagPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -36,7 +34,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
         random = new Random();
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
         serviceRequestLayer = new ServiceRequestLayer();
-        getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
+        getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         plp_view = productListingPageObjects.plpView;
         if (plp_view.equalsIgnoreCase(NEW_PLP)) {
 //        plp_view = productListingPageObjects.plpView;
@@ -47,6 +45,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
                 switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
             }
         }
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
     }
 
 
@@ -83,7 +82,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
 
-        public int getListOfItemContainers(){
+        public int getItemContainersSize(){
             List<WebElement> itemList = xpathListSetter(itemContainerPath);
             return itemList.size();
         }
@@ -132,7 +131,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public String getItemPriceText(int index){
-            String withTakeSymbol = myActions.action_getText(getListOfItemPrices().get(index-1));
+            String withTakeSymbol = myActions.action_getText(getListOfItemPrices().get(index));
             System.out.println(withTakeSymbol);
             String[] splitAmount = withTakeSymbol.split(" ");
             return splitAmount[1];
@@ -190,7 +189,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfSalePriceLabel(){
-            String salePriceLabelXPath = containerParentPath+"/div[3]/div[1]/span[1]";
+            String salePriceLabelXPath = containerParentPath+"//div[3]/div[1]/span[1]";
             List<WebElement> salePriceLabelList = androidDriver.findElements(By.xpath(salePriceLabelXPath));
             return salePriceLabelList;
         }
@@ -218,17 +217,14 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfEarningsPerItem(){
-            String yourEarningsLabelXPath = containerParentPath+"/div[2]//div[3]/div[2]//span";
+            String yourEarningsLabelXPath = containerParentPath+"/div[2]//div[3]//div[@class='flex___1bJDE between___1AlI0 middle___1jEMZ salePriceIncomeContainer___2NS0A']//span";
             List<WebElement> yourEarningsPerItemList = androidDriver.findElements(By.xpath(yourEarningsLabelXPath));
             return yourEarningsPerItemList;
         }
 
 
-        public String getEaringsPerItemAmountText(int index){
-            String withTakeSymbol = myActions.action_getText(getListOfEarningsPerItem().get(index-1));
-            System.out.println(withTakeSymbol);
-            String[] splitAmount = withTakeSymbol.split(" ");
-            return splitAmount[1];
+        public String getEarningsPerItemAmountText(int index){
+            return myActions.action_getText(getListOfEarningsPerItem().get(index));
         }
 
 
@@ -247,10 +243,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public String getOrderValuePerItemAmountText(int index){
-            String withTakeSymbol = myActions.action_getText(getListOfOrderValuePerItem().get(index-1));
-            System.out.println(withTakeSymbol);
-            String[] splitAmount = withTakeSymbol.split(" ");
-            return splitAmount[1];
+            return myActions.action_getText(getListOfOrderValuePerItem().get(index));
         }
 
 
@@ -315,14 +308,18 @@ public class MyBagPageObjects extends AndroidBaseClass {
             return myActions.action_getText(androidDriver.findElement(By.xpath(preSelectedSize)));
         }
 
-        public String getSalePriceIncomeLabelOnContainer(int containerId){
+        public void clickSalePriceIncomeLabelOnContainer(int containerId){
             String salePriceIncomeLabel = containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']/div[1]/span[1]";
-            return myActions.action_getText(androidDriver.findElement(By.xpath(salePriceIncomeLabel)));
+            myActions.action_click(androidDriver.findElement(By.xpath(salePriceIncomeLabel)));
         }
 
-        public String enterSalePriceOnContainer(int containerId){
-            String salePriceIncomeLabel = containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']/div[1]/span[1]";
-            return myActions.action_getText(androidDriver.findElement(By.xpath(salePriceIncomeLabel)));
+        public String getSalePriceOnContainer(int containerId){
+            String salePriceIncomeLabel = containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input";
+            return androidDriver.findElement(By.xpath(salePriceIncomeLabel)).getAttribute("placeholder");
+        }
+
+        public void clearSalePriceOnContainer(int containerId){
+            androidDriver.findElement(By.xpath(containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input")).clear();
         }
 
         public void enterSalePriceOnContainer(int containerId,int Price){
@@ -342,66 +339,86 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
         public void clickOnSubQuantityButton(WebElement element) {myActions.action_click(element);}
 
+        public String getProductName(int index){
+            return myActions.action_getText(getListOfItemTitles().get(index));
+        }
+
+        public String getProductVariantPrice(int index){
+            return myActions.action_getText(getListOfItemPrices().get(index));
+        }
+
+        public String getImageLink(int index){
+            return getListOfItemImages().get(index).getAttribute("src");
+        }
+
+        public String getSize(int index){
+            return myActions.action_getText(getListOfSizeSelectors().get(index));
+        }
+
+        public String getSalePrice(int index){
+            return getListOfSalePriceEditTexts().get(index).getAttribute("placeholder");
+        }
+
+        public String getQuantity(int index){
+            return myActions.action_getText(getListOfItemQuantityValues().get(index));
+        }
+
         public void closeSizeListInMyBag(){
             String closeButton = "//div[@class='modal-footer']/button";
             myActions.action_click(xpathSetter(closeButton));
         }
 
-        public void givingRandomSalePrice(int containerId){
+        public void givingRandomSalePrice(int index,int minSalePrice,int maxSalePrice){
             int salePrice = random.nextInt((maxSalePrice-minSalePrice))+minSalePrice;
-            androidDriver.findElement(By.xpath(containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input")).clear();
-            enterSalePriceOnContainer(containerId,salePrice);
+            getListOfSalePriceEditTexts().get(index).clear();
+            getListOfSalePriceEditTexts().get(index).sendKeys(""+salePrice);
             sleep(3000);
-            getSalePriceIncomeLabelOnContainer(containerId);
+            getListOfSalePriceLabel().get(index).click();
         }
 
 
-        public void checkingLessThanMinPrice(int containerId){
-            androidDriver.findElement(By.xpath(containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input")).clear();
-            enterSalePriceOnContainer(containerId,(minSalePrice-1));
+        public String checkingLessThanMinPrice(int index,int price){
+            getListOfSalePriceEditTexts().get(index).clear();
+            getListOfSalePriceEditTexts().get(index).sendKeys(""+price);
             sleep(3000);
-            getSalePriceIncomeLabelOnContainer(containerId);
+            getListOfSalePriceLabel().get(index).click();
             WebDriverWait wait = new WebDriverWait(androidDriver,30);
             String original =myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
             System.out.println(original);
-            //Assert.assertEquals(original.equalsIgnoreCase("Price should be in between "+minSalePrice+" and "+maxSalePrice),true);
-            System.out.println("Lesser Than Minimum Sale Price is Entered");
+            return original;
         }
 
-        public void checkingMinPrice(int containerId){
-            androidDriver.findElement(By.xpath(containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input")).clear();
-            enterSalePriceOnContainer(containerId,minSalePrice);
+        public String checkingMinPrice(int index,int price){
+            getListOfSalePriceEditTexts().get(index).clear();
+            getListOfSalePriceEditTexts().get(index).sendKeys(""+price);
             sleep(3000);
-            getSalePriceIncomeLabelOnContainer(containerId);
+            getListOfSalePriceLabel().get(index).click();
             WebDriverWait wait = new WebDriverWait(androidDriver,30);
             String original = myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
             System.out.println(original);
-            //Assert.assertEquals(original.equalsIgnoreCase("Price updated to "+minSalePrice),true);
-            System.out.println("Min Sale Price is Entered");
+            return original;
         }
 
-        public void checkingMaxPrice(int containerId){
-            androidDriver.findElement(By.xpath(containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input")).clear();
-            enterSalePriceOnContainer(containerId,maxSalePrice);
+        public String checkingMaxPrice(int index,int price){
+            getListOfSalePriceEditTexts().get(index).clear();
+            getListOfSalePriceEditTexts().get(index).sendKeys(""+price);
             sleep(3000);
-            getSalePriceIncomeLabelOnContainer(containerId);
+            getListOfSalePriceLabel().get(index).click();
             WebDriverWait wait = new WebDriverWait(androidDriver,30);
             String original = myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
             System.out.println(original);
-            //Assert.assertEquals(original.equalsIgnoreCase("Price updated to "+maxSalePrice),true);
-            System.out.println("Max Sale Price is Entered");
+            return original;
         }
 
-        public void checkingMoreThanMaxPrice(int containerId){
-            androidDriver.findElement(By.xpath(containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input")).clear();
-            enterSalePriceOnContainer(containerId,(maxSalePrice+1));
+        public String checkingMoreThanMaxPrice(int index,int price){
+            getListOfSalePriceEditTexts().get(index).clear();
+            getListOfSalePriceEditTexts().get(index).sendKeys(""+price);
             sleep(3000);
-            getSalePriceIncomeLabelOnContainer(containerId);
+            getListOfSalePriceLabel().get(index).click();
             WebDriverWait wait = new WebDriverWait(androidDriver,30);
             String original = myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
             System.out.println(original);
-            //Assert.assertEquals(original.equalsIgnoreCase("Price should be in between "+minSalePrice+" and "+maxSalePrice),true);
-            System.out.println("Greater Than Maximum Sale Price is Entered");
+            return original;
         }
 
 
@@ -442,13 +459,13 @@ public class MyBagPageObjects extends AndroidBaseClass {
         @FindBy(xpath = "//div[@class='available-coupon']/p/span[2]/a")
         private WebElement couponApplyNowButton;
 
-        @FindBy(xpath = "")
+        @FindBy(xpath = "//div[@class='do_u_have_coupon']//input")
         private WebElement enterCoupon;
 
-        @FindBy(xpath = "")
+        @FindBy(xpath = "//div[@class='do_u_have_coupon']//button")
         private WebElement couponApplyButton;
 
-        @FindBy(xpath = "")
+        @FindBy(xpath = "//div[@class='do_u_have_coupon']//p//span[2]")
         private WebElement couponCloseButton;
 
         @FindBy(xpath = "//p[@class='you_save_text']/span")
@@ -481,15 +498,19 @@ public class MyBagPageObjects extends AndroidBaseClass {
             return myActions.action_getText(shippingChargesLabel);
         }
 
+        public void clearDeliveryCharge(){
+            deliveryChargesEditText.clear();
+        }
+
         public void enterDeliveryCharges(String deliveryCharge){
             myActions.action_sendKeys(deliveryChargesEditText,deliveryCharge);
         }
 
-        public String getDeliveryChargesText(){
-            String withTakeSymbol = myActions.action_getText(deliveryChargesEditText);
+        public int getDeliveryChargesText(){
+            String withTakeSymbol = deliveryChargesEditText.getAttribute("placeholder");
             System.out.println(withTakeSymbol);
-            String[] splitAmount = withTakeSymbol.split(" ");
-            return splitAmount[1];
+            String splitAmount = withTakeSymbol.replaceAll("Tk. ","");
+            return (int)Float.parseFloat(splitAmount);
         }
 
         public void clickOnDeliveryChargeSaveButton(){
@@ -552,6 +573,44 @@ public class MyBagPageObjects extends AndroidBaseClass {
             clickOnCouponApplyButton();
         }
 
+
+        /*------BoundaryValuesOfShippingCharges-----*/
+
+
+        public String checkingMoreThanDeliveryCharges(int price){
+            clearDeliveryCharge();
+            int boundaryValue = price+1;
+            applyShippingCharges(""+boundaryValue);
+            sleep(4000);
+            WebDriverWait wait = new WebDriverWait(androidDriver,30);
+            String original = myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
+            System.out.println(original);
+            return original;
+        }
+
+        public String checkingLessThanDeliveryCharges(int price){
+            clearDeliveryCharge();
+            int boundaryValue = price-1;
+            applyShippingCharges(""+boundaryValue);
+            sleep(4000);
+            WebDriverWait wait = new WebDriverWait(androidDriver,30);
+            String original = myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
+            System.out.println(original);
+            return original;
+        }
+
+        public void checkingMinDeliveryCharge(int price){
+            clearDeliveryCharge();
+            applyShippingCharges(""+price);
+            sleep(4000);
+        }
+
+        public void checkingMaxDeliveryCharge(int price){
+            clearDeliveryCharge();
+            applyShippingCharges(""+price);
+            sleep(4000);
+        }
+
     }
 
     @FindBy(xpath = "//div[@class='link___1RSLm']/span[2]")
@@ -580,56 +639,64 @@ public class MyBagPageObjects extends AndroidBaseClass {
 /*-------Data-----*/
 
 
-    public int getPriceDetails(int index, String price){
-        List<ShoppingCartResponseModel.CartItemsBean> priceDetails = getCommerceApiResponse.getListOfCartItems();
-        int value = 0;
-        String withTakeSymbol;
-        String[] splitAmount;
-        switch (price){
-            case "Earnings" :
-                withTakeSymbol = priceDetails.get(index).getFormatted_income();;
-                splitAmount = withTakeSymbol.split(" ");
-                value = Integer.parseInt(String.valueOf(splitAmount));
-                break;
-
-            case "OrderValue" :
-                withTakeSymbol = priceDetails.get(index).getFormatted_per_item_total();
-                splitAmount = withTakeSymbol.split(" ");
-                value = Integer.parseInt(String.valueOf(splitAmount));
-                break;
-
-            case "SalePrice" :
-                withTakeSymbol = priceDetails.get(index).getFormatted_sale_price();
-                splitAmount = withTakeSymbol.split(" ");
-                value = Integer.parseInt(String.valueOf(splitAmount));
-                break;
-
-            case "VariantPrice" :
-                value = priceDetails.get(index).getVariant_price();
-                break;
-
-            case "Quantity" :
-                value = priceDetails.get(index).getQuantity();
-                break;
-
-            case "MinSalePrice" :
-                value = priceDetails.get(index).getMin_selling_price();
-                break;
-
-            case "MaxSalePrice" :
-                value = priceDetails.get(index).getMax_selling_price();
-                break;
-        }
-        return value;
+    public int getListOfContainersData(){
+        return getMyBagApiResponse.cartItemsBeanList().size();
     }
 
 
-    public int getChargeandTotalValue(String data){
-        Map<String,Object> productDetailsMap = getCommerceApiResponse.getCharges();
-        String withTakeSymbol = String.valueOf(productDetailsMap.get(data));
-        String[] splitAmount = withTakeSymbol.split(" ");
-        return Integer.parseInt(String.valueOf(splitAmount));
+    public List<String> getProductDetails(String productName,String size){
+        return getMyBagApiResponse.getProductDetails(productName,size).get(productName);
+
     }
+
+
+    public List<Integer> getChargeandTotalValue(){
+        return getMyBagApiResponse.getCharges();
+    }
+
+    public Map<Integer,List<String>> getContainerData(){
+        return getMyBagApiResponse.getContainerDetailsMap();
+    }
+
+//    public String getPriceDetails(String price,String productName,String size) {
+//        List<String> productDetails = getProductDetails(productName,size);
+//        String value=null;
+//        switch (price) {
+//            case "Earnings":
+//                value = productDetails.get(2);
+//                break;
+//
+//            case "OrderValue":
+//                value = productDetails.get(3);
+//                break;
+//
+//            case "SalePrice":
+//                value = productDetails.get(4);
+//                break;
+//
+//            case "VariantPrice":
+//                value = productDetails.get(1);
+//                break;
+//
+//            case "ProductImageLink":
+//                value = productDetails.get(0);
+//                break;
+//
+//            case "Quantity":
+//                value = productDetails.get(7);
+//                break;
+//
+//            case "MinSalePrice":
+//                value = productDetails.get(6);
+//                break;
+//
+//            case "MaxSalePrice":
+//                value = productDetails.get(5);
+//                break;
+//        }
+//        return value;
+//    }
+
 
 
 }
