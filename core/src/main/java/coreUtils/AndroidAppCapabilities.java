@@ -82,6 +82,8 @@ public class AndroidAppCapabilities {
         cap.setCapability(MobileCapabilityType.ACCEPT_INSECURE_CERTS,true);
         cap.setCapability("nativeWebScreenshot",true);
         cap.setCapability("androidScreenshotPath","target/screenshots");
+        cap.setCapability("unicodeKeyboard", true);
+        cap.setCapability("resetKeyboard", true);
         //cap.setCapability(CAP_KEY_IS_HEADLESS,true);
         //cap.setCapability(CAP_KEY_ADV_ARGS, "-no-window");
 

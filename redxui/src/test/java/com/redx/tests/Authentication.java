@@ -7,8 +7,8 @@ import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
 
-public class Authentication extends RedXBaseClass {
-
+public class Authentication extends RedXBaseClass
+{
 
     private AndroidDriver<WebElement> androidDriver;
     private LoginPageObjects loginPageObjects;
@@ -58,9 +58,9 @@ public class Authentication extends RedXBaseClass {
     public void closeAuthenticationClass(){
         System.out.println("AuthenticationAfterClass Is Called");
         //closeApp();
+
     }
-
-
+    
 
     @AfterSuite(alwaysRun = true)
     public void redXAndroidAfterSuite(){

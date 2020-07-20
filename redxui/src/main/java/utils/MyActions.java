@@ -2,6 +2,7 @@ package utils;
 
 import io.appium.java_client.android.nativekey.*;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class MyActions extends RedXBaseClass {
 
@@ -21,9 +22,10 @@ public class MyActions extends RedXBaseClass {
         }catch (Exception e){
             System.out.println(e);
         }
-        if(getBaseDriver().isKeyboardShown()){
+        /*if(getBaseDriver().isKeyboardShown()){
+            System.out.println("Keyboard");
             getBaseDriver().hideKeyboard();
-        }
+        }*/
     }
 
     public String action_getText(WebElement element){
@@ -64,4 +66,5 @@ public class MyActions extends RedXBaseClass {
         }
         System.out.println("Pressed Device BackKey");
     }
+
 }
