@@ -13,10 +13,10 @@ import java.util.concurrent.TimeUnit;
 
 public class WebAppBaseClass extends GetDriverFromCore{
 
-    private static String HOST_LOCAL = "local";
-    private static String HOST_BROWSER_STACK = "bs";
+    private static final String HOST_LOCAL = "local";
+    private static final String HOST_BROWSER_STACK = "bs";
     private static AndroidDriver<WebElement> driver = null;
-    private static String host = System.getProperty("Host");
+    private static final String host = System.getProperty("Host");
 
 
 

@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PickOrdersPageObjects extends WmsBaseClass {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public PickOrdersPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -48,8 +48,8 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Demand Less Pick List Tab-------------------*/
     public class DemandLessPickListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public DemandLessPickListTab(WebDriver driver) {
             this.driver = driver;
@@ -155,7 +155,7 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             sleep(1000);
         }
 
-        public void createPickList(int no_of_products, String skuCode[], String quantity[], String price[]) {
+        public void createPickList(int no_of_products, String[] skuCode, String[] quantity, String[] price) {
             for (int i = 0; i < no_of_products; i++) {
                 skuCodeInput(i, skuCode[i]);
                 quantityInput(i, quantity[i]);
@@ -172,8 +172,8 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Pick List Action Tab-------------------*/
     public class PickListActionTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public PickListActionTab(WebDriver driver) {
             this.driver = driver;
@@ -218,13 +218,75 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             packageIdInput(packageId);
             clickSubmitOutScanButton();
         }
+
+        public void pickListIdEntry(String id){
+            myActions.action_sendKeys(pickListIdEntry,id);
+            myActions.action_enter(pickListIdEntry);
+        }
+
+        public int getTotalProducts(){
+            List<WebElement> products = driver.findElements(By.xpath("//div[@id='PackageOutScan']//tbody/tr"));
+            return products.size();
+        }
+
+        public String getPickListID(int index) {
+            String pickListIdXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[1]";
+            WebElement pickListID = driver.findElement(By.xpath(pickListIdXpath));
+            return myActions.action_getText(pickListID);
+        }
+
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[2]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
+        }
+
+        public String productImage(int index) {
+            String productImageXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[3]//img";
+            WebElement productImageElement = driver.findElement(By.xpath(productImageXpath));
+            String src = productImageElement.getAttribute("src");
+            return src;
+        }
+
+        public String getDescription(int index) {
+            String descriptionXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[4]";
+            WebElement description = driver.findElement(By.xpath(descriptionXpath));
+            return myActions.action_getText(description);
+        }
+
+        public String getQuantity(int index) {
+            String quantityXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[5]";
+            WebElement quantity = driver.findElement(By.xpath(quantityXpath));
+            return myActions.action_getText(quantity);
+        }
+
+        public String getUnpickedQuantity(int index) {
+            String quantityUnpickedXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[6]";
+            WebElement quantityUnpicked = driver.findElement(By.xpath(quantityUnpickedXpath));
+            return myActions.action_getText(quantityUnpicked);
+        }
+
+        public String getBinCode(int index) {
+            String warehouseBinCodeXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[7]";
+            WebElement warehouseBinCode = driver.findElement(By.xpath(warehouseBinCodeXpath));
+            return myActions.action_getText(warehouseBinCode);
+        }
+
+
+        public String getStatus(int index) {
+            String statusXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[8]";
+            WebElement status = driver.findElement(By.xpath(statusXpath));
+            return myActions.action_getText(status);
+        }
+
+
     }
 
 
     /*--------------All Pick Lists Tab-------------------*/
     public class AllPickListsTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public AllPickListsTab(WebDriver driver) {
             this.driver = driver;

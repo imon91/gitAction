@@ -1,14 +1,10 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.WarehousesPageObjects;
-import utils.WmsBaseClass;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import utils.*;
 
 public class AddingWarehouse extends WmsBaseClass {
 
@@ -18,9 +14,8 @@ public class AddingWarehouse extends WmsBaseClass {
     private WarehousesPageObjects.AddWarehouseTab addWarehouseTab;
     private WarehousesPageObjects.WarehouseListTab warehouseListTab;
 
-
     @BeforeClass(alwaysRun = true)
-    public void addingWarehouseBeforeClass() throws Exception{
+    public void addingWarehouseBeforeClass() throws Exception {
         System.out.println("Adding Warehouse Before Class is Called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -32,7 +27,7 @@ public class AddingWarehouse extends WmsBaseClass {
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
             description = "Adds Warehouse")
-    public void verifyWarehouseAddition(){
+    public void verifyWarehouseAddition() {
         System.out.println("Warehouse Addition Verification is called");
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickAddWarehouseTab();
@@ -45,7 +40,7 @@ public class AddingWarehouse extends WmsBaseClass {
         sleep(1000);
         int totalWarehouses = warehouseListTab.getTotalWarehouses();
         String warehouseCode = warehouseListTab.getWarehouseCode(totalWarehouses);
-        System.out.println("The last added Warehouse: "+ warehouseCode);
+        System.out.println("The last added Warehouse: " + warehouseCode);
     }
 
     @AfterClass(alwaysRun = true)

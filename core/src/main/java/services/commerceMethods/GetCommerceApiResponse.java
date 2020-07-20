@@ -13,7 +13,7 @@ import static services.serviceUtils.ApiKeyConstants.FiltersNewKeys.*;
 public class GetCommerceApiResponse {
 
     private ShopUpPostMan shopUpPostMan;
-    private String module;
+    private final String module;
     private Gson gson;
     private Response response;
 
@@ -348,31 +348,6 @@ public class GetCommerceApiResponse {
             }
         }
         return codNotAvailableItemIndices;
-    }
-
-
-    public List<ShoppingCartResponseModel.CartItemsBean> getListOfCartItems(){
-        List<ShoppingCartResponseModel.CartItemsBean> priceDetails = new ArrayList<>();
-        response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
-        ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
-        for(int i=0;i < shoppingCartResponseModel.getCart_items().size();i++){
-            priceDetails.add(i,shoppingCartResponseModel.getCart_items().get(i));
-        }
-        return priceDetails;
-    }
-
-
-    public Map<String,Object> getCharges(){
-        Map<String,Object> priceDetailsMap = new HashMap<>();
-        response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
-        ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
-        priceDetailsMap.put("deliveryCharges",shoppingCartResponseModel.getNon_cod_adjustments().get(0).getValue_amount());
-        if(shoppingCartResponseModel.getNon_cod_adjustments().size()>1){
-            priceDetailsMap.put("convenienceCharges",shoppingCartResponseModel.getNon_cod_adjustments().get(1).getValue_amount());
-        }
-        priceDetailsMap.put("totalCartValue",shoppingCartResponseModel.getOrder_data().getTotal());
-        priceDetailsMap.put("totalEarnings",shoppingCartResponseModel.getOrder_data().getTotal_income());
-        return priceDetailsMap;
     }
 
 

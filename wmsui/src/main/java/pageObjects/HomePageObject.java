@@ -12,8 +12,8 @@ import utils.WmsBaseClass;
 
 public class HomePageObject extends WmsBaseClass {
 
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public HomePageObject(WebDriver driver) {
         this.driver = driver;

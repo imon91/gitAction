@@ -9,6 +9,7 @@ import java.util.*;
 
 public class SortPageObjects extends AndroidBaseClass{
 
+
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
@@ -16,6 +17,7 @@ public class SortPageObjects extends AndroidBaseClass{
     private final String OLD_PLP_VIEW = "Old";
     public String plpView,view_type;
     private ServiceRequestLayer serviceRequestLayer;
+
 
     public SortPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

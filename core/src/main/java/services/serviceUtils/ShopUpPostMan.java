@@ -22,6 +22,7 @@ public class ShopUpPostMan {
     private String cookie;
     private String module;
     private String cookieKey;
+    private String cookie;
 
     public ShopUpPostMan(String module){
         this.module = module;
@@ -29,7 +30,6 @@ public class ShopUpPostMan {
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
 //        String app = CoreConstants.APP_MOKAM;
 //        String env = CoreConstants.ENV_STAGE;
-
 
         try{
 

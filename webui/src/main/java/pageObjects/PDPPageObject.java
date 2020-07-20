@@ -14,8 +14,8 @@ import java.util.Random;
 
 public class PDPPageObject extends WebBaseClass {
 
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     private Random random;
 
     public PDPPageObject(WebDriver driver) {
