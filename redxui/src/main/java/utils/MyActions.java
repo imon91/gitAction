@@ -2,7 +2,6 @@ package utils;
 
 import io.appium.java_client.android.nativekey.*;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 public class MyActions extends RedXBaseClass {
 
