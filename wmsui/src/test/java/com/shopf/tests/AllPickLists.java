@@ -3,7 +3,7 @@ package com.shopf.tests;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
-import org.testng.asserts.Assertion;
+import org.testng.asserts.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;

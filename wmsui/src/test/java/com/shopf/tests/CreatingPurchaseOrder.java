@@ -7,12 +7,11 @@ import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
-import services.wmsMethods.GetWMSApiResponse;
+import services.wmsMethods.*;
 import utils.*;
 
 import java.io.*;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class CreatingPurchaseOrder extends WmsBaseClass {
 

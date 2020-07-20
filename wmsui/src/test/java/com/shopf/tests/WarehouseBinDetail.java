@@ -9,8 +9,7 @@ import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
 import utils.*;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 public class WarehouseBinDetail extends WmsBaseClass {

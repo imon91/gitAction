@@ -3,7 +3,7 @@ package com.shopf.tests;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
-import org.testng.asserts.Assertion;
+import org.testng.asserts.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
@@ -72,7 +72,9 @@ public class PickListAction extends WmsBaseClass {
 
             System.out.println(items.get(i).getVariant().getNotes());
             assertion.assertTrue(pickListActionTab.getDescription(i + 1)
-                            .equalsIgnoreCase(items.get(i).getVariant().getNotes()),
+                            .replaceAll("\\s","")
+                            .equalsIgnoreCase(items.get(i).getVariant().getNotes()
+                                    .replaceAll("\\s","")),
                     "Notes Do Not Match");
 
             System.out.println(items.get(i).getQuantity());

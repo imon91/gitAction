@@ -1,20 +1,17 @@
 package com.shopf.tests;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.google.gson.reflect.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.responseModels.wmsModels.VariantDetailsModel;
+import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
 import utils.*;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.List;
-import java.util.Random;
+import java.io.*;
+import java.util.*;
 
 public class GRNCreation extends WmsBaseClass {
 

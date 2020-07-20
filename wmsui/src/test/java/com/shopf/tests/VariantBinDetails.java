@@ -1,5 +1,7 @@
 package com.shopf.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
@@ -9,6 +11,7 @@ import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
 import utils.*;
 
+import java.io.*;
 import java.util.*;
 
 public class VariantBinDetails extends WmsBaseClass {
@@ -22,6 +25,10 @@ public class VariantBinDetails extends WmsBaseClass {
     private List<VariantsBinDetailsModel.BinDetailsBean> list;
     private String test;
     private Assertion assertion;
+    private Random random;
+    private Gson gson;
+    private BufferedReader bufferedReader;
+    private List<VariantDetailsModel> variantDetailsModels;
 
 
     @Parameters({"test"})
@@ -35,24 +42,44 @@ public class VariantBinDetails extends WmsBaseClass {
         binsForSkuTab = variantsPageObjects.new BinsForSkuTab(driver);
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         assertion = new Assertion();
+        random = new Random();
+    }
+
+
+    @DataProvider(name = "skuCodeData")
+    public Object[][] getSkuCodeData() throws FileNotFoundException {
+        gson = new Gson();
+        String dir = System.getProperty("user.dir");
+        String filePath = dir + "/src/test/resources/testData/sellerSkuCodes.json";
+
+        bufferedReader = new BufferedReader(new FileReader(filePath));
+        variantDetailsModels = gson.fromJson(bufferedReader,
+                new TypeToken<List<VariantDetailsModel>>(){}.getType());
+
+        int n = random.nextInt(20);
+        return new Object[][]{
+                {"Id",variantDetailsModels.get(n-1).getSku_code()}
+        };
     }
 
 
     @Test(groups = {CoreConstants.GROUP_SANITY, CoreConstants.GROUP_REGRESSION},
+            dataProvider = "skuCodeData",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Variant Bin Details List")
-    public void verifyVariantBinDetails() {
+    public void verifyVariantBinDetails(String name, String id) {
         System.out.println("Verify Variant Bin Details is called");
-        int i, total;
+        System.out.println(name + " : " + id);
+        int i;
         homePageObject.clickVariants();
         variantsPageObjects.clickBinsForSkuTab();
         sleep(1000);
-        binsForSkuTab.checkVariantBins("Shishang", "17123_DSL007_30_KI");
+
+        binsForSkuTab.checkVariantBins("DFW", id);
         variantsBinDetailsModel = getWMSApiResponse
-                .getVariantBinDetails("17123_DSL007_30_KI", "3");
-        total = binsForSkuTab.getTotalBins();
+                .getVariantBinDetails(id, "29");
         list = variantsBinDetailsModel.getBin_details();
-        System.out.println("List Size: " + total);
+        System.out.println("List Size: " + list.size());
 
         for (i = 0; i < list.size(); i++) {
             if (i == 0 || i == (list.size() - 1) || test
