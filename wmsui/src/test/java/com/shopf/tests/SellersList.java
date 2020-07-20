@@ -52,6 +52,14 @@ public class SellersList extends WmsBaseClass {
 
                 System.out.println("-----------*-----*-----*------------");
 
+                System.out.println(sellersListModels.get(i).getName());
+                assertion.assertTrue(sellersListModels.get(i).getName()
+                                .equalsIgnoreCase(sellersListTab.getSupplierName(i + 1)),
+                        "Supplier Names Do Not Match");
+
+                if (sellersListModels.get(i).getSeller_warehouse_mappings().size() == 0)
+                    continue;
+
                 List<SellersListModel.SellerMarketPlaceMappingsBean> listMPM =
                         sellersListModels.get(i).getSeller_market_place_mappings();
                 List<SellersListModel.SellerWarehouseMappingsBean> listWM =
@@ -60,11 +68,6 @@ public class SellersList extends WmsBaseClass {
                         listMPM.get(0).getMarket_place();
                 List<String> gst = sellersListTab.getGSTNo(i + 1);
                 List<String> warehouse = sellersListTab.getWarehouseCode(i + 1);
-
-                System.out.println(sellersListModels.get(i).getName());
-                assertion.assertTrue(sellersListModels.get(i).getName()
-                        .equalsIgnoreCase(sellersListTab.getSupplierName(i + 1)),
-                        "Supplier Names Do Not Match");
 
                 for(j=0;j<listWM.size();j++){
 

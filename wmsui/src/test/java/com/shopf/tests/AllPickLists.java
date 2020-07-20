@@ -73,6 +73,9 @@ public class AllPickLists extends WmsBaseClass {
                                 .equalsIgnoreCase(list.get(i).getStatus()),
                         "Status Do Not Match");
 
+                if (list.get(i).getPick_list_items().size() == 0)
+                    continue;
+
                 List<AllPickListModel.PickListsDataBean.PickListItemsBean> variant =
                         list.get(i).getPick_list_items();
                 List<String> sku_codesList = allPickListsTab.getSkuCode(i+1);

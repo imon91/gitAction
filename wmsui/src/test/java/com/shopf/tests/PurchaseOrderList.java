@@ -82,6 +82,9 @@ public class PurchaseOrderList extends WmsBaseClass {
                                         .get(i).getSupplier_address().getSupplier().getName()),
                         "Supplier Names Do Not Match");
 
+                if (purchaseOrderListModels.get(i).getPurchase_order_line_items().size() == 0)
+                    continue;
+
                 List<String> skuCodeList = purchaseOrderList.getSkuCode(i + 1);
                 List<String> quantity = purchaseOrderList.getQuantity(i + 1);
 
