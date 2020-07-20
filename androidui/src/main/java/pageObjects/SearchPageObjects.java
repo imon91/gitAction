@@ -1,23 +1,26 @@
 package pageObjects;
 
-import com.google.gson.Gson;
 import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.WebElement;
+import services.commerceMethods.GetSearchSuggestionsApiResponse;
 import services.responseModels.commerceModels.ProductListingResultsModel;
 import utils.*;
 import java.util.*;
 
 public class SearchPageObjects extends AndroidBaseClass {
 
+
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
     private ServiceRequestLayer serviceRequestLayer;
+    private GetSearchSuggestionsApiResponse getSearchSuggestionsApiResponse;
     private String app;
+
 
     public SearchPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -25,8 +28,10 @@ public class SearchPageObjects extends AndroidBaseClass {
         myActions = new MyActions();
         packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
+        getSearchSuggestionsApiResponse = serviceRequestLayer.getControlOverSearchSuggestionsApi();
         app = System.getProperty(BuildParameterKeys.KEY_APP);
     }
+
 
 
 
@@ -107,7 +112,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     }
 
     public void clickOnSearchCancelButton(){
-        searchCancelButton = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnSearch']");
+        searchCancelButton = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/imgClear]");
         myActions.action_click(searchCancelButton);
     }
 
@@ -139,5 +144,84 @@ public class SearchPageObjects extends AndroidBaseClass {
         enterProductName(productName);
         clickOnSearchBackButton();
     }
+    public List<WebElement> searchSuggestionTitleList()
+    {
+        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id("com.shopup.reseller:id/text"));
+        return suggestionTitleList;
+    }
+
+    public List<WebElement> searchSuggestionInLineLabelList()
+    {
+        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id("com.shopup.reseller:id/inlineLabel"));
+        return suggestionTitleList;
+    }
+
+    public List<WebElement> searchRecentProductsNameList()
+    {
+        List<WebElement> nameList = androidDriver.findElements(By.id("com.shopup.reseller:id/tvName"));
+        return nameList;
+    }
+
+    public String getSearchSuggestion(int suggestionIndex,String title_or_inline) {
+        String suggestionText = null;
+        System.out.println("the size of list was :"+searchSuggestionTitleList().size());
+        if(suggestionIndex>=0&&title_or_inline=="title") {
+            suggestionText = myActions.action_getText(searchSuggestionTitleList().get(suggestionIndex));
+            return suggestionText;
+        }
+        else if(suggestionIndex>=0&&title_or_inline=="inLineLabel")
+        {
+            suggestionText = myActions.action_getText(searchSuggestionInLineLabelList().get(suggestionIndex));
+            return suggestionText;
+        }
+        else {
+            System.out.println("Please specify the proper litter 'title'_or_'inLineLabel'");
+        return null;
+        }
+
+    }
+
+    public String clickOnSearchSuggestion(int suggestionIndex)
+    {
+        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id("com.shopup.reseller:id/text"));
+        String suggestionText = null;
+        if(suggestionIndex>=0) {
+            suggestionText = myActions.action_getText(suggestionTitleList.get(suggestionIndex));
+            myActions.action_click(suggestionTitleList.get(suggestionIndex));
+        }
+        return suggestionText;
+    }
+
+
+    public String getSuggestionFromApi(int suggestionIndex,String title_0r_inLineLabel)
+    {
+        Map<String,List<String>> hashMapOfSuggestion = getSearchSuggestionsApiResponse.searchSuggestionMap(title_0r_inLineLabel);
+        List<String> titleList = hashMapOfSuggestion.get(title_0r_inLineLabel);
+        return titleList.get(suggestionIndex);
+
+    }
+
+
+    public List<String> getNamesOfRecentProductsFromApiList()
+    {
+        List<String> namesOfProducts = getSearchSuggestionsApiResponse.getNamesOfRecentProducts();
+        return namesOfProducts;
+
+    }
+
+    public boolean scrollToElement(String productName)
+    {
+
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recyclerRecentlyViewed\")).setAsHorizontalList().scrollIntoView("
+                        + "new UiSelector().text(\""+productName+ "\"))"));
+        String text =element.getText();
+        return true;
+    }
+
+
+
+
+
 
 }

@@ -6,6 +6,11 @@ import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
+import java.util.List;
+import static org.testng.Assert.assertTrue;
+
+
+
 
 public class Search extends AndroidBaseClass {
 
@@ -13,6 +18,8 @@ public class Search extends AndroidBaseClass {
     private SearchPageObjects searchPageObjects;
     MyActions myActions;
     private AndroidDriver<WebElement> androidDriver;
+
+
 
 
 
@@ -93,6 +100,58 @@ public class Search extends AndroidBaseClass {
     }
 
 
+    @Test(  groups = {"Search.verifySearchFunctionalityWithCancellingIt" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Functionality and Cancelling it",
+            dataProvider = "getProductName"  )
+    public void verifySearchFunctionalityandCancelIt(String productName){
+        searchPageObjects.enterTheProductNameAndCancel(productName);
+    }
+
+    @Test(  groups = {"Search.verifySearchFunctionalityWithSelectingSuggestions" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Functionality With Selecting Any Suggestions",
+            dataProvider = "getProductName"  )
+    public void verifySearchFunctionalityWithSelectingSuggestions(String productName){
+
+        //just enter product name
+        WebElement searchBarText = idSetter("com.shopup.reseller:id/etSearch");
+        myActions.action_sendKeys(searchBarText,productName);
+        sleep(15000);
+        //verifying data
+          System.out.println(searchPageObjects.searchSuggestionTitleList().size());
+        for(int i=0;i<searchPageObjects.searchSuggestionTitleList().size();i++) {
+            String uiSuggestion = searchPageObjects.getSearchSuggestion(i,"title");
+            sleep(2000);
+            String apiSuggestion = searchPageObjects.getSuggestionFromApi(i,"title");
+            sleep(2000);
+            assertTrue(uiSuggestion.equalsIgnoreCase(apiSuggestion));
+        }
+
+        for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelList().size();j++) {
+            String uiSuggestion1 = searchPageObjects.getSearchSuggestion(j,"inLineLabel");
+            sleep(2000);
+            String apiSuggestion1 = searchPageObjects.getSuggestionFromApi(j,"inLineLabel");
+            sleep(2000);
+            assertTrue(uiSuggestion1.equalsIgnoreCase(apiSuggestion1));
+        }
+        System.out.println("The serchSuggestionDataWasVerified");
+        //click on suggession
+        sleep(1000);
+        searchPageObjects.clickOnSearchSuggestion(1);
+    }
+
+   @Test
+   public void verifyRecentlyViewedProducts() {
+        String productName;
+
+        List<String> productsNameList = searchPageObjects.getNamesOfRecentProductsFromApiList();
+        for (int i = 0; i < searchPageObjects.getNamesOfRecentProductsFromApiList().size(); i++) {
+        productName = productsNameList.get(i);
+            assertTrue(searchPageObjects.scrollToElement(productName));
+        }
+        System.out.println("Recently Viewed Products Was Verified");
+    }
 
 
 

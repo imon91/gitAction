@@ -8,9 +8,9 @@ import utils.*;
 
 public class ToolBarObjects extends AndroidBaseClass{
 
-    private AndroidDriver<WebElement> androidDriver;
-    private MyActions myActions;
-    private String packageName;
+    private final AndroidDriver<WebElement> androidDriver;
+    private final MyActions myActions;
+    private final String packageName;
 
     public ToolBarObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

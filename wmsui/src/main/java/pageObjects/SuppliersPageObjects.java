@@ -7,11 +7,12 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SuppliersPageObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public SuppliersPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -48,8 +49,8 @@ public class SuppliersPageObjects {
 
     /*--------------Migrate Seller Tab-------------------*/
     public class MigrateSellerTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public MigrateSellerTab(WebDriver driver) {
             this.driver = driver;
@@ -86,8 +87,8 @@ public class SuppliersPageObjects {
 
     /*--------------Suppliers List Tab-------------------*/
     public class SuppliersListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public SuppliersListTab(WebDriver driver) {
             this.driver = driver;
@@ -125,6 +126,64 @@ public class SuppliersPageObjects {
             WebElement addressDetails = driver.findElement(By.xpath(addressDetailsXpath));
             myActions.action_click(addressDetails);
         }
+    }
+
+
+    /*--------------Sellers List Tab-------------------*/
+    public class SellersListTab {
+        private WebDriver driver;
+        private MyActions myActions;
+
+        public SellersListTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+
+        /*--------------Functions-------------------*/
+        public String getSupplierName(int index) {
+            String nameXpath = "//div[@id='SellersList']//thead/following-sibling::tbody/tr["+index+"]/td[1]";
+            WebElement name = driver.findElement(By.xpath(nameXpath));
+            return myActions.action_getText(name);
+        }
+
+        public String getUserId(int index) {
+            String userIdXpath = "//div[@id='SellersList']//thead/following-sibling::tbody/tr["+index+"]/td[5]";
+            WebElement userId = driver.findElement(By.xpath(userIdXpath));
+            return myActions.action_getText(userId);
+        }
+
+        public String getMarketPlace(int index) {
+            String marketPlaceXpath = "//div[@id='SellersList']//thead/following-sibling::tbody/tr["+index+"]/td[4]";
+            WebElement marketPlace = driver.findElement(By.xpath(marketPlaceXpath));
+            return myActions.action_getText(marketPlace);
+        }
+
+        public ArrayList<String> getWarehouseCode(int index) {
+            String warehouseCodeXpath = "//div[@id='SellersList']//tbody/tr["+index+"]/td[2]//tr";
+            List<WebElement> warehouseCode = driver.findElements(By.xpath(warehouseCodeXpath));
+            ArrayList<String> warehouseCodes = new ArrayList<String>();
+            for (WebElement element : warehouseCode)
+                warehouseCodes.add(myActions.action_getText(element));
+            return warehouseCodes;
+        }
+
+        public ArrayList<String> getGSTNo(int index) {
+            String gSTNoXpath = "//div[@id='SellersList']//tbody/tr["+index+"]/td[3]//tr";
+            List<WebElement> gSTNo = driver.findElements(By.xpath(gSTNoXpath));
+            ArrayList<String> gSTNos = new ArrayList<String>();
+            for (WebElement element : gSTNo)
+                gSTNos.add(myActions.action_getText(element));
+            return gSTNos;
+        }
+
+        public void syncNewVariants(int index){
+            String syncNewVariantsXpath = "//div[@id='SellersList']//tbody/tr["+index+"]/td[7]//span";
+            WebElement syncNewVariantsButton = driver.findElement(By.xpath(syncNewVariantsXpath));
+            myActions.action_click(syncNewVariantsButton);
+        }
+
     }
 }
 

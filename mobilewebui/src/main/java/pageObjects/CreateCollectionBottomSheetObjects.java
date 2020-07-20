@@ -10,8 +10,8 @@ import utils.WebAppBaseClass;
 
 public class CreateCollectionBottomSheetObjects extends WebAppBaseClass {
 
-    private AndroidDriver<WebElement> driver;
-    private MyActions myActions;
+    private final AndroidDriver<WebElement> driver;
+    private final MyActions myActions;
 
     public CreateCollectionBottomSheetObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;

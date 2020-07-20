@@ -4,10 +4,11 @@ import coreUtils.CoreConstants;
 import services.commerceInterfaces.CommerceServices;
 import services.commerceMethods.GetCommerceApiResponse;
 import services.commerceMethods.GetMyBagApiResponse;
+import services.commerceMethods.GetSearchSuggestionsApiResponse;
 
 public class ServiceRequestLayer implements CommerceServices {
 
-    private String module;
+    private final String module;
 
     public ServiceRequestLayer(){
         this.module = CoreConstants.MODULE_ANDROID_UI;
@@ -43,5 +44,11 @@ public class ServiceRequestLayer implements CommerceServices {
     public void getControlOverMyCartApi() {
 
     }
+
+    @Override
+    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
+        return new GetSearchSuggestionsApiResponse(module);
+    }
+
 
 }
