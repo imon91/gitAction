@@ -6,11 +6,9 @@ import java.util.*;
 public class DomainPropertyReader {
 
     static Properties properties = new Properties();
-    static File f = new File(System.getProperty("user.dir"));
-    static String filepath = f.getParent();
 
     public static String getValueOfKey(String key) throws Exception {
-        InputStream inputStream = new FileInputStream(filepath+"/scriptProperties/domains.properties");
+        InputStream inputStream = new FileInputStream(CoreFileUtils.domainPropertiesFilePath);
         properties.load(inputStream);
         return properties.getProperty(key);
     }

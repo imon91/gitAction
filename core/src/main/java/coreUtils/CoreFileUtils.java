@@ -10,5 +10,10 @@ public class CoreFileUtils {
     public static final String redXProdApk = "";
     public static final String chromeDriver = CoreFileRouters.chromeDriversFolderPath+"chromedriver83";
     public static final String chromeDriversFolderPath = CoreFileRouters.chromeDriversFolderPath;
+    public static final String commerceSendOtpJsonPath = CoreFileRouters.commerceAuthData+"send_otp.json";
+    public static final String commerceVerifyOtpJsonPath = CoreFileRouters.commerceAuthData+"verify_otp.json";
+    public static final String wmsUserSignInJsonPath = CoreFileRouters.wmsAuthData+"user_sign_in.json";
+    public static final String cookiePropertiesFilePath = CoreFileRouters.authFolderPath+"cookie.properties";
+    public static final String domainPropertiesFilePath = CoreFileRouters.scriptPropertiesFolderPath+"domains.properties";
 
 }

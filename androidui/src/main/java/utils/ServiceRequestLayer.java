@@ -2,6 +2,7 @@ package utils;
 
 import coreUtils.CoreConstants;
 import services.commerceInterfaces.CommerceServices;
+import services.commerceMethods.GetAuthenticationApiResponse;
 import services.commerceMethods.GetCommerceApiResponse;
 import services.commerceMethods.GetMyBagApiResponse;
 import services.commerceMethods.GetSearchSuggestionsApiResponse;
@@ -46,9 +47,13 @@ public class ServiceRequestLayer implements CommerceServices {
     }
 
     @Override
-    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
-        return new GetSearchSuggestionsApiResponse(module);
+    public GetAuthenticationApiResponse getControlOverAuthentication() {
+        return new GetAuthenticationApiResponse(module);
     }
 
 
+    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
+        return new GetSearchSuggestionsApiResponse(module);
+    }
+  
 }

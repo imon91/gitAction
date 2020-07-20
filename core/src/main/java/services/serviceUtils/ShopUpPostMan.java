@@ -1,10 +1,16 @@
 package services.serviceUtils;
 
+import auth.CookieManager;
 import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
+import coreUtils.CoreFileUtils;
 import coreUtils.DomainPropertyReader;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.FileReader;
 
 import static io.restassured.RestAssured.given;
 
@@ -13,25 +19,17 @@ public class ShopUpPostMan {
     // This Layer is basically to hit the get requests and send back the response
 
     private String baseURL;
-    private final String cookie;
+    private String cookie;
+    private String module;
+    private String cookieKey;
+    private String cookie;
 
     public ShopUpPostMan(String module){
-        System.out.println("Base URL Now is : "+baseURL);
+        this.module = module;
         String app = System.getProperty(BuildParameterKeys.KEY_APP);
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
 //        String app = CoreConstants.APP_MOKAM;
 //        String env = CoreConstants.ENV_STAGE;
-
-        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-            // SET RESELLER COOKIE
-            cookie = "_voonik_session=eyJ0ZXN0NCI6IkIiLCJjb3VudHJ5X2NvZGUiOjEsInRlc3QyIjoiQiIsInRlc3QzIjoiQSIsImdpZCI6IjQ5NjIyMSIsIndhcmRlbi51c2VyLnVzZXIua2V5IjpbIlVzZXIiLFsxMjI2OTRdLCIkMmEkMTAkbTk2VzJoZ0E3c3QuL2x6em1PTDJkLiJdLCJzZXNzaW9uX2lkIjoiYmI3YTdiOWJkNGU2NmMyN2NhYWM2NDg5ODAzODQyZjUiLCJ0ZXN0MSI6IkEiLCJjdXJyZW5jeV9jb2RlIjoiSU5SIn0_--d407c5368285e326358d9d76a678c8984cd596f2;";
-        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            // SET MOKAM COOKIE
-            cookie = "_voonik_session=eyJ0ZXN0NCI6IkIiLCJjb3VudHJ5X2NvZGUiOjEsInRlc3QyIjoiQiIsInRlc3QzIjoiQSIsImdpZCI6IjQ5NjIyMSIsIndhcmRlbi51c2VyLnVzZXIua2V5IjpbIlVzZXIiLFsxMjI2OTRdLCIkMmEkMTAkbTk2VzJoZ0E3c3QuL2x6em1PTDJkLiJdLCJzZXNzaW9uX2lkIjoiYmI3YTdiOWJkNGU2NmMyN2NhYWM2NDg5ODAzODQyZjUiLCJ0ZXN0MSI6IkEiLCJjdXJyZW5jeV9jb2RlIjoiSU5SIn0_--d407c5368285e326358d9d76a678c8984cd596f2;";
-        }else {
-            // SET WMS COOKIE
-             cookie = "_ga=GA1.2.1936512597.1591177880; _warehouse_mgmt_service_session=Z1RzSTQrLzNHSXd6aGdHS3BqdlNyNlhzZnF4Nk9ldnJoVkl0bDIyY0RFbE84cWpwZDBJeE1hZDgyeGJsb3F0WG9idVFwZG9IQ0pUM1ZjdGcrYm5IbCtHb05uc21ZSkVyZHFKNTM5bXZUejVnbzBBTmFBUUJDeTlYeWxGcFE3c25rajBYdUlUREJkbmx4VXErZ3VWQ21rcFEzbHFOdytNMm8ybHV2bEhMdk83RXRrbjJod1lEUHhqaTM0d0lDUVJuTFNSSm5ocEROTWdoRWNYQ2lLR3NoY2liNHgxb2YwQllXaVpmRXpzZHIwOTJhT1RidjJCM29Cb3d5QkVDcVZsWVU0QXZZMWNFNDR0QjIzMjJ1dXdNL1ZrY2FQeEoycitmVGdXcXM0MlJSTW04MXlwVGVXS0JRekFBS0dxcklmeDNOREhiN25YdEZ0R2tuMDVQSVdvRjcyUFVHMnYwQTlqdFpEaVI1cmdHOHB2UllScmg1cEMwdG5rRTV5TEg5N1hRQURqQmFnZG1VNHFrb2NVS2VJMkZJQT09LS1VdkZESjVBamc4aVJRZHcxbjN3WG13PT0%3D--4ad6ad060b58dcdf0b1aeaec57198ea58ac03173";
-        }
 
         try{
 
@@ -44,11 +42,13 @@ public class ShopUpPostMan {
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.RESELLER_APP_STAGE_BASE_URL);
+                                    cookieKey = CookieManager.Keys.RESELLER_COOKIE;
                                     break;
                                 case CoreConstants.APP_MOKAM :
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.MOKAM_APP_STAGE_BASE_URL);
+                                    cookieKey = CookieManager.Keys.MOKAM_COOKIE;
                                     break;
                             }
                             break;
@@ -58,11 +58,13 @@ public class ShopUpPostMan {
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.RESELLER_APP_PROD_BASE_URL);
+                                    cookieKey = CookieManager.Keys.RESELLER_COOKIE;
                                     break;
                                 case CoreConstants.APP_MOKAM :
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.MOKAM_APP_PROD_BASE_URL);
+                                    cookieKey = CookieManager.Keys.MOKAM_COOKIE;
                                     break;
                             }
                             break;
@@ -77,11 +79,13 @@ public class ShopUpPostMan {
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.RESELLER_WAP_STAGE_BASE_URL);
+                                    cookieKey = CookieManager.Keys.RESELLER_COOKIE;
                                     break;
                                 case CoreConstants.APP_MOKAM :
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.MOKAM_WAP_STAGE_BASE_URL);
+                                    cookieKey = CookieManager.Keys.MOKAM_COOKIE;
                                     break;
                             }
                             break;
@@ -91,11 +95,13 @@ public class ShopUpPostMan {
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.RESELLER_WAP_PROD_BASE_URL);
+                                    cookieKey = CookieManager.Keys.RESELLER_COOKIE;
                                     break;
                                 case CoreConstants.APP_MOKAM :
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.MOKAM_WAP_PROD_BASE_URL);
+                                    cookieKey = CookieManager.Keys.MOKAM_COOKIE;
                                     break;
                             }
                             break;
@@ -110,11 +116,13 @@ public class ShopUpPostMan {
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.RESELLER_WEB_STAGE_BASE_URL);
+                                    cookieKey = CookieManager.Keys.RESELLER_COOKIE;
                                     break;
                                 case CoreConstants.APP_MOKAM :
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.MOKAM_WEB_STAGE_BASE_URL);
+                                    cookieKey = CookieManager.Keys.MOKAM_COOKIE;
                                     break;
                             }
                             break;
@@ -124,11 +132,13 @@ public class ShopUpPostMan {
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.RESELLER_WEB_PROD_BASE_URL);
+                                    cookieKey = CookieManager.Keys.RESELLER_COOKIE;
                                     break;
                                 case CoreConstants.APP_MOKAM :
                                     this.baseURL =
                                             DomainPropertyReader.
                                                     getValueOfKey(DomainPropertyReader.Keys.MOKAM_WEB_PROD_BASE_URL);
+                                    cookieKey = CookieManager.Keys.MOKAM_COOKIE;
                                     break;
                             }
                             break;
@@ -141,10 +151,12 @@ public class ShopUpPostMan {
                         case CoreConstants.ENV_STAGE : this.baseURL =
                                 DomainPropertyReader.
                                         getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_STAGE_BASE_URL);
+                            cookieKey = CookieManager.Keys.WMS_COOKIE;
                             break;
                         case CoreConstants.ENV_PROD : this.baseURL =
                                 DomainPropertyReader.
                                         getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_PROD_BASE_URL);
+                            cookieKey = CookieManager.Keys.WMS_COOKIE;
                             break;
                     }
                     break;
@@ -155,11 +167,17 @@ public class ShopUpPostMan {
             System.out.println(e);
         }
 
-
     }
 
 
     public Response getCall(String path){
+        String cookie = null;
+        try{
+            cookie = CookieManager.getValueOfKey(cookieKey);
+            System.out.println("User Cookie is : "+cookie);
+        }catch (Exception e){
+            System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
+        }
         System.out.println("Control in GetCall");
         System.out.println("Base-URL is : "+baseURL);
         RestAssured.baseURI = baseURL;
@@ -168,8 +186,54 @@ public class ShopUpPostMan {
                 .header("cookie",cookie)
                 .when()
                 .get(path);
-        //response.then().log().all();
         return response;
+    }
+
+
+    public void performAuthenticationInShopUpPostman(){
+        Response response = null;
+        String patch = null;
+        String filePath1 = null;
+        String filePath2 = null;
+        System.out.println("Control in PerformAuthentication");
+        System.out.println("Base-URL is : "+baseURL);
+        RestAssured.baseURI = baseURL;
+        if(module.equalsIgnoreCase(CoreConstants.MODULE_ANDROID_UI)){
+            patch = EndPoints.COMMERCE_SEND_USER_OTP;
+            System.out.println("Final URL : "+baseURL+patch);
+            filePath1 = CoreFileUtils.commerceSendOtpJsonPath;
+            System.out.println(filePath1);
+            filePath2 = CoreFileUtils.commerceVerifyOtpJsonPath;
+            System.out.println(filePath2);
+        }else if(module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)){
+            patch = EndPoints.WMS.USER_SIGN_IN;
+            System.out.println("Final URL : "+baseURL+patch);
+            filePath1 = CoreFileUtils.wmsUserSignInJsonPath;
+            System.out.println(filePath1);
+        }
+
+        try{
+            Object obj1 = new JSONParser().parse(new FileReader(filePath1));
+            JSONObject jo1 = (JSONObject) obj1;
+            response = given().header("Content-Type","application/json")
+                    .body(jo1).post(patch);
+            response.then().log().all();
+            if(module.equalsIgnoreCase(CoreConstants.MODULE_ANDROID_UI)){
+                Object obj2 = new JSONParser().parse(new FileReader(filePath2));
+                JSONObject jo2 = (JSONObject) obj2;
+                response = given().header("Content-Type","application/json")
+                        .body(jo2).post(EndPoints.COMMERCE_VERIFY_OTP);
+                response.then().log().all();
+            }
+            // Update cookie.properties file
+            cookie = response.getHeader("Set-Cookie");
+            CookieManager.setValue(cookieKey,response.getHeader("Set-Cookie"));
+
+        }catch (Exception e){
+            System.out.println(e);
+            System.out.println("Exception At PerformAuthentication");
+        }
+
     }
 
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.AndroidBaseClass;
+import utils.ServiceRequestLayer;
 
 public class SmokeFlow extends AndroidBaseClass {
 
@@ -25,6 +26,15 @@ public class SmokeFlow extends AndroidBaseClass {
     private String plp_view;
     private final String NEW_PLP_VIEW = "New";
     private final String OLD_PLP_VIEW = "Old";
+    private ServiceRequestLayer serviceRequestLayer;
+
+
+    @BeforeSuite(alwaysRun = true)
+    public void smokeBeforeSuite(){
+        serviceRequestLayer = new ServiceRequestLayer();
+        serviceRequestLayer.getControlOverAuthentication()
+                .performAuthentication();
+    }
 
 
     @BeforeClass(alwaysRun = true)
@@ -90,7 +100,6 @@ public class SmokeFlow extends AndroidBaseClass {
         search.searchBeforeClass();
 
         //Step 3 : Searching for an object from search icon without choosing from suggestions list
-
         search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
         plp.productListingPageBeforeClass();
 
