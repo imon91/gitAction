@@ -2,6 +2,7 @@ package utils;
 
 import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
+import coreUtils.DomainPropertyReader;
 import helper.GetDriverFromCore;
 import org.openqa.selenium.WebDriver;
 
@@ -48,13 +49,16 @@ public class WmsBaseClass extends GetDriverFromCore{
     }
 
 
-    public static String getWmsBaseUrl(){
+    public static String getWmsBaseUrl() throws Exception{
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
         switch (env){
-            case CoreConstants.ENV_STAGE : return CoreConstants.WMS_WEB_STAGE_BASE_URL;
-            case CoreConstants.ENV_PROD : return CoreConstants.WMS_WEB_PROD_BASE_URL;
+            case CoreConstants.ENV_STAGE :
+                return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_STAGE_BASE_URL);
+            case CoreConstants.ENV_PROD :
+                return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_PROD_BASE_URL);
         }
-        return CoreConstants.WMS_WEB_STAGE_BASE_URL;
+        System.out.println("Returning Default URL : Stage");
+        return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_STAGE_BASE_URL);
     }
 
 
