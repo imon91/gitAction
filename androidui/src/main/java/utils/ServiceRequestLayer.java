@@ -2,6 +2,7 @@ package utils;
 
 import coreUtils.CoreConstants;
 import services.commerceInterfaces.CommerceServices;
+import services.commerceMethods.GetAuthenticationApiResponse;
 import services.commerceMethods.GetCommerceApiResponse;
 
 public class ServiceRequestLayer implements CommerceServices {
@@ -36,6 +37,11 @@ public class ServiceRequestLayer implements CommerceServices {
     @Override
     public void getControlOverMyCartApi() {
 
+    }
+
+    @Override
+    public GetAuthenticationApiResponse getControlOverAuthentication() {
+        return new GetAuthenticationApiResponse(module);
     }
 
 }

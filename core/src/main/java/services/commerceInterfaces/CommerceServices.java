@@ -1,5 +1,6 @@
 package services.commerceInterfaces;
 
+import services.commerceMethods.GetAuthenticationApiResponse;
 import services.commerceMethods.GetCommerceApiResponse;
 
 public interface CommerceServices {
@@ -13,4 +14,6 @@ public interface CommerceServices {
     public void getControlOverCollectionsApi();
 
     public void getControlOverMyCartApi();
+
+    public GetAuthenticationApiResponse getControlOverAuthentication();
 }
