@@ -4,6 +4,7 @@ import coreUtils.BuildParameterKeys;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import services.commerceMethods.GetSearchSuggestionsApiResponse;
@@ -250,10 +251,13 @@ public class SearchPageObjects extends AndroidBaseClass {
         String priceFromUI = myActions.action_getText(getListOfRecentProductsPropertiesUI("price").get(indexOfUIContainer));
         String originalPriceFromUI = myActions.action_getText(getListOfRecentProductsPropertiesUI("originalPrice").get(indexOfUIContainer));
         String deliveryTagFromUI = myActions.action_getText(getListOfRecentProductsPropertiesUI("deliveryTag").get(indexOfUIContainer));
+        String productDiscount = myActions.action_getText(getListOfRecentProductsPropertiesUI("discount").get(indexOfUIContainer));
+        String discountNumberOnly = productDiscount.replaceAll("[^0-9]","");
 
         listOfStringsOfContainer.add(0, priceFromUI);
         listOfStringsOfContainer.add(1, originalPriceFromUI);
         listOfStringsOfContainer.add(2, deliveryTagFromUI);
+        listOfStringsOfContainer.add(discountNumberOnly);
         return listOfStringsOfContainer;
     }
 
@@ -297,6 +301,22 @@ public class SearchPageObjects extends AndroidBaseClass {
                         + "new UiSelector().text(\""+productName+ "\"))"));
         String text =element.getText();
         return true;
+    }
+
+    public boolean verifyScroll() {
+
+            WebElement ele1 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/item']");
+            WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/search_recently_viewed_container']");
+            int startX = ele1.getLocation().getX() + (ele1.getSize().getWidth()/2);
+            int startY = ele1.getLocation().getY() + (ele1.getSize().getHeight()/2);
+            int endX = ele2.getLocation().getX();
+            int endY = ele2.getLocation().getY() + (ele2.getSize().getHeight()/2);
+            // Take the parent Element : 1st container
+            new TouchAction(androidDriver).press(PointOption.point(startX, startY))
+                    .moveTo(PointOption.point(endX, endY))
+                    .perform().release();
+            return true;
+
     }
 
 }

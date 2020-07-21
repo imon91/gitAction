@@ -2,8 +2,7 @@ package utils;
 
 import coreUtils.CoreConstants;
 import services.commerceInterfaces.CommerceServices;
-import services.commerceMethods.GetCommerceApiResponse;
-import services.commerceMethods.GetSearchSuggestionsApiResponse;
+import services.commerceMethods.*;
 
 public class ServiceRequestLayer implements CommerceServices {
 
@@ -42,6 +41,11 @@ public class ServiceRequestLayer implements CommerceServices {
     @Override
     public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
         return new GetSearchSuggestionsApiResponse(module);
+    }
+
+    @Override
+    public GetPLPModuleApiResponse getControlOverPLPModuleApiResponse() {
+        return new GetPLPModuleApiResponse(module);
     }
 
 

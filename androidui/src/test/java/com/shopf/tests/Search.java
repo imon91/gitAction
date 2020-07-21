@@ -4,17 +4,14 @@ import coreUtils.*;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
+import static org.testng.Assert.*;
 import pageObjects.*;
-import services.responseModels.commerceModels.SearchRecentProductsModel;
+import services.responseModels.commerceModels.*;
 import utils.*;
-import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-import static io.appium.java_client.touch.LongPressOptions.longPressOptions;
-import static java.time.Duration.ofSeconds;
-import static io.appium.java_client.touch.offset.ElementOption.element;
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -26,6 +23,7 @@ public class Search extends AndroidBaseClass {
     MyActions myActions;
     private AndroidDriver<WebElement> androidDriver;
     private String suiteName;
+    private SoftAssert softAssert;
 
 
 
@@ -39,6 +37,7 @@ public class Search extends AndroidBaseClass {
         actionBarObjects.clickOnSearchImageButton();
         searchPageObjects = new SearchPageObjects(androidDriver);
         myActions = new MyActions();
+        softAssert = new SoftAssert();
     }
 
 
@@ -83,6 +82,7 @@ public class Search extends AndroidBaseClass {
         // Call an Api that fetches all the data related to the search
     }
 
+
     @Test(  groups = {"Search.verifyRecentlyViewedProduct" ,
             CoreConstants.GROUP_SANITY},
             enabled = false,
@@ -120,6 +120,7 @@ public class Search extends AndroidBaseClass {
     public void verifySearchFunctionalityAndCancelIt(String productName){
         searchPageObjects.enterTheProductNameAndCancel(productName);
     }
+
 
     @Test(  groups = {"Search.verifySearchFunctionalityWithSelectingSuggestions" ,
             CoreConstants.GROUP_REGRESSION},
@@ -165,34 +166,53 @@ public class Search extends AndroidBaseClass {
            description = "Verifies Search Functionality With Selecting Any Suggestions")
 
    public void verifyRecentlyViewedProducts() {
-        String productName;
-        String productNameFromUI;
+       String productName;
+       String productNameFromUI;
 
-        List<SearchRecentProductsModel.ResultsBean> resultsBeansFromApi = searchPageObjects.getResultsOfRecentProductsFromApiList();
+       List<SearchRecentProductsModel.ResultsBean> resultsBeansFromApi = searchPageObjects.getResultsOfRecentProductsFromApiList();
 
-        for(int i = 0; i < resultsBeansFromApi.size(); i++) {
-            if (i == 0 || i == searchPageObjects.searchSuggestionTitleListUI().size() || suiteName.equalsIgnoreCase("regression")) {
+       for (int productIndex = 0; productIndex < resultsBeansFromApi.size(); productIndex++) {
+           if (productIndex == 0 || productIndex == searchPageObjects.searchSuggestionTitleListUI().size() || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
 
-                productName = resultsBeansFromApi.get(i).getName();
-                searchPageObjects.scrollToElement(productName);
-                sleep(1000);
+               productName = resultsBeansFromApi.get(productIndex).getName();
+//                searchPageObjects.scrollToElement(productName);
+               assertTrue(searchPageObjects.verifyScroll());
+               sleep(1000);
 
-                for (int j = 0; j < searchPageObjects.searchRecentProductsNameListUI().size(); j++) {
-                    productNameFromUI = myActions.action_getText(searchPageObjects.searchRecentProductsNameListUI().get(j));
-                    if (productName.equals(productNameFromUI)) {
-                        //ui data
-                        List<String> containerDataUI = searchPageObjects.recentProductContainerDataFromUI(j);
-                        //api data
-                        assertEquals(resultsBeansFromApi.get(i).getPer_piece_price(), containerDataUI.get(0));
-                        assertEquals(resultsBeansFromApi.get(i).getOriginal_price(), containerDataUI.get(1));
-                        assertEquals(resultsBeansFromApi.get(i).getProduct_stamp(), containerDataUI.get(2));
-                    }
-                }
-            }
-        }
-        System.out.println("Recently Viewed Products Was Verified");
+               for (int j = 0; j < searchPageObjects.searchRecentProductsNameListUI().size(); j++) {
+                   productNameFromUI = myActions.action_getText(searchPageObjects.searchRecentProductsNameListUI().get(j));
+                   if (productName.equals(productNameFromUI)) {
+                       //ui data
+                       List<String> containerDataUI = searchPageObjects.recentProductContainerDataFromUI(j);
+                       System.out.println(j);
+                       //api data
+                       List<String> containerDataApi = new ArrayList<>();
+                       containerDataApi.add(resultsBeansFromApi.get(productIndex).getPrice());
+                       containerDataApi.add(resultsBeansFromApi.get(productIndex).getOriginal_price());
+                       containerDataApi.add(resultsBeansFromApi.get(productIndex).getProduct_stamp());
+                       String discount = String.valueOf(resultsBeansFromApi.get(productIndex).getDiscount());
+                       containerDataApi.add(discount);
+                       //verify price
+                       assertEquals(containerDataApi.get(0), containerDataUI.get(0));
+                       //verify original price and discount
+                       if (!resultsBeansFromApi.get(productIndex).getOriginal_price().equals(resultsBeansFromApi.get(productIndex).getPrice())) {
+                           assertEquals(containerDataApi.get(1), containerDataUI.get(1));
+                           assertEquals(containerDataApi.get(3),containerDataUI.get(3));
+                       }
+                       //verify DeliveryTag
+                       if (containerDataApi.get(2) != null) {
+                           assertEquals(containerDataApi.get(2), containerDataUI.get(2));
+                       }
+                       softAssert.assertAll();
+                       System.out.println("done");
+                   }
+               }
+           }
+//        }
+           System.out.println("Recently Viewed Products Was Verified");
 
-    }
+       }
+   }
 
 
 
