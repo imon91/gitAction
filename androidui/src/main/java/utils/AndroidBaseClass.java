@@ -4,7 +4,6 @@ import coreUtils.*;
 import helper.GetDriverFromCore;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,10 +17,10 @@ public class AndroidBaseClass extends GetDriverFromCore{
 
 
 
-    private static String HOST_LOCAL = "local";
-    private static String HOST_BROWSER_STACK = "bs";
+    private static final String HOST_LOCAL = "local";
+    private static final String HOST_BROWSER_STACK = "bs";
     private static AndroidDriver<WebElement> driver = null;
-    private static String host = System.getProperty("Host");
+    private static final String host = System.getProperty("Host");
 
 
 
@@ -109,7 +108,7 @@ public class AndroidBaseClass extends GetDriverFromCore{
         // Context Switching
         Set<String> contextNames = driver.getContextHandles();
         int n = contextNames.size();
-        String contextData[] = new String[n];
+        String[] contextData = new String[n];
         contextData = contextNames.toArray(contextData);
         for(int i=0;i<contextData.length;i++){
             System.out.println(contextData[i]);

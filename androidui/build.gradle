@@ -85,21 +85,17 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         testLogging.showStandardStreams = true
         systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
         def smoke = project.hasProperty("Smoke")
-        def integration = project.hasProperty("Int")
-        def functional = project.hasProperty("Fun")
         def regression = project.hasProperty("Reg")
+        def sanity = project.hasProperty("Sanity")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
         }
-        if(integration) {
-            suites "src/test/resources/mySuites/integrationSuite.xml"
-        }
-        if(functional) {
-            suites "src/test/resources/mySuites/functionalSuite.xml"
-        }
         if(regression){
             suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+        if (sanity){
+            suites "src/test/resources/mySuites/sanitySuite.xml"
         }
     }
 }

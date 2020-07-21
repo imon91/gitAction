@@ -4,9 +4,10 @@ import coreUtils.CoreConstants;
 import services.commerceInterfaces.CommerceServices;
 import services.commerceMethods.*;
 
+
 public class ServiceRequestLayer implements CommerceServices {
 
-    private String module;
+    private final String module;
 
     public ServiceRequestLayer(){
         this.module = CoreConstants.MODULE_ANDROID_UI;
@@ -16,6 +17,11 @@ public class ServiceRequestLayer implements CommerceServices {
     @Override
     public GetCommerceApiResponse getControlOverServices() {
         return new GetCommerceApiResponse(module);
+    }
+
+    @Override
+    public GetMyBagApiResponse getMyBagControl() {
+        return new GetMyBagApiResponse(module);
     }
 
     @Override
@@ -39,8 +45,8 @@ public class ServiceRequestLayer implements CommerceServices {
     }
 
     @Override
-    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
-        return new GetSearchSuggestionsApiResponse(module);
+    public GetAuthenticationApiResponse getControlOverAuthentication() {
+        return new GetAuthenticationApiResponse(module);
     }
 
     @Override
@@ -49,4 +55,8 @@ public class ServiceRequestLayer implements CommerceServices {
     }
 
 
+    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
+        return new GetSearchSuggestionsApiResponse(module);
+    }
+  
 }

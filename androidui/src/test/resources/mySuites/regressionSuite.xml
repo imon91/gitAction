@@ -9,6 +9,8 @@
                 </run>
             </groups>
             <classes>
+                <class name="com.shopf.tests.Authentication"></class>
+                <class name="com.shopf.tests.MyBag"></class>
             </classes>
         </test>
 </suite>

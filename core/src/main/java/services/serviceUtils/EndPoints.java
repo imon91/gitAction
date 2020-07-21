@@ -12,5 +12,14 @@ public class EndPoints {
     public static final String LOGGED_IN_USER_DATA_JSON = "loggedin_user_data.json";
     public static final String APP_PREFERENCES = "app_preferences/";
     public static final String SHOPPING_CART_JSON = "shopping_cart.json";
+    public static final String COMMERCE_SEND_USER_OTP = "users/send_user_otp.json";
+    public static final String COMMERCE_VERIFY_OTP = "users/sign_up_user.json";
+
+
+    public class WMS{
+        public static final String USER_SIGN_IN = "users/sign_in";
+        public static final String WAREHOUSES_JSON = "warehouses.json";
+    }
+
 
 }

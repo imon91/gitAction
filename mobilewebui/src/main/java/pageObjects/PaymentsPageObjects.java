@@ -8,6 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 import utils.WebAppBaseClass;
 
+
 public class PaymentsPageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> driver;
     private MyActions myActions;

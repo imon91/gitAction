@@ -13,13 +13,16 @@ public class Authentication extends AndroidBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private LoginPageObjects loginPageObjects;
-
+    private ServiceRequestLayer serviceRequestLayer;
 
 
     @BeforeSuite(alwaysRun = true)
     public void resellerAndroidBeforeSuite(){
         System.out.println("resellerAndroidBeforeSuite is called");
         androidDriver = getBaseDriver();
+        serviceRequestLayer = new ServiceRequestLayer();
+        serviceRequestLayer.getControlOverAuthentication()
+                .performAuthentication();
     }
 
     public void pageInitializer(){

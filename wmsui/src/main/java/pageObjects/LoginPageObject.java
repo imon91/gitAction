@@ -9,8 +9,8 @@ import utils.MyActions;
 
 public class LoginPageObject {
 
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public LoginPageObject(WebDriver driver) {
         this.driver = driver;

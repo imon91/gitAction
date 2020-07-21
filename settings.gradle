@@ -4,3 +4,5 @@ include 'webui'
 include 'androidui'
 include 'mobilewebui'
 include 'wmsui'
+include 'redxui'
+

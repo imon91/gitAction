@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
 public class LoginPageObject {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     private ActionBarObjects actionBarObjects;
     //Login icon
     @FindBy(xpath = "//p[text()='Login']")

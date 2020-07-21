@@ -22,6 +22,7 @@ import static org.testng.Assert.fail;
 
 public class SearchPageObjects extends AndroidBaseClass {
 
+
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;

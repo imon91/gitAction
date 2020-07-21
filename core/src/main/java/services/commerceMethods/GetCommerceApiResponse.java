@@ -13,7 +13,7 @@ import static services.serviceUtils.ApiKeyConstants.FiltersNewKeys.*;
 public class GetCommerceApiResponse {
 
     private ShopUpPostMan shopUpPostMan;
-    private String module;
+    private final String module;
     private Gson gson;
     private Response response;
 
@@ -349,6 +349,7 @@ public class GetCommerceApiResponse {
         }
         return codNotAvailableItemIndices;
     }
+
 
 
 }
