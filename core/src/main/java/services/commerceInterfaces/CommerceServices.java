@@ -1,28 +1,25 @@
 package services.commerceInterfaces;
 
-import services.commerceMethods.GetAuthenticationApiResponse;
-import services.commerceMethods.GetCommerceApiResponse;
-import services.commerceMethods.GetMyBagApiResponse;
-import services.commerceMethods.GetSearchSuggestionsApiResponse;
+import services.commerceMethods.*;
 
 public interface CommerceServices {
 
-    GetCommerceApiResponse getControlOverServices();
+    public GetCommerceApiResponse getControlOverServices();
 
     public GetMyBagApiResponse getMyBagControl();
 
     public void getControlOverSearchForUserApi();
 
-    void getControlOverSearchForUserApi();
+    public void getControlOverUserProfileApi();
 
-    void getControlOverUserProfileApi();
-
-    void getControlOverCollectionsApi();
+    public void getControlOverCollectionsApi();
 
     public void getControlOverMyCartApi();
 
     public GetAuthenticationApiResponse getControlOverAuthentication();
 
     public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi();
+
+    public GetPLPModuleApiResponse getControlOverPLPModuleApiResponse();
 
 }

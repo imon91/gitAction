@@ -1,10 +1,15 @@
 package pageObjects;
 
+import coreUtils.CoreConstants;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import services.commerceMethods.GetCommerceApiResponse;
+import services.commerceMethods.GetPLPModuleApiResponse;
 import services.responseModels.commerceModels.ProductListingResultsModel;
 import utils.*;
 import java.util.*;
@@ -19,6 +24,8 @@ public class ProductListingPageObjects extends AndroidBaseClass{
     private final String OLD_PLP_VIEW = "Old";
     public String plpView,view_type;
     private GetCommerceApiResponse getCommerceApiResponse;
+    private GetPLPModuleApiResponse getPLPModuleApiResponse;
+
 
     public ProductListingPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -27,6 +34,8 @@ public class ProductListingPageObjects extends AndroidBaseClass{
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         serviceRequestLayer = new ServiceRequestLayer();
         getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
+        getPLPModuleApiResponse = serviceRequestLayer.getControlOverPLPModuleApiResponse();
+
         packageName = getAppPackage();
         try{
             // Read from the properties file to decide plp_view
@@ -589,6 +598,81 @@ public class ProductListingPageObjects extends AndroidBaseClass{
 
     }
 
+    public List<WebElement> productPropertiesListUI(String name_or_price_or_originalPrice_or_discount_or_deliveryTag)
+    {
+        List<WebElement> productProperties=null;
+        switch(name_or_price_or_originalPrice_or_discount_or_deliveryTag)
+        {
+            case("name"):
+                productProperties = idListSetter("com.shopup.reseller:id/brand");
+                break;
+            case ("price"):
+                productProperties = idListSetter("com.shopup.reseller:id/price");
+                break;
+            case ("originalPrice") :
+                productProperties = idListSetter("com.shopup.reseller:id/original_price");
+                break;
+            case ("discount"):
+                productProperties = idListSetter("com.shopup.reseller:id/discount");
+                break;
+            case ("deliveryTag") :
+                productProperties = idListSetter("com.shopup.reseller:id/tags_stock_out");
+                break;
+        }
+        return productProperties;
 
+    }
+
+
+
+
+    public ProductListingResultsModel productResultsPLPApi(String searchTerm,int k)
+    {
+        return getPLPModuleApiResponse.getProductListingPageResults(searchTerm,k);
+    }
+
+    public String namesListOfProduct(int index)
+    {
+        String names = myActions.action_getText(productPropertiesListUI("name").get(index));
+        return names;
+    }
+
+    public List<String> getDetailsOfProductContainerUI(int productIndex)
+    {
+        List<String> productDataContainer = new ArrayList<>();
+        String productPrice = myActions.action_getText(productPropertiesListUI("price").get(productIndex));
+        String productOriginalPrice = myActions.action_getText(productPropertiesListUI("originalPrice").get(productIndex));
+        String productDeliveryTag = myActions.action_getText(productPropertiesListUI("deliveryTag").get(productIndex));
+        String productDiscount = myActions.action_getText(productPropertiesListUI("discount").get(productIndex));
+        String discountNumberOnly = productDiscount.replaceAll("[^0-9]","");
+
+        productDataContainer.add(productPrice);
+        productDataContainer.add(productOriginalPrice);
+        productDataContainer.add(productDeliveryTag);
+        productDataContainer.add(discountNumberOnly);
+        return productDataContainer;
+    }
+
+    public void verifyScroll() {
+
+            WebElement ele1 = xpathSetter("//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/item_container']");
+            WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/filter_with_sort']");
+            int startX = ele1.getLocation().getX() + (ele1.getSize().getWidth() / 2);
+            int startY = ele1.getLocation().getY() + (ele1.getSize().getHeight());
+            int endX = ele2.getLocation().getX() + (ele2.getSize().getWidth() / 2);
+            int endY = ele2.getLocation().getY() + (ele2.getSize().getHeight() / 2);
+            // Take the parent Element : 1st container
+            new TouchAction(androidDriver).press(PointOption.point(startX, startY))
+                    .moveTo(PointOption.point(endX, endY))
+                    .perform().release();
+    }
+
+    public int totalNumberOfPages(String searchTerm)
+    {
+      int productCount =  productResultsPLPApi(searchTerm,1).getProducts_count();
+      double total = Math.ceil(productCount/12.0);
+      int totalPages = (int)total;
+      return totalPages;
+    }
 
 }

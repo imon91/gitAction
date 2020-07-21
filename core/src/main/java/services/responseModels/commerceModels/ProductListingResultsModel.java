@@ -5,6 +5,8 @@ import java.util.List;
 public class ProductListingResultsModel {
 
 
+    private int products_count;
+
     private List<ResultsBean> results;
 
     public List<ResultsBean> getResults() {
@@ -13,6 +15,14 @@ public class ProductListingResultsModel {
 
     public void setResults(List<ResultsBean> results) {
         this.results = results;
+    }
+
+    public int getProducts_count() {
+        return products_count;
+    }
+
+    public void setProducts_count(int products_count) {
+        this.products_count = products_count;
     }
 
     public static class ResultsBean {
