@@ -17,8 +17,8 @@ import java.util.Random;
 import static utils.WebBaseClass.sleep;
 
 public class AddressPageObject {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     private Random random;
     private ServiceRequestLayer serviceRequestLayer;
 

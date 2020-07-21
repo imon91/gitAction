@@ -8,8 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
 public class PackagesPageObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public PackagesPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -59,8 +59,8 @@ public class PackagesPageObjects {
 
     /*--------------Packages List Tab-------------------*/
     public class PackagesListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public PackagesListTab(WebDriver driver) {
             this.driver = driver;
@@ -104,7 +104,7 @@ public class PackagesPageObjects {
         }
 
         public String getQuantity(int index) {
-            String quantityXpath = "//div[@id='PackagesList']//table/tbody/tr[" + index + "]/td[4]";
+            String quantityXpath = "//div[@id='PackagesList']//table/tbody/tr[" + index + "]/td[5]";
             WebElement quantity = driver.findElement(By.xpath(quantityXpath));
             return myActions.action_getText(quantity);
         }
@@ -113,8 +113,8 @@ public class PackagesPageObjects {
 
     /*--------------Create Put-away List Tab-------------------*/
     public class CreatePutawayListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public CreatePutawayListTab(WebDriver driver) {
             this.driver = driver;
@@ -165,8 +165,8 @@ public class PackagesPageObjects {
 
     /*--------------Bin Reset Tab-------------------*/
     public class BinResetTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public BinResetTab(WebDriver driver) {
             this.driver = driver;
@@ -221,8 +221,8 @@ public class PackagesPageObjects {
 
     /*--------------Package Details Tab-------------------*/
     public class PackageDetailsTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public PackageDetailsTab(WebDriver driver) {
             this.driver = driver;
@@ -325,8 +325,8 @@ public class PackagesPageObjects {
 
     /*--------------Bin In Scan Tab-------------------*/
     public class BinInScanTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public BinInScanTab(WebDriver driver) {
             this.driver = driver;

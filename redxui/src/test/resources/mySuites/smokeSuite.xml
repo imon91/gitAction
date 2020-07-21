@@ -8,7 +8,10 @@
             </run>
         </groups>
         <classes>
-              <class name="com.redx.tests.Authentication"></class>
+            <class name="com.redx.tests.Authentication"></class>
+            <class name="com.redx.tests.ChangeLanguage"></class>
+            <class name="com.redx.tests.CreateParcel"></class>
+            <class name="com.redx.tests.Logout"></class>
         </classes>
     </test>
 </suite>

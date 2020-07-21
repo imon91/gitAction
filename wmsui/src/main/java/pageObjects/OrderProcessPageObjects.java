@@ -10,8 +10,8 @@ import utils.MyActions;
 import java.util.List;
 
 public class OrderProcessPageObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public OrderProcessPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -46,8 +46,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Order Pack Tab-------------------*/
     public class OrderPackTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public OrderPackTab(WebDriver driver) {
             this.driver = driver;
@@ -84,8 +84,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Create Manifest Tab-------------------*/
     public class CreateManifestTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public CreateManifestTab(WebDriver driver) {
             this.driver = driver;
@@ -97,8 +97,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Upload Manifest Tab-------------------*/
     public class UploadManifestTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public UploadManifestTab(WebDriver driver) {
             this.driver = driver;
@@ -198,8 +198,8 @@ public class OrderProcessPageObjects {
 
     /*--------------Order Details Tab-------------------*/
     public class OrderDetailTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public OrderDetailTab(WebDriver driver) {
             this.driver = driver;
@@ -210,11 +210,69 @@ public class OrderProcessPageObjects {
         @FindBy(xpath = "//div[@id='OrderDetails']//input[@type='text']")
         private WebElement orderNumberEntry;
 
+        @FindBy(xpath = "//div[@id='OrderDetails']//div[2]/div[1]")
+        private WebElement marketPlaceText;
+
+        @FindBy(xpath = "//div[@id='OrderDetails']//div[2]/div[3]")
+        private WebElement binCodeText;
+
+        @FindBy(xpath = "//div[@id='OrderDetails']//div[2]/div[2]")
+        private WebElement sellerText;
+
+        @FindBy(xpath = "//div[@id='OrderDetails']//div[2]/div[4]")
+        private WebElement orderTypeText;
+
+        @FindBy(xpath = "//div[@id='OrderDetails']//div[2]/div[5]")
+        private WebElement statusText;
+
+
 
         /*--------------Actions-------------------*/
         public void orderNumberInput(String orderNumber){
             myActions.action_sendKeys(orderNumberEntry,orderNumber);
             myActions.action_enter(orderNumberEntry);
+        }
+
+        public String getMarketPlace() {
+            String binCode = myActions.action_getText(marketPlaceText);
+            return binCode.substring(14);
+        }
+
+        public String getSeller() {
+            String binCode = myActions.action_getText(sellerText);
+            return binCode.substring(8);
+        }
+
+        public String getBinCode() {
+            String binCode = myActions.action_getText(binCodeText);
+            return binCode.substring(11);
+        }
+
+        public String getOrderType() {
+            String binCode = myActions.action_getText(orderTypeText);
+            return binCode.substring(12);
+        }
+
+        public String getStatus() {
+            String binCode = myActions.action_getText(statusText);
+            return binCode.substring(8);
+        }
+
+        public int getTotalPurchaseOrders() {
+            List<WebElement> purchaseOrders = driver.findElements(By.xpath("//div[@id='OrderDetails']//tbody/tr"));
+            return purchaseOrders.size();
+        }
+
+        public String getSkuCode(int index) {
+            String skuCodeXpath = "//div[@id='OrderDetails']//tbody/tr["+index+"]/td[1]";
+            WebElement skuCode = driver.findElement(By.xpath(skuCodeXpath));
+            return myActions.action_getText(skuCode);
+        }
+
+        public String getDescription(int index) {
+            String descriptionXpath = "//div[@id='OrderDetails']//tbody/tr["+index+"]/td[2]";
+            WebElement description = driver.findElement(By.xpath(descriptionXpath));
+            return myActions.action_getText(description);
         }
     }
 }

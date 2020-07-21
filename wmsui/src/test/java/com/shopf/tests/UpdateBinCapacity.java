@@ -1,13 +1,11 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.HomePageObject;
-import pageObjects.WarehousesPageObjects;
-import utils.WmsBaseClass;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.annotations.*;
+import pageObjects.*;
+import utils.*;
+
 
 public class UpdateBinCapacity extends WmsBaseClass {
 
@@ -17,7 +15,7 @@ public class UpdateBinCapacity extends WmsBaseClass {
     private WarehousesPageObjects.UpdateBinCapacityTab updateBinCapacityTab;
 
     @BeforeClass(alwaysRun = true)
-    public void updateBinCapacityBeforeClass() throws Exception{
+    public void updateBinCapacityBeforeClass() throws Exception {
         System.out.println("Update Bin Capacity Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
@@ -28,18 +26,18 @@ public class UpdateBinCapacity extends WmsBaseClass {
     @Test(groups = CoreConstants.GROUP_SANITY,
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Update Bin Capacity")
-    public void verifyUpdateBinCapacity(){
+    public void verifyUpdateBinCapacity() {
         System.out.println("Verify Update Bin Capacity is called");
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickUpdateBinCapacityTab();
         sleep(1000);
-        updateBinCapacityTab.updateBinCapacity("W100F2R1C1RA4B71","20");
+        updateBinCapacityTab.updateBinCapacity("W100F2R1C1RA4B71", "20");
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
     }
 
     @AfterClass(alwaysRun = true)
-    public void updateBinCapacityAfterClass(){
+    public void updateBinCapacityAfterClass() {
         System.out.println("Update Bin Capacity After Class is called");
     }
-    }
+}

@@ -1,7 +1,6 @@
 package services.commerceInterfaces;
 
-import services.commerceMethods.GetCommerceApiResponse;
-import services.commerceMethods.GetMyBagApiResponse;
+import services.commerceMethods.*;
 
 public interface CommerceServices {
 
@@ -16,4 +15,11 @@ public interface CommerceServices {
     public void getControlOverCollectionsApi();
 
     public void getControlOverMyCartApi();
+
+    public GetAuthenticationApiResponse getControlOverAuthentication();
+
+    public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi();
+
+    public GetPLPModuleApiResponse getControlOverPLPModuleApiResponse();
+
 }

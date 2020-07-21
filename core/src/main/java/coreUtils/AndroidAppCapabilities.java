@@ -28,6 +28,9 @@ public class AndroidAppCapabilities {
     private static final String CAP_KEY_ADV_ARGS="-no-window";
     private static final String CAP_KEY_APPIUM_CHROME_OPTIONS = "appium:chromeOptions";
     private static final String CAP_KEY_W3C = "w3c";
+    private static final String CAP_KEY_UNICODE_KEYBOARD = "unicodeKeyboard";
+    private static final String CAP_KEY_RESET_KEYBOARD = "resetKeyboard";
+    private static final String CAP_KEY_NATIVE_WEB_SCREEN_SHOT = "nativeWebScreenshot";
 
 
 
@@ -61,6 +64,7 @@ public class AndroidAppCapabilities {
                 app.equalsIgnoreCase(CoreConstants.APP_RED_X)){
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.redXStageApk);
             cap.setCapability(CAP_KEY_APP_PACKAGE, CoreConstants.RED_X_APP_PACKAGE);
+            cap.setCapability(CAP_KEY_APP_ACTIVITY,CoreConstants.RED_X_SPLASH_ACTIVITY);
         }else if(env.equalsIgnoreCase(CoreConstants.ENV_PROD) &&
                 app.equalsIgnoreCase(CoreConstants.APP_RED_X)) {
             cap.setCapability(CAP_KEY_APP, CoreFileUtils.redXProdApk);
@@ -78,9 +82,13 @@ public class AndroidAppCapabilities {
         //cap.setCapability(CAP_KEY_CHROME_DRIVER_MAPPING_FILE,"/Users/vogo-1161/AutomationTests/Shopf-Ui-Automation/src/main/resources/chromeDrivers/chromedrivers.json");
         cap.setCapability(CAP_KEY_CHROME_DRIVER_EXECUTABLE_DIR, CoreFileUtils.chromeDriversFolderPath);
         cap.setCapability(CAP_KEY_CHROME_DRIVER_EXECUTABLE, CoreFileUtils.chromeDriver);
-        cap.setCapability(MobileCapabilityType.ACCEPT_INSECURE_CERTS,true);
-        cap.setCapability("nativeWebScreenshot",true);
+        cap.setCapability(MobileCapabilityType.ACCEPT_INSECURE_CERTS,CoreConstants.TRUE);
+        cap.setCapability(CAP_KEY_UNICODE_KEYBOARD, CoreConstants.TRUE);
+        cap.setCapability(CAP_KEY_RESET_KEYBOARD, CoreConstants.TRUE);
+        cap.setCapability(CAP_KEY_NATIVE_WEB_SCREEN_SHOT,CoreConstants.TRUE);
         cap.setCapability("androidScreenshotPath","target/screenshots");
+//         cap.setCapability("unicodeKeyboard", true);
+//         cap.setCapability("resetKeyboard", true);
         //cap.setCapability(CAP_KEY_IS_HEADLESS,true);
         //cap.setCapability(CAP_KEY_ADV_ARGS, "-no-window");
 

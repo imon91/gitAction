@@ -10,13 +10,13 @@ import java.util.*;
 
 public class PaymentModePageObjects extends AndroidBaseClass {
 
-
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private GetMyBagApiResponse getMyBagApiResponse;
     private ServiceRequestLayer serviceRequestLayer;
 
-    public PaymentModePageObjects(AndroidDriver<WebElement> androidDriver){
+
+  public PaymentModePageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
