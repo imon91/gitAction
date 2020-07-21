@@ -4,16 +4,14 @@ import com.google.gson.Gson;
 import coreUtils.CoreConstants;
 import io.restassured.response.Response;
 import services.responseModels.commerceModels.ProductListingResultsModel;
-import services.serviceUtils.EndPoints;
-import services.serviceUtils.ShopUpPostMan;
+import services.serviceUtils.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GetPLPModuleApiResponse {
 
         private ShopUpPostMan shopUpPostMan;
-        private final String module;
+        private String module;
         private Gson gson;
         private Response response;
 
