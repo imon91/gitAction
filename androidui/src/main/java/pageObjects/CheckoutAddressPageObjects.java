@@ -2,9 +2,12 @@ package pageObjects;
 
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.*;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.commerceMethods.GetMyBagApiResponse;
 import utils.*;
 import java.util.*;
 
@@ -13,13 +16,19 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
     // Cart/MyBag os completely a WebView
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
+    private GetCommerceApiResponse getCommerceApiResponse;
+    private GetMyBagApiResponse getMyBagApiResponse;
+    private ServiceRequestLayer serviceRequestLayer;
 
     public CheckoutAddressPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
+        serviceRequestLayer = new ServiceRequestLayer();
+        getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
+        getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
     }
 
     @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[1]")
@@ -54,8 +63,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
     public class SelectAddress{
 
-        private final AndroidDriver<WebElement> androidDriver;
-        private final MyActions myActions;
+        private AndroidDriver<WebElement> androidDriver;
+        private MyActions myActions;
 
         public SelectAddress(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
@@ -100,8 +109,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
         public class AddressField{
 
 
-            private final AndroidDriver<WebElement> androidDriver;
-            private final MyActions myActions;
+            private AndroidDriver<WebElement> androidDriver;
+            private MyActions myActions;
 
             public AddressField(AndroidDriver<WebElement> androidDriver){
                 this.androidDriver = androidDriver;
@@ -137,7 +146,7 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
             @FindBys(@FindBy( xpath = "//div[@class='edit-delete-address']/span"))
             private List<WebElement> deleteButtonList;
 
-            @FindBys(@FindBy( xpath = "//p[@class='edit-delete ']"))
+            @FindBys(@FindBy( xpath = "//p[@class='edit-delete ']//span"))
             private List<WebElement> editAddressButtonList;
 
 
@@ -188,14 +197,24 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
             public void clickOnEditAddressButton(WebElement editButton){
                 myActions.action_click(editButton);
             }
+
+            public String getFirstName(int index){ return myActions.action_getText(getListOfFulName().get(index));}
+
+            public String getAddress(int index){ return myActions.action_getText(getListOfAddress().get(index));}
+
+            public String getLandmark(int index){ return myActions.action_getText(getListOfLandMark().get(index)); }
+
+            public String getArea(int index){ return myActions.action_getText(getListOfChooseArea().get(index));}
+
+            public String getPhoneNumber(int index){return "88"+myActions.action_getText(getLisOfPhoneNumber().get(index));}
         }
     }
 
 
     public class EstimatedDeliveryDates{
 
-        private final AndroidDriver<WebElement> androidDriver;
-        private final MyActions myActions;
+        private AndroidDriver<WebElement> androidDriver;
+        private MyActions myActions;
 
         public EstimatedDeliveryDates(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
@@ -220,8 +239,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
         public class EstimatedDeliveryDatesItems{
 
-            private final AndroidDriver<WebElement> androidDriver;
-            private final MyActions myActions;
+            private AndroidDriver<WebElement> androidDriver;
+            private MyActions myActions;
 
             public EstimatedDeliveryDatesItems(AndroidDriver<WebElement> androidDriver){
                 this.androidDriver = androidDriver;
@@ -264,8 +283,38 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
                 myActions.action_click(estimatedDeliveryItem);
             }
 
+            public void deleteProductWithCODDisabled() {
+                String productXpath = "//div[@class='text-left']/ul/li";
+                List<WebElement> productslist = androidDriver.findElements(By.xpath(productXpath));
+                int productsSize = productslist.size();
+                List<Integer> codNotAvailable = getCommerceApiResponse.getCodNotAvailableItemsFromShoppingCart();
+                int size = codNotAvailable.size();
+                if (size != 0) {
+                    for (int i = productsSize; i > 0; i--) {
+                        for (int j = size - 1; j >= 0; j--) {
+                            int productIndex = (codNotAvailable.get(j));
+                            productIndex++;
+                            if (i == productIndex) {
+                                clickOnEstimatedDeliveryItem(getListOfEstimatedDeliveryItemDelete().get(i));
+                                sleep(3500);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
+    }
+
+
+/*------AddressData-------*/
+
+    public Map<Integer,List<String>> getAddressData(){
+        return getMyBagApiResponse.getAddressContainerDetailsMap();
+    }
+
+    public int getAddressListSizeData(){
+        return getMyBagApiResponse.addressesBeanList().size();
     }
 
 }

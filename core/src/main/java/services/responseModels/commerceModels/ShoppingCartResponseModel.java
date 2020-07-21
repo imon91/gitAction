@@ -1068,7 +1068,24 @@ public class ShoppingCartResponseModel {
 
     public static class OrderAddressBean {
         /**
-         * address : {}
+         * address : {address1: "48,Shop street"
+         * address2: "F colony"
+         * alternative_phone: "8801877766620"
+         * city: "Agailjhara, Barisal"
+         * company: "N/A"
+         * country_id: 1
+         * created_at: "2020-07-20T20:28:19.000+06:00"
+         * firstname: "Hari"
+         * id: 78733
+         * landmark: "Near bharath stores"
+         * lastname: " "
+         * phone: "8801877766610"
+         * state_id: 34
+         * state_name: "Andhra Pradesh"
+         * updated_at: "2020-07-20T20:28:19.000+06:00"
+         * user_address_id: 9122762
+         * vaccount_id: 1
+         * zipcode: "928"}
          */
 
         private AddressBeanX address;
@@ -1082,6 +1099,52 @@ public class ShoppingCartResponseModel {
         }
 
         public static class AddressBeanX {
+
+            private String firstname;
+            private String address1;
+            private String landmark;
+            private String city;
+            private String phone;
+
+            public String getFirstname() {
+                return firstname;
+            }
+
+            public void setFirstname(String firstname) {
+                this.firstname = firstname;
+            }
+
+            public String getAddress1() {
+                return address1;
+            }
+
+            public void setAddress1(String address1) {
+                this.address1 = address1;
+            }
+
+            public String getLandmark() {
+                return landmark;
+            }
+
+            public void setLandmark(String landmark) {
+                this.landmark = landmark;
+            }
+
+            public String getCity() {
+                return city;
+            }
+
+            public void setCity(String city) {
+                this.city = city;
+            }
+
+            public String getPhone() {
+                return phone;
+            }
+
+            public void setPhone(String phone) {
+                this.phone = phone;
+            }
         }
     }
 

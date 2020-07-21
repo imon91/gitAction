@@ -144,44 +144,32 @@ public class AddNewAddressPageObjects extends AndroidBaseClass {
     }
 
     public void editNameInAddress(String newName){
-        if (!firstName.getText().isEmpty()) {
-            firstName.clear();
-            enterFirstName(newName);
-        }
+        firstName.clear();
+        enterFirstName(newName);
     }
 
     public void editAddressInAddress(String newAddress){
-        if (!address.getText().isEmpty()) {
-            address.clear();
-        }
+        address.clear();
         enterAddress(newAddress);
     }
 
     public void editPhoneNumberInAddress(String newPhoneNumber){
-        if(!phoneNumber.getText().isEmpty()) {
-            phoneNumber.clear();
-        }
+        phoneNumber.clear();
         enterPhoneNumber(newPhoneNumber);
     }
 
     public void editAlternativePhoneNumberInAddress(String newAlternativeNumber){
-        if(!alternativePhoneNumber.getText().isEmpty()) {
-            alternativePhoneNumber.clear();
-        }
+        alternativePhoneNumber.clear();
         enterAlternativePhoneNumber(newAlternativeNumber);
     }
 
     public void editLocalityInAddress(String newLocality){
-        if(!locality.getText().isEmpty()) {
-            locality.clear();
-        }
+        locality.clear();
         enterLocality(newLocality);
     }
 
     public void editLandmarkInAddress(String newLandmark){
-        if (!landmark.getText().isEmpty()){
-            landmark.clear();
-        }
+        landmark.clear();
         enterLandmark(newLandmark);
     }
 

@@ -68,14 +68,14 @@ public class GetMyBagApiResponse {
         List<Integer> arrayList = new ArrayList<>();
         response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
         ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
-        arrayList.add(0,shoppingCartResponseModel.getMinimum_delivery_charge());
-        arrayList.add(1,shoppingCartResponseModel.getMaximum_delivery_charge());
-        arrayList.add(2,shoppingCartResponseModel.getNon_cod_adjustments().get(0).getValue_amount());
+        arrayList.add(0,shoppingCartResponseModel.getOrder_data().getTotal());
+        arrayList.add(1,shoppingCartResponseModel.getOrder_data().getTotal_income());
+        arrayList.add(2,shoppingCartResponseModel.getMinimum_delivery_charge());
+        arrayList.add(3,shoppingCartResponseModel.getMaximum_delivery_charge());
+        arrayList.add(4,shoppingCartResponseModel.getNon_cod_adjustments().get(0).getValue_amount());
         if(shoppingCartResponseModel.getNon_cod_adjustments().size()>1){
-            arrayList.add(3,shoppingCartResponseModel.getNon_cod_adjustments().get(1).getValue_amount());
+            arrayList.add(5,shoppingCartResponseModel.getNon_cod_adjustments().get(1).getValue_amount());
         }
-        arrayList.add(4,shoppingCartResponseModel.getOrder_data().getTotal());
-        arrayList.add(5,shoppingCartResponseModel.getOrder_data().getTotal_income());
         return arrayList;
     }
 
@@ -99,6 +99,43 @@ public class GetMyBagApiResponse {
             getContainerData.put(i,listOfProductDetails);
         }
         return getContainerData;
+    }
+
+
+    public List<ShoppingCartResponseModel.ShippedAddressesBean> addressesBeanList(){
+        response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
+        ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
+        return shoppingCartResponseModel.getShipped_addresses();
+    }
+
+
+    public Map<Integer,List<String>> getAddressContainerDetailsMap(){
+        Map<Integer,List<String>> getAddressContainerData = new HashMap<>();
+        response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
+        ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
+        for (int i=0;i<shoppingCartResponseModel.getShipped_addresses().size();i++){
+            List<String> listOfAddressDetails = new ArrayList<>();
+            listOfAddressDetails.add(0,shoppingCartResponseModel.getShipped_addresses().get(i).getFirstname());
+            listOfAddressDetails.add(1,shoppingCartResponseModel.getShipped_addresses().get(i).getAddress1());
+            listOfAddressDetails.add(2,shoppingCartResponseModel.getShipped_addresses().get(i).getLandmark());
+            listOfAddressDetails.add(3,shoppingCartResponseModel.getShipped_addresses().get(i).getCity());
+            listOfAddressDetails.add(4,shoppingCartResponseModel.getShipped_addresses().get(i).getPhone());
+            getAddressContainerData.put(i,listOfAddressDetails);
+        }
+        return getAddressContainerData;
+    }
+
+
+    public List<String> getSelectedAddressDetails() {
+        List<String> addressDetails = new ArrayList<>();
+        response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
+        ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
+        addressDetails.add(0,shoppingCartResponseModel.getOrder_address().getAddress().getFirstname());
+        addressDetails.add(1,shoppingCartResponseModel.getOrder_address().getAddress().getAddress1());
+        addressDetails.add(2,shoppingCartResponseModel.getOrder_address().getAddress().getLandmark());
+        addressDetails.add(3,shoppingCartResponseModel.getOrder_address().getAddress().getCity());
+        addressDetails.add(4,shoppingCartResponseModel.getOrder_address().getAddress().getPhone());
+        return addressDetails;
     }
 
 
