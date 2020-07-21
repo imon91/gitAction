@@ -6,6 +6,7 @@ import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pageObjects.*;
 import services.commerceMethods.GetCommerceApiResponse;
 import services.commerceMethods.GetMyBagApiResponse;
@@ -25,21 +26,24 @@ public class MyBag extends AndroidBaseClass {
     private CheckoutAddressPageObjects.SelectAddress selectAddress;
     private CheckoutAddressPageObjects.SelectAddress.AddressField addressField;
     private PaymentModePageObjects paymentModePageObjects;
+    private PaymentModePageObjects.ProductDetails productDetails;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates estimatedDeliveryDates;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates.EstimatedDeliveryDatesItems estimatedDeliveryDatesItems;
     private AddNewAddressPageObjects addNewAddressPageObjects;
     private GetCommerceApiResponse getCommerceApiResponse;
-    private TouchAction touch ;
+    private TouchAction touch;
     private MyActions myActions;
     private OrderSuccessFulPageObjects orderSuccessFulPageObjects;
     private GetMyBagApiResponse getMyBagApiResponse;
     private String suiteName;
+    private SoftAssert softAssert;
 
 
     @BeforeClass(alwaysRun = true)
-    public void myBagBeforeClass(){
+    public void myBagBeforeClass() {
         System.out.println("MyBagBeforeClass is called");
         androidDriver = getBaseDriver();
+        softAssert = new SoftAssert();
         actionBarObjects = new ActionBarObjects(androidDriver);
         //actionBarObjects.clickOnBagImageButton();
         myBagPageObjects = new MyBagPageObjects(androidDriver);
@@ -51,6 +55,7 @@ public class MyBag extends AndroidBaseClass {
         selectAddress = checkoutAddressPageObjects.new SelectAddress(androidDriver);
         addressField = selectAddress.new AddressField(androidDriver);
         paymentModePageObjects = new PaymentModePageObjects(androidDriver);
+        productDetails = paymentModePageObjects.new ProductDetails(androidDriver);
         estimatedDeliveryDates = checkoutAddressPageObjects.new EstimatedDeliveryDates(androidDriver);
         estimatedDeliveryDatesItems = estimatedDeliveryDates.new EstimatedDeliveryDatesItems(androidDriver);
         addNewAddressPageObjects = new AddNewAddressPageObjects(androidDriver);
@@ -66,33 +71,31 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-
     @BeforeTest(alwaysRun = true)
     @Parameters("suite")
-    public void myBagBeforeTest(String suiteNameFromXML){
+    public void myBagBeforeTest(String suiteNameFromXML) {
         suiteName = suiteNameFromXML;
     }
 
 
-
-    @Test(  groups = {"MyBag.verifyItemIncrementFunctionalityOnMyBag",
+    @Test(groups = {"MyBag.verifyItemIncrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             enabled = false,
             description = "Verify ItemIncrement Functionality On MyBag",
-            dependsOnGroups = "Authentication.verifyEditMobileNumber"  )
-    public void verifyItemIncrementFunctionalityOnMyBag(){
+            dependsOnGroups = "Authentication.verifyEditMobileNumber")
+    public void verifyItemIncrementFunctionalityOnMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
-        System.out.println("List Of Item Containers is : "+containersSize);
-        if(containersSize>0){
+        System.out.println("List Of Item Containers is : " + containersSize);
+        if (containersSize > 0) {
             Random random = new Random();
-            int count = random.nextInt(containersSize)+1;
-            System.out.println("Count is : "+count);
-            System.out.println("Container Selected is : "+count);
-            System.out.println("List Of Add Qt Button is : "+
+            int count = random.nextInt(containersSize) + 1;
+            System.out.println("Count is : " + count);
+            System.out.println("Container Selected is : " + count);
+            System.out.println("List Of Add Qt Button is : " +
                     itemContainer.getListOfAddQuantityButton().size());
-            itemContainer.clickOnAddQuantityButton(itemContainer.getListOfAddQuantityButton().get(count-1));
-        }else {
+            itemContainer.clickOnAddQuantityButton(itemContainer.getListOfAddQuantityButton().get(count - 1));
+        } else {
             // Function call to create an item : Handle this at Before Class Only
         }
 
@@ -101,17 +104,17 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyProductData",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = true,dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
-    public void verifyProductData(){
-        Map<Integer,List<String>> productDetailsMap = myBagPageObjects.getContainerData();
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyProductData() {
+        Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         int containersSize = itemContainer.getItemContainersSize();
-        Assert.assertEquals(containersSize,productDetailsMap.size());
+        Assert.assertEquals(containersSize, productDetailsMap.size());
 
-        for (int a = 0;a<productDetailsMap.size();a++){
+        for (int a = 0; a < productDetailsMap.size(); a++) {
             System.out.println(productDetailsMap.get(a));
         }
 
-        for (int i=0;i<containersSize;i++){
+        for (int i = 0; i < containersSize; i++) {
             System.out.println(itemContainer.getImageLink(i));
             System.out.println(itemContainer.getProductName(i));
             System.out.println(itemContainer.getProductVariantPrice(i));
@@ -121,60 +124,61 @@ public class MyBag extends AndroidBaseClass {
             System.out.println(itemContainer.getSize(i));
         }
 
-        for(int i=0;i<containersSize;i++){
-            for(int j=0;j<productDetailsMap.size();j++) {
-                    if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-                        if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1))&&
-                                itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
+        for (int i = 0; i < containersSize; i++) {
+            for (int j = 0; j < productDetailsMap.size(); j++) {
+                if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                    if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
+                            itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
                         String productImage = itemContainer.getImageLink(i); //FrontEnd Image Link
                         String expectedProductImage = productDetailsMap.get(j).get(0); //BackEnd Image Link
-                        Assert.assertEquals(productImage, expectedProductImage);
-                        System.out.println(productImage+" "+expectedProductImage);
+                        softAssert.assertEquals(productImage, expectedProductImage);
+                        System.out.println(productImage + " " + expectedProductImage);
 
                         String productName = itemContainer.getProductName(i); //FrontEnd ProductName
                         String expectedProductName = productDetailsMap.get(j).get(1); //Backend ProductName
-                        Assert.assertEquals(productName, expectedProductName);
-                        System.out.println(productName+" "+expectedProductName);
+                        softAssert.assertEquals(productName, expectedProductName);
+                        System.out.println(productName + " " + expectedProductName);
 
                         String productVariantPrice = itemContainer.getProductVariantPrice(i); //FrontEnd VariantPrice
                         String expectedProductVariantPrice = productDetailsMap.get(j).get(2); //BackEnd VariantPrice
-                        Assert.assertEquals(productVariantPrice, expectedProductVariantPrice);
-                        System.out.println(productVariantPrice+" "+expectedProductVariantPrice);
+                        softAssert.assertEquals(productVariantPrice, expectedProductVariantPrice);
+                        System.out.println(productVariantPrice + " " + expectedProductVariantPrice);
 
                         String earnings = itemContainer.getEarningsPerItemAmountText(i); //FrontEnd EarningsPerItem
                         String expectedEarnings = productDetailsMap.get(j).get(3); //BackEnd EarningsPerItem
-                        Assert.assertEquals(earnings, expectedEarnings);
-                        System.out.println(earnings+" "+expectedEarnings);
+                        softAssert.assertEquals(earnings, expectedEarnings);
+                        System.out.println(earnings + " " + expectedEarnings);
 
                         String orderValue = itemContainer.getOrderValuePerItemAmountText(i); //FrontEnd OrderValuePerItem
                         String expectedOrderValue = productDetailsMap.get(j).get(4); //BackEnd OrderValuePerItem
-                        Assert.assertEquals(orderValue, expectedOrderValue);
-                        System.out.println(orderValue+" "+expectedOrderValue);
+                        softAssert.assertEquals(orderValue, expectedOrderValue);
+                        System.out.println(orderValue + " " + expectedOrderValue);
 
                         String quantity = itemContainer.getQuantity(i); //FrontEnd Quantity
                         String expectedQuantity = productDetailsMap.get(j).get(8); //BackEnd Quantity
-                        Assert.assertEquals(quantity, expectedQuantity);
-                        System.out.println(quantity+" "+expectedQuantity);
+                        softAssert.assertEquals(quantity, expectedQuantity);
+                        System.out.println(quantity + " " + expectedQuantity);
 
                         String size = itemContainer.getSize(i); //FrontEnd Size
                         String expectedSize = productDetailsMap.get(j).get(9); //BackEnd Size
-                        Assert.assertEquals(size, expectedSize);
-                        System.out.println(size+" "+expectedSize);
+                        softAssert.assertEquals(size, expectedSize);
+                        System.out.println(size + " " + expectedSize);
                     }
                 }
             }
         }
+        softAssert.assertAll();
         System.out.println("Product Data is working properly");
     }
 
 
-    @Test(  groups = {"MyBag.verifyIncrementFunctionalityOnMyBag",
+    @Test(groups = {"MyBag.verifyIncrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
-    public void verifyIncrementFunctionalityOnMyBag(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyIncrementFunctionalityOnMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
-        for(int i=0;i<=containersSize-1;i++) {
-            if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i==0 || i==containersSize-1) {
+        for (int i = 0; i <= containersSize - 1; i++) {
+            if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
                 itemContainer.clickOnAddQuantityButton(itemContainer.getListOfAddQuantityButton().get(i));
                 sleep(5000);
             }
@@ -183,13 +187,13 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.verifyDecrementFunctionalityOnMyBag",
+    @Test(groups = {"MyBag.verifyDecrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "MyBag.verifyIncrementFunctionalityOnMyBag")
-    public void verifyDecrementFunctionalityOnMyBag(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "MyBag.verifyIncrementFunctionalityOnMyBag")
+    public void verifyDecrementFunctionalityOnMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
-        for(int i=0;i<=containersSize-1;i++) {
-            if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i==0 || i==containersSize-1) {
+        for (int i = 0; i <= containersSize - 1; i++) {
+            if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
                 itemContainer.clickOnSubQuantityButton(itemContainer.getListOfSubQuantityButton().get(i));
                 sleep(5000);
             }
@@ -198,14 +202,14 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.selectSizeInMyBag",
+    @Test(groups = {"MyBag.selectSizeInMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
-    public void selectSizeInMyBag(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void selectSizeInMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
-        System.out.println("List Of Item Containers is : "+containersSize);
-        for(int i=0;i<containersSize;i++) {
-            if (i==0 || i==containersSize-1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+        System.out.println("List Of Item Containers is : " + containersSize);
+        for (int i = 0; i < containersSize; i++) {
+            if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
                 myActions.action_click(itemContainer.getDropDownOfSizes().get(i));
                 System.out.println("No.Of Sizes available : " + itemContainer.getListOfSizes().size());
                 Random random = new Random();
@@ -218,78 +222,81 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.verifyTotalEarnings",
+    @Test(groups = {"MyBag.verifyTotalEarnings",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
-    public void verifyTotalEarningsandOrderValue(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyTotalEarningsandOrderValue() {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
 
-        int totalEarnings = Integer.parseInt(creditsAndCoupons.getYourTotalEarningsAmount().replaceAll(",",""));
-        int expectedTotalEarnings = chargesList.get(5);
-        Assert.assertEquals(totalEarnings,expectedTotalEarnings);
+        int totalEarnings = Integer.parseInt(creditsAndCoupons.getYourTotalEarningsAmount().replaceAll(",", ""));
+        int expectedTotalEarnings = chargesList.get(1);
+        softAssert.assertEquals(totalEarnings, expectedTotalEarnings);
         System.out.println("Total Earnings is working properly");
 
-        int orderValue = Integer.parseInt(creditsAndCoupons.getCartTotalValue().replaceAll(",",""));
-        int expectedOrderValue = chargesList.get(4);
-        Assert.assertEquals(orderValue,expectedOrderValue);
+        int orderValue = Integer.parseInt(creditsAndCoupons.getCartTotalValue().replaceAll(",", ""));
+        int expectedOrderValue = chargesList.get(0);
+        softAssert.assertEquals(orderValue, expectedOrderValue);
         System.out.println("Total order value is working properly");
+
+        softAssert.assertAll();
     }
 
 
-    @Test(  groups = {"MyBag.verifyDeleteItemFromMyBag",
+    @Test(groups = {"MyBag.verifyDeleteItemFromMyBag",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             enabled = false,
             description = "Verify Delete Item From MyBag",
-            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
-    public void verifyDeleteItemFromMyBag(){
+            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyDeleteItemFromMyBag() {
         sleep(5000);
         int itemCounterSize = itemContainer.getItemContainersSize();
-        System.out.println("itemContainer Size is : "+itemCounterSize);
-        if(itemCounterSize>1){
-            for (int i=itemCounterSize;i>=0;i--) {
-                if (i==itemCounterSize-1||i==0) {
+        System.out.println("itemContainer Size is : " + itemCounterSize);
+        if (itemCounterSize > 1) {
+            for (int i = itemCounterSize; i >= 0; i--) {
+                if (i == itemCounterSize - 1 || i == 0) {
                     System.out.println("List Of Cancel Icons Before Cancel: " +
                             itemContainer.getListOfCancelIcons().size());
                     itemContainer.clickOnCancelItem(itemContainer.getListOfCancelIcons().get(i));
+                    itemCounterSize--;
                 }
             }
-        }else {
+        } else {
             // Function call to create an item : Handle this at Before Class Only
         }
     }
 
 
-    @Test(   groups = {"MyBag.verifyMinAndMaxSalePrice",
-             CoreConstants.GROUP_SANITY,
-             CoreConstants.GROUP_REGRESSION},
+    @Test(groups = {"MyBag.verifyMinAndMaxSalePrice",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION},
             enabled = false,
-             description = "verify Min and Max Sale Price",
+            description = "verify Min and Max Sale Price",
             dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
-    public void verifyMinAndMaxSalePrice(){
+    public void verifyMinAndMaxSalePrice() {
         int containersSize = itemContainer.getItemContainersSize();
-        Map<Integer,List<String>> productDetailsMap = myBagPageObjects.getContainerData();
-        for(int i = 0;i<containersSize;i++) {
-            if (i == 0 || i==containersSize-1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-                int min = Integer.parseInt(productDetailsMap.get(i).get(6)),max = Integer.parseInt(productDetailsMap.get(i).get(7));
+        Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
+        for (int i = 0; i < containersSize; i++) {
+            if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                int min = Integer.parseInt(productDetailsMap.get(i).get(6)), max = Integer.parseInt(productDetailsMap.get(i).get(7));
 
-                String maxSalePriceText = itemContainer.checkingMaxPrice(i,max);
+                String maxSalePriceText = itemContainer.checkingMaxPrice(i, max);
                 sleep(3000);
                 //Assert.assertTrue(maxSalePriceText.equalsIgnoreCase("Price updated to "+max));
 
-                if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)){
-                    int boundaryValue1 = min-1;
-                    String lesserSalePriceText = itemContainer.checkingLessThanMinPrice(i,boundaryValue1);
+                if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                    int boundaryValue1 = min - 1;
+                    String lesserSalePriceText = itemContainer.checkingLessThanMinPrice(i, boundaryValue1);
                     sleep(3000);
                     //Assert.assertTrue(lesserSalePriceText.equalsIgnoreCase("Price should be in between "+min+" and "+max));
 
-                    int boundaryValue2 = max+1;
-                    String greaterSalePriceText = itemContainer.checkingMoreThanMaxPrice(i,boundaryValue2);
+                    int boundaryValue2 = max + 1;
+                    String greaterSalePriceText = itemContainer.checkingMoreThanMaxPrice(i, boundaryValue2);
                     sleep(3000);
                     //Assert.assertTrue(greaterSalePriceText.equalsIgnoreCase("Price should be in between "+min+" and "+max));
                 }
 
-                String minSalePriceText = itemContainer.checkingMinPrice(i,min);
+                String minSalePriceText = itemContainer.checkingMinPrice(i, min);
                 sleep(3000);
                 //Assert.assertTrue(minSalePriceText.equalsIgnoreCase("Price updated to "+min));
             }
@@ -297,36 +304,36 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.couponApply",
+    @Test(groups = {"MyBag.couponApply",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false)
-    public void couponApply(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false)
+    public void couponApply() {
         String coupon = "";
         creditsAndCoupons.enterCoupon(coupon);
     }
 
 
-    @Test(  groups = {"MyBag.verifyApplyingShippingCharges",
+    @Test(groups = {"MyBag.verifyApplyingShippingCharges",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,
+            CoreConstants.GROUP_REGRESSION}, enabled = false,
             description = "Verify Applying Shipping Charges From MyBag",
-            dependsOnMethods = "verifyMinAndMaxSalePrice"  )
-    public void verifyApplyingShippingCharges(){
+            dependsOnMethods = "verifyMinAndMaxSalePrice")
+    public void verifyApplyingShippingCharges() {
         sleep(5000);
         String shippingCharges = "70";
         int minShippingCharge = 49;
         creditsAndCoupons.applyShippingCharges(shippingCharges);
-            sleep(5000);
+        sleep(5000);
     }
 
 
-    @Test(  groups = {"MyBag.verifyMinAndMaxShippingCharges",
+    @Test(groups = {"MyBag.verifyMinAndMaxShippingCharges",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
-    public void verifyMinAndMaxShippingCharges(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyMinAndMaxShippingCharges() {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
-        int max = chargesList.get(1),min = chargesList.get(0);
-        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)){
+        int max = chargesList.get(3), min = chargesList.get(2);
+        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
             String greaterDeliveryChargeText = creditsAndCoupons.checkingMoreThanDeliveryCharges(max);
             sleep(3000);
             //Assert.assertTrue(greaterDeliveryChargeText.equalsIgnoreCase("Delivery Charge cannot be more than "+max));
@@ -344,25 +351,25 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.verifyPlaceOrderInMyBag",
+    @Test(groups = {"MyBag.verifyPlaceOrderInMyBag",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
-            description = "Verify Place Order From MyBag",enabled = false,
-            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials"  )
-    public void verifyPlaceOrderInMyBag(){
+            description = "Verify Place Order From MyBag",
+            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyPlaceOrderInMyBag() {
         myBagPageObjects.clickOnPlaceOrderButton();
     }
 
 
-    @Test(  groups = {"MyBag.verifySelectAddressInMyBag",
+    @Test(groups = {"MyBag.verifySelectAddressInMyBag",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
-            enabled = false,
+            enabled = true,
             description = "Verify Select Address From MyBag",
-            dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag"  )
-    public void verifySelectAddressInMyBag(){
-        System.out.println("Address List is : "+selectAddress.getListOfVisibleAddress().size());
-        selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(1));
+            dependsOnGroups = "MyBag.verifyAddressData")
+    public void verifySelectAddressInMyBag() {
+        System.out.println("Address List is : " + selectAddress.getListOfVisibleAddress().size());
+        selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(0));
 //        if(selectAddress.getListOfVisibleAddress().size()>1){
 //            selectAddress.clickOnShowMoreAddress();
 //            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(1));
@@ -373,23 +380,23 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.verifyProceedToPaymentByCreatingNewAddress",
-            CoreConstants.GROUP_SANITY},enabled = false,dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
-    public void verifyProceedToPaymentByCreatingNewAddress(){
+    @Test(groups = {"MyBag.verifyProceedToPaymentByCreatingNewAddress",
+            CoreConstants.GROUP_SANITY}, enabled = false, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
+    public void verifyProceedToPaymentByCreatingNewAddress() {
         selectAddress.clickOnAddNewAddress();
-        addNewAddressPageObjects.createNewAddress("Naveen","Shopf Street","1877655690");
+        addNewAddressPageObjects.createNewAddress("Naveen", "Shopf Street", "1877655690");
     }
 
 
-    @Test(  groups = {"MyBag.verifyEditAddress",
+    @Test(groups = {"MyBag.verifyEditAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
-    public void verifyEditAddress(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
+    public void verifyEditAddress() {
         selectAddress.clickOnShowMoreAddress();
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
-        System.out.println("Address List is : "+addressListSize);
-        for(int i =0;i<addressListSize;i++) {
-            if(i==0||i==addressListSize-1||suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+        System.out.println("Address List is : " + addressListSize);
+        for (int i = 0; i < addressListSize; i++) {
+            if (i == 0 || i == addressListSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
                 System.out.println("List of Edit Address Button is :" + addressField.getListOfEditAddressButtons().size());
                 addressField.clickOnEditAddressButton(addressField.getListOfEditAddressButtons().get(i));
                 sleep(5000);
@@ -401,15 +408,15 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.verifyDeleteAddress",
+    @Test(groups = {"MyBag.verifyDeleteAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "MyBag.verifyEditAddress")
-    public void verifyDeleteAddress(){
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "MyBag.verifyEditAddress")
+    public void verifyDeleteAddress() {
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
-        System.out.println("Address List is : "+addressListSize);
-        if (addressListSize>0) {
-            for (int i =addressListSize-1;i>=0;i--) {
-                if(i==0||i==addressListSize-1) {
+        System.out.println("Address List is : " + addressListSize);
+        if (addressListSize > 0) {
+            for (int i = addressListSize - 1; i >= 0; i--) {
+                if (i == 0 || i == addressListSize - 1) {
                     System.out.println("List of Delete Address Button is :" + addressField.getListOfDeleteButtons().size());
                     addressField.clickOnDeleteAddressButton(addressField.getListOfDeleteButtons().get(i));
                 }
@@ -418,74 +425,206 @@ public class MyBag extends AndroidBaseClass {
     }
 
 
-    @Test(  groups = {"MyBag.deleteProductWithCODDisabled",
-            CoreConstants.GROUP_SANITY},enabled = false,
+    @Test(groups = {"MyBag.verifyAddressData",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
+    public void verifyAddressData() {
+        sleep(4000);
+        selectAddress.clickOnShowMoreAddress();
+        int addressListSize = selectAddress.getListOfVisibleAddress().size();
+        System.out.println("Address List is : " + addressListSize);
+        int expectedAddressListSize = checkoutAddressPageObjects.getAddressListSizeData();
+        Assert.assertEquals(addressListSize, expectedAddressListSize);
+        Map<Integer, List<String>> addressDataMap = checkoutAddressPageObjects.getAddressData();
+        for (int i = 0; i < addressListSize; i++) {
+            if (i == 0 || i == addressListSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                String firstName = addressField.getFirstName(i);
+                String expectedFirstName = addressDataMap.get(i).get(0);
+                System.out.println(firstName + "" + expectedFirstName);
+                softAssert.assertEquals(firstName, expectedFirstName);
+
+                String address = addressField.getAddress(i);
+                String expectedAddress = addressDataMap.get(i).get(1);
+                System.out.println(address + "" + expectedAddress);
+                softAssert.assertEquals(address, expectedAddress);
+
+                String landmark = addressField.getLandmark(i);
+                if (!landmark.equalsIgnoreCase("Landmark: N/A")) {
+                    String landmarkValue = landmark.replace("Landmark: ", "");
+                    String expectedLandmark = addressDataMap.get(i).get(2);
+                    System.out.println(landmarkValue + "" + expectedLandmark);
+                    softAssert.assertEquals(landmarkValue, expectedLandmark);
+                }
+
+                String city = addressField.getArea(i);
+                String expectedCity = addressDataMap.get(i).get(3);
+                System.out.println(city + "" + expectedCity);
+                softAssert.assertEquals(city, expectedCity);
+
+                String phoneNumber = addressField.getPhoneNumber(i);
+                String expectedPhoneNumber = addressDataMap.get(i).get(4);
+                System.out.println(phoneNumber + "" + expectedPhoneNumber);
+                softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
+            }
+            softAssert.assertAll();
+        }
+    }
+
+
+    @Test(groups = {"MyBag.deleteProductWithCODDisabled",
+            CoreConstants.GROUP_SANITY}, enabled = true,
             dependsOnGroups = "MyBag.verifySelectAddressInMyBag")
-    public void deleteProductWithCODDisabled(){
+    public void deleteProductWithCODDisabled() {
         estimatedDeliveryDatesItems.deleteProductWithCODDisabled();
     }
 
 
-    @Test(  groups = {"MyBag.verifyDeleteProductInAddressPage",
+    @Test(groups = {"MyBag.verifyDeleteProductInAddressPage",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             enabled = false,
             description = "verify Delete Product",
             dependsOnGroups = "MyBag.verifySelectAddressInMyBag")
-    public void verifyDeleteProductInEstimatedDeliveryPage(){
+    public void verifyDeleteProductInEstimatedDeliveryPage() {
         int itemsList = estimatedDeliveryDates.getListOfEstimatedDeliveryItems().size();
         sleep(5000);
-        if(itemsList>2){
-            for (int i =itemsList-1;i>=0;i--) {
+        if (itemsList > 2) {
+            for (int i = itemsList - 1; i >= 0; i--) {
                 if (i == 0 || i == itemsList - 1) {
                     estimatedDeliveryDatesItems.clickOnEstimatedDeliveryItem(
                             estimatedDeliveryDatesItems.
                                     getListOfEstimatedDeliveryItemDelete().get(i));
                 }
             }
-        }else {
+        } else {
             System.out.println("Sufficient element is not present");
         }
 
     }
 
 
-    @Test(  groups = {"MyBag.verifyCheckoutProceedInMyBag",
+    @Test(groups = {"MyBag.verifyCheckoutProceedInMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,
+            CoreConstants.GROUP_REGRESSION}, enabled = true,
             description = "Verify Checkout Proceed From MyBag",
-            dependsOnGroups = "MyBag.deleteProductWithCODDisabled"  )
-    public void verifyCheckoutProceedInMyBag(){
+            dependsOnGroups = "MyBag.deleteProductWithCODDisabled")
+    public void verifyCheckoutProceedInMyBag() {
         sleep(5000);
         checkoutAddressPageObjects.clickOnProceedToPaymentTopButton();
+        sleep(3000);
     }
 
 
-
-    @Test(  groups = {"MyBag.verifyPaymentBreakup",
+    @Test(groups = {"MyBag.verifyPaymentBreakup",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,dependsOnGroups = "MyBag.verifyCheckoutProceedInMyBag")
-    public void verifyPaymentBreakup(){
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyCheckoutProceedInMyBag")
+    public void verifyPaymentBreakup() {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
         sleep(3000);
         paymentModePageObjects.clickOnPaymentBreakup();
 
         int earnings = paymentModePageObjects.getEarningsAmount();
-        int expectedEarnings = chargesList.get(5);
-        Assert.assertEquals(earnings,expectedEarnings);
+        int expectedEarnings = chargesList.get(1);
+        softAssert.assertEquals(earnings, expectedEarnings);
         System.out.println("Earnings Data is working properly");
 
         int orderValue = paymentModePageObjects.getCartValueAmount();
-        int expectedOrderValue =chargesList.get(4);
-        Assert.assertEquals(orderValue,expectedOrderValue);
+        int expectedOrderValue = chargesList.get(0);
+        softAssert.assertEquals(orderValue, expectedOrderValue);
         System.out.println("Cart Value Data is working properly");
 
         int shippingCharges = paymentModePageObjects.getShippingCharges();
-        int expectedShippingCharges = chargesList.get(2);
-        Assert.assertEquals(shippingCharges,expectedShippingCharges);
+        int expectedShippingCharges = chargesList.get(4);
+        softAssert.assertEquals(shippingCharges, expectedShippingCharges);
         System.out.println("Shipping Charges Data is working properly");
 
+        softAssert.assertAll();
         paymentModePageObjects.clickOnCloseButton();
+    }
+
+
+    @Test(groups = {"MyBag.verifyProductDataInPaymentsPage",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION}, dependsOnGroups = "MyBag.verifyPaymentBreakup")
+    public void verifyProductDataInPaymentsPage() {
+        Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
+        int containersSize = productDetails.getProductContainerSize();
+        Assert.assertEquals(containersSize, productDetailsMap.size());
+
+        for (int i = 0; i < containersSize; i++) {
+            System.out.println(productDetails.getProductImage(i));
+            System.out.println(productDetailsMap.get(i).get(0));
+            System.out.println(productDetails.getProductName(i));
+            System.out.println(productDetailsMap.get(i).get(1));
+            System.out.println(productDetails.getProductOrderValue(i));
+            System.out.println(productDetailsMap.get(i).get(4));
+        }
+
+        for (int i = 0; i < containersSize; i++) {
+            for (int j = 0; j < productDetailsMap.size(); j++) {
+                if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                    if (productDetails.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
+                            productDetails.getProductOrderValue(i).equalsIgnoreCase(productDetailsMap.get(j).get(4)) &&
+                            productDetails.getProductImage(i).equalsIgnoreCase(productDetailsMap.get(j).get(0))) {
+                        System.out.println("Product Data is working properly");
+                    }
+                }
+            }
+        }
+    }
+
+
+    @Test(groups = {"MyBag.verifySelectedAddressData",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION}, dependsOnGroups = "MyBag.verifyProductDataInPaymentsPage")
+    public void verifySelectedAddressData() {
+        List<String> addressDataList = paymentModePageObjects.getSelectedAddressDetails();
+
+        String firstName = paymentModePageObjects.getNamefromAddress();
+        String expectedFirstName = addressDataList.get(0);
+        System.out.println(firstName + " " + expectedFirstName);
+        softAssert.assertEquals(firstName, expectedFirstName);
+
+        String address = paymentModePageObjects.getAddressfromAddress();
+        String expectedAddress = addressDataList.get(1);
+        System.out.println(address + " " + expectedAddress);
+        softAssert.assertEquals(address, expectedAddress);
+
+        String expectedLandmark = addressDataList.get(2);
+        System.out.println(expectedLandmark);
+        if (expectedLandmark.isEmpty()) {
+
+            String city = paymentModePageObjects.getCityfromAddress();
+            String expectedCity = addressDataList.get(3);
+            System.out.println(city + " " + expectedCity);
+            softAssert.assertEquals(city, expectedCity);
+
+            String phoneNumber = paymentModePageObjects.getPhoneNumberFromAddress();
+            String expectedPhoneNumber = addressDataList.get(4);
+            System.out.println(phoneNumber + " " + expectedPhoneNumber);
+            softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
+        }
+
+    else {
+        String landmark = paymentModePageObjects.getLandmarkfromAddress();
+        String landmarkValue = landmark.replace("Landmark: ", "");
+        System.out.println(landmark + "" + expectedLandmark);
+        softAssert.assertEquals(landmarkValue, expectedLandmark);
+
+        String city = paymentModePageObjects.getCity();
+        String expectedCity = addressDataList.get(3);
+        System.out.println(city + " " + expectedCity);
+        softAssert.assertEquals(city, expectedCity);
+
+        String phoneNumber = paymentModePageObjects.getPhoneNumber();
+        String expectedPhoneNumber = addressDataList.get(4);
+        System.out.println(address + " " + expectedAddress);
+        softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
+    }
+
+
+        softAssert.assertAll();
+        System.out.println("Address selected properly");
     }
 
 
