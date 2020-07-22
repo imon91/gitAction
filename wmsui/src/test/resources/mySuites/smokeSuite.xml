@@ -9,11 +9,11 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.Login"></class>
-<!--             <class name="com.shopf.tests.CreatingPurchaseOrder"></class>
+            <class name="com.shopf.tests.CreatingPurchaseOrder"></class>
             <class name="com.shopf.tests.GRNCreation"></class>
             <class name="com.shopf.tests.ClosePO"></class>
             <class name="com.shopf.tests.PackageDetails"></class>
-            <class name="com.shopf.tests.PickListReturn"></class> -->
+            <class name="com.shopf.tests.PickListReturn"></class>
             <class name="com.shopf.tests.Logout"></class>
         </classes>
     </test>
