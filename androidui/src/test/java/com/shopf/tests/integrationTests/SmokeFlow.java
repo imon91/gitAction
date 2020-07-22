@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.AndroidBaseClass;
+import utils.MyActions;
 import utils.ServiceRequestLayer;
 
 public class SmokeFlow extends AndroidBaseClass {
@@ -59,8 +60,6 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @DataProvider(name = "dataForSmokeTest")
     public Object[][] dataForSmokeTest(){
-        String category = null;
-        String subCategory = null;
         String mobileNumber = null;
         String otp = null;
         String searchTerm = null;
@@ -68,25 +67,20 @@ public class SmokeFlow extends AndroidBaseClass {
             mobileNumber = "1877755590";
             otp = "666666";
             searchTerm = "Shirts";
-            category = "Category";
-            subCategory = "Men Shirts";
         }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             mobileNumber = "1877755590";
             otp = "666666";
             searchTerm = "Dettol";
-            category = "Category";
-            subCategory = "Household Cleaners";
         }
         return new Object[][]{
-                {mobileNumber,otp,searchTerm,category,subCategory}
+                {mobileNumber,otp,searchTerm}
         };
     }
 
 
     @Test( groups = CoreConstants.GROUP_SMOKE,dataProvider = "dataForSmokeTest")
     public void smokeTest(String mobileNumber,String otp
-            ,String searchTerm,String filterCategory
-            ,String categoryItem) throws Exception {
+            ,String searchTerm) throws Exception {
         authentication.authenticationSetUp();
 //        sleep(4000);
 
@@ -107,7 +101,7 @@ public class SmokeFlow extends AndroidBaseClass {
         plp.verifyApplyingSortOnPLP();
 
         //Step 5 : Filtering the product list
-        plp.verifyApplyingFilterOnPLP(categoryItem,filterCategory);
+        plp.verifyApplyingFilterOnPLP(null,null);
 
         //Step 6 : Selecting a product with valid size from the list
         plp.verifySelectingValidSizeItemOnPlpToPDP();
@@ -132,6 +126,8 @@ public class SmokeFlow extends AndroidBaseClass {
 
 //        //Step 11 : Proceeding order
         myBag.verifyPlaceOrderInMyBag();
+
+        myBag.deleteProductWithCODDisabled();
 //
 //        //Step 12 : Selecting an address
         myBag.verifySelectAddressInMyBag();
@@ -141,12 +137,11 @@ public class SmokeFlow extends AndroidBaseClass {
 //
         if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
             //        //Step 14 : Proceed payment
+            sleep(5000);
             myBag.verifyProceedPaymentWithoutChangeAddress();
 //
         sleep(4000);
         orderSuccessFulPageObjects.clickOnClickHereButton();
-//
-        actionBarObjects.clickOnShopUpAppIcon();
 //
 //        //Step 15 : Logging out
         logout.logoutBeforeClass();

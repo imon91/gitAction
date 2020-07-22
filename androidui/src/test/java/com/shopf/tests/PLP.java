@@ -63,7 +63,9 @@ public class PLP extends AndroidBaseClass {
         Random random1 = new Random();
         int randomSortIndex = random1.nextInt(sortPageObjects.getSortTexts().size());
         if(sortPageObjects.getSortTexts()
-                .get(randomSortIndex).getText().equalsIgnoreCase("What's New")){
+                .get(randomSortIndex).getText().equalsIgnoreCase("What's New") ||
+                sortPageObjects.getSortTexts()
+                        .get(randomSortIndex).getText().equalsIgnoreCase("SORT") ){
             randomSortIndex = randomSortIndex+1;
         }
         sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()

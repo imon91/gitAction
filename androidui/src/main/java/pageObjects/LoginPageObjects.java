@@ -12,6 +12,7 @@ public class LoginPageObjects extends AndroidBaseClass{
     private final String packageName;
 
     public LoginPageObjects(AndroidDriver<WebElement> androidDriver){
+        switchFromWebToNative();
         this.androidDriver = androidDriver;
         myActions = new MyActions();
         packageName = getAppPackage();

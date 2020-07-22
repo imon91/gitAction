@@ -9,8 +9,8 @@ import org.openqa.selenium.support.*;
 public class CreateCollectionBottomSheetObjects{
 
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
 
     public CreateCollectionBottomSheetObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

@@ -7,11 +7,12 @@ import io.appium.java_client.android.*;
 
 public class ActionBarObjects extends AndroidBaseClass {
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
-    private final String packageName;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
+    private String packageName;
 
     public ActionBarObjects(AndroidDriver<WebElement> androidDriver){
+        switchFromWebToNative();
         this.androidDriver = androidDriver;
         myActions = new MyActions();
        packageName = getAppPackage();

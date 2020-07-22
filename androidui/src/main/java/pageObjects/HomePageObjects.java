@@ -6,8 +6,8 @@ import io.appium.java_client.android.*;
 
 public class HomePageObjects extends AndroidBaseClass {
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
 
     public HomePageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

@@ -22,7 +22,6 @@ public class ShopUpPostMan {
     private String cookie;
     private String module;
     private String cookieKey;
-    private String cookie;
 
     public ShopUpPostMan(String module){
         this.module = module;
@@ -174,7 +173,7 @@ public class ShopUpPostMan {
         String cookie = null;
         try{
             cookie = CookieManager.getValueOfKey(cookieKey);
-            System.out.println("User Cookie is : "+cookie);
+            //System.out.println("User Cookie is : "+cookie);
         }catch (Exception e){
             System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
         }

@@ -66,20 +66,20 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private WebElement cartTotalValue;
 
     // Item Container Path
-    private final String itemContainerPath = "//div[@class='lineItemContainer___DdZE9']";
+    private String itemContainerPath = "//div[@class='lineItemContainer___DdZE9']";
 
 
     public class ItemContainer{
 
-        private final AndroidDriver<WebElement> androidDriver;
-        private final MyActions myActions;
-        private final int minSalePrice;
-        private final int maxSalePrice;
+        private AndroidDriver<WebElement> androidDriver;
+        private MyActions myActions;
+        private int minSalePrice;
+        private int maxSalePrice;
         
         
 
         // Container Parent Path
-        private final String containerParentPath = "//div[@class='seller_info']/ancestor::div[2]/div";
+        private String containerParentPath = "//div[@class='seller_info']/ancestor::div[2]/div";
 
 
 
@@ -430,8 +430,8 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
         // Cart/MyBag os completely a WebView
 
-        private final AndroidDriver<WebElement> androidDriver;
-        private final MyActions myActions;
+        private AndroidDriver<WebElement> androidDriver;
+        private MyActions myActions;
 
         public CreditsAndCoupons(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;

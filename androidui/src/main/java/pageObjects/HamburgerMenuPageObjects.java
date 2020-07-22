@@ -7,10 +7,10 @@ import java.util.*;
 
 public class HamburgerMenuPageObjects extends AndroidBaseClass {
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
-    private final String packageName;
-    private final ServiceRequestLayer serviceRequestLayer;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
+    private String packageName;
+    private ServiceRequestLayer serviceRequestLayer;
 
     public HamburgerMenuPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;

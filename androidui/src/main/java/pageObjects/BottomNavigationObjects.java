@@ -6,11 +6,12 @@ import io.appium.java_client.android.*;
 
 public class BottomNavigationObjects extends AndroidBaseClass {
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
-    private final String packageName;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
+    private String packageName;
 
     public BottomNavigationObjects(AndroidDriver<WebElement> androidDriver){
+        switchFromWebToNative();
         this.androidDriver = androidDriver;
         myActions = new MyActions();
         packageName = getAppPackage();

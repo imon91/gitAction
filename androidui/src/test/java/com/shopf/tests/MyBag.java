@@ -8,8 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pageObjects.*;
-import services.commerceMethods.GetCommerceApiResponse;
-import services.commerceMethods.GetMyBagApiResponse;
+import services.commerceMethods.*;
 import utils.*;
 import java.util.*;
 
@@ -62,7 +61,7 @@ public class MyBag extends AndroidBaseClass {
         getCommerceApiResponse = new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI);
         myActions = new MyActions();
         // This Block is responsible to get the control from anywhere to MyBag
-        actionBarObjects.clickOnBagImageButton();
+        //actionBarObjects.clickOnBagImageButton();
         sleep(3000);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         // This Block is responsible to get the control from anywhere to MyBag
@@ -663,6 +662,5 @@ public class MyBag extends AndroidBaseClass {
     @AfterClass(alwaysRun = true)
     public void myBagAfterClass(){
         System.out.println("MyBagAfterClass is called");
-        //orderSuccessFulPageObjects.clickOnClickHereButton();
     }
 }

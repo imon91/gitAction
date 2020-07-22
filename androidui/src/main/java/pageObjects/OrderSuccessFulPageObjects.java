@@ -26,9 +26,15 @@ public class OrderSuccessFulPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "//span[contains(text(),'Click Here')]")
     private WebElement clickHereButton;
 
+    @FindBy(xpath = "//span[contains(text(),'My Orders')]")
+    private WebElement myOrdersButton;
 
     public void clickOnClickHereButton(){
         myActions.action_click(clickHereButton);
+    }
+
+    public void clickOnGoTOMyOrdersButton(){
+        myActions.action_click(myOrdersButton);
     }
 
 }

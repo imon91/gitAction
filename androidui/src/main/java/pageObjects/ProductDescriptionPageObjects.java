@@ -13,12 +13,12 @@ import java.util.NoSuchElementException;
 
 public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
-    private final ServiceRequestLayer serviceRequestLayer;
-    private final String packageName;
-    private final int minSalePrice;
-    private final int maxSalePrice;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
+    private ServiceRequestLayer serviceRequestLayer;
+    private String packageName;
+    private int minSalePrice;
+    private int maxSalePrice;
 
     public ProductDescriptionPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -440,8 +440,8 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
     public class PDPTutorial{
 
-        private final AndroidDriver<WebElement> androidDriver;
-        private final MyActions myActions;
+        private AndroidDriver<WebElement> androidDriver;
+        private MyActions myActions;
 
         public PDPTutorial(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = getBaseDriver();
@@ -493,8 +493,8 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
     public class BottomSheetHolder{
 
-        private final AndroidDriver<WebElement> androidDriver;
-        private final MyActions myActions;
+        private AndroidDriver<WebElement> androidDriver;
+        private MyActions myActions;
 
         public BottomSheetHolder(AndroidDriver<WebElement> androidDriver){
             this.androidDriver = androidDriver;
