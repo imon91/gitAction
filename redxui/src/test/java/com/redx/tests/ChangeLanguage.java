@@ -37,8 +37,7 @@ public class ChangeLanguage extends RedXBaseClass
         otherSettings.changeToEnglish();
     }
 
-    /*
-    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION},
+    @Test(  groups = {CoreConstants.GROUP_SANITY, CoreConstants.GROUP_REGRESSION},
             description = "Change Language To Bangla",
             dependsOnGroups = {"Authentication.verifyAuthenticationWithValidCredentials"})
     public void changeToBanglaLanguage()
@@ -47,7 +46,7 @@ public class ChangeLanguage extends RedXBaseClass
         homePageObjects.clickSettingsButton();
         otherSettings.changeToBangla();
     }
-    */
+
 
     @AfterClass(alwaysRun = true)
     public void afterChangeLanguageClass()

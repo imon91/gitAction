@@ -20,7 +20,8 @@ public class PaymentUpdatesPageObjects extends RedXBaseClass
 
     public void clickBackButton()
     {
-        backButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']");
+        String backXpath="//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']";
+        backButton = xpathSetter(backXpath);
         myActions.action_click(backButton);
     }
 

@@ -3,6 +3,8 @@ package pageObjects;
 import org.openqa.selenium.WebElement;
 import utils.*;
 
+import java.util.List;
+
 public class SettingsPageObjects extends RedXBaseClass
 {
     MyActions myActions;
@@ -11,6 +13,7 @@ public class SettingsPageObjects extends RedXBaseClass
 
     /*----------Elements----------*/
 
+    private WebElement backButton;
     private WebElement paymentDetailsModule;
     private WebElement pickupInfoModule;
     private WebElement otherSettingsModule;
@@ -19,6 +22,12 @@ public class SettingsPageObjects extends RedXBaseClass
     private WebElement confirmLogoutButton;
 
     /*----------Actions----------*/
+
+    public void clickBackButton()
+    {
+        backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']");
+        myActions.action_click(backButton);
+    }
 
     public void clickPaymentDetailsModule()
     {
@@ -92,37 +101,65 @@ public class SettingsPageObjects extends RedXBaseClass
 
         public void enterBkashAccountNumber(String bKashAcntNo)
         {
-            bKashAccountNumberEntry = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.EditText[1]");
+            bKashAccountNumberEntry = xpathSetter("//android.widget.EditText[@text='bKash Account Number']");
             myActions.action_sendKeys(bKashAccountNumberEntry,bKashAcntNo);
         }
 
         public void enterBankAccountName(String  bankAcntName)
         {
-            bankAccountNameEntry = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.EditText[2]");
+            bankAccountNameEntry = xpathSetter("//android.widget.EditText[@text='Bank Account Name']");
             myActions.action_sendKeys(bankAccountNameEntry,bankAcntName);
         }
 
-        public void selectBank(String bank)
+        public void clickBank()
         {
-            bankDropDown = xpathSetter("//android.view.ViewGroup[3]/android.view.ViewGroup/android.widget.EditText");
-            myActions.action_select(bankDropDown,bank);
+            bankDropDown = xpathSetter("//android.widget.EditText[@text='Bank']");
+            myActions.action_click(bankDropDown);
         }
 
-        public void selectBranch(String branch)
+        public List<WebElement> bankList()
         {
-            branchDropDown = xpathSetter("//android.view.ViewGroup[4]/android.view.ViewGroup/android.widget.EditText");
-            myActions.action_select(branchDropDown,branch);
+            String bankListXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+            List<WebElement> listOfBanks = xpathListSetter(bankListXpath);
+            return listOfBanks;
+        }
+
+        public void selectBankById(List<WebElement> list,int index)
+        {
+            System.out.println("Index: " + index);
+            myActions.action_click(list.get(index));
+        }
+
+        public void selectBankByText(String bank)
+        {
+            String bankSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\""+ bank +"\"))";
+            WebElement selectedBank = uiAutomatorSetter(bankSelector);
+            myActions.action_click(selectedBank);
+        }
+
+        public void clickBranch()
+        {
+            branchDropDown = xpathSetter("//android.widget.EditText[@text='Branch']");
+            myActions.action_click(branchDropDown);
+        }
+
+        public void selectBranchByText(String branch)
+        {
+            WebElement searchBranch = xpathSetter("//android.widget.EditText");
+            myActions.action_sendKeys(searchBranch,branch);
+            WebElement selectedBranch = xpathSetter("//android.widget.ScrollView//android.widget.TextView");
+            myActions.action_click(selectedBranch);
         }
 
         public void enterAccountNo(String acntNo)
         {
-            accountNoEntry = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.EditText[3]");
+            accountNoEntry = xpathSetter("//android.widget.EditText[@text='Account No.']");
             myActions.action_sendKeys(accountNoEntry,acntNo);
         }
 
         public void enterRoutingNo(String routingNo)
         {
-            routingNoEntry = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.EditText[4]");
+            routingNoEntry = xpathSetter("//android.widget.EditText[@text='Routing No.']");
             myActions.action_sendKeys(routingNoEntry,routingNo);
         }
 
@@ -141,14 +178,15 @@ public class SettingsPageObjects extends RedXBaseClass
         /*----------Functions----------*/
 
         public void updatePaymentInfo(String bKashAcntNo,String bankAcntName, String bank, String branch,
-                                      String acntNo, String routingNo, String acntType)
+                                      String acntNo, String acntType)
         {
             enterBkashAccountNumber(bKashAcntNo);
             enterBankAccountName(bankAcntName);
-            selectBank(bank);
-            selectBranch(branch);
+            clickBank();
+            selectBankByText(bank);
+            clickBranch();
+            selectBranchByText(branch);
             enterAccountNo(acntNo);
-            enterRoutingNo(routingNo);
             selectAccountType(acntType);
             clickSaveChanges();
         }
@@ -176,19 +214,19 @@ public class SettingsPageObjects extends RedXBaseClass
 
         public String getArea()
         {
-            area = xpathSetter("//android.view.ViewGroup/android.widget.TextView[3]");
+            area = xpathSetter("//android.widget.TextView[3]");
             return myActions.action_getText(area);
         }
 
         public String getAddress()
         {
-            address = xpathSetter("//android.view.ViewGroup/android.widget.TextView[5]");
+            address = xpathSetter("//android.widget.TextView[5]");
             return myActions.action_getText(address);
         }
 
         public String getContactNumber()
         {
-            contactNumber = xpathSetter("//android.view.ViewGroup/android.widget.TextView[7]");
+            contactNumber = xpathSetter("//android.widget.TextView[7]");
             return myActions.action_getText(contactNumber);
         }
 
@@ -198,21 +236,44 @@ public class SettingsPageObjects extends RedXBaseClass
             myActions.action_click(editInfo);
         }
 
-        public void selectArea(String area)
+        public void enterArea()
         {
             areaEntry = xpathSetter("//android.view.ViewGroup/android.widget.EditText[@index='0']");
-            myActions.action_select(areaEntry,area);
+            myActions.action_click(areaEntry);
+        }
+
+        public List<WebElement> areaList()
+        {
+            String areaXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+            List<WebElement> listOfAreas = xpathListSetter(areaXpath);
+            listOfAreas.remove(0);
+            return listOfAreas;
+        }
+
+        public void selectAreaById(List<WebElement> list,int index)
+        {
+            System.out.println("Index: " + index);
+            myActions.action_click(list.get(index));
+        }
+
+        public void selectAreaByText(String area)
+        {
+            String areaSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\""+ area +"\"))";
+            WebElement selectedArea = getBaseDriver().findElementByAndroidUIAutomator(areaSelector);
+            myActions.action_click(selectedArea);
         }
 
         public void enterAddress(String address)
         {
             addressEntry = xpathSetter("//android.view.ViewGroup/android.widget.EditText[@index='3']");
+            myActions.action_clearText(addressEntry);
             myActions.action_sendKeys(addressEntry,address);
         }
 
         public void enterContactNumber(String contactNumber)
         {
             contactNumberEntry = xpathSetter("//android.view.ViewGroup/android.widget.EditText[@index='5']");
+            myActions.action_clearText(contactNumberEntry);
             myActions.action_sendKeys(contactNumberEntry,contactNumber);
         }
 
@@ -240,7 +301,8 @@ public class SettingsPageObjects extends RedXBaseClass
         public void updatePickupInfo(String area, String address, String contactNumber)
         {
             clickEditInfo();
-            selectArea(area);
+            enterArea();
+            selectAreaByText(area);
             enterAddress(address);
             enterContactNumber(contactNumber);
             clickSaveChanges();

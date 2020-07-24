@@ -14,7 +14,6 @@ public class Authentication extends RedXBaseClass
     private LoginPageObjects loginPageObjects;
 
 
-
     @BeforeSuite(alwaysRun = true)
     public void redXAndroidBeforeSuite(){
         System.out.println("redXAndroidBeforeSuite is called");
@@ -48,7 +47,7 @@ public class Authentication extends RedXBaseClass
             dataProvider = "getUserAuthenticationData")
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
-        sleep(5000);
+        //sleep(5000);
         loginPageObjects.performAuthentication(mobileNumber,otp);
     }
 

@@ -71,19 +71,20 @@ public class AddParcelPageObjects extends RedXBaseClass
     {
         String areaXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
         List<WebElement> listOfAreas = xpathListSetter(areaXpath);
+        listOfAreas.remove(0);
         return listOfAreas;
     }
 
-    public void selectAreaById(WebElement element,int index)
+    public void selectAreaById(List<WebElement> list,int index)
     {
         System.out.println("Index: " + index);
-        myActions.action_click(element);
+        myActions.action_click(list.get(index));
     }
 
     public void selectAreaByText(String area)
     {
         String areaSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\""+ area +"\"))";
-        WebElement selectedArea = getBaseDriver().findElementByAndroidUIAutomator(areaSelector);
+        WebElement selectedArea = uiAutomatorSetter(areaSelector);
         myActions.action_click(selectedArea);
     }
 
@@ -123,9 +124,9 @@ public class AddParcelPageObjects extends RedXBaseClass
         enterAddress("Test Address");
         enterArea();
         sleep(1000);
-        System.out.println("Size: " + areaList().size());
+        System.out.println("Area List Size: " + areaList().size());
         int index = random.nextInt(areaList().size());
-        selectAreaById(areaList().get(index),index);
+        selectAreaById(areaList(),index);
         enterInvoiceNumber("Test InvoiceNumber");
         enterInstruction("Test Instruction");
         clickConfirmButton();

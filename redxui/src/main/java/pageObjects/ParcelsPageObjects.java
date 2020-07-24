@@ -3,6 +3,8 @@ package pageObjects;
 import org.openqa.selenium.WebElement;
 import utils.*;
 
+import java.util.List;
+
 public class ParcelsPageObjects extends RedXBaseClass
 {
     private MyActions myActions;
@@ -95,6 +97,41 @@ public class ParcelsPageObjects extends RedXBaseClass
         {
             deliveredParcelsTab = xpathSetter("//android.widget.TextView[@text='DELIVERED']");
             myActions.action_click(deliveredParcelsTab);
+        }
+    }
+
+
+    /*----------Parcels Manifest List----------*/
+
+    public class ParcelsManifestList
+    {
+        /*----------ELements----------*/
+
+        List<WebElement> parcelsList;
+
+        /*----------Actions----------*/
+
+        public List<WebElement> setParcelsList()
+        {
+            String parcelsListXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
+            parcelsList = xpathListSetter(parcelsListXpath);
+            parcelsList.remove(0);
+            parcelsList.remove(parcelsList.size()-1);
+            System.out.println("Parcels Present: " + parcelsList.size());
+            return parcelsList;
+        }
+
+        public void clickParcelByIndex(int index)
+        {
+            System.out.println(index+1);
+            myActions.action_click(parcelsList.get(index));
+        }
+
+        public void clickParcelByDate(String date)
+        {
+            String parcelSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\""+ date +"\"))";
+            WebElement parcel = uiAutomatorSetter(parcelSelector);
+            myActions.action_click(parcel);
         }
     }
 }

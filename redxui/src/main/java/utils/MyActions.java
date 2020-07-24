@@ -2,6 +2,7 @@ package utils;
 
 import io.appium.java_client.android.nativekey.*;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class MyActions extends RedXBaseClass {
 
@@ -57,6 +58,28 @@ public class MyActions extends RedXBaseClass {
             System.out.println(e);
         }
         System.out.println("Pressed Device BackKey");
+    }
+
+    //Select DropDown By Visible Text
+    public void action_select(WebElement element, String data){
+        sleep(1000);
+        try{
+            Select select = new Select(element);
+            select.selectByVisibleText(data);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
+    //Select DropDown By Index
+    public void action_select_index(WebElement element, int index){
+        sleep(1000);
+        try{
+            Select select = new Select(element);
+            select.selectByIndex(index);
+        }catch (Exception e){
+            System.out.println(e);
+        }
     }
 
 }

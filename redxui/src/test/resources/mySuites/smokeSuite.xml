@@ -11,6 +11,8 @@
             <class name="com.redx.tests.Authentication"></class>
             <class name="com.redx.tests.ChangeLanguage"></class>
             <class name="com.redx.tests.CreateParcel"></class>
+            <class name="com.redx.tests.EditParcel"></class>
+            <class name="com.redx.tests.DeleteParcel"></class>
             <class name="com.redx.tests.Logout"></class>
         </classes>
     </test>
