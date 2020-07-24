@@ -15,6 +15,7 @@ public class AndroidScriptRouter extends AndroidBaseClass{
     private ActionBarObjects actionBarObjects;
     private MyActions myActions;
     private BottomNavigationObjects bottomNavigationObjects;
+    private RightNavigationDrawer rightNavigationDrawer;
 
     // This class is responsible to Give to context from anywhere to required Page
      /*Note : CurrentContext and CurrentURL should be used to decide the current instance of
@@ -28,6 +29,7 @@ public class AndroidScriptRouter extends AndroidBaseClass{
         myActions = new MyActions();
         actionBarObjects = new ActionBarObjects(androidDriver);
         bottomNavigationObjects = new BottomNavigationObjects(androidDriver);
+        rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
     }
 
 
@@ -44,6 +46,7 @@ public class AndroidScriptRouter extends AndroidBaseClass{
         currentData.put(KEY_ACTIVITY,currentActivity);
         Set<String> contextNames = androidDriver.getContextHandles();
        if(contextNames.contains(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW)){
+           switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
             String currentUrl = androidDriver.getCurrentUrl();
            currentData.put(KEY_PAGE,currentUrl);
        }else {
@@ -74,7 +77,7 @@ public class AndroidScriptRouter extends AndroidBaseClass{
                     actionBarObjects.clickOnShopUpAppIcon();
                     switch (pageURL){
                         case AndroidAppConstants.URL_WISHLIST : bottomNavigationObjects.clickOnBottomBarMyShopIcon();break;
-                        case AndroidAppConstants.URL_MY_ORDERS : bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();break;
+                        case AndroidAppConstants.URL_MY_ORDER_INDIVIDUAL : bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();break;
                         case AndroidAppConstants.URL_MY_ACCOUNT_INCOME : bottomNavigationObjects.clickOnBottomBarPaymentsIcon();break;
                     }
                 }
@@ -85,8 +88,51 @@ public class AndroidScriptRouter extends AndroidBaseClass{
             }else if(activityName.equalsIgnoreCase(AndroidAppConstants.SEARCH_ACTIVITY)){
 
             }else if(activityName.equalsIgnoreCase(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY)){
-                    myActions.clickOnHardKeyBack();
-                    actionBarObjects.clickOnShopUpAppIcon();
+                if (pageURL.equalsIgnoreCase(AndroidAppConstants.URL_MY_BAG)) {
+                    if(currentActivity.equalsIgnoreCase(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY)){
+                        if (currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_ADDRESS)) {
+                            myActions.clickOnHardKeyBack();
+                        } else if (currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_PAYMENT)) {
+                            myActions.clickOnHardKeyBack();
+                            sleep(3000);
+                            myActions.clickOnHardKeyBack();
+                        }
+                    }
+                    if (currentActivity.equalsIgnoreCase(AndroidAppConstants.WEB_VIEW_ACTIVITY)) {
+                        if (currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST) ||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST_ADJUSTMENTS) ||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST_BONUS) ||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST_CANCELLED) ||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST_DELIVERED) ||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST_LOST) ||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST_RETURN) ||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_INCOME_LIST_RTO)||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_ACCOUNT_INCOME)||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_ORDER_INDIVIDUAL)||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_ORDERS_ACTIVE)||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_ORDERS_CANCELLED)||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_ORDERS_COMPLETED)||
+                                currentPage.equalsIgnoreCase(AndroidAppConstants.URL_WISHLIST)) {
+                            myActions.clickOnHardKeyBack();
+                            actionBarObjects.clickOnBagImageButton();
+                        } else {
+                            myActions.clickOnHardKeyBack();
+                            sleep(2000);
+                            myActions.clickOnHardKeyBack();
+                            actionBarObjects.clickOnBagImageButton();
+                        }
+                    }
+                    else if (currentActivity.equalsIgnoreCase(AndroidAppConstants.SEARCH_ACTIVITY)){
+                        myActions.clickOnHardKeyBack();
+                        actionBarObjects.clickOnBagImageButton();
+                    }
+                    else if(currentActivity.equalsIgnoreCase(AndroidAppConstants.HOME_ACTIVITY)){
+                        actionBarObjects.clickOnUserProfileImageButton();
+                        rightNavigationDrawer.clickOnItemHome();
+                        sleep(2000);
+                        actionBarObjects.clickOnBagImageButton();
+                    }
+                }
             }else if(activityName.equalsIgnoreCase(AndroidAppConstants.WEB_VIEW_ACTIVITY)){
 
             }else {

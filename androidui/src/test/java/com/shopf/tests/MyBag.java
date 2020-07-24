@@ -30,6 +30,7 @@ public class MyBag extends AndroidBaseClass {
     private CheckoutAddressPageObjects.EstimatedDeliveryDates.EstimatedDeliveryDatesItems estimatedDeliveryDatesItems;
     private AddNewAddressPageObjects addNewAddressPageObjects;
     private GetCommerceApiResponse getCommerceApiResponse;
+    private AndroidScriptRouter androidScriptRouter;
     private TouchAction touch;
     private MyActions myActions;
     private OrderSuccessFulPageObjects orderSuccessFulPageObjects;
@@ -39,7 +40,7 @@ public class MyBag extends AndroidBaseClass {
 
 
     @BeforeClass(alwaysRun = true)
-    public void myBagBeforeClass() {
+    public void myBagBeforeClass() throws Exception {
         System.out.println("MyBagBeforeClass is called");
         androidDriver = getBaseDriver();
         softAssert = new SoftAssert();
@@ -60,12 +61,14 @@ public class MyBag extends AndroidBaseClass {
         addNewAddressPageObjects = new AddNewAddressPageObjects(androidDriver);
         getCommerceApiResponse = new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI);
         myActions = new MyActions();
+        androidScriptRouter = new AndroidScriptRouter();
         // This Block is responsible to get the control from anywhere to MyBag
-        //actionBarObjects.clickOnBagImageButton();
-        sleep(3000);
+        actionBarObjects.clickOnBagImageButton();
+        //sleep(3000);
+        //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         // This Block is responsible to get the control from anywhere to MyBag
-        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
         sleep(5000);
     }
 
@@ -103,10 +106,11 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyProductData",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
     public void verifyProductData() {
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         int containersSize = itemContainer.getItemContainersSize();
+        System.out.println(productDetailsMap.size()+" "+containersSize);
         Assert.assertEquals(containersSize, productDetailsMap.size());
 
         for (int a = 0; a < productDetailsMap.size(); a++) {
@@ -173,10 +177,10 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyIncrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyProductData")
     public void verifyIncrementFunctionalityOnMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
-        for (int i = 0; i <= containersSize - 1; i++) {
+        for (int i = 0; i < containersSize ; i++) {
             if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
                 itemContainer.clickOnAddQuantityButton(itemContainer.getListOfAddQuantityButton().get(i));
                 sleep(5000);
@@ -188,10 +192,10 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyDecrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "MyBag.verifyIncrementFunctionalityOnMyBag")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyIncrementFunctionalityOnMyBag")
     public void verifyDecrementFunctionalityOnMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
-        for (int i = 0; i <= containersSize - 1; i++) {
+        for (int i = 0; i < containersSize ; i++) {
             if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
                 itemContainer.clickOnSubQuantityButton(itemContainer.getListOfSubQuantityButton().get(i));
                 sleep(5000);
@@ -203,7 +207,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.selectSizeInMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyDecrementFunctionalityOnMyBag")
     public void selectSizeInMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
         System.out.println("List Of Item Containers is : " + containersSize);
@@ -223,7 +227,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyTotalEarnings",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyMinAndMaxShippingCharges")
     public void verifyTotalEarningsandOrderValue() {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
 
@@ -244,22 +248,21 @@ public class MyBag extends AndroidBaseClass {
     @Test(groups = {"MyBag.verifyDeleteItemFromMyBag",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
-            enabled = false,
+            enabled = true,
             description = "Verify Delete Item From MyBag",
-            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            dependsOnGroups = "MyBag.selectSizeInMyBag")
     public void verifyDeleteItemFromMyBag() {
         sleep(5000);
         int itemCounterSize = itemContainer.getItemContainersSize();
         System.out.println("itemContainer Size is : " + itemCounterSize);
         if (itemCounterSize > 1) {
-            for (int i = itemCounterSize; i >= 0; i--) {
-                if (i == itemCounterSize - 1 || i == 0) {
+            Random random = new Random();
+            int index = random.nextInt(itemCounterSize);
                     System.out.println("List Of Cancel Icons Before Cancel: " +
                             itemContainer.getListOfCancelIcons().size());
-                    itemContainer.clickOnCancelItem(itemContainer.getListOfCancelIcons().get(i));
-                    itemCounterSize--;
-                }
-            }
+                    System.out.println("Product selected to delete is: "+ (index+1));
+                    itemContainer.clickOnCancelItem(itemContainer.getListOfCancelIcons().get(index));
+
         } else {
             // Function call to create an item : Handle this at Before Class Only
         }
@@ -269,9 +272,9 @@ public class MyBag extends AndroidBaseClass {
     @Test(groups = {"MyBag.verifyMinAndMaxSalePrice",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
-            enabled = false,
+            enabled = true,
             description = "verify Min and Max Sale Price",
-            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            dependsOnGroups = "MyBag.verifyDeleteItemFromMyBag")
     public void verifyMinAndMaxSalePrice() {
         int containersSize = itemContainer.getItemContainersSize();
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
@@ -328,7 +331,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyMinAndMaxShippingCharges",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyMinAndMaxSalePrice")
     public void verifyMinAndMaxShippingCharges() {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
         int max = chargesList.get(3), min = chargesList.get(2);
@@ -352,9 +355,9 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyPlaceOrderInMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},
+            CoreConstants.GROUP_REGRESSION},enabled = true,
             description = "Verify Place Order From MyBag",
-            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            dependsOnGroups = "MyBag.verifyTotalEarnings")
     public void verifyPlaceOrderInMyBag() {
         myBagPageObjects.clickOnPlaceOrderButton();
     }
@@ -389,7 +392,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyEditAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifySelectAddressInMyBag")
     public void verifyEditAddress() {
         selectAddress.clickOnShowMoreAddress();
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
@@ -409,17 +412,16 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyDeleteAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "MyBag.verifyEditAddress")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyEditAddress")
     public void verifyDeleteAddress() {
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
         System.out.println("Address List is : " + addressListSize);
         if (addressListSize > 0) {
-            for (int i = addressListSize - 1; i >= 0; i--) {
-                if (i == 0 || i == addressListSize - 1) {
-                    System.out.println("List of Delete Address Button is :" + addressField.getListOfDeleteButtons().size());
-                    addressField.clickOnDeleteAddressButton(addressField.getListOfDeleteButtons().get(i));
-                }
-            }
+            Random random = new Random();
+            int index = random.nextInt(addressListSize);
+            System.out.println("List of Delete Address Button is :" + addressField.getListOfDeleteButtons().size());
+            addressField.clickOnDeleteAddressButton(addressField.getListOfDeleteButtons().get(index));
+            sleep(3000);
         }
     }
 
@@ -472,7 +474,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.deleteProductWithCODDisabled",
             CoreConstants.GROUP_SANITY}, enabled = true,
-            dependsOnGroups = "MyBag.verifySelectAddressInMyBag")
+            dependsOnGroups = "MyBag.verifyDeleteProductInAddressPage")
     public void deleteProductWithCODDisabled() {
         estimatedDeliveryDatesItems.deleteProductWithCODDisabled();
     }
@@ -481,20 +483,19 @@ public class MyBag extends AndroidBaseClass {
     @Test(groups = {"MyBag.verifyDeleteProductInAddressPage",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
-            enabled = false,
+            enabled = true,
             description = "verify Delete Product",
-            dependsOnGroups = "MyBag.verifySelectAddressInMyBag")
+            dependsOnGroups = "MyBag.verifyDeleteAddress")
     public void verifyDeleteProductInEstimatedDeliveryPage() {
         int itemsList = estimatedDeliveryDates.getListOfEstimatedDeliveryItems().size();
         sleep(5000);
         if (itemsList > 2) {
-            for (int i = itemsList - 1; i >= 0; i--) {
-                if (i == 0 || i == itemsList - 1) {
-                    estimatedDeliveryDatesItems.clickOnEstimatedDeliveryItem(
-                            estimatedDeliveryDatesItems.
-                                    getListOfEstimatedDeliveryItemDelete().get(i));
-                }
-            }
+            Random random = new Random();
+            int index = random.nextInt(itemsList);
+            estimatedDeliveryDatesItems.clickOnEstimatedDeliveryItem(
+                    estimatedDeliveryDatesItems.
+                            getListOfEstimatedDeliveryItemDelete().get(index));
+            sleep(3000);
         } else {
             System.out.println("Sufficient element is not present");
         }
@@ -642,9 +643,9 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(  groups = {"MyBag.verifyProceedPaymentWithChangeAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,
+            CoreConstants.GROUP_REGRESSION},enabled = true,
             description = "Verify Proceed Payment With Change Address",
-            dependsOnGroups = "MyBag.verifyCheckoutProceedInMyBag"  )
+            dependsOnGroups = "MyBag.verifySelectedAddressData"  )
     public void verifyProceedPaymentWithChangeAddress(){
         sleep(8000);
         paymentModePageObjects.clickOnChangeAddress();
