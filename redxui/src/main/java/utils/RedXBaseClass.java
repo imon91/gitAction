@@ -213,7 +213,14 @@ public class RedXBaseClass extends GetDriverFromCore{
         }
     }
 
-
+    public static WebElement uiAutomatorSetter(String selector){
+        try{
+            return getBaseDriver().findElementByAndroidUIAutomator(selector);
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
 
 }
 

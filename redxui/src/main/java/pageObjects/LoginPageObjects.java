@@ -85,7 +85,7 @@ public class LoginPageObjects extends RedXBaseClass
         sleep(1000);
         enterMobileNumber(mobileNumber);
         clickSubmitMobileNumber();
-        sleep(3000);
+        sleep(5000);
         enterOtpCode(otp);
         clickSubmitOtp();
     }
