@@ -3,9 +3,13 @@ package pageObjects;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 import utils.WebAppBaseClass;
 
@@ -323,18 +327,26 @@ public void verifyOrder(String ID){
 
          public String orderid(int orderno) {
                  String ordersXpath = "//a[@class='card___30lJu']";
-                 List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
-                 String orderid;
-                 if (orderno != 0) {
-                     orderid = ordersXpath+"["+orderno+"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                 try {
+                     new WebDriverWait(driver,30)
+                             .until(ExpectedConditions.elementToBeClickable(By.xpath(ordersXpath)));
+                     List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
+                     String orderid;
+                     if (orderno != 0) {
+                         orderid = ordersXpath+"["+orderno+"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                     }
+                     else{
+                         int id = random.nextInt(ordersList.size());
+                         orderid = ordersXpath+"["+ ++id +"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                     }
+                     WebElement idofOrder = driver.findElement(By.xpath(orderid));
+                     String idofSelectedorder = myActions.action_getText(idofOrder);
+                     return idofSelectedorder;
+
+                 }catch (StaleElementReferenceException e){
+                     orderid(orderno);
                  }
-                 else{
-                     int id = random.nextInt(ordersList.size());
-                     orderid = ordersXpath+"["+ ++id +"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
-                 }
-                 WebElement idofOrder = driver.findElement(By.xpath(orderid));
-                 String idofSelectedorder = myActions.action_getText(idofOrder);
-                 return idofSelectedorder;
+             return null;
          }
 
 
