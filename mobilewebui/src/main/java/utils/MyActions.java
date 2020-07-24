@@ -11,15 +11,7 @@ public class MyActions extends WebAppBaseClass{
     private static TouchAction touchAction;
     private AndroidDriver<WebElement> androidDriver;
     public void action_click(WebElement element){
-        try{
-            element.click();
-        }catch (ElementClickInterceptedException e){
-            sleep(2000);
-            element.click();
-        }catch (StaleElementReferenceException e){
-            sleep(2000);
-            element.click();
-        }
+        element.click();
     }
 
     public void action_sendKeys(WebElement element, String data){
