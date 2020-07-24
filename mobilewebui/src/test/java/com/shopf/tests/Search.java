@@ -1,6 +1,5 @@
 package com.shopf.tests;
 
-import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;

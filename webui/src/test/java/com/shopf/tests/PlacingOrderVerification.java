@@ -1,15 +1,13 @@
-package com.shopf.tests;
+package com.shopf.wapTests;
 
 import coreUtils.CoreConstants;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ActionBarObjects;
-import pageObjects.AddressPageObject;
 import pageObjects.PLPPageObject;
 import pageObjects.PaymentPageObject;
 import utils.WebBaseClass;

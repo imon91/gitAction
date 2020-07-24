@@ -1,8 +1,7 @@
-package com.shopf.tests;
+package com.shopf.wapTests;
 
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;

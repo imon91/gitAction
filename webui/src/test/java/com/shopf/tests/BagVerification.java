@@ -1,4 +1,4 @@
-package com.shopf.tests;
+package com.shopf.wapTests;
 
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;

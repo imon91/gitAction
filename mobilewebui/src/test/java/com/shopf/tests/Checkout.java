@@ -1,4 +1,4 @@
-package com.shopf.tests;
+package com.shopf.wapTests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.TouchAction;
