@@ -38,8 +38,8 @@ public class AddressPageObjects extends WebAppBaseClass {
     private WebElement home;
 
     //ProceedToPayment
-    @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
-    private WebElement ProceedToPaymentButtonTop;
+    @FindBy(xpath = "//div[@class='textalgin___39kYz']//button")
+    private WebElement ProceedToPaymentButton;
 
     //selectAddress
     @FindBy(xpath = "//input[@id='address_select_inner0']")
@@ -114,7 +114,7 @@ public class AddressPageObjects extends WebAppBaseClass {
     private WebElement CashOnDelivery;
 
     //makepayment
-    @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
+    @FindBy(xpath = "//div[@class='textalgin___6gooG']//button")
     private WebElement MakePayment;
 
     //CODnotAvailable
@@ -125,7 +125,7 @@ public class AddressPageObjects extends WebAppBaseClass {
 
     public void moveToHome(){myActions.action_click(home);}
 
-    public void clickOnProceedToPaymentButton(){myActions.action_click(ProceedToPaymentButtonTop);}
+    public void clickOnProceedToPaymentButton(){myActions.action_click(ProceedToPaymentButton);}
 
     public void clickOnAddress(){myActions.action_click(selectAddress);}
 
