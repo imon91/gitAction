@@ -1,12 +1,13 @@
-package com.shopf.wapTests.integrationTests;
+package com.shopf.tests.integrationTests;
 
-import com.shopf.wapTests.*;
+import com.shopf.tests.*;
 import coreUtils.*;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.AndroidBaseClass;
+import utils.MyActions;
 import utils.ServiceRequestLayer;
 
 public class SmokeFlow extends AndroidBaseClass {

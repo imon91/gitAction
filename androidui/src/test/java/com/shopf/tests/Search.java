@@ -1,4 +1,4 @@
-package com.shopf.wapTests;
+package com.shopf.tests;
 
 import coreUtils.*;
 import io.appium.java_client.android.*;

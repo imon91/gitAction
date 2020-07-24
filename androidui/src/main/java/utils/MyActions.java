@@ -21,9 +21,9 @@ public class MyActions extends AndroidBaseClass{
         }catch (Exception e){
             System.out.println(e);
         }
-        if (getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
-        }
+//        if (getBaseDriver().isKeyboardShown()){
+//            getBaseDriver().hideKeyboard();
+//        }
     }
 
     public String action_getText(WebElement element){

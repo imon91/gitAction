@@ -1,4 +1,4 @@
-package com.shopf.wapTests;
+package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;

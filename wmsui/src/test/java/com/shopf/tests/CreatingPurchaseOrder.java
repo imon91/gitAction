@@ -1,4 +1,4 @@
-package com.shopf.wapTests;
+package com.shopf.tests;
 
 import com.google.gson.*;
 import com.google.gson.reflect.*;

@@ -1,4 +1,4 @@
-package com.shopf.wapTests;
+package com.shopf.tests;
 
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
@@ -6,6 +6,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.ActionBarObjects;
+import pageObjects.LatestPageObjects;
 import pageObjects.PDPPageObject;
 import pageObjects.PLPPageObject;
 import utils.WebBaseClass;

@@ -1,6 +1,7 @@
-package com.shopf.wapTests;
+package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
 import pageObjects.LoginPageObject;

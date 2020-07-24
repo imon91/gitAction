@@ -99,6 +99,7 @@ public class SearchPageObjects extends AndroidBaseClass {
                 PropertyReader.setValue(PropertyReader.Keys.PLP_VIEW_TYPE, "1");
             }
         }catch (Exception e){
+            System.out.println(e);
             System.out.println("Exception At EnterProductName : Adding SEARCH_TERM to DynamicData");
         }
 //        try{
