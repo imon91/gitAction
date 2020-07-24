@@ -10,9 +10,8 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.Login"></class>
-            <class name="com.shopf.tests.WarehouseList"></class>
             <class name="com.shopf.tests.UpdateBinCapacity"></class>
-            <class name="com.shopf.tests.WarehouseBinDetail"></class>
+            <class name="com.shopf.tests.WarehouseList"></class>
             <class name="com.shopf.tests.SuppliersList"></class>
             <class name="com.shopf.tests.SellersList"></class>
             <class name="com.shopf.tests.VariantList"></class>
@@ -25,7 +24,6 @@
             <class name="com.shopf.tests.AllPickLists"></class>
             <class name="com.shopf.tests.PickListAction"></class>
             <class name="com.shopf.tests.OrderDetails"></class>
-            <class name="com.shopf.tests.VariantList"></class>
         </classes>
     </test>
 </suite>

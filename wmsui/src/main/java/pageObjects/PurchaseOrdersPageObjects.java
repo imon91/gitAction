@@ -185,8 +185,8 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             sleep(10000);
         }
 
-        public void createPurchaseOrder(){
-            skuCodeInput(0,"140882");
+        public void createPurchaseOrder(String skuCode){
+            skuCodeInput(0,skuCode);
             sleep(1000);
             quantityInput(0,"1");
             clickCreatePOButton();

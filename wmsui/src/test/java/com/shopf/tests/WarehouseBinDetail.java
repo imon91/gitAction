@@ -9,6 +9,7 @@ import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
 import utils.*;
 
+import java.io.*;
 import java.util.*;
 
 public class WarehouseBinDetail extends WmsBaseClass {
@@ -22,6 +23,8 @@ public class WarehouseBinDetail extends WmsBaseClass {
     private List<WarehouseBinDetails.PackageDetailsBean> packageDetails;
     private Assertion assertion;
     private String test;
+    private Scanner s;
+    private Random random;
 
 
     @Parameters({"test"})
@@ -37,18 +40,36 @@ public class WarehouseBinDetail extends WmsBaseClass {
         assertion = new Assertion();
     }
 
+    @DataProvider(name = "warehouseBins")
+    public Object[][] getWarehouseBinData() throws FileNotFoundException {
+        String dir = System.getProperty("user.dir");
+        String filePath = dir + "/src/test/resources/testData/WarehouseBinsSD.txt";
+
+        s = new Scanner(new File(filePath));
+        random = new Random();
+        List<String> list = new ArrayList<>();
+        while(s.hasNextLine())
+            list.add(s.nextLine());
+
+        int n = random.nextInt(list.size());
+        return new Object[][]{
+                {"Warehouse Bin Code",list.get(n-1)}
+        };
+    }
 
     @Test(groups = {CoreConstants.GROUP_REGRESSION, CoreConstants.GROUP_SANITY},
+            dataProvider = "warehouseBins",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Warehouse Bin Details")
-    public void verifyWarehouseBinDetail() {
+    public void verifyWarehouseBinDetail(String name, String id) {
         System.out.println("Verify Warehouse Bin Details is called");
+        System.out.println(name + " : " + id);
         int i;
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickBinDetailsTab();
         sleep(1000);
-        warehouseBinDetailsTab.binCodeEntry("W100F2R1C1RA1B31");
-        warehouseBinDetails = getWMSApiResponse.getWarehouseBinDetails();
+        warehouseBinDetailsTab.binCodeEntry(id);
+        warehouseBinDetails = getWMSApiResponse.getWarehouseBinDetails(id);
         packageDetails = warehouseBinDetails.getPackage_details();
         System.out.println(packageDetails.size());
 

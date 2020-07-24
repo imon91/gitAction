@@ -34,9 +34,9 @@ public class GetWMSApiResponse {
         else return null;
     }
 
-    public WarehouseBinDetails getWarehouseBinDetails(){
+    public WarehouseBinDetails getWarehouseBinDetails(String id){
         gson = new Gson();
-        response = shopUpPostMan.getCall("warehouse_bins/get_bin_package_details?bin_code=W100F2R1C1RA1B31");
+        response = shopUpPostMan.getCall("warehouse_bins/get_bin_package_details?bin_code=" + id);
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             String r = response.getBody().asString();
             WarehouseBinDetails warehouseBinDetails =
@@ -51,7 +51,6 @@ public class GetWMSApiResponse {
         response = shopUpPostMan.getCall("variants/get_in_bin_details?sku_code="+skuCode+"&seller_id="+id);
         if (module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)) {
             String r = response.getBody().asString();
-            System.out.println(r);
             VariantsBinDetailsModel variantsBinDetailsModel =
                     gson.fromJson(r, VariantsBinDetailsModel.class);
             return variantsBinDetailsModel;

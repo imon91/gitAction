@@ -3,7 +3,7 @@ package com.shopf.tests;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
-import org.testng.asserts.Assertion;
+import org.testng.asserts.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
 import services.wmsMethods.GetWMSApiResponse;
@@ -72,6 +72,9 @@ public class AllPickLists extends WmsBaseClass {
                 assertion.assertTrue(allPickListsTab.getStatus(i + 1)
                                 .equalsIgnoreCase(list.get(i).getStatus()),
                         "Status Do Not Match");
+
+                if (list.get(i).getPick_list_items().size() == 0)
+                    continue;
 
                 List<AllPickListModel.PickListsDataBean.PickListItemsBean> variant =
                         list.get(i).getPick_list_items();
