@@ -24,8 +24,8 @@ public class GetSearchSuggestionsApiResponse {
 
 
     //this list gives the search suggestion list -title,inlineLabel
-    public List<SearchSuggestionsModel.ResultsBean.SuggestionsBean> searchSuggestionsList() {
-        response = shopUpPostMan.getCall("search_terms/search_suggestions?term=shirt");
+    public List<SearchSuggestionsModel.ResultsBean.SuggestionsBean> searchSuggestionsList(String searchTerm) {
+        response = shopUpPostMan.getCall("search_terms/search_suggestions?term="+searchTerm);
         SearchSuggestionsModel searchSuggestionsModel = gson.fromJson(response.getBody().asString(), SearchSuggestionsModel.class);
         return searchSuggestionsModel.getResults().getSuggestions();
 
