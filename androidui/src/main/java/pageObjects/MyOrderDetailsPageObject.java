@@ -1,6 +1,5 @@
 package pageObjects;
 
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
