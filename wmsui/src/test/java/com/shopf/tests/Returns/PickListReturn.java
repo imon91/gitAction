@@ -1,4 +1,4 @@
-package com.shopf.tests.PickOrders;
+package com.shopf.tests.Returns;
 
 import coreUtils.*;
 import org.openqa.selenium.*;
