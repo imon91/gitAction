@@ -165,17 +165,19 @@ public class GetCommerceApiResponse {
                 //response.then().log().all();
                 ProductListingResultsModel productListingResultsModel =
                         gson.fromJson(response.getBody().asString(),ProductListingResultsModel.class);
-                for(int i=0;i<productListingResultsModel.getResults().size();i++){
+                for(int i=0;i<productListingResultsModel.getResults().size();i++) {
                     List<ProductListingResultsModel.ResultsBean.SizesBean> productSizes =
                             productListingResultsModel.getResults().get(i).getSizes();
-                    for(int j=0;i<productSizes.size();j++){
-                        if(productSizes.get(j).getCount_on_hand() > 0 &&
-                                productSizes.get(j).getCorrected_count_on_hand() > 0){
-                            // This is a product with valid
-                            productDetailsMap.put("ValidProductIndex",i);
-                            productDetailsMap.put("ValidProductDetails",productListingResultsModel.getResults().get(i));
-                            productDetailsMap.put("ValidSizeIndex",j);
-                            return productDetailsMap;
+                    if (productSizes.size() < 6) {
+                        for (int j = 0; j < productSizes.size(); j++) {
+                            if (productSizes.get(j).getCount_on_hand() > 0 &&
+                                    productSizes.get(j).getCorrected_count_on_hand() > 0) {
+                                // This is a product with valid
+                                productDetailsMap.put("ValidProductIndex", i);
+                                productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
+                                productDetailsMap.put("ValidSizeIndex", j);
+                                return productDetailsMap;
+                            }
                         }
                     }
                 }
@@ -216,15 +218,17 @@ public class GetCommerceApiResponse {
             for (int i = 0; i < productListingResultsModel.getResults().size(); i++) {
                 List<ProductListingResultsModel.ResultsBean.SizesBean> productSizes =
                         productListingResultsModel.getResults().get(i).getSizes();
-                for (int j = 0; j < productSizes.size(); j++) {
-                    if (productSizes.get(j).getCount_on_hand() > 0 &&
-                            productSizes.get(j).getCorrected_count_on_hand() > 0) {
-                        // This is a product with valid
-                        productDetailsMap.put("ValidProductIndex", i);
-                        productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
-                        productDetailsMap.put("ValidSizeIndex", j);
-                        System.out.println(productListingResultsModel.getResults().get(i));
-                        return productDetailsMap;
+                if(productSizes.size()<6){
+                    for (int j = 0; j < productSizes.size(); j++) {
+                        if (productSizes.get(j).getCount_on_hand() > 0 &&
+                                productSizes.get(j).getCorrected_count_on_hand() > 0) {
+                            // This is a product with valid
+                            productDetailsMap.put("ValidProductIndex", i);
+                            productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
+                            productDetailsMap.put("ValidSizeIndex", j);
+                            System.out.println(productListingResultsModel.getResults().get(i));
+                            return productDetailsMap;
+                        }
                     }
                 }
             }
