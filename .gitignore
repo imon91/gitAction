@@ -62,3 +62,7 @@ listerners/
 
 # xml files
 .testSuite.xml
+
+# properties file
+androidui/src/main/java/testData/dynamicData.properties
+core/src/main/java/auth/cookie.properties
