@@ -4,7 +4,7 @@ package pageObjects;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
-import io.appium.java_client.touch.offset.PointOption;
+import io.appium.java_client.touch.offset.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import services.commerceMethods.*;
@@ -621,8 +621,14 @@ public class ProductListingPageObjects extends AndroidBaseClass {
     }
 
 
-    public ProductListingResultsModel productResultsPLPApi(String searchTerm, int k) {
-        return getPLPModuleApiResponse.getProductListingPageResults(searchTerm, k);
+    public ProductListingResultsModel productResultsPLPApi(String searchTerm, int k) throws Exception {
+
+        if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True")){
+        return getPLPModuleApiResponse.getProductResultsAfterFilter(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),k);}
+
+        else {
+            return getPLPModuleApiResponse.getProductListingPageResults(searchTerm, k);}
+
     }
 
 
@@ -664,14 +670,25 @@ public class ProductListingPageObjects extends AndroidBaseClass {
                 .perform().release();
     }
 
-    public int totalNumberOfPages(String searchTerm) {
-        int productCount = productResultsPLPApi(searchTerm, 1).getProducts_count();
+    public int totalNumberOfPages(String searchTerm) throws Exception {
+        int productCount;
+
+       if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True"))
+        {
+             productCount = getPLPModuleApiResponse.getProductResultsAfterFilter(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),1).getProducts_count();
+        }
+       else {
+            productCount = productResultsPLPApi(searchTerm, 1).getProducts_count();
+       }
+
         double total = Math.ceil(productCount / 12.0);
         int totalPages = (int) total;
         return totalPages;
     }
 
-    public void selectValidProductToPDPAfterFilter(String searchTerm, int k) {
+
+
+    public void selectValidProductToPDPAfterFilterOnly(String searchTerm, int k) {
         Map<String, Object> responseData = null;
         try {
             String filterValueId = PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID);
@@ -724,16 +741,8 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
     }
 
-    public ProductListingResultsModel getResultsAfterFilterApi(String searchTerm,int k) throws Exception {
-        return getPLPModuleApiResponse.getProductResultsAfterFilter(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),k);
-    }
 
-    public int totalNumberOfPagesAfterFilter(String searchTerm) throws Exception {
-        int productCount = getPLPModuleApiResponse.getProductResultsAfterFilter(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),1).getProducts_count();
-        double total = Math.ceil(productCount / 12.0);
-        int totalPages = (int) total;
-        return totalPages;
-    }
+
 
 
 }

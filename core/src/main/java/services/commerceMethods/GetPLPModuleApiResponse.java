@@ -1,7 +1,7 @@
 package services.commerceMethods;
 
-import com.google.gson.Gson;
-import io.restassured.response.Response;
+import com.google.gson.*;
+import io.restassured.response.*;
 import services.responseModels.commerceModels.*;
 import services.serviceUtils.*;
 import java.util.*;
@@ -74,7 +74,6 @@ public class GetPLPModuleApiResponse {
             }
         }
         return null;
-
     }
 
 
