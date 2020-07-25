@@ -21,7 +21,7 @@ public class Authentication extends WebBaseClass {
         System.out.println("ResellerWebBeforeSuite is called");
         driver = getBaseDriver();
         setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
+        driver.get(getWebBaseUrl()+"/r");
     }
 
 
