@@ -1,25 +1,26 @@
-package com.shopf.tests;
+package com.shopf.tests.PurchaseOrders;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import com.google.gson.reflect.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
-import services.wmsMethods.*;
+import services.wmsMethods.GetWMSApiResponse;
 import utils.*;
 
 import java.io.*;
 import java.util.*;
 
-public class CreatingPurchaseOrder extends WmsBaseClass {
+public class GRNCreation extends WmsBaseClass {
 
     private WebDriver driver;
     private HomePageObject homePageObject;
     private PurchaseOrdersPageObjects purchaseOrdersPageObjects;
-    private PurchaseOrdersPageObjects.CreatePurchaseOrderTab createPurchaseOrderTab;
     private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
+    private PurchaseOrdersPageObjects.CreateGRNTab createGRNTab;
+    private PurchaseOrdersPageObjects.CreatePurchaseOrderTab createPurchaseOrderTab;
     private GetWMSApiResponse getWMSApiResponse;
     private List<VariantDetailsModel> list;
     private Random random;
@@ -27,13 +28,14 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
     private BufferedReader bufferedReader;
 
     @BeforeClass(alwaysRun = true)
-    public void creatingPurchaseOrderBeforeClass() throws Exception {
-        System.out.println("Creating Purchase Order Before Class is Called");
+    public void createGRNBeforeClass() throws Exception {
+        System.out.println("Create GRN Before Class is called");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
         purchaseOrdersPageObjects = new PurchaseOrdersPageObjects(driver);
-        createPurchaseOrderTab = new PurchaseOrdersPageObjects(driver).new CreatePurchaseOrderTab(driver);
+        createPurchaseOrderTab = purchaseOrdersPageObjects.new CreatePurchaseOrderTab(driver);
         purchaseOrderList = new PurchaseOrdersPageObjects(driver).new PurchaseOrderList(driver);
+        createGRNTab = new PurchaseOrdersPageObjects(driver).new CreateGRNTab(driver);
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         random = new Random();
     }
@@ -54,27 +56,43 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         };
     }
 
+
+    @BeforeMethod(alwaysRun = true)
+    public void createGRNBeforeMethod(){
+        homePageObject.clickPurchaseOrders();
+        purchaseOrdersPageObjects.clickCreatePurchaseOrderTab();
+        sleep(1000);
+        createPurchaseOrderTab.enterWarehouseDetails();
+    }
+
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dataProvider = "skuCodeData",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
-            description = "Create Purchase Verification")
-    public void createPurchaseOrderVerification(String name, String id) {
+            description = "Create GRN Verification")
+    public void createGRNVerification(String name, String id) {
+        System.out.println("Create GRN Verification is called");
         System.out.println(name + " : " + id);
-        System.out.println("Create Purchase Order Verification is Called");
-        homePageObject.clickPurchaseOrders();
-        createPurchaseOrderTab.enterWarehouseDetails();
         createPurchaseOrderTab.createPurchaseOrder(id);
+        purchaseOrdersPageObjects.clickPurchaseOrderListTab();
+        sleep(1000);
+        int i, total = purchaseOrderList.getTotalPurchaseOrders();
+        for (i = 1; i <= total; i++)
+            if (purchaseOrderList.getStatus(i).equalsIgnoreCase("CREATED"))
+                break;
+        String poId = purchaseOrderList.getPOID(i);
+        purchaseOrdersPageObjects.clickCreateGRNTab();
+        sleep(1000);
+        createGRNTab.poIDEntry(poId);
+        sleep(1000);
+        createGRNTab.clickGRNButton();
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(1000);
-        String poId = purchaseOrderList.getPOID(1);
-        System.out.println("The last added PO: " + poId);
     }
 
     @AfterClass(alwaysRun = true)
-    public void creatingPurchaseOrderAfterClass() {
-        System.out.println("Creating Purchase Order After Class is Called");
+    public void createGRNAfterClass() {
+        System.out.println("Create GRN After Class is called");
     }
-
 }
