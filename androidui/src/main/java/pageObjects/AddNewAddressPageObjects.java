@@ -135,42 +135,51 @@ public class AddNewAddressPageObjects extends AndroidBaseClass {
 
     public void createNewAddress(String name,String address,String phoneNumber){
         enterFirstName(name);
+        androidDriver.hideKeyboard();
         enterArea();
         int count = random.nextInt(areaList().size());
         selectArea(areaList().get(count),count);
         enterPhoneNumber(phoneNumber);
+        androidDriver.hideKeyboard();
         enterAddress(address);
+        androidDriver.hideKeyboard();
         clickOnSaveAddress();
     }
 
     public void editNameInAddress(String newName){
         firstName.clear();
         enterFirstName(newName);
+        androidDriver.hideKeyboard();
     }
 
     public void editAddressInAddress(String newAddress){
         address.clear();
         enterAddress(newAddress);
+        androidDriver.hideKeyboard();
     }
 
     public void editPhoneNumberInAddress(String newPhoneNumber){
         phoneNumber.clear();
         enterPhoneNumber(newPhoneNumber);
+        androidDriver.hideKeyboard();
     }
 
     public void editAlternativePhoneNumberInAddress(String newAlternativeNumber){
         alternativePhoneNumber.clear();
         enterAlternativePhoneNumber(newAlternativeNumber);
+        androidDriver.hideKeyboard();
     }
 
     public void editLocalityInAddress(String newLocality){
         locality.clear();
         enterLocality(newLocality);
+        androidDriver.hideKeyboard();
     }
 
     public void editLandmarkInAddress(String newLandmark){
         landmark.clear();
         enterLandmark(newLandmark);
+        androidDriver.hideKeyboard();
     }
 
 

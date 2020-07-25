@@ -262,7 +262,7 @@ public class MyBag extends AndroidBaseClass {
                             itemContainer.getListOfCancelIcons().size());
                     System.out.println("Product selected to delete is: "+ (index+1));
                     itemContainer.clickOnCancelItem(itemContainer.getListOfCancelIcons().get(index));
-
+                    sleep(5000);
         } else {
             // Function call to create an item : Handle this at Before Class Only
         }
@@ -279,28 +279,34 @@ public class MyBag extends AndroidBaseClass {
         int containersSize = itemContainer.getItemContainersSize();
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         for (int i = 0; i < containersSize; i++) {
-            if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-                int min = Integer.parseInt(productDetailsMap.get(i).get(6)), max = Integer.parseInt(productDetailsMap.get(i).get(7));
+            for (int j = 0; j < productDetailsMap.size(); j++) {
+                if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                    if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
+                            itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
+                        int min = Integer.parseInt(productDetailsMap.get(j).get(6)), max = Integer.parseInt(productDetailsMap.get(j).get(7));
+                        System.out.println(min + " " + max);
 
-                String maxSalePriceText = itemContainer.checkingMaxPrice(i, max);
-                sleep(3000);
-                //Assert.assertTrue(maxSalePriceText.equalsIgnoreCase("Price updated to "+max));
+                        String maxSalePriceText = itemContainer.checkingMaxPrice(i, max);
+                        sleep(4000);
+                        //Assert.assertTrue(maxSalePriceText.equalsIgnoreCase("Price updated to "+max));
 
-                if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-                    int boundaryValue1 = min - 1;
-                    String lesserSalePriceText = itemContainer.checkingLessThanMinPrice(i, boundaryValue1);
-                    sleep(3000);
-                    //Assert.assertTrue(lesserSalePriceText.equalsIgnoreCase("Price should be in between "+min+" and "+max));
+                        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                            int boundaryValue1 = min - 1;
+                            String lesserSalePriceText = itemContainer.checkingLessThanMinPrice(i, boundaryValue1);
+                            sleep(4000);
+                            //Assert.assertTrue(lesserSalePriceText.equalsIgnoreCase("Price should be in between "+min+" and "+max));
 
-                    int boundaryValue2 = max + 1;
-                    String greaterSalePriceText = itemContainer.checkingMoreThanMaxPrice(i, boundaryValue2);
-                    sleep(3000);
-                    //Assert.assertTrue(greaterSalePriceText.equalsIgnoreCase("Price should be in between "+min+" and "+max));
+                            int boundaryValue2 = max + 1;
+                            String greaterSalePriceText = itemContainer.checkingMoreThanMaxPrice(i, boundaryValue2);
+                            sleep(4000);
+                            //Assert.assertTrue(greaterSalePriceText.equalsIgnoreCase("Price should be in between "+min+" and "+max));
+                        }
+
+                        String minSalePriceText = itemContainer.checkingMinPrice(i, min);
+                        sleep(4000);
+                        //Assert.assertTrue(minSalePriceText.equalsIgnoreCase("Price updated to "+min));
+                    }
                 }
-
-                String minSalePriceText = itemContainer.checkingMinPrice(i, min);
-                sleep(3000);
-                //Assert.assertTrue(minSalePriceText.equalsIgnoreCase("Price updated to "+min));
             }
         }
     }
@@ -336,20 +342,20 @@ public class MyBag extends AndroidBaseClass {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
         int max = chargesList.get(3), min = chargesList.get(2);
         if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-            String greaterDeliveryChargeText = creditsAndCoupons.checkingMoreThanDeliveryCharges(max);
-            sleep(3000);
+            creditsAndCoupons.checkingMoreThanDeliveryCharges(max);
+            sleep(5000);
             //Assert.assertTrue(greaterDeliveryChargeText.equalsIgnoreCase("Delivery Charge cannot be more than "+max));
 
-            String lesserDeliveryChargeText = creditsAndCoupons.checkingLessThanDeliveryCharges(min);
-            sleep(3000);
+            creditsAndCoupons.checkingLessThanDeliveryCharges(min);
+            sleep(5000);
             //Assert.assertTrue(lesserDeliveryChargeText.equalsIgnoreCase("Delivery Charge cannot be less than "+min));
 
         }
         creditsAndCoupons.checkingMaxDeliveryCharge(max);
-        sleep(3000);
+        sleep(5000);
 
         creditsAndCoupons.checkingMinDeliveryCharge(min);
-        sleep(3000);
+        sleep(5000);
     }
 
 
@@ -368,7 +374,7 @@ public class MyBag extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "Verify Select Address From MyBag",
-            dependsOnGroups = "MyBag.verifyAddressData")
+            dependsOnGroups = "MyBag.verifyDeleteAddress")
     public void verifySelectAddressInMyBag() {
         System.out.println("Address List is : " + selectAddress.getListOfVisibleAddress().size());
         selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(0));
@@ -392,19 +398,20 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyEditAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifySelectAddressInMyBag")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
     public void verifyEditAddress() {
         selectAddress.clickOnShowMoreAddress();
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
         System.out.println("Address List is : " + addressListSize);
         for (int i = 0; i < addressListSize; i++) {
-            if (i == 0 || i == addressListSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+            if (i == 0 || i == addressListSize - 1 ) {
                 System.out.println("List of Edit Address Button is :" + addressField.getListOfEditAddressButtons().size());
                 addressField.clickOnEditAddressButton(addressField.getListOfEditAddressButtons().get(i));
                 sleep(5000);
                 addNewAddressPageObjects.editNameInAddress("Hari");
                 addNewAddressPageObjects.editAddressInAddress("TCE Street");
                 addNewAddressPageObjects.clickOnCancel();
+                sleep(3000);
             }
         }
     }
@@ -428,7 +435,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyAddressData",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
     public void verifyAddressData() {
         sleep(4000);
         selectAddress.clickOnShowMoreAddress();
@@ -485,7 +492,7 @@ public class MyBag extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "verify Delete Product",
-            dependsOnGroups = "MyBag.verifyDeleteAddress")
+            dependsOnGroups = "MyBag.verifySelectAddressInMyBag")
     public void verifyDeleteProductInEstimatedDeliveryPage() {
         int itemsList = estimatedDeliveryDates.getListOfEstimatedDeliveryItems().size();
         sleep(5000);
@@ -618,7 +625,7 @@ public class MyBag extends AndroidBaseClass {
 
         String phoneNumber = paymentModePageObjects.getPhoneNumber();
         String expectedPhoneNumber = addressDataList.get(4);
-        System.out.println(address + " " + expectedAddress);
+        System.out.println(phoneNumber + " " + expectedPhoneNumber);
         softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
     }
 
@@ -654,6 +661,7 @@ public class MyBag extends AndroidBaseClass {
         selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(4));
         sleep(3000);
         checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
+        sleep(3000);
         paymentModePageObjects.proceedPaymentWithoutChangeAddressThroughTopButton();
         sleep(3000);
     }
