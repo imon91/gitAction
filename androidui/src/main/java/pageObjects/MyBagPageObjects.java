@@ -652,6 +652,8 @@ public class MyBagPageObjects extends AndroidBaseClass {
         return getMyBagApiResponse.getContainerDetailsMap();
     }
 
+    public void createItemInMyBag(int productId){getMyBagApiResponse.addToCart(productId);}
+
 //    public String getPriceDetails(String price,String productName,String size) {
 //        List<String> productDetails = getProductDetails(productName,size);
 //        String value=null;
