@@ -63,9 +63,6 @@ public class MyBag extends AndroidBaseClass {
         myActions = new MyActions();
         androidScriptRouter = new AndroidScriptRouter();
         // This Block is responsible to get the control from anywhere to MyBag
-        actionBarObjects.clickOnBagImageButton();
-        //sleep(3000);
-        //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         // This Block is responsible to get the control from anywhere to MyBag
         //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
@@ -75,8 +72,16 @@ public class MyBag extends AndroidBaseClass {
 
     @BeforeTest(alwaysRun = true)
     @Parameters("suite")
-    public void myBagBeforeTest(String suiteNameFromXML) {
+    public void myBagBeforeTest(String suiteNameFromXML) throws Exception {
         suiteName = suiteNameFromXML;
+        myBagBeforeClass();
+        myBagPageObjects.createItemInMyBag(82513);
+        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)||
+                suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)){
+            actionBarObjects.clickOnBagImageButton();
+            sleep(5000);
+            //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
+        }
     }
 
 
@@ -106,7 +111,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(groups = {"MyBag.verifyProductData",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_REGRESSION}, enabled = true)
     public void verifyProductData() {
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         int containersSize = itemContainer.getItemContainersSize();

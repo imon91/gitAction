@@ -139,4 +139,9 @@ public class GetMyBagApiResponse {
     }
 
 
+    public void addToCart(int productId){
+        shopUpPostMan.getCall(EndPoints.SHOPPING_CART+productId+EndPoints.ADD_TO_CART_JSON);
+    }
+
+
 }

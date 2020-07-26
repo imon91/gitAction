@@ -135,51 +135,51 @@ public class AddNewAddressPageObjects extends AndroidBaseClass {
 
     public void createNewAddress(String name,String address,String phoneNumber){
         enterFirstName(name);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
         enterArea();
         int count = random.nextInt(areaList().size());
         selectArea(areaList().get(count),count);
         enterPhoneNumber(phoneNumber);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
         enterAddress(address);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
         clickOnSaveAddress();
     }
 
     public void editNameInAddress(String newName){
         firstName.clear();
         enterFirstName(newName);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
     }
 
     public void editAddressInAddress(String newAddress){
         address.clear();
         enterAddress(newAddress);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
     }
 
     public void editPhoneNumberInAddress(String newPhoneNumber){
         phoneNumber.clear();
         enterPhoneNumber(newPhoneNumber);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
     }
 
     public void editAlternativePhoneNumberInAddress(String newAlternativeNumber){
         alternativePhoneNumber.clear();
         enterAlternativePhoneNumber(newAlternativeNumber);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
     }
 
     public void editLocalityInAddress(String newLocality){
         locality.clear();
         enterLocality(newLocality);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
     }
 
     public void editLandmarkInAddress(String newLandmark){
         landmark.clear();
         enterLandmark(newLandmark);
-        androidDriver.hideKeyboard();
+        //androidDriver.hideKeyboard();
     }
 
 
