@@ -42,7 +42,7 @@ public class PLP extends AndroidBaseClass {
 
 
     @Parameters("suite")
-    @BeforeTest
+    @BeforeTest(alwaysRun = true)
     public void beforeTest(String testName)
     {
         suiteName=testName;
@@ -205,64 +205,133 @@ public class PLP extends AndroidBaseClass {
     @Test(groups = {"PLP.Verify all data of products",
             CoreConstants.GROUP_REGRESSION},
             description = "Verify product dates in PLP page")
-    public void verifyProductsDataInPLP(String searchTerm) {
+    public void verifyProductsDataInPLPWithoutFilter(String searchTerm) throws Exception {
         int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm);
-        System.out.println("The total pages :"+totalNumberOfPages);
+        System.out.println("The total pages :" + totalNumberOfPages);
         String productNameFromApi;
-        for (int page = 1; page <=totalNumberOfPages; page++) {
 
-            List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page).getResults();
+            for (int page = 1; page <= totalNumberOfPages; page++) {
 
-            for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
-                if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-                    productNameFromApi = productResultsPLPApi.get(productIndex).getName();
-                    //scroll to last product if "test=sanity"
-                    if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY) && (productIndex == productResultsPLPApi.size() - 1)) {
-                        System.out.println("The test was sanity");
-                        String totalNumberOfProduct = productListingPageObjects.getTextOnTitleHeader();
-                        String numerical = totalNumberOfProduct.replaceAll("[^0-9]", "");
-                        int number = Integer.parseInt(numerical);
-                        int numberOfSwipe = (number - 1) / 2;
-                        for (int w = 1; w <= numberOfSwipe; w++) {
+                if (page == 1 || page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+
+                    List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page).getResults();
+
+                for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
+                    if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                        productNameFromApi = productResultsPLPApi.get(productIndex).getName();
+                        //scroll to last product if "test=sanity"
+                        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY) && (productIndex == productResultsPLPApi.size() - 1)) {
+                            System.out.println("The test was sanity");
+                            String totalNumberOfProduct = productListingPageObjects.getTextOnTitleHeader();
+                            String numerical = totalNumberOfProduct.replaceAll("[^0-9]", "");
+                            int number = Integer.parseInt(numerical);
+                            int numberOfSwipe = (number - 1) / 2;
+                            for (int w = 1; w <= numberOfSwipe; w++) {
+                                productListingPageObjects.verifyScroll();
+                            }
+                        }
+                        for (int j = 0; j < productListingPageObjects.productPropertiesListUI("name").size(); j++) {
+                            String names = productListingPageObjects.namesListOfProduct(j);
+                            if (productNameFromApi.equalsIgnoreCase(names)) {
+                                List<String> productPropertiesUI = productListingPageObjects.getDetailsOfProductContainerUI(j);
+                                //Storing all values from Api in array
+                                List<String> productPropertiesApi = new ArrayList<>();
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getPrice());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getOriginal_price());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getProduct_stamp());
+                                productPropertiesApi.add(String.valueOf(productResultsPLPApi.get(productIndex).getDiscount()));
+                                System.out.println(productPropertiesApi);
+
+                                //verification of price
+                                assertTrue(productPropertiesApi.get(0).equalsIgnoreCase(productPropertiesUI.get(0)));
+                                //Verification of Discount and original price
+                                if (!productResultsPLPApi.get(productIndex).getOriginal_price().equals(productResultsPLPApi.get(productIndex).getPrice())) {
+                                    assertTrue(productPropertiesApi.get(1).equalsIgnoreCase(productPropertiesUI.get(1)));
+                                    assertTrue(productPropertiesApi.get(3).equalsIgnoreCase(productPropertiesUI.get(3)));
+                                }
+                                //verification of DeliveryTag
+                                if (productResultsPLPApi.get(productIndex).getProduct_stamp() != null) {
+                                    assertTrue(productPropertiesApi.get(2).equalsIgnoreCase(productPropertiesUI.get(2)));
+                                }
+                                softAssert.assertAll();
+                                System.out.println("All data of product were verified successfully");
+                            }
+                        }
+                        if ((productIndex % 2 != 0) && !suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)) {
                             productListingPageObjects.verifyScroll();
                         }
                     }
-                    for (int j = 0; j < productListingPageObjects.productPropertiesListUI("name").size(); j++) {
-                        String names = productListingPageObjects.namesListOfProduct(j);
-                        if (productNameFromApi.equalsIgnoreCase(names)) {
-                            List<String> productPropertiesUI = productListingPageObjects.getDetailsOfProductContainerUI(j);
-                            //Storing all values from Api in array
-                            List<String> productPropertiesApi = new ArrayList<>();
-                            productPropertiesApi.add(productResultsPLPApi.get(productIndex).getPrice());
-                            productPropertiesApi.add(productResultsPLPApi.get(productIndex).getOriginal_price());
-                            productPropertiesApi.add(productResultsPLPApi.get(productIndex).getProduct_stamp());
-                            productPropertiesApi.add(String.valueOf(productResultsPLPApi.get(productIndex).getDiscount()));
-                            System.out.println(productPropertiesApi);
 
-                            //verification of price
-                            assertTrue(productPropertiesApi.get(0).equalsIgnoreCase(productPropertiesUI.get(0)));
-                            //Verification of Discount and original price
-                            if (!productResultsPLPApi.get(productIndex).getOriginal_price().equals(productResultsPLPApi.get(productIndex).getPrice())) {
-                                assertTrue(productPropertiesApi.get(1).equalsIgnoreCase(productPropertiesUI.get(1)));
-                                assertTrue(productPropertiesApi.get(3).equalsIgnoreCase(productPropertiesUI.get(3)));
-                            }
-                            //verification of DeliveryTag
-                            if (productResultsPLPApi.get(productIndex).getProduct_stamp() != null) {
-                                assertTrue(productPropertiesApi.get(2).equalsIgnoreCase(productPropertiesUI.get(2)));
-                            }
-                            softAssert.assertAll();
-                            System.out.println("All data of product were verified successfully");
-                        }
-                    }
-                    if ((productIndex%2!=0)&&!suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)) {
-                        productListingPageObjects.verifyScroll();
-                    }
                 }
 
             }
-
         }
     }
+
+    @Test(groups = {"PLP.Verify all data of products after filter",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verify product dates in PLP page after filter")
+    public void verifyProductsDataInPLPWithFilterApplied(String searchTerm) throws Exception {
+        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm);
+        System.out.println("The total pages :" + totalNumberOfPages);
+        String productNameFromApi;
+        for (int page = 1; page <= totalNumberOfPages; page++) {
+            if (page == 1 || page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+
+                List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page).getResults();
+
+                for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
+                    if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                        productNameFromApi = productResultsPLPApi.get(productIndex).getName();
+                        //scroll to last product if "test=sanity"
+                        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY) && (productIndex == productResultsPLPApi.size() - 1)) {
+                            System.out.println("The test was sanity");
+                            String totalNumberOfProduct = productListingPageObjects.getTextOnTitleHeader();
+                            String numerical = totalNumberOfProduct.replaceAll("[^0-9]", "");
+                            int number = Integer.parseInt(numerical);
+                            int numberOfSwipe = (number - 1) / 2;
+                            for (int w = 1; w <= numberOfSwipe; w++) {
+                                productListingPageObjects.verifyScroll();
+                            }
+                        }
+                        for (int j = 0; j < productListingPageObjects.productPropertiesListUI("name").size(); j++) {
+                            String names = productListingPageObjects.namesListOfProduct(j);
+                            if (productNameFromApi.equalsIgnoreCase(names)) {
+                                List<String> productPropertiesUI = productListingPageObjects.getDetailsOfProductContainerUI(j);
+                                //Storing all values from Api in array
+                                List<String> productPropertiesApi = new ArrayList<>();
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getPrice());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getOriginal_price());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getProduct_stamp());
+                                productPropertiesApi.add(String.valueOf(productResultsPLPApi.get(productIndex).getDiscount()));
+                                System.out.println(productPropertiesApi);
+
+                                //verification of price
+                                assertTrue(productPropertiesApi.get(0).equalsIgnoreCase(productPropertiesUI.get(0)));
+                                //Verification of Discount and original price
+                                if (!productResultsPLPApi.get(productIndex).getOriginal_price().equals(productResultsPLPApi.get(productIndex).getPrice())) {
+                                    assertTrue(productPropertiesApi.get(1).equalsIgnoreCase(productPropertiesUI.get(1)));
+                                    assertTrue(productPropertiesApi.get(3).equalsIgnoreCase(productPropertiesUI.get(3)));
+                                }
+                                //verification of DeliveryTag
+                                if (productResultsPLPApi.get(productIndex).getProduct_stamp() != null) {
+                                    assertTrue(productPropertiesApi.get(2).equalsIgnoreCase(productPropertiesUI.get(2)));
+                                }
+                                softAssert.assertAll();
+                                System.out.println("All data of product were verified successfully");
+                            }
+                        }
+                        if ((productIndex % 2 != 0) && !suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)) {
+                            productListingPageObjects.verifyScroll();
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
 
 
 
