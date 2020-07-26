@@ -29,7 +29,6 @@ public class MyBag extends AndroidBaseClass {
     private CheckoutAddressPageObjects.EstimatedDeliveryDates estimatedDeliveryDates;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates.EstimatedDeliveryDatesItems estimatedDeliveryDatesItems;
     private AddNewAddressPageObjects addNewAddressPageObjects;
-    private LoginPageObjects loginPageObjects;
     private GetCommerceApiResponse getCommerceApiResponse;
     private AndroidScriptRouter androidScriptRouter;
     private TouchAction touch;
@@ -45,7 +44,6 @@ public class MyBag extends AndroidBaseClass {
         System.out.println("MyBagBeforeClass is called");
         androidDriver = getBaseDriver();
         softAssert = new SoftAssert();
-        loginPageObjects = new LoginPageObjects(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         //actionBarObjects.clickOnBagImageButton();
         myBagPageObjects = new MyBagPageObjects(androidDriver);
@@ -78,7 +76,6 @@ public class MyBag extends AndroidBaseClass {
         suiteName = suiteNameFromXML;
         myBagBeforeClass();
         myBagPageObjects.createItemInMyBag(82513);
-        loginPageObjects.performAuthentication("1877755590","666666");
         if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)||
                 suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)){
             actionBarObjects.clickOnBagImageButton();
