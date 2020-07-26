@@ -1,10 +1,10 @@
 package services.commerceMethods;
 
-import com.google.gson.*;
-import io.restassured.response.*;
+import java.util.*;
+import com.google.gson.Gson;
+import io.restassured.response.Response;
 import services.responseModels.commerceModels.*;
 import services.serviceUtils.*;
-import java.util.*;
 
 
 
@@ -77,8 +77,14 @@ public class GetPLPModuleApiResponse {
     }
 
 
+         public ProductDescriptionModel getProductDescriptionPageResults(String slug)
+        {
+        response = shopUpPostMan.getCall(EndPoints.RECOMMENDATIONS+slug+".json");
+        return gson.fromJson(response.getBody().asString(), ProductDescriptionModel.class);
+        }
 
 
-    }
+
+}
 
 

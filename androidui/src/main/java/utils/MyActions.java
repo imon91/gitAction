@@ -21,9 +21,9 @@ public class MyActions extends AndroidBaseClass{
         }catch (Exception e){
             System.out.println(e);
         }
-        if (getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
-        }
+//        if (getBaseDriver().isKeyboardShown()){
+//            getBaseDriver().hideKeyboard();
+//        }
     }
 
     public String action_getText(WebElement element){
@@ -48,9 +48,9 @@ public class MyActions extends AndroidBaseClass{
 
     public void action_clearText(WebElement element){
         element.clear();
-        if (getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
-        }
+//        if (getBaseDriver().isKeyboardShown()){
+//            getBaseDriver().hideKeyboard();
+//        }
     }
 
     public void clickOnHardKeyBack() throws Exception{

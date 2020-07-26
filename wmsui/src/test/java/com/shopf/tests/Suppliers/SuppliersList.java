@@ -1,4 +1,4 @@
-package com.shopf.tests;
+package com.shopf.tests.Suppliers;
 
 import coreUtils.*;
 import org.openqa.selenium.*;
