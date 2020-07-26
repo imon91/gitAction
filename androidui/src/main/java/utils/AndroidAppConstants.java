@@ -16,10 +16,13 @@ public class AndroidAppConstants {
     public static final String URL_PERSONAL_INFORMATION = "https://uatwap.shopups2.xyz/myaccount/personal-information";
     public static final String URL_WISHLIST = "https://uatwap.shopups2.xyz/wishlist";
     public static final String URL_TUTORIALS = "https://uatwap.shopups2.xyz//video-tutorials";
-    public static final String URL_MY_BAG = "https://uatwap.shopups2.xyz/checkout/bag";
-    public static final String URL_MY_ORDERS = "https://uatwap.shopups2.xyz/checkout/bag";
+    public static final String URL_MY_BAG = "https://uatwap.shopups2.xyz/checkout/bag?variant=&quantity=null&userPrice=null";
+    public static final String URL_MY_ORDERS_ACTIVE = "https://uatwap.shopups2.xyz/orders/myorders?list=active&page=1&per_page=10";
+    public static final String URL_MY_ORDERS_CANCELLED = "https://uatwap.shopups2.xyz/orders/myorders?list=cancelled&page=1&per_page=10";
+    public static final String URL_MY_ORDERS_COMPLETED = "https://uatwap.shopups2.xyz/orders/myorders?list=completed&page=1&per_page=10";
     public static final String URL_MY_ORDER_INDIVIDUAL = "https://uatwap.shopups2.xyz/orders/myorders";
     public static final String URL_CHECKOUT_ADDRESS = "https://uatwap.shopups2.xyz/checkout/address";
+    public static final String URL_CHECKOUT_PAYMENT = "https://uatwap.shopups2.xyz/checkout/payment";
     public static final String URL_MY_ACCOUNT_INCOME = "https://uatwap.shopups2.xyz//myaccount/income";
     public static final String URL_MY_ORDER_TRACK = "https://uatwap.shopups2.xyz//orders/myorders/R3263574631/track";
     public static final String URL_MY_INCOME_LIST = "https://uatwap.shopups2.xyz//myaccount/income/list";
