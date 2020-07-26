@@ -61,9 +61,9 @@ public class Search extends AndroidBaseClass {
     }
 
 
-    @BeforeMethod(groups = {"search.search before class",CoreConstants.GROUP_REGRESSION,
+    @BeforeMethod(groups = {CoreConstants.GROUP_REGRESSION,
     CoreConstants.GROUP_SANITY},
-    description = "Before method for every sanity test")
+    description = "Before method for every test")
     public void searchBeforeMethod()
     {
         actionBarObjects.clickOnSearchImageButton();
