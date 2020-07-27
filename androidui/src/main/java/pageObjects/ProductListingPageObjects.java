@@ -350,15 +350,15 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
             }
 
-            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("true")&&
-                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("false"))
+            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True")&&
+                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("False"))
             {
                 //Here Filter applied Only
                 responseData = getPLPModuleApiResponse.getValidProductWithFilterOnly(searchTerm,filterKey,filterValueId,1);
             }
 
-            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("false")&&
-                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("true"))
+            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("False")&&
+                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("True"))
             {
                 //Here sort applied Only
                 responseData = getPLPModuleApiResponse.getValidProductWithSortOnly(searchTerm,sortIndex,1);
