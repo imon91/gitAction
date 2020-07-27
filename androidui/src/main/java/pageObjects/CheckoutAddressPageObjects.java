@@ -34,6 +34,9 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[1]")
     private WebElement cartValueLabelText;
 
+    @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[7]")
+    private WebElement cartValue;
+
     @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[3]/span[2]")
     private WebElement totalItemsCountValue;
 
@@ -46,6 +49,10 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
     public String getCartValueLabelText(){
         return myActions.action_getText(cartValueLabelText);
+    }
+
+    public String getCartValue(){
+        return myActions.action_getText(cartValue);
     }
 
     public String getTotalItemsCountValue(){

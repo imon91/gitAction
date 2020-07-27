@@ -369,12 +369,13 @@ public class MyBagPageObjects extends AndroidBaseClass {
             myActions.action_click(xpathSetter(closeButton));
         }
 
-        public void givingRandomSalePrice(int index,int minSalePrice,int maxSalePrice){
+        public int givingRandomSalePrice(int index,int minSalePrice,int maxSalePrice){
             int salePrice = random.nextInt((maxSalePrice-minSalePrice))+minSalePrice;
             getListOfSalePriceEditTexts().get(index).clear();
             getListOfSalePriceEditTexts().get(index).sendKeys(""+salePrice);
             sleep(3000);
             getListOfSalePriceLabel().get(index).click();
+            return salePrice;
         }
 
 

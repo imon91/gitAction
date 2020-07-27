@@ -96,6 +96,7 @@ public class GetMyBagApiResponse {
             listOfProductDetails.add(7,Integer.toString(shoppingCartResponseModel.getCart_items().get(i).getMax_selling_price()));
             listOfProductDetails.add(8,Integer.toString(shoppingCartResponseModel.getCart_items().get(i).getQuantity()));
             listOfProductDetails.add(9,shoppingCartResponseModel.getCart_items().get(i).getSize());
+            listOfProductDetails.add(10,shoppingCartResponseModel.getCart_items().get(i).getDelivery_time_message().getMessage());
             getContainerData.put(i,listOfProductDetails);
         }
         return getContainerData;
