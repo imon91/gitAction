@@ -67,6 +67,7 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
         myActions.action_click(proceedToPaymentButtonBottom);
     }
 
+
     public class SelectAddress{
 
         private AndroidDriver<WebElement> androidDriver;
