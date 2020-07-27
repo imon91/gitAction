@@ -1,14 +1,17 @@
 package com.shopf.tests;
 
 import coreUtils.*;
-import io.appium.java_client.TouchAction;
+import io.appium.java_client.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.touch.offset.PointOption;
+import io.appium.java_client.touch.offset.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.*;
 import pageObjects.*;
+import services.responseModels.commerceModels.*;
 import utils.*;
 import java.util.*;
+import static org.testng.Assert.*;
 
 
 public class MyOrders extends AndroidBaseClass {
@@ -24,7 +27,10 @@ public class MyOrders extends AndroidBaseClass {
     private Random random;
     private TouchAction touchAction;
     private ActionBarObjects actionBarObjects;
+    private String suiteName;
     private MyOrderDetailsPageObject myOrderDetailsPageObject;
+    private SoftAssert softAssert;
+
 
 
 
@@ -42,9 +48,16 @@ public class MyOrders extends AndroidBaseClass {
         myOrdersPageObjects.clickOnCompleteTabItem();
         sleep(1000);
         myOrdersPageObjects.clickOnActiveTabItem();
+        softAssert = new SoftAssert();
         myOrderDetailsPageObject = new MyOrderDetailsPageObject(androidDriver);
         // This Block is responsible to get the control from anywhere to MyOrders
         //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+    }
+    @BeforeTest(alwaysRun = true)
+    @Parameters("suite")
+    public void searchModuleTests(String suiteNameFromXMLFile)
+    {
+        suiteName = suiteNameFromXMLFile;
     }
 
 
@@ -178,6 +191,41 @@ public class MyOrders extends AndroidBaseClass {
         {
             System.out.println("MyOrder Sort Functionality was verified");
         }
+    }
+
+
+    @Test(groups ={ "MyOrder.VerifyData",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifying OrderID data In MyOrderPage")
+    public void verifyDataInMyOrderActive()
+    {
+
+        MyOrderModel myOrderModelResults=myOrderDetailsPageObject.getResultsOfMyOrdersApi(1);
+        //Click on Load More button
+
+        for(int numberOfClickOnLoadMore =1;numberOfClickOnLoadMore<3;numberOfClickOnLoadMore++)//just Hard coded to load 21 orderId
+        { myOrderDetailsPageObject.clickOnLoadMore();
+        sleep(1000);
+        }
+
+        //verification Of names for particular OrderId
+        for(int j=0; j<21 ;j++)
+        {
+            String orderIdApi = myOrderModelResults.getAllmyorders().get(j).getCustomer_order().getNumber();
+            myOrderDetailsPageObject.scrollToOrderID(orderIdApi);
+            for(int i=0;i<myOrderDetailsPageObject.listOfOrderId().size();i++)
+            {
+                if(orderIdApi.equalsIgnoreCase(myActions.action_getText(myOrderDetailsPageObject.listOfOrderId().get(i))))
+                {
+                    String orderIdUI = myActions.action_getText(myOrderDetailsPageObject.listOfName().get(i));
+                    assertTrue(orderIdApi.equalsIgnoreCase(orderIdUI));
+                    System.out.println("Data was verified");
+                }
+            }
+            softAssert.assertAll();
+        }
+
+
     }
 
 

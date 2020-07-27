@@ -6,9 +6,9 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
-import utils.AndroidBaseClass;
-import utils.MyActions;
-import utils.ServiceRequestLayer;
+import utils.*;
+
+
 
 public class SmokeFlow extends AndroidBaseClass {
 
@@ -58,102 +58,105 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
 
-    @DataProvider(name = "dataForSmokeTest")
-    public Object[][] dataForSmokeTest(){
-        String mobileNumber = null;
-        String otp = null;
-        String searchTerm = null;
-        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-            mobileNumber = "1877755590";
-            otp = "666666";
-            searchTerm = "Shirts";
-        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            mobileNumber = "1877755590";
-            otp = "666666";
-            searchTerm = "Dettol";
-        }
-        return new Object[][]{
-                {mobileNumber,otp,searchTerm}
-        };
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 1)
+    public void performAuthenticationWithValidCredentials() throws Exception {
+        authentication.authenticationSetUp();
+        authentication.verifyAuthenticationWithValidCredentials("01877755590", "666666");
     }
 
-
-    @Test( groups = CoreConstants.GROUP_SMOKE,dataProvider = "dataForSmokeTest")
-    public void smokeTest(String mobileNumber,String otp
-            ,String searchTerm) throws Exception {
-        authentication.authenticationSetUp();
-//        sleep(4000);
-
-        //Step 1 : Login with valid credentials
-        authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);
-//        myShop.myShopSetUp();
-//        sleep(6000);
-
-        //Step 2 : Adding a new collection
-        //myShop.verifyAddingNewCollection();
+    
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 2)
+    public void searchToObject(){
         search.searchBeforeClass();
-
         actionBarObjects.clickOnSearchImageButton();
-        //Step 3 : Searching for an object from search icon without choosing from suggestions list
-        search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
+        search.verifySearchFunctionalityWithoutSelectingSuggestions("Shirt");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false,priority = 3)
+    public void verifyApplyingSortOnPLP() throws Exception {
         plp.productListingPageBeforeClass();
-
-        //Step 4 : Sorting the product list
         plp.verifyApplyingSortOnPLP();
+    }
 
-        //Step 5 : Filtering the product list
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 4)
+    public void verifyApplyingFilterOnPLP()
+    {
         plp.verifyApplyingFilterOnPLP(null,null);
+    }
 
-        //Step 6 : Selecting a product with valid size from the list
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 5)
+    public void verifySelectingValidProduct(){
         plp.verifySelectingValidSizeItemOnPlpToPDP();
+    }
 
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 6)
+    public void verifyPlaceOrderThroughPDP(){
         pdp.productDescriptionPageBeforeClass();
-
-        //Step 7 : Adding a Item to myBag
-        //pdp.verifyAddItemToMyShopThroughPDP();
-
-//        Step 8 : Adding the product to myBag by placeOrder
         pdp.verifyPlaceOrderThroughPDP();
-        myBag.myBagBeforeClass();
-//        sleep(4000);
-//
-        if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
-            //Step 9 : Increasing the product quantity
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 7)
+    public void verifyProductIncrementInMyBag() throws Exception {
+             myBag.myBagBeforeClass();
             myBag.verifyItemIncrementFunctionalityOnMyBag();
+    }
 
-            //Step 10 : Applying Shipping Charges
-            myBag.verifyApplyingShippingCharges();
-        }
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 8)
+    public void verifyApplyShippingChargeInMyBag()
+    {
+        myBag.verifyApplyingShippingCharges();
+    }
 
-//        //Step 11 : Proceeding order
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 9)
+    public void verifyPlaceOrderInMyBag()
+    {
         myBag.verifyPlaceOrderInMyBag();
+    }
 
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 10)
+    public void verifyDeletingCodDisabledProductInAddress()
+    {  sleep(4000);
         myBag.deleteProductWithCODDisabled();
-//
-//        //Step 12 : Selecting an address
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 11)
+    public void verifySelectAddress()
+    {
         myBag.verifySelectAddressInMyBag();
-//
-//        //Step 13 : Proceed to checkout
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 12)
+    public void verifyProceedToPaymentInAddress()
+    {
         myBag.verifyCheckoutProceedInMyBag();
-//
-        if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
-            //        //Step 14 : Proceed payment
-            sleep(5000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
+    public void verifyCheckoutWithCOD()
+    {       sleep(3500);
             myBag.verifyProceedPaymentWithoutChangeAddress();
-//
-        sleep(4000);
+            sleep(6000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
+    public void verifyOrderIdInOrderSuccessfulPage() {
         orderSuccessFulPageObjects.clickOnClickHereButton();
-//
-//        //Step 15 : Logging out
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
+    public void verifyLogout() throws Exception {
+        sleep(2800);
         logout.logoutBeforeClass();
         logout.verifyLogoutFunctionality();
-        }
     }
 
 
-    @AfterClass(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void smokeTestAfterClass(){
         System.out.println("SmokeTest completed");
         quitBaseDriver();
     }
+
+
 }

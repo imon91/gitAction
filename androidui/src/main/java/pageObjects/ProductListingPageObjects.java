@@ -350,6 +350,20 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
             }
 
+            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("true")&&
+                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("false"))
+            {
+                //Here Filter applied Only
+                responseData = getPLPModuleApiResponse.getValidProductWithFilterOnly(searchTerm,filterKey,filterValueId,1);
+            }
+
+            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("false")&&
+                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("true"))
+            {
+                //Here sort applied Only
+                responseData = getPLPModuleApiResponse.getValidProductWithSortOnly(searchTerm,sortIndex,1);
+            }
+
             PropertyReader.setValue(PropertyReader.Keys.VALID_PRODUCT_INDEX,
                     Integer.toString((int) responseData.get("ValidProductIndex")));
             ProductListingResultsModel.ResultsBean resultsModel =
@@ -695,11 +709,11 @@ public class ProductListingPageObjects extends AndroidBaseClass {
             String filterKey = PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY);
 
             if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED)
-                    .equalsIgnoreCase("True")) {
+                    .equalsIgnoreCase("True")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX).equalsIgnoreCase("false")) {
                 responseData = getPLPModuleApiResponse.getValidProductWithFilterOnly(searchTerm, filterKey, filterValueId, k);
 
             } else if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED)
-                    .equalsIgnoreCase("False")) {
+                    .equalsIgnoreCase("False")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX).equalsIgnoreCase("False")) {
                 // Here both filter and sort aren't applied
                 responseData = getCommerceApiResponse.getProductWithValidSize(searchTerm);
             }

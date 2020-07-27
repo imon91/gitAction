@@ -1,18 +1,16 @@
 package pageObjects;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.*;
+import io.appium.java_client.android.*;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-import utils.AndroidBaseClass;
-import utils.MyActions;
-import java.time.*;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Random;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import services.commerceMethods.*;
+import services.responseModels.commerceModels.MyOrderModel;
+import utils.*;
+import java.util.*;
+
 
 
 
@@ -25,6 +23,8 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
     private Random random;
     private RightNavigationDrawer rightNavigationDrawer;
     private ActionBarObjects actionBarObjects;
+    private ServiceRequestLayer serviceRequestLayer;
+    private GetMyOrderApiResponse getMyOrderApiResponse;
 
 
     public MyOrderDetailsPageObject(AndroidDriver<WebElement> androidDriver){
@@ -32,6 +32,7 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
         actionBarObjects = new ActionBarObjects(androidDriver);
+        getMyOrderApiResponse = serviceRequestLayer.getControlOverMyOrderApiResponse();
         random = new Random();
     }
 
@@ -109,6 +110,49 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
         String xpath = "//android.widget.TextView[@text='"+yearInt+"']";
         WebElement element = androidDriver.findElement(By.xpath(xpath));
         ((JavascriptExecutor) androidDriver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public WebElement scrollToOrderID(String orderId)
+    {
+            WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().resourceId(\"com.shopup.reseller:id/pager\")).scrollIntoView("
+                            + "new UiSelector().text(\""+orderId+ "\"))"));
+            return element;
+    }
+
+    public MyOrderModel getResultsOfMyOrdersApi(int k)
+    {
+        return getMyOrderApiResponse.getOrderDetailsInActiveTab(k);
+    }
+
+    public void findTheOrderId(String orderId)
+    {
+        try {
+            scrollToOrderID(orderId);
+        }
+        catch(Exception e)
+        {
+            myActions.action_click(scrollToOrderID("Load More"));
+            scrollToOrderID(orderId);
+        }
+
+    }
+
+    public List<WebElement> listOfName()
+    {
+        List<WebElement> names = xpathListSetter("//android.view.View[@index='2']");
+        return names;
+    }
+
+    public List<WebElement> listOfOrderId()
+    {
+        List<WebElement> names = xpathListSetter("//android.view.View[@index='0']");
+        return names;
+    }
+
+    public void clickOnLoadMore()
+    {
+        scrollToOrderID("Load More");
     }
 
 

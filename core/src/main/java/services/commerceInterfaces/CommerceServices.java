@@ -22,4 +22,6 @@ public interface CommerceServices {
 
     public GetPLPModuleApiResponse getControlOverPLPModuleApiResponse();
 
+    public GetMyOrderApiResponse getControlOverMyOrderApiResponse();
+
 }
