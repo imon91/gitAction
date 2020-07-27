@@ -4,6 +4,7 @@ import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -15,7 +16,6 @@ import utils.AndroidBaseClass;
 import utils.MyActions;
 import utils.ServiceRequestLayer;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -41,6 +41,8 @@ public class Address extends AndroidBaseClass {
 
     @BeforeClass(alwaysRun = true)
     public void addressBeforeClass(){
+        System.out.println("AddressBeforeClass is called");
+        androidDriver = getBaseDriver();
         myBagPageObjects = new MyBagPageObjects(androidDriver);
         checkoutAddressPageObjects = new CheckoutAddressPageObjects(androidDriver);
         selectAddress = checkoutAddressPageObjects.new SelectAddress(androidDriver);
@@ -49,6 +51,7 @@ public class Address extends AndroidBaseClass {
         estimatedDeliveryDatesItems = estimatedDeliveryDates.new EstimatedDeliveryDatesItems(androidDriver);
         addNewAddressPageObjects = new AddNewAddressPageObjects(androidDriver);
         myActions = new MyActions();
+        softAssert = new SoftAssert();
         serviceRequestLayer = new ServiceRequestLayer();
         getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         suiteName = "sanity";
@@ -61,7 +64,7 @@ public class Address extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnGroups = "MyCart.verifyContinueShopping")
     public void cartValueData(){
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
-        int orderValue = Integer.parseInt(checkoutAddressPageObjects.getCartValue().replaceAll("Tk. ",""));
+        int orderValue = Integer.parseInt(checkoutAddressPageObjects.getCartValue().replaceAll("Tk. ","").replaceAll(",",""));
         int expectedOrderValue = chargesList.get(0);
         Assert.assertEquals(orderValue, expectedOrderValue);
         System.out.println("Total order value is working properly");
@@ -73,7 +76,8 @@ public class Address extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},dependsOnGroups = "Address.cartValueData")
     public void verifyShowMoreAddressesButton(){
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
-        if (addressListSize>5) {
+        int expectedAddressListSize = checkoutAddressPageObjects.getAddressListSizeData();
+        if (expectedAddressListSize>5) {
             selectAddress.clickOnShowMoreAddress();
             int addressListSize_new = selectAddress.getListOfVisibleAddress().size();
             Assert.assertTrue(addressListSize < addressListSize_new);
@@ -86,7 +90,7 @@ public class Address extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnGroups = "Address.verifyShowMoreAddressesButton")
     public void verifyListOfAddresses(){
-        selectAddress.clickOnShowMoreAddress();
+        //selectAddress.clickOnShowMoreAddress();
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
         System.out.println("Address List is : " + addressListSize);
         int expectedAddressListSize = checkoutAddressPageObjects.getAddressListSizeData();
@@ -98,7 +102,7 @@ public class Address extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "Address.verifyListOfAddresses")
     public void verifyEditAddress() throws Exception {
-        selectAddress.clickOnShowMoreAddress();
+        //selectAddress.clickOnShowMoreAddress();
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
         System.out.println("Address List is : " + addressListSize);
         for (int i = 0; i < addressListSize; i++) {
@@ -109,14 +113,18 @@ public class Address extends AndroidBaseClass {
                 addNewAddressPageObjects.editNameInAddress("Hari");
                 addNewAddressPageObjects.editAddressInAddress("TCE Street");
                 addNewAddressPageObjects.clickOnSaveAddress();
-                sleep(3000);
+                sleep(10000);
                 myActions.clickOnHardKeyBack();
+                sleep(5000);
 
+                Map<Integer, List<String>> addressDataMap = checkoutAddressPageObjects.getAddressData();
                 String name = addressField.getFirstName(i);
-                softAssert.assertEquals(name,"Hari");
+                String expectedName = addressDataMap.get(i).get(0);
+                softAssert.assertEquals(name,expectedName);
 
                 String address = addressField.getAddress(i);
-                softAssert.assertEquals(address,"TCE Street");
+                String expectedAddress = addressDataMap.get(i).get(1);
+                softAssert.assertEquals(address,expectedAddress);
             }
         }
         softAssert.assertAll();
@@ -173,8 +181,11 @@ public class Address extends AndroidBaseClass {
             dependsOnGroups = "Address.verifyDeleteProductInAddressPage")
     public void deleteProductWithCODDisabled() {
         estimatedDeliveryDatesItems.deleteProductWithCODDisabled();
+        sleep(3000);
+        int expectedItemsList = myBagPageObjects.getListOfContainersData();
         int itemsList = estimatedDeliveryDates.getListOfEstimatedDeliveryItems().size();
-        Assert.assertEquals(itemsList,myBagPageObjects.getListOfContainersData());
+        System.out.println(itemsList+" "+expectedItemsList);
+        Assert.assertEquals(itemsList,expectedItemsList);
     }
 
 
@@ -183,22 +194,43 @@ public class Address extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY},dependsOnGroups = "Address.deleteProductWithCODDisabled")
     public void verifyDeliveryTimeMessageText(){
         int itemsList = estimatedDeliveryDates.getListOfEstimatedDeliveryItems().size();
-        Map<Integer, List<String>> productDetailsMap = new HashMap<>();
+        Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
+        System.out.println(itemsList+" "+productDetailsMap.size());
         for (int i = 0; i < itemsList; i++) {
             for (int j = 0; j < productDetailsMap.size(); j++) {
                 if (i == 0 || i == itemsList - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                    System.out.println(estimatedDeliveryDatesItems.getListOfEstimatedDeliveryImages().get(i).getAttribute("src")+"  "+productDetailsMap.get(j).get(0));
                     if (estimatedDeliveryDatesItems.getListOfEstimatedDeliveryImages().get(i).getAttribute("src").equalsIgnoreCase(productDetailsMap.get(j).get(0))){
                         String deliveryMessage = estimatedDeliveryDatesItems.getDeliveryInWorkingDaysText(
                                 estimatedDeliveryDatesItems.getListOfDeliveryInWorkingDays().get(i));
                         String expectedDeliveryMessage = productDetailsMap.get(j).get(10);
                         softAssert.assertEquals(deliveryMessage,expectedDeliveryMessage);
+                        System.out.println(deliveryMessage+" "+expectedDeliveryMessage);
                     }
                 }
             }
         }
         softAssert.assertAll();
-        System.out.println("Message is Data is working properly");
+        System.out.println("Message Data is working properly");
     }
 
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION})
+    public void verifySearchAddress(){
+
+    }
+
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION})
+    public void verifyTextsInAddress(){
+        //verifying the texts present in myCart
+    }
+
+
+    @AfterClass(alwaysRun = true)
+    public void addressAfterClass(){
+        System.out.println("Address after class is called");
+        checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
+    }
 
 }

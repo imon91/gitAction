@@ -48,6 +48,7 @@ public class MyCart extends AndroidBaseClass {
         getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         myBagPageObjects.createItemInMyBag(82513);
         suiteName = "sanity";
+        myBagPageObjects.createItemInMyBag(82513);
         actionBarObjects.clickOnBagImageButton();
         sleep(5000);
         //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
@@ -55,9 +56,19 @@ public class MyCart extends AndroidBaseClass {
     }
 
 
+    @Test(groups = {"Address.verifyMyCartPageURL",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION},dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyMyCartPageURL(){
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_BAG));
+        System.out.println("MyBag page loaded successfully");
+    }
+
+
     @Test(groups = {"MyCart.verifyItemCountOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnGroups = "Address.verifyMyCartPageURL")
     public void verifyItemCountOnMyBag(){
         sleep(5000);
         System.out.println(androidDriver.getCurrentUrl());
@@ -340,6 +351,12 @@ public class MyCart extends AndroidBaseClass {
         actionBarObjects.clickOnBagImageButton();
         sleep(5000);
         switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+    }
+
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION})
+    public void verifyTextsInMyCart(){
+        //verifying the texts present in myCart
     }
 
 
