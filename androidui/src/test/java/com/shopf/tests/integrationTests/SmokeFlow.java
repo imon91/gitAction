@@ -19,11 +19,15 @@ public class SmokeFlow extends AndroidBaseClass {
     private PLP plp;
     private Search search;
     private Logout logout;
+    private MyOrders myOrders;
     private AndroidDriver<WebElement> androidDriver;
     private OrderSuccessFulPageObjects orderSuccessFulPageObjects;
     private ProductListingPageObjects productListingPageObjects;
     private ActionBarObjects actionBarObjects;
+    private MyOrdersPageObjects myOrdersPageObjects;
+    private MyOrdersPageObjects.OrderDetails orderDetails;
     private String app;
+    private String host;
     private String plp_view;
     private final String NEW_PLP_VIEW = "New";
     private final String OLD_PLP_VIEW = "Old";
@@ -32,6 +36,11 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @BeforeSuite(alwaysRun = true)
     public void smokeBeforeSuite(){
+        try{
+            PropertyReader.flushDynamicData();
+        }catch (Exception e){
+            System.out.println("Exception at SmokeBeforeSuite : flushDynamicData");
+        }
         serviceRequestLayer = new ServiceRequestLayer();
         serviceRequestLayer.getControlOverAuthentication()
                 .performAuthentication();
@@ -42,6 +51,7 @@ public class SmokeFlow extends AndroidBaseClass {
     public void smokeTestBeforeClass(){
         System.out.println("Smoke Test Started");
         app = System.getProperty(BuildParameterKeys.KEY_APP);
+        host = System.getProperty(BuildParameterKeys.KEY_HOST);
         androidDriver = getBaseDriver();
         authentication = new Authentication();
         myBag = new MyBag();
@@ -50,6 +60,9 @@ public class SmokeFlow extends AndroidBaseClass {
         plp = new PLP();
         search = new Search();
         logout = new Logout();
+        myOrders = new MyOrders();
+        myOrdersPageObjects = new MyOrdersPageObjects(androidDriver);
+        orderDetails = myOrdersPageObjects.new OrderDetails(androidDriver);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
@@ -58,30 +71,63 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
 
+    @DataProvider(name = "dataForAuthentication")
+    public Object[][] dataForAuthentication(){
+        String mobileNumber = null;
+        String otp = null;
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            mobileNumber = "1877755590";
+            otp = "666666";
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            mobileNumber = "1877755590";
+            otp = "666666";
+        }
+        return new Object[][]{
+                {mobileNumber,otp}
+        };
+    }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 1)
-    public void performAuthenticationWithValidCredentials() throws Exception {
+
+    @DataProvider(name = "dataForSearchTerm")
+    public Object[][] dataForSearchTerm(){
+        String searchTerm=null;
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            searchTerm = "Watches";
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            searchTerm = "Dettol";
+        }
+        return new Object[][]{
+                {searchTerm}
+        };
+    }
+
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 1,dataProvider = "dataForAuthentication")
+    public void performAuthenticationWithValidCredentials(String mobileNumber,String otp) throws Exception {
         authentication.authenticationSetUp();
-        authentication.verifyAuthenticationWithValidCredentials("01877755590", "666666");
+        authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);
     }
 
     
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 2)
-    public void searchToObject(){
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 2,dataProvider = "dataForSearchTerm")
+    public void searchToObject(String searchTerm){
         search.searchBeforeClass();
         actionBarObjects.clickOnSearchImageButton();
-        search.verifySearchFunctionalityWithoutSelectingSuggestions("Shirt");
+        search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false,priority = 3)
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 3)
     public void verifyApplyingSortOnPLP() throws Exception {
-        plp.productListingPageBeforeClass();
-        plp.verifyApplyingSortOnPLP();
+        if(host.equalsIgnoreCase("Local")){
+            plp.productListingPageBeforeClass();
+            plp.verifyApplyingSortOnPLP();
+        }
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 4)
-    public void verifyApplyingFilterOnPLP()
+    public void verifyApplyingFilterOnPLP() throws Exception
     {
+        plp.productListingPageBeforeClass();
         plp.verifyApplyingFilterOnPLP(null,null);
     }
 
@@ -139,16 +185,37 @@ public class SmokeFlow extends AndroidBaseClass {
             sleep(6000);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 14)
     public void verifyOrderIdInOrderSuccessfulPage() {
-        orderSuccessFulPageObjects.clickOnClickHereButton();
+//        orderSuccessFulPageObjects.clickOnGoTOMyOrdersButton();
     }
 
+
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
+    public void verifyOrderInMyOrders() throws Exception{
+//        //Assert That Control is in MyOrdersPage
+//        //Identify Order Number
+//        myOrders.myOrdersBeforeClass();
+//        orderDetails.clickOnOrderItemByIndex(0);
+//                //(PropertyReader.getValueOfKey(PropertyReader.Keys.ORDER_NUMBER));
+//        // Verify Order
+//
+//        // Come Back to HomePage
+//        for(int i=0;i<2;i++){
+//            new MyActions().clickOnHardKeyBack();
+//        }
+    }
+
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
     public void verifyLogout() throws Exception {
-        sleep(2800);
-        logout.logoutBeforeClass();
-        logout.verifyLogoutFunctionality();
+        if(host.equalsIgnoreCase("Local")){
+            // Do nothing
+        }else {
+            sleep(2800);
+            logout.logoutBeforeClass();
+            logout.verifyLogoutFunctionality();
+        }
     }
 
 

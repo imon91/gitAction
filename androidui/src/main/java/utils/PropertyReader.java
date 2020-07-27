@@ -16,9 +16,35 @@ public class PropertyReader {
 
 
     public static void setValue(String key, String value) throws Exception {
+        FileInputStream inputStream = new FileInputStream(filepath+"/src/main/java/testData/dynamicData.properties");
+        properties.load(inputStream);
+        inputStream.close();
+
         OutputStream outputStream = new FileOutputStream(filepath+"/src/main/java/testData/dynamicData.properties");
-        properties.setProperty(key,value);
-        properties.store(outputStream,null);
+        properties.setProperty(key, value);
+        properties.store(outputStream, null);
+        outputStream.close();
+    }
+
+
+    public static void flushDynamicData() throws Exception{
+        setValue(Keys.SEARCH_TERM,"");
+        setValue(Keys.CATEGORY_TYPE,"");
+        setValue(Keys.VALID_PRODUCT_INDEX,"");
+        setValue(Keys.VALID_SIZE_INDEX,"");
+        setValue(Keys.VALID_PRODUCT_NAME,"");
+        setValue(Keys.VALID_PRODUCT_SLUG,"");
+        setValue(Keys.PLP_VIEW_TYPE,"");
+        setValue(Keys.SORT_APPLIED,"False");
+        setValue(Keys.SORT_VALUE,"");
+        setValue(Keys.FILTER_APPLIED,"False");
+        setValue(Keys.FILTER_VALUE,"");
+        setValue(Keys.FILTER_KEY,"");
+        setValue(Keys.FILTER_VALUE_ID,"");
+        setValue(Keys.SORT_INDEX,"");
+        setValue(Keys.PRODUCT_MAX_QUANTITY,"");
+        setValue(Keys.PRODUCT_MIN_QUANTITY,"");
+        setValue(Keys.ORDER_NUMBER,"");
     }
 
 
@@ -41,5 +67,6 @@ public class PropertyReader {
         public static final String PRODUCT_MAX_QUANTITY = "PRODUCT_MAX_QUANTITY";
         public static final String PRODUCT_MIN_QUANTITY = "PRODUCT_MIN_QUANTITY";
         public static final String COD_ENABLED_VALID_SIZE_PRODUCT_NAME = "COD_ENABLED_VALID_SIZE_PRODUCT_NAME";
+        public static final String ORDER_NUMBER = "ORDER_NUMBER";
     }
 }

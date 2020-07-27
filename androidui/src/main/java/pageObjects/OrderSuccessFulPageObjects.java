@@ -29,11 +29,28 @@ public class OrderSuccessFulPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "//span[contains(text(),'My Orders')]")
     private WebElement myOrdersButton;
 
+    @FindBy(xpath = "//p[@class='thankyou_order_no']/span[2]")
+    private WebElement orderNumber;
+
+    public String getOrderNumber(){
+        return myActions.action_getText(orderNumber);
+    }
+
     public void clickOnClickHereButton(){
+        try{
+            PropertyReader.setValue(PropertyReader.Keys.ORDER_NUMBER,getOrderNumber());
+        }catch (Exception e){
+            System.out.println("Exception While Updating OrderNumber : ClickOnGoTOMyOrdersButton");
+        }
         myActions.action_click(clickHereButton);
     }
 
     public void clickOnGoTOMyOrdersButton(){
+        try{
+            PropertyReader.setValue(PropertyReader.Keys.ORDER_NUMBER,getOrderNumber());
+        }catch (Exception e){
+            System.out.println("Exception While Updating OrderNumber : ClickOnGoTOMyOrdersButton");
+        }
         myActions.action_click(myOrdersButton);
     }
 
