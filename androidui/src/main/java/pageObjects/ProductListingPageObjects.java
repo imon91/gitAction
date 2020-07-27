@@ -709,11 +709,11 @@ public class ProductListingPageObjects extends AndroidBaseClass {
             String filterKey = PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY);
 
             if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED)
-                    .equalsIgnoreCase("True")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX).equalsIgnoreCase("false")) {
+                    .equalsIgnoreCase("True")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("False")) {
                 responseData = getPLPModuleApiResponse.getValidProductWithFilterOnly(searchTerm, filterKey, filterValueId, k);
 
             } else if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED)
-                    .equalsIgnoreCase("False")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX).equalsIgnoreCase("False")) {
+                    .equalsIgnoreCase("False")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("False")) {
                 // Here both filter and sort aren't applied
                 responseData = getCommerceApiResponse.getProductWithValidSize(searchTerm);
             }
