@@ -143,14 +143,14 @@ public class MyCart extends AndroidBaseClass {
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         int containersSize = itemContainer.getItemContainersSize();
         for (int i = 0; i < containersSize ; i++) {
-            for (int j = 0; j < productDetailsMap.size(); j++) {
-                if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
+            if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
+                itemContainer.clickOnAddQuantityButton(itemContainer.getListOfAddQuantityButton().get(i));
+                sleep(5000);
+
+                String quantity = itemContainer.getQuantity(i); //FrontEnd Quantity
+                for (int j = 0; j < productDetailsMap.size(); j++) {
                     if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
                             itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
-                        itemContainer.clickOnAddQuantityButton(itemContainer.getListOfAddQuantityButton().get(i));
-                        sleep(5000);
-
-                        String quantity = itemContainer.getQuantity(i); //FrontEnd Quantity
                         Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
                         String expectedQuantity = productDetailsMap_new.get(j).get(8); //BackEnd Quantity
                         softAssert.assertEquals(quantity, expectedQuantity);
@@ -171,14 +171,14 @@ public class MyCart extends AndroidBaseClass {
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         int containersSize = itemContainer.getItemContainersSize();
         for (int i = 0; i < containersSize ; i++) {
-            for (int j = 0; j < productDetailsMap.size(); j++) {
-                if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
+            if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
+                itemContainer.clickOnSubQuantityButton(itemContainer.getListOfSubQuantityButton().get(i));
+                sleep(5000);
+
+                String quantity = itemContainer.getQuantity(i); //FrontEnd Quantity
+                for (int j = 0; j < productDetailsMap.size(); j++) {
                     if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
                             itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
-                        itemContainer.clickOnSubQuantityButton(itemContainer.getListOfSubQuantityButton().get(i));
-                        sleep(5000);
-
-                        String quantity = itemContainer.getQuantity(i); //FrontEnd Quantity
                         Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
                         String expectedQuantity = productDetailsMap_new.get(j).get(8); //BackEnd Quantity
                         softAssert.assertEquals(quantity, expectedQuantity);
@@ -200,19 +200,19 @@ public class MyCart extends AndroidBaseClass {
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         System.out.println("List Of Item Containers is : " + containersSize);
         for (int i = 0; i < containersSize; i++) {
-            for (int j = 0; j < productDetailsMap.size(); j++) {
-                if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+            if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                myActions.action_click(itemContainer.getDropDownOfSizes().get(i));
+                System.out.println("No.Of Sizes available : " + itemContainer.getListOfSizes().size());
+                Random random = new Random();
+                int sizeIndex = random.nextInt(itemContainer.getListOfSizes().size());
+                System.out.println("Selected size is " + itemContainer.selectedSize(sizeIndex));
+                myActions.action_click(itemContainer.getListOfSizes().get(sizeIndex));
+                sleep(6000);
+
+                String size = itemContainer.getSize(i); //FrontEnd Size
+                for (int j = 0; j < productDetailsMap.size(); j++) {
                     if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
                             itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
-                        myActions.action_click(itemContainer.getDropDownOfSizes().get(i));
-                        System.out.println("No.Of Sizes available : " + itemContainer.getListOfSizes().size());
-                        Random random = new Random();
-                        int sizeIndex = random.nextInt(itemContainer.getListOfSizes().size());
-                        System.out.println("Selected size is " + itemContainer.selectedSize(sizeIndex));
-                        myActions.action_click(itemContainer.getListOfSizes().get(sizeIndex));
-                        sleep(6000);
-
-                        String size = itemContainer.getSize(i); //FrontEnd Size
                         Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
                         String expectedSize = productDetailsMap_new.get(j).get(9); //BackEnd Size
                         softAssert.assertEquals(size, expectedSize);
@@ -274,9 +274,14 @@ public class MyCart extends AndroidBaseClass {
 
                         int price = itemContainer.givingRandomSalePrice(i,min,max);
                         sleep(4000);
-                        Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
-                        int expectedPrice = (int)Float.parseFloat(productDetailsMap_new.get(j).get(5));
-                        softAssert.assertEquals(price,expectedPrice);
+                        for (int k = 0; k < productDetailsMap.size(); k++) {
+                            if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(k).get(1)) &&
+                                    itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(k).get(9))) {
+                                Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
+                                int expectedPrice = (int) Float.parseFloat(productDetailsMap_new.get(k).get(5));
+                                softAssert.assertEquals(price, expectedPrice);
+                            }
+                        }
                     }
                 }
             }
