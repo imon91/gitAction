@@ -27,8 +27,6 @@ public class MyCart extends AndroidBaseClass {
     private MyBagPageObjects.ItemContainer itemContainer;
     private MyBagPageObjects.CreditsAndCoupons creditsAndCoupons;
     private ActionBarObjects actionBarObjects;
-    private GetMyBagApiResponse getMyBagApiResponse;
-    private ServiceRequestLayer serviceRequestLayer;
     private MyActions myActions;
     private SoftAssert softAssert;
     private String suiteName;
@@ -44,15 +42,13 @@ public class MyCart extends AndroidBaseClass {
         creditsAndCoupons = myBagPageObjects.new CreditsAndCoupons(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         myActions = new MyActions();
-        serviceRequestLayer = new ServiceRequestLayer();
-        getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         myBagPageObjects.createItemInMyBag(82513);
         suiteName = "sanity";
-        myBagPageObjects.createItemInMyBag(82513);
         actionBarObjects.clickOnBagImageButton();
         sleep(5000);
         //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
         switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        sleep(3000);
     }
 
 
@@ -288,6 +284,7 @@ public class MyCart extends AndroidBaseClass {
                             if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap_new.get(k).get(1)) &&
                                     itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap_new.get(k).get(9))) {
                                 int expectedPrice = (int) Float.parseFloat(productDetailsMap_new.get(k).get(5));
+                                System.out.println(price+" "+expectedPrice);
                                 softAssert.assertEquals(price, expectedPrice);
                             }
                         }
@@ -343,18 +340,17 @@ public class MyCart extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},dependsOnGroups = "MyCart.verifyTotalEarningsandOrderValueData")
     public void verifyContinueShopping(){
-        myBagPageObjects.clickOnContinueShoppingButton();
-        String activity = androidDriver.currentActivity();
-        Assert.assertTrue(activity.equalsIgnoreCase(AndroidAppConstants.HOME_ACTIVITY));
-        System.out.println("Continue Shopping Button is working properly");
-        switchFromWebToNative();
-        actionBarObjects.clickOnBagImageButton();
-        sleep(5000);
-        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+//        myBagPageObjects.clickOnContinueShoppingButton();
+//        String activity = androidDriver.currentActivity();
+//        Assert.assertTrue(activity.equalsIgnoreCase(AndroidAppConstants.HOME_ACTIVITY));
+//        System.out.println("Continue Shopping Button is working properly");
+//        switchFromWebToNative();
+//        actionBarObjects.clickOnBagImageButton();
+//        sleep(5000);
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION})
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},enabled = false)
     public void verifyTextsInMyCart(){
         //verifying the texts present in myCart
     }
@@ -363,7 +359,16 @@ public class MyCart extends AndroidBaseClass {
     @AfterClass(alwaysRun = true)
     public void myBagAfterClass(){
         System.out.println("MyBagAfterClass is called");
+        sleep(5000);
+        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        sleep(3000);
+        String windowHandle = androidDriver.getWindowHandle();
+        androidDriver.switchTo().window(windowHandle);
         myBagPageObjects.clickOnPlaceOrderButton();
+        sleep(3000);
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_ADDRESS));
+        System.out.println("Control navigates to Address page");
     }
 
 

@@ -12,6 +12,7 @@ import pageObjects.AddNewAddressPageObjects;
 import pageObjects.CheckoutAddressPageObjects;
 import pageObjects.MyBagPageObjects;
 import services.commerceMethods.GetMyBagApiResponse;
+import utils.AndroidAppConstants;
 import utils.AndroidBaseClass;
 import utils.MyActions;
 import utils.ServiceRequestLayer;
@@ -32,8 +33,6 @@ public class Address extends AndroidBaseClass {
     private CheckoutAddressPageObjects.EstimatedDeliveryDates estimatedDeliveryDates;
     private CheckoutAddressPageObjects.EstimatedDeliveryDates.EstimatedDeliveryDatesItems estimatedDeliveryDatesItems;
     private AddNewAddressPageObjects addNewAddressPageObjects;
-    private GetMyBagApiResponse getMyBagApiResponse;
-    private ServiceRequestLayer serviceRequestLayer;
     private MyActions myActions;
     private SoftAssert softAssert;
     private String suiteName;
@@ -52,10 +51,10 @@ public class Address extends AndroidBaseClass {
         addNewAddressPageObjects = new AddNewAddressPageObjects(androidDriver);
         myActions = new MyActions();
         softAssert = new SoftAssert();
-        serviceRequestLayer = new ServiceRequestLayer();
-        getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         suiteName = "sanity";
         sleep(5000);
+        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        sleep(3000);
     }
 
 
@@ -100,7 +99,7 @@ public class Address extends AndroidBaseClass {
 
     @Test(groups = {"Address.verifyEditAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "Address.verifyListOfAddresses")
+            CoreConstants.GROUP_REGRESSION}, enabled = false, dependsOnGroups = "Address.verifyListOfAddresses")
     public void verifyEditAddress() throws Exception {
         //selectAddress.clickOnShowMoreAddress();
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
@@ -134,7 +133,7 @@ public class Address extends AndroidBaseClass {
 
     @Test(groups = {"Address.verifyDeleteAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "Address.verifyEditAddress")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "Address.verifyListOfAddresses")
     public void verifyDeleteAddress() {
         int addressListSize = selectAddress.getListOfVisibleAddress().size();
         System.out.println("Address List is : " + addressListSize);
@@ -149,6 +148,8 @@ public class Address extends AndroidBaseClass {
 
         int expectedAddressListSize = checkoutAddressPageObjects.getAddressListSizeData();
         Assert.assertEquals(addressListSize, expectedAddressListSize);
+
+        selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(3));
     }
 
 
@@ -215,13 +216,13 @@ public class Address extends AndroidBaseClass {
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION})
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},enabled = false)
     public void verifySearchAddress(){
 
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION})
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},enabled = false)
     public void verifyTextsInAddress(){
         //verifying the texts present in myCart
     }
@@ -231,6 +232,12 @@ public class Address extends AndroidBaseClass {
     public void addressAfterClass(){
         System.out.println("Address after class is called");
         checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
+        sleep(5000);
+        String windowHandle = androidDriver.getWindowHandle();
+        androidDriver.switchTo().window(windowHandle);
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_PAYMENT));
+        System.out.println("Control navigates to payments page");
     }
 
 }
