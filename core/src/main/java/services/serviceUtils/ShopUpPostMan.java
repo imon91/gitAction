@@ -26,10 +26,10 @@ public class ShopUpPostMan {
 
     public ShopUpPostMan(String module){
         this.module = module;
-//        String app = System.getProperty(BuildParameterKeys.KEY_APP);
-//        String env = System.getProperty(BuildParameterKeys.KEY_ENV);
-        String app = CoreConstants.APP_WMS;
-        String env = CoreConstants.ENV_STAGE;
+        String app = System.getProperty(BuildParameterKeys.KEY_APP);
+        String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+//        String app = CoreConstants.APP_WMS;
+//        String env = CoreConstants.ENV_STAGE;
 
         try{
 
