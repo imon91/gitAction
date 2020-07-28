@@ -30,7 +30,7 @@ public class GetPLPModuleApiResponse {
             return productListingResultsModel;
         }
 
-        public ProductListingResultsModel getProductResultsAfterFilter(String searchTerm,String filterKey, String filterId,int k)
+        public ProductListingResultsModel getProductResultsWithFilterOnly(String searchTerm,String filterKey, String filterId,int k)
         {
             String createdFilter = null;
             switch (filterKey.toLowerCase()) {
@@ -53,9 +53,59 @@ public class GetPLPModuleApiResponse {
             return  productListingResultsModel;
         }
 
+    public ProductListingResultsModel getProductResultsWithSortOnly(String searchTerm,String sortIndex,int k)
+    {
+        String createdSort = "filter_sort[]";
+        response = shopUpPostMan.
+                getCall(EndPoints.SEARCH_FOR_USER +
+                        "term=" + searchTerm +
+                        "&page=" + k + "&" + createdSort + "=" + sortIndex);
+        ProductListingResultsModel productListingResultsModel =
+                gson.fromJson(response.getBody().asString(), ProductListingResultsModel.class);
+        return  productListingResultsModel;
+    }
+
+
+    public ProductListingResultsModel getProductResultsWithFilterAndSortApplied(String searchTerm,String filterKey,
+                                                                      String filterId,String sortIndex,int k) {
+
+        // Sample : ?page=1&filter_category[]=2160&filter_sort[]=3
+        String createdFilter = null;
+        String createdSort = "filter_sort[]";
+        switch (filterKey.toLowerCase()) {
+            case "category":
+                createdFilter = "filter_category[]";
+                break;
+            case "price":
+                createdFilter = "filter_price[]";
+                break;
+            case "discount":
+                createdFilter = "filter_discount[]";
+                break;
+        }
+        response = shopUpPostMan.
+                getCall(EndPoints.SEARCH_FOR_USER +
+                        "term=" + searchTerm +
+                        "&page=" + k + "&" + createdFilter + "=" + filterId + "&" + createdSort + "=" + sortIndex);
+
+        ProductListingResultsModel productListingResultsModel =
+                gson.fromJson(response.getBody().asString(), ProductListingResultsModel.class);
+        return productListingResultsModel;
+    }
+
+
+
+    public ProductDescriptionModel getProductDescriptionPageResults(String slug)
+    {
+        response = shopUpPostMan.getCall(EndPoints.RECOMMENDATIONS+slug+".json");
+        return gson.fromJson(response.getBody().asString(), ProductDescriptionModel.class);
+    }
+
+
+
     public Map<String,Object> getValidProductWithFilterOnly(String searchTerm,String filterKey, String filterId,int k)
     {   Map<String, Object> productDetailsMap = new HashMap<>();
-        ProductListingResultsModel productListingResultsModel = getProductResultsAfterFilter(searchTerm,filterKey,filterId,k);
+        ProductListingResultsModel productListingResultsModel = getProductResultsWithFilterOnly(searchTerm,filterKey,filterId,k);
 
         for (int i = 0; i < productListingResultsModel.getResults().size(); i++) {
             List<ProductListingResultsModel.ResultsBean.SizesBean> productSizes =
@@ -111,7 +161,6 @@ public class GetPLPModuleApiResponse {
         response = shopUpPostMan.getCall(EndPoints.RECOMMENDATIONS+slug+".json");
         return gson.fromJson(response.getBody().asString(), ProductDescriptionModel.class);
         }
-
 
 
 }
