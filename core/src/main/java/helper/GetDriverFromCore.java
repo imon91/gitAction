@@ -267,6 +267,10 @@ public class GetDriverFromCore {
                     .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Mokam-WAP-UI");
                 caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "MokamWAPBuild");
+            }else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_STORE)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Store-WAP-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "StoreWAPBuild");
             }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "WAPTest");
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER,browser);
