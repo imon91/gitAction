@@ -30,5 +30,7 @@ public class DomainPropertyReader {
         public static final String MOKAM_WEB_PROD_BASE_URL = "MOKAM_WEB_PROD_BASE_URL";
         public static final String WMS_WEB_STAGE_BASE_URL = "WMS_WEB_STAGE_BASE_URL";
         public static final String WMS_WEB_PROD_BASE_URL = "WMS_WEB_PROD_BASE_URL";
+        public static final String STORE_WAP_STAGE_BASE_URL = "STORE_WAP_STAGE_BASE_URL";
+        public static final String STORE_WAP_PROD_BASE_URL = "STORE_WAP_PROD_BASE_URL";
     }
 }
