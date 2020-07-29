@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'UiTests'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+}
+
+task updateReport(type: Test) {
+        systemProperties project.properties.subMap(["Module","BuildNumber","App","Env"])
+}

@@ -6,4 +6,5 @@ include 'mobilewebui'
 include 'wmsui'
 include 'redxui'
 include 'store_wap'
+include 'automation_report'
 

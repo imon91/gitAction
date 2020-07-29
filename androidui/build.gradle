@@ -107,7 +107,7 @@ task androidUiDebug(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        //systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
         suites "src/test/resources/mySuites/debugSuite.xml"
     }
 
