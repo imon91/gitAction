@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -185,6 +186,30 @@ public class ShopUpPostMan {
                 .header("cookie",cookie)
                 .when()
                 .get(path);
+        return response;
+    }
+
+
+
+    public Response postCall(String path,Map object){
+        String cookie = null;
+        try{
+            cookie = CookieManager.getValueOfKey(cookieKey);
+            //System.out.println("User Cookie is : "+cookie);
+        }catch (Exception e){
+            System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
+        }
+        System.out.println("Control in PostCall");
+        System.out.println("Base-URL is : "+baseURL);
+        RestAssured.baseURI = baseURL;
+        System.out.println("Final URL is : "+baseURL+path);
+        JSONObject request=new JSONObject(object);
+        System.out.println(request);
+        Response  response = given().header("Content-Type","application/json")
+                .header("cookie",cookie)
+                .body(request.toJSONString())
+                .when()
+                .post(path);
         return response;
     }
 

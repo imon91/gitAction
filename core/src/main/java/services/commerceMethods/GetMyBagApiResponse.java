@@ -1,8 +1,8 @@
 package services.commerceMethods;
 
 import com.google.gson.Gson;
-import coreUtils.CoreConstants;
 import io.restassured.response.Response;
+import services.responseModels.commerceModels.OrderCheckoutModel;
 import services.responseModels.commerceModels.ShoppingCartResponseModel;
 import services.serviceUtils.EndPoints;
 import services.serviceUtils.ShopUpPostMan;
@@ -142,6 +142,26 @@ public class GetMyBagApiResponse {
 
     public void addToCart(int productId){
         shopUpPostMan.getCall(EndPoints.SHOPPING_CART+productId+EndPoints.ADD_TO_CART_JSON);
+    }
+
+
+    public List<String> getOrderDetails(){
+        List<String> orderDetails = new ArrayList<>();
+        Map object= new HashMap();
+        object.put("order_number",System.getProperty("order_id"));
+        object.put("payment_type","cod");
+        response = shopUpPostMan.postCall(EndPoints.SHOPPING_CART+EndPoints.ORDER_CHECKOUT_JSON,object);
+        OrderCheckoutModel orderCheckoutModel = gson.fromJson(response.getBody().asString(),OrderCheckoutModel.class);
+        orderDetails.add(0,orderCheckoutModel.getOrder_data().getOrder_number());
+        orderDetails.add(1,orderCheckoutModel.getHeading());
+        return orderDetails;
+    }
+
+
+    public String getOrderIDfromMyCart(){
+        response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
+        ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
+        return shoppingCartResponseModel.getOrder_number();
     }
 
 
