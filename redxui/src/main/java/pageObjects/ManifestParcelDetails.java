@@ -117,30 +117,55 @@ public class ManifestParcelDetails extends RedXBaseClass
         {
             nameEntry = xpathSetter("//android.widget.EditText[@index='1']");
             myActions.action_sendKeys(nameEntry,name);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.CUSTOMER_NAME,name);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void enterPhone(String phone)
         {
             phoneEntry = xpathSetter("//android.widget.EditText[@index='3']");
             myActions.action_sendKeys(phoneEntry,phone);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.CUSTOMER_PHONE,phone);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void enterCash(String cash)
         {
             cashEntry = xpathSetter("//android.widget.EditText[@index='5']");
             myActions.action_sendKeys(cashEntry,cash);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.PARCEL_CASH,cash);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void enterSellingPrice(String sellingPrice)
         {
             sellingPriceEntry = xpathSetter("//android.widget.EditText[@index='7']");
             myActions.action_sendKeys(sellingPriceEntry,sellingPrice);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.PARCEL_SELLING_PRICE,sellingPrice);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void enterAddress(String address)
         {
             addressEntry = xpathSetter("//android.widget.EditText[@index='10']");
             myActions.action_sendKeys(addressEntry,address);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.DELIVERY_ADDRESS,address);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void enterArea()
@@ -161,6 +186,11 @@ public class ManifestParcelDetails extends RedXBaseClass
         {
             System.out.println("Index: " + index);
             myActions.action_click(list.get(index));
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.DELIVERY_AREA,list.get(index).getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void selectAreaByText(String area)
@@ -168,12 +198,22 @@ public class ManifestParcelDetails extends RedXBaseClass
             String areaSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\""+ area +"\"))";
             WebElement selectedArea = uiAutomatorSetter(areaSelector);
             myActions.action_click(selectedArea);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.DELIVERY_AREA,area);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void enterInvoiceNumber(String invoiceNumber)
         {
             invoiceNumberEntry = xpathSetter("//android.widget.EditText[@index='14']");
             myActions.action_sendKeys(invoiceNumberEntry,invoiceNumber);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.INVOICE_NUMBER,invoiceNumber);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void enterInstruction(String instruction)
@@ -181,6 +221,11 @@ public class ManifestParcelDetails extends RedXBaseClass
             String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.widget.EditText\").index(" + 17 + "))";
             instructionEntry = getBaseDriver().findElementByAndroidUIAutomator(instructionSelector);
             myActions.action_sendKeys(instructionEntry,instruction);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.DELIVERY_INSTRUCTION,instruction);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void clickUpdateButton()
@@ -202,7 +247,7 @@ public class ManifestParcelDetails extends RedXBaseClass
             enterArea();
             selectAreaByText(area);
             enterInvoiceNumber(invoiceNumber);
-            //enterInstruction(instruction);
+            enterInstruction(instruction);
             clickUpdateButton();
         }
     }
@@ -228,13 +273,144 @@ public class ManifestParcelDetails extends RedXBaseClass
         private WebElement deliveryDate;
         private WebElement deliveryInstruction;
         private WebElement invoice;
+        private WebElement parcelID;
+        private WebElement paymentId;
+
+        /*----------Actions----------*/
+
+        public void clickBackButton()
+        {
+            backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.widget.TextView");
+            myActions.action_click(backButton);
+        }
+
+        public String getParcelID()
+        {
+            parcelID = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[2]/android.widget.TextView[starts-with(@text,'20A')]");
+            return myActions.action_getText(parcelID);
+        }
+
+        public String getCurrentStatus()
+        {
+            currentStatus = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='2']");
+            return myActions.action_getText(currentStatus);
+        }
+
+        public String getParcelPayment()
+        {
+            parcelPayment = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='5']");
+            return myActions.action_getText(parcelPayment);
+        }
+
+        public String getDeliveryCharge()
+        {
+            deliveryCharge = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='7']");
+            return myActions.action_getText(deliveryCharge);
+        }
+
+        public String getCodCharge()
+        {
+            codCharge = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='9']");
+            return myActions.action_getText(codCharge);
+        }
+
+        public String getReturnCharge()
+        {
+            returnCharge = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='11']");
+            return myActions.action_getText(returnCharge);
+        }
+
+        public String getPayableAmount()
+        {
+            payableAmount = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[@index='12']/android.widget.TextView[@index='1']");
+            return myActions.action_getText(payableAmount);
+        }
+
+        public String getName()
+        {
+            name = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='15']");
+            return myActions.action_getText(name);
+        }
+
+        public String getPhone()
+        {
+            phone = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='18']");
+            return myActions.action_getText(phone);
+        }
+
+        public String getRecievable()
+        {
+            recievable = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='19']");
+            return myActions.action_getText(recievable);
+        }
+
+        public String getAddress()
+        {
+            address = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='22']");
+            return myActions.action_getText(address);
+        }
+
+        public String getArea()
+        {
+            area = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='25']");
+            return myActions.action_getText(area);
+        }
+
+        public String getDeliveryDate()
+        {
+            deliveryDate = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='26']");
+            return myActions.action_getText(deliveryDate);
+        }
+
+        public String getDeliveryInstruction()
+        {
+            String parentSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\"Delivery instructions\"))";
+            WebElement parent = uiAutomatorSetter(parentSelector);
+            deliveryInstruction = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.widget.TextView[@index='32']");
+            return myActions.action_getText(deliveryInstruction);
+        }
+
+        public String getInvoice()
+        {
+            String parentSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\"Own Invoice\"))";
+            WebElement parent = uiAutomatorSetter(parentSelector);
+            invoice = xpathSetter("//android.view.ViewGroup[@index='35']/android.widget.TextView[@index='2']");
+            return myActions.action_getText(invoice);
+        }
+
+        public String getPaymentId()
+        {
+            String parentSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\"Payment Id\"))";
+            WebElement parent = uiAutomatorSetter(parentSelector);
+            paymentId = xpathSetter("//android.view.ViewGroup[@index='38']/android.widget.TextView[@index='2']");
+            return myActions.action_getText(paymentId);
+        }
 
         /*----------Functions----------*/
 
-        public void getDetails()
+        public void getDetails(String module)
         {
+            System.out.println();
+            System.out.println("Parcel Details");
+            System.out.println("Parcel ID : " + getParcelID());
+            System.out.println("Current Status : " + getCurrentStatus());
+            System.out.println("Parcel Payment : " + getParcelPayment());//
+            System.out.println("Delivery Charge : " + getDeliveryCharge());
+            System.out.println("COD Charge : " + getCodCharge());
+            System.out.println("Return Charge : " + getReturnCharge());
+            System.out.println("Payable Amount : " + getPayableAmount());//
+            System.out.println("Name : " + getName());
+            System.out.println("Phone : " + getPhone());
+            System.out.println("Recievable : " + getRecievable());
+            System.out.println("Address : " + getAddress());
+            System.out.println("Area : " + getArea());
+            System.out.println("Delivery Date : " + getDeliveryDate());
+            System.out.println("Delivery Instruction : " + getDeliveryInstruction());
+            System.out.println("Invoice : "+ getInvoice());//
+            if(module == "Payment")
+                System.out.println("Payment ID : "+ getPaymentId());
+            clickBackButton();
         }
-
     }
 
 }

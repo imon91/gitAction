@@ -3,6 +3,7 @@ package com.redx.tests;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.RedXBaseClass;
@@ -12,11 +13,13 @@ public class ChangeLanguage extends RedXBaseClass
     private AndroidDriver<WebElement> androidDriver;
     private HomePageObjects homePageObjects;
     private SettingsPageObjects.OtherSettings otherSettings;
+    private CommonPageObjects commonPageObjects;
 
     public void pageInitializer()
     {
         homePageObjects = new HomePageObjects();
         otherSettings = new SettingsPageObjects().new OtherSettings();
+        commonPageObjects = new CommonPageObjects();
     }
 
     @BeforeClass(alwaysRun = true)
@@ -35,6 +38,7 @@ public class ChangeLanguage extends RedXBaseClass
         System.out.println("Changing to English Language");
         homePageObjects.clickSettingsButton();
         otherSettings.changeToEnglish();
+        //Assert.assertEquals(commonPageObjects.getPageTitle(),"Other Information");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY, CoreConstants.GROUP_REGRESSION},
@@ -51,7 +55,8 @@ public class ChangeLanguage extends RedXBaseClass
     @AfterClass(alwaysRun = true)
     public void afterChangeLanguageClass()
     {
-        otherSettings.clickBackButton();
+        commonPageObjects.clickBackButton();
+        commonPageObjects.clickBackButton();
         System.out.println("After Change Language Class");
     }
 }

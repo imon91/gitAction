@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 public class MyActions extends RedXBaseClass {
 
     public void action_click(WebElement element){
-        sleep(300);
+        //sleep(300);
         try{
             element.click();
         }catch (Exception e){
@@ -16,7 +16,7 @@ public class MyActions extends RedXBaseClass {
     }
 
     public void action_sendKeys(WebElement element, String data){
-        sleep(300);
+        //sleep(300);
         try{
             element.sendKeys(data);
         }catch (Exception e){
@@ -25,7 +25,7 @@ public class MyActions extends RedXBaseClass {
     }
 
     public String action_getText(WebElement element){
-        sleep(300);
+        //sleep(300);
         try{
             return element.getText();
         }catch (Exception e){
@@ -39,7 +39,7 @@ public class MyActions extends RedXBaseClass {
     }
 
     public Boolean action_is_selected(WebElement element) {
-        sleep(300);
+        //sleep(300);
         if (element.isSelected()) {
             return true;
         } else {
@@ -62,7 +62,7 @@ public class MyActions extends RedXBaseClass {
 
     //Select DropDown By Visible Text
     public void action_select(WebElement element, String data){
-        sleep(1000);
+        //sleep(1000);
         try{
             Select select = new Select(element);
             select.selectByVisibleText(data);
@@ -73,7 +73,7 @@ public class MyActions extends RedXBaseClass {
 
     //Select DropDown By Index
     public void action_select_index(WebElement element, int index){
-        sleep(1000);
+        //sleep(1000);
         try{
             Select select = new Select(element);
             select.selectByIndex(index);

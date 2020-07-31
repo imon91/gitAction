@@ -123,7 +123,7 @@ public class ParcelsPageObjects extends RedXBaseClass
 
         public void clickParcelByIndex(int index)
         {
-            System.out.println(index+1);
+            System.out.println("Index: " + index);
             myActions.action_click(parcelsList.get(index));
         }
 

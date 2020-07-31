@@ -316,17 +316,17 @@ public class SettingsPageObjects extends RedXBaseClass
     {
         /*----------Elements----------*/
 
-        private WebElement backButton;
+        //private WebElement backButton;
         private WebElement banglaLanguage;
         private WebElement englishLanguage;
 
         /*----------Actions----------*/
 
-        public void clickBackButton()
-        {
-            backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']");
-            myActions.action_click(backButton);
-        }
+//        public void clickBackButton()
+//        {
+//            backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']");
+//            myActions.action_click(backButton);
+//        }
 
         public void setBanglaLanguage()
         {
@@ -346,14 +346,12 @@ public class SettingsPageObjects extends RedXBaseClass
         {
             clickOtherSettingsModule();
             setEnglishLanguage();
-            clickBackButton();
         }
 
         public void changeToBangla()
         {
             clickOtherSettingsModule();
             setBanglaLanguage();
-            clickBackButton();
         }
     }
 }
