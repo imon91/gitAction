@@ -21,9 +21,16 @@ public class GetMyOrderApiResponse {
 
     public MyOrderModel getOrderDetailsInActiveTab(int k)
     {
-        response= shopUpPostMan.getCall("orders/myorders_v2.json?page="+k+"&per_page=200&list=active");
+        response= shopUpPostMan.getCall("orders/myorders_v2.json?page="+k+"&per_page=15&list=active");
         MyOrderModel myOrderModel = gson.fromJson(response.getBody().asString(),MyOrderModel.class);
         return myOrderModel;
+    }
+
+    public MyOrderDetailsModel getOrderDetailsOfOrderId(String orderId)
+    {
+        response=shopUpPostMan.getCall("orders/order_details.json?number="+orderId);
+        MyOrderDetailsModel myOrderDetailsModel = gson.fromJson(response.getBody().asString(),MyOrderDetailsModel.class);
+        return myOrderDetailsModel;
     }
 
 }
