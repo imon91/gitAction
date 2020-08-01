@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.*;
 
@@ -8,8 +9,13 @@ import java.util.List;
 public class HomePageObjects extends RedXBaseClass
 {
     private MyActions myActions;
+    private CommonPageObjects commonPageObjects;
 
-    public HomePageObjects() { myActions = new MyActions(); }
+    public HomePageObjects()
+    {
+        myActions = new MyActions();
+        commonPageObjects = new CommonPageObjects();
+    }
 
     /*----------ELements----------*/
 
@@ -18,6 +24,7 @@ public class HomePageObjects extends RedXBaseClass
     private WebElement viewParcelUpdatesModule;
     private WebElement viewPaymentUpdatesModule;
     private WebElement chooseShopModule;
+    private WebElement toastMessage;
 
     /*----------Actions----------*/
 
@@ -25,6 +32,17 @@ public class HomePageObjects extends RedXBaseClass
     {
         chooseShopModule = xpathSetter("//android.view.ViewGroup[1]//android.widget.ImageView[@index='1']");
         myActions.action_click(chooseShopModule);
+    }
+
+    public String getCurrentShopName()
+    {
+        String currentShopName = commonPageObjects.getPageTitle();
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.SHOP_NAME,currentShopName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return currentShopName;
     }
 
     public void clickSettingsButton()
@@ -51,21 +69,21 @@ public class HomePageObjects extends RedXBaseClass
         myActions.action_click(viewPaymentUpdatesModule);
     }
 
+    public String getToastMessage()
+    {
+        toastMessage = xpathSetter("//android.widget.ScrollView//android.view.ViewGroup[2]//android.widget.TextView");
+        return myActions.action_getText(toastMessage);
+    }
+
 
 
     public class ChooseShopModule
     {
         /*----------Elements----------*/
 
-        private WebElement backButton;
         private List<WebElement> shopsList;
 
         /*----------Actions----------*/
-
-        public void clickBackButton()
-        {
-            backButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.widget.TextView[@index='0']");
-        }
 
         public List<WebElement> getShopsList()
         {
@@ -77,7 +95,14 @@ public class HomePageObjects extends RedXBaseClass
         public void selectShopById(List<WebElement> list, int index)
         {
             System.out.println("Index: " + index);
-            myActions.action_click(list.get(index));
+            try {
+                String shopName = list.get(index).findElement(By.xpath("//android.widget.TextView")).getText();
+                System.out.println("Selected Shop: " + shopName);
+                myActions.action_click(list.get(index));
+                PropertyReader.setValue(PropertyReader.Keys.SHOP_NAME,shopName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         public void selectShopByText(String shopName)
@@ -85,6 +110,11 @@ public class HomePageObjects extends RedXBaseClass
             String shopSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\""+ shopName +"\"))";
             WebElement selectedShop = uiAutomatorSetter(shopSelector);
             myActions.action_click(selectedShop);
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.SHOP_NAME,shopName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

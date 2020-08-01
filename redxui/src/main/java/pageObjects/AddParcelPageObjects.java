@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.*;
 
@@ -35,30 +36,55 @@ public class AddParcelPageObjects extends RedXBaseClass
     {
         nameEntry = xpathSetter("//android.widget.EditText[@text='Name']");
         myActions.action_sendKeys(nameEntry,name);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.CUSTOMER_NAME,name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterPhone(String phone)
     {
         phoneEntry = xpathSetter("//android.widget.EditText[@text='Phone']");
         myActions.action_sendKeys(phoneEntry,phone);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.CUSTOMER_PHONE,phone);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterCash(String cash)
     {
         cashEntry = xpathSetter("//android.widget.EditText[@text='Cash']");
         myActions.action_sendKeys(cashEntry,cash);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_CASH,cash);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterSellingPrice(String sellingPrice)
     {
         sellingPriceEntry = xpathSetter("//android.widget.EditText[@text='Selling Price']");
         myActions.action_sendKeys(sellingPriceEntry,sellingPrice);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_SELLING_PRICE,sellingPrice);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterAddress(String address)
     {
         addressEntry = xpathSetter("//android.widget.EditText[@text='Address']");
         myActions.action_sendKeys(addressEntry,address);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.DELIVERY_ADDRESS,address);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterArea()
@@ -78,7 +104,14 @@ public class AddParcelPageObjects extends RedXBaseClass
     public void selectAreaById(List<WebElement> list,int index)
     {
         System.out.println("Index: " + index);
-        myActions.action_click(list.get(index));
+        try {
+            String area = list.get(index).findElement(By.xpath("//android.widget.TextView")).getText();
+            System.out.println("Selected Area: " + area);
+            myActions.action_click(list.get(index));
+            PropertyReader.setValue(PropertyReader.Keys.DELIVERY_AREA,area);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void selectAreaByText(String area)
@@ -86,19 +119,34 @@ public class AddParcelPageObjects extends RedXBaseClass
         String areaSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\""+ area +"\"))";
         WebElement selectedArea = uiAutomatorSetter(areaSelector);
         myActions.action_click(selectedArea);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.DELIVERY_AREA,area);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterInvoiceNumber(String invoiceNumber)
     {
         invoiceNumberEntry = xpathSetter("//android.widget.EditText[@text='Own Invoice Number']");
         myActions.action_sendKeys(invoiceNumberEntry,invoiceNumber);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.INVOICE_NUMBER,invoiceNumber);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void enterInstruction(String instruction)
     {
         String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\"Write instruction\"))";
-        instructionEntry = getBaseDriver().findElementByAndroidUIAutomator(instructionSelector);
+        instructionEntry = uiAutomatorSetter(instructionSelector);
         myActions.action_sendKeys(instructionEntry,instruction);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.DELIVERY_INSTRUCTION,instruction);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void clickImportButton()
@@ -117,7 +165,8 @@ public class AddParcelPageObjects extends RedXBaseClass
 
     public void addParcel()
     {
-        enterName("Test Name");
+        int n = random.nextInt(1000);
+        enterName("Test Name ");
         enterPhone("01401122188");
         enterCash("350");
         enterSellingPrice("500");
@@ -127,7 +176,7 @@ public class AddParcelPageObjects extends RedXBaseClass
         System.out.println("Area List Size: " + areaList().size());
         int index = random.nextInt(areaList().size());
         selectAreaById(areaList(),index);
-        enterInvoiceNumber("Test InvoiceNumber");
+        enterInvoiceNumber("Test Invoice " + n);
         enterInstruction("Test Instruction");
         clickConfirmButton();
     }
@@ -146,6 +195,7 @@ public class AddParcelPageObjects extends RedXBaseClass
         enterInstruction(instruction);
         clickConfirmButton();
     }
+
 
 
     /*----------Import Parcel Module----------*/
