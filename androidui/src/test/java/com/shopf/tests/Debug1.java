@@ -26,13 +26,76 @@ public class Debug1 {
 
     @Test(groups = "debug",dependsOnMethods = "test3")
     public void test4(){
-        Assert.assertEquals(112,100);
+        Assert.assertEquals(100,100);
     }
 
 
     @Test(groups = "debug",dependsOnMethods = "test4")
-    public void test5(){
-        Assert.assertEquals(112,100);
+    public void test9(){
+        Assert.assertEquals(100,100);
+    }
+
+    @Test(groups = "debug",dependsOnMethods = "test2")
+    public void test10(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test3")
+    public void test11(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test4")
+    public void test12(){
+        Assert.assertEquals(100,100);
+    }
+
+    @Test(groups = "debug",dependsOnMethods = "test2")
+    public void test13(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test3")
+    public void test14(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test4")
+    public void test15(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test3")
+    public void test16(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test4")
+    public void test17(){
+        Assert.assertEquals(100,100);
+    }
+
+    @Test(groups = "debug",dependsOnMethods = "test2")
+    public void test18(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test3")
+    public void test19(){
+        Assert.assertEquals(100,100);
+    }
+
+
+    @Test(groups = "debug",dependsOnMethods = "test4")
+    public void test20(){
+        Assert.assertEquals(100,100);
     }
 
 }

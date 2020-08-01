@@ -642,7 +642,7 @@ public class MyBag extends AndroidBaseClass {
 
     @Test(  groups = {"MyBag.verifyProceedPaymentWithoutChangeAddress",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},enabled = false,
+            CoreConstants.GROUP_REGRESSION},enabled = true,
             description = "Verify Proceed Payment Without Change Address",
             dependsOnGroups = "MyBag.verifyCheckoutProceedInMyBag"  )
     public void verifyProceedPaymentWithoutChangeAddress(){

@@ -60,6 +60,9 @@ dependencies {
     implementation group: 'io.cucumber', name: 'gherkin', version: '5.1.0'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
 
     // Including Core module as dependency
     implementation project(path : ':core')
@@ -72,7 +75,7 @@ configurations {
 test{
     useTestNG(){
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
     }
 }
 
@@ -83,7 +86,7 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
         def smoke = project.hasProperty("Smoke")
         def regression = project.hasProperty("Reg")
         def sanity = project.hasProperty("Sanity")
@@ -107,10 +110,9 @@ task androidUiDebug(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        //systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
         suites "src/test/resources/mySuites/debugSuite.xml"
     }
-
 }
 
 
