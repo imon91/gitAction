@@ -1,6 +1,9 @@
 package pageObjects;
 
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import utils.*;
 
@@ -20,20 +23,15 @@ public class ManifestParcelDetails extends RedXBaseClass
 
     /*----------ELements----------*/
 
-    private WebElement backButton;
     private WebElement inProgressPackagesTab;
     private WebElement failedPackagesTab;
     private WebElement deliveredPackagesTab;
     private List<WebElement> packagesList;
+    private WebElement parcelID;
+    private WebElement parcelStatus;
     private WebElement confirmDeleteButton;
 
     /*----------Actions----------*/
-
-    public void clickBackButton()
-    {
-        backButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[@index='0']");
-        myActions.action_click(backButton);
-    }
 
     public void clickInProgressPackagesTab()
     {
@@ -53,6 +51,22 @@ public class ManifestParcelDetails extends RedXBaseClass
         myActions.action_click(deliveredPackagesTab);
     }
 
+    public String getParcelId(int index)
+    {
+        String parcelIdXpath = "/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[@index='0']";
+        parcelID = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[" + (index+2) + "]" + parcelIdXpath);
+        System.out.println("Parcel ID: " + myActions.action_getText(parcelID));
+        return myActions.action_getText(parcelID);
+    }
+
+    public String getParcelStatus(int index)
+    {
+        String parcelStatusXpath = "/android.view.ViewGroup/android.view.ViewGroup[2]/android.widget.TextView[@index='1']";
+        parcelStatus = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[" + (index+2) + "]" + parcelStatusXpath);
+        System.out.println("Parcel Status: " + myActions.action_getText(parcelStatus));
+        return myActions.action_getText(parcelStatus);
+    }
+
     public List<WebElement> setPackagesList()
     {
         String packagesListXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
@@ -65,27 +79,63 @@ public class ManifestParcelDetails extends RedXBaseClass
 
     public void clickEditPackageByIndex(int index)
     {
-        WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='EDIT']"));
         System.out.println("Index: " + index);
-        myActions.action_click(selectedPackage);
+        String parcelID = getParcelId(index);
+        String parcelStatus = getParcelStatus(index);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_ID,parcelID);
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_STATUS,parcelStatus);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(parcelStatus.equals("PICKUP PENDING"))
+        {
+            WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='EDIT']"));
+            myActions.action_click(selectedPackage);
+        }
+        else
+            System.out.println("Parcel Status is " + parcelStatus + " hence cannot be edited");
     }
 
     public void clickDeletePackageByIndex(int index)
     {
-        WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='DELETE']"));
         System.out.println("Index: " + index);
-        myActions.action_click(selectedPackage);
-        sleep(500);
-        clickConfirmDeleteButton();
-        sleep(1000);
-        clickBackButton();
+        String parcelID = getParcelId(index);
+        String parcelStatus = getParcelStatus(index);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_ID,parcelID);
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_STATUS,parcelStatus);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(parcelStatus.equals("PICKUP PENDING"))
+        {
+            WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='DELETE']"));
+            myActions.action_click(selectedPackage);
+            clickConfirmDeleteButton();
+        }
+        else
+            System.out.println("Parcel Status is " + parcelStatus + " hence cannot be deleted");
     }
 
     public void clickDetailsByIndex(int index)
     {
-        WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='DETAILS']"));
         System.out.println("Index: " + index);
-        myActions.action_click(selectedPackage);
+        String parcelID = getParcelId(index);
+        String parcelStatus = getParcelStatus(index);
+        try {
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_ID,parcelID);
+            PropertyReader.setValue(PropertyReader.Keys.PARCEL_STATUS,parcelStatus);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if((!parcelStatus.equals("PICKUP PENDING"))||(!parcelStatus.equals("DAMAGED")))
+        {
+            WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='DETAILS']"));
+            myActions.action_click(selectedPackage);
+        }
+        else
+            System.out.println("Parcel Status is " + parcelStatus + " hence cannot get the details");
     }
 
     public void clickConfirmDeleteButton()
@@ -185,9 +235,11 @@ public class ManifestParcelDetails extends RedXBaseClass
         public void selectAreaById(List<WebElement> list,int index)
         {
             System.out.println("Index: " + index);
-            myActions.action_click(list.get(index));
             try {
-                PropertyReader.setValue(PropertyReader.Keys.DELIVERY_AREA,list.get(index).getText());
+                String area = list.get(index).findElement(By.xpath("//android.widget.TextView")).getText();
+                System.out.println("Selected Area: " + area);
+                myActions.action_click(list.get(index));
+                PropertyReader.setValue(PropertyReader.Keys.DELIVERY_AREA,area);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -219,7 +271,7 @@ public class ManifestParcelDetails extends RedXBaseClass
         public void enterInstruction(String instruction)
         {
             String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.widget.EditText\").index(" + 17 + "))";
-            instructionEntry = getBaseDriver().findElementByAndroidUIAutomator(instructionSelector);
+            instructionEntry = uiAutomatorSetter(instructionSelector);
             myActions.action_sendKeys(instructionEntry,instruction);
             try {
                 PropertyReader.setValue(PropertyReader.Keys.DELIVERY_INSTRUCTION,instruction);
@@ -245,7 +297,8 @@ public class ManifestParcelDetails extends RedXBaseClass
             enterSellingPrice(sellingPrice);
             enterAddress(address);
             enterArea();
-            selectAreaByText(area);
+            int index = random.nextInt(areaList().size());
+            selectAreaById(areaList(),index);
             enterInvoiceNumber(invoiceNumber);
             enterInstruction(instruction);
             clickUpdateButton();
@@ -258,7 +311,6 @@ public class ManifestParcelDetails extends RedXBaseClass
     {
         /*----------ELements----------*/
 
-        private WebElement backButton;
         private WebElement currentStatus;
         private WebElement parcelPayment;
         private WebElement deliveryCharge;
@@ -277,12 +329,6 @@ public class ManifestParcelDetails extends RedXBaseClass
         private WebElement paymentId;
 
         /*----------Actions----------*/
-
-        public void clickBackButton()
-        {
-            backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.widget.TextView");
-            myActions.action_click(backButton);
-        }
 
         public String getParcelID()
         {
@@ -409,7 +455,6 @@ public class ManifestParcelDetails extends RedXBaseClass
             System.out.println("Invoice : "+ getInvoice());//
             if(module == "Payment")
                 System.out.println("Payment ID : "+ getPaymentId());
-            clickBackButton();
         }
     }
 

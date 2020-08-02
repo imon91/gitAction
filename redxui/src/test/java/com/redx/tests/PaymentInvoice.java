@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import utils.PropertyReader;
 import utils.RedXBaseClass;
 
 import java.util.*;
@@ -13,18 +14,18 @@ import java.util.*;
 public class PaymentInvoice extends RedXBaseClass
 {
     private AndroidDriver<WebElement> androidDriver;
-    private CommonPageObjects commonPageObjects;
     private HomePageObjects homePageObjects;
     private PaymentUpdatesPageObjects paymentUpdatesPageObjects;
+    private PaymentUpdatesPageObjects.ActionBarPageObjects actionBarPageObjects;
     private PaymentUpdatesPageObjects.ViewInvoice viewInvoice;
     private Random random;
 
 
     public void pageInitializer()
     {
-        commonPageObjects = new CommonPageObjects();
         homePageObjects = new HomePageObjects();
         paymentUpdatesPageObjects = new PaymentUpdatesPageObjects();
+        actionBarPageObjects = paymentUpdatesPageObjects.new ActionBarPageObjects();
         viewInvoice = paymentUpdatesPageObjects.new ViewInvoice();
         random = new Random();
     }
@@ -36,36 +37,58 @@ public class PaymentInvoice extends RedXBaseClass
         System.out.println("Before Payment Invoice Class");
         androidDriver = getBaseDriver();
         pageInitializer();
+        refreshPage();
     }
 
 
     @Test(  groups = {CoreConstants.GROUP_SMOKE,CoreConstants.GROUP_REGRESSION},
             dependsOnGroups = {"Authentication.verifyAuthenticationWithValidCredentials"},
-            description = "Verifies Payment Invoice Functionality")
+            description = "Verifies Payment Invoice Functionality in Delivered Tab")
     public void verifyParcelInvoiceModule()
     {
         int index;
         List<WebElement> parcelsList;
+
         System.out.println("Verify Parcel Invoice");
         homePageObjects.clickViewPaymentUpdatesModule();
-        Assert.assertEquals(commonPageObjects.getPageTitle(),"Payment updates");
-        sleep(1000);
+        Assert.assertEquals(actionBarPageObjects.getPageTitle(),"Payment updates");
+
         paymentUpdatesPageObjects.clickPaidAmountTab();
         parcelsList = paymentUpdatesPageObjects.setParcelsList();
-        sleep(1000);
-        index = random.nextInt(parcelsList.size());
-        paymentUpdatesPageObjects.clickViewInvoiceByIndex(index);
-        sleep(2000);
-        //viewInvoice.clickDeliveredTab();
-        viewInvoice.getParcelDetails();
-        parcelsList = viewInvoice.setPackagesList();
-        sleep(1000);
-        index = random.nextInt(parcelsList.size());
-        viewInvoice.clickDetailsByIndex(index);
-        viewInvoice.getInvoiceDetails();
-        viewInvoice.clickBackButton();
-        sleep(1000);
-        paymentUpdatesPageObjects.clickBackButton();
+        if(parcelsList.size()!=0) {
+            index = random.nextInt(parcelsList.size());
+            paymentUpdatesPageObjects.clickViewInvoiceByIndex(index);
+            try {
+                Assert.assertEquals(actionBarPageObjects.getPageTitle(), "Parcels");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            viewInvoice.clickDeliveredTab();
+            parcelsList = viewInvoice.setPackagesList();
+            if (parcelsList.size() != 0)
+            {
+                viewInvoice.getParcelDetails();
+                index = random.nextInt(parcelsList.size());
+                viewInvoice.clickDetailsByIndex(index);
+                try {
+                    Assert.assertEquals(actionBarPageObjects.getParcelDetailsTitle(), PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID));
+                    viewInvoice.getInvoiceDetails();
+                    actionBarPageObjects.clickBackButton();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                actionBarPageObjects.clickBackButton();
+            } else {
+                System.out.println("No Parcels Found");
+                actionBarPageObjects.clickBackButton();
+            }
+            actionBarPageObjects.clickBackButton();
+        }
+        else {
+            System.out.println("No Parcels Found");
+            actionBarPageObjects.clickBackButton();
+        }
     }
 
 

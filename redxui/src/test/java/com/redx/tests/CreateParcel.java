@@ -13,13 +13,11 @@ public class CreateParcel extends RedXBaseClass
     private AndroidDriver<WebElement> androidDriver;
     private HomePageObjects homePageObjects;
     private AddParcelPageObjects addParcelPageObjects;
-    private CommonPageObjects commonPageObjects;
 
     public void pageInitializer()
     {
         homePageObjects = new HomePageObjects();
         addParcelPageObjects = new AddParcelPageObjects();
-        commonPageObjects = new CommonPageObjects();
     }
 
     @BeforeClass(alwaysRun = true)
@@ -37,7 +35,7 @@ public class CreateParcel extends RedXBaseClass
     {
         System.out.println("Creating New Parcel");
         homePageObjects.clickDeliverYourParcelModule();
-        Assert.assertEquals(commonPageObjects.getPageTitle(),"Add parcel");
+        Assert.assertEquals(addParcelPageObjects.getPageTitle(),"Add parcel");
         addParcelPageObjects.addParcel();
         Assert.assertEquals(homePageObjects.getToastMessage(),"1 parcels added");
     }

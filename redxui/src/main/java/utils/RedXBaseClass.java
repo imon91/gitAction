@@ -2,8 +2,11 @@ package utils;
 
 import coreUtils.*;
 import helper.GetDriverFromCore;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.*;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -221,6 +224,37 @@ public class RedXBaseClass extends GetDriverFromCore{
             return null;
         }
     }
+
+    public static WebElement childXpathSetter(List<WebElement> elements,int index,String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),10)
+                    .until(ExpectedConditions.visibilityOf(elements.get(index).findElement(By.xpath(xpath))));
+            return elements.get(index).findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    sleep(2000);
+                    childXpathSetter(elements,index,xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public static void refreshPage() {
+        Dimension screenSize = getBaseDriver().manage().window().getSize();
+        new TouchAction(getBaseDriver())
+                .press(PointOption.point(screenSize.getWidth()/2,screenSize.getHeight()/4))
+                .moveTo(PointOption.point(screenSize.getWidth()/2,3*screenSize.getHeight()/4))
+                .perform().release();
+    }
+
+
+
 
 }
 

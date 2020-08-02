@@ -33,9 +33,10 @@ public class PropertyReader {
         public static final String INVOICE_NUMBER = "INVOICE_NUMBER";
         public static final String PARCEL_CASH = "PARCEL_CASH";
         public static final String PARCEL_SELLING_PRICE = "PARCEL_SELLING_PRICE";
+        public static final String PARCEL_DATE = "PARCEL_DATE";
         public static final String PARCEL_ID = "PARCEL_ID";
-        public static final String PAYMENT_ID = "PAYMENT_ID";
         public static final String PARCEL_STATUS = "PARCEL_STATUS";
+        public static final String PAYMENT_ID = "PAYMENT_ID";
         public static final String SHOP_NAME = "SHOP_NAME";
     }
 }

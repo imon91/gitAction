@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import utils.PropertyReader;
 import utils.RedXBaseClass;
 
 import java.util.*;
@@ -14,11 +15,11 @@ import java.util.*;
 public class EditParcel extends RedXBaseClass
 {
     private AndroidDriver<WebElement> androidDriver;
-    private CommonPageObjects commonPageObjects;
     private HomePageObjects homePageObjects;
     private ParcelsPageObjects.ActionBarPageObjects actionBarPageObjects;
     private ParcelsPageObjects.OrderStatusPageObjects orderStatusPageObjects;
     private ParcelsPageObjects.ParcelsManifestList parcelsManifestList;
+    private ParcelsPageObjects.DateFilterPageObjects dateFilterPageObjects;
     private ManifestParcelDetails manifestParcelDetails;
     private ManifestParcelDetails.EditPackageModule editPackageModule;
     private Random random;
@@ -26,11 +27,11 @@ public class EditParcel extends RedXBaseClass
 
     public void pageInitializer()
     {
-        commonPageObjects = new CommonPageObjects();
         homePageObjects = new HomePageObjects();
         actionBarPageObjects = new ParcelsPageObjects().new ActionBarPageObjects();
         orderStatusPageObjects = new ParcelsPageObjects().new OrderStatusPageObjects();
         parcelsManifestList = new ParcelsPageObjects().new ParcelsManifestList();
+        dateFilterPageObjects = new ParcelsPageObjects().new DateFilterPageObjects();
         manifestParcelDetails = new ManifestParcelDetails();
         editPackageModule = manifestParcelDetails.new EditPackageModule();
         random = new Random();
@@ -43,6 +44,7 @@ public class EditParcel extends RedXBaseClass
         System.out.println("Before Edit Parcel Class");
         androidDriver = getBaseDriver();
         pageInitializer();
+        refreshPage();
     }
 
 
@@ -50,7 +52,7 @@ public class EditParcel extends RedXBaseClass
     @DataProvider(name = "getEditParcelData")
     public Object[][] getEditParcelData(){
         return new Object[][]{
-                {"Name","01401122188","300","500","Address","Gulshan","Invoice","Instruction"}
+                {"Name","01401122188","300","500","Address","Kalabagan","Invoice","Instruction"}
         };
     }
 
@@ -65,26 +67,51 @@ public class EditParcel extends RedXBaseClass
     {
         int index;
         List<WebElement> parcelsList;
+
         System.out.println("Edit Parcel Details");
         homePageObjects.clickViewParcelUpdatesModule();
-        Assert.assertEquals(commonPageObjects.getPageTitle(),"Parcels");
-        //sleep(2000);
-        orderStatusPageObjects.clickInProgressParcelsTab();
-        parcelsList = parcelsManifestList.setParcelsList();
-        //sleep(1000);
-        index = random.nextInt(parcelsList.size());
-        parcelsManifestList.clickParcelByIndex(index);
-        //sleep(1000);
-        parcelsList = manifestParcelDetails.setPackagesList();
-        //sleep(1000);
-        index = random.nextInt(parcelsList.size());
-        manifestParcelDetails.clickEditPackageByIndex(index);
-        //sleep(2000);
-        editPackageModule.editParcel(name,phone,cash,sellingPrice,address,area,invoiceNumber,instruction);
-        manifestParcelDetails.clickBackButton();
-        //sleep(1000);
-        actionBarPageObjects.clickBackButton();
+        Assert.assertEquals(actionBarPageObjects.getPageTitle(),"Parcels");
 
+        dateFilterPageObjects.chooseMonthByText("Aug, 2020");
+        orderStatusPageObjects.clickInProgressParcelsTab();
+
+        parcelsList = parcelsManifestList.setParcelsList();
+        if(parcelsList.size()!=0)
+        {
+            index = random.nextInt(parcelsList.size());
+            parcelsManifestList.clickParcelByIndex(index);
+            try
+            {
+                Assert.assertEquals(actionBarPageObjects.getPageTitle(), PropertyReader.getValueOfKey("PARCEL_DATE"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            parcelsList = manifestParcelDetails.setPackagesList();
+            if(parcelsList.size()!=0)
+            {
+                index = random.nextInt(parcelsList.size());
+                manifestParcelDetails.clickEditPackageByIndex(index);
+                try
+                {
+                    if (PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_STATUS).equals("PICKUP PENDING"))
+                    {
+                        Assert.assertEquals(actionBarPageObjects.getPageTitle(), PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID));
+                        editPackageModule.editParcel(name, phone, cash, sellingPrice, address, area, invoiceNumber, instruction);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                actionBarPageObjects.clickBackButton();
+            } else {
+                System.out.println("No Parcels Found");
+                actionBarPageObjects.clickBackButton();
+            }
+            actionBarPageObjects.clickBackButton();
+        } else {
+            System.out.println("No Parcels Found");
+            actionBarPageObjects.clickBackButton();
+        }
     }
 
 
