@@ -3,6 +3,7 @@ package com.redx.tests;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.RedXBaseClass;
@@ -13,6 +14,7 @@ import java.util.*;
 public class DeleteParcel extends RedXBaseClass
 {
     private AndroidDriver<WebElement> androidDriver;
+    private CommonPageObjects commonPageObjects;
     private HomePageObjects homePageObjects;
     private ParcelsPageObjects.ActionBarPageObjects actionBarPageObjects;
     private ParcelsPageObjects.OrderStatusPageObjects orderStatusPageObjects;
@@ -23,6 +25,7 @@ public class DeleteParcel extends RedXBaseClass
 
     public void pageInitializer()
     {
+        commonPageObjects = new CommonPageObjects();
         homePageObjects = new HomePageObjects();
         actionBarPageObjects = new ParcelsPageObjects().new ActionBarPageObjects();
         orderStatusPageObjects = new ParcelsPageObjects().new OrderStatusPageObjects();
@@ -50,18 +53,19 @@ public class DeleteParcel extends RedXBaseClass
         List<WebElement> parcelsList;
         System.out.println("Delete a Parcel");
         homePageObjects.clickViewParcelUpdatesModule();
-        sleep(1000);
+        Assert.assertEquals(commonPageObjects.getPageTitle(),"Parcels");
+        //sleep(1000);
         orderStatusPageObjects.clickInProgressParcelsTab();
         parcelsList = parcelsManifestList.setParcelsList();
-        sleep(1000);
+        //sleep(1000);
         index = random.nextInt(parcelsList.size());
         parcelsManifestList.clickParcelByIndex(index);
-        sleep(2000);
+        //sleep(2000);
         parcelsList = manifestParcelDetails.setPackagesList();
-        sleep(1000);
+        //sleep(1000);
         index = random.nextInt(parcelsList.size());
         manifestParcelDetails.clickDeletePackageByIndex(index);
-        sleep(1000);
+        //sleep(1000);
         actionBarPageObjects.clickBackButton();
     }
 

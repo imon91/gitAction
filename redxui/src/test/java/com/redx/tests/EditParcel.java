@@ -3,6 +3,7 @@ package com.redx.tests;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.RedXBaseClass;
@@ -13,6 +14,7 @@ import java.util.*;
 public class EditParcel extends RedXBaseClass
 {
     private AndroidDriver<WebElement> androidDriver;
+    private CommonPageObjects commonPageObjects;
     private HomePageObjects homePageObjects;
     private ParcelsPageObjects.ActionBarPageObjects actionBarPageObjects;
     private ParcelsPageObjects.OrderStatusPageObjects orderStatusPageObjects;
@@ -24,6 +26,7 @@ public class EditParcel extends RedXBaseClass
 
     public void pageInitializer()
     {
+        commonPageObjects = new CommonPageObjects();
         homePageObjects = new HomePageObjects();
         actionBarPageObjects = new ParcelsPageObjects().new ActionBarPageObjects();
         orderStatusPageObjects = new ParcelsPageObjects().new OrderStatusPageObjects();
@@ -64,6 +67,7 @@ public class EditParcel extends RedXBaseClass
         List<WebElement> parcelsList;
         System.out.println("Edit Parcel Details");
         homePageObjects.clickViewParcelUpdatesModule();
+        Assert.assertEquals(commonPageObjects.getPageTitle(),"Parcels");
         //sleep(2000);
         orderStatusPageObjects.clickInProgressParcelsTab();
         parcelsList = parcelsManifestList.setParcelsList();

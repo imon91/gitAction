@@ -1,6 +1,8 @@
 package utils;
 
 import io.appium.java_client.android.nativekey.*;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 public class MyActions extends AndroidBaseClass{
@@ -9,7 +11,14 @@ public class MyActions extends AndroidBaseClass{
         sleep(300);
         try{
             element.click();
-        }catch (Exception e){
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            action_click(element);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            action_click(element);
+        }
+        catch (Exception e){
             System.out.println(e);
         }
     }
@@ -18,12 +27,16 @@ public class MyActions extends AndroidBaseClass{
         sleep(300);
         try{
             element.sendKeys(data);
-        }catch (Exception e){
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            element.click();
+        }catch (IllegalStateException e){
+            sleep(2000);
+            element.click();
+        }
+        catch (Exception e){
             System.out.println(e);
         }
-//        if (getBaseDriver().isKeyboardShown()){
-//            getBaseDriver().hideKeyboard();
-//        }
     }
 
     public String action_getText(WebElement element){

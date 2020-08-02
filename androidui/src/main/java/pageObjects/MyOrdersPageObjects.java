@@ -152,7 +152,9 @@ public class MyOrdersPageObjects extends AndroidBaseClass {
 
 
         public void clickOnOrderItemByOrderNumber(String orderNumber){
-
+            int size = getListOfOrderItems().size();
+            for(int i=0;i<size;i++){
+            }
         }
 
 

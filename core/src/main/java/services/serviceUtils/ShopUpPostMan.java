@@ -5,6 +5,7 @@ import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import coreUtils.CoreFileUtils;
 import coreUtils.DomainPropertyReader;
+import dataBase.DataBaseCore;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
@@ -28,7 +29,7 @@ public class ShopUpPostMan {
         this.module = module;
         String app = System.getProperty(BuildParameterKeys.KEY_APP);
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
-//        String app = CoreConstants.APP_MOKAM;
+//        String app = CoreConstants.APP_WMS;
 //        String env = CoreConstants.ENV_STAGE;
 
         try{
@@ -145,6 +146,22 @@ public class ShopUpPostMan {
                     }
                     break;
 
+                case CoreConstants.MODULE_STORE_WAP :
+
+                    switch (env){
+                        case CoreConstants.ENV_STAGE : this.baseURL =
+                                DomainPropertyReader.
+                                        getValueOfKey(DomainPropertyReader.Keys.STORE_WAP_STAGE_BASE_URL);
+                            cookieKey = CookieManager.Keys.STORE_WAP_COOKIE;
+                            break;
+                        case CoreConstants.ENV_PROD : this.baseURL =
+                                DomainPropertyReader.
+                                        getValueOfKey(DomainPropertyReader.Keys.STORE_WAP_PROD_BASE_URL);
+                            cookieKey = CookieManager.Keys.STORE_WAP_COOKIE;
+                            break;
+                    }
+                    break;
+
                 case CoreConstants.MODULE_WMS_UI :
 
                     switch (env){
@@ -160,6 +177,7 @@ public class ShopUpPostMan {
                             break;
                     }
                     break;
+
             }
 
         }catch (Exception e){
@@ -234,6 +252,13 @@ public class ShopUpPostMan {
             System.out.println("Final URL : "+baseURL+patch);
             filePath1 = CoreFileUtils.wmsUserSignInJsonPath;
             System.out.println(filePath1);
+        } else if (module.equalsIgnoreCase(CoreConstants.MODULE_STORE_WAP)) {
+            patch = EndPoints.Store.SEND_OTP;
+            System.out.println("Final URL : "+baseURL+patch);
+            filePath1 = CoreFileUtils.storeSendOtpJsonPath;
+            System.out.println(filePath1);
+            filePath2 = CoreFileUtils.storeLoginJsonPath;
+            System.out.println(filePath2);
         }
 
         try{
@@ -247,6 +272,16 @@ public class ShopUpPostMan {
                 JSONObject jo2 = (JSONObject) obj2;
                 response = given().header("Content-Type","application/json")
                         .body(jo2).post(EndPoints.COMMERCE_VERIFY_OTP);
+                response.then().log().all();
+            }if(module.equalsIgnoreCase(CoreConstants.MODULE_STORE_WAP)){
+                // Get OTP From DataBase
+                String otp = new DataBaseCore().getOTPForStore();
+                Object obj2 = new JSONParser().parse(new FileReader(filePath2));
+                JSONObject jo2 = (JSONObject) obj2;
+                // Update OTP
+                ((JSONObject) obj2).put("otp",otp);
+                response = given().header("Content-Type","application/json")
+                        .body(jo2).post(EndPoints.Store.LOGIN);
                 response.then().log().all();
             }
             // Update cookie.properties file

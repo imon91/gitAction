@@ -22,7 +22,7 @@
             <class name="com.shopf.tests.Packages.BinReset"></class>
             <class name="com.shopf.tests.Packages.BinInScan"></class>
             <class name="com.shopf.tests.PickOrders.AllPickLists"></class>
-            <class name="com.shopf.tests.PickOrders.PickListAction"></class>
+            <!-- <class name="com.shopf.tests.PickOrders.PickListAction"></class> -->
             <class name="com.shopf.tests.OrderProcess.OrderDetails"></class>
         </classes>
     </test>

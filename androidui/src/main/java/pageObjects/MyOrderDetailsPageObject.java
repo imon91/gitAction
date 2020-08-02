@@ -1,18 +1,15 @@
 package pageObjects;
 
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.AndroidElement;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-import utils.AndroidBaseClass;
-import utils.MyActions;
-import java.time.*;
-import java.time.LocalDate;
-import java.util.List;
-import java.util.Random;
+import io.appium.java_client.*;
+import io.appium.java_client.android.*;
+import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import services.commerceMethods.*;
+import services.responseModels.commerceModels.*;
+import utils.*;
+import java.util.*;
+
 
 
 
@@ -25,6 +22,8 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
     private Random random;
     private RightNavigationDrawer rightNavigationDrawer;
     private ActionBarObjects actionBarObjects;
+    private ServiceRequestLayer serviceRequestLayer;
+    private GetMyOrderApiResponse getMyOrderApiResponse;
 
 
     public MyOrderDetailsPageObject(AndroidDriver<WebElement> androidDriver){
@@ -32,6 +31,7 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
         actionBarObjects = new ActionBarObjects(androidDriver);
+        getMyOrderApiResponse = serviceRequestLayer.getControlOverMyOrderApiResponse();
         random = new Random();
     }
 
@@ -109,6 +109,97 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
         String xpath = "//android.widget.TextView[@text='"+yearInt+"']";
         WebElement element = androidDriver.findElement(By.xpath(xpath));
         ((JavascriptExecutor) androidDriver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public WebElement scrollToOrderID(String orderId)
+    {
+            WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().resourceId(\"com.shopup.reseller:id/pager\")).scrollIntoView("
+                            + "new UiSelector().text(\""+orderId+ "\"))"));
+            return element;
+    }
+
+    public MyOrderModel getResultsOfMyOrdersApi(int k)
+    {
+        return getMyOrderApiResponse.getOrderDetailsInActiveTab(k);
+    }
+
+    public MyOrderDetailsModel getResultsOfMyOrderDetailsApi(String orderId)
+    {
+        return getMyOrderApiResponse.getOrderDetailsOfOrderId(orderId);
+    }
+
+    public void findTheOrderId(String orderId)
+    {
+        try {
+            scrollToOrderID(orderId);
+        }
+        catch(Exception e)
+        {
+            myActions.action_click(scrollToOrderID("Load More"));
+            scrollToOrderID(orderId);
+        }
+
+    }
+
+    public List<WebElement> listOfName()
+    {
+        List<WebElement> names = xpathListSetter("//android.view.View[@index='2']");
+        return names;
+    }
+
+    public List<WebElement> listOfOrderId()
+    {
+        List<WebElement> names = xpathListSetter("//android.view.View[@index='0']");
+        return names;
+    }
+
+    public void clickOnLoadMore()
+    {
+        myActions.action_click(scrollToOrderID("Load More"));
+    }
+
+    public List<String> orderPaymentContainer(int purchaseValue,int delivery,int advance,int total)
+    {
+        scrollAtOrderDetailPage("Customer Details");
+        sleep(4000);
+        List<String> paymentContainer = new ArrayList<>();
+        String totalPurchaseValueTK = myActions.action_getText(xpathSetter("//android.view.View[@text='Tk "+purchaseValue+"']"));
+        String totalPurchaseValue = totalPurchaseValueTK.replaceAll("[^0-9]","");
+        String deliveryChargeTK =myActions.action_getText(xpathSetter("//android.view.View[@text='Tk "+delivery+"']"));
+        String deliveryCharge =   deliveryChargeTK.replaceAll("[^0-9]","");
+        String advancePaidTK=myActions.action_getText(xpathSetter("//android.view.View[@text='- Tk "+advance+"']"));
+        String advancePaid = advancePaidTK.replaceAll("[^0-9]","");
+        String totalOrderSummaryTk = myActions.action_getText(xpathSetter("//android.view.View[@text='Tk "+total+"']"));
+        String totalOrderSummary=totalOrderSummaryTk.replaceAll("[^0-9]","");
+        paymentContainer.add(totalPurchaseValue);
+        paymentContainer.add(deliveryCharge);
+        paymentContainer.add(advancePaid);
+        paymentContainer.add(totalOrderSummary);
+        return paymentContainer;
+
+    }
+
+    public List<String> addressDetailContainer(String Name,String Address)
+    {
+        scrollAtOrderDetailPage("Payment Method");
+        sleep(2000);
+
+        List<String> customerDetailContainerUI = new ArrayList<>();
+        String name = myActions.action_getText(xpathSetter("//android.view.View[@text='"+Name+"']"));
+        String address = myActions.action_getText(xpathSetter("//android.view.View[@text='"+Address+"']"));
+
+
+        customerDetailContainerUI.add(name);
+        customerDetailContainerUI.add(address);
+        return customerDetailContainerUI;
+    }
+    public WebElement scrollAtOrderDetailPage(String text)
+    {
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"content\")).scrollIntoView("
+                        + "new UiSelector().text(\""+text+ "\"))"));
+        return element;
     }
 
 

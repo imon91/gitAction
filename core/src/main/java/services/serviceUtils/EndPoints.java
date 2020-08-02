@@ -20,8 +20,13 @@ public class EndPoints {
 
 
     public class WMS{
-        public static final String USER_SIGN_IN = "users/sign_in";
+        public static final String USER_SIGN_IN = "users/sign_in.json";
         public static final String WAREHOUSES_JSON = "warehouses.json";
+    }
+
+    public class Store{
+        public static final String SEND_OTP = "api/send_otp.json";
+        public static final String LOGIN = "api/login.json";
     }
 
 

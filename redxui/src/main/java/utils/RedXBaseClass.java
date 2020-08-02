@@ -140,7 +140,7 @@ public class RedXBaseClass extends GetDriverFromCore{
 
     public static WebElement xpathSetter(String xpath){
         try {
-            new WebDriverWait(getBaseDriver(),30)
+            new WebDriverWait(getBaseDriver(),10)
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
             return getBaseDriver().findElement(By.xpath(xpath));
         }catch (Exception e){

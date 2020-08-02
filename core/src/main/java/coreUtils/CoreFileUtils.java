@@ -15,5 +15,6 @@ public class CoreFileUtils {
     public static final String wmsUserSignInJsonPath = CoreFileRouters.wmsAuthData+"user_sign_in.json";
     public static final String cookiePropertiesFilePath = CoreFileRouters.authFolderPath+"cookie.properties";
     public static final String domainPropertiesFilePath = CoreFileRouters.scriptPropertiesFolderPath+"domains.properties";
-
+    public static final String storeSendOtpJsonPath = CoreFileRouters.storeAuthData+"send_otp.json";
+    public static final String storeLoginJsonPath = CoreFileRouters.storeAuthData+"login.json";
 }

@@ -350,6 +350,20 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
             }
 
+            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True")&&
+                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("False"))
+            {
+                //Here Filter applied Only
+                responseData = getPLPModuleApiResponse.getValidProductWithFilterOnly(searchTerm,filterKey,filterValueId,1);
+            }
+
+            else if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("False")&&
+                    PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("True"))
+            {
+                //Here sort applied Only
+                responseData = getPLPModuleApiResponse.getValidProductWithSortOnly(searchTerm,sortIndex,1);
+            }
+
             PropertyReader.setValue(PropertyReader.Keys.VALID_PRODUCT_INDEX,
                     Integer.toString((int) responseData.get("ValidProductIndex")));
             ProductListingResultsModel.ResultsBean resultsModel =
@@ -621,14 +635,31 @@ public class ProductListingPageObjects extends AndroidBaseClass {
     }
 
 
-    public ProductListingResultsModel productResultsPLPApi(String searchTerm, int k) throws Exception {
-
-        if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True")){
-        return getPLPModuleApiResponse.getProductResultsAfterFilter(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),k);}
-
-        else {
-            return getPLPModuleApiResponse.getProductListingPageResults(searchTerm, k);}
-
+    public ProductListingResultsModel productResultsPLPApi(String searchTerm, int k,String null_or_filter_or_sort_or_filterSort) throws Exception {
+      ProductListingResultsModel productListingResultsModel=null;
+        switch (null_or_filter_or_sort_or_filterSort) {
+            case ("null"):
+                productListingResultsModel = getPLPModuleApiResponse.getProductListingPageResults(searchTerm, k);
+            break;
+            case ("filter"):
+                if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True")) {
+                    productListingResultsModel = getPLPModuleApiResponse.getProductResultsWithFilterOnly(searchTerm, PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY), PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID), k);
+                    break;
+                }
+                break;
+            case ("sort"):
+                if (PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("true")) {
+                    productListingResultsModel = getPLPModuleApiResponse.getProductResultsWithSortOnly(searchTerm, PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX), k);
+                    break;
+                }
+                break;
+            case ("filterSort"):
+                if (PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("true") && PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("true")) {
+                    productListingResultsModel = getPLPModuleApiResponse.getProductResultsWithFilterAndSortApplied(searchTerm, PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY), PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID), PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX), k);
+                    break;
+                }
+        }
+        return productListingResultsModel;
     }
 
 
@@ -644,14 +675,17 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         String productOriginalPrice = myActions.action_getText(productPropertiesListUI("originalPrice").get(productIndex));
         productDataContainer.add(1,productOriginalPrice);
 
-        if(productIndex < productPropertiesListUI("deliveryTag").size()){
-            String productDeliveryTag = myActions.action_getText(productPropertiesListUI("deliveryTag").get(productIndex));
-            productDataContainer.add(2,productDeliveryTag);
-        }
         if(productIndex<productPropertiesListUI("discount").size()){
             String productDiscount = myActions.action_getText(productPropertiesListUI("discount").get(productIndex));
             String discountNumberOnly = productDiscount.replaceAll("[^0-9]", "");
-            productDataContainer.add(3,discountNumberOnly);}
+            productDataContainer.add(2,discountNumberOnly);
+        }
+
+        if(productIndex < productPropertiesListUI("deliveryTag").size()){
+            String productDeliveryTag = myActions.action_getText(productPropertiesListUI("deliveryTag").get(productIndex));
+            productDataContainer.add(3,productDeliveryTag);
+        }
+
 
         return productDataContainer;
     }
@@ -670,16 +704,31 @@ public class ProductListingPageObjects extends AndroidBaseClass {
                 .perform().release();
     }
 
-    public int totalNumberOfPages(String searchTerm) throws Exception {
-        int productCount;
+    public int totalNumberOfPages(String searchTerm,String null_or_filter_or_sort_or_filterSort) throws Exception {
+        int productCount=0;
 
-       if(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True"))
-        {
-             productCount = getPLPModuleApiResponse.getProductResultsAfterFilter(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),1).getProducts_count();
+        switch (null_or_filter_or_sort_or_filterSort) {
+            case ("null"):
+                productCount = productResultsPLPApi(searchTerm, 1,"null").getProducts_count();
+                break;
+            case ("filter"):
+                if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("True")) {
+                    productCount = getPLPModuleApiResponse.getProductResultsWithFilterOnly(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),1).getProducts_count();
+                    break;
+                }
+                break;
+            case ("sort"):
+                if (PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("true")) {
+                    productCount = getPLPModuleApiResponse.getProductResultsWithSortOnly(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX),1).getProducts_count();
+                    break;
+                }
+                break;
+            case ("filterSort"):
+                if (PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("true") && PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED).equalsIgnoreCase("true")) {
+                    productCount = getPLPModuleApiResponse.getProductResultsWithFilterAndSortApplied(searchTerm,PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY),PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_VALUE_ID),PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_INDEX),1).getProducts_count();
+                    break;
+                }
         }
-       else {
-            productCount = productResultsPLPApi(searchTerm, 1).getProducts_count();
-       }
 
         double total = Math.ceil(productCount / 12.0);
         int totalPages = (int) total;
@@ -695,11 +744,11 @@ public class ProductListingPageObjects extends AndroidBaseClass {
             String filterKey = PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY);
 
             if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED)
-                    .equalsIgnoreCase("True")) {
+                    .equalsIgnoreCase("True")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("False")) {
                 responseData = getPLPModuleApiResponse.getValidProductWithFilterOnly(searchTerm, filterKey, filterValueId, k);
 
             } else if (PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_APPLIED)
-                    .equalsIgnoreCase("False")) {
+                    .equalsIgnoreCase("False")&&PropertyReader.getValueOfKey(PropertyReader.Keys.SORT_APPLIED).equalsIgnoreCase("False")) {
                 // Here both filter and sort aren't applied
                 responseData = getCommerceApiResponse.getProductWithValidSize(searchTerm);
             }

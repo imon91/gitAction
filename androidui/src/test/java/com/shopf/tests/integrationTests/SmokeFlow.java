@@ -6,9 +6,9 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 import pageObjects.*;
-import utils.AndroidBaseClass;
-import utils.MyActions;
-import utils.ServiceRequestLayer;
+import utils.*;
+
+
 
 public class SmokeFlow extends AndroidBaseClass {
 
@@ -19,11 +19,15 @@ public class SmokeFlow extends AndroidBaseClass {
     private PLP plp;
     private Search search;
     private Logout logout;
+    private MyOrders myOrders;
     private AndroidDriver<WebElement> androidDriver;
     private OrderSuccessFulPageObjects orderSuccessFulPageObjects;
     private ProductListingPageObjects productListingPageObjects;
     private ActionBarObjects actionBarObjects;
+    private MyOrdersPageObjects myOrdersPageObjects;
+    private MyOrdersPageObjects.OrderDetails orderDetails;
     private String app;
+    private String host;
     private String plp_view;
     private final String NEW_PLP_VIEW = "New";
     private final String OLD_PLP_VIEW = "Old";
@@ -32,6 +36,11 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @BeforeSuite(alwaysRun = true)
     public void smokeBeforeSuite(){
+        try{
+            PropertyReader.flushDynamicData();
+        }catch (Exception e){
+            System.out.println("Exception at SmokeBeforeSuite : flushDynamicData");
+        }
         serviceRequestLayer = new ServiceRequestLayer();
         serviceRequestLayer.getControlOverAuthentication()
                 .performAuthentication();
@@ -42,6 +51,7 @@ public class SmokeFlow extends AndroidBaseClass {
     public void smokeTestBeforeClass(){
         System.out.println("Smoke Test Started");
         app = System.getProperty(BuildParameterKeys.KEY_APP);
+        host = System.getProperty(BuildParameterKeys.KEY_HOST);
         androidDriver = getBaseDriver();
         authentication = new Authentication();
         myBag = new MyBag();
@@ -50,6 +60,9 @@ public class SmokeFlow extends AndroidBaseClass {
         plp = new PLP();
         search = new Search();
         logout = new Logout();
+        myOrders = new MyOrders();
+        myOrdersPageObjects = new MyOrdersPageObjects(androidDriver);
+        orderDetails = myOrdersPageObjects.new OrderDetails(androidDriver);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
@@ -58,101 +71,159 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
 
-    @DataProvider(name = "dataForSmokeTest")
-    public Object[][] dataForSmokeTest(){
+    @DataProvider(name = "dataForAuthentication")
+    public Object[][] dataForAuthentication(){
         String mobileNumber = null;
         String otp = null;
-        String searchTerm = null;
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             mobileNumber = "1877755590";
             otp = "666666";
-            searchTerm = "Shirts";
         }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             mobileNumber = "1877755590";
             otp = "666666";
-            searchTerm = "Dettol";
         }
         return new Object[][]{
-                {mobileNumber,otp,searchTerm}
+                {mobileNumber,otp}
         };
     }
 
 
-    @Test( groups = CoreConstants.GROUP_SMOKE,dataProvider = "dataForSmokeTest")
-    public void smokeTest(String mobileNumber,String otp
-            ,String searchTerm) throws Exception {
-        authentication.authenticationSetUp();
-//        sleep(4000);
-
-        //Step 1 : Login with valid credentials
-        authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);
-//        myShop.myShopSetUp();
-//        sleep(6000);
-
-        //Step 2 : Adding a new collection
-        //myShop.verifyAddingNewCollection();
-        search.searchBeforeClass();
-
-        //Step 3 : Searching for an object from search icon without choosing from suggestions list
-        search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
-        plp.productListingPageBeforeClass();
-
-        //Step 4 : Sorting the product list
-        plp.verifyApplyingSortOnPLP();
-
-        //Step 5 : Filtering the product list
-        plp.verifyApplyingFilterOnPLP(null,null);
-
-        //Step 6 : Selecting a product with valid size from the list
-        plp.verifySelectingValidSizeItemOnPlpToPDP();
-
-        pdp.productDescriptionPageBeforeClass();
-
-        //Step 7 : Adding a Item to myBag
-        //pdp.verifyAddItemToMyShopThroughPDP();
-
-//        Step 8 : Adding the product to myBag by placeOrder
-        pdp.verifyPlaceOrderThroughPDP();
-        myBag.myBagBeforeClass();
-//        sleep(4000);
-//
-        if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
-            //Step 9 : Increasing the product quantity
-            myBag.verifyItemIncrementFunctionalityOnMyBag();
-
-            //Step 10 : Applying Shipping Charges
-            myBag.verifyApplyingShippingCharges();
+    @DataProvider(name = "dataForSearchTerm")
+    public Object[][] dataForSearchTerm(){
+        String searchTerm=null;
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            searchTerm = "Watches";
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            searchTerm = "Dettol";
         }
+        return new Object[][]{
+                {searchTerm}
+        };
+    }
 
-//        //Step 11 : Proceeding order
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 1,dataProvider = "dataForAuthentication")
+    public void performAuthenticationWithValidCredentials(String mobileNumber,String otp) throws Exception {
+        authentication.authenticationSetUp();
+        authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);
+    }
+
+    
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 2,dataProvider = "dataForSearchTerm")
+    public void searchToObject(String searchTerm){
+        search.searchBeforeClass();
+        actionBarObjects.clickOnSearchImageButton();
+        search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 3)
+    public void verifyApplyingSortOnPLP() throws Exception {
+        if(host.equalsIgnoreCase("Local")){
+            plp.productListingPageBeforeClass();
+            plp.verifyApplyingSortOnPLP();
+        }
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 4)
+    public void verifyApplyingFilterOnPLP() throws Exception
+    {
+        plp.productListingPageBeforeClass();
+        plp.verifyApplyingFilterOnPLP(null,null);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 5)
+    public void verifySelectingValidProduct(){
+        plp.verifySelectingValidSizeItemOnPlpToPDP();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 6)
+    public void verifyPlaceOrderThroughPDP(){
+        pdp.productDescriptionPageBeforeClass();
+        pdp.verifyPlaceOrderThroughPDP();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 7)
+    public void verifyProductIncrementInMyBag() throws Exception {
+             myBag.myBagBeforeClass();
+            myBag.verifyItemIncrementFunctionalityOnMyBag();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 8)
+    public void verifyApplyShippingChargeInMyBag()
+    {
+        myBag.verifyApplyingShippingCharges();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 9)
+    public void verifyPlaceOrderInMyBag()
+    {
         myBag.verifyPlaceOrderInMyBag();
+    }
 
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 10)
+    public void verifyDeletingCodDisabledProductInAddress()
+    {  sleep(4000);
         myBag.deleteProductWithCODDisabled();
-//
-//        //Step 12 : Selecting an address
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 11)
+    public void verifySelectAddress()
+    {
         myBag.verifySelectAddressInMyBag();
-//
-//        //Step 13 : Proceed to checkout
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 12)
+    public void verifyProceedToPaymentInAddress()
+    {
         myBag.verifyCheckoutProceedInMyBag();
-//
-        if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
-            //        //Step 14 : Proceed payment
-            sleep(5000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
+    public void verifyCheckoutWithCOD()
+    {       sleep(3500);
             myBag.verifyProceedPaymentWithoutChangeAddress();
+            sleep(6000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 14)
+    public void verifyOrderIdInOrderSuccessfulPage() {
+//        orderSuccessFulPageObjects.clickOnGoTOMyOrdersButton();
+    }
+
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
+    public void verifyOrderInMyOrders() throws Exception{
+//        //Assert That Control is in MyOrdersPage
+//        //Identify Order Number
+//        myOrders.myOrdersBeforeClass();
+//        orderDetails.clickOnOrderItemByIndex(0);
+//                //(PropertyReader.getValueOfKey(PropertyReader.Keys.ORDER_NUMBER));
+//        // Verify Order
 //
-        sleep(4000);
-        orderSuccessFulPageObjects.clickOnClickHereButton();
-//
-//        //Step 15 : Logging out
-        logout.logoutBeforeClass();
-        logout.verifyLogoutFunctionality();
+//        // Come Back to HomePage
+//        for(int i=0;i<2;i++){
+//            new MyActions().clickOnHardKeyBack();
+//        }
+    }
+
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
+    public void verifyLogout() throws Exception {
+        if(host.equalsIgnoreCase("Local")){
+            // Do nothing
+        }else {
+            sleep(2800);
+            logout.logoutBeforeClass();
+            logout.verifyLogoutFunctionality();
         }
     }
 
 
-    @AfterClass(alwaysRun = true)
+    @AfterSuite(alwaysRun = true)
     public void smokeTestAfterClass(){
         System.out.println("SmokeTest completed");
         quitBaseDriver();
     }
+
+
 }
