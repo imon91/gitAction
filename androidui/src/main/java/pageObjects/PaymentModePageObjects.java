@@ -70,6 +70,9 @@ public class PaymentModePageObjects extends AndroidBaseClass {
     @FindBy(xpath = "//div[@class='deliver-to-address']//div/div//p[5]//span[2]")
     private WebElement phoneNumberWithLandmark;
 
+    @FindBy(xpath = "//div[@class='cash-on-delivery-container-1']//p")
+    private WebElement cashOnDeliveryContainer;
+
 
     public String getNamefromAddress(){return myActions.action_getText(firstName);}
 
@@ -95,6 +98,7 @@ public class PaymentModePageObjects extends AndroidBaseClass {
             return myActions.action_getText(phoneNumber);
     }
 
+    public String getTextFromCODConatainer(){ return myActions.action_getText(cashOnDeliveryContainer);}
 
     public void selectPaymentOptionCOD(){
         int size = getListOfPaymentMode().size();

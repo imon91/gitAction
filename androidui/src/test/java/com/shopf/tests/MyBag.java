@@ -62,26 +62,16 @@ public class MyBag extends AndroidBaseClass {
         getCommerceApiResponse = new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI);
         myActions = new MyActions();
         androidScriptRouter = new AndroidScriptRouter();
+        suiteName = "sanity";
+        myBagPageObjects.createItemInMyBag(82513);
         // This Block is responsible to get the control from anywhere to MyBag
+        actionBarObjects.clickOnBagImageButton();
+        sleep(5000);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         // This Block is responsible to get the control from anywhere to MyBag
+        //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
         //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
         sleep(5000);
-    }
-
-
-    @BeforeTest(alwaysRun = true)
-    @Parameters("suite")
-    public void myBagBeforeTest(String suiteNameFromXML) throws Exception {
-        suiteName = suiteNameFromXML;
-        myBagBeforeClass();
-        myBagPageObjects.createItemInMyBag(82513);
-        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)||
-                suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)){
-            actionBarObjects.clickOnBagImageButton();
-            sleep(5000);
-            //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
-        }
     }
 
 
