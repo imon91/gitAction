@@ -30,6 +30,8 @@ public class MyCart extends AndroidBaseClass {
     private MyActions myActions;
     private SoftAssert softAssert;
     private String suiteName;
+    private ServiceRequestLayer serviceRequestLayer;
+    private GetMyBagApiResponse getMyBagApiResponse;
 
 
     @BeforeClass(alwaysRun = true)
@@ -42,6 +44,8 @@ public class MyCart extends AndroidBaseClass {
         creditsAndCoupons = myBagPageObjects.new CreditsAndCoupons(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         myActions = new MyActions();
+        serviceRequestLayer = new ServiceRequestLayer();
+        getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         myBagPageObjects.createItemInMyBag(82513);
         suiteName = "sanity";
         actionBarObjects.clickOnBagImageButton();
@@ -49,6 +53,7 @@ public class MyCart extends AndroidBaseClass {
         //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
         switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
         sleep(3000);
+        System.setProperty("order_id",getMyBagApiResponse.getOrderIDfromMyCart());
     }
 
 

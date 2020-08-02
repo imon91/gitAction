@@ -39,24 +39,24 @@ public class OrderSuccessfulPage extends AndroidBaseClass {
         myActions = new MyActions();
         softAssert = new SoftAssert();
         suiteName = "sanity";
-        actionBarObjects = new ActionBarObjects(androidDriver);
-        myBagPageObjects = new MyBagPageObjects(androidDriver);
-        checkoutAddressPageObjects = new CheckoutAddressPageObjects(androidDriver);
-        paymentModePageObjects = new PaymentModePageObjects(androidDriver);
-        serviceRequestLayer = new ServiceRequestLayer();
-        getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
-        myBagPageObjects.createItemInMyBag(85777);
-        actionBarObjects.clickOnBagImageButton();
-        sleep(3000);
-        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
-        sleep(3000);
-        System.setProperty("order_id",getMyBagApiResponse.getOrderIDfromMyCart());
-        myBagPageObjects.clickOnPlaceOrderButton();
-        sleep(3000);
-        checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
-        sleep(3000);
-        paymentModePageObjects.proceedPaymentWithoutChangeAddressThroughTopButton();
-        sleep(3000);
+//        actionBarObjects = new ActionBarObjects(androidDriver);
+//        myBagPageObjects = new MyBagPageObjects(androidDriver);
+//        checkoutAddressPageObjects = new CheckoutAddressPageObjects(androidDriver);
+//        paymentModePageObjects = new PaymentModePageObjects(androidDriver);
+//        serviceRequestLayer = new ServiceRequestLayer();
+//        getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
+//        myBagPageObjects.createItemInMyBag(85777);
+//        actionBarObjects.clickOnBagImageButton();
+//        sleep(3000);
+//        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+//        sleep(3000);
+//        System.setProperty("order_id",getMyBagApiResponse.getOrderIDfromMyCart());
+//        myBagPageObjects.clickOnPlaceOrderButton();
+//        sleep(3000);
+//        checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
+//        sleep(3000);
+//        paymentModePageObjects.proceedPaymentWithoutChangeAddressThroughTopButton();
+//        sleep(3000);
     }
 
 
