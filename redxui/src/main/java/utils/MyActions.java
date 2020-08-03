@@ -1,6 +1,8 @@
 package utils;
 
 import io.appium.java_client.android.nativekey.*;
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -10,8 +12,12 @@ public class MyActions extends RedXBaseClass {
         //sleep(300);
         try{
             element.click();
-        }catch (Exception e){
-            System.out.println(e);
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            action_click(element);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            action_click(element);
         }
     }
 
