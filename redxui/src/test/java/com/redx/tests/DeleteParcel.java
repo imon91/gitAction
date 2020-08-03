@@ -6,75 +6,91 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import utils.PropertyReader;
 import utils.RedXBaseClass;
 
 import java.util.*;
 
 
-public class DeleteParcel extends RedXBaseClass
-{
+public class DeleteParcel extends RedXBaseClass {
     private AndroidDriver<WebElement> androidDriver;
-    private CommonPageObjects commonPageObjects;
     private HomePageObjects homePageObjects;
     private ParcelsPageObjects.ActionBarPageObjects actionBarPageObjects;
     private ParcelsPageObjects.OrderStatusPageObjects orderStatusPageObjects;
     private ParcelsPageObjects.ParcelsManifestList parcelsManifestList;
+    private ParcelsPageObjects.DateFilterPageObjects dateFilterPageObjects;
     private ManifestParcelDetails manifestParcelDetails;
     private Random random;
 
 
-    public void pageInitializer()
-    {
-        commonPageObjects = new CommonPageObjects();
+    public void pageInitializer() {
         homePageObjects = new HomePageObjects();
         actionBarPageObjects = new ParcelsPageObjects().new ActionBarPageObjects();
         orderStatusPageObjects = new ParcelsPageObjects().new OrderStatusPageObjects();
         parcelsManifestList = new ParcelsPageObjects().new ParcelsManifestList();
+        dateFilterPageObjects = new ParcelsPageObjects().new DateFilterPageObjects();
         manifestParcelDetails = new ManifestParcelDetails();
         random = new Random();
     }
 
 
     @BeforeClass(alwaysRun = true)
-    public void deleteParcelBeforeClass()
-    {
+    public void deleteParcelBeforeClass() {
         System.out.println("Delete Parcel Class");
         androidDriver = getBaseDriver();
         pageInitializer();
+        refreshPage();
     }
 
 
-    @Test(  groups = {CoreConstants.GROUP_SMOKE,CoreConstants.GROUP_REGRESSION},
+    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION},
             dependsOnGroups = {"Authentication.verifyAuthenticationWithValidCredentials"},
             description = "Verifies Delete Parcel Functionality")
     public void verifyDeleteParcelModule()
     {
         int index;
+        String assertVariable = null;
         List<WebElement> parcelsList;
+
         System.out.println("Delete a Parcel");
         homePageObjects.clickViewParcelUpdatesModule();
-        Assert.assertEquals(commonPageObjects.getPageTitle(),"Parcels");
-        //sleep(1000);
+        Assert.assertEquals(actionBarPageObjects.getPageTitle(), "Parcels");
+        dateFilterPageObjects.chooseMonthByText("Aug, 2020");
+
         orderStatusPageObjects.clickInProgressParcelsTab();
         parcelsList = parcelsManifestList.setParcelsList();
-        //sleep(1000);
-        index = random.nextInt(parcelsList.size());
-        parcelsManifestList.clickParcelByIndex(index);
-        //sleep(2000);
-        parcelsList = manifestParcelDetails.setPackagesList();
-        //sleep(1000);
-        index = random.nextInt(parcelsList.size());
-        manifestParcelDetails.clickDeletePackageByIndex(index);
-        //sleep(1000);
-        actionBarPageObjects.clickBackButton();
+        if (parcelsList.size() != 0) {
+            index = random.nextInt(parcelsList.size());
+            parcelsManifestList.clickParcelByIndex(index);
+            try
+            {
+                assertVariable = PropertyReader.getValueOfKey("PARCEL_DATE");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Parcel Date cannot be read from Properties");
+            }
+            Assert.assertEquals(actionBarPageObjects.getPageTitle(), assertVariable);
+
+            parcelsList = manifestParcelDetails.setPackagesList();
+            if (parcelsList.size() != 0) {
+                index = random.nextInt(parcelsList.size());
+                manifestParcelDetails.clickDeletePackageByIndex(index);
+                actionBarPageObjects.clickBackButton();
+            } else {
+                System.out.println("No Parcels Found");
+                actionBarPageObjects.clickBackButton();
+            }
+            actionBarPageObjects.clickBackButton();
+        } else {
+            System.out.println("No Parcels Found");
+            actionBarPageObjects.clickBackButton();
+        }
     }
 
 
-
     @AfterClass(alwaysRun = true)
-    public void EditParcelAfterClass()
-    {
-        System.out.println("After Edit Parcel Class");
+    public void EditParcelAfterClass() {
+        System.out.println("After Delete Parcel Class");
         //closeApp();
     }
 }
