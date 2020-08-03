@@ -49,6 +49,8 @@ public class ParcelDetails extends RedXBaseClass {
             description = "Verifies Parcel Details Functionality In Failed Tab")
     public void verifyParcelDetailsModule() {
         int index;
+        String assertVariable = null;
+        String parcelStatus = null;
         List<WebElement> parcelsList;
 
         System.out.println("Verify Parcel Details");
@@ -61,25 +63,32 @@ public class ParcelDetails extends RedXBaseClass {
         if (parcelsList.size() != 0) {
             index = random.nextInt(parcelsList.size());
             parcelsManifestList.clickParcelByIndex(index);
-            try {
-                Assert.assertEquals(actionBarPageObjects.getPageTitle(), PropertyReader.getValueOfKey("PARCEL_DATE"));
+            try
+            {
+                assertVariable = PropertyReader.getValueOfKey("PARCEL_DATE");
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Parcel Date cannot be read from Properties");
             }
+            Assert.assertEquals(actionBarPageObjects.getPageTitle(), assertVariable);
 
             parcelsList = manifestParcelDetails.setPackagesList();
             if (parcelsList.size() != 0) {
                 index = random.nextInt(parcelsList.size());
                 manifestParcelDetails.clickDetailsByIndex(index);
-                try {
-                    if ((!PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_STATUS).equals("PICKUP PENDING"))||(!PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_STATUS).equals("PICKUP PENDING")))
-                    {
-                        Assert.assertEquals(actionBarPageObjects.getParcelDetailsTitle(), PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID));
-                        packageDetailsModule.getDetails(null);
-                        actionBarPageObjects.clickBackButton();
-                    }
+                try
+                {
+                    assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID);
+                    parcelStatus = PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_STATUS);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("Parcel Details cannot be read from Properties");
+                }
+                if ((!parcelStatus.equals("PICKUP PENDING"))&&(!parcelStatus.equals("DAMAGED")))
+                {
+                    Assert.assertEquals(actionBarPageObjects.getParcelDetailsTitle(), assertVariable);
+                    packageDetailsModule.getDetails(null);
+                    actionBarPageObjects.clickBackButton();
                 }
                 actionBarPageObjects.clickBackButton();
             } else {

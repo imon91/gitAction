@@ -25,7 +25,7 @@ public class PropertyReader {
 
     public class Keys
     {
-        public static final String CUSTOMER_NAME = "CUSTOMER_NAME";
+        public static final String CUSTOMER_NAME = "CUSTOMEgit sR_NAME";
         public static final String CUSTOMER_PHONE = "CUSTOMER_PHONE";
         public static final String DELIVERY_ADDRESS = "DELIVERY_ADDRESS";
         public static final String DELIVERY_AREA = "DELIVERY_AREA";

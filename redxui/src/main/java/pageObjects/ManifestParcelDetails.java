@@ -129,7 +129,7 @@ public class ManifestParcelDetails extends RedXBaseClass
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if((!parcelStatus.equals("PICKUP PENDING"))||(!parcelStatus.equals("DAMAGED")))
+        if((!parcelStatus.equals("PICKUP PENDING"))&&(!parcelStatus.equals("DAMAGED")))
         {
             WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='DETAILS']"));
             myActions.action_click(selectedPackage);
@@ -451,8 +451,8 @@ public class ManifestParcelDetails extends RedXBaseClass
             System.out.println("Address : " + getAddress());
             System.out.println("Area : " + getArea());
             System.out.println("Delivery Date : " + getDeliveryDate());
-            System.out.println("Delivery Instruction : " + getDeliveryInstruction());
-            System.out.println("Invoice : "+ getInvoice());//
+            //System.out.println("Delivery Instruction : " + getDeliveryInstruction());
+            //System.out.println("Invoice : "+ getInvoice());//
             if(module == "Payment")
                 System.out.println("Payment ID : "+ getPaymentId());
         }

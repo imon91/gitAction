@@ -66,6 +66,8 @@ public class EditParcel extends RedXBaseClass
                                        String invoiceNumber, String instruction)
     {
         int index;
+        String assertVariable = null;
+        String parcelStatus = null;
         List<WebElement> parcelsList;
 
         System.out.println("Edit Parcel Details");
@@ -82,10 +84,12 @@ public class EditParcel extends RedXBaseClass
             parcelsManifestList.clickParcelByIndex(index);
             try
             {
-                Assert.assertEquals(actionBarPageObjects.getPageTitle(), PropertyReader.getValueOfKey("PARCEL_DATE"));
+                assertVariable = PropertyReader.getValueOfKey("PARCEL_DATE");
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Parcel Date cannot be read from Properties");
             }
+            Assert.assertEquals(actionBarPageObjects.getPageTitle(), assertVariable);
 
             parcelsList = manifestParcelDetails.setPackagesList();
             if(parcelsList.size()!=0)
@@ -94,13 +98,16 @@ public class EditParcel extends RedXBaseClass
                 manifestParcelDetails.clickEditPackageByIndex(index);
                 try
                 {
-                    if (PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_STATUS).equals("PICKUP PENDING"))
-                    {
-                        Assert.assertEquals(actionBarPageObjects.getPageTitle(), PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID));
-                        editPackageModule.editParcel(name, phone, cash, sellingPrice, address, area, invoiceNumber, instruction);
-                    }
+                    assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID);
+                    parcelStatus = PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_STATUS);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("Parcel Details cannot be read from Properties");
+                }
+                if (parcelStatus.equals("PICKUP PENDING"))
+                {
+                    Assert.assertEquals(actionBarPageObjects.getPageTitle(), assertVariable);
+                    editPackageModule.editParcel(name, phone, cash, sellingPrice, address, area, invoiceNumber, instruction);
                 }
                 actionBarPageObjects.clickBackButton();
             } else {

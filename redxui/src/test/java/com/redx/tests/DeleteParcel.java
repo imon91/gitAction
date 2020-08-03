@@ -49,6 +49,7 @@ public class DeleteParcel extends RedXBaseClass {
     public void verifyDeleteParcelModule()
     {
         int index;
+        String assertVariable = null;
         List<WebElement> parcelsList;
 
         System.out.println("Delete a Parcel");
@@ -61,11 +62,14 @@ public class DeleteParcel extends RedXBaseClass {
         if (parcelsList.size() != 0) {
             index = random.nextInt(parcelsList.size());
             parcelsManifestList.clickParcelByIndex(index);
-            try {
-                Assert.assertEquals(actionBarPageObjects.getPageTitle(), PropertyReader.getValueOfKey("PARCEL_DATE"));
+            try
+            {
+                assertVariable = PropertyReader.getValueOfKey("PARCEL_DATE");
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Parcel Date cannot be read from Properties");
             }
+            Assert.assertEquals(actionBarPageObjects.getPageTitle(), assertVariable);
 
             parcelsList = manifestParcelDetails.setPackagesList();
             if (parcelsList.size() != 0) {

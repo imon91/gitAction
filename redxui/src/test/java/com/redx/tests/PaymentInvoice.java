@@ -47,6 +47,7 @@ public class PaymentInvoice extends RedXBaseClass
     public void verifyParcelInvoiceModule()
     {
         int index;
+        String assertVariable = null;
         List<WebElement> parcelsList;
 
         System.out.println("Verify Parcel Invoice");
@@ -58,11 +59,14 @@ public class PaymentInvoice extends RedXBaseClass
         if(parcelsList.size()!=0) {
             index = random.nextInt(parcelsList.size());
             paymentUpdatesPageObjects.clickViewInvoiceByIndex(index);
-            try {
-                Assert.assertEquals(actionBarPageObjects.getPageTitle(), "Parcels");
+            try
+            {
+                assertVariable = PropertyReader.getValueOfKey("PARCEL_DATE");
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Parcel Date cannot be read from Properties");
             }
+            Assert.assertEquals(actionBarPageObjects.getPageTitle(), "Parcels");
 
             viewInvoice.clickDeliveredTab();
             parcelsList = viewInvoice.setPackagesList();
@@ -71,13 +75,16 @@ public class PaymentInvoice extends RedXBaseClass
                 viewInvoice.getParcelDetails();
                 index = random.nextInt(parcelsList.size());
                 viewInvoice.clickDetailsByIndex(index);
-                try {
-                    Assert.assertEquals(actionBarPageObjects.getParcelDetailsTitle(), PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID));
-                    viewInvoice.getInvoiceDetails();
-                    actionBarPageObjects.clickBackButton();
+                try
+                {
+                    assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    System.out.println("Parcel ID cannot be read from Properties");
                 }
+                Assert.assertEquals(actionBarPageObjects.getParcelDetailsTitle(), assertVariable);
+                viewInvoice.getInvoiceDetails();
+                actionBarPageObjects.clickBackButton();
                 actionBarPageObjects.clickBackButton();
             } else {
                 System.out.println("No Parcels Found");
