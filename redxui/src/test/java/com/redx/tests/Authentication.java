@@ -72,8 +72,10 @@ public class Authentication extends RedXBaseClass
 
     @AfterSuite(alwaysRun = true)
     public void redXAndroidAfterSuite(){
+    
         System.out.println("redXAndroidAfterSuite Is Called");
         quitBaseDriver();
+        
     }
 
 }
