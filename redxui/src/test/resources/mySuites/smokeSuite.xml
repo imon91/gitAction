@@ -18,7 +18,6 @@
             <class name="com.redx.tests.PaymentInvoice"></class>
             <class name="com.redx.tests.Settings"></class>
             <class name="com.redx.tests.Logout"></class>
-            
         </classes>
     </test>
 </suite>
