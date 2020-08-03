@@ -401,7 +401,9 @@ public class MyBagPageObjects extends AndroidBaseClass {
         }
 
         public String checkingMaxPrice(int index,int price){
-            getListOfSalePriceEditTexts().get(index).clear();
+            //getListOfSalePriceEditTexts().get(index).clear();
+            JavascriptExecutor jse = (JavascriptExecutor) androidDriver;
+            jse.executeScript("arguments[0].value = '';",getListOfSalePriceEditTexts().get(index));
             getListOfSalePriceEditTexts().get(index).sendKeys(""+price);
             sleep(3000);
             getListOfSalePriceLabel().get(index).click();
@@ -578,26 +580,17 @@ public class MyBagPageObjects extends AndroidBaseClass {
         /*------BoundaryValuesOfShippingCharges-----*/
 
 
-        public String checkingMoreThanDeliveryCharges(int price){
+        public void checkingMoreThanDeliveryCharges(int price){
             clearDeliveryCharge();
             int boundaryValue = price+1;
             applyShippingCharges(""+boundaryValue);
-            sleep(4000);
-            WebDriverWait wait = new WebDriverWait(androidDriver,30);
-            String original = myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
-            System.out.println(original);
-            return original;
         }
 
-        public String checkingLessThanDeliveryCharges(int price){
+        public void checkingLessThanDeliveryCharges(int price){
             clearDeliveryCharge();
             int boundaryValue = price-1;
             applyShippingCharges(""+boundaryValue);
             sleep(4000);
-            WebDriverWait wait = new WebDriverWait(androidDriver,30);
-            String original = myActions.action_getText(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@id = 'toastbar-header-basic']//div"))));
-            System.out.println(original);
-            return original;
         }
 
         public void checkingMinDeliveryCharge(int price){
@@ -658,6 +651,8 @@ public class MyBagPageObjects extends AndroidBaseClass {
     public Map<Integer,List<String>> getContainerData(){
         return getMyBagApiResponse.getContainerDetailsMap();
     }
+
+    public void createItemInMyBag(int productId){getMyBagApiResponse.addToCart(productId);}
 
 //    public String getPriceDetails(String price,String productName,String size) {
 //        List<String> productDetails = getProductDetails(productName,size);

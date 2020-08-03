@@ -4,21 +4,16 @@ import coreUtils.BuildParameterKeys;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
-import io.appium.java_client.touch.offset.PointOption;
+import io.appium.java_client.touch.offset.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
-import services.commerceMethods.GetSearchSuggestionsApiResponse;
-import services.responseModels.commerceModels.ProductListingResultsModel;
-import services.responseModels.commerceModels.SearchRecentProductsModel;
-import services.responseModels.commerceModels.SearchSuggestionsModel;
+import services.commerceMethods.*;
+import services.responseModels.commerceModels.*;
 import utils.*;
 import java.util.*;
 
-import static io.appium.java_client.touch.offset.ElementOption.element;
-import static io.appium.java_client.touch.offset.PointOption.point;
-import static java.time.Duration.ofSeconds;
-import static org.testng.Assert.assertTrue;
-import static org.testng.Assert.fail;
+
+
 
 public class SearchPageObjects extends AndroidBaseClass {
 
@@ -123,7 +118,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     }
 
     public void clickOnSearchCancelButton(){
-        searchCancelButton = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/imgClear]");
+        searchCancelButton = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/imgClear']");
         myActions.action_click(searchCancelButton);
     }
 
@@ -169,9 +164,9 @@ public class SearchPageObjects extends AndroidBaseClass {
 
     //_____________*API Responses Handling*__________________//
 
-    public List<SearchSuggestionsModel.ResultsBean.SuggestionsBean> searchSuggestionListFromApi()
+    public List<SearchSuggestionsModel.ResultsBean.SuggestionsBean> searchSuggestionListFromApi(String searchTerm)
     {
-        return getSearchSuggestionsApiResponse.searchSuggestionsList();
+        return getSearchSuggestionsApiResponse.searchSuggestionsList(searchTerm);
     }
 
 
@@ -263,37 +258,6 @@ public class SearchPageObjects extends AndroidBaseClass {
     }
 
 
-
-    public List<String> searchSuggestionDataFromApi(String title_or_inlineLabel) {
-
-        List<String> titleList = new ArrayList<>();
-
-        if (title_or_inlineLabel.equalsIgnoreCase("title")) {
-            for (int i = 0; i < searchSuggestionListFromApi().size(); i++) {
-                String titleName = searchSuggestionListFromApi().get(i).getValue().getTitle();
-                titleList.add(titleName);
-            }
-
-            return titleList;
-        }
-        else if((title_or_inlineLabel.equalsIgnoreCase("inLineLabel"))){
-            //to get size of "type:category"
-            for (int j = 0; j < searchSuggestionListFromApi().size(); j++)
-            {
-                if (searchSuggestionListFromApi().get(j).getType().equalsIgnoreCase("category"))
-                {
-                    String titleName = searchSuggestionListFromApi().get(j).getValue().getInline_label();
-                    titleList.add(titleName);
-                }
-            }
-            return titleList;
-        }
-        else {
-            System.out.println("Please specify correct letter 'title' or 'inLineLabel'");
-            return null;
-        }
-
-    }
     public boolean scrollToElement(String productName)
     {
 

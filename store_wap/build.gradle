@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+}
+
+group 'UiTests'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/io.appium/java-client
+    implementation group: 'io.appium', name: 'java-client', version: '7.3.0'
+    // https://mvnrepository.com/artifact/org.testng/testng
+    implementation group: 'org.testng', name: 'testng', version: '6.14.3'
+
+    // Including Core module as dependency
+    compile project(path : ':core')
+}
+
+
+test{
+    useTestNG(){
+        useDefaultListeners = true
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+    }
+}
+
+task storeWapTest(type: Test) {// we define a task with name ‘androiduiTest’
+    useTestNG() {
+        useDefaultListeners = true
+        scanForTestClasses = false
+        //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+        testLogging.showStandardStreams = true
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        def smoke = project.hasProperty("Smoke")
+        def sanity = project.hasProperty("Sanity")
+        def regression = project.hasProperty("Reg")
+
+        if(smoke) {
+            suites "src/test/resources/mySuites/smokeSuite.xml"
+        }
+        if(sanity) {
+            suites "src/test/resources/mySuites/sanity.xml"
+        }
+        if(regression){
+            suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+    }
+}

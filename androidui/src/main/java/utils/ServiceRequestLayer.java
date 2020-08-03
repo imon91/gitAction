@@ -54,6 +54,11 @@ public class ServiceRequestLayer implements CommerceServices {
         return new GetPLPModuleApiResponse(module);
     }
 
+    @Override
+    public GetMyOrderApiResponse getControlOverMyOrderApiResponse() {
+        return new GetMyOrderApiResponse(module);
+    }
+
 
     public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
         return new GetSearchSuggestionsApiResponse(module);

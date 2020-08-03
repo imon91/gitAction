@@ -51,6 +51,7 @@ public class CoreConstants {
     public static final String APP_MOKAM = "Mokam";
     public static final String APP_WMS = "Wms";
     public static final String APP_RED_X = "RedX";
+    public static final String APP_STORE = "Store";
     public static final String ENV_STAGE = "Stage";
     public static final String ENV_PROD = "Prod";
 
@@ -60,5 +61,6 @@ public class CoreConstants {
     public static final String MODULE_MOBILE_WEB_UI = "wap";
     public static final String MODULE_WEB_UI = "web";
     public static final String MODULE_WMS_UI = "wms";
+    public static final String MODULE_STORE_WAP = "store";
 
 }

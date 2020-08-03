@@ -20,6 +20,11 @@ public class Authentication extends AndroidBaseClass {
     public void resellerAndroidBeforeSuite(){
         System.out.println("resellerAndroidBeforeSuite is called");
         androidDriver = getBaseDriver();
+        try{
+            PropertyReader.flushDynamicData();
+        }catch (Exception e){
+            System.out.println("Exception at ResellerAndroidBeforeSuite : flushDynamicData");
+        }
         serviceRequestLayer = new ServiceRequestLayer();
         serviceRequestLayer.getControlOverAuthentication()
                 .performAuthentication();
