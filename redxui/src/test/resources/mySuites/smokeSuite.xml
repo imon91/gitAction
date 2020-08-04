@@ -9,7 +9,7 @@
         </groups>
         <classes>
             <class name="com.redx.tests.Authentication"></class>
-            <class name="com.redx.tests.ShopName"></class>
+<!--             <class name="com.redx.tests.ShopName"></class>
             <class name="com.redx.tests.ChangeLanguage"></class>
             <class name="com.redx.tests.CreateParcel"></class>
             <class name="com.redx.tests.EditParcel"></class>
@@ -17,7 +17,7 @@
             <class name="com.redx.tests.ParcelDetails"></class>
             <class name="com.redx.tests.PaymentInvoice"></class>
             <class name="com.redx.tests.Settings"></class>
-            <class name="com.redx.tests.Logout"></class>
+            <class name="com.redx.tests.Logout"></class> -->
         </classes>
     </test>
 </suite>
