@@ -31,13 +31,11 @@ public class BinReset extends WmsBaseClass {
         System.out.println("Verify Bin Reset is called");
         homePageObject.clickPackages();
         packagesPageObjects.clickBinResetTab();
-        sleep(1000);
         binResetTab.resetBinPass("135972");
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
         packagesPageObjects.clickPackageDetailsTab();
         packageDetailsTab.enterPackageID("135972");
-        sleep(2000);
         System.out.println(packageDetailsTab.getCurrentStatus());
     }
 

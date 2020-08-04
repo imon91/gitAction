@@ -3,6 +3,7 @@ package com.shopf.tests.Returns;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.*;
 import pageObjects.*;
 import utils.*;
 
@@ -16,6 +17,7 @@ public class PickListReturn extends WmsBaseClass {
     private ReturnsPageObjects.ReturnInScanTab returnInScanTab;
     private PickOrdersPageObjects pickOrdersPageObjects;
     private PickOrdersPageObjects.AllPickListsTab allPickListsTab;
+    private Assertion assertion;
 
     @BeforeClass(alwaysRun = true)
     public void pickListReturnBeforeClass() throws Exception {
@@ -26,6 +28,7 @@ public class PickListReturn extends WmsBaseClass {
         returnInScanTab = returnsPageObjects.new ReturnInScanTab(driver);
         pickOrdersPageObjects = new PickOrdersPageObjects(driver);
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
+        assertion = new Assertion();
     }
 
     @Test(groups = CoreConstants.GROUP_SMOKE,
@@ -37,8 +40,8 @@ public class PickListReturn extends WmsBaseClass {
 
         /*--------------Get Random Pick List Id And Status-------------------*/
         homePageObject.clickPickOrders();
+        sleep(2000);
         pickOrdersPageObjects.clickAllPickListsTab();
-        sleep(1000);
         int i = 0, total = allPickListsTab.getTotalPickLists();
         Random random = new Random();
         int n = random.nextInt(total);
@@ -57,7 +60,7 @@ public class PickListReturn extends WmsBaseClass {
         homePageObject.clickReturns();
         returnsPageObjects.clickReturnInScanTab();
         returnInScanTab.enterPickListId(pickListId);
-        sleep(3000);
+        sleep(1000);
         if (i == 1) {
             String message = homePageObject.getPopUpMessage();
             System.out.println(message);
@@ -76,7 +79,7 @@ public class PickListReturn extends WmsBaseClass {
             returnInScanTab.clickPickListReturnSubmitButton();
             String message = homePageObject.getPopUpMessage();
             System.out.println(message);
-            sleep(2000);
+            assertion.assertEquals(message,"Packages are Inwarded");
         }
     }
 

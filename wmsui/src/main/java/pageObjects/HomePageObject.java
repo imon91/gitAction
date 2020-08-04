@@ -7,6 +7,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 import utils.WmsBaseClass;
 
@@ -14,11 +16,13 @@ public class HomePageObject extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
+    private WebDriverWait wait;
 
     public HomePageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
     //Warehouses
@@ -57,51 +61,66 @@ public class HomePageObject extends WmsBaseClass {
     @FindBy(xpath = "//div[@id='root']//h3//a[text()='Log out']")
     private WebElement logoutButton;
 
+    //Warehouse Select
+    @FindBy(xpath = "//div[@id='root']//form//select")
+    private WebElement selectWarehouseDropDown;
+
 
     /*--------------Actions-------------------*/
     public void clickWarehouses() {
+        wait.until(ExpectedConditions.visibilityOf(warehouseModule));
         myActions.action_click(warehouseModule);
     }
 
     public void clickSuppliers() {
+        wait.until(ExpectedConditions.visibilityOf(suppliersModule));
         myActions.action_click(suppliersModule);
     }
 
     public void clickVariants() {
+        wait.until(ExpectedConditions.visibilityOf(variantsModule));
         myActions.action_click(variantsModule);
     }
 
     public void clickPurchaseOrders() {
+        wait.until(ExpectedConditions.visibilityOf(purchaseOrdersModule));
         myActions.action_click(purchaseOrdersModule);
     }
 
     public void clickPackages() {
+        wait.until(ExpectedConditions.visibilityOf(packagesModule));
         myActions.action_click(packagesModule);
     }
 
     public void clickPickOrders() {
+        wait.until(ExpectedConditions.visibilityOf(pickOrdersModule));
         myActions.action_click(pickOrdersModule);
     }
 
     public void clickOrderProcess() {
+        wait.until(ExpectedConditions.visibilityOf(orderProcessModule));
         myActions.action_click(orderProcessModule);
     }
 
     public void clickReturns() {
+        wait.until(ExpectedConditions.visibilityOf(returnsModule));
         myActions.action_click(returnsModule);
     }
 
     public void clickLogout() {
-        sleep(2000);
+        sleep(4000);
+        wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
         myActions.action_click(logoutButton);
-        sleep(5000);
     }
 
     public String getPopUpMessage(){
-        sleep(1000);
         String popUpMessage = "//div[@id='toastbar-text']";
         WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
+        wait.until(ExpectedConditions.visibilityOf(popUpMessageElement));
         return myActions.action_getText(popUpMessageElement);
     }
 
+    public void selectWarehouse(String warehouse) {
+        wait.until(ExpectedConditions.visibilityOf(selectWarehouseDropDown));
+        myActions.action_select(selectWarehouseDropDown,warehouse); }
 }

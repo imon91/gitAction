@@ -44,8 +44,8 @@ public class AllPickLists extends WmsBaseClass {
         int i;
         System.out.println("Verifying All Pick List Class");
         homePageObject.clickPickOrders();
+        sleep(2000);
         pickOrdersPageObjects.clickAllPickListsTab();
-        sleep(1000);
         allPickListModelList = getWMSApiResponse.getAllPickLists(1,30);
         List<AllPickListModel.PickListsDataBean> list = allPickListModelList.getPick_lists_data();
         System.out.println("List Size: " + list.size());

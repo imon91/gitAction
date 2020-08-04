@@ -45,7 +45,6 @@ public class PackagesList extends WmsBaseClass {
         int i;
         homePageObject.clickPackages();
         packagesPageObjects.clickPackagesListTab();
-        sleep(1000);
         packagesListModels = getWMSApiResponse.getPackagesList();
         System.out.println(packagesListModels.size());
         for (i = 0; i < packagesListModels.size(); i++) {

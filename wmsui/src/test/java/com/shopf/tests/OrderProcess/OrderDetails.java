@@ -46,7 +46,6 @@ public class OrderDetails extends WmsBaseClass{
         int i,j;
         homePageObject.clickOrderProcess();
         orderProcessPageObjects.clickOrderDetailTab();
-        sleep(1000);
         list = getWMSApiResponse.getOrderList();
         i = random.nextInt(list.size());
         orderNo = list.get(i).getOrder_number();

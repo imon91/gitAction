@@ -45,7 +45,6 @@ public class VariantList extends WmsBaseClass {
         int i, total;
         homePageObject.clickVariants();
         variantsPageObjects.clickVariantListTab();
-        sleep(1000);
         list = getWMSApiResponse.getVariantDetails();
         total = variantListTab.getTotalProducts();
         System.out.println("List Size: " + total);

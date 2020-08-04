@@ -5,9 +5,9 @@ import com.google.gson.reflect.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
-import services.wmsMethods.GetWMSApiResponse;
 import utils.*;
 
 import java.io.*;
@@ -21,11 +21,11 @@ public class GRNCreation extends WmsBaseClass {
     private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
     private PurchaseOrdersPageObjects.CreateGRNTab createGRNTab;
     private PurchaseOrdersPageObjects.CreatePurchaseOrderTab createPurchaseOrderTab;
-    private GetWMSApiResponse getWMSApiResponse;
     private List<VariantDetailsModel> list;
     private Random random;
     private Gson gson;
     private BufferedReader bufferedReader;
+    private Assertion assertion;
 
     @BeforeClass(alwaysRun = true)
     public void createGRNBeforeClass() throws Exception {
@@ -36,8 +36,8 @@ public class GRNCreation extends WmsBaseClass {
         createPurchaseOrderTab = purchaseOrdersPageObjects.new CreatePurchaseOrderTab(driver);
         purchaseOrderList = new PurchaseOrdersPageObjects(driver).new PurchaseOrderList(driver);
         createGRNTab = new PurchaseOrdersPageObjects(driver).new CreateGRNTab(driver);
-        getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         random = new Random();
+        assertion = new Assertion();
     }
 
     @DataProvider(name = "skuCodeData")
@@ -61,7 +61,6 @@ public class GRNCreation extends WmsBaseClass {
     public void createGRNBeforeMethod(){
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickCreatePurchaseOrderTab();
-        sleep(1000);
         createPurchaseOrderTab.enterWarehouseDetails();
     }
 
@@ -73,22 +72,21 @@ public class GRNCreation extends WmsBaseClass {
         System.out.println("Create GRN Verification is called");
         System.out.println(name + " : " + id);
         createPurchaseOrderTab.createPurchaseOrder(id);
-        purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         sleep(1000);
+        homePageObject.clickPurchaseOrders();
+        purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         int i, total = purchaseOrderList.getTotalPurchaseOrders();
         for (i = 1; i <= total; i++)
             if (purchaseOrderList.getStatus(i).equalsIgnoreCase("CREATED"))
                 break;
         String poId = purchaseOrderList.getPOID(i);
         purchaseOrdersPageObjects.clickCreateGRNTab();
-        sleep(1000);
         createGRNTab.poIDEntry(poId);
-        sleep(1000);
         createGRNTab.clickGRNButton();
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(1000);
+        assertion.assertEquals(message,"GRN Created");
     }
 
     @AfterClass(alwaysRun = true)

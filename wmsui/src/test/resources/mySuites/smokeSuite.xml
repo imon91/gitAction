@@ -14,6 +14,7 @@
             <class name="com.shopf.tests.PurchaseOrders.ClosePO"></class>
             <class name="com.shopf.tests.Packages.PackageDetails"></class>
             <class name="com.shopf.tests.Returns.PickListReturn"></class>
+            <class name="com.shopf.tests.PickOrders.AddingPickList"></class>
             <class name="com.shopf.tests.Logout"></class>
         </classes>
     </test>

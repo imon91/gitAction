@@ -7,17 +7,14 @@ import org.openqa.selenium.support.ui.Select;
 public class MyActions extends WmsBaseClass {
 
     public void action_click(WebElement element){
-        sleep(1000);
         element.click();
     }
 
     public void action_sendKeys(WebElement element, String data){
-        sleep(1000);
         element.sendKeys(data);
     }
 
     public String action_getText(WebElement element){
-        sleep(300);
         return element.getText();
     }
 
