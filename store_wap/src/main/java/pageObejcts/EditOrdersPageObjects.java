@@ -15,7 +15,6 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
-import sun.awt.windows.WEmbeddedFrame;
 import utils.StoreWapActions;
 import utils.StoreWapBaseClass;
 import java.util.List;

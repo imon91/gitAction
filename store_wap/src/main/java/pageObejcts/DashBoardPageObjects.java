@@ -1,6 +1,5 @@
 package pageObejcts;
 
-import com.sun.webkit.BackForwardList;
 import coreUtils.CoreConstants;
 import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;

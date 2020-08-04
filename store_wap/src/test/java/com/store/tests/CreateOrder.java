@@ -3,7 +3,6 @@ package com.store.tests;
 import coreUtils.CoreConstants;
 import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
-import org.aspectj.weaver.ast.Or;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
