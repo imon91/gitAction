@@ -72,7 +72,7 @@ public class GRNCreation extends WmsBaseClass {
         System.out.println("Create GRN Verification is called");
         System.out.println(name + " : " + id);
         createPurchaseOrderTab.createPurchaseOrder(id);
-        sleep(1000);
+        homePageObject.popUpInvisibility();
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         int i, total = purchaseOrderList.getTotalPurchaseOrders();

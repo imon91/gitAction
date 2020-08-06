@@ -44,7 +44,6 @@ public class PickListAction extends WmsBaseClass {
         String poId = "";
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickAllPickListsTab();
-        sleep(1000);
         total = allPickListsTab.getTotalPickLists();
         for (i = 0; i < total; i++)
             if (allPickListsTab.getStatus(i + 1).equalsIgnoreCase("closed")) {

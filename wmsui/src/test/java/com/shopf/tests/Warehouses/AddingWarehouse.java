@@ -44,7 +44,7 @@ public class AddingWarehouse extends WmsBaseClass {
         String warehouseCode = warehouseListTab.getWarehouseCode(totalWarehouses);
         System.out.println("The last added Warehouse: " + warehouseCode);
         homePageObject.selectWarehouse("Shopup Dhaka");
-        sleep(3000);
+        homePageObject.popUpInvisibility();
     }
 
     @AfterClass(alwaysRun = true)

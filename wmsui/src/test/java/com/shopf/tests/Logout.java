@@ -18,7 +18,7 @@ public class Logout extends WmsBaseClass {
         homePageObject = new HomePageObject(driver);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE,CoreConstants.GROUP_REGRESSION},
+    @Test(groups = {CoreConstants.GROUP_SMOKE,CoreConstants.GROUP_SANITY},
             description = "Logout on click",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
     public void verifyLogout() {

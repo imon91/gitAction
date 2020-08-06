@@ -51,7 +51,7 @@ public class Login extends WmsBaseClass {
         String url = driver.getCurrentUrl();
         System.out.println(email + ":" + password);
         System.out.println(url);
-
+        sleep(1000);
     }
 
     @AfterClass(alwaysRun = true)

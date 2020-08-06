@@ -54,11 +54,6 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         };
     }
 
-    @BeforeMethod(alwaysRun = true)
-    public void createGRNBeforeMethod(){
-        homePageObject.selectWarehouse("Shopup Dhaka");
-    }
-
     @Test(groups = (CoreConstants.GROUP_SMOKE),
             dataProvider = "skuCodeData",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
@@ -67,6 +62,7 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         System.out.println(name + " : " + id);
         System.out.println("Create Purchase Order Verification is Called");
         homePageObject.clickPurchaseOrders();
+        homePageObject.selectWarehouse("Shopup Dhaka");
         createPurchaseOrderTab.enterWarehouseDetails();
         createPurchaseOrderTab.createPurchaseOrder(id);
         String message = homePageObject.getPopUpMessage();

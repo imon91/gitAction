@@ -33,7 +33,6 @@ public class AddingPickList extends WmsBaseClass {
     public void verifyPickListAddition() {
         System.out.println("Pick List Addition Verification is called");
         homePageObject.clickPickOrders();
-        sleep(2000);
         pickOrdersPageObjects.clickDemandLessPickListTab();
         homePageObject.selectWarehouse("Shopup Dhaka");
         demandLessPickListTab.enterWarehouseDetails();

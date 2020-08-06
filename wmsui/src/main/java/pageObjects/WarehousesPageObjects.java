@@ -299,7 +299,6 @@ public class WarehousesPageObjects extends WmsBaseClass {
             wait.until(ExpectedConditions.visibilityOf(binCodeBinDetails));
             myActions.action_sendKeys(binCodeBinDetails, binCode);
             myActions.action_enter(binCodeBinDetails);
-            sleep(1000);
         }
 
 

@@ -108,19 +108,23 @@ public class HomePageObject extends WmsBaseClass {
     }
 
     public void clickLogout() {
-        sleep(4000);
         wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
         myActions.action_click(logoutButton);
     }
 
     public String getPopUpMessage(){
         String popUpMessage = "//div[@id='toastbar-text']";
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(popUpMessage))));
         WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
-        wait.until(ExpectedConditions.visibilityOf(popUpMessageElement));
         return myActions.action_getText(popUpMessageElement);
     }
 
     public void selectWarehouse(String warehouse) {
         wait.until(ExpectedConditions.visibilityOf(selectWarehouseDropDown));
-        myActions.action_select(selectWarehouseDropDown,warehouse); }
+        myActions.action_select(selectWarehouseDropDown,warehouse);
+    }
+
+    public void popUpInvisibility(){
+        wait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElement(By.xpath("//div[@id='toastbar-text']"))));
+    }
 }

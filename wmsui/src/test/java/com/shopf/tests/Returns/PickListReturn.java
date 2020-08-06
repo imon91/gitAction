@@ -40,7 +40,6 @@ public class PickListReturn extends WmsBaseClass {
 
         /*--------------Get Random Pick List Id And Status-------------------*/
         homePageObject.clickPickOrders();
-        sleep(2000);
         pickOrdersPageObjects.clickAllPickListsTab();
         int i = 0, total = allPickListsTab.getTotalPickLists();
         Random random = new Random();
@@ -60,7 +59,6 @@ public class PickListReturn extends WmsBaseClass {
         homePageObject.clickReturns();
         returnsPageObjects.clickReturnInScanTab();
         returnInScanTab.enterPickListId(pickListId);
-        sleep(1000);
         if (i == 1) {
             String message = homePageObject.getPopUpMessage();
             System.out.println(message);
