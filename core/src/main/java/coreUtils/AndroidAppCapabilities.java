@@ -87,8 +87,8 @@ public class AndroidAppCapabilities {
         cap.setCapability(CAP_KEY_RESET_KEYBOARD, CoreConstants.TRUE);
         cap.setCapability(CAP_KEY_NATIVE_WEB_SCREEN_SHOT,CoreConstants.TRUE);
         cap.setCapability("androidScreenshotPath","target/screenshots");
-//         cap.setCapability("unicodeKeyboard", true);
-//         cap.setCapability("resetKeyboard", true);
+         cap.setCapability("unicodeKeyboard", true);
+         cap.setCapability("resetKeyboard", true);
         //cap.setCapability(CAP_KEY_IS_HEADLESS,true);
         //cap.setCapability(CAP_KEY_ADV_ARGS, "-no-window");
 
