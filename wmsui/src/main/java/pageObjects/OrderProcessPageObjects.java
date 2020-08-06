@@ -40,22 +40,22 @@ public class OrderProcessPageObjects {
 
     /*--------------Actions-------------------*/
     public void clickOrderPackTab(){
-        wait.until(ExpectedConditions.visibilityOf(orderPackTab));
+        wait.until(ExpectedConditions.elementToBeClickable(orderPackTab));
         myActions.action_click(orderPackTab);
     }
 
     public void clickCreateManifestTab(){
-        wait.until(ExpectedConditions.visibilityOf(createManifestTab));
+        wait.until(ExpectedConditions.elementToBeClickable(createManifestTab));
         myActions.action_click(createManifestTab);
     }
 
     public void clickUploadManifestTab(){
-        wait.until(ExpectedConditions.visibilityOf(uploadManifestTab));
+        wait.until(ExpectedConditions.elementToBeClickable(uploadManifestTab));
         myActions.action_click(uploadManifestTab);
     }
 
     public void clickOrderDetailTab(){
-        wait.until(ExpectedConditions.visibilityOf(orderDetailTab));
+        wait.until(ExpectedConditions.elementToBeClickable(orderDetailTab));
         myActions.action_click(orderDetailTab);
     }
 

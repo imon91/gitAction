@@ -54,30 +54,30 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
     /*--------------Actions-------------------*/
     public void clickAddWarehouseTab() {
-        wait.until(ExpectedConditions.visibilityOf(addWarehouseTab));
+        wait.until(ExpectedConditions.elementToBeClickable(addWarehouseTab));
         myActions.action_click(addWarehouseTab);
     }
 
     public void clickWarehouseListTab() {
-        wait.until(ExpectedConditions.visibilityOf(warehousesListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(warehousesListTab));
         myActions.action_click(warehousesListTab);
     }
 
     public void clickUpdateBinCapacityTab() {
-        wait.until(ExpectedConditions.visibilityOf(updateBinCapacityTab));
+        wait.until(ExpectedConditions.elementToBeClickable(updateBinCapacityTab));
         myActions.action_click(updateBinCapacityTab);
     }
 
     public void clickBinDetailsTab() {
-        wait.until(ExpectedConditions.visibilityOf(binDetailsTab));
+        wait.until(ExpectedConditions.elementToBeClickable(binDetailsTab));
         myActions.action_click(binDetailsTab);}
 
     public void clickWarehouseBinsCreateTab() {
-        wait.until(ExpectedConditions.visibilityOf(warehouseBinsCreateTab));
+        wait.until(ExpectedConditions.elementToBeClickable(warehouseBinsCreateTab));
         myActions.action_click(warehouseBinsCreateTab); }
 
     public void selectWarehouse(String warehouse) {
-        wait.until(ExpectedConditions.visibilityOf(selectWarehouseDropDown));
+        wait.until(ExpectedConditions.elementToBeClickable(selectWarehouseDropDown));
         myActions.action_select(selectWarehouseDropDown,warehouse); }
 
 

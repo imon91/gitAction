@@ -42,22 +42,22 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Actions-------------------*/
     public void clickCreatePickListTab(){
-        wait.until(ExpectedConditions.visibilityOf(createPickListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(createPickListTab));
         myActions.action_click(createPickListTab);
     }
 
     public void clickDemandLessPickListTab(){
-        wait.until(ExpectedConditions.visibilityOf(demandLessPickListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(demandLessPickListTab));
         myActions.action_click(demandLessPickListTab);
     }
 
     public void clickAllPickListsTab(){
-        wait.until(ExpectedConditions.visibilityOf(allPickListsTab));
+        wait.until(ExpectedConditions.elementToBeClickable(allPickListsTab));
         myActions.action_click(allPickListsTab);
     }
 
     public void clickPickListActionTab(){
-        wait.until(ExpectedConditions.visibilityOf(pickListActionTab));
+        wait.until(ExpectedConditions.elementToBeClickable(pickListActionTab));
         myActions.action_click(pickListActionTab);
     }
 

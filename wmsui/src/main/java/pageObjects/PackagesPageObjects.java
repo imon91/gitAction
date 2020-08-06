@@ -41,27 +41,27 @@ public class PackagesPageObjects {
 
     /*--------------Actions-------------------*/
     public void clickPackagesListTab() {
-        wait.until(ExpectedConditions.visibilityOf(packagesListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(packagesListTab));
         myActions.action_click(packagesListTab);
     }
 
     public void clickCreatePutawayListTab() {
-        wait.until(ExpectedConditions.visibilityOf(createPutawayListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(createPutawayListTab));
         myActions.action_click(createPutawayListTab);
     }
 
     public void clickBinInScanTab() {
-        wait.until(ExpectedConditions.visibilityOf(binInScanTab));
+        wait.until(ExpectedConditions.elementToBeClickable(binInScanTab));
         myActions.action_click(binInScanTab);
     }
 
     public void clickBinResetTab() {
-        wait.until(ExpectedConditions.visibilityOf(binResetTab));
+        wait.until(ExpectedConditions.elementToBeClickable(binResetTab));
         myActions.action_click(binResetTab);
     }
 
     public void clickPackageDetailsTab() {
-        wait.until(ExpectedConditions.visibilityOf(packageDetailsTab));
+        wait.until(ExpectedConditions.elementToBeClickable(packageDetailsTab));
         myActions.action_click(packageDetailsTab);
     }
 

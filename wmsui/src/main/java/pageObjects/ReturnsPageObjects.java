@@ -40,23 +40,23 @@ public class ReturnsPageObjects extends WmsBaseClass {
     private WebElement rTSUploadManifestTab;
 
     public void clickReturnInScanTab(){
-        wait.until(ExpectedConditions.visibilityOf(returnInScanTab));
+        wait.until(ExpectedConditions.elementToBeClickable(returnInScanTab));
         myActions.action_click(returnInScanTab);}
 
     public void clickReturnQcScanTab(){
-        wait.until(ExpectedConditions.visibilityOf(returnQcScanTab));
+        wait.until(ExpectedConditions.elementToBeClickable(returnQcScanTab));
         myActions.action_click(returnQcScanTab);}
 
     public void clickRTSCreateManifestTab(){
-        wait.until(ExpectedConditions.visibilityOf(rTSCreateManifestTab));
+        wait.until(ExpectedConditions.elementToBeClickable(rTSCreateManifestTab));
         myActions.action_click(rTSCreateManifestTab);}
 
     public void clickRTSOutScanTab(){
-        wait.until(ExpectedConditions.visibilityOf(rTSOutScanTab));
+        wait.until(ExpectedConditions.elementToBeClickable(rTSOutScanTab));
         myActions.action_click(rTSOutScanTab);}
 
     public void clickRTSUploadManifestTab(){
-        wait.until(ExpectedConditions.visibilityOf(rTSUploadManifestTab));
+        wait.until(ExpectedConditions.elementToBeClickable(rTSUploadManifestTab));
         myActions.action_click(rTSUploadManifestTab);}
 
 

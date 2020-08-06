@@ -45,22 +45,22 @@ public class SuppliersPageObjects extends WmsBaseClass {
 
     /*--------------Actions-------------------*/
     public void clickMigrateSellerTab() {
-        wait.until(ExpectedConditions.visibilityOf(migrateSellerTab));
+        wait.until(ExpectedConditions.elementToBeClickable(migrateSellerTab));
         myActions.action_click(migrateSellerTab);
     }
 
     public void clickSuppliersListTab() {
-        wait.until(ExpectedConditions.visibilityOf(suppliersListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(suppliersListTab));
         myActions.action_click(suppliersListTab);
     }
 
     public void clickSellersListTab() {
-        wait.until(ExpectedConditions.visibilityOf(sellersListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(sellersListTab));
         myActions.action_click(sellersListTab);
     }
 
     public void clickAddSupplierTab() {
-        wait.until(ExpectedConditions.visibilityOf(addSupplierTab));
+        wait.until(ExpectedConditions.elementToBeClickable(addSupplierTab));
         myActions.action_click(addSupplierTab);
     }
 

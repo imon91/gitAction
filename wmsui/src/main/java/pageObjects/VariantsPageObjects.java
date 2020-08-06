@@ -38,22 +38,22 @@ public class VariantsPageObjects {
 
     /*--------------Actions-------------------*/
     public void clickAddVariantsTab() {
-        wait.until(ExpectedConditions.visibilityOf(addVariantsTab));
+        wait.until(ExpectedConditions.elementToBeClickable(addVariantsTab));
         myActions.action_click(addVariantsTab);
     }
 
     public void clickVariantListTab() {
-        wait.until(ExpectedConditions.visibilityOf(variantListTab));
+        wait.until(ExpectedConditions.elementToBeClickable(variantListTab));
         myActions.action_click(variantListTab);
     }
 
     public void clickBulkUploadTab() {
-        wait.until(ExpectedConditions.visibilityOf(bulkUploadTab));
+        wait.until(ExpectedConditions.elementToBeClickable(bulkUploadTab));
         myActions.action_click(bulkUploadTab);
     }
 
     public void clickBinsForSkuTab() {
-        wait.until(ExpectedConditions.visibilityOf(binsForSkuTab));
+        wait.until(ExpectedConditions.elementToBeClickable(binsForSkuTab));
         myActions.action_click(binsForSkuTab);
     }
 

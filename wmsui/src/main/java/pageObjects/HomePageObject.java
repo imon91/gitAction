@@ -68,42 +68,42 @@ public class HomePageObject extends WmsBaseClass {
 
     /*--------------Actions-------------------*/
     public void clickWarehouses() {
-        wait.until(ExpectedConditions.visibilityOf(warehouseModule));
+        wait.until(ExpectedConditions.elementToBeClickable(warehouseModule));
         myActions.action_click(warehouseModule);
     }
 
     public void clickSuppliers() {
-        wait.until(ExpectedConditions.visibilityOf(suppliersModule));
+        wait.until(ExpectedConditions.elementToBeClickable(suppliersModule));
         myActions.action_click(suppliersModule);
     }
 
     public void clickVariants() {
-        wait.until(ExpectedConditions.visibilityOf(variantsModule));
+        wait.until(ExpectedConditions.elementToBeClickable(variantsModule));
         myActions.action_click(variantsModule);
     }
 
     public void clickPurchaseOrders() {
-        wait.until(ExpectedConditions.visibilityOf(purchaseOrdersModule));
+        wait.until(ExpectedConditions.elementToBeClickable(purchaseOrdersModule));
         myActions.action_click(purchaseOrdersModule);
     }
 
     public void clickPackages() {
-        wait.until(ExpectedConditions.visibilityOf(packagesModule));
+        wait.until(ExpectedConditions.elementToBeClickable(packagesModule));
         myActions.action_click(packagesModule);
     }
 
     public void clickPickOrders() {
-        wait.until(ExpectedConditions.visibilityOf(pickOrdersModule));
+        wait.until(ExpectedConditions.elementToBeClickable(pickOrdersModule));
         myActions.action_click(pickOrdersModule);
     }
 
     public void clickOrderProcess() {
-        wait.until(ExpectedConditions.visibilityOf(orderProcessModule));
+        wait.until(ExpectedConditions.elementToBeClickable(orderProcessModule));
         myActions.action_click(orderProcessModule);
     }
 
     public void clickReturns() {
-        wait.until(ExpectedConditions.visibilityOf(returnsModule));
+        wait.until(ExpectedConditions.elementToBeClickable(returnsModule));
         myActions.action_click(returnsModule);
     }
 
