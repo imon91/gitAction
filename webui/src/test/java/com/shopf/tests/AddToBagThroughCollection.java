@@ -1,7 +1,9 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -25,22 +27,30 @@ public class AddToBagThroughCollection extends WebBaseClass {
         driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         pdpPageObject = new PDPPageObject(driver);
+        plpPageObject = new PLPPageObject(driver);
         myShopPageObjects = new MyShopPageObjects(driver);
         bagPageObjects = new BagPageObjects(driver);
     }
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"MyShop.VerifyAddProductToBagThroughCollection",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("PDP.VerifyAddToMyShop"))
     public void addToBagThroughCollection() {
         System.out.println("VerifyAddToBagThroughCollection is called");
-        myShopPageObjects.getProductName1();
-        myShopPageObjects.clickOnProductSizeL();
-        myShopPageObjects.clickOnOrderNow();
-        sleep(2500);
-        bagPageObjects.clickProduct1();
-        sleep(5000);
+        //get index
+//        int sizeIndex=Integer.parseInt(System.getProperty("index"));
+//        //product name
+//        String productNameAtCollection =  myShopPageObjects.orderProduct(1,++sizeIndex);
+//        sleep(2500);
+//        System.out.println("Product Name At Collection : "+productNameAtCollection);
+//        //click on product by name
+//        int indexOfProduct = bagPageObjects.specialFindingIndexOfShirtByName(productNameAtCollection);
+//        System.out.println("The index of product which selected:"+indexOfProduct);
+//        sleep(4000);
+//        bagPageObjects.viewProduct(indexOfProduct);
+//        sleep(2000);
     }
 
 

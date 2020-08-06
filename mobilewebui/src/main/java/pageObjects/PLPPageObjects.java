@@ -1,35 +1,36 @@
 package pageObjects;
 
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.pagefactory.AndroidFindBy;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.ProductListingResultsModel;
 import utils.MyActions;
+import utils.ServiceRequestLayer;
 import utils.WebAppBaseClass;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import static org.apache.commons.lang3.RandomUtils.nextInt;
-import static utils.WebAppBaseClass.getBaseDriver;
-import static utils.WebAppBaseClass.sleep;
-
-public class PLPPageObjects {
-
-        private AndroidDriver<WebElement> driver = getBaseDriver();
+public class PLPPageObjects extends WebAppBaseClass {
+  
+        private AndroidDriver<WebElement> driver;
         private MyActions myActions;
         private Random random;
+        private ServiceRequestLayer serviceRequestLayer;
 
         public PLPPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
             this.driver = androidDriver;
             PageFactory.initElements(new AppiumFieldDecorator(driver), this);
             myActions = new MyActions();
             random = new Random();
+            serviceRequestLayer = new ServiceRequestLayer();
         }
 
 
@@ -186,75 +187,75 @@ public class PLPPageObjects {
 
 /*--------Actions--------*/
 
-    public void clickToListOneProduct(){myActions.action_click(ListOneButton);};
+    public void clickToListOneProduct(){myActions.action_click(ListOneButton);}
 
-    public void clickToListTwoProduct(){myActions.action_click(ListTwoButton);};
+    public void clickToListTwoProduct(){myActions.action_click(ListTwoButton);}
 
-    public String getTheNameOfProductDisplayed(){return myActions.action_getText(resultOfSearch);};
+    public String getTheNameOfProductDisplayed(){return myActions.action_getText(resultOfSearch);}
 
     public String getNoOfItemsOfTheProduct(){return myActions.action_getText(noofItems);}
 
-    public void clickOnFilterTab(){myActions.action_click(FilterTab);};
+    public void clickOnFilterTab(){myActions.action_click(FilterTab);}
 
-    public void clickOnSortTab(){myActions.action_click(SortTab);};
+    public void clickOnSortTab(){myActions.action_click(SortTab);}
 
-    public void clickOnFilterByCategory(){myActions.action_click(ByCategory);};
+    public void clickOnFilterByCategory(){myActions.action_click(ByCategory);}
 
-    public void clickOnFilterByPrice(){myActions.action_click(ByPrice);};
+    public void clickOnFilterByPrice(){myActions.action_click(ByPrice);}
 
-    public void clickOnFilterByDiscount(){myActions.action_click(ByDiscount);};
+    public void clickOnFilterByDiscount(){myActions.action_click(ByDiscount);}
 
-    public void clickOnMenShirtsCheckBox(){myActions.action_click(MenShirtsCheckbox);};
+    public void clickOnMenShirtsCheckBox(){myActions.action_click(MenShirtsCheckbox);}
 
-    public void clickOnMenT_ShirtsCheckBox(){myActions.action_click(MenT_ShirtsCheckbox);};
+    public void clickOnMenT_ShirtsCheckBox(){myActions.action_click(MenT_ShirtsCheckbox);}
 
-    public void clickOnDressMaterialsCheckBox(){myActions.action_click(DressMaterialsCheckbox);};
+    public void clickOnDressMaterialsCheckBox(){myActions.action_click(DressMaterialsCheckbox);}
 
-    public void clickOnSweatersCheckBox(){myActions.action_click(SweatersCheckbox);};
+    public void clickOnSweatersCheckBox(){myActions.action_click(SweatersCheckbox);}
 
-    public void clickOnJacketsCheckbox(){myActions.action_click(JacketsCheckbox);};
+    public void clickOnJacketsCheckbox(){myActions.action_click(JacketsCheckbox);}
 
-    public void clickOnKidsT_ShirtsCheckBox(){myActions.action_click(KidsT_ShirtsCheckbox);};
+    public void clickOnKidsT_ShirtsCheckBox(){myActions.action_click(KidsT_ShirtsCheckbox);}
 
-    public void clickOnT_ShirtsCheckBox(){myActions.action_click(T_ShirtsCheckbox);};
+    public void clickOnT_ShirtsCheckBox(){myActions.action_click(T_ShirtsCheckbox);}
 
-    public void clickOnJacketsCheckBox(){myActions.action_click(JacketsCheckbox);};
+    public void clickOnJacketsCheckBox(){myActions.action_click(JacketsCheckbox);}
 
-    public void clickOnMenJacketsCheckBox(){myActions.action_click(MenJacketsCheckbox);};
+    public void clickOnMenJacketsCheckBox(){myActions.action_click(MenJacketsCheckbox);}
 
-    public void clickOnMenWatchesCheckBox(){myActions.action_click(MenWatchesCheckbox);};
+    public void clickOnMenWatchesCheckBox(){myActions.action_click(MenWatchesCheckbox);}
 
-    public void clickOnBelow500TkCheckBox(){myActions.action_click(Below500TkCheckbox);};
+    public void clickOnBelow500TkCheckBox(){myActions.action_click(Below500TkCheckbox);}
 
-    public void clickOn500_1000TkCheckBox(){myActions.action_click(r500_1000TkCheckbox);};
+    public void clickOn500_1000TkCheckBox(){myActions.action_click(r500_1000TkCheckbox);}
 
-    public void clickOn1000_1500TkCheckBox(){myActions.action_click(r1000_1500TkCheckbox);};
+    public void clickOn1000_1500TkCheckBox(){myActions.action_click(r1000_1500TkCheckbox);}
 
-    public void clickOn1500_2000CheckBox(){myActions.action_click(r1500_2000TkCheckbox);};
+    public void clickOn1500_2000CheckBox(){myActions.action_click(r1500_2000TkCheckbox);}
 
-    public void clickOnAbove2000TkCheckbox(){myActions.action_click(Above2000TkCheckbox);};
+    public void clickOnAbove2000TkCheckbox(){myActions.action_click(Above2000TkCheckbox);}
 
-    public void clickOnAbove70Checkbox(){myActions.action_click(Above70Checkbox);};
+    public void clickOnAbove70Checkbox(){myActions.action_click(Above70Checkbox);}
 
-    public void clickOnAbove60CheckBox(){myActions.action_click(Above60Checkbox);};
+    public void clickOnAbove60CheckBox(){myActions.action_click(Above60Checkbox);}
 
-    public void clickOnAbove50CheckBox(){myActions.action_click(Above50Checkbox);};
+    public void clickOnAbove50CheckBox(){myActions.action_click(Above50Checkbox);}
 
-    public void clickOnAbove40CheckBox(){myActions.action_click(Above40Checkbox);};
+    public void clickOnAbove40CheckBox(){myActions.action_click(Above40Checkbox);}
 
-    public void clickOnAbove30CheckBox(){myActions.action_click(Above30Checkbox);};
+    public void clickOnAbove30CheckBox(){myActions.action_click(Above30Checkbox);}
 
-    public void clickOnAbove20CheckBox(){myActions.action_click(Above20Checkbox);};
+    public void clickOnAbove20CheckBox(){myActions.action_click(Above20Checkbox);}
 
-    public void clickOnAbove10CheckBox(){myActions.action_click(Above10Checkbox);};
+    public void clickOnAbove10CheckBox(){myActions.action_click(Above10Checkbox);}
 
-    public void clickOnCancelFilters(){myActions.action_click(ClearallFiltersButton);};
+    public void clickOnCancelFilters(){myActions.action_click(ClearallFiltersButton);}
 
-    public void clickOnApplyFilters(){myActions.action_click(ApplyFiltersButton);};
+    public void clickOnApplyFilters(){myActions.action_click(ApplyFiltersButton);}
 
-    public void clickOnCloseFilterTab(){myActions.action_click(closeFiltersButton);};
+    public void clickOnCloseFilterTab(){myActions.action_click(closeFiltersButton);}
 
-/*-------Functions-------*/
+    /*-------Functions-------*/
 
 
     public void FilteringProduct(){
@@ -285,7 +286,7 @@ public class PLPPageObjects {
         // Context Switching
         Set<String> contextNames = driver.getContextHandles();
         int n = contextNames.size();
-        String contextData[] = new String[n];
+        String[] contextData = new String[n];
         contextData = contextNames.toArray(contextData);
         for(int i=0;i<contextData.length;i++){
             System.out.println(contextData[i]);
@@ -359,10 +360,10 @@ public class PLPPageObjects {
              }
 
 
-             String productXpath = "//div[@class='feed-grid-container']/ul/li";
-             List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
 
              public int chooseProductFromFeed(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String product;
                  int productid;
                  if (feedid != 0) {
@@ -380,6 +381,8 @@ public class PLPPageObjects {
 
 
              public String nameOfProduct(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String productName;
                  if (feedid != 0) {
                      productName = productXpath + "[" + feedid + "]/div//div[@class='productNameContainer___M7bIM']/p";
@@ -394,6 +397,8 @@ public class PLPPageObjects {
 
 
              public String price(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String price;
                  if (feedid != 0) {
                      price = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[1]";
@@ -408,6 +413,8 @@ public class PLPPageObjects {
 
 
              public String oldPrice(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String oldPrice;
                  if (feedid != 0) {
                      oldPrice = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/del/span";
@@ -422,6 +429,8 @@ public class PLPPageObjects {
 
 
              public String discount(int feedid) {
+                 String productXpath = "//div[@class='feed-grid-container']/ul/li";
+                 List<WebElement> productsList = driver.findElements(By.xpath(productXpath));
                  String discount;
                  if (feedid != 0) {
                      discount = productXpath + "[" + feedid + "]/div//div[@class='flex___1bJDE baseline___35KO7 prices___1_OgE']/span[2]";
@@ -441,6 +450,35 @@ public class PLPPageObjects {
                  System.out.println(oldPrice(data));
                  System.out.println(discount(data));
              }
+
+
+
+    public String selectValidProduct(String searchTerm){
+        GetCommerceApiResponse getCommerceApiResponse =
+                serviceRequestLayer.getControlOverServices();
+        Map<String,Object> productDetails =
+                getCommerceApiResponse.getProductWithValidSize(searchTerm);
+        int productIndex = (int)(productDetails.get("ValidProductIndex")); // Returns product Index
+        ProductListingResultsModel.ResultsBean productResult =
+                (ProductListingResultsModel.ResultsBean)productDetails.get("ValidProductDetails"); // Returns the Whole Product
+        int sizeIndex = (int)productDetails.get("ValidSizeIndex"); // Returns the Valid Size-Id
+        System.out.println("Product Index is : "+productIndex);
+        System.out.println("Product Name : "+productResult.getName());
+        System.out.println("Valid Product Size Index : "+sizeIndex);
+        System.setProperty("validProductSizeIndex",""+sizeIndex+"");
+        System.setProperty("minSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+        System.setProperty("maxSalePrice",
+                Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+        // Scroll into View that product by its name and perform click on that
+//        System.out.println(androidDriver.findElementByAndroidUIAutomator(
+//                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_item\")).scrollIntoView("
+//                        + "new UiSelector().text(\""+productResult.getName()+"\"))").getText());
+        // Click on that Item
+        chooseProductFromFeed(++productIndex);
+        sleep(2000);
+        return productResult.getName();
+    }
 
 
 

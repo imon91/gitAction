@@ -39,13 +39,18 @@ public class AddingItems extends WebAppBaseClass {
     public void verifyProductIsClicking() throws Exception {
         System.out.println("control came to verify Product is clicking");
         //androidDriver.findElementByXPath("//li[@class='col-xs-6 col-sm-6'][2]").click();
-        plp.chooseProductFromFeed(2);
-        System.out.println("Product is clicked");
+        String searchTerm = System.getProperty("searchTerm");
+        String title = plp.selectValidProduct(searchTerm);
+        System.out.println("Valid Product is clicked");
+        String original_selection = pdp.getItemText();
+        if (title.equalsIgnoreCase(original_selection)){
+            System.out.println("PDP working properly");
+        }
     }
 
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyProductIsClicking")
+    @Test(groups = {CoreConstants.GROUP_SMOKE},enabled = false,dependsOnMethods = "verifyProductIsClicking")
     public void AddingItemsToMyShopCollection() throws Exception {
         System.out.println("control came to adding items to myshop collections");
         pdp.clickOnAddToMyShop();

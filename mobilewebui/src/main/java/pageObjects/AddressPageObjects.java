@@ -1,32 +1,27 @@
 package pageObjects;
 
+import coreUtils.CoreConstants;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.ShoppingCartResponseModel;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
-import java.awt.geom.Area;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
-import static utils.WebAppBaseClass.*;
-
-public class AddressPageObjects {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+public class AddressPageObjects extends WebAppBaseClass {
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
+    private GetCommerceApiResponse getCommerceApiResponse;
     TouchAction touch;
 
     public AddressPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
@@ -34,6 +29,7 @@ public class AddressPageObjects {
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
         myActions = new MyActions();
         random = new Random();
+        getCommerceApiResponse = new GetCommerceApiResponse(CoreConstants.MODULE_MOBILE_WEB_UI);
         touch = new TouchAction(driver);
     }
 
@@ -42,8 +38,8 @@ public class AddressPageObjects {
     private WebElement home;
 
     //ProceedToPayment
-    @FindBy(xpath = "//button[@type='submit']")
-    private WebElement ProceedToPaymentButton;
+    @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
+    private WebElement ProceedToPaymentButtonTop;
 
     //selectAddress
     @FindBy(xpath = "//input[@id='address_select_inner0']")
@@ -118,56 +114,60 @@ public class AddressPageObjects {
     private WebElement CashOnDelivery;
 
     //makepayment
-    @FindBy(xpath = "//div[@class='proceed-checkout text-center']")
+    @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
     private WebElement MakePayment;
+
+    //CODnotAvailable
+    @FindBy(xpath = "//div[@class='estimated_delivery_dates']//ul/li[1]//span[@class='cod-not-available']")
+    private WebElement codNotAvailable;
 
 /*----------Actions---------*/
 
     public void moveToHome(){myActions.action_click(home);}
 
-    public void clickOnProceedToPaymentButton(){myActions.action_click(ProceedToPaymentButton);};
+    public void clickOnProceedToPaymentButton(){myActions.action_click(ProceedToPaymentButtonTop);}
 
     public void clickOnAddress(){myActions.action_click(selectAddress);}
 
-    public void clickOnShowMoreAddressesButton(){myActions.action_click(ShowMoreAddressesButton);};
+    public void clickOnShowMoreAddressesButton(){myActions.action_click(ShowMoreAddressesButton);}
 
-    public void clickOnAddNewAddressButton(){myActions.action_click(AddNewAddressButton);};
+    public void clickOnAddNewAddressButton(){myActions.action_click(AddNewAddressButton);}
 
-    public void EnterFirstName(String Name){myActions.action_sendKeys(FirstName,Name);};
+    public void EnterFirstName(String Name){myActions.action_sendKeys(FirstName,Name);}
 
-    public void EnterPhoneNumber(String Number){myActions.action_sendKeys(PhoneNumber,Number);};
+    public void EnterPhoneNumber(String Number){myActions.action_sendKeys(PhoneNumber,Number);}
 
-    public void EnterAlternativePhoneNumber(String Alternative){myActions.action_sendKeys(AlternativePhoneNumber,Alternative);};
+    public void EnterAlternativePhoneNumber(String Alternative){myActions.action_sendKeys(AlternativePhoneNumber,Alternative);}
 
-    public void EnterAddress(String Address){myActions.action_sendKeys(Address_S,Address);};
+    public void EnterAddress(String Address){myActions.action_sendKeys(Address_S,Address);}
 
     public void chooseArea(){myActions.action_click(chooseFromDropDown);}
 
-    public void EnterLocality(String Locality){myActions.action_sendKeys(Locality_S,Locality);};
+    public void EnterLocality(String Locality){myActions.action_sendKeys(Locality_S,Locality);}
 
-    public void EnterLandmark(String Landmark){myActions.action_sendKeys(Landmark_S,Landmark);};
+    public void EnterLandmark(String Landmark){myActions.action_sendKeys(Landmark_S,Landmark);}
 
     public void ChooseArea(){myActions.action_click(Area_s);}
 
-    public void EnterArea(String Area){myActions.action_sendKeys(Area_s,Area);};
+    public void EnterArea(String Area){myActions.action_sendKeys(Area_s,Area);}
 
-    public void clickOnSaveAddress(){myActions.action_click(TemporarySave);};
+    public void clickOnSaveAddress(){myActions.action_click(TemporarySave);}
 
-    public void clickOnSave(){myActions.action_click(PermanentSave);};
+    public void clickOnSave(){myActions.action_click(PermanentSave);}
 
-    public void clickOnbackToAddress(){myActions.action_click(BacktoAddressesButton);};
+    public void clickOnbackToAddress(){myActions.action_click(BacktoAddressesButton);}
 
-    public void clickOnChangeAddress(){myActions.action_click(ChangeAddress);};
+    public void clickOnChangeAddress(){myActions.action_click(ChangeAddress);}
 
-    public void clickOnPaymentBreakup(){myActions.action_click(PaymentBreakup);};
+    public void clickOnPaymentBreakup(){myActions.action_click(PaymentBreakup);}
 
     public void closePaymentBreakup(){myActions.action_click(close);}
 
-    public void clickOnCashOnDelivery(){myActions.action_click(CashOnDelivery);};
+    public void clickOnCashOnDelivery(){myActions.action_click(CashOnDelivery);}
 
-    public void clickOnMakePayment(){myActions.action_click(MakePayment);};
+    public void clickOnMakePayment(){myActions.action_click(MakePayment);}
 
-/*-------Functions----------*/
+    /*-------Functions----------*/
 
      public void placingOrderwithExistingAddress() throws Exception {
          clickOnShowMoreAddressesButton();
@@ -198,10 +198,11 @@ public class AddressPageObjects {
 
    /*-------dynamicfunctions-------*/
 
-    String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
-    List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
+
 
     public int selectaddress(int addressid) throws Exception {
+        String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
+        List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
         String address;
         int Address;
         if(addressid != 0){
@@ -215,13 +216,15 @@ public class AddressPageObjects {
         WebElement addresselement = driver.findElement(By.xpath(address));
         myActions.action_click(addresselement);
         sleep(2000);
-        for(int i = Address; i < addresslist.size(); i+=4){
+        /*for(int i = Address; i < addresslist.size(); i+=4){
             myActions.swipe(1,0);
-        }
+        }*/
         return Address;
     }
 
     public void editaddress(int addressid){
+        String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
+        List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
         String address;
         if(addressid != 0){
             address = addressXpath+"["+addressid+"]//div[@class='edit-delete-address editAddress']/p/span";
@@ -234,6 +237,8 @@ public class AddressPageObjects {
     }
 
     public void deleteaddress(int addressid){
+        String addressXpath ="//div[@class='address_select_inner']//div[@class='select_address_inputs']/ul/li";
+        List<WebElement> addresslist = driver.findElements(By.xpath(addressXpath));
         String address;
         if(addressid != 0){
             address = addressXpath+"["+addressid+"]//div[@class='edit-delete-address']/span";
@@ -245,10 +250,12 @@ public class AddressPageObjects {
         myActions.action_click(addresselement);
     }
 
-    String productXpath = "//div[@class='text-left']/ul/li";
-    List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+
 
     public String getEstimatedDeliverytime(int productid){
+        String productXpath = "//div[@class='text-left']/ul/li";
+        List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+        int productsSize = productslist.size();
         String product;
         if(productid != 0){
             product = productXpath+"["+productid+"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[1]/span";
@@ -261,6 +268,9 @@ public class AddressPageObjects {
     }
 
     public void deleteProduct(int productid){
+        String productXpath = "//div[@class='text-left']/ul/li";
+        List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+        int productsSize = productslist.size();
         String product;
         if(productid != 0){
             product = productXpath+"["+productid+"]//div[@class='col-xs-9 dates_no_item_left text-left']/p[2]/span";
@@ -270,6 +280,37 @@ public class AddressPageObjects {
         }
         WebElement productElement = driver.findElement(By.xpath(product));
         myActions.action_click(productElement);
+    }
+
+    public void deleteProductWithCODDisabled() {
+        /*for(int i=1;i<=productsSize;i++){
+            String codOfProductNotAvailableXpath = productXpath+"["+i+"]//span[@class='cod-not-available']";
+            try{
+                myActions.action_getText(driver.findElement(By.xpath(codOfProductNotAvailableXpath)));
+                deleteProduct(i);
+                i--;
+                sleep(2000);
+            } catch(Exception e){
+                System.out.println("COD is available");
+            }
+        }*/
+        String productXpath = "//div[@class='text-left']/ul/li";
+        List<WebElement> productslist = driver.findElements(By.xpath(productXpath));
+        int productsSize = productslist.size();
+        List<Integer> codNotAvailable = getCommerceApiResponse.getCodNotAvailableItemsFromShoppingCart();
+        int size = codNotAvailable.size();
+        if (size != 0) {
+            for(int i = productsSize;i>0;i--) {
+                for (int j = size - 1; j >= 0; j--) {
+                    int productIndex = (codNotAvailable.get(j));
+                    productIndex++;
+                    if(i == productIndex) {
+                        deleteProduct(i);
+                        sleep(3500);
+                    }
+                }
+            }
+        }
     }
 
 

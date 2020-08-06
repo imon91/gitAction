@@ -1,25 +1,40 @@
 package pageObjects;
 
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
+import services.commerceMethods.GetCommerceApiResponse;
+import services.serviceUtils.ApiKeyConstants.FiltersNewKeys.*;
 import utils.AndroidBaseClass;
 import utils.MyActions;
+import utils.PropertyReader;
+import utils.ServiceRequestLayer;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static services.serviceUtils.ApiKeyConstants.FiltersNewKeys.*;
 
 public class ProductFilterPageObjects extends AndroidBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
+    private String plp_view;
+    private final String NEW_PLP_VIEW = "New";
+    private final String OLD_PLP_VIEW = "Old";
+    private ServiceRequestLayer serviceRequestLayer;
 
     public ProductFilterPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
         packageName = getAppPackage();
+        plp_view = new ProductListingPageObjects(androidDriver).plpView;
+        serviceRequestLayer = new ServiceRequestLayer();
     }
 
 
@@ -37,15 +52,27 @@ public class ProductFilterPageObjects extends AndroidBaseClass {
 
 
     public List<WebElement> getListOfFilterNames(){
-        List<WebElement> listOfFilterNames =
-                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_name_text']");
+        List<WebElement> listOfFilterNames = null;
+        if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)) {
+            listOfFilterNames =
+                    xpathListSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/filter_name_text']");
+        }else if(plp_view.equalsIgnoreCase(NEW_PLP_VIEW)){
+            listOfFilterNames  =
+                    xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_name']");
+        }
         return listOfFilterNames;
     }
 
 
     public List<WebElement> getListOfFilterItemCheckBoxes(){
-        List<WebElement> listOfFilterItemCheckBoxes =
-                xpathListSetter("//android.widget.CheckBox[@resource-id='"+packageName+":id/filter_item_check']");
+        List<WebElement> listOfFilterItemCheckBoxes = null;
+        if(plp_view.equalsIgnoreCase(NEW_PLP_VIEW)){
+            listOfFilterItemCheckBoxes  =
+                    xpathListSetter("//android.widget.CheckBox[@resource-id='"+packageName+":id/checkbox_sub_filter']");
+        }else if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
+            listOfFilterItemCheckBoxes  =
+                    xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_item_text']");
+        }
         return listOfFilterItemCheckBoxes;
     }
 
@@ -83,13 +110,18 @@ public class ProductFilterPageObjects extends AndroidBaseClass {
     }
 
     public void clickOnFilterName(WebElement filterName){
-        myActions.action_click(filterName);
+        try{
+            PropertyReader.setValue(PropertyReader.Keys.FILTER_KEY,filterName.getText());
+            myActions.action_click(filterName);
+        }catch (Exception e){
+            System.out.println("Exception At ClickOnFilterName : While updating FILTER_KEY Property");
+        }
     }
 
     public void clickOnFilterNameByValue(String filterName){
         WebElement element =
-                xpathSetter("//android.widget.TextView[@text='"+filterName+"']");
-        myActions.action_click(element);
+                xpathSetter("//android.widget.CheckBox[@text='"+filterName+"']");
+            myActions.action_click(element);
     }
 
     public void selectFilterItemCheckBox(WebElement filterItemCheckBox){
@@ -97,8 +129,42 @@ public class ProductFilterPageObjects extends AndroidBaseClass {
     }
 
     public void clickOnFilterItemByIndex(WebElement filterItem){
-        myActions.action_click(filterItem);
+        try{
+            String filterValue = filterItem.getText();
+            PropertyReader.setValue(PropertyReader.Keys.FILTER_VALUE,filterValue);
+            System.out.println("Filter Value is : " + filterValue);
+            // Get Filter_Category_Id
+            HashMap<String, HashMap<String,List<String>>> productDetails =
+                    serviceRequestLayer.getControlOverServices().getFiltersDataMap(
+                            PropertyReader.getValueOfKey(PropertyReader.Keys.SEARCH_TERM));
+            System.out.println("Filter Key : "+ PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY));
+            List<String> filterLabelList = productDetails
+                    .get(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY).toLowerCase())
+                    .get(KEY_LABEL);
+            System.out.println("Filters Label List : "+filterLabelList);
+            for(int i=0;i<filterLabelList.size();i++){
+                if(filterLabelList.get(i).equalsIgnoreCase(filterValue)){
+                    // Here we got the filter label index
+                    // With the filter label index, find out filter id
+                    String filterId =
+                            productDetails.get(PropertyReader.getValueOfKey(PropertyReader.Keys.FILTER_KEY).toLowerCase()).get(KEY_ID).get(i);
+                    System.out.println("FilterId : "+filterId);
+                    try{
+                        PropertyReader.setValue(PropertyReader.Keys.FILTER_VALUE_ID,filterId);
+                    }catch (Exception e){
+                        System.out.println("Exception At ClickOnFilterItemByIndex : While updating FILTER_VALUE_ID Property");
+                    }
+                    break;
+                }else {
+                    //System.out.println(filterLabelList.get(i)+" : Did not match with : "+filterValue);
+                }
+            }
+            myActions.action_click(filterItem);
+        }catch (Exception e){
+            System.out.println("Exception At ClickOnFilterItemByIndex : While updating FILTER_VALUE Property");
+        }
     }
+
 
     public void clickOnFilterItemByValue(String filterValue){
         WebElement element =
@@ -108,12 +174,17 @@ public class ProductFilterPageObjects extends AndroidBaseClass {
     }
 
     public void clickOnApplyFilter(){
-        applyFilterButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/apply_filter']");
-        myActions.action_click(applyFilterButton);
+        applyFilterButton = xpathSetter("//android.widget.Button[@text='APPLY']");
+        try{
+            PropertyReader.setValue(PropertyReader.Keys.FILTER_APPLIED,"True");
+            myActions.action_click(applyFilterButton);
+        }catch (Exception e) {
+            System.out.println("Exception At ClickOnApplyFilter : While updating FILTER_APPLIED Property");
+        }
     }
 
     public void clickOnClearFilter(){
-        clearFilterButton = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/clear_filter']");
+        clearFilterButton = xpathSetter("//android.widget.Button[@text='CLEAR']");
         myActions.action_click(clearFilterButton);
     }
 

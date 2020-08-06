@@ -7,14 +7,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-import static utils.WebAppBaseClass.getBaseDriver;
-
-public class MyShopPageObjects {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+public class MyShopPageObjects extends WebAppBaseClass {
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
 
@@ -83,7 +82,7 @@ public class MyShopPageObjects {
 
     /*----------------Functions-------------------*/
 
-    public String createNewCollection(){
+    public String createNewCollection() throws Exception {
         //clickOnCreateNewCollectionButton();
         String collectionName = "TestingCollection : "+ new Random().nextInt(5000);
         new CreateCollectionBottomSheetObjects(driver).performAddCollection(collectionName);
@@ -99,10 +98,11 @@ public class MyShopPageObjects {
     /*------dynamicfunctions--------*/
 
 
-        String collectionXpath = "//div[@class='gridItems___2yFJ9 items___vci1r']";
-        List<WebElement> collectionslist = driver.findElements(By.xpath(collectionXpath));
+
 
         public int chooseCollection ( int collectionid){
+            String collectionXpath = "//div[@class='gridItems___2yFJ9 items___vci1r']";
+            List<WebElement> collectionslist = driver.findElements(By.xpath(collectionXpath));
             String collection;
             int collectionselected;
             if (collectionid != 0) {
@@ -120,6 +120,8 @@ public class MyShopPageObjects {
         }
 
         public String CollectionName ( int collectionid){
+            String collectionXpath = "//div[@class='gridItems___2yFJ9 items___vci1r']";
+            List<WebElement> collectionslist = driver.findElements(By.xpath(collectionXpath));
             String collection;
             if (collectionid != 0) {
                 collection = collectionXpath + "[" + collectionid + "]//p";
@@ -134,6 +136,8 @@ public class MyShopPageObjects {
         }
 
         public String shareCollection ( int collectionid){
+            String collectionXpath = "//div[@class='gridItems___2yFJ9 items___vci1r']";
+            List<WebElement> collectionslist = driver.findElements(By.xpath(collectionXpath));
             String collection;
             if (collectionid != 0) {
                 collection = collectionXpath + "[" + collectionid + "]//button";
@@ -148,6 +152,8 @@ public class MyShopPageObjects {
         }
 
         public String deleteCollection ( int collectionid){
+            String collectionXpath = "//div[@class='gridItems___2yFJ9 items___vci1r']";
+            List<WebElement> collectionslist = driver.findElements(By.xpath(collectionXpath));
             String collection;
             if (collectionid != 0) {
                 collection = collectionXpath + "[" + collectionid + "]//div[@class='flex___1bJDE middle___1jEMZ delete___IOgcz']/*";

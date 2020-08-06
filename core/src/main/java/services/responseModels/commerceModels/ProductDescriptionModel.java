@@ -237,6 +237,78 @@ public class ProductDescriptionModel {
     private java.util.List<VariantSizesBean> variant_sizes;
     private java.util.List<VariantsDataMainBean> variants_data_main;
     private java.util.List<?> video;
+    public String getProduct_stamp() {
+        return product_stamp;
+    }
+
+    public void setProduct_stamp(String product_stamp) {
+        this.product_stamp = product_stamp;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getPer_piece_price() {
+        return per_piece_price;
+    }
+
+    public void setPer_piece_price(String per_piece_price) {
+        this.per_piece_price = per_piece_price;
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
+    }
+
+    public String getOriginal_price() {
+        return original_price;
+    }
+
+    public void setOriginal_price(String original_price) {
+        this.original_price = original_price;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
 
     public List<SizesBean> getSizes(){
         return sizes;

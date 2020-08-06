@@ -2,6 +2,7 @@ package utils;
 
 import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
+import coreUtils.DomainPropertyReader;
 import helper.GetDriverFromCore;
 import org.openqa.selenium.WebDriver;
 
@@ -10,14 +11,14 @@ import java.util.concurrent.TimeUnit;
 
 public class WebBaseClass extends GetDriverFromCore {
 
-    private static String HOST_LOCAL = "local";
-    private static String HOST_BROWSER_STACK = "bs";
-    private static String OS = "Os";
-    private static String OS_VERSION = "OSv";
-    private static String BROWSER = "Br";
-    private static String BROWSER_VERSION = "BRv";
+    private static final String HOST_LOCAL = "local";
+    private static final String HOST_BROWSER_STACK = "bs";
+    private static final String OS = "Os";
+    private static final String OS_VERSION = "OSv";
+    private static final String BROWSER = "Br";
+    private static final String BROWSER_VERSION = "BRv";
     private static WebDriver driver = null;
-    private static String host = System.getProperty("Host");
+    private static final String host = System.getProperty("Host");
 
 
     public static WebDriver getBaseDriver() throws Exception {
@@ -47,23 +48,25 @@ public class WebBaseClass extends GetDriverFromCore {
 
 
 
-    public static String getWebBaseUrl(){
+    public static String getWebBaseUrl() throws Exception{
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
         String app = System.getProperty(BuildParameterKeys.KEY_APP);
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)
                 && env.equalsIgnoreCase(CoreConstants.ENV_STAGE)){
-            return CoreConstants.RESELLER_WEB_STAGE_BASE_URL;
+            return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.RESELLER_WEB_STAGE_BASE_URL);
         }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)
                 && env.equalsIgnoreCase(CoreConstants.ENV_PROD)){
-            return CoreConstants.RESELLER_WEB_PROD_BASE_URL;
+            return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.RESELLER_WEB_PROD_BASE_URL);
         }if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)
                 && env.equalsIgnoreCase(CoreConstants.ENV_STAGE)){
-            return CoreConstants.MOKAM_WEB_STAGE_BASE_URL;
+            return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.MOKAM_WEB_STAGE_BASE_URL);
         }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)
                 && env.equalsIgnoreCase(CoreConstants.ENV_PROD)){
-            return CoreConstants.MOKAM_WEB_PROD_BASE_URL;
+            return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.MOKAM_WEB_PROD_BASE_URL);
+        }else {
+            System.out.println("Returning default RESELLER_WEB_STAGE_BASE_URL");
+            return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.RESELLER_WEB_STAGE_BASE_URL);
         }
-        return CoreConstants.RESELLER_WEB_STAGE_BASE_URL;
     }
 
 

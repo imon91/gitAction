@@ -5,6 +5,8 @@ import java.util.List;
 public class ProductListingResultsModel {
 
 
+    private int products_count;
+
     private List<ResultsBean> results;
 
     public List<ResultsBean> getResults() {
@@ -13,6 +15,14 @@ public class ProductListingResultsModel {
 
     public void setResults(List<ResultsBean> results) {
         this.results = results;
+    }
+
+    public int getProducts_count() {
+        return products_count;
+    }
+
+    public void setProducts_count(int products_count) {
+        this.products_count = products_count;
     }
 
     public static class ResultsBean {
@@ -138,6 +148,16 @@ public class ProductListingResultsModel {
         private List<ProductTagsBean> product_tags;
         private List<SizesBean> sizes;
         private List<?> video;
+
+        public int getPlp_view_type() {
+            return plp_view_type;
+        }
+
+        public void setPlp_view_type(int plp_view_type) {
+            this.plp_view_type = plp_view_type;
+        }
+
+        private int plp_view_type;
 
         public String getActivity_object_id() {
             return activity_object_id;

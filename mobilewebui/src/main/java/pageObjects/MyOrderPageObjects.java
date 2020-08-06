@@ -3,18 +3,21 @@ package pageObjects;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-import static utils.WebAppBaseClass.getBaseDriver;
-
-public class MyOrderPageObjects {
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+public class MyOrderPageObjects extends WebAppBaseClass {
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
 
@@ -301,10 +304,11 @@ public void verifyOrder(String ID){
 
 
 
-         String ordersXpath = "//a[@class='card___30lJu']";
-         List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
+
 
          public int clickOnOrder(int orderno){
+             String ordersXpath = "//a[@class='card___30lJu']";
+             List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
              String order;
              int choosenOrder;
              if(orderno != 0){
@@ -322,21 +326,33 @@ public void verifyOrder(String ID){
          }
 
          public String orderid(int orderno) {
-                 String orderid;
-                 if (orderno != 0) {
-                     orderid = ordersXpath+"["+orderno+"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                 String ordersXpath = "//a[@class='card___30lJu']";
+                 try {
+                     new WebDriverWait(driver,30)
+                             .until(ExpectedConditions.elementToBeClickable(By.xpath(ordersXpath)));
+                     List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
+                     String orderid;
+                     if (orderno != 0) {
+                         orderid = ordersXpath+"["+orderno+"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                     }
+                     else{
+                         int id = random.nextInt(ordersList.size());
+                         orderid = ordersXpath+"["+ ++id +"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
+                     }
+                     WebElement idofOrder = driver.findElement(By.xpath(orderid));
+                     String idofSelectedorder = myActions.action_getText(idofOrder);
+                     return idofSelectedorder;
+
+                 }catch (StaleElementReferenceException e){
+                     orderid(orderno);
                  }
-                 else{
-                     int id = random.nextInt(ordersList.size());
-                     orderid = ordersXpath+"["+ ++id +"]//p[@class='link___uRycB weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
-                 }
-                 WebElement idofOrder = driver.findElement(By.xpath(orderid));
-                 String idofSelectedorder = myActions.action_getText(idofOrder);
-                 return idofSelectedorder;
+             return null;
          }
 
 
          public String orderdate(int orderno) {
+                 String ordersXpath = "//a[@class='card___30lJu']";
+                 List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
                  String orderdate;
                  if (orderno != 0) {
                      orderdate = ordersXpath+"["+orderno+"]//div[@class='column___37VPa']//p[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6']";
@@ -352,6 +368,8 @@ public void verifyOrder(String ID){
 
 
          public String name(int orderno) {
+                 String ordersXpath = "//a[@class='card___30lJu']";
+                 List<WebElement> ordersList = driver.findElements(By.xpath(ordersXpath));
                  String name;
                  if (orderno != 0) {
                      name = ordersXpath+"["+orderno+"]//div[@class='flex___1bJDE between___1AlI0 column___37VPa']//p[1]";
@@ -373,11 +391,10 @@ public void verifyOrder(String ID){
          }
 
 
-         String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
-         List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
-
 
          public String nameofproduct(int productno){
+             String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+             List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
              String productname;
              if(productno != 0){
                  productname = productsXpath+"["+productno+"]//span[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 productName___c9mQB']/font";
@@ -393,6 +410,8 @@ public void verifyOrder(String ID){
 
 
     public String sizeofproduct(int productno){
+        String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+        List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
         String productsize;
         if(productno != 0){
             productsize = productsXpath+"["+productno+"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//span[1]";
@@ -407,6 +426,8 @@ public void verifyOrder(String ID){
     }
 
     public String quantityofproduct(int productno){
+        String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+        List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
         String productquantity;
         if(productno != 0){
             productquantity = productsXpath+"["+productno+"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//span[2]";
@@ -421,6 +442,8 @@ public void verifyOrder(String ID){
     }
 
     public String priceofproduct(int productno){
+        String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+        List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
         String productprice;
         if(productno != 0){
             productprice = productsXpath+"["+productno+"]//div[@class='flex___1bJDE between___1AlI0 baseline___35KO7 body___5orBh']//p[@class='primary___3k9Ts weight-4___ZQvdQ text-14___yZ_9T text-flat___3AZ-6 textAlign-right___yDZfS']/font";
@@ -435,6 +458,8 @@ public void verifyOrder(String ID){
          }
 
     public String incomefromproduct(int productno){
+        String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+        List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
         String productincome;
         if(productno != 0){
             productincome = productsXpath+"["+productno+"]//div[@class='sectionBig___3NAav']//p[@class='success___3Wbvy weight-4___ZQvdQ text-16___-Np8V bold___3nNae text-flat___3AZ-6 textAlign-right___yDZfS']/font";
@@ -457,6 +482,8 @@ public void verifyOrder(String ID){
     }
 
     public void getstatusofproduct(int productno){
+        String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+        List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
         String productstatus;
         if(productno != 0){
             productstatus = productsXpath+"["+productno+"]//a/*";
@@ -471,6 +498,8 @@ public void verifyOrder(String ID){
 
 
     public String deleteproduct(int productno){
+        String productsXpath = "//div[@class='orderDetailsCards___1n74H']";
+        List<WebElement> productslist = driver.findElements(By.xpath(productsXpath));
         String productname;
         if(productno != 0){
             productname = productsXpath+"["+productno+"]//div[@class='deleteActive___SWGaJ']/*";

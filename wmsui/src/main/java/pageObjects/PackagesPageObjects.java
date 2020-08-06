@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 
 public class PackagesPageObjects {
+
     private WebDriver driver;
     private MyActions myActions;
     private WebDriverWait wait;
@@ -68,8 +69,8 @@ public class PackagesPageObjects {
 
     /*--------------Packages List Tab-------------------*/
     public class PackagesListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public PackagesListTab(WebDriver driver) {
             this.driver = driver;
@@ -124,8 +125,8 @@ public class PackagesPageObjects {
 
     /*--------------Create Put-away List Tab-------------------*/
     public class CreatePutawayListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public CreatePutawayListTab(WebDriver driver) {
             this.driver = driver;
@@ -176,8 +177,8 @@ public class PackagesPageObjects {
 
     /*--------------Bin Reset Tab-------------------*/
     public class BinResetTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public BinResetTab(WebDriver driver) {
             this.driver = driver;
@@ -236,8 +237,8 @@ public class PackagesPageObjects {
 
     /*--------------Package Details Tab-------------------*/
     public class PackageDetailsTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public PackageDetailsTab(WebDriver driver) {
             this.driver = driver;
@@ -342,8 +343,8 @@ public class PackagesPageObjects {
 
     /*--------------Bin In Scan Tab-------------------*/
     public class BinInScanTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public BinInScanTab(WebDriver driver) {
             this.driver = driver;

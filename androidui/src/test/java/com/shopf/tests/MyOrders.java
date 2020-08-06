@@ -1,17 +1,23 @@
 package com.shopf.tests;
 
 import coreUtils.*;
-import io.appium.java_client.TouchAction;
+import io.appium.java_client.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.touch.offset.PointOption;
+import io.appium.java_client.touch.offset.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.*;
 import pageObjects.*;
+import services.responseModels.commerceModels.*;
 import utils.*;
 import java.util.*;
+import static org.testng.Assert.*;
 
 
 public class MyOrders extends AndroidBaseClass {
+
+
+
 
     private AndroidDriver<WebElement> androidDriver;
     private MyOrdersPageObjects myOrdersPageObjects;
@@ -21,6 +27,12 @@ public class MyOrders extends AndroidBaseClass {
     private Random random;
     private TouchAction touchAction;
     private ActionBarObjects actionBarObjects;
+    private String suiteName;
+    private MyOrderDetailsPageObject myOrderDetailsPageObject;
+    private SoftAssert softAssert;
+
+
+
 
     @BeforeClass(alwaysRun = true)
     public void myOrdersBeforeClass() throws Exception{
@@ -36,8 +48,16 @@ public class MyOrders extends AndroidBaseClass {
         myOrdersPageObjects.clickOnCompleteTabItem();
         sleep(1000);
         myOrdersPageObjects.clickOnActiveTabItem();
+        softAssert = new SoftAssert();
+        myOrderDetailsPageObject = new MyOrderDetailsPageObject(androidDriver);
         // This Block is responsible to get the control from anywhere to MyOrders
         //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+    }
+    @BeforeTest(alwaysRun = true)
+    @Parameters("suite")
+    public void searchModuleTests(String suiteNameFromXMLFile)
+    {
+        suiteName = suiteNameFromXMLFile;
     }
 
 
@@ -85,6 +105,7 @@ public class MyOrders extends AndroidBaseClass {
         //System.out.println(androidDriver.findElementByXPath("//div[@class='flex___1bJDE middle___1jEMZ']/p[1]").getText());
     }
 
+
     @Test(  groups = {"MyOrders.verifyCancellingAnOrderFromMyOrders",
             CoreConstants.GROUP_SANITY},
             description = "Verify Cancelling An Order From MyOrders"  )
@@ -122,10 +143,97 @@ public class MyOrders extends AndroidBaseClass {
     }
 
 
+    @Test(groups ={ "MyOrder.VerifyFilterInMyorder",
+            CoreConstants.GROUP_REGRESSION},
+    description = "Verifying filter In MyOrderPage",
+   dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifyFilterInMyOrder()
+    {
+        switchFromWebToNative();
+        myOrderDetailsPageObject.applyFilterFunction(5);
+    }
+
+
+    @Test(groups ={ "MyOrder.VerifySortInMyorder",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifying sort In MyOrderPage",
+            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifySortInMyOrder()
+    {
+        switchFromWebToNative();
+        sleep(2000);
+        myOrderDetailsPageObject.clickOnSortButton();
+        System.out.println("clicked sort");
+        sleep(3000);
+        myOrderDetailsPageObject.applySortFunctionality(1);
+    }
+
+
+    @Test(groups ={ "MyOrder.VerifySearchInMyorder",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifying search In MyOrderPage",
+            dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+    public void verifySearchInMyOrder()
+    {
+        switchFromWebToNative();
+        sleep(2000);
+        myOrderDetailsPageObject.searchToOrderId("R4088980146");
+        orderDetails.getListOfOrderItems();
+        sleep(1000);
+        myOrderDetailsPageObject.clickOnOrderById("R4088980146");
+        sleep(5000);
+
+        //get id after clicking Orderid
+        String orderid = myOrderDetailsPageObject.getOrderIdAfterClickingOnOrder();
+        System.out.println(orderid);
+
+        if(orderid.equalsIgnoreCase("R4088980146"))
+        {
+            System.out.println("MyOrder Sort Functionality was verified");
+        }
+    }
+
+
+    @Test(groups ={ "MyOrder.VerifyData",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifying OrderID data In MyOrderPage")
+    public void verifyDataInMyOrderActive()
+    {
+
+        MyOrderModel myOrderModelResults=myOrderDetailsPageObject.getResultsOfMyOrdersApi(1);
+        //Click on Load More button
+
+        for(int numberOfClickOnLoadMore =1;numberOfClickOnLoadMore<3;numberOfClickOnLoadMore++)//just Hard coded to load 21 orderId
+        { myOrderDetailsPageObject.clickOnLoadMore();
+        sleep(1000);
+        }
+
+        //verification Of names for particular OrderId
+        for(int j=0; j<21 ;j++)
+        {
+            String orderIdApi = myOrderModelResults.getAllmyorders().get(j).getCustomer_order().getNumber();
+            myOrderDetailsPageObject.scrollToOrderID(orderIdApi);
+            for(int i=0;i<myOrderDetailsPageObject.listOfOrderId().size();i++)
+            {
+                if(orderIdApi.equalsIgnoreCase(myActions.action_getText(myOrderDetailsPageObject.listOfOrderId().get(i))))
+                {
+                    String orderIdUI = myActions.action_getText(myOrderDetailsPageObject.listOfName().get(i));
+                    assertTrue(orderIdApi.equalsIgnoreCase(orderIdUI));
+                    System.out.println("Data was verified");
+                }
+            }
+            softAssert.assertAll();
+        }
+
+
+    }
+
 
     @AfterClass(alwaysRun = true)
     public void myOrdersAfterClass(){
         System.out.println("MyOrdersAfterClass is called");
     }
+
+
 
 }

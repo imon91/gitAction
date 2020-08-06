@@ -33,16 +33,17 @@ public class FilterFunctionality extends WebBaseClass {
     }
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"PLP.VerifyFilterFunctionality",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("Search.SearchToObjectNotSelectSuggessions"))
     public void filterFunction() {
         System.out.println("FilterFunction is called");
         plpPageObject.clickOnMenShirt();
         sleep(1000);
-        plpPageObject.clickOnPrice();
-        sleep(1000);
-        plpPageObject.clickOnSizeL();
-        sleep(1000);
+//        plpPageObject.clickOnPrice();
+//        sleep(1000);
+//        plpPageObject.clickOnSizeL();
+//        sleep(1000);
     }
 
 

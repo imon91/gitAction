@@ -13,6 +13,7 @@ import utils.WmsBaseClass;
 import java.util.List;
 
 public class ReturnsPageObjects extends WmsBaseClass {
+
     private WebDriver driver;
     private MyActions myActions;
     private WebDriverWait wait;
@@ -62,8 +63,8 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
     /*--------------Return In Scan Tab-------------------*/
     public class ReturnInScanTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public ReturnInScanTab(WebDriver driver) {
             this.driver = driver;
@@ -266,7 +267,7 @@ public class ReturnsPageObjects extends WmsBaseClass {
             sleep(10000);
         }
 
-        public void createPO(int no_of_products, String skuCode[], String quantity[], String price[]) {
+        public void createPO(int no_of_products, String[] skuCode, String[] quantity, String[] price) {
             for (int i = 0; i < no_of_products; i++) {
                 skuCodeInput(i, skuCode[i]);
                 quantityInput(i, quantity[i]);
@@ -283,8 +284,8 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
     /*--------------Return Qc Scan Tab-------------------*/
     public class ReturnQcScanTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public ReturnQcScanTab(WebDriver driver) {
             this.driver = driver;
@@ -350,8 +351,8 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
     /*--------------RTS Create Manifest Tab-------------------*/
     public class RTSCreateManifestTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public RTSCreateManifestTab(WebDriver driver) {
             this.driver = driver;
@@ -382,8 +383,8 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
     /*--------------RTS Out Scan Tab-------------------*/
     public class RTSOutScanTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public RTSOutScanTab(WebDriver driver) {
             this.driver = driver;
@@ -413,8 +414,8 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
     /*--------------RTS Upload Manifest Tab-------------------*/
     public class RTSUploadManifestTab{
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public RTSUploadManifestTab(WebDriver driver) {
             this.driver = driver;

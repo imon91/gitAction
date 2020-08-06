@@ -1,12 +1,22 @@
 package utils;
 
+import org.openqa.selenium.ElementClickInterceptedException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 public class MyActions extends WebBaseClass {
 
     public void action_click(WebElement element) {
         sleep(1000);
-        element.click();
+        try{
+            element.click();
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            action_click(element);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            action_click(element);
+        }
     }
 
     public void action_sendKeys(WebElement element, String data) {

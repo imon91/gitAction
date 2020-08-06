@@ -14,7 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 public class SuppliersPageObjects extends WmsBaseClass {
+  
     private WebDriver driver;
     private MyActions myActions;
     private WebDriverWait wait;
@@ -67,8 +69,8 @@ public class SuppliersPageObjects extends WmsBaseClass {
 
     /*--------------Migrate Seller Tab-------------------*/
     public class MigrateSellerTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public MigrateSellerTab(WebDriver driver) {
             this.driver = driver;
@@ -107,8 +109,8 @@ public class SuppliersPageObjects extends WmsBaseClass {
 
     /*--------------Suppliers List Tab-------------------*/
     public class SuppliersListTab {
-        private WebDriver driver;
-        private MyActions myActions;
+        private final WebDriver driver;
+        private final MyActions myActions;
 
         public SuppliersListTab(WebDriver driver) {
             this.driver = driver;

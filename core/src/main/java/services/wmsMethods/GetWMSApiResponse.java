@@ -11,7 +11,7 @@ import java.util.*;
 
 public class GetWMSApiResponse {
 
-    private String module;
+    private final String module;
     private Gson gson;
     private Response response;
     private ShopUpPostMan shopUpPostMan;

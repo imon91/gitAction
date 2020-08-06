@@ -21,7 +21,7 @@ public class Authentication extends WebBaseClass {
         System.out.println("ResellerWebBeforeSuite is called");
         driver = getBaseDriver();
         setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
+        driver.get(getWebBaseUrl()+"/r");
     }
 
 
@@ -53,9 +53,8 @@ public class Authentication extends WebBaseClass {
             dataProvider = "getUserAuthenticationData")
     public void verifyAuthenticationWithValidCredentials(String mobileNumber, String otp) {
         System.out.println("verifyAuthentication is called");
-        driver.get(CoreConstants.RESELLER_WEB_STAGE_BASE_URL);
         sleep(1000);
-        loginPageObject.performAuthentication("01877755590", "666666");
+        loginPageObject.performAuthentication(mobileNumber, otp);
         // Verification Step Pending
     
     }
