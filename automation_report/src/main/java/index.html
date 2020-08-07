@@ -5,11 +5,10 @@
     <title>ShopUp Automation Report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script>
-
             var currentDirectory = window.location.pathname.split('/').slice(0, -1).join('/')
             console.log('Current directory: ' + currentDirectory);
             var filePath = currentDirectory + '/resultsFiles/reseller_app.json';
-            readNew();
+            //readNew();
 
             async function readNew(){
                 let response = await fetch(filePath);
@@ -39,6 +38,9 @@
                 }
             }
 
+            function set_overall_data(){
+                document.getElementById("tests-count").innerHTML = "120";
+            }
 
             function set_wms_ui(){
                  document.getElementById("tests-count").innerHTML = "12";
@@ -238,6 +240,7 @@ function generateRandomNumber(offset){
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <script>set_overall_data();</script>
                                                         </tbody>
                                                     </table>
                                                 </div>
