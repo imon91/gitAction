@@ -25,6 +25,7 @@ public class PublishReport {
         chromeOptions.addArguments("--headless");
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("http://localhost:63342/Shopf%20Ui%20Automation/Shopf_Ui_Automation.automation_report.main/index.html?_ijt=3rl08d7p9fsu6n4oc1ncg55pjl");
+        System.out.println(driver.getCurrentUrl());
         String htmlData = driver.findElement(By.id("parent-tag")).getAttribute("outerHTML");
         System.out.println(htmlData);
         System.out.println("Total Tests Count : "+driver.findElement(By.id("tests-count")).getText());
