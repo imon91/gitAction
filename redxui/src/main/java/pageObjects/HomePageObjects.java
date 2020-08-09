@@ -9,13 +9,8 @@ import java.util.List;
 public class HomePageObjects extends RedXBaseClass
 {
     private MyActions myActions;
-    private CommonPageObjects commonPageObjects;
 
-    public HomePageObjects()
-    {
-        myActions = new MyActions();
-        commonPageObjects = new CommonPageObjects();
-    }
+    public HomePageObjects() { myActions = new MyActions();}
 
     /*----------ELements----------*/
 
@@ -25,6 +20,7 @@ public class HomePageObjects extends RedXBaseClass
     private WebElement viewPaymentUpdatesModule;
     private WebElement chooseShopModule;
     private WebElement toastMessage;
+    private WebElement currentShopName;
 
     /*----------Actions----------*/
 
@@ -36,13 +32,8 @@ public class HomePageObjects extends RedXBaseClass
 
     public String getCurrentShopName()
     {
-        String currentShopName = commonPageObjects.getPageTitle();
-        try {
-            PropertyReader.setValue(PropertyReader.Keys.SHOP_NAME,currentShopName);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return currentShopName;
+        currentShopName = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup/android.widget.TextView[@index='1']");
+        return myActions.action_getText(currentShopName);
     }
 
     public void clickSettingsButton()
@@ -71,7 +62,7 @@ public class HomePageObjects extends RedXBaseClass
 
     public String getToastMessage()
     {
-        toastMessage = xpathSetter("//android.widget.ScrollView//android.view.ViewGroup[2]//android.widget.TextView");
+        toastMessage = xpathSetter("//android.widget.TextView[@text='1 parcels added']");
         return myActions.action_getText(toastMessage);
     }
 

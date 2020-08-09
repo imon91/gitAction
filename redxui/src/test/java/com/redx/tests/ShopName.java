@@ -38,14 +38,17 @@ public class ShopName extends RedXBaseClass
                 dependsOnGroups = {"Authentication.verifyAuthenticationWithValidCredentials"})
         public void verifyShopName()
         {
+            String assertVariable = null;
             System.out.println("Verifying Shop Name");
             homePageObjects.clickChooseShopModule();
             chooseShopModule.selectShopByText("SHOPUP_TEST");
             try {
-                Assert.assertEquals(homePageObjects.getCurrentShopName(),PropertyReader.getValueOfKey(PropertyReader.Keys.SHOP_NAME));
+                assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.SHOP_NAME);
             } catch (Exception e) {
                 e.printStackTrace();
+                System.out.println("Shop Name cannot be read from Properties");
             }
+            Assert.assertEquals(homePageObjects.getCurrentShopName(),assertVariable);
         }
 
 
