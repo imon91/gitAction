@@ -162,7 +162,7 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 10)
     public void verifyDeletingCodDisabledProductInAddress()
-    {  sleep(4000);
+    {  //sleep(4000);
         myBag.deleteProductWithCODDisabled();
     }
 
@@ -180,9 +180,9 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
     public void verifyCheckoutWithCOD()
-    {       sleep(3500);
+    {       //sleep(3500);
             myBag.verifyProceedPaymentWithoutChangeAddress();
-            sleep(6000);
+            //sleep(2000);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 14)
@@ -212,7 +212,7 @@ public class SmokeFlow extends AndroidBaseClass {
         if(host.equalsIgnoreCase("Local")){
             // Do nothing
         }else {
-            sleep(2800);
+            //sleep(2800);
             logout.logoutBeforeClass();
             logout.verifyLogoutFunctionality();
         }

@@ -46,6 +46,11 @@ public class MyActions extends AndroidBaseClass{
         catch (Exception e){
             System.out.println(e);
         }
+        if(System.getProperty(BuildParameterKeys.KEY_HOST).equalsIgnoreCase("bs")){
+            if (getBaseDriver().isKeyboardShown()){
+                getBaseDriver().hideKeyboard();
+            }
+        }
     }
 
     public String action_getText(WebElement element){
@@ -70,11 +75,17 @@ public class MyActions extends AndroidBaseClass{
 
     public void action_clearText(WebElement element){
         element.clear();
-        if(host.equalsIgnoreCase("bs")){
+        if(System.getProperty(BuildParameterKeys.KEY_HOST).equalsIgnoreCase("bs")){
             if (getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
+                getBaseDriver().hideKeyboard();
             }
         }
+//         if(host.equalsIgnoreCase("bs")){
+//             if (getBaseDriver().isKeyboardShown()){
+//             getBaseDriver().hideKeyboard();
+//             }
+//         }
+              
     }
 
     public void clickOnHardKeyBack() throws Exception{

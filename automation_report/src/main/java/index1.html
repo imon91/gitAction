@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Demo</title>
+    <style>
+            body{
+               margin: 0%;
+               max-width: 100%;
+               font-family: Arial, Helvetica, sans-serif;
+            }
+            header{
+                background-color: black;
+                width: inherit;
+                padding: 40px;
+                position: relative;
+            }
+
+            header > #input-section-container{
+                background-color: white;
+                padding: 35px;
+                border-radius: 5px;
+                position: relative;
+            }
+
+            header > #input-section-container > #select-category{
+                background-color: dodgerblue;
+                outline: none;
+                border-radius: 5px;
+                position: relative;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                 padding:10px;
+                 width: 150px;
+            }
+
+            header > #input-section-container > #select-no-of-questions{
+                padding: 10px;
+                outline: none;
+                border-radius: 5px;
+                font-size: 14px;
+                width: 350x;
+                position: relative;
+            }
+
+            header > #input-section-container > #select-difficulty{
+                background-color: dodgerblue;
+                outline: none;
+                border-radius: 5px;
+                position: relative;
+                font-size: 14px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                 padding:10px;
+                 width: 150px;
+            }
+
+            header > #input-section-container >  #start-quiz-button{
+                text-align: center;
+                border-radius: 5px;
+                padding: 10px;
+                font-size: 24px;
+                font-weight: bold;
+                background-color: green;
+                color: white;
+                outline: none;
+                margin: 5px;
+            }
+
+
+            header > #selector-container{
+                background-color: white;
+                padding: 30px;
+                border-radius: 5px;
+                max-width: 650px;
+                margin: 5px;
+            }
+
+            header > #selector-container > #no-of-questions-input{
+                padding: 10px;
+                border-radius: 5px;
+                outline: none;
+                text-align: center;
+                max-width: 33%;
+                margin: 5px;
+            }
+
+            header > #question-number-indicator{
+                color: blue;
+                background-color: white;
+                padding: 20px;
+                border-radius: 5px;
+                width: 300px;
+                font-size: 24px;
+                font-weight: bold;
+                text-align: center;
+                float: right;
+                clear: both;
+            }
+
+            section{
+               max-width: 100%;
+               margin: 20px;
+            }
+
+            section > #question-area{
+
+                color: black;
+                font-size: 30px;
+                max-width: 900px;
+                padding: 40px;
+                margin: auto;
+                text-align: center;
+                border-radius: 20px;
+            }
+
+            section > #options-area{
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            section > #options-area > button{
+                background-color: blue;
+                outline: none;
+                padding: 30px;
+                width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                color: white;
+                font-size: 20px;
+                text-align: center;
+                border-radius: 10px;
+                display: block;
+            }
+
+            section > #options-area > button:active{
+                box-shadow: 10px 10px 40px gray;
+            }
+
+            footer{
+                background-color: black;
+                width: inherit;
+                padding: 25px;
+            }
+
+        </style>
+</head>
+
+<body>
+<header id='header-container'>
+    <div id='input-section-container'>
+        <select id='select-category'>
+            <option class='class-select-category' value='selectCategory' selected>Select Category----</option>
+            <option class='class-select-category' value='gk'>General Knowledge</option>
+            <option class='class-select-category' value='sports'>Sports</option>
+            <option class='class-select-category' value='geography'>Geography</option>
+            <option class='class-select-category' value='history'>History</option>
+            <option class='class-select-category' value='politics'>Politics</option>
+            <option class='class-select-category' value='art'>Art</option>
+            <option class='class-select-category' value='mythology'>Mythology</option>
+            <option class='class-select-category' value='celebraties'>Celebraties</option>
+            <option class='class-select-category' value='vehicles'>Vehicles</option>
+            <option class='class-select-category' value='animals'>Animals</option>
+        </select>
+
+        <input id='select-no-of-questions' type="number" placeholder="Enter Number of Questions"/>
+
+        <select id='select-difficulty'>
+            <option value='selectCategory' selected>Select Difficulty----</option>
+            <option value='anyDifficulty'>Any Difficulty</option>
+            <option value='easy'>Easy</option>
+            <option value='medium'>Medium</option>
+            <option value='hard'>Hard</option>
+        </select>
+
+        <button id='start-quiz-button' onclick="load()">Start Your New Quiz</button>
+
+    </div>
+
+    <div id='question-number-indicator'>Questions to answer : 10</div>
+
+    <!-- <div id='selector-container'>
+
+         <input id='no-of-questions-input' type="number" placeholder="Number Of Questions?"/>
+
+        <select id='select-category'>
+            <option value='gk' selected>General Knowledge</option>
+            <option value='sports'>Sports</option>
+            <option value='geography'>Geography</option>
+            <option value='history'>History</option>
+            <option value='politics'>Politics</option>
+            <option value='art'>Art</option>
+            <option value='mythology'>Mythology</option>
+            <option value='celebraties'>Celebraties</option>
+            <option value='vehicles'>Vehicles</option>
+            <option value='animals'>Animals</option>
+        </select>
+
+        <select id='select-difficulty'>
+            <option selected>Any Difficulty</option>
+            <option value='gk'>Easy</option>
+            <option value='gk'>Medium</option>
+            <option value='gk'>Hard</option>
+        </select> -->
+
+
+    <!-- </div> -->
+</header>
+
+<section>
+    <!--Creates a layout for question and four options-->
+    <div id='question-area'>This is Question Block</div>
+    <div id='options-area'>
+        <button class='option-buttons' id="option1" onclick="verifyAnswer(this.id)">OPTION1</button>
+        <button class='option-buttons' id="option2" onclick="verifyAnswer(this.id)">OPTION2</button>
+        <button class='option-buttons' id="option3" onclick="verifyAnswer(this.id)">OPTION3</button>
+        <button class='option-buttons' id="option4" onclick="verifyAnswer(this.id)">OPTION4</button>
+    </div>
+</section>
+
+<!-- <div>
+    <button id='load-data' style="padding: 20px;outline: none;margin: 20px;" onclick="load()">LOAD NEW DATA</button>
+</div> -->
+
+<!-- <footer>
+    <h3>This is Footer</h3>
+</footer> -->
+
+
+<script>
+
+            let resultsArray = undefined;
+            let finalOptionsArray = undefined;
+            let answer = undefined;
+            let questionIndex=0;
+
+            // Constructor function for results object
+            function ResultsObj(question,correct_answer,incorrect_answers){
+                this.question = question;
+                this.correct_answer = correct_answer;
+                this.incorrect_answers = incorrect_answers;
+                this.createOptions = function(){
+                    this.incorrect_answers.splice(generateRandomNumber(3),0,this.correct_answer);
+                    return this.incorrect_answers;
+                };
+            }
+
+
+            disableClickEventsForAllButtons();
+
+            function load(){
+                setDefaultColors();
+                enableClickEventsForAllButtons();
+                let xhhtp = new XMLHttpRequest();
+                xhhtp.onreadystatechange = function(){
+                    if(this.readyState===4 && this.status===200){
+                       let quiz_data = JSON.parse(this.responseText);
+                       let results = quiz_data.results;
+                       resultsArray = results;
+                       // Create First Results Object
+                       let firstObject = resultsArray[questionIndex];
+                       let firtsResultObject = new ResultsObj(firstObject.question,firstObject.correct_answer,firstObject.incorrect_answers);
+                       console.log(firtsResultObject);
+                       answer = firtsResultObject.correct_answer;
+                       let optionsArray = firtsResultObject.createOptions();
+                       finalOptionsArray = optionsArray;
+                       document.getElementById('question-number-indicator').innerHTML = (questionIndex+1) + '/10';
+                       document.getElementById('question-area').innerHTML = firtsResultObject.question;
+                       document.getElementById('option1').innerHTML = optionsArray[0];
+                       document.getElementById('option2').innerHTML = optionsArray[1];
+                       document.getElementById('option3').innerHTML = optionsArray[2];
+                       document.getElementById('option4').innerHTML = optionsArray[3];
+                    }
+                }
+                xhhtp.open('GET','https://opentdb.com/api.php?amount=10&category=9&type=multiple',false);
+                xhhtp.send();
+            }
+
+
+            function verifyAnswer(optionId){
+                    let optionButton = document.getElementById(optionId);
+                    if(optionButton.innerHTML === answer){
+                        disableClickEventsForAllButtons();
+                        optionButton.style.backgroundColor='green';
+                    }else{
+                        disableClickEventsForAllButtons();
+                        optionButton.style.backgroundColor='red';
+                    }
+                    // Load Next question onto views
+                    setTimeout(loadNextQuestion,500);
+            }
+
+
+            function loadNextQuestion(){
+                if(++questionIndex<=9){
+                     document.getElementById('question-number-indicator').innerHTML = (questionIndex+1) + '/10';
+                    let resultObject = resultsArray[questionIndex];
+                       let newResultObject =
+                       new ResultsObj(resultObject.question,resultObject.correct_answer,resultObject.incorrect_answers);
+                       let optionsArray = newResultObject.createOptions();
+                       finalOptionsArray = optionsArray;
+                       console.log(newResultObject);
+                       answer = newResultObject.correct_answer;
+                       document.getElementById('question-area').innerHTML = newResultObject.question;
+                       document.getElementById('option1').innerHTML = optionsArray[0];
+                       document.getElementById('option2').innerHTML = optionsArray[1];
+                       document.getElementById('option3').innerHTML = optionsArray[2];
+                       document.getElementById('option4').innerHTML = optionsArray[3];
+                       setDefaultColors();
+                    enableClickEventsForAllButtons();
+                }else{
+                    questionIndex=0;
+                    setDefaultColors();
+                    if(confirm('Want ot continue with New Questions?')){
+                        load();
+                        enableClickEventsForAllButtons();
+                    }else{
+                        console.log('Confirm Canceled');
+                         document.getElementById('question-number-indicator').innerHTML = 'Questions to answer : 10';
+                        document.getElementById('question-area').innerHTML = 'This is Question Block';
+                        document.getElementById('option1').innerHTML = 'OPTION1';
+                       document.getElementById('option2').innerHTML = 'OPTION2';
+                       document.getElementById('option3').innerHTML = 'OPTION3';
+                       document.getElementById('option4').innerHTML = 'OPTION4';
+                    }
+                }
+            }
+
+            function disableClickEventsForAllButtons(){
+                document.getElementById('option1').style.pointerEvents="none"
+                document.getElementById('option2').style.pointerEvents="none"
+                document.getElementById('option3').style.pointerEvents="none"
+                document.getElementById('option4').style.pointerEvents="none"
+            }
+
+            function enableClickEventsForAllButtons(){
+                document.getElementById('option1').style.pointerEvents="initial"
+                document.getElementById('option2').style.pointerEvents="initial"
+                document.getElementById('option3').style.pointerEvents="initial"
+                document.getElementById('option4').style.pointerEvents="initial"
+            }
+
+
+            function setDefaultColors(){
+                document.getElementById('option1').style.backgroundColor = "blue";
+                document.getElementById('option2').style.backgroundColor = "blue";
+                document.getElementById('option3').style.backgroundColor = "blue";
+                document.getElementById('option4').style.backgroundColor = "blue";
+            }
+
+            function generateRandomNumber(offset){
+                return (Math.floor(Math.random() * offset)); //returns a random number between 0 to 3
+            }
+
+        </script>
+</body>
+</html>
