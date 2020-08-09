@@ -43,7 +43,6 @@ public class SuppliersList extends WmsBaseClass {
         int i;
         homePageObject.clickSuppliers();
         suppliersPageObjects.clickSuppliersListTab();
-        sleep(1000);
         suppliersListModels = getWMSApiResponse.getSuppliersDetails();
         System.out.println("List Size: " + suppliersListModels.size());
 

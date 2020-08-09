@@ -36,7 +36,6 @@ public class BinInScan extends WmsBaseClass {
         System.out.println(message);
         packagesPageObjects.clickPackageDetailsTab();
         packageDetailsTab.enterPackageID("135972");
-        sleep(2000);
         System.out.println(packageDetailsTab.getCurrentStatus());
     }
 

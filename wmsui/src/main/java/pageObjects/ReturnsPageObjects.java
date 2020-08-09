@@ -5,19 +5,24 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 import utils.WmsBaseClass;
 
 import java.util.List;
 
 public class ReturnsPageObjects extends WmsBaseClass {
-    private final WebDriver driver;
-    private final MyActions myActions;
+
+    private WebDriver driver;
+    private MyActions myActions;
+    private WebDriverWait wait;
 
     public ReturnsPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
     @FindBy(xpath = "//div[@class='returns-tabs']/ul[1]/li[1]/a")
@@ -35,15 +40,25 @@ public class ReturnsPageObjects extends WmsBaseClass {
     @FindBy(xpath = "//div[@class='returns-tabs']/ul[1]/li[5]/a")
     private WebElement rTSUploadManifestTab;
 
-    public void clickReturnInScanTab(){myActions.action_click(returnInScanTab);}
+    public void clickReturnInScanTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(returnInScanTab));
+        myActions.action_click(returnInScanTab);}
 
-    public void clickReturnQcScanTab(){myActions.action_click(returnQcScanTab);}
+    public void clickReturnQcScanTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(returnQcScanTab));
+        myActions.action_click(returnQcScanTab);}
 
-    public void clickRTSCreateManifestTab(){myActions.action_click(rTSCreateManifestTab);}
+    public void clickRTSCreateManifestTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(rTSCreateManifestTab));
+        myActions.action_click(rTSCreateManifestTab);}
 
-    public void clickRTSOutScanTab(){myActions.action_click(rTSOutScanTab);}
+    public void clickRTSOutScanTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(rTSOutScanTab));
+        myActions.action_click(rTSOutScanTab);}
 
-    public void clickRTSUploadManifestTab(){myActions.action_click(rTSUploadManifestTab);}
+    public void clickRTSUploadManifestTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(rTSUploadManifestTab));
+        myActions.action_click(rTSUploadManifestTab);}
 
 
     /*--------------Return In Scan Tab-------------------*/
@@ -87,13 +102,21 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
 
         /*--------------Actions-------------------*/
-        public void clickPickListReturnsSection(){myActions.action_click(pickListReturnsSection);}
+        public void clickPickListReturnsSection(){
+            wait.until(ExpectedConditions.visibilityOf(pickListReturnsSection));
+            myActions.action_click(pickListReturnsSection);}
 
-        public void pickListIdInput(String pickListId){myActions.action_sendKeys(pickListIdEntry,pickListId);}
+        public void pickListIdInput(String pickListId){
+            wait.until(ExpectedConditions.visibilityOf(pickListIdEntry));
+            myActions.action_sendKeys(pickListIdEntry,pickListId);}
 
-        public void clickPickListIdSubmitButton(){myActions.action_click(pickListIdSubmitButton);}
+        public void clickPickListIdSubmitButton(){
+            wait.until(ExpectedConditions.visibilityOf(pickListIdSubmitButton));
+            myActions.action_click(pickListIdSubmitButton);}
 
-        public void clickPickListReturnSubmitButton(){myActions.action_click(pickListReturnSubmitButton);}
+        public void clickPickListReturnSubmitButton(){
+            wait.until(ExpectedConditions.visibilityOf(pickListReturnSubmitButton));
+            myActions.action_click(pickListReturnSubmitButton);}
 
 
         /*--------------Functions-------------------*/
@@ -165,21 +188,27 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
 
         /*--------------Actions-------------------*/
-        public void clickReturnInwardSkuSection(){myActions.action_click(returnInwardSkuSection);}
+        public void clickReturnInwardSkuSection(){
+            wait.until(ExpectedConditions.visibilityOf(returnInwardSkuSection));
+            myActions.action_click(returnInwardSkuSection);}
 
         public void selectWarehouseDropdown(String warehouse) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseDropdown));
             myActions.action_select(warehouseDropdown, warehouse);
         }
 
         public void selectSellerDropdown(String seller) {
+            wait.until(ExpectedConditions.visibilityOf(sellerDropdown));
             myActions.action_select(sellerDropdown, seller);
         }
 
         public void selectSupplierDropdown(String supplier) {
+            wait.until(ExpectedConditions.visibilityOf(supplierDropdown));
             myActions.action_select(supplierDropdown, supplier);
         }
 
         public void selectAddressDropdown(String address) {
+            wait.until(ExpectedConditions.visibilityOf(addressDropdown));
             myActions.action_select(addressDropdown, address);
         }
 
@@ -219,10 +248,12 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void clickAddSkuInputFields() {
+            wait.until(ExpectedConditions.visibilityOf(addSkuInputFields));
             myActions.action_click(addSkuInputFields);
         }
 
         public void clickInwardReturnButton() {
+            wait.until(ExpectedConditions.visibilityOf(inwardReturnButton));
             myActions.action_click(inwardReturnButton);
         }
 

@@ -67,7 +67,6 @@ public class WarehouseBinDetail extends WmsBaseClass {
         int i;
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickBinDetailsTab();
-        sleep(1000);
         warehouseBinDetailsTab.binCodeEntry(id);
         warehouseBinDetails = getWMSApiResponse.getWarehouseBinDetails(id);
         packageDetails = warehouseBinDetails.getPackage_details();

@@ -5,18 +5,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 
 import java.util.List;
 
 public class VariantsPageObjects {
-    private final WebDriver driver;
-    private final MyActions myActions;
+
+    private WebDriver driver;
+    private MyActions myActions;
+    private WebDriverWait wait;
 
     public VariantsPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
     @FindBy(xpath = "//a[text()='Add Variant']")
@@ -34,18 +39,22 @@ public class VariantsPageObjects {
 
     /*--------------Actions-------------------*/
     public void clickAddVariantsTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(addVariantsTab));
         myActions.action_click(addVariantsTab);
     }
 
     public void clickVariantListTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(variantListTab));
         myActions.action_click(variantListTab);
     }
 
     public void clickBulkUploadTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(bulkUploadTab));
         myActions.action_click(bulkUploadTab);
     }
 
     public void clickBinsForSkuTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(binsForSkuTab));
         myActions.action_click(binsForSkuTab);
     }
 
@@ -100,22 +109,27 @@ public class VariantsPageObjects {
 
         /*--------------Actions-------------------*/
         public void enterSkuCodeAddVariant(String skuCode) {
+            wait.until(ExpectedConditions.visibilityOf(skuCodeAddVariantEntry));
             myActions.action_sendKeys(skuCodeAddVariantEntry, skuCode);
         }
 
         public void enterDescriptionAddVariant(String description) {
+            wait.until(ExpectedConditions.visibilityOf(descriptionAddVariantEntry));
             myActions.action_sendKeys(descriptionAddVariantEntry, description);
         }
 
         public void enterCategoryDropdownAddVariant(String category) {
+            wait.until(ExpectedConditions.visibilityOf(categoryDropdownAddVariantEntry));
             myActions.action_select(categoryDropdownAddVariantEntry, category);
         }
 
         public void enterPriceAddVariant(String price) {
+            wait.until(ExpectedConditions.visibilityOf(priceAddVariantEntry));
             myActions.action_sendKeys(priceAddVariantEntry, price);
         }
 
         public void enterReorderPointAddVariant(String reorderPoint) {
+            wait.until(ExpectedConditions.visibilityOf(reorderPointAddVariantEntry));
             myActions.action_sendKeys(reorderPointAddVariantEntry, reorderPoint);
         }
 
@@ -124,6 +138,7 @@ public class VariantsPageObjects {
         }
 
         public void clickAddVariantButton() {
+            wait.until(ExpectedConditions.visibilityOf(addVariantButton));
             myActions.action_click(addVariantButton);
         }
 
@@ -185,10 +200,12 @@ public class VariantsPageObjects {
 
         /*--------------Actions-------------------*/
         public void enterSellerDropdownBinsForSku(String seller) {
+            wait.until(ExpectedConditions.visibilityOf(sellerDropdownBinsForSku));
             myActions.action_select(sellerDropdownBinsForSku, seller);
         }
 
         public void enterSkuCodeBinsForSku(String binCode) {
+            wait.until(ExpectedConditions.visibilityOf(skuCodeEntryBinsForSku));
             myActions.action_sendKeys(skuCodeEntryBinsForSku, binCode);
             myActions.action_enter(skuCodeEntryBinsForSku);
         }
