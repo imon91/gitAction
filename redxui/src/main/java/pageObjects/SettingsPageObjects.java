@@ -14,6 +14,7 @@ public class SettingsPageObjects extends RedXBaseClass
     /*----------Elements----------*/
 
     private WebElement backButton;
+    private WebElement pageTitle;
     private WebElement paymentDetailsModule;
     private WebElement pickupInfoModule;
     private WebElement otherSettingsModule;
@@ -27,6 +28,12 @@ public class SettingsPageObjects extends RedXBaseClass
     {
         backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']");
         myActions.action_click(backButton);
+    }
+
+    public String getPageTitle()
+    {
+        pageTitle = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[1]/android.widget.TextView[@index='1']");
+        return myActions.action_getText(pageTitle);
     }
 
     public void clickPaymentDetailsModule()
@@ -59,7 +66,13 @@ public class SettingsPageObjects extends RedXBaseClass
         myActions.action_click(logoutButton);
     }
 
-    public void clickOkButton()
+    public void clickCancelButton()
+    {
+        confirmLogoutButton = idSetter("android:id/button1");
+        myActions.action_click(confirmLogoutButton);
+    }
+
+    public void clickConfirmButton()
     {
         confirmLogoutButton = idSetter("android:id/button2");
         myActions.action_click(confirmLogoutButton);
@@ -70,7 +83,7 @@ public class SettingsPageObjects extends RedXBaseClass
     public void performLogout()
     {
         clickLogoutButton();
-        clickOkButton();
+        clickConfirmButton();
     }
 
 
@@ -316,17 +329,17 @@ public class SettingsPageObjects extends RedXBaseClass
     {
         /*----------Elements----------*/
 
-        private WebElement backButton;
+        //private WebElement backButton;
         private WebElement banglaLanguage;
         private WebElement englishLanguage;
 
         /*----------Actions----------*/
 
-        public void clickBackButton()
-        {
-            backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']");
-            myActions.action_click(backButton);
-        }
+//        public void clickBackButton()
+//        {
+//            backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']/android.widget.TextView[@index='0']");
+//            myActions.action_click(backButton);
+//        }
 
         public void setBanglaLanguage()
         {
@@ -346,14 +359,12 @@ public class SettingsPageObjects extends RedXBaseClass
         {
             clickOtherSettingsModule();
             setEnglishLanguage();
-            clickBackButton();
         }
 
         public void changeToBangla()
         {
             clickOtherSettingsModule();
             setBanglaLanguage();
-            clickBackButton();
         }
     }
 }

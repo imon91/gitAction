@@ -44,7 +44,6 @@ public class PickListAction extends WmsBaseClass {
         String poId = "";
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickAllPickListsTab();
-        sleep(1000);
         total = allPickListsTab.getTotalPickLists();
         for (i = 0; i < total; i++)
             if (allPickListsTab.getStatus(i + 1).equalsIgnoreCase("closed")) {
@@ -90,7 +89,7 @@ public class PickListAction extends WmsBaseClass {
 
             System.out.println(items.get(i).getWarehouse_bin().getBin_code());
             assertion.assertTrue(pickListActionTab.getBinCode(i + 1)
-                            .equalsIgnoreCase(items.get(i).getWarehouse_bin().getBin_code()),
+                            .contains(items.get(i).getWarehouse_bin().getBin_code()),
                     "BinCodes Do Not Match");
 
             System.out.println(items.get(i).getStatus());

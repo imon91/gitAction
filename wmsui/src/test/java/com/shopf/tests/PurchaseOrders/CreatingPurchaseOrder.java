@@ -5,9 +5,9 @@ import com.google.gson.reflect.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
-import services.wmsMethods.*;
 import utils.*;
 
 import java.io.*;
@@ -20,11 +20,11 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
     private PurchaseOrdersPageObjects purchaseOrdersPageObjects;
     private PurchaseOrdersPageObjects.CreatePurchaseOrderTab createPurchaseOrderTab;
     private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
-    private GetWMSApiResponse getWMSApiResponse;
     private List<VariantDetailsModel> list;
     private Random random;
     private Gson gson;
     private BufferedReader bufferedReader;
+    private Assertion assertion;
 
     @BeforeClass(alwaysRun = true)
     public void creatingPurchaseOrderBeforeClass() throws Exception {
@@ -34,8 +34,8 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         purchaseOrdersPageObjects = new PurchaseOrdersPageObjects(driver);
         createPurchaseOrderTab = new PurchaseOrdersPageObjects(driver).new CreatePurchaseOrderTab(driver);
         purchaseOrderList = new PurchaseOrdersPageObjects(driver).new PurchaseOrderList(driver);
-        getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         random = new Random();
+        assertion = new Assertion();
     }
 
     @DataProvider(name = "skuCodeData")
@@ -62,12 +62,13 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         System.out.println(name + " : " + id);
         System.out.println("Create Purchase Order Verification is Called");
         homePageObject.clickPurchaseOrders();
+        homePageObject.selectWarehouse("Shopup Dhaka");
         createPurchaseOrderTab.enterWarehouseDetails();
         createPurchaseOrderTab.createPurchaseOrder(id);
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
+        assertion.assertEquals(message,"PO creation success");
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(1000);
         String poId = purchaseOrderList.getPOID(1);
         System.out.println("The last added PO: " + poId);
     }

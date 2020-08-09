@@ -187,7 +187,7 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 14)
     public void verifyOrderIdInOrderSuccessfulPage() {
-//        orderSuccessFulPageObjects.clickOnGoTOMyOrdersButton();
+        orderSuccessFulPageObjects.clickOnClickHereButton();
     }
 
 

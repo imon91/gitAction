@@ -1,12 +1,15 @@
 package utils;
 
 import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.nativekey.*;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 public class MyActions extends AndroidBaseClass{
+
+    private String host = System.getProperty(BuildParameterKeys.KEY_HOST);
 
     public void action_click(WebElement element){
         sleep(300);
@@ -28,12 +31,17 @@ public class MyActions extends AndroidBaseClass{
         sleep(300);
         try{
             element.sendKeys(data);
+            if(host.equalsIgnoreCase("bs")){
+                if (getBaseDriver().isKeyboardShown()){
+                    getBaseDriver().hideKeyboard();
+                }
+            }
         }catch (StaleElementReferenceException e){
             sleep(2000);
-            element.click();
+            action_sendKeys(element,data);
         }catch (IllegalStateException e){
             sleep(2000);
-            element.click();
+            action_sendKeys(element,data);
         }
         catch (Exception e){
             System.out.println(e);
@@ -72,6 +80,12 @@ public class MyActions extends AndroidBaseClass{
                 getBaseDriver().hideKeyboard();
             }
         }
+//         if(host.equalsIgnoreCase("bs")){
+//             if (getBaseDriver().isKeyboardShown()){
+//             getBaseDriver().hideKeyboard();
+//             }
+//         }
+              
     }
 
     public void clickOnHardKeyBack() throws Exception{

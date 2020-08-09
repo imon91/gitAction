@@ -5,20 +5,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 import utils.WmsBaseClass;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class WarehousesPageObjects extends WmsBaseClass {
-    private final WebDriver driver;
-    private final MyActions myActions;
+
+    private WebDriver driver;
+    private MyActions myActions;
+    private WebDriverWait wait;
 
     public WarehousesPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
     //Add Warehouse Tab
@@ -37,23 +44,42 @@ public class WarehousesPageObjects extends WmsBaseClass {
     @FindBy(xpath = "//a[text()='Warehouse Bin Details']")
     private WebElement binDetailsTab;
 
+    //Warehouse Bin Details Tab
+    @FindBy(xpath = "//a[text()='Warehouse Bins create']")
+    private WebElement warehouseBinsCreateTab;
+
+    //Warehouse Select
+    @FindBy(xpath = "//div[@id='root']//form//select")
+    private WebElement selectWarehouseDropDown;
+
 
     /*--------------Actions-------------------*/
     public void clickAddWarehouseTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(addWarehouseTab));
         myActions.action_click(addWarehouseTab);
     }
 
     public void clickWarehouseListTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(warehousesListTab));
         myActions.action_click(warehousesListTab);
     }
 
     public void clickUpdateBinCapacityTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(updateBinCapacityTab));
         myActions.action_click(updateBinCapacityTab);
     }
 
     public void clickBinDetailsTab() {
-        myActions.action_click(binDetailsTab);
-    }
+        wait.until(ExpectedConditions.elementToBeClickable(binDetailsTab));
+        myActions.action_click(binDetailsTab);}
+
+    public void clickWarehouseBinsCreateTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(warehouseBinsCreateTab));
+        myActions.action_click(warehouseBinsCreateTab); }
+
+    public void selectWarehouse(String warehouse) {
+        wait.until(ExpectedConditions.elementToBeClickable(selectWarehouseDropDown));
+        myActions.action_select(selectWarehouseDropDown,warehouse); }
 
 
     /*--------------Add Warehouse Tab-------------------*/
@@ -120,50 +146,62 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void enterWarehouseCode(String binCode) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseCodeEntry));
             myActions.action_sendKeys(warehouseCodeEntry, binCode);
         }
 
         public void enterName(String name) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseNameEntry));
             myActions.action_sendKeys(warehouseNameEntry, name);
         }
 
         public void enterAddress1(String address1) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseAddressEntry1));
             myActions.action_sendKeys(warehouseAddressEntry1, address1);
         }
 
         public void enterAddress2(String address2) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseAddressEntry2));
             myActions.action_sendKeys(warehouseAddressEntry2, address2);
         }
 
         public void enterLandmark(String landmark) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseLandmarkEntry));
             myActions.action_sendKeys(warehouseLandmarkEntry, landmark);
         }
 
         public void enterCity(String city) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseCityEntry));
             myActions.action_sendKeys(warehouseCityEntry, city);
         }
 
         public void enterState(String state) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseStateEntry));
             myActions.action_sendKeys(warehouseStateEntry, state);
         }
 
         public void enterCountry(String country) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseNameEntry));
             myActions.action_sendKeys(warehouseCountryEntry, country);
         }
 
         public void enterZipcode(String zipcode) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseZipcodeEntry));
             myActions.action_sendKeys(warehouseZipcodeEntry, zipcode);
         }
 
         public void enterPhoneNo(String phone_no) {
+            wait.until(ExpectedConditions.visibilityOf(warehousePhoneNumberEntry));
             myActions.action_sendKeys(warehousePhoneNumberEntry, phone_no);
         }
 
         public void enterAlterPhoneNo(String alter_phone_no) {
+            wait.until(ExpectedConditions.visibilityOf(warehouseAlternativePhoneEntry));
             myActions.action_sendKeys(warehouseAlternativePhoneEntry, alter_phone_no);
         }
 
         public void clickAddWarehouseButton() {
+            wait.until(ExpectedConditions.visibilityOf(addWarehouseButton));
             myActions.action_click(addWarehouseButton);
         }
 
@@ -217,14 +255,17 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void enterBinCodeUpdateCapacity(String binCode) {
+            wait.until(ExpectedConditions.visibilityOf(binCodeUpdateCapacity));
             myActions.action_sendKeys(binCodeUpdateCapacity, binCode);
         }
 
         public void enterCapacity(String capacity) {
+            wait.until(ExpectedConditions.visibilityOf(binCapacityUpdateCapacity));
             myActions.action_sendKeys(binCapacityUpdateCapacity, capacity);
         }
 
         public void clickUpdateCapacityButton() {
+            wait.until(ExpectedConditions.visibilityOf(updateCapacityButton));
             myActions.action_click(updateCapacityButton);
         }
 
@@ -256,9 +297,9 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void enterBinCodeBinDetails(String binCode) {
+            wait.until(ExpectedConditions.visibilityOf(binCodeBinDetails));
             myActions.action_sendKeys(binCodeBinDetails, binCode);
             myActions.action_enter(binCodeBinDetails);
-            sleep(2000);
         }
 
 
@@ -381,5 +422,136 @@ public class WarehousesPageObjects extends WmsBaseClass {
             myActions.action_click(printLabel);
         }
     }
-}
 
+
+    /*--------------Warehouse Bins Create Tab-------------------*/
+    public class WarehouseBinsCreateTab {
+        private WebDriver driver;
+        private MyActions myActions;
+
+        public WarehouseBinsCreateTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+        }
+
+
+        /*--------------Bin Create Section-------------------*/
+        // Bin Create Section
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Bin Create']")
+        private WebElement binCreateSection;
+
+
+        /*--------------Actions-------------------*/
+        public void clickBinCreateSection() {
+            myActions.action_click(binCreateSection);
+        }
+
+
+        /*--------------Pickup Agents Section-------------------*/
+        // Pickup Agents Section
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Pickup Agents']")
+        private WebElement pickupAgentsSection;
+
+        // Pickup Agents Entry
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//input[@placeholder='Enter Name']")
+        private WebElement pickupAgentsEntry;
+
+        // Pickup Agent Add Button
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[2]//div[2]//div[1]//div[1]//button[1]")
+        private WebElement addPickupAgentButton;
+
+
+        /*--------------Actions-------------------*/
+        public void clickPickupAgentsSection() {
+            myActions.action_click(pickupAgentsSection);
+        }
+
+        public void enterPickupAgents(String pickupAgent){
+            myActions.action_sendKeys(pickupAgentsEntry,pickupAgent);
+            myActions.action_click(addPickupAgentButton);
+        }
+
+
+        /*--------------Functions-------------------*/
+        public ArrayList<String> getPickupAgents() {
+            String pickupAgentXpath = "//div[@id='WarehouseBinCreate']//div[2]//div[2]//div[1]//tr[@id]";
+            List<WebElement> pickupAgent = driver.findElements(By.xpath(pickupAgentXpath));
+            ArrayList<String> pickupAgents = new ArrayList<String>();
+            for (WebElement element : pickupAgent)
+                pickupAgents.add(myActions.action_getText(element));
+            return pickupAgents;
+        }
+
+
+        /*--------------Warehouse Users Section-------------------*/
+        // Warehouse Users Section
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Warehouse users']")
+        private WebElement warehouseUsersSection;
+
+        // Warehouse Users Entry
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[3]//div[2]//div[1]//div[1]//select[1]")
+        private WebElement selectUserDropDown;
+
+        // Add User To Warehouse Button
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[3]//div[2]//div[1]//div[1]//button[1]")
+        private WebElement addUserToWarehouseButton;
+
+
+        /*--------------Actions-------------------*/
+        public void clickWarehouseUsersSection() {
+            myActions.action_click(warehouseUsersSection);
+        }
+
+        public void enterWarehouseUser(String user){
+            myActions.action_select(selectUserDropDown,user);
+            myActions.action_click(addUserToWarehouseButton);
+        }
+
+
+        /*--------------Functions-------------------*/
+        public ArrayList<String> getWarehouseUsers() {
+            String warehouseUserXpath = "//div[@id='WarehouseBinCreate']//div[3]//div[2]//div[1]//tr[@id]";
+            List<WebElement> warehouseUser = driver.findElements(By.xpath(warehouseUserXpath));
+            ArrayList<String> warehouseUsers = new ArrayList<String>();
+            for (WebElement element : warehouseUser)
+                warehouseUsers.add(myActions.action_getText(element));
+            return warehouseUsers;
+        }
+
+        /*--------------Sellers Section-------------------*/
+        // Sellers Section
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Sellers']")
+        private WebElement sellersSection;
+
+        // Sellers Entry
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[4]//div[2]//div[1]//div[1]//select[1]")
+        private WebElement selectSellerDropDown;
+
+        // Add Seller Button
+        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[4]//div[2]//div[1]//div[1]//button[1]")
+        private WebElement addSellerButton;
+
+
+        /*--------------Actions-------------------*/
+        public void clickSellersSection() {
+            myActions.action_click(sellersSection);
+        }
+
+        public void enterSeller(String seller){
+            myActions.action_select(selectSellerDropDown,seller);
+            myActions.action_click(addSellerButton);
+        }
+
+
+        /*--------------Functions-------------------*/
+        public ArrayList<String> getSellers() {
+            String sellerXpath = "//div[@id='WarehouseBinCreate']//div[4]//div[2]//div[1]//tr[@id]";
+            List<WebElement> seller = driver.findElements(By.xpath(sellerXpath));
+            ArrayList<String> sellers = new ArrayList<String>();
+            for (WebElement element : seller)
+                sellers.add(myActions.action_getText(element));
+            return sellers;
+        }
+    }
+}

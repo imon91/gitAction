@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 import utils.WmsBaseClass;
 
@@ -12,13 +14,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PickOrdersPageObjects extends WmsBaseClass {
-    private final WebDriver driver;
-    private final MyActions myActions;
+
+    private WebDriver driver;
+    private MyActions myActions;
+    private WebDriverWait wait;
 
     public PickOrdersPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
 
@@ -37,13 +42,25 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
 
     /*--------------Actions-------------------*/
-    public void clickCreatePickListTab(){myActions.action_click(createPickListTab);}
+    public void clickCreatePickListTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(createPickListTab));
+        myActions.action_click(createPickListTab);
+    }
 
-    public void clickDemandLessPickListTab(){myActions.action_click(demandLessPickListTab);}
+    public void clickDemandLessPickListTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(demandLessPickListTab));
+        myActions.action_click(demandLessPickListTab);
+    }
 
-    public void clickAllPickListsTab(){myActions.action_click(allPickListsTab);}
+    public void clickAllPickListsTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(allPickListsTab));
+        myActions.action_click(allPickListsTab);
+    }
 
-    public void clickPickListActionTab(){myActions.action_click(pickListActionTab);}
+    public void clickPickListActionTab(){
+        wait.until(ExpectedConditions.elementToBeClickable(pickListActionTab));
+        myActions.action_click(pickListActionTab);
+    }
 
 
     /*--------------Demand Less Pick List Tab-------------------*/
@@ -72,7 +89,7 @@ public class PickOrdersPageObjects extends WmsBaseClass {
         @FindBy(xpath = "//div[@id='NewPickList']//button[@type='submit']")
         private WebElement select;
 
-        @FindBy(xpath = "//div[@id='NewPickList']//div[@class='row'][5]/div[1]/button")
+        @FindBy(xpath = "//button[contains(text(),'Create sku wise PickList')]")
         private WebElement createPickListButton;
 
         @FindBy(xpath = "//div[@id='NewPickList']//div[@class='skuInput-main']/button")
@@ -81,31 +98,38 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void clickAddSkuInputFields() {
+            wait.until(ExpectedConditions.visibilityOf(addSkuInputFields));
             myActions.action_click(addSkuInputFields);
         }
 
         public void clickCreatePickListButton() {
+            wait.until(ExpectedConditions.visibilityOf(createPickListButton));
             myActions.action_click(createPickListButton);
         }
 
         public void selectWarehouse(String warehouse) {
+            wait.until(ExpectedConditions.visibilityOf(selectWarehouseIdDropdown));
             myActions.action_select(selectWarehouseIdDropdown, warehouse);
         }
 
         public void selectSeller(String seller) {
+            wait.until(ExpectedConditions.visibilityOf(selectSellerIdDropdown));
             myActions.action_select(selectSellerIdDropdown, seller);
         }
 
         public void selectPickupAgent(String pickup_agent) {
+            wait.until(ExpectedConditions.visibilityOf(selectPickupAgentIdDropdown));
             myActions.action_sendKeys(selectPickupAgentIdDropdown, pickup_agent);
         }
 
         public void selectType(String picklist_type) {
+            wait.until(ExpectedConditions.visibilityOf(selectTypeIdDropdown));
             myActions.action_select(selectTypeIdDropdown, picklist_type);
         }
 
         public void skuCodeInput(int index, String skuCode) {
             String skuCodeXPath = "//div[@id='NewPickList']//input[@id='select" + index + "']";
+            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(skuCodeXPath)));
             WebElement skuCodeEntry = driver.findElement(By.xpath(skuCodeXPath));
             myActions.action_sendKeys(skuCodeEntry, skuCode);
             myActions.action_enter(skuCodeEntry);
@@ -139,20 +163,15 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
         /*--------------Functions-------------------*/
         public void enterWarehouseDetails() {
-            selectWarehouse("Shopup Dhaka");
-            sleep(2000);
             selectSeller("DFW");
-            sleep(1000);
             selectType("PHOTOSHOOT");
             sleep(10000);
         }
 
         public void createPickListOrder(){
             skuCodeInput(0,"139743");
-            sleep(1000);
             quantityInput(0,"2");
             clickCreatePickListButton();
-            sleep(1000);
         }
 
         public void createPickList(int no_of_products, String[] skuCode, String[] quantity, String[] price) {
@@ -201,17 +220,34 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
 
         /*--------------Actions-------------------*/
-        public void pickListIdInput(String pickListId){myActions.action_sendKeys(pickListIdEntry,pickListId);}
+        public void pickListIdInput(String pickListId){
+            wait.until(ExpectedConditions.visibilityOf(pickListIdEntry));
+            myActions.action_sendKeys(pickListIdEntry,pickListId);
+        }
 
-        public void packageIdInput(String packageId){myActions.action_sendKeys(packageIdEntry,packageId);}
+        public void packageIdInput(String packageId){
+            wait.until(ExpectedConditions.visibilityOf(packageIdEntry));
+            myActions.action_sendKeys(packageIdEntry,packageId);
+        }
 
-        public void clickQcPassCheckBox(){myActions.action_click(qcPassCheckBox);}
+        public void clickQcPassCheckBox(){
+            wait.until(ExpectedConditions.visibilityOf(qcPassCheckBox));
+            myActions.action_click(qcPassCheckBox);
+        }
 
-        public void clickQcFailCheckBox(){myActions.action_click(qcFailCheckBox);}
+        public void clickQcFailCheckBox(){
+            wait.until(ExpectedConditions.visibilityOf(qcFailCheckBox));
+            myActions.action_click(qcFailCheckBox);
+        }
 
-        public void clickResetButton(){myActions.action_click(resetButton);}
+        public void clickResetButton(){
+            wait.until(ExpectedConditions.visibilityOf(resetButton));
+            myActions.action_click(resetButton);
+        }
 
-        public void clickSubmitOutScanButton(){myActions.action_click(submitOutScanButton);}
+        public void clickSubmitOutScanButton(){
+            wait.until(ExpectedConditions.visibilityOf(submitOutScanButton));
+            myActions.action_click(submitOutScanButton);}
 
         public void performOutScan(String pickListId, String packageId) {
             pickListIdInput(pickListId);
@@ -226,6 +262,7 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
         public int getTotalProducts(){
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='PackageOutScan']//tbody/tr"));
+            wait.until(ExpectedConditions.visibilityOfAllElements(products));
             return products.size();
         }
 
@@ -396,21 +433,24 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void goToNextPage() {
+            wait.until(ExpectedConditions.visibilityOf(nextPage));
             myActions.action_click(nextPage);
         }
 
         public void selectPageSize(String size) {
+            wait.until(ExpectedConditions.visibilityOf(pageSize));
             myActions.action_select(pageSize, size);
         }
 
         public void goToPreviousPage() {
+            wait.until(ExpectedConditions.visibilityOf(previousPage));
             myActions.action_click(previousPage);
         }
 
         public void enterPageNumber(String pageNumber){
+            wait.until(ExpectedConditions.visibilityOf(pageNumberEntry));
             myActions.action_sendKeys(pageNumberEntry,pageNumber);
             myActions.action_enter(pageNumberEntry);
         }
-
     }
 }

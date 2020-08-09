@@ -3,6 +3,7 @@ package com.shopf.tests.PickOrders;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.Assertion;
 import pageObjects.*;
 import utils.*;
 
@@ -13,6 +14,7 @@ public class AddingPickList extends WmsBaseClass {
     private PickOrdersPageObjects pickOrdersPageObjects;
     private PickOrdersPageObjects.DemandLessPickListTab demandLessPickListTab;
     private PickOrdersPageObjects.AllPickListsTab allPickListsTab;
+    private Assertion assertion;
 
     @BeforeClass(alwaysRun = true)
     public void addingPickListBeforeClass() throws Exception {
@@ -22,6 +24,7 @@ public class AddingPickList extends WmsBaseClass {
         pickOrdersPageObjects = new PickOrdersPageObjects(driver);
         demandLessPickListTab = new PickOrdersPageObjects(driver).new DemandLessPickListTab(driver);
         allPickListsTab = new PickOrdersPageObjects(driver).new AllPickListsTab(driver);
+        assertion = new Assertion();
     }
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
@@ -31,11 +34,12 @@ public class AddingPickList extends WmsBaseClass {
         System.out.println("Pick List Addition Verification is called");
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickDemandLessPickListTab();
-        sleep(1000);
+        homePageObject.selectWarehouse("Shopup Dhaka");
         demandLessPickListTab.enterWarehouseDetails();
         demandLessPickListTab.createPickListOrder();
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
+        assertion.assertEquals(message,"PickList Created");
         pickOrdersPageObjects.clickAllPickListsTab();
         String pickListId = allPickListsTab.getPickListID(1);
         System.out.println("The last added Pick List: " + pickListId);

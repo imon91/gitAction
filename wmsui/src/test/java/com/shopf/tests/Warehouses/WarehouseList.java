@@ -45,7 +45,6 @@ public class WarehouseList extends WmsBaseClass {
         int i;
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickWarehouseListTab();
-        sleep(1000);
         wareHousesBeanList = getWMSApiResponse.getListOfWarehouses();
         System.out.println("List Size: " + wareHousesBeanList.size());
 

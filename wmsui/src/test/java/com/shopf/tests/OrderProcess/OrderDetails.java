@@ -46,10 +46,7 @@ public class OrderDetails extends WmsBaseClass{
         int i,j;
         homePageObject.clickOrderProcess();
         orderProcessPageObjects.clickOrderDetailTab();
-        sleep(1000);
-        list = getWMSApiResponse.getOrderList();
-        i = random.nextInt(list.size());
-        orderNo = list.get(i).getOrder_number();
+        orderNo = "NIKTESTORDER"+random.nextInt(13)+"-1";
         System.out.println("Order Number : " + orderNo);
         orderDetailTab.orderNumberInput(orderNo);
         orderDetailsModel = getWMSApiResponse.getOrderDetails(orderNo);
