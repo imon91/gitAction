@@ -1,5 +1,6 @@
 package generator;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,22 +14,17 @@ import java.io.FileOutputStream;
 public class PublishReport {
 
     @BeforeSuite
-    public void beforeSuite() throws Exception{
+    public void beforeSuite(){
         System.out.println("Called here");
+        WebDriverManager.chromedriver().setup();
     }
 
 
     @Test
     public void publish() throws Exception{
-//        Runtime.getRuntime().exec("cd");
-//        Runtime.getRuntime().exec("cd AutomationProjects/");
-//        Runtime.getRuntime().exec("cd reseller_automation/");
-        //System.out.println(Runtime.getRuntime().exec("ls"));
-//        System.out.println(System.getProperty("user.dir"));
         Runtime.getRuntime().exec("python3 -m http.server 8000 --bind 0.0.0.0");
-        System.setProperty("webdriver.chrome.driver","/Users/jagadeesh-shopf/SeleniumWebDrivers/chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
-        //chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--headless");
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("http://0.0.0.0:8000/src/main/java/index.html");
         System.out.println(driver.getCurrentUrl());
