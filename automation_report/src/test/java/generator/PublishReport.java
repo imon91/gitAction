@@ -36,10 +36,12 @@ public class PublishReport {
         FileOutputStream fileOutputStream = new FileOutputStream(htmlTemplateFile);
         fileOutputStream.write(htmlData.getBytes());
         fileOutputStream.close();
+        //Runtime.getRuntime().exec("ps aux && pid=$(pgrep Python) && kill -9 $pid");
+        //System.out.println("Done");
     }
 
     @AfterSuite
     public void killAllProcess() throws Exception{
-        Runtime.getRuntime().exec("killall Python");
-    }
+
+        }
 }
