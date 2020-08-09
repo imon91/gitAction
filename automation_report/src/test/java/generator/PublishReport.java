@@ -4,27 +4,33 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
-
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class PublishReport {
 
     @BeforeSuite
-    public void beforeSuite(){
+    public void beforeSuite() throws Exception{
         System.out.println("Called here");
     }
 
 
     @Test
     public void publish() throws Exception{
+//        Runtime.getRuntime().exec("cd");
+//        Runtime.getRuntime().exec("cd AutomationProjects/");
+//        Runtime.getRuntime().exec("cd reseller_automation/");
+        //System.out.println(Runtime.getRuntime().exec("ls"));
+//        System.out.println(System.getProperty("user.dir"));
+        Runtime.getRuntime().exec("python3 -m http.server 8000 --bind 0.0.0.0");
         System.setProperty("webdriver.chrome.driver","/Users/jagadeesh-shopf/SeleniumWebDrivers/chromedriver");
         ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--headless");
+        //chromeOptions.addArguments("--headless");
         WebDriver driver = new ChromeDriver(chromeOptions);
-        driver.get("http://localhost:63342/Shopf%20Ui%20Automation/Shopf_Ui_Automation.automation_report.main/index.html?_ijt=3rl08d7p9fsu6n4oc1ncg55pjl");
+        driver.get("http://0.0.0.0:8000/src/main/java/index.html");
         System.out.println(driver.getCurrentUrl());
         String htmlData = driver.findElement(By.id("parent-tag")).getAttribute("outerHTML");
         System.out.println(htmlData);
@@ -34,5 +40,10 @@ public class PublishReport {
         FileOutputStream fileOutputStream = new FileOutputStream(htmlTemplateFile);
         fileOutputStream.write(htmlData.getBytes());
         fileOutputStream.close();
+    }
+
+    @AfterSuite
+    public void killAllProcess() throws Exception{
+        Runtime.getRuntime().exec("killall Python");
     }
 }
