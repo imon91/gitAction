@@ -8,7 +8,7 @@
             var currentDirectory = window.location.pathname.split('/').slice(0, -1).join('/')
             console.log('Current directory: ' + currentDirectory);
             var filePath = currentDirectory + '/resultsFiles/reseller_app.json';
-            var filePathNew = "http://0.0.0.0:8000/src/main/resultsFiles/reseller_app.json";
+            var filePathNew = "http://0.0.0.0:4443/src/main/resultsFiles/reseller_app.json";
             console.log(filePathNew);
             readNew();
 
@@ -42,7 +42,7 @@
             }
 
             function set_overall_data(){
-                document.getElementById("tests-count").innerHTML = "135";
+                document.getElementById("tests-count").innerHTML = "16";
             }
 
             function set_wms_ui(){
