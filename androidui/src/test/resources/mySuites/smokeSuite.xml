@@ -7,7 +7,7 @@
     <test name="SmokeTests" preserve-order="true" parallel="false">
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="smoke2"/>
             </run>
         </groups>
         <classes>

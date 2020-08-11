@@ -15,6 +15,11 @@ public class PublishReport {
 
     @BeforeSuite
     public void beforeSuite(){
+        try{
+            Runtime.getRuntime().exec("http-server -S -C localhost+3.pem -K localhost+3-key.pem");
+        }catch (Exception e){
+            System.out.println("Exception here" + e);
+        }
         System.out.println("Called here");
         WebDriverManager.chromedriver().setup();
     }
@@ -22,11 +27,11 @@ public class PublishReport {
 
     @Test
     public void publish() throws Exception{
-        Runtime.getRuntime().exec("python3 -m http.server 8000 --bind 0.0.0.0");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
+        chromeOptions.setAcceptInsecureCerts(true);
         WebDriver driver = new ChromeDriver(chromeOptions);
-        driver.get("http://0.0.0.0:8000/src/main/java/index.html");
+        driver.get("https://127.0.0.1:8080/automation_report/src/main/java/index.html");
         System.out.println(driver.getCurrentUrl());
         String htmlData = driver.findElement(By.id("parent-tag")).getAttribute("outerHTML");
         System.out.println(htmlData);
@@ -37,10 +42,11 @@ public class PublishReport {
         fileOutputStream.write(htmlData.getBytes());
         fileOutputStream.close();
         //Runtime.getRuntime().exec("ps aux && pid=$(pgrep Python) && kill -9 $pid");
+        //System.out.println("Done");
     }
 
     @AfterSuite
     public void killAllProcess() throws Exception{
-        System.out.println("Done");
+
         }
 }
