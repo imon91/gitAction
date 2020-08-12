@@ -3,6 +3,7 @@ package com.shopf.tests;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import services.commerceMethods.GetAuthenticationApiResponse;
 import utils.*;
 import pageObjects.*;
 
@@ -11,9 +12,12 @@ public class Login extends WmsBaseClass {
 
     private WebDriver driver;
     private LoginPageObject loginPageObject;
+    private GetAuthenticationApiResponse getAuthenticationApiResponse;
 
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception {
+        getAuthenticationApiResponse = new GetAuthenticationApiResponse(CoreConstants.MODULE_WMS_UI);
+        getAuthenticationApiResponse.performAuthentication();
         System.out.println("WMSBeforeSuite is called");
         driver = getBaseDriver();
         setImplicitWait(10000);
