@@ -128,3 +128,7 @@ public class HomePageObject extends WmsBaseClass {
         wait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElement(By.xpath("//div[@id='toastbar-text']"))));
     }
 }
+
+
+
+
