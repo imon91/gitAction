@@ -1,103 +1,65 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
-import utils.WmsBaseClass;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PurchaseOrdersPageObjects extends WmsBaseClass {
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public PurchaseOrdersPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-
-    /*--------------Tabs-------------------*/
-    @FindBy(xpath = "//a[text()='Create Purchase Order']")
-    private WebElement createPurchaseOrderTab;
-
-    @FindBy(xpath = "//a[text()='Create Bulk PO']")
-    private WebElement createBulkPOTab;
-
-    @FindBy(xpath = "//a[text()='Create TO']")
-    private WebElement createTOTab;
-
-    @FindBy(xpath = "//a[text()='Qc Scan']")
-    private WebElement qcScanTab;
-
-    @FindBy(xpath = "//a[text()='Edit PurchaseOrder']")
-    private WebElement editPurchaseOrderTab;
-
-    @FindBy(xpath = "//a[text()='Purchase Order List']")
-    private WebElement purchaseOrderListTab;
-
-    @FindBy(xpath = "//a[text()='TO List']")
-    private WebElement tOListTab;
-
-    @FindBy(xpath = "//a[text()='Create GRN']")
-    private WebElement createGRNTab;
-
-    @FindBy(xpath = "//a[text()='GRN View']")
-    private WebElement gRNViewTab;
 
 
     /*--------------Actions-------------------*/
     public void clickCreatePurchaseOrderTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createPurchaseOrderTab));
+        WebElement createPurchaseOrderTab = xpathSetter("//a[text()='Create Purchase Order']");
         myActions.action_click(createPurchaseOrderTab);
     }
 
     public void clickCreateBulkPOTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createBulkPOTab));
+        WebElement createBulkPOTab = xpathSetter("//a[text()='Create Bulk PO']");
         myActions.action_click(createBulkPOTab);
     }
 
     public void clickCreateTOTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createTOTab));
+        WebElement createTOTab = xpathSetter("//a[text()='Create TO']");
         myActions.action_click(createTOTab);
     }
 
     public void clickQcScanTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(qcScanTab));
+        WebElement qcScanTab = xpathSetter("//a[text()='Qc Scan']");
         myActions.action_click(qcScanTab);
     }
 
     public void clickEditPurchaseOrderTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(editPurchaseOrderTab));
+        WebElement editPurchaseOrderTab = xpathSetter("//a[text()='Edit PurchaseOrder']");
         myActions.action_click(editPurchaseOrderTab);
     }
 
     public void clickPurchaseOrderListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(purchaseOrderListTab));
+        WebElement purchaseOrderListTab = xpathSetter("//a[text()='Purchase Order List']");
         myActions.action_click(purchaseOrderListTab);
     }
 
     public void clickTOListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(tOListTab));
+        WebElement tOListTab = xpathSetter("//a[text()='TO List']");
         myActions.action_click(tOListTab);
     }
 
     public void clickCreateGRNTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createGRNTab));
+        WebElement createGRNTab = xpathSetter("//a[text()='Create GRN']");
         myActions.action_click(createGRNTab);
     }
 
     public void clickGRNViewTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(gRNViewTab));
+        WebElement gRNViewTab = xpathSetter("//a[text()='GRN View']");
         myActions.action_click(gRNViewTab);
     }
 
@@ -115,58 +77,41 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_warehouse']/following-sibling::select")
-        private WebElement warehouseDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_seller']/following-sibling::select")
-        private WebElement sellerDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_supplier']/following-sibling::select")
-        private WebElement supplierDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[3]//div[1]//div[1]//select[1]")
-        private WebElement addressDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[4]//div[1]//div[1]//select[1]")
-        private WebElement shippingModeDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[@class='skuInput-main']/button")
-        private WebElement addSkuInputFields;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[@class='text-center']/button")
-        private WebElement createPOButton;
-
 
         /*--------------Actions-------------------*/
         public void selectWarehouseDropdown(String warehouse) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseDropdown));
+            WebElement warehouseDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//label[@for='sel_warehouse']/following-sibling::select");
             myActions.action_select(warehouseDropdown, warehouse);
         }
 
         public void selectSellerDropdown(String seller) {
-            wait.until(ExpectedConditions.visibilityOf(sellerDropdown));
+            WebElement sellerDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//label[@for='sel_seller']/following-sibling::select");
             myActions.action_select(sellerDropdown, seller);
         }
 
         public void selectSupplierDropdown(String supplier) {
-            wait.until(ExpectedConditions.visibilityOf(supplierDropdown));
+            WebElement supplierDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//label[@for='sel_supplier']/following-sibling::select");
             myActions.action_select(supplierDropdown, supplier);
         }
 
         public void selectAddressDropdown(String address) {
-            wait.until(ExpectedConditions.visibilityOf(addressDropdown));
+            WebElement addressDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//div[3]//div[1]//div[1]//select[1]");
             myActions.action_select(addressDropdown, address);
         }
 
         public void selectShippingModeDropdown(String mode) {
-            wait.until(ExpectedConditions.visibilityOf(shippingModeDropdown));
+            WebElement shippingModeDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//div[4]//div[1]//div[1]//select[1]");
             myActions.action_select_index(shippingModeDropdown, 1);
         }
 
         public void skuCodeInput(int index, String skuCode) {
             String skuCodeXPath = "//div[@id='Addpurchage']//input[@id='select" + index + "']";
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(skuCodeXPath)));
-            WebElement skuCodeEntry = driver.findElement(By.xpath(skuCodeXPath));
+            WebElement skuCodeEntry = xpathSetterPresence(skuCodeXPath);
             myActions.action_sendKeys(skuCodeEntry, skuCode);
             myActions.action_enter(skuCodeEntry);
         }
@@ -197,12 +142,14 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         }
 
         public void clickAddSkuInputFields() {
-            wait.until(ExpectedConditions.visibilityOf(addSkuInputFields));
+            WebElement addSkuInputFields =
+                    xpathSetter("//div[@id='Addpurchage']//div[@class='skuInput-main']/button");
             myActions.action_click(addSkuInputFields);
         }
 
         public void clickCreatePOButton() {
-            wait.until(ExpectedConditions.visibilityOf(createPOButton));
+            WebElement createPOButton =
+                    xpathSetter("//div[@id='Addpurchage']//div[@class='text-center']/button");
             myActions.action_click(createPOButton);
         }
 
@@ -211,7 +158,6 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public void enterWarehouseDetails() {
             selectSellerDropdown("DFW");
             selectShippingModeDropdown(" Surface ");
-            sleep(10000);
         }
 
         public void createPurchaseOrder(String skuCode){
@@ -245,55 +191,38 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        public void clickPOIDEntry(String poID) {
-            myActions.action_sendKeys(poIDEntry, poID);
-            myActions.action_enter(poIDEntry);
-        }
-
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//input[@type='text']")
-        private WebElement poIDEntry;
-
-        @FindBy(xpath = "//button[text()='Close PO']")
-        private WebElement closePOButton;
-
-        @FindBy(xpath = "//a[text()='Print Purchase order']")
-        private WebElement printPurchaseOrder;
-
-        @FindBy(xpath = "//a[text()='Print using barcode printer']")
-        private WebElement printUsingBarcodePrinter;
-
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//div//div//div//div//b")
-        private WebElement purchaseOrderStatus;
-
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//button[text()='Yes']")
-        private WebElement clickYes;
-
 
         /*--------------Actions-------------------*/
         public void  poIdInput(String poId){
-            wait.until(ExpectedConditions.visibilityOf(poIDEntry));
+            WebElement poIDEntry =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//input[@type='text']");
             myActions.action_sendKeys(poIDEntry,poId);
             myActions.action_enter(poIDEntry);
         }
         public void clickClosePOButton() {
-            wait.until(ExpectedConditions.visibilityOf(closePOButton));
+            WebElement closePOButton =
+                    xpathSetter("//button[text()='Close PO']");
             myActions.action_click(closePOButton);
-            wait.until(ExpectedConditions.visibilityOf(clickYes));
+            WebElement clickYes =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//button[text()='Yes']");
             myActions.action_click(clickYes);
         }
 
         public void clickPrintPurchaseOrder() {
-            wait.until(ExpectedConditions.visibilityOf(printPurchaseOrder));
+            WebElement printPurchaseOrder =
+                    xpathSetter("//a[text()='Print Purchase order']");
             myActions.action_click(printPurchaseOrder);
         }
 
         public void clickPrintUsingBarcodePrinter() {
-            wait.until(ExpectedConditions.visibilityOf(printUsingBarcodePrinter));
+            WebElement printUsingBarcodePrinter =
+                    xpathSetter("//a[text()='Print using barcode printer']");
             myActions.action_click(printUsingBarcodePrinter);
         }
 
         public String getPOStatus() {
-            wait.until(ExpectedConditions.visibilityOf(purchaseOrderStatus));
+            WebElement purchaseOrderStatus =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//div//div//div//div//b");
            return myActions.action_getText(purchaseOrderStatus);
         }
 
@@ -301,7 +230,6 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         /*--------------Functions-------------------*/
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='EditPurchaseOrder']//tbody/tr"));
-            wait.until(ExpectedConditions.visibilityOfAllElements(products));
             return products.size();
         }
 
@@ -414,46 +342,34 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         }
 
 
-        /*--------------Page Handling-------------------*/
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Next Page']")
-        private WebElement nextPage;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//select[@type='text']")
-        private WebElement pageSize;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Previous Page']")
-        private WebElement previousPage;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='First Page']")
-        private WebElement firstPage;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Current Page Number']/span")
-        private WebElement pageNo;
-
-
         /*--------------Actions-------------------*/
         public void goToNextPage() {
-            wait.until(ExpectedConditions.visibilityOf(nextPage));
+            WebElement nextPage =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='Next Page']");
             myActions.action_click(nextPage);
         }
 
         public void selectPageSize(String size) {
-            wait.until(ExpectedConditions.visibilityOf(pageSize));
+            WebElement pageSize =
+                    xpathSetter("//div[@id='PurchaseOrderList']//select[@type='text']");
             myActions.action_select(pageSize, size);
         }
 
         public void goToPreviousPage() {
-            wait.until(ExpectedConditions.visibilityOf(previousPage));
+            WebElement previousPage =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='Previous Page']");
             myActions.action_click(previousPage);
         }
 
         public void goToFirstPage() {
-            wait.until(ExpectedConditions.visibilityOf(firstPage));
+            WebElement firstPage =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='First Page']");
             myActions.action_click(firstPage);
         }
 
         public int getPageNumber() {
-            wait.until(ExpectedConditions.visibilityOf(pageNo));
+            WebElement pageNo =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='Current Page Number']/span");
             int pageNoInteger = Integer.valueOf(myActions.action_getText(pageNo));
             return pageNoInteger;
         }
@@ -471,22 +387,16 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='GrnCreate']//input[@type='text']")
-        private WebElement poIDEntryField;
-
-        @FindBy(xpath = "//button[contains(text(),'Create GRN')]")
-        private WebElement createGRNButton;
-
 
         /*--------------Actions-------------------*/
         public void poIDEntry(String poID) {
-            wait.until(ExpectedConditions.visibilityOf(poIDEntryField));
+            WebElement poIDEntryField = xpathSetter("//div[@id='GrnCreate']//input[@type='text']");
             myActions.action_sendKeys(poIDEntryField, poID);
             myActions.action_enter(poIDEntryField);
         }
 
         public void clickGRNButton() {
-            wait.until(ExpectedConditions.visibilityOf(createGRNButton));
+            WebElement createGRNButton = xpathSetter("//button[contains(text(),'Create GRN')]");
             myActions.action_click(createGRNButton);
         }
 
@@ -540,47 +450,30 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='QcScan']/div/div[1]/div/div/div/input")
-        private WebElement packageIDEntry;
-
-        @FindBy(xpath = "//div[@id='QcScan']//tbody/tr/td[1]")
-        private WebElement skuCode;
-
-        @FindBy(xpath = "//div[@id='QcScan']//tbody/tr/td[2]")
-        private WebElement description;
-
-        @FindBy(xpath = "//div[@id='QcScan']//tbody/tr/td[3]//img")
-        private WebElement image;
-
-        @FindBy(xpath = "//div[@id='QcScan']//div[3]//input[@type='text']")
-        private WebElement packageIDEntryScan;
-
-        @FindBy(xpath = "//*[@id='sidebar']//print-preview-button-strip//div/cr-button[1]")
-        private WebElement cancelButton;
-
-        @FindBy(xpath = "//body//div[1]//div[1]")
-        private WebElement firstPackage;
 
         /*--------------Actions-------------------*/
         public void packageIDInput(String packageID){
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntry));
+            WebElement packageIDEntry =
+                    xpathSetter("//div[@id='QcScan']/div/div[1]/div/div/div/input");
             myActions.action_sendKeys(packageIDEntry,packageID);
             myActions.action_enter(packageIDEntry);
         }
 
         public void packageIDScan(String packageID){
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntryScan));
+            WebElement packageIDEntryScan =
+                    xpathSetter("//div[@id='QcScan']//div[3]//input[@type='text']");
             myActions.action_sendKeys(packageIDEntryScan,packageID);
             myActions.action_enter(packageIDEntryScan);
         }
 
         public void clickCancelButton(){
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntryScan));
+            WebElement cancelButton =
+                    xpathSetter("//*[@id='sidebar']//print-preview-button-strip//div/cr-button[1]");
             myActions.action_click(cancelButton);
         }
 
         public String getFirstPackage(){
-            wait.until(ExpectedConditions.visibilityOf(firstPackage));
+            WebElement firstPackage = xpathSetter("//body//div[1]//div[1]");
             return myActions.action_getText(firstPackage);
         }
 
@@ -599,7 +492,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         }
 
         public String productImage() {
-            String productImageXpath = "//div[@id='QcScan']//table/tbody/tr/td[3]";
+            String productImageXpath = "//div[@id='QcScan']//tbody/tr/td[3]//img";
             WebElement productImageElement = driver.findElement(By.xpath(productImageXpath));
             String src = productImageElement.getAttribute("src");
             return src;

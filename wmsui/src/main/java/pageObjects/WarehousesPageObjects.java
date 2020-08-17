@@ -1,84 +1,45 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
-import utils.WmsBaseClass;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class WarehousesPageObjects extends WmsBaseClass {
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public WarehousesPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-    //Add Warehouse Tab
-    @FindBy(xpath = "//a[text()='Add Warehouse']")
-    private WebElement addWarehouseTab;
-
-    //Warehouse List Tab
-    @FindBy(xpath = "//a[text()='Warehouses List']")
-    private WebElement warehousesListTab;
-
-    //Update Bin Capacity Tab
-    @FindBy(xpath = "//a[text()='Update Bin Capacity']")
-    private WebElement updateBinCapacityTab;
-
-    //Warehouse Bin Details Tab
-    @FindBy(xpath = "//a[text()='Warehouse Bin Details']")
-    private WebElement binDetailsTab;
-
-    //Warehouse Bin Details Tab
-    @FindBy(xpath = "//a[text()='Warehouse Bins create']")
-    private WebElement warehouseBinsCreateTab;
-
-    //Warehouse Select
-    @FindBy(xpath = "//div[@id='root']//form//select")
-    private WebElement selectWarehouseDropDown;
 
 
     /*--------------Actions-------------------*/
     public void clickAddWarehouseTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(addWarehouseTab));
+        WebElement addWarehouseTab = xpathSetterClick("//a[text()='Add Warehouse']");
         myActions.action_click(addWarehouseTab);
     }
 
     public void clickWarehouseListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(warehousesListTab));
+        WebElement warehousesListTab = xpathSetterClick("//a[text()='Warehouses List']");
         myActions.action_click(warehousesListTab);
     }
 
     public void clickUpdateBinCapacityTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(updateBinCapacityTab));
+        WebElement updateBinCapacityTab = xpathSetterClick("//a[text()='Update Bin Capacity']");
         myActions.action_click(updateBinCapacityTab);
     }
 
     public void clickBinDetailsTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(binDetailsTab));
+        WebElement binDetailsTab = xpathSetterClick("//a[text()='Warehouse Bin Details']");
         myActions.action_click(binDetailsTab);}
 
     public void clickWarehouseBinsCreateTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(warehouseBinsCreateTab));
+        WebElement warehouseBinsCreateTab = xpathSetterClick("//a[text()='Warehouse Bins create']");
         myActions.action_click(warehouseBinsCreateTab); }
-
-    public void selectWarehouse(String warehouse) {
-        wait.until(ExpectedConditions.elementToBeClickable(selectWarehouseDropDown));
-        myActions.action_select(selectWarehouseDropDown,warehouse); }
 
 
     /*--------------Add Warehouse Tab-------------------*/
@@ -94,113 +55,65 @@ public class WarehousesPageObjects extends WmsBaseClass {
             random = new Random();
         }
 
-        //Enter Warehouse Code
-        @FindBy(xpath = "//input[@id='warehouseCode']")
-        private WebElement warehouseCodeEntry;
-
-        //Enter Name
-        @FindBy(xpath = "//input[@id='firstname']")
-        private WebElement warehouseNameEntry;
-
-        //Enter Address Line 1
-        @FindBy(xpath = "//input[@id='warehouseAddress']")
-        private WebElement warehouseAddressEntry1;
-
-        //Enter Address Line 2
-        @FindBy(xpath = "//input[@id='warehouseAddress2']")
-        private WebElement warehouseAddressEntry2;
-
-        //Enter Landmark
-        @FindBy(xpath = "//input[@id='warehouseLandmark']")
-        private WebElement warehouseLandmarkEntry;
-
-        //Enter City
-        @FindBy(xpath = "//input[@id='warehouseCity']")
-        private WebElement warehouseCityEntry;
-
-        //Enter State
-        @FindBy(xpath = "//input[@id='warehouseState']")
-        private WebElement warehouseStateEntry;
-
-        //Enter Country
-        @FindBy(xpath = "//input[@id='warehouseCountry']")
-        private WebElement warehouseCountryEntry;
-
-        //Enter Zipcode
-        @FindBy(xpath = "//input[@id='Zipcode']")
-        private WebElement warehouseZipcodeEntry;
-
-        //Enter Phone Number
-        @FindBy(xpath = "//input[@id='phone']")
-        private WebElement warehousePhoneNumberEntry;
-
-        //Enter
-        @FindBy(xpath = "//input[@id='alternative_phone']")
-        private WebElement warehouseAlternativePhoneEntry;
-
-        //Enter
-        @FindBy(xpath = "//button[text()='Add Warehouse']")
-        private WebElement addWarehouseButton;
-
 
         /*--------------Actions-------------------*/
         public void enterWarehouseCode(String binCode) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseCodeEntry));
+            WebElement warehouseCodeEntry = xpathSetter("//input[@id='warehouseCode']");
             myActions.action_sendKeys(warehouseCodeEntry, binCode);
         }
 
         public void enterName(String name) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseNameEntry));
+            WebElement warehouseNameEntry = xpathSetter("//input[@id='firstname']");
             myActions.action_sendKeys(warehouseNameEntry, name);
         }
 
         public void enterAddress1(String address1) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseAddressEntry1));
+            WebElement warehouseAddressEntry1 = xpathSetter("//input[@id='warehouseAddress']");
             myActions.action_sendKeys(warehouseAddressEntry1, address1);
         }
 
         public void enterAddress2(String address2) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseAddressEntry2));
+            WebElement warehouseAddressEntry2 = xpathSetter("//input[@id='warehouseAddress2']");
             myActions.action_sendKeys(warehouseAddressEntry2, address2);
         }
 
         public void enterLandmark(String landmark) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseLandmarkEntry));
+            WebElement warehouseLandmarkEntry = xpathSetter("//input[@id='warehouseLandmark']");
             myActions.action_sendKeys(warehouseLandmarkEntry, landmark);
         }
 
         public void enterCity(String city) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseCityEntry));
+            WebElement warehouseCityEntry = xpathSetter("//input[@id='warehouseCity']");
             myActions.action_sendKeys(warehouseCityEntry, city);
         }
 
         public void enterState(String state) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseStateEntry));
+            WebElement warehouseStateEntry = xpathSetter("//input[@id='warehouseState']");
             myActions.action_sendKeys(warehouseStateEntry, state);
         }
 
         public void enterCountry(String country) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseNameEntry));
+            WebElement warehouseCountryEntry = xpathSetter("//input[@id='warehouseCountry']");
             myActions.action_sendKeys(warehouseCountryEntry, country);
         }
 
         public void enterZipcode(String zipcode) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseZipcodeEntry));
+            WebElement warehouseZipcodeEntry = xpathSetter("//input[@id='Zipcode']");
             myActions.action_sendKeys(warehouseZipcodeEntry, zipcode);
         }
 
         public void enterPhoneNo(String phone_no) {
-            wait.until(ExpectedConditions.visibilityOf(warehousePhoneNumberEntry));
+            WebElement warehousePhoneNumberEntry = xpathSetter("//input[@id='phone']");
             myActions.action_sendKeys(warehousePhoneNumberEntry, phone_no);
         }
 
         public void enterAlterPhoneNo(String alter_phone_no) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseAlternativePhoneEntry));
+            WebElement warehouseAlternativePhoneEntry = xpathSetter("//input[@id='alternative_phone']");
             myActions.action_sendKeys(warehouseAlternativePhoneEntry, alter_phone_no);
         }
 
         public void clickAddWarehouseButton() {
-            wait.until(ExpectedConditions.visibilityOf(addWarehouseButton));
+            WebElement addWarehouseButton = xpathSetter("//button[text()='Add Warehouse']");
             myActions.action_click(addWarehouseButton);
         }
 
@@ -239,32 +152,20 @@ public class WarehousesPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        //Enter Bin Code Update Bin Capacity
-        @FindBy(xpath = "//input[@id='binCapacityBincode']")
-        private WebElement binCodeUpdateCapacity;
-
-        //Enter Bin Capacity
-        @FindBy(xpath = "//input[@id='binCapacity']")
-        private WebElement binCapacityUpdateCapacity;
-
-        //Update Capacity Button
-        @FindBy(xpath = "//button[text()='Update Bin Capacity']")
-        private WebElement updateCapacityButton;
-
 
         /*--------------Actions-------------------*/
         public void enterBinCodeUpdateCapacity(String binCode) {
-            wait.until(ExpectedConditions.visibilityOf(binCodeUpdateCapacity));
+            WebElement binCodeUpdateCapacity = xpathSetter("//input[@id='binCapacityBincode']");
             myActions.action_sendKeys(binCodeUpdateCapacity, binCode);
         }
 
         public void enterCapacity(String capacity) {
-            wait.until(ExpectedConditions.visibilityOf(binCapacityUpdateCapacity));
+            WebElement binCapacityUpdateCapacity = xpathSetter("//input[@id='binCapacity']");
             myActions.action_sendKeys(binCapacityUpdateCapacity, capacity);
         }
 
         public void clickUpdateCapacityButton() {
-            wait.until(ExpectedConditions.visibilityOf(updateCapacityButton));
+            WebElement updateCapacityButton = xpathSetter("//button[text()='Update Bin Capacity']");
             myActions.action_click(updateCapacityButton);
         }
 
@@ -289,14 +190,10 @@ public class WarehousesPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        //Enter Bin Code
-        @FindBy(xpath = "//input[@id='BinDetailBinCode']")
-        private WebElement binCodeBinDetails;
-
 
         /*--------------Actions-------------------*/
         public void enterBinCodeBinDetails(String binCode) {
-            wait.until(ExpectedConditions.visibilityOf(binCodeBinDetails));
+            WebElement binCodeBinDetails = xpathSetter("//input[@id='BinDetailBinCode']");
             myActions.action_sendKeys(binCodeBinDetails, binCode);
             myActions.action_enter(binCodeBinDetails);
         }
@@ -411,13 +308,13 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         public void displayBinDetails(int index) {
             String binDetailsXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[9]/a";
-            WebElement binDetails = driver.findElement(By.xpath(binDetailsXpath));
+            WebElement binDetails = xpathSetter(binDetailsXpath);
             myActions.action_click(binDetails);
         }
 
         public void printBinLabels(int index) {
             String printLabelXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[10]/a";
-            WebElement printLabel = driver.findElement(By.xpath(printLabelXpath));
+            WebElement printLabel = xpathSetter(printLabelXpath);
             myActions.action_click(printLabel);
         }
     }
@@ -435,14 +332,9 @@ public class WarehousesPageObjects extends WmsBaseClass {
         }
 
 
-        /*--------------Bin Create Section-------------------*/
-        // Bin Create Section
-        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Bin Create']")
-        private WebElement binCreateSection;
-
-
         /*--------------Actions-------------------*/
         public void clickBinCreateSection() {
+            WebElement binCreateSection = xpathSetter("//div[@id='WarehouseBinCreate']//div[text()='Bin Create']");
             myActions.action_click(binCreateSection);
         }
 

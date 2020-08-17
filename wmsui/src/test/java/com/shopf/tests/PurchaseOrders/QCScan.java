@@ -90,7 +90,7 @@ public class QCScan extends WmsBaseClass{
         System.out.println(message);
     }
 
-    @BeforeClass(alwaysRun = true)
+    @AfterClass(alwaysRun = true)
     public void qcScanAfterClass() throws Exception {
         System.out.println("QC Scan After Class is Called");
     }
