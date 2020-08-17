@@ -21,8 +21,8 @@ public class Authentication extends WebAppBaseClass {
     public void resellerAndroidBeforeSuite() throws Exception{
         System.out.println("resellerAndroidBeforeSuite is called");
         androidDriver = getBaseDriver();
-        androidDriver.get(getWAPBaseUrl());
-        setImplicitWait(20);
+        androidDriver.get(getWAPBaseUrl()+"r");
+        setImplicitWait(30);
     }
 
 
@@ -53,13 +53,9 @@ public class Authentication extends WebAppBaseClass {
             dataProvider = "getUserAuthenticationData" )
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
-        sleep(3000);
-        // Verification Step Pending
-        androidDriver.get(getWAPBaseUrl());
-        sleep(1000);
-        bottomnavigationobject.clickOnBottomBarMyShopIcon();
+        bottomnavigationobject.clickOnBottomBarMyOrdersIcon();
         homepageobject.login("1877755590","666666");
-
+        sleep(1000);
     }
 
 

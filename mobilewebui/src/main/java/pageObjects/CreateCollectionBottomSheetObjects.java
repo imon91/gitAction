@@ -6,13 +6,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebAppBaseClass;
 
-public class CreateCollectionBottomSheetObjects {
+public class CreateCollectionBottomSheetObjects extends WebAppBaseClass {
 
-    private AndroidDriver<WebElement> driver;
-    private MyActions myActions;
+    private final AndroidDriver<WebElement> driver;
+    private final MyActions myActions;
 
-    public CreateCollectionBottomSheetObjects(AndroidDriver<WebElement> androidDriver){
+    public CreateCollectionBottomSheetObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();

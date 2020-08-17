@@ -32,14 +32,13 @@ public class VerifySortFunctionality extends WebBaseClass {
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"PLP.VerifySortFunctionality",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("PLP.VerifyFilterFunctionality"))
     public void verifySortFunction() {
         System.out.println("VerifySort is called");
-        latestPageObjects.clickOnSortByNewOption();
-        sleep(1000);
-        latestPageObjects.clickOnSortByPersonalizeOption();
-        sleep(1000);
+//        latestPageObjects.clickOnSortByPersonalizeOption();
+//        sleep(1000);
         //latestPageObjects.clickOnSortByDiscountOption();
         //sleep(1000);
        // latestPageObjects.clickOnShowThreeButton();

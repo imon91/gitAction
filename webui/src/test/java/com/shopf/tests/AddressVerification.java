@@ -27,11 +27,17 @@ public class AddressVerification extends WebBaseClass {
 
 
 
-    @Test(groups = (CoreConstants.GROUP_SMOKE),
-            dependsOnGroups = ("Authentication.verifyAuthenticationWithValidCredentials"))
+    @Test(groups = {"Bag.VerifyAddress",
+            (CoreConstants.GROUP_SMOKE)},
+            dependsOnGroups = ("Bag.VerifyBag"))
     public void addressVerification() {
         System.out.println("addressVerification is called");
-        addressPageObject.createNewAddress("testing");
+        addressPageObject.clickOnOldAddress();
+        sleep(2000);
+       addressPageObject.deleteProductCODNotAvailable();
+        sleep(4000);
+//        addressPageObject.createNewAddress("testing");
+        addressPageObject.clickOnProceedToPayment();
         sleep(2500);
     }
 

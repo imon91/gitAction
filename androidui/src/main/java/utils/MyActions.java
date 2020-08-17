@@ -1,11 +1,9 @@
 package utils;
 
 import io.appium.java_client.android.nativekey.*;
-import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MyActions extends AndroidBaseClass{
 
@@ -13,7 +11,14 @@ public class MyActions extends AndroidBaseClass{
         sleep(300);
         try{
             element.click();
-        }catch (Exception e){
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            action_click(element);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            action_click(element);
+        }
+        catch (Exception e){
             System.out.println(e);
         }
     }
@@ -22,11 +27,15 @@ public class MyActions extends AndroidBaseClass{
         sleep(300);
         try{
             element.sendKeys(data);
-        }catch (Exception e){
-            System.out.println(e);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            element.click();
+        }catch (IllegalStateException e){
+            sleep(2000);
+            element.click();
         }
-        if(getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
+        catch (Exception e){
+            System.out.println(e);
         }
     }
 
@@ -38,6 +47,7 @@ public class MyActions extends AndroidBaseClass{
             System.out.println(e);
             return e.toString();
         }
+
     }
 
     public String action_getTagName(WebElement element){
@@ -46,18 +56,14 @@ public class MyActions extends AndroidBaseClass{
 
     public Boolean action_is_selected(WebElement element) {
         sleep(300);
-        if (element.isSelected()) {
-            return true;
-        } else {
-            return false;
-        }
+        return element.isSelected();
     }
 
     public void action_clearText(WebElement element){
         element.clear();
-        if(getBaseDriver().isKeyboardShown()){
-            getBaseDriver().hideKeyboard();
-        }
+//        if (getBaseDriver().isKeyboardShown()){
+//            getBaseDriver().hideKeyboard();
+//        }
     }
 
     public void clickOnHardKeyBack() throws Exception{

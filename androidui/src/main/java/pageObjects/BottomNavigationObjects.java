@@ -11,6 +11,7 @@ public class BottomNavigationObjects extends AndroidBaseClass {
     private String packageName;
 
     public BottomNavigationObjects(AndroidDriver<WebElement> androidDriver){
+        switchFromWebToNative();
         this.androidDriver = androidDriver;
         myActions = new MyActions();
         packageName = getAppPackage();

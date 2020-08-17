@@ -1,22 +1,27 @@
 package pageObjects;
 
+import io.appium.java_client.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AndroidFindBy;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
+import services.commerceMethods.*;
+import services.responseModels.commerceModels.*;
 import utils.*;
-
-import java.time.Duration;
+import java.time.*;
 import java.util.*;
+import java.util.NoSuchElementException;
+
 
 public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private ServiceRequestLayer serviceRequestLayer;
+    private GetPLPModuleApiResponse getPLPModuleApiResponse;
     private String packageName;
-    private int minSalePrice,maxSalePrice;
+    private int minSalePrice;
+    private int maxSalePrice;
 
     public ProductDescriptionPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -24,6 +29,7 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
         myActions = new MyActions();
         packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
+        getPLPModuleApiResponse = serviceRequestLayer.getControlOverPLPModuleApiResponse();
         minSalePrice = Integer.parseInt(System.getProperty("minSalePrice"));
         maxSalePrice = Integer.parseInt(System.getProperty("maxSalePrice"));
         System.out.println(minSalePrice+" , "+maxSalePrice);
@@ -725,6 +731,151 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
         myActions.action_click(placeOrderButton);
     }
 
+
+    public class NewProductDescriptionObjects{
+
+        private MyActions myActions;
+        private AndroidDriver<WebElement> androidDriver;
+
+        public NewProductDescriptionObjects(AndroidDriver<WebElement> androidDriver){
+            this.myActions = new MyActions();
+            this.androidDriver = androidDriver;
+        }
+
+        // Pager Image
+
+        // Details Product Brand
+
+        // Details Product title
+        private WebElement detailsProductTitle;
+
+        // Details Product Price
+
+        // Details Product Margin
+
+        // Detail Title Variants
+
+        // Text Variant Title
+
+        // Text Variant Price
+
+        // Text Variant Margin
+
+        // Remove From Cart Button
+
+        // Item Count EditText
+        private WebElement itemCountEditText;
+
+        // Add To Cart Button
+        private WebElement addToCartButton;
+
+        // Action Go To Cart Details Button
+        private WebElement actionGoToCartButton;
+
+        // Action Continue Shopping Details
+
+
+        /*--------Actions--------*/
+
+        public String getDetailsProductTitle(){
+            detailsProductTitle =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/details_product_title']");
+            return myActions.action_getText(detailsProductTitle);
+        }
+
+
+        public String getItemCount(){
+            itemCountEditText =
+                    xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/item_count']");
+            return myActions.action_getText(itemCountEditText);
+        }
+
+
+        public void clickOnAddTOCartButton(int qty){
+            addToCartButton =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_to_cart']");
+            for(int i=0;i<qty;i++){
+                myActions.action_click(addToCartButton);
+            }
+        }
+
+
+        public void clickOnActionGotToCartButton(){
+            actionGoToCartButton =
+                    xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/action_goto_cart_details']");
+            myActions.action_click(actionGoToCartButton);
+        }
+
+
+        /*-------Functions--------*/
+
+        public void placeOrderWithOnlyMinimumQuantity(int qty){
+            try {
+                System.out.println("Item Count : "+getItemCount());
+                if(Integer.parseInt(getItemCount())>=1){
+                    clickOnActionGotToCartButton();
+                }
+            }catch (NullPointerException | NoSuchElementException e){
+                clickOnAddTOCartButton(qty);
+            }
+        }
+
+    }
+
+    public ProductDescriptionModel productDescriptionModelResults(String slug)
+    {
+        return getPLPModuleApiResponse.getProductDescriptionPageResults(slug);
+    }
+
+    public boolean scrollToText(String textToScroll)
+    {
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/product_price_details\")).scrollIntoView("
+                        + "new UiSelector().text(\""+textToScroll+ "\"))"));
+        return true;
+    }
+
+    public String getListOfSizes(int SizeIndex)
+    {
+        List<WebElement> collectionList =
+                xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/size_value']");
+        return myActions.action_getText(collectionList.get(SizeIndex));
+    }
+
+    public boolean clearAllNotifications()
+    {
+        androidDriver.openNotifications();
+        try {
+        WebElement clearButton = androidDriver.findElement(By.xpath("//android.widget.Button[@content-desc='Clear all notifications.']"));
+        myActions.action_click(clearButton);
+    }
+        catch(Exception e) {
+        WebElement clearAllNotification= androidDriver.findElementById("com.android.systemui:id/delete");
+        myActions.action_click(clearAllNotification);
+    }
+        return true;
+    }
+
+    public WebElement elementPopupPermissionALLOW()
+    {
+        return xpathSetter("//android.widget.Button[@text='ALLOW']");
+    }
+
+    public boolean scrollToNotificationText(String textToScroll)
+    {
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"com.android.systemui:id/notification_stack_scroller\")).scrollIntoView("
+                        + "new UiSelector().text(\""+textToScroll+ "\"))"));
+        return true;
+    }
+
+    public boolean scrollToPopupText(String textToScroll)
+    {
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"android:id/resolver_list\")).setAsHorizontalList().scrollIntoView("
+                        + "new UiSelector().text(\""+textToScroll+ "\"))"));
+        return true;
+    }
 
 
 

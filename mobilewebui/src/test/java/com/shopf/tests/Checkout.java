@@ -52,7 +52,7 @@ public class Checkout extends WebAppBaseClass {
 
 
     @Test(groups = {CoreConstants.GROUP_SMOKE})
-    public void verifyCheckout(){
+    public void verifyCheckout() throws Exception {
         System.out.println("control came to verifyCheckout");
         checkoutpageobject.confirmingOrder();
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();

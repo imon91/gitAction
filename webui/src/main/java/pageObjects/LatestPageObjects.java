@@ -7,8 +7,8 @@ import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
 
 public class LatestPageObjects {
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
 
     public LatestPageObjects(WebDriver driver) {
         this.driver = driver;

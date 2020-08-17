@@ -12,6 +12,7 @@ public class ActionBarObjects extends AndroidBaseClass {
     private String packageName;
 
     public ActionBarObjects(AndroidDriver<WebElement> androidDriver){
+        switchFromWebToNative();
         this.androidDriver = androidDriver;
         myActions = new MyActions();
        packageName = getAppPackage();

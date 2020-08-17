@@ -14,10 +14,9 @@ import java.util.Random;
 
 public class PDPPageObjects extends WebAppBaseClass {
 
-    private AndroidDriver<WebElement> driver = getBaseDriver();
+    private AndroidDriver<WebElement> driver;
     private MyActions myActions;
     private Random random;
-
     public PDPPageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
         this.driver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(driver), this);
@@ -74,6 +73,14 @@ public class PDPPageObjects extends WebAppBaseClass {
     @FindBy(xpath = "//ul[@class='list-unstyled']//li[3]//a")
     private WebElement Subcategory;
 
+    //selectsizetext
+    @FindBy(xpath = "//div[@class='pdp-det-box available-sizes']/h3/span")
+    private WebElement selectSizeText;
+
+    //pricesHeader
+    @FindBy(xpath = "//div[@class='pdp-det-box']//h2")
+    private WebElement pricesHeader;
+
 
 
 
@@ -81,11 +88,11 @@ public class PDPPageObjects extends WebAppBaseClass {
 
 
 
-    public void clickOnAddToMyShop(){myActions.action_click(AddToMyShopButton);};
+    public void clickOnAddToMyShop(){myActions.action_click(AddToMyShopButton);}
 
-    public void clickOnBuyNow(){myActions.action_click(BuyNowButton);};
+    public void clickOnBuyNow(){myActions.action_click(BuyNowButton);}
 
-    public void clickOnImageOfProduct(){myActions.action_click(ImageofProduct);};
+    public void clickOnImageOfProduct(){myActions.action_click(ImageofProduct);}
 
     public void clickOnCloseButton(){myActions.action_click(CloseImage);}
 
@@ -131,10 +138,10 @@ public class PDPPageObjects extends WebAppBaseClass {
 
      public String selectSize(int sizeid){
         String size, sizeButton, sizeLabel;
-        String sizeXpath = "//div[@class='pdp-det-box available-sizes']/ul/li";
+        String sizeXpath = "//div[@class='pdp-det-box available-sizes']//ul/li";
         List<WebElement> sizeslist = driver.findElements(By.xpath(sizeXpath));
-        if(sizeid != 0){
-            size = sizeXpath+"["+sizeid+"]";
+        if(sizeid != 0) {
+            size = sizeXpath + "[" + sizeid + "]";
         }
         else{
             int id = random.nextInt(sizeslist.size());

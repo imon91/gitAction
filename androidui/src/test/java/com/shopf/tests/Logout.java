@@ -3,7 +3,6 @@ package com.shopf.tests;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
@@ -26,19 +25,11 @@ public class Logout extends AndroidBaseClass {
     public void logoutBeforeClass() throws Exception{
         System.out.println("LogoutBeforeClass is called");
         androidDriver = getBaseDriver();
-//        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
-//        orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
-//        orderSuccessFulPageObjects.clickOnClickHereButton();
         switchFromWebToNative();
         myActions = new MyActions();
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         toolBarObjects = new ToolBarObjects(androidDriver);
-//        toolBarObjects.navigateBack();
-//        System.out.println("Going to Press Back Key");
-//        //myActions.clickOnHardKeyBack();
-//        System.out.println("Going to Press Back Key DONE");
-        //actionBarObjects.clickOnShopUpAppIcon();
     }
 
 
@@ -53,7 +44,6 @@ public class Logout extends AndroidBaseClass {
         actionBarObjects.clickOnUserProfileImageButton();
         rightNavigationDrawer.clickOnItemLogout();
         sleep(1000);
-        //Assert.assertEquals(androidDriver.currentActivity(),".loginV2.LoginActivityV2");
     }
 
 

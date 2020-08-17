@@ -2,6 +2,7 @@ package utils;
 
 import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
+import coreUtils.DomainPropertyReader;
 import helper.GetDriverFromCore;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -14,14 +15,14 @@ import java.util.concurrent.TimeUnit;
 
 public class WmsBaseClass extends GetDriverFromCore{
 
-    private static String HOST_LOCAL = "local";
-    private static String HOST_BROWSER_STACK = "bs";
-    private static String OS = "Os";
-    private static String OS_VERSION = "OSv";
-    private static String BROWSER = "Br";
-    private static String BROWSER_VERSION = "BRv";
+    private static final String HOST_LOCAL = "local";
+    private static final String HOST_BROWSER_STACK = "bs";
+    private static final String OS = "Os";
+    private static final String OS_VERSION = "OSv";
+    private static final String BROWSER = "Br";
+    private static final String BROWSER_VERSION = "BRv";
     private static WebDriver driver=null;
-    private static String host = System.getProperty("Host");
+    private static final String host = System.getProperty("Host");
 
 
 
@@ -52,13 +53,16 @@ public class WmsBaseClass extends GetDriverFromCore{
     }
 
 
-    public static String getWmsBaseUrl(){
+    public static String getWmsBaseUrl() throws Exception{
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
         switch (env){
-            case CoreConstants.ENV_STAGE : return CoreConstants.WMS_WEB_STAGE_BASE_URL;
-            case CoreConstants.ENV_PROD : return CoreConstants.WMS_WEB_PROD_BASE_URL;
+            case CoreConstants.ENV_STAGE :
+                return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_STAGE_BASE_URL);
+            case CoreConstants.ENV_PROD :
+                return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_PROD_BASE_URL);
         }
-        return CoreConstants.WMS_WEB_STAGE_BASE_URL;
+        System.out.println("Returning Default URL : Stage");
+        return DomainPropertyReader.getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_STAGE_BASE_URL);
     }
 
 

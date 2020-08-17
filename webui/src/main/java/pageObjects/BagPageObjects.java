@@ -7,15 +7,16 @@ import org.openqa.selenium.remote.server.handler.DeleteSession;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebBaseClass;
 
 import java.util.List;
 import java.util.Random;
 
-public class BagPageObjects {
+public class BagPageObjects extends WebBaseClass{
 
 
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     Random random = new Random();
 
 
@@ -24,7 +25,6 @@ public class BagPageObjects {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
-
     }
 
     //Place Order button
@@ -32,7 +32,7 @@ public class BagPageObjects {
     private WebElement placeOrderButton;
 
     //Quantity + button
-    @FindBy(xpath = "//input[@value='+']")
+    @FindBy(xpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']")
     private WebElement quantityPlus;
 
     //Quantity - button
@@ -136,14 +136,20 @@ public class BagPageObjects {
 
 
 
-
     /*------Function-------*/
 
-    public void enterQuantity(int qunatity) throws InterruptedException {
-        int i;
+    public void enterQuantity(int qunatity,int productNo) throws InterruptedException {
+        String productXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+        String productinc = productXpath+"["+productNo+"]//div[@class='qty-selection flex']/input[3]";
+        WebElement productincrease = driver.findElement(By.xpath(productinc));
+
+        if (productNo!=0)
+        {
+            int i;
         for (i = 1; i < qunatity; i++) {
-            clickQuantityPlus();
-        Thread.sleep(500);} }
+            myActions.action_click(productincrease);
+        sleep(3000); }
+        }}
 
     public void enterCustomPrice() {
         String minimumPrice = myActions.action_getText(minimumCustomprice);
@@ -155,50 +161,49 @@ public class BagPageObjects {
       /////////////////////////////*****Dynamic functions********////////////////
     ///////////////////////////////*Outer and InnerClasses*////////////////////////
 
-    public class OuterClass {
         //Place Order button
         @FindBy(xpath = "//button[text()='PLACE ORDER']")
-        private WebElement placeOrderButton;
-        public void clickOnPlaceOrder() {
+        private WebElement placeOrderButton1;
+        public void clickOnPlaceOrder1() {
             myActions.action_click(placeOrderButton);
         }
 
         //Delivery Charge
         @FindBy(xpath = "//input[@id='deliveryCharge']")
-        private WebElement deliveryChargeEntry;
-        public void enterDeliveryCharge(String deliveryCharge) {
+        private WebElement deliveryChargeEntry1;
+        public void enterDeliveryCharge1(String deliveryCharge) {
             myActions.action_sendKeys(deliveryChargeEntry, deliveryCharge); }
 
         //Delivery Charge Save Button
         @FindBy(xpath = "//div[@class='sub-total border_bottom']/div/button")
-        private WebElement deliveryChargeSaveButton;
-        public void saveDeliveryCharge() {
+        private WebElement deliveryChargeSaveButton1;
+        public void saveDeliveryCharge1() {
             myActions.action_click(deliveryChargeSaveButton);
         }
 
         //coupon button
         @FindBy(xpath = "//a[text()='APPLY NOW']")
-        private WebElement couponButton;
-        public void clickOnCouponButton() {
+        private WebElement couponButton1;
+        public void clickOnCouponButton1() {
             myActions.action_click(couponButton);
         }
 
         //enter coupon text
         @FindBy(xpath = "//input[@type='text'][@name='coupon_code']")
-        private WebElement couponText;
-        public void enterCouponText(String coupon) {
+        private WebElement couponText1;
+        public void enterCouponText1(String coupon) {
             myActions.action_sendKeys(couponText,coupon);
         }
 
         //coupon apply
         @FindBy(xpath = "//button[text()='APPLY']")
-        private WebElement applycoupon;
-        public void clickOnApplyCoupon() { myActions.action_click(applycoupon); }
+        private WebElement applycoupon1;
+        public void clickOnApplyCoupon1() { myActions.action_click(applycoupon); }
 
         //Continue Shopping
         @FindBy(xpath = "//span[text()='CONTINUE SHOPPING']")
-        private WebElement continueShopping;
-        public void clickContinueShopping() {
+        private WebElement continueShopping1;
+        public void clickContinueShopping1() {
             myActions.action_click(continueShopping);
         }
 
@@ -213,19 +218,17 @@ public class BagPageObjects {
         private WebElement totalKartValue;
         public void printTotalKartValue(){String kartValue=myActions.action_getText(totalKartValue);
         System.out.println("Total kart values are "+kartValue);}
-    }
 
 
     //**************************Dynamic Xpaths function***********************//
 
     /*---------product all detail in kart------------*/
 
-     public class Innnerclass {
 
-        String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items']/li";
-        List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
 
         public String allDetailsOfProduct(int productNo) {
+            String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+            List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
             String productName = "";
             String productSize = "";
             String productQuantity = "";
@@ -286,39 +289,67 @@ public class BagPageObjects {
 
         /*--------Minimum amount of product--------*/
         public void getMinimumAmountOfProduct(int productNo) {
+            String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+            List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
             if (productNo != 0) {
                 String amount = productsXpath + "[" + productNo + "]//div[@class='save_to_wishlist flex row']/p[3]/span[2]";
                 WebElement amountPath = driver.findElement(By.xpath(amount));
                 String minamount = myActions.action_getText(amountPath);
-                String minimumamount = minamount.replaceAll("[^0-5000]", "");
+                String minimumamount = minamount.replaceAll("[^0-9]", "");
                 String amountInputText = productsXpath + "[" + productNo + "]//input[@class='form-control custom-price white-bg']";
                 WebElement amountInput = driver.findElement(By.xpath(amountInputText));
-                myActions.action_sendKeys(amountInput, minimumamount + 5);
+                myActions.action_sendKeys(amountInput, minimumamount);
                 String savebutton = productsXpath + "[" + productNo + "]//button";
                 WebElement saveButton = driver.findElement(By.xpath(savebutton));
                 myActions.action_click(saveButton);
                 System.out.println(minimumamount);
             } else {
                 int index;
-                for (index = 1; index <= productList.size(); index++) {
+                int size = productList.size();
+                for (index = 1; index <= size;index++) {
                     String amount = productsXpath + "[" + index + "]//div[@class='save_to_wishlist flex row']/p[3]/span[2]";
                     WebElement amountPath = driver.findElement(By.xpath(amount));
                     String minamount = myActions.action_getText(amountPath);
-                    String minimumamount = minamount.replaceAll("[^0-5000]", "");
+                    String minimumamount = minamount.replaceAll("[^0-9]", "");
                     String amountInputText = productsXpath + "[" + index + "]//input[@class='form-control custom-price white-bg']";
                     WebElement amountInput = driver.findElement(By.xpath(amountInputText));
-                    myActions.action_sendKeys(amountInput, minimumamount + 5);
+                    myActions.action_sendKeys(amountInput, minimumamount);
                     String savebutton = productsXpath + "[" + index + "]//button";
                     WebElement saveButton = driver.findElement(By.xpath(savebutton));
                     myActions.action_click(saveButton);
+                    sleep(5000);
                     System.out.println(minimumamount);
                 }
             }
         }
 
+
+
+
+        //Apply coupon
+        public void completeCouponProcess(String coupon) {
+            WebElement couponRemove = driver.findElement(By.xpath("//a[text()='REMOVE']"));
+            if (couponRemove==null)
+            {
+                clickOnCouponButton();
+                enterCouponText(coupon);
+                clickOnApplyCoupon();
+            }
+            else
+            {
+                couponRemove.click();
+                clickOnCouponButton();
+                enterCouponText(coupon);
+                clickOnApplyCoupon();
+            }
+
+        }
+
         //Delete product
 
         public void deleteProduct(int productNo) {
+            String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+            List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
             String deletebut = productsXpath + "[" + productNo + "]//div[@class='save_to_wishlist flex row']/p[@class='pointer']";
             WebElement deleteButton = driver.findElement(By.xpath(deletebut));
             myActions.action_click(deleteButton);
@@ -326,6 +357,8 @@ public class BagPageObjects {
 
         //view product in pdp page
         public void viewProduct(int productNo) {
+            String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+            List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
             String productname = productsXpath + "[" + productNo + "]//div[@class='col-sm-10']//a";
             WebElement productnam = driver.findElement(By.xpath(productname));
             myActions.action_click(productnam);
@@ -335,6 +368,8 @@ public class BagPageObjects {
         //This function change the size of products by declaring productNo and sizeIndex. If dosent given both, it takes random value.
          public void changeSizeOfProduct(int productNo,int sizeIndex)
          {
+             String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+             List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
             List<WebElement> productSizesList = driver.findElements(By.xpath(productsXpath+"["+productNo+"]//div[@class='item-details']//div[@class='size-selection flex']/select/option"));
             if((sizeIndex!=0)&&(sizeIndex<=productSizesList.size()))
             {
@@ -370,6 +405,8 @@ public class BagPageObjects {
          //this function click the product image
          public void clickOnProductImage(int productNo)
          {
+             String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+             List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
              String img;
              if(productNo!=0)
              {
@@ -387,6 +424,8 @@ public class BagPageObjects {
          /*Total number of quantity in bag */
          public void getTotalQuantityOfProductsInBag()
          {
+             String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+             List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
              int prNo= productList.size();
              int i,quant,quanties=0;
              for (i=1;i<=prNo;i++)
@@ -403,13 +442,29 @@ public class BagPageObjects {
 
 
 
+         public int specialFindingIndexOfShirtByName(String productName)
+         {
+             String productsXpath = "//div[@class='col-sm-8 items-in-cart']//ul[@class='list-unstyled cart-list-of-items_main']";
+             List<WebElement> productList = driver.findElements(By.xpath(productsXpath));
+             int i;
+
+             for(i=1;i<=productList.size();i++) {
+                 String productnameatbag = allDetailsOfProduct(i);
+                 if (productName.equalsIgnoreCase(productnameatbag))
+                 {
+                     int productIndex = i;
+                     break;
+                 }
+             }
+             return i;
+         }
+
+
+
+
 
     }
 
-
-
-
-}
 
 
 

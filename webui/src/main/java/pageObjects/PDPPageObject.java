@@ -6,15 +6,16 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.MyActions;
+import utils.WebBaseClass;
 
 import javax.xml.soap.Text;
 import java.util.List;
 import java.util.Random;
 
-public class PDPPageObject {
+public class PDPPageObject extends WebBaseClass {
 
-    private WebDriver driver;
-    private MyActions myActions;
+    private final WebDriver driver;
+    private final MyActions myActions;
     private Random random;
 
     public PDPPageObject(WebDriver driver) {
@@ -181,8 +182,11 @@ public class PDPPageObject {
     public String addToMyshopNewCollection() {
         clickOnAddNewCollectionButton();
         String collectionName = "TestingCollection : " + new Random().nextInt(5000);
+        sleep(500);
         clickOnAddYourCollectionText(collectionName);
+        sleep(200);
         clickOnAddButton();
+        sleep(500);
         clickOnNewlyCreatedCollection();
         return collectionName;
     }

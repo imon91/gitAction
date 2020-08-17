@@ -17,7 +17,7 @@ public class HomePageObject extends WmsBaseClass {
     private WebDriver driver;
     private MyActions myActions;
     private WebDriverWait wait;
-
+  
     public HomePageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -86,3 +86,7 @@ public class HomePageObject extends WmsBaseClass {
         wait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElement(By.xpath("//div[@id='toastbar-text']"))));
     }
 }
+
+
+
+
