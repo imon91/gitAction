@@ -94,7 +94,7 @@ public class MobileWebUiTestNgListener implements ITestListener {
 
                         System.out.println(object);
 
-                        RestAssured.baseURI = "http://localhost:3010/";
+                        RestAssured.baseURI = "https://automation-report.herokuapp.com/";
                         Response response = given().header("Content-Type","application/json").
                                 body(object.toJSONString()).post(app+"/");
                         response.then().log().all();

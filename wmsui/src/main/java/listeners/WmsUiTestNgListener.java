@@ -12,7 +12,7 @@ import java.util.Date;
 
 import static io.restassured.RestAssured.given;
 
-public class RedXUiTestNgListener implements ITestListener {
+public class WmsUiTestNgListener implements ITestListener {
 
     private static class Keys{
         public static final String KEY_DATE = "date";
@@ -54,7 +54,7 @@ public class RedXUiTestNgListener implements ITestListener {
 
     public void onFinish(ITestContext iTestContext) {
         String trigger = System.getProperty(BuildParameterKeys.KEY_TRIGGER);
-        String app = "redx";
+        String app = "wms";
 //       if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase("Reseller")){
 //            app = "reseller";
 //       }else {

@@ -1,18 +1,29 @@
-package listeners;
+package listerners;
 
 import coreUtils.BuildParameterKeys;
+import coreUtils.CoreFileUtils.Reports;
+import coreUtils.CoreFileUtils;
 import io.restassured.RestAssured;
+import io.restassured.*;
 import io.restassured.response.Response;
+import io.restassured.specification.AuthenticationSpecification;
+import io.restassured.specification.RequestSpecification;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import services.serviceUtils.EndPoints;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.Date;
 
+import static io.restassured.RestAssured.basic;
 import static io.restassured.RestAssured.given;
 
-public class RedXUiTestNgListener implements ITestListener {
+public class AndroidTestNgListener implements ITestListener {
 
     private static class Keys{
         public static final String KEY_DATE = "date";
@@ -54,12 +65,12 @@ public class RedXUiTestNgListener implements ITestListener {
 
     public void onFinish(ITestContext iTestContext) {
         String trigger = System.getProperty(BuildParameterKeys.KEY_TRIGGER);
-        String app = "redx";
-//       if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase("Reseller")){
-//            app = "reseller";
-//       }else {
-//           app = "mokam";
-//       }
+        String app = null;
+       if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase("Reseller")){
+            app = "reseller";
+       }else {
+           app = "mokam";
+       }
 
         if (trigger != null) {
             if (trigger.equalsIgnoreCase("jenkins")) {
