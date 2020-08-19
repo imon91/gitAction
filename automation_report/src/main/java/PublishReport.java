@@ -13,7 +13,7 @@ public class PublishReport {
     public static void main(String[] args) throws Exception{
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
-        //chromeOptions.addArguments("--headless");
+        chromeOptions.addArguments("--headless");
         chromeOptions.setAcceptInsecureCerts(true);
         WebDriver driver = new ChromeDriver(chromeOptions);
         driver.get("https://automation-report.herokuapp.com/index.html");
@@ -24,7 +24,7 @@ public class PublishReport {
         Thread.sleep(10000);
         System.out.println(driver.getCurrentUrl());
         String htmlData = driver.findElement(By.id("parent-tag")).getAttribute("outerHTML");
-        //System.out.println(htmlData);
+        System.out.println(htmlData);
         //System.out.println("Total Tests Count : "+driver.findElement(By.id("tests-count")).getText());
         driver.quit();
         File htmlTemplateFile = new File(System.getProperty("user.dir")+"/src/main/java/finalReports/daily_report.html");
