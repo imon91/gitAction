@@ -222,12 +222,13 @@ public class ShopUpPostMan {
             System.out.println(filePath1);
             filePath2 = CoreFileUtils.commerceVerifyOtpJsonPath;
             System.out.println(filePath2);
-        }else if(module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)){
-            patch = EndPoints.WMS.USER_SIGN_IN;
-            System.out.println("Final URL : "+baseURL+patch);
-            filePath1 = CoreFileUtils.wmsUserSignInJsonPath;
-            System.out.println(filePath1);
-        } else if (module.equalsIgnoreCase(CoreConstants.MODULE_STORE_WAP)) {
+//        }else if(module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)){
+//            patch = EndPoints.WMS.USER_SIGN_IN;
+//            System.out.println("Final URL : "+baseURL+patch);
+//            filePath1 = CoreFileUtils.wmsUserSignInJsonPath;
+//            System.out.println(filePath1);
+        }
+        else if (module.equalsIgnoreCase(CoreConstants.MODULE_STORE_WAP)) {
             patch = EndPoints.Store.SEND_OTP;
             System.out.println("Final URL : "+baseURL+patch);
             filePath1 = CoreFileUtils.storeSendOtpJsonPath;

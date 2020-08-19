@@ -44,6 +44,7 @@ public class OrderDetails extends WmsBaseClass{
         System.out.println("Verify Order Details is called");
         String orderNo;
         int i,j;
+        homePageObject.selectWarehouse("Shopup Dhaka");
         homePageObject.clickOrderProcess();
         orderProcessPageObjects.clickOrderDetailTab();
         orderNo = "NIKTESTORDER"+random.nextInt(13)+"-1";

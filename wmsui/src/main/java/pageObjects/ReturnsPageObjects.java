@@ -41,23 +41,23 @@ public class ReturnsPageObjects extends WmsBaseClass {
    WebElement emailEntry = xpathSetter("");
 
     public void clickReturnInScanTab(){
-        WebElement returnInScanTab = xpathSetter("//div[@class='returns-tabs']/ul[1]/li[1]/a");
+        WebElement returnInScanTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[1]/a");
         myActions.action_click(returnInScanTab);}
 
     public void clickReturnQcScanTab(){
-        WebElement returnQcScanTab = xpathSetter("//div[@class='returns-tabs']/ul[1]/li[2]/a");
+        WebElement returnQcScanTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[2]/a");
         myActions.action_click(returnQcScanTab);}
 
     public void clickRTSCreateManifestTab(){
-        WebElement rTSCreateManifestTab = xpathSetter("//div[@class='returns-tabs']/ul[1]/li[3]/a");
+        WebElement rTSCreateManifestTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[3]/a");
         myActions.action_click(rTSCreateManifestTab);}
 
     public void clickRTSOutScanTab(){
-        WebElement rTSOutScanTab = xpathSetter("//div[@class='returns-tabs']/ul[1]/li[4]/a");
+        WebElement rTSOutScanTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[4]/a");
         myActions.action_click(rTSOutScanTab);}
 
     public void clickRTSUploadManifestTab(){
-        WebElement rTSUploadManifestTab = xpathSetter("//div[@class='returns-tabs']/ul[1]/li[5]/a");
+        WebElement rTSUploadManifestTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[5]/a");
         myActions.action_click(rTSUploadManifestTab);}
 
 

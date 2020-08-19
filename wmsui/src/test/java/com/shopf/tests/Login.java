@@ -1,5 +1,6 @@
 package com.shopf.tests;
 
+import auth.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
@@ -11,6 +12,7 @@ public class Login extends WmsBaseClass {
 
     private WebDriver driver;
     private LoginPageObject loginPageObject;
+    String ck;
 
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception {
@@ -44,7 +46,7 @@ public class Login extends WmsBaseClass {
             description = "Verify Authentication with Valid Credentials",
             dataProvider = "getUserAuthenticationData"
     )
-    public void verifyAuthenticationWithValidCredentials(String email, String password) {
+    public void verifyAuthenticationWithValidCredentials(String email, String password) throws Exception {
         System.out.println("verifyAuthentication is called");
         loginPageObject.performLogin(email, password);
         sleep(1000);
@@ -52,6 +54,11 @@ public class Login extends WmsBaseClass {
         System.out.println(email + ":" + password);
         System.out.println(url);
         sleep(1000);
+        for(Cookie cookie : driver.manage().getCookies()){
+            ck = cookie.getName() + "=" + cookie.getValue() + ";Path=/; HttpOnly" ;
+            System.out.println(ck);
+        }
+        CookieManager.setValue("WMS_COOKIE",ck);
     }
 
     @AfterClass(alwaysRun = true)

@@ -21,22 +21,22 @@ public class SuppliersPageObjects extends WmsBaseClass {
 
     /*--------------Actions-------------------*/
     public void clickMigrateSellerTab() {
-        WebElement migrateSellerTab = xpathSetter("//a[text()='Migrate Seller']");
+        WebElement migrateSellerTab = xpathSetterClick("//a[text()='Migrate Seller']");
         myActions.action_click(migrateSellerTab);
     }
 
     public void clickSuppliersListTab() {
-        WebElement suppliersListTab = xpathSetter("//a[text()='Suppliers List']");
+        WebElement suppliersListTab = xpathSetterClick("//a[text()='Suppliers List']");
         myActions.action_click(suppliersListTab);
     }
 
     public void clickSellersListTab() {
-        WebElement sellersListTab = xpathSetter("//a[text()='Sellers List']");
+        WebElement sellersListTab = xpathSetterClick("//a[text()='Sellers List']");
         myActions.action_click(sellersListTab);
     }
 
     public void clickAddSupplierTab() {
-        WebElement addSupplierTab = xpathSetter("//a[text()='Add Suppliers']");
+        WebElement addSupplierTab = xpathSetterClick("//a[text()='Add Suppliers']");
         myActions.action_click(addSupplierTab);
     }
 

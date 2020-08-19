@@ -20,47 +20,47 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     /*--------------Actions-------------------*/
     public void clickCreatePurchaseOrderTab() {
-        WebElement createPurchaseOrderTab = xpathSetter("//a[text()='Create Purchase Order']");
+        WebElement createPurchaseOrderTab = xpathSetterClick("//a[text()='Create Purchase Order']");
         myActions.action_click(createPurchaseOrderTab);
     }
 
     public void clickCreateBulkPOTab() {
-        WebElement createBulkPOTab = xpathSetter("//a[text()='Create Bulk PO']");
+        WebElement createBulkPOTab = xpathSetterClick("//a[text()='Create Bulk PO']");
         myActions.action_click(createBulkPOTab);
     }
 
     public void clickCreateTOTab() {
-        WebElement createTOTab = xpathSetter("//a[text()='Create TO']");
+        WebElement createTOTab = xpathSetterClick("//a[text()='Create TO']");
         myActions.action_click(createTOTab);
     }
 
     public void clickQcScanTab() {
-        WebElement qcScanTab = xpathSetter("//a[text()='Qc Scan']");
+        WebElement qcScanTab = xpathSetterClick("//a[text()='Qc Scan']");
         myActions.action_click(qcScanTab);
     }
 
     public void clickEditPurchaseOrderTab() {
-        WebElement editPurchaseOrderTab = xpathSetter("//a[text()='Edit PurchaseOrder']");
+        WebElement editPurchaseOrderTab = xpathSetterClick("//a[text()='Edit PurchaseOrder']");
         myActions.action_click(editPurchaseOrderTab);
     }
 
     public void clickPurchaseOrderListTab() {
-        WebElement purchaseOrderListTab = xpathSetter("//a[text()='Purchase Order List']");
+        WebElement purchaseOrderListTab = xpathSetterClick("//a[text()='Purchase Order List']");
         myActions.action_click(purchaseOrderListTab);
     }
 
     public void clickTOListTab() {
-        WebElement tOListTab = xpathSetter("//a[text()='TO List']");
+        WebElement tOListTab = xpathSetterClick("//a[text()='TO List']");
         myActions.action_click(tOListTab);
     }
 
     public void clickCreateGRNTab() {
-        WebElement createGRNTab = xpathSetter("//a[text()='Create GRN']");
+        WebElement createGRNTab = xpathSetterClick("//a[text()='Create GRN']");
         myActions.action_click(createGRNTab);
     }
 
     public void clickGRNViewTab() {
-        WebElement gRNViewTab = xpathSetter("//a[text()='GRN View']");
+        WebElement gRNViewTab = xpathSetterClick("//a[text()='GRN View']");
         myActions.action_click(gRNViewTab);
     }
 
