@@ -1,22 +1,15 @@
 package pageObejcts;
 
-import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
+
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
-import sun.awt.windows.WEmbeddedFrame;
 import utils.StoreWapActions;
-import utils.StoreWapBaseClass;
-import java.util.List;
-import java.util.Random;
+
 
 import static utils.StoreWapBaseClass.getBaseDriver;
 
@@ -51,6 +44,9 @@ public class MyOrdersPageObjects {
     @FindBy(xpath = "//div[text()='Apply Filter']")
     private WebElement applyFilterButton;
 
+    @FindBy(xpath = "//div[text()='Create Order']")
+    private WebElement createOrderButton; //used when no orders has been created so far
+
     public MyOrdersPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -70,6 +66,8 @@ public class MyOrdersPageObjects {
     public void clickCreateNewOrderButton(){ storeWapActions.action_click(createNewOrderButton);}
 
     public void clickOnApplyFilterButton(){ storeWapActions.action_click(applyFilterButton);}
+
+    public void clickOnCreateOrderButton(){ storeWapActions.action_click(createOrderButton);}
 
     public void clickOnOrderStatusTab(int orderIndex){
         String xpath = "//div[@class='css-1dbjc4n']//div[@class='css-1dbjc4n']["+orderIndex+"]//div[@class='css-901oao r-jwli3a r-ubezar r-1jkjb']";;
@@ -97,7 +95,7 @@ public class MyOrdersPageObjects {
         return pageTitleText;
     }
 
-    public void clickRandomOrder(int x){
+    public void clickAnOrderFromOrderList(int x){
         String xpath = "//div[@class='css-1dbjc4n']//div[@class='css-1dbjc4n']["+"]//div[@class='css-1dbjc4n r-13awgt0 r-eqz5dr']";
         storeWapActions.action_click(androidDriver.findElement(By.xpath(xpath)));
     }

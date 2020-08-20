@@ -10,6 +10,9 @@
         </groups>
         <classes>
             <class name="com.store.tests.Authentication"></class>
+            <class name="com.store.tests.QuickOrderFlowTestCases"></class>
+<!--        <class name="com.store.tests.CreateOrderTestCases"></class>-->
+<!--        <class name="com.store.tests.CustomerListTestCases"></class>-->
         </classes>
     </test>
 </suite>

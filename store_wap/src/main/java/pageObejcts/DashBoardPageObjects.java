@@ -1,26 +1,12 @@
 package pageObejcts;
 
-import com.sun.webkit.BackForwardList;
-import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
 import utils.StoreWapActions;
-import utils.StoreWapBaseClass;
-import java.util.List;
-
-
 
 public class DashBoardPageObjects {
-
 
 
     private AndroidDriver<WebElement> androidDriver;
@@ -39,13 +25,13 @@ public class DashBoardPageObjects {
     @FindBy(xpath = "//div[text()='Customer List']")
     private WebElement customerListButton;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-1fn3lry r-qklmqi r-eqz5dr r-1777fci r-5njf8e'][1]//div[@class='css-901oao r-14iuakf r-1fap712 r-1b43r93 r-vw2c0b']")
+    @FindBy(xpath = "//div[text()='Income']//parent::div/div/div/div[2]")
     private WebElement getIncome;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-1fn3lry r-qklmqi r-eqz5dr r-1777fci r-5njf8e'][2]//div[@class='css-901oao r-14iuakf r-1fap712 r-1b43r93 r-vw2c0b']")
+    @FindBy(xpath = "//div[text()='Sales']//parent::div/div/div/div[2]")
     private WebElement getSales;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-eqz5dr r-1777fci r-5njf8e']//div[@class='css-901oao r-14iuakf r-1fap712 r-1b43r93 r-vw2c0b']")
+    @FindBy(xpath = "//div[text()='Orders']//parent::div/div/div/div")
     private WebElement getOrders;
 
     @FindBy(xpath = "//option[text()='Today']")
@@ -60,8 +46,14 @@ public class DashBoardPageObjects {
     @FindBy(xpath= "//div[contains(@data-testid,'headerTitle')]")
     private WebElement pageTitle;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-1awozwy r-14lw9ot r-1m93428 r-qklmqi r-13awgt0 r-18u37iz r-ymttw5 r-c2syf2']/div[2]/div/div[2]")
+    @FindBy(xpath = "//div[text()='Home']//parent::div//parent::div//parent::div//parent::div/div[2]")
     private WebElement sideNavButton;
+
+    @FindBy(xpath = "//div[text()='Inbox']")
+    private WebElement inboxButton;
+
+    @FindBy(xpath = "//div[text()='Boost']")
+    private WebElement boostButton;
 
     public DashBoardPageObjects(AndroidDriver<WebElement> androidDriver) {
         this.androidDriver = androidDriver;
@@ -79,7 +71,7 @@ public class DashBoardPageObjects {
 
     public void clickPaymentsButton(){ storeWapActions.action_click(paymentsButton);}
 
-    public void clickCustomersList(){ storeWapActions.action_click(customerListButton);}
+    public void clickCustomersListButton(){ storeWapActions.action_click(customerListButton);}
 
     public void clickTodayReport(){ storeWapActions.action_click(todayButtonInReport);}
 
@@ -88,6 +80,10 @@ public class DashBoardPageObjects {
     public void clickLAt30DaysInReport(){ storeWapActions.action_click(last30DaysButtonInReport);}
 
     public void clickSideNavButton(){ storeWapActions.action_click(sideNavButton);}
+
+    public void clickInboxButton(){ storeWapActions.action_click(inboxButton);}
+
+    public void clickBoostButton(){ storeWapActions.action_click(boostButton);}
 
 
     /*----------------------------------------------Functions-------------------------------------------------------- */
@@ -112,7 +108,6 @@ public class DashBoardPageObjects {
         String pageTitleText = storeWapActions.action_getText(pageTitle);
         return pageTitleText;
     }
-
 
 
 }

@@ -2,24 +2,19 @@
 package pageObejcts;
 
 
-import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
 import utils.StoreWapActions;
-import utils.StoreWapBaseClass;
-import java.util.List;
 import java.util.Random;
+
 
 import static utils.StoreWapBaseClass.getBaseDriver;
 
@@ -31,6 +26,8 @@ public class CreateOrderPageObjects {
 
     private AndroidDriver<WebElement> androidDriver;
     private StoreWapActions storeWapActions;
+
+    private Random random;
 
 
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-13awgt0 r-1d5kdc7']//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][2]//div[contains(@data-testid,'navback')]")
@@ -58,6 +55,7 @@ public class CreateOrderPageObjects {
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
         storeWapActions = new StoreWapActions();
+        random = new Random();
     }
 
 
@@ -81,29 +79,54 @@ public class CreateOrderPageObjects {
         return pageTitleText;
     }
 
-    public void enterProductAmount(int productIndex,String productAmount){
-        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-1ff274t']";
+
+    public void enterValidRandomProductAmount(int productIndex){
+        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[contains(@placeholder,'Price')]";
         WebElement amountElement = androidDriver.findElement(By.xpath(baseXpath));
+        String productAmount = String.valueOf(random.nextInt(2000)+1);
         storeWapActions.action_sendKeys(amountElement,productAmount);
     }
 
-    public void editProductName(int productIndex,String newName){
-        String baseXpath = "//div[@class='css-1dbjc4n']["+productIndex+"]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-fdjqy7']";
+    public void editProductNameWithValidName(int productIndex){
+        String baseXpath = "//div[text()='PRODUCT NAME']//parent::div//parent::div//parent::div/div[2]/div/div/div["+productIndex+"]/div[1]//input";
         WebElement productName = androidDriver.findElement(By.xpath(baseXpath));
+        String newName = "name " + random.nextInt(100) + " " + RandomStringUtils.randomAlphabetic(5) ;
         new Actions(androidDriver).click(productName).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newName).perform();
     }
 
-    public void editProductQuantity(int productIndex,String newQty){
-        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-q4m81j']";
+    public void editProductQuantityWithValidQuantity(int productIndex){
+        String baseXpath = "//div[text()='PRODUCT NAME']//parent::div//parent::div//parent::div/div[2]/div/div/div[" + productIndex + "]/div/div[2]/div/div/input";
         WebElement productQuantity = androidDriver.findElement(By.xpath(baseXpath));
+        String newQty = String.valueOf(random.nextInt(10)+1);
         new Actions(androidDriver).click(productQuantity).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newQty).perform();
     }
 
-    public void editProductAmount(int productIndex,String newAmount){
-        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-1ff274t']";
+    public void editProductAmountWithValidAmount(int productIndex){
+        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[contains(@placeholder,'Price')]";
         WebElement productAmount = androidDriver.findElement(By.xpath(baseXpath));
+        String newAmount = String.valueOf(random.nextInt(2000)+1);
         new Actions(androidDriver).click(productAmount).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newAmount).perform();
     }
+
+
+    public void editProductNameWithInvalidName(int productIndex){
+        String baseXpath = "//div[text()='PRODUCT NAME']//parent::div//parent::div//parent::div/div[2]/div/div/div["+productIndex+"]/div[1]//input";
+        WebElement productName = androidDriver.findElement(By.xpath(baseXpath));
+        new Actions(androidDriver).click(productName).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys("  ").perform();
+    }
+
+    public void editProductQuantityWithInvalidQuantity(int productIndex){
+        String baseXpath = "//div[text()='PRODUCT NAME']//parent::div//parent::div//parent::div/div[2]/div/div/div[" + productIndex + "]/div/div[2]/div/div/input";
+        WebElement productQuantity = androidDriver.findElement(By.xpath(baseXpath));
+        new Actions(androidDriver).click(productQuantity).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys("0").perform();
+    }
+
+    public void editProductWithInvalidAmount(int productIndex){
+        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex +"]//input[contains(@placeholder,'Price')]";
+        WebElement productAmount = androidDriver.findElement(By.xpath(baseXpath));
+        new Actions(androidDriver).click(productAmount).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys("0").perform();
+    }
+
 
     public void deleteProduct(int productIndex){
         String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//div[contains(@role,'button')]";

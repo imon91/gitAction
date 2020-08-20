@@ -156,12 +156,14 @@ public class GetPLPModuleApiResponse {
     }
 
 
-         public ProductDescriptionModel getProductDescriptionPageResults(String slug)
+     /*    public ProductDescriptionModel getProductDescriptionPageResults(String slug)
         {
         response = shopUpPostMan.getCall(EndPoints.RECOMMENDATIONS+slug+".json");
         return gson.fromJson(response.getBody().asString(), ProductDescriptionModel.class);
         }
 
+
+      */
 
 }
 

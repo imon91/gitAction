@@ -1,21 +1,11 @@
 package pageObejcts;
 
-import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
+
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
 import utils.StoreWapActions;
-import utils.StoreWapBaseClass;
-import java.util.List;
-import java.util.Random;
 
 
 
@@ -27,19 +17,19 @@ public class OrderConfirmationPageObjects {
     private StoreWapActions storeWapActions;
 
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][4]//div[contains(@data-testid,'navback')]")
+    @FindBy(xpath = "//div[text()='Order Confirmation']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div[1]")
     private WebElement backButton;
 
-    @FindBy(xpath= "//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][4]//div[contains(@data-testid,'headerTitle')]")
+    @FindBy(xpath= "//div[text()='Order Confirmation']")
     private WebElement pageTitle;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][4]//div[@class='css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1wtj0ep']/div[2]")
+    @FindBy(xpath = "//div[text()='Order Confirmation']//parent::div//parent::div//parent::div//following-sibling::div")
     private WebElement sideNavButton;
 
-    @FindBy(xpath = "//div[@class='css-901oao r-jwli3a r-pz5f6p r-ubezar']")
+    @FindBy(xpath = "//div[text()='Successfully Created']//following-sibling::div")
     private WebElement orderIDxpath;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][4]//div[text()='Create New Order']")
+    @FindBy(xpath = "//div[text()='Successfully Created']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[text()='Create New Order']")
     private WebElement createNewOrderButton;
 
     @FindBy(xpath = "//div[text()='View My Order']")
