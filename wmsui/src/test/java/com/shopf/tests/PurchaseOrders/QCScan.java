@@ -1,6 +1,5 @@
 package com.shopf.tests.PurchaseOrders;
 
-import com.google.gson.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
@@ -23,8 +22,6 @@ public class QCScan extends WmsBaseClass{
     private PackagesPageObjects.BinInScanTab binInScanTab;
     private Random random;
     private Scanner s;
-    private Gson gson;
-    private BufferedReader bufferedReader;
     private Assertion assertion;
 
     @BeforeClass(alwaysRun = true)
@@ -40,6 +37,7 @@ public class QCScan extends WmsBaseClass{
         actions = new Actions(driver);
         random = new Random();
         assertion = new Assertion();
+        homePageObject.selectWarehouse("Shopup Dhaka");
     }
 
     @DataProvider(name = "warehouseBins")
@@ -53,7 +51,7 @@ public class QCScan extends WmsBaseClass{
         while(s.hasNextLine())
             list.add(s.nextLine());
 
-        int n = random.nextInt(list.size());
+        int n = random.nextInt(list.size())+1;
         return new Object[][]{
                 {"Warehouse Bin Code",list.get(n-1)}
         };

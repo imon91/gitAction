@@ -1,5 +1,6 @@
 package pageObjects;
 
+import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.*;
@@ -8,6 +9,7 @@ public class LoginPageObject extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
+    private String ck;
 
     public LoginPageObject(WebDriver driver) {
         this.driver = driver;
@@ -34,9 +36,15 @@ public class LoginPageObject extends WmsBaseClass {
 
 
     /*--------------Functions-------------------*/
-    public void performLogin(String email, String password) {
+    public void performLogin(String email, String password) throws Exception {
         enterEmail(email);
         enterPassword(password);
         clickOnSubmitButton();
+        sleep(2000);
+        for(Cookie cookie : driver.manage().getCookies()){
+            ck = cookie.getName() + "=" + cookie.getValue() + ";Path=/; HttpOnly" ;
+            System.out.println(ck);
+        }
+        CookieManager.setValue(CookieManager.Keys.WMS_COOKIE,ck);
     }
 }

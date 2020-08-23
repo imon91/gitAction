@@ -58,7 +58,7 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
             dataProvider = "skuCodeData",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Create Purchase Verification")
-    public void createPurchaseOrderVerification(String name, String id) {
+    public void createPurchaseOrderVerification(String name, String id) throws Exception {
         System.out.println(name + " : " + id);
         System.out.println("Create Purchase Order Verification is Called");
         homePageObject.clickPurchaseOrders();

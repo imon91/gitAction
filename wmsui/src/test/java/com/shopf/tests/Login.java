@@ -12,7 +12,6 @@ public class Login extends WmsBaseClass {
 
     private WebDriver driver;
     private LoginPageObject loginPageObject;
-    String ck;
 
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception {
@@ -49,16 +48,9 @@ public class Login extends WmsBaseClass {
     public void verifyAuthenticationWithValidCredentials(String email, String password) throws Exception {
         System.out.println("verifyAuthentication is called");
         loginPageObject.performLogin(email, password);
-        sleep(1000);
         String url = driver.getCurrentUrl();
         System.out.println(email + ":" + password);
         System.out.println(url);
-        sleep(1000);
-        for(Cookie cookie : driver.manage().getCookies()){
-            ck = cookie.getName() + "=" + cookie.getValue() + ";Path=/; HttpOnly" ;
-            System.out.println(ck);
-        }
-        CookieManager.setValue("WMS_COOKIE",ck);
     }
 
     @AfterClass(alwaysRun = true)

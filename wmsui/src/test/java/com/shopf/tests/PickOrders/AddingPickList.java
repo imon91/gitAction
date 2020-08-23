@@ -34,7 +34,6 @@ public class AddingPickList extends WmsBaseClass {
         System.out.println("Pick List Addition Verification is called");
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickDemandLessPickListTab();
-        homePageObject.selectWarehouse("Shopup Dhaka");
         demandLessPickListTab.enterWarehouseDetails();
         demandLessPickListTab.createPickListOrder();
         String message = homePageObject.getPopUpMessage();

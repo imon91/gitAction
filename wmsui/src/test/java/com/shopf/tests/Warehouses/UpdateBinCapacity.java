@@ -42,7 +42,7 @@ public class UpdateBinCapacity extends WmsBaseClass {
         while(s.hasNextLine())
             list.add(s.nextLine());
 
-        int n = random.nextInt(list.size());
+        int n = random.nextInt(list.size())+1;
         return new Object[][]{
                 {"Warehouse Bin Code",list.get(n-1)}
         };

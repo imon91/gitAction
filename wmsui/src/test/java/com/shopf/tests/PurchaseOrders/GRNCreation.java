@@ -50,7 +50,7 @@ public class GRNCreation extends WmsBaseClass {
         list = gson.fromJson(bufferedReader,
                 new TypeToken<List<VariantDetailsModel>>(){}.getType());
 
-        int n = random.nextInt(list.size());
+        int n = random.nextInt(list.size()) + 1;
         return new Object[][]{
                 {"Id",list.get(n-1).getSku_code()}
         };

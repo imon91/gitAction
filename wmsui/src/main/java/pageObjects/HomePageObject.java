@@ -1,5 +1,6 @@
 package pageObjects;
 
+import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.*;
@@ -9,6 +10,7 @@ public class HomePageObject extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
+    private String ck;
   
     public HomePageObject(WebDriver driver) {
         this.driver = driver;
@@ -68,9 +70,15 @@ public class HomePageObject extends WmsBaseClass {
         return myActions.action_getText(popUpMessageElement);
     }
 
-    public void selectWarehouse(String warehouse) {
+    public void selectWarehouse(String warehouse) throws Exception {
         WebElement selectWarehouseDropDown = xpathSetter("//div[@id='root']//form//select");
         myActions.action_select(selectWarehouseDropDown,warehouse);
+        sleep(2000);
+        for(Cookie cookie : driver.manage().getCookies()){
+            if(cookie.getName().contains("session_"))
+            ck = cookie.getName() + "=" + cookie.getValue() + " ";
+        }
+        CookieManager.setValue(CookieManager.Keys.WMS_SESSION,ck);
     }
 }
 

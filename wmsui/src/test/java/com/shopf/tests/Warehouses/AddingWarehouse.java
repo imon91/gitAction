@@ -30,7 +30,7 @@ public class AddingWarehouse extends WmsBaseClass {
     @Test(groups = (CoreConstants.GROUP_SANITY),
             dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
             description = "Adds Warehouse")
-    public void verifyWarehouseAddition() {
+    public void verifyWarehouseAddition() throws Exception {
         System.out.println("Warehouse Addition Verification is called");
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickAddWarehouseTab();
@@ -44,7 +44,6 @@ public class AddingWarehouse extends WmsBaseClass {
         String warehouseCode = warehouseListTab.getWarehouseCode(totalWarehouses);
         System.out.println("The last added Warehouse: " + warehouseCode);
         homePageObject.selectWarehouse("Shopup Dhaka");
-        sleep(3000);
     }
 
     @AfterClass(alwaysRun = true)

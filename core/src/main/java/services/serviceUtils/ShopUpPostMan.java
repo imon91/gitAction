@@ -23,6 +23,8 @@ public class ShopUpPostMan {
     private String cookie;
     private String module;
     private String cookieKey;
+    private String sessionCookie;
+    private String sessionCookieKey;
 
     public ShopUpPostMan(String module){
         this.module = module;
@@ -168,6 +170,7 @@ public class ShopUpPostMan {
                                 DomainPropertyReader.
                                         getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_STAGE_BASE_URL);
                             cookieKey = CookieManager.Keys.WMS_COOKIE;
+                            sessionCookieKey = CookieManager.Keys.WMS_SESSION;
                             break;
                         case CoreConstants.ENV_PROD : this.baseURL =
                                 DomainPropertyReader.
@@ -191,6 +194,7 @@ public class ShopUpPostMan {
         String cookie = null;
         try{
             cookie = CookieManager.getValueOfKey(cookieKey);
+            sessionCookie = CookieManager.getValueOfKey(sessionCookieKey);
             //System.out.println("User Cookie is : "+cookie);
         }catch (Exception e){
             System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
@@ -201,6 +205,7 @@ public class ShopUpPostMan {
         System.out.println("Final URL is : "+baseURL+path);
         Response  response = given().header("Content-Type","application/json")
                 .header("cookie",cookie)
+                .header("cookie",sessionCookie)
                 .when()
                 .get(path);
         return response;

@@ -15,9 +15,7 @@
                 <class name="com.shopf.tests.Warehouses.WarehouseBinDetail"></class>
                 <class name="com.shopf.tests.Suppliers.SuppliersList"></class>
                 <class name="com.shopf.tests.Suppliers.SellersList"></class>
-                <class name="com.shopf.tests.Variants.VariantList"></class>
                 <class name="com.shopf.tests.PurchaseOrders.PurchaseOrderList"></class>
-                <class name="com.shopf.tests.Packages.PackagesList"></class>
                 <class name="com.shopf.tests.Logout"></class>
             </classes>
         </test>
