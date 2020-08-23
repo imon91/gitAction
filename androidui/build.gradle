@@ -92,15 +92,21 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         def smoke = project.hasProperty("Smoke")
         def regression = project.hasProperty("Reg")
         def sanity = project.hasProperty("Sanity")
+        def mybag = project.hasProperty("Bag")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
         }
         if(regression){
-            suites "src/test/resources/mySuites/regressionSuite.xml"
+            //suites "src/test/resources/mySuites/regressionSuite.xml"
         }
         if (sanity){
             suites "src/test/resources/mySuites/sanitySuite.xml"
+        }
+        if (regression){
+            if (mybag){
+                suites "src/test/resources/mySuites/myBagRegressionSuite.xml"
+            }
         }
     }
 }

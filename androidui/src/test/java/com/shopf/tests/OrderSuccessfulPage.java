@@ -38,7 +38,7 @@ public class OrderSuccessfulPage extends AndroidBaseClass {
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         myActions = new MyActions();
         softAssert = new SoftAssert();
-        suiteName = "sanity";
+        suiteName = "regression";
 //        actionBarObjects = new ActionBarObjects(androidDriver);
 //        myBagPageObjects = new MyBagPageObjects(androidDriver);
 //        checkoutAddressPageObjects = new CheckoutAddressPageObjects(androidDriver);
@@ -62,7 +62,7 @@ public class OrderSuccessfulPage extends AndroidBaseClass {
 
     @Test(groups = {"Order.verifyOrderSuccessfulText",
             CoreConstants.GROUP_REGRESSION,
-            CoreConstants.GROUP_SANITY},dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
+            CoreConstants.GROUP_SANITY},dependsOnGroups = "Payments.verifyProceedPayment")
     public void verifyOrderSuccessfulText(){
         String orderSuccessfulText = orderSuccessFulPageObjects.getOrderSuccessfulText(); //Frontend heading
         String expectedOrderSuccessfulText = orderSuccessFulPageObjects.getOrderSuccessfulHeading(); //Backend heading
@@ -72,7 +72,7 @@ public class OrderSuccessfulPage extends AndroidBaseClass {
 
     @Test(groups = {"Order.verifyOrderID",
             CoreConstants.GROUP_REGRESSION,
-            CoreConstants.GROUP_SANITY},dependsOnGroups = "Order.verifyOrderSuccessfulText")
+            CoreConstants.GROUP_SANITY},dependsOnMethods = "Order.verifyOrderSuccessfulText")
     public void verifyOrderID(){
         String orderID = orderSuccessFulPageObjects.getOrderID(); //Frontend orderID
         String expectedOrderID = orderSuccessFulPageObjects.getOrderIDData(); //Backend orderID
@@ -82,7 +82,7 @@ public class OrderSuccessfulPage extends AndroidBaseClass {
 
     @Test(groups = {"Order.verifyClickHereButton",
             CoreConstants.GROUP_REGRESSION,
-            CoreConstants.GROUP_SANITY},enabled = true,dependsOnGroups = "Order.verifyOrderID")
+            CoreConstants.GROUP_SANITY},enabled = true,dependsOnMethods = "Order.verifyOrderID")
     public void verifyClickHereButton(){
         orderSuccessFulPageObjects.clickOnClickHereButton();
         sleep(3000);
@@ -96,7 +96,7 @@ public class OrderSuccessfulPage extends AndroidBaseClass {
 
     @Test(groups = {"Order.verifyMyOrdersButton",
             CoreConstants.GROUP_REGRESSION,
-            CoreConstants.GROUP_SANITY},enabled = false,dependsOnGroups = "Order.verifyOrderID")
+            CoreConstants.GROUP_SANITY},enabled = false,dependsOnMethods = "Order.verifyOrderID")
     public void verifyMyOrdersButton(){
         orderSuccessFulPageObjects.clickOnGoTOMyOrdersButton();
         sleep(3000);

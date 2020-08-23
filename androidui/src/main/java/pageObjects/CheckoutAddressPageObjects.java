@@ -1,5 +1,7 @@
 package pageObjects;
 
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
@@ -46,6 +48,9 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "(//button[contains(text(),'Proceed to Payment')])[2]")
     private WebElement proceedToPaymentButtonBottom;
 
+    @FindBy(xpath = "//div[@class='proceed-checkout text-center']//button")
+    private WebElement confirmButtonBottom;
+
 
     public String getCartValueLabelText(){
         return myActions.action_getText(cartValueLabelText);
@@ -64,7 +69,11 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     }
 
     public void clickOnProceedToPaymentBottomButton(){
-        myActions.action_click(proceedToPaymentButtonBottom);
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            myActions.action_click(proceedToPaymentButtonBottom);
+        }else if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            myActions.action_click(confirmButtonBottom);
+        }
     }
 
 

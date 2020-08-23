@@ -157,6 +157,12 @@ public class PaymentModePageObjects extends AndroidBaseClass {
 
     }
 
+
+    public void closeJoinPrimoPage(){
+        WebElement closeElement = xpathSetter("//span[@class='close-features-pop']/*");
+        myActions.action_click(closeElement);
+    }
+
     public class ProductDetails {
 
         private AndroidDriver<WebElement> androidDriver;

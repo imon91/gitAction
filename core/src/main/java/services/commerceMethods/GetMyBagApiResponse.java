@@ -1,6 +1,8 @@
 package services.commerceMethods;
 
 import com.google.gson.Gson;
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import io.restassured.response.Response;
 import services.responseModels.commerceModels.OrderCheckoutModel;
 import services.responseModels.commerceModels.ShoppingCartResponseModel;
@@ -69,12 +71,14 @@ public class GetMyBagApiResponse {
         response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART_JSON);
         ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
         arrayList.add(0,shoppingCartResponseModel.getOrder_data().getTotal());
-        arrayList.add(1,shoppingCartResponseModel.getOrder_data().getTotal_income());
-        arrayList.add(2,shoppingCartResponseModel.getMinimum_delivery_charge());
-        arrayList.add(3,shoppingCartResponseModel.getMaximum_delivery_charge());
-        arrayList.add(4,shoppingCartResponseModel.getNon_cod_adjustments().get(0).getValue_amount());
-        if(shoppingCartResponseModel.getNon_cod_adjustments().size()>1){
-            arrayList.add(5,shoppingCartResponseModel.getNon_cod_adjustments().get(1).getValue_amount());
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            arrayList.add(1, shoppingCartResponseModel.getOrder_data().getTotal_income());
+            arrayList.add(2, shoppingCartResponseModel.getMinimum_delivery_charge());
+            arrayList.add(3, shoppingCartResponseModel.getMaximum_delivery_charge());
+            arrayList.add(4, shoppingCartResponseModel.getNon_cod_adjustments().get(0).getValue_amount());
+            if (shoppingCartResponseModel.getNon_cod_adjustments().size() > 1) {
+                arrayList.add(5, shoppingCartResponseModel.getNon_cod_adjustments().get(1).getValue_amount());
+            }
         }
         return arrayList;
     }

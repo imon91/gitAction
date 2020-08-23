@@ -1,5 +1,6 @@
 package com.shopf.tests;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -30,15 +31,17 @@ public class Payments extends AndroidBaseClass {
     private MyActions myActions;
     private SoftAssert softAssert;
     private String suiteName;
+    private String app;
 
 
     @BeforeClass(alwaysRun = true)
     public void paymentsBeforeClass(){
         System.out.println("Payments Before Class is called");
         androidDriver = getBaseDriver();
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
         myActions = new MyActions();
         softAssert = new SoftAssert();
-        suiteName = "sanity";
+        suiteName = "regression";
         myBagPageObjects = new MyBagPageObjects(androidDriver);
         checkoutAddressPageObjects = new CheckoutAddressPageObjects(androidDriver);
         selectAddress = checkoutAddressPageObjects.new SelectAddress(androidDriver);
@@ -53,54 +56,58 @@ public class Payments extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "Address.verifyDeliveryTimeMessageText")
     public void verifyPaymentBreakup() {
-        List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
-        sleep(3000);
-        paymentModePageObjects.clickOnPaymentBreakup();
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
+            sleep(3000);
+            paymentModePageObjects.clickOnPaymentBreakup();
 
-        int earnings = paymentModePageObjects.getEarningsAmount();
-        int expectedEarnings = chargesList.get(1);
-        softAssert.assertEquals(earnings, expectedEarnings);
-        System.out.println("Earnings Data is working properly");
+            int earnings = paymentModePageObjects.getEarningsAmount();
+            int expectedEarnings = chargesList.get(1);
+            softAssert.assertEquals(earnings, expectedEarnings);
+            System.out.println("Earnings Data is working properly");
 
-        int orderValue = paymentModePageObjects.getCartValueAmount();
-        int expectedOrderValue = chargesList.get(0);
-        softAssert.assertEquals(orderValue, expectedOrderValue);
-        System.out.println("Cart Value Data is working properly");
+            int orderValue = paymentModePageObjects.getCartValueAmount();
+            int expectedOrderValue = chargesList.get(0);
+            softAssert.assertEquals(orderValue, expectedOrderValue);
+            System.out.println("Cart Value Data is working properly");
 
-        int shippingCharges = paymentModePageObjects.getShippingCharges();
-        int expectedShippingCharges = chargesList.get(4);
-        softAssert.assertEquals(shippingCharges, expectedShippingCharges);
-        System.out.println("Shipping Charges Data is working properly");
+            int shippingCharges = paymentModePageObjects.getShippingCharges();
+            int expectedShippingCharges = chargesList.get(4);
+            softAssert.assertEquals(shippingCharges, expectedShippingCharges);
+            System.out.println("Shipping Charges Data is working properly");
 
-        softAssert.assertAll();
-        paymentModePageObjects.clickOnCloseButton();
+            softAssert.assertAll();
+            paymentModePageObjects.clickOnCloseButton();
+        }
     }
 
 
     @Test(groups = {"Payments.verifyProductDataInPaymentsPage",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, dependsOnGroups = "Payments.verifyPaymentBreakup")
+            CoreConstants.GROUP_REGRESSION}, dependsOnMethods = "Payments.verifyPaymentBreakup")
     public void verifyProductDataInPaymentsPage() {
-        Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
-        int containersSize = productDetails.getProductContainerSize();
-        Assert.assertEquals(containersSize, productDetailsMap.size());
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
+            int containersSize = productDetails.getProductContainerSize();
+            Assert.assertEquals(containersSize, productDetailsMap.size());
 
-        for (int i = 0; i < containersSize; i++) {
-            System.out.println(productDetails.getProductImage(i));
-            System.out.println(productDetailsMap.get(i).get(0));
-            System.out.println(productDetails.getProductName(i));
-            System.out.println(productDetailsMap.get(i).get(1));
-            System.out.println(productDetails.getProductOrderValue(i));
-            System.out.println(productDetailsMap.get(i).get(4));
-        }
+            for (int i = 0; i < containersSize; i++) {
+                System.out.println(productDetails.getProductImage(i));
+                System.out.println(productDetailsMap.get(i).get(0));
+                System.out.println(productDetails.getProductName(i));
+                System.out.println(productDetailsMap.get(i).get(1));
+                System.out.println(productDetails.getProductOrderValue(i));
+                System.out.println(productDetailsMap.get(i).get(4));
+            }
 
-        for (int i = 0; i < containersSize; i++) {
-            for (int j = 0; j < productDetailsMap.size(); j++) {
-                if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-                    if (productDetails.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
-                            productDetails.getProductOrderValue(i).equalsIgnoreCase(productDetailsMap.get(j).get(4)) &&
-                            productDetails.getProductImage(i).equalsIgnoreCase(productDetailsMap.get(j).get(0))) {
-                        System.out.println("Product Data is working properly");
+            for (int i = 0; i < containersSize; i++) {
+                for (int j = 0; j < productDetailsMap.size(); j++) {
+                    if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                        if (productDetails.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
+                                productDetails.getProductOrderValue(i).equalsIgnoreCase(productDetailsMap.get(j).get(4)) &&
+                                productDetails.getProductImage(i).equalsIgnoreCase(productDetailsMap.get(j).get(0))) {
+                            System.out.println("Product Data is working properly");
+                        }
                     }
                 }
             }
@@ -110,67 +117,69 @@ public class Payments extends AndroidBaseClass {
 
     @Test(groups = {"Payments.verifySelectedAddressData",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, dependsOnGroups = "Payments.verifyChangeAddress")
+            CoreConstants.GROUP_REGRESSION}, dependsOnMethods = "Payments.verifyChangeAddress")
     public void verifySelectedAddressData() {
-        List<String> addressDataList = paymentModePageObjects.getSelectedAddressDetails();
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            List<String> addressDataList = paymentModePageObjects.getSelectedAddressDetails();
 
-        String firstName = paymentModePageObjects.getNamefromAddress();
-        String expectedFirstName = addressDataList.get(0);
-        System.out.println(firstName + " " + expectedFirstName);
-        softAssert.assertEquals(firstName, expectedFirstName);
+            String firstName = paymentModePageObjects.getNamefromAddress();
+            String expectedFirstName = addressDataList.get(0);
+            System.out.println(firstName + " " + expectedFirstName);
+            softAssert.assertEquals(firstName, expectedFirstName);
 
-        String address = paymentModePageObjects.getAddressfromAddress();
-        String expectedAddress = addressDataList.get(1);
-        System.out.println(address + " " + expectedAddress);
-        softAssert.assertEquals(address, expectedAddress);
+            String address = paymentModePageObjects.getAddressfromAddress();
+            String expectedAddress = addressDataList.get(1);
+            System.out.println(address + " " + expectedAddress);
+            softAssert.assertEquals(address, expectedAddress);
 
-        String expectedLandmark = addressDataList.get(2);
-        System.out.println(expectedLandmark);
-        if (expectedLandmark.isEmpty()) {
+            String expectedLandmark = addressDataList.get(2);
+            System.out.println(expectedLandmark);
+            if (expectedLandmark.isEmpty()) {
 
-            String city = paymentModePageObjects.getCityfromAddress();
-            String expectedCity = addressDataList.get(3);
-            System.out.println(city + " " + expectedCity);
-            softAssert.assertEquals(city, expectedCity);
+                String city = paymentModePageObjects.getCityfromAddress();
+                String expectedCity = addressDataList.get(3);
+                System.out.println(city + " " + expectedCity);
+                softAssert.assertEquals(city, expectedCity);
 
-            String phoneNumber = paymentModePageObjects.getPhoneNumberFromAddress();
-            String expectedPhoneNumber = addressDataList.get(4);
-            System.out.println(phoneNumber + " " + expectedPhoneNumber);
-            softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
+                String phoneNumber = paymentModePageObjects.getPhoneNumberFromAddress();
+                String expectedPhoneNumber = addressDataList.get(4);
+                System.out.println(phoneNumber + " " + expectedPhoneNumber);
+                softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
+            } else {
+                String landmark = paymentModePageObjects.getLandmarkfromAddress();
+                String landmarkValue = landmark.replace("Landmark: ", "");
+                System.out.println(landmark + "" + expectedLandmark);
+                softAssert.assertEquals(landmarkValue, expectedLandmark);
+
+                String city = paymentModePageObjects.getCity();
+                String expectedCity = addressDataList.get(3);
+                System.out.println(city + " " + expectedCity);
+                softAssert.assertEquals(city, expectedCity);
+
+                String phoneNumber = paymentModePageObjects.getPhoneNumber();
+                String expectedPhoneNumber = addressDataList.get(4);
+                System.out.println(phoneNumber + " " + expectedPhoneNumber);
+                softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
+            }
+
+
+            softAssert.assertAll();
+            System.out.println("Address selected properly");
         }
-
-        else {
-            String landmark = paymentModePageObjects.getLandmarkfromAddress();
-            String landmarkValue = landmark.replace("Landmark: ", "");
-            System.out.println(landmark + "" + expectedLandmark);
-            softAssert.assertEquals(landmarkValue, expectedLandmark);
-
-            String city = paymentModePageObjects.getCity();
-            String expectedCity = addressDataList.get(3);
-            System.out.println(city + " " + expectedCity);
-            softAssert.assertEquals(city, expectedCity);
-
-            String phoneNumber = paymentModePageObjects.getPhoneNumber();
-            String expectedPhoneNumber = addressDataList.get(4);
-            System.out.println(phoneNumber + " " + expectedPhoneNumber);
-            softAssert.assertEquals(phoneNumber, expectedPhoneNumber);
-        }
-
-
-        softAssert.assertAll();
-        System.out.println("Address selected properly");
     }
 
 
     @Test(groups = {"Payments.verifyCODPaymentOption",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},dependsOnGroups = "Payments.verifySelectedAddressData")
+            CoreConstants.GROUP_REGRESSION},dependsOnMethods = "Payments.verifySelectedAddressData")
     public void verifyCODPaymentOption(){
-        paymentModePageObjects.selectPaymentOptionCOD();
-        sleep(3000);
-        String message = paymentModePageObjects.getTextFromCODConatainer();
-        Assert.assertTrue(message.equalsIgnoreCase("Keep cash at the time of delivery"));
-        System.out.println("COD payment option is selected");
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            paymentModePageObjects.selectPaymentOptionCOD();
+            sleep(3000);
+            String message = paymentModePageObjects.getTextFromCODConatainer();
+            Assert.assertTrue(message.equalsIgnoreCase("Keep cash at the time of delivery"));
+            System.out.println("COD payment option is selected");
+        }
     }
 
 
@@ -178,16 +187,18 @@ public class Payments extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             description = "Verify Proceed Payment Without Change Address",
-            dependsOnGroups = "Payments.verifyCODPaymentOption"  )
+            dependsOnMethods = "Payments.verifyCODPaymentOption"  )
     public void verifyProceedPayment(){
-        sleep(3000);
-        paymentModePageObjects.clickOnPayTopButton();
-        sleep(5000);
-        String windowHandle = androidDriver.getWindowHandle();
-        androidDriver.switchTo().window(windowHandle);
-        String currentPage = androidDriver.getCurrentUrl();
-        Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_THANKYOU));
-        System.out.println("Page successfully navigated to OrderSuccessful Page");
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            sleep(3000);
+            paymentModePageObjects.clickOnPayTopButton();
+            sleep(5000);
+            String windowHandle = androidDriver.getWindowHandle();
+            androidDriver.switchTo().window(windowHandle);
+            String currentPage = androidDriver.getCurrentUrl();
+            Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_THANKYOU));
+            System.out.println("Page successfully navigated to OrderSuccessful Page");
+        }
     }
 
 
@@ -196,20 +207,22 @@ public class Payments extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},enabled = true,
             description = "Verify Proceed Payment With Change Address",
-            dependsOnGroups = "Payments.verifyProductDataInPaymentsPage"  )
+            dependsOnMethods = "Payments.verifyProductDataInPaymentsPage"  )
     public void verifyChangeAddress(){
-        sleep(8000);
-        paymentModePageObjects.clickOnChangeAddress();
-        sleep(3000);
-        String windowHandle = androidDriver.getWindowHandle();
-        androidDriver.switchTo().window(windowHandle);
-        String currentPage = androidDriver.getCurrentUrl();
-        Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_ADDRESS));
-        selectAddress.clickOnShowMoreAddress();
-        selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(4));
-        sleep(3000);
-        checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
-        sleep(3000);
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            sleep(8000);
+            paymentModePageObjects.clickOnChangeAddress();
+            sleep(3000);
+            String windowHandle = androidDriver.getWindowHandle();
+            androidDriver.switchTo().window(windowHandle);
+            String currentPage = androidDriver.getCurrentUrl();
+            Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_ADDRESS));
+            selectAddress.clickOnShowMoreAddress();
+            selectAddress.selectAnAddress(selectAddress.getListOfVisibleAddress().get(4));
+            sleep(3000);
+            checkoutAddressPageObjects.clickOnProceedToPaymentBottomButton();
+            sleep(3000);
+        }
     }
 
 

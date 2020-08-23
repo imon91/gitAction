@@ -1,5 +1,6 @@
 package pageObjects;
 
+import coreUtils.BuildParameterKeys;
 import org.openqa.selenium.*;
 import utils.*;
 import io.appium.java_client.android.*;
@@ -10,12 +11,14 @@ public class LoginPageObjects extends AndroidBaseClass{
     private final AndroidDriver<WebElement> androidDriver;
     private final MyActions myActions;
     private final String packageName;
+    private String app;
 
     public LoginPageObjects(AndroidDriver<WebElement> androidDriver){
         switchFromWebToNative();
         this.androidDriver = androidDriver;
         myActions = new MyActions();
         packageName = getAppPackage();
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
     }
 
     private WebElement enterMobileNumberEditText;
@@ -38,22 +41,22 @@ public class LoginPageObjects extends AndroidBaseClass{
     /*--------------Actions-------------------*/
 
     private void enterMobileNumber(String mobileNumber){
-        enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/et_mobile_number']");
-        myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
+        enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
+        myActions.action_sendKeys(enterMobileNumberEditText, mobileNumber);
     }
 
     private void clickOnVerifyOtpButton(){
-        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_verify']");
+        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
         myActions.action_click(verifyOtpButton);
     }
 
     private void enterOtp(String otp){
-        enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/et_otp']");
+        enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
         myActions.action_sendKeys(enterOtpEditText,otp);
     }
 
     private void clickOnProceedButton(){
-        proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_button_proceed']");
+        proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
         myActions.action_click(proceedButton);
     }
 

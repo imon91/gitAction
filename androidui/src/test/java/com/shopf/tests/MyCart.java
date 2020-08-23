@@ -1,5 +1,6 @@
 package com.shopf.tests;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
@@ -32,12 +33,14 @@ public class MyCart extends AndroidBaseClass {
     private String suiteName;
     private ServiceRequestLayer serviceRequestLayer;
     private GetMyBagApiResponse getMyBagApiResponse;
+    private String app;
 
 
     @BeforeClass(alwaysRun = true)
     public void myCartBeforeClass(){
         System.out.println("MyCartBeforeClass is called");
         androidDriver = getBaseDriver();
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
         softAssert = new SoftAssert();
         myBagPageObjects = new MyBagPageObjects(androidDriver);
         itemContainer = myBagPageObjects.new ItemContainer(androidDriver);
@@ -47,11 +50,16 @@ public class MyCart extends AndroidBaseClass {
         serviceRequestLayer = new ServiceRequestLayer();
         getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         myBagPageObjects.createItemInMyBag(82513);
-        suiteName = "sanity";
+        suiteName = "regression";
         actionBarObjects.clickOnBagImageButton();
         sleep(5000);
         //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
-        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
+            //itemContainer.cancelInfoPopup();
+        }
         sleep(3000);
         System.setProperty("order_id",getMyBagApiResponse.getOrderIDfromMyCart());
     }
@@ -62,14 +70,16 @@ public class MyCart extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},dependsOnGroups = "Authentication.verifyAuthenticationWithValidCredentials")
     public void verifyMyCartPageURL(){
         String currentPage = androidDriver.getCurrentUrl();
-        Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_BAG));
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_BAG));
+        }
         System.out.println("MyBag page loaded successfully");
     }
 
 
     @Test(groups = {"MyCart.verifyItemCountOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnGroups = "Address.verifyMyCartPageURL")
+            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnMethods = "Address.verifyMyCartPageURL")
     public void verifyItemCountOnMyBag(){
         sleep(5000);
         System.out.println(androidDriver.getCurrentUrl());
@@ -82,7 +92,7 @@ public class MyCart extends AndroidBaseClass {
 
     @Test(groups = {"MyCart.verifyProductData",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnGroups = "MyCart.verifyItemCountOnMyBag")
+            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnMethods = "MyCart.verifyItemCountOnMyBag")
     public void verifyProductData() {
         Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
         int containersSize = itemContainer.getItemContainersSize();
@@ -95,7 +105,9 @@ public class MyCart extends AndroidBaseClass {
             System.out.println(itemContainer.getImageLink(i));
             System.out.println(itemContainer.getProductName(i));
             System.out.println(itemContainer.getProductVariantPrice(i));
-            System.out.println(itemContainer.getEarningsPerItemAmountText(i));
+            if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+                System.out.println(itemContainer.getEarningsPerItemAmountText(i));
+            }
             System.out.println(itemContainer.getOrderValuePerItemAmountText(i));
             System.out.println(itemContainer.getQuantity(i));
             System.out.println(itemContainer.getSize(i));
@@ -108,7 +120,7 @@ public class MyCart extends AndroidBaseClass {
                             itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
                         String productImage = itemContainer.getImageLink(i); //FrontEnd Image Link
                         String expectedProductImage = productDetailsMap.get(j).get(0); //BackEnd Image Link
-                        softAssert.assertEquals(productImage, expectedProductImage);
+                        //softAssert.assertEquals(productImage, expectedProductImage);
                         System.out.println(productImage + " " + expectedProductImage);
 
                         String productName = itemContainer.getProductName(i); //FrontEnd ProductName
@@ -121,10 +133,12 @@ public class MyCart extends AndroidBaseClass {
                         softAssert.assertEquals(productVariantPrice, expectedProductVariantPrice);
                         System.out.println(productVariantPrice + " " + expectedProductVariantPrice);
 
-                        String earnings = itemContainer.getEarningsPerItemAmountText(i); //FrontEnd EarningsPerItem
-                        String expectedEarnings = productDetailsMap.get(j).get(3); //BackEnd EarningsPerItem
-                        softAssert.assertEquals(earnings, expectedEarnings);
-                        System.out.println(earnings + " " + expectedEarnings);
+                        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+                            String earnings = itemContainer.getEarningsPerItemAmountText(i); //FrontEnd EarningsPerItem
+                            String expectedEarnings = productDetailsMap.get(j).get(3); //BackEnd EarningsPerItem
+                            softAssert.assertEquals(earnings, expectedEarnings);
+                            System.out.println(earnings + " " + expectedEarnings);
+                        }
 
                         String orderValue = itemContainer.getOrderValuePerItemAmountText(i); //FrontEnd OrderValuePerItem
                         String expectedOrderValue = productDetailsMap.get(j).get(4); //BackEnd OrderValuePerItem
@@ -151,7 +165,7 @@ public class MyCart extends AndroidBaseClass {
 
     @Test(groups = {"MyCart.verifyQuantityDataAfterIncrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyCart.verifyProductData")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnMethods = "MyCart.verifyProductData")
     public void verifyQuantityDataAfterIncrementFunctionalityOnMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
         for (int i = 0; i < containersSize ; i++) {
@@ -178,7 +192,7 @@ public class MyCart extends AndroidBaseClass {
 
     @Test(groups = {"MyCart.verifyQuantityDataAfterDecrementFunctionalityOnMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyCart.verifyQuantityDataAfterIncrementFunctionalityOnMyBag")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnMethods = "MyCart.verifyQuantityDataAfterIncrementFunctionalityOnMyBag")
     public void verifyQuantityDataAfterDecrementFunctionalityOnMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
         for (int i = 0; i < containersSize ; i++) {
@@ -205,7 +219,7 @@ public class MyCart extends AndroidBaseClass {
 
     @Test(groups = {"MyCart.verifySizeDataInMyBag",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnGroups = "MyCart.verifyQuantityDataAfterDecrementFunctionalityOnMyBag")
+            CoreConstants.GROUP_REGRESSION}, enabled = true, dependsOnMethods = "MyCart.verifyQuantityDataAfterDecrementFunctionalityOnMyBag")
     public void verifySizeDataInMyBag() {
         int containersSize = itemContainer.getItemContainersSize();
         System.out.println("List Of Item Containers is : " + containersSize);
@@ -241,7 +255,7 @@ public class MyCart extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "Verify Delete Item From MyBag",
-            dependsOnGroups = "MyCart.verifySizeDataInMyBag")
+            dependsOnMethods = "MyCart.verifySizeDataInMyBag")
     public void verifyDeleteItemFromMyBag() {
         sleep(5000);
         int itemCounterSize = itemContainer.getItemContainersSize();
@@ -270,35 +284,37 @@ public class MyCart extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "verify Sale Price",
-            dependsOnGroups = "MyCart.verifyDeleteItemFromMyBag")
+            dependsOnMethods = "MyCart.verifyDeleteItemFromMyBag")
     public void verifySalePriceData() {
-        int containersSize = itemContainer.getItemContainersSize();
-        Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
-        for (int i = 0; i < containersSize; i++) {
-            for (int j = 0; j < productDetailsMap.size(); j++) {
-                if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
-                    if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
-                            itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
-                        int min = Integer.parseInt(productDetailsMap.get(j).get(6)), max = Integer.parseInt(productDetailsMap.get(j).get(7));
-                        System.out.println(min + " " + max);
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            int containersSize = itemContainer.getItemContainersSize();
+            Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
+            for (int i = 0; i < containersSize; i++) {
+                for (int j = 0; j < productDetailsMap.size(); j++) {
+                    if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                        if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
+                                itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
+                            int min = Integer.parseInt(productDetailsMap.get(j).get(6)), max = Integer.parseInt(productDetailsMap.get(j).get(7));
+                            System.out.println(min + " " + max);
 
-                        int price = itemContainer.givingRandomSalePrice(i,min,max);
-                        sleep(4000);
-                        Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
-                        for (int k = 0; k < productDetailsMap.size(); k++) {
-                            if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap_new.get(k).get(1)) &&
-                                    itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap_new.get(k).get(9))) {
-                                int expectedPrice = (int) Float.parseFloat(productDetailsMap_new.get(k).get(5));
-                                System.out.println(price+" "+expectedPrice);
-                                softAssert.assertEquals(price, expectedPrice);
+                            int price = itemContainer.givingRandomSalePrice(i, min, max);
+                            sleep(4000);
+                            Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
+                            for (int k = 0; k < productDetailsMap.size(); k++) {
+                                if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap_new.get(k).get(1)) &&
+                                        itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap_new.get(k).get(9))) {
+                                    int expectedPrice = (int) Float.parseFloat(productDetailsMap_new.get(k).get(5));
+                                    System.out.println(price + " " + expectedPrice);
+                                    softAssert.assertEquals(price, expectedPrice);
+                                }
                             }
                         }
                     }
                 }
             }
+            softAssert.assertAll();
+            System.out.println("SalePriceData is updated properly");
         }
-        softAssert.assertAll();
-        System.out.println("SalePriceData is updated properly");
     }
 
 
@@ -308,28 +324,32 @@ public class MyCart extends AndroidBaseClass {
             description = "Verify Applying Shipping Charges From MyBag",
             dependsOnMethods = "MyCart.verifySalePriceData")
     public void verifyApplyingShippingChargesData() {
-        sleep(5000);
-        int shippingCharges = 100;
-        creditsAndCoupons.applyShippingCharges(""+shippingCharges);
-        sleep(5000);
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            sleep(5000);
+            int shippingCharges = 100;
+            creditsAndCoupons.applyShippingCharges("" + shippingCharges);
+            sleep(5000);
 
-        List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
-        int expectedDeliveryCharges = chargesList.get(4);
-        System.out.println(shippingCharges+""+expectedDeliveryCharges);
-        Assert.assertEquals(shippingCharges,expectedDeliveryCharges);
+            List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
+            int expectedDeliveryCharges = chargesList.get(4);
+            System.out.println(shippingCharges + "" + expectedDeliveryCharges);
+            Assert.assertEquals(shippingCharges, expectedDeliveryCharges);
+        }
     }
 
 
     @Test(groups = {"MyCart.verifyTotalEarningsandOrderValueData",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnGroups = "MyCart.verifyApplyingShippingChargesData")
+            CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnMethods = "MyCart.verifyApplyingShippingChargesData")
     public void verifyTotalEarningsandOrderValueData() {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
 
-        int totalEarnings = Integer.parseInt(creditsAndCoupons.getYourTotalEarningsAmount().replaceAll(",", ""));
-        int expectedTotalEarnings = chargesList.get(1);
-        softAssert.assertEquals(totalEarnings, expectedTotalEarnings);
-        System.out.println("Total Earnings is working properly");
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            int totalEarnings = Integer.parseInt(creditsAndCoupons.getYourTotalEarningsAmount().replaceAll(",", ""));
+            int expectedTotalEarnings = chargesList.get(1);
+            softAssert.assertEquals(totalEarnings, expectedTotalEarnings);
+            System.out.println("Total Earnings is working properly");
+        }
 
         int orderValue = Integer.parseInt(creditsAndCoupons.getCartTotalValue().replaceAll(",", ""));
         int expectedOrderValue = chargesList.get(0);
@@ -343,7 +363,7 @@ public class MyCart extends AndroidBaseClass {
 
     @Test(groups = {"MyCart.verifyContinueShopping",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},dependsOnGroups = "MyCart.verifyTotalEarningsandOrderValueData")
+            CoreConstants.GROUP_REGRESSION},dependsOnMethods = "MyCart.verifyTotalEarningsandOrderValueData")
     public void verifyContinueShopping(){
 //        myBagPageObjects.clickOnContinueShoppingButton();
 //        String activity = androidDriver.currentActivity();
@@ -365,14 +385,16 @@ public class MyCart extends AndroidBaseClass {
     public void myBagAfterClass(){
         System.out.println("MyBagAfterClass is called");
         sleep(5000);
-        switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
         sleep(3000);
         String windowHandle = androidDriver.getWindowHandle();
         androidDriver.switchTo().window(windowHandle);
         myBagPageObjects.clickOnPlaceOrderButton();
         sleep(3000);
         String currentPage = androidDriver.getCurrentUrl();
-        Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_ADDRESS));
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_CHECKOUT_ADDRESS));
+        }
         System.out.println("Control navigates to Address page");
     }
 

@@ -37,12 +37,14 @@ public class MyBag extends AndroidBaseClass {
     private GetMyBagApiResponse getMyBagApiResponse;
     private String suiteName;
     private SoftAssert softAssert;
+    private String app;
 
 
     @BeforeClass(alwaysRun = true)
     public void myBagBeforeClass() throws Exception {
         System.out.println("MyBagBeforeClass is called");
         androidDriver = getBaseDriver();
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
         softAssert = new SoftAssert();
         actionBarObjects = new ActionBarObjects(androidDriver);
         //actionBarObjects.clickOnBagImageButton();
@@ -63,14 +65,19 @@ public class MyBag extends AndroidBaseClass {
         myActions = new MyActions();
         androidScriptRouter = new AndroidScriptRouter();
         suiteName = "sanity";
-        myBagPageObjects.createItemInMyBag(82513);
+        //myBagPageObjects.createItemInMyBag(82513);
         // This Block is responsible to get the control from anywhere to MyBag
-        actionBarObjects.clickOnBagImageButton();
+        //actionBarObjects.clickOnBagImageButton();
         sleep(5000);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         // This Block is responsible to get the control from anywhere to MyBag
         //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
-        //switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
+            //itemContainer.cancelInfoPopup();
+        }
         sleep(5000);
     }
 
