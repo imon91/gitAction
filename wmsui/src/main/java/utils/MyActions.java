@@ -14,7 +14,11 @@ public class MyActions extends WmsBaseClass {
         }catch (StaleElementReferenceException e){
             action_click(element);
         }
+        catch (NoSuchElementException e){
+            System.out.println(e);
+        }
         catch (Exception e){
+            action_click(element);
             System.out.println(e);
         }
 
@@ -48,5 +52,9 @@ public class MyActions extends WmsBaseClass {
     public void action_select_index(WebElement element, int index){
         Select select = new Select(element);
         select.selectByIndex(index);
+    }
+
+    public void action_clear_text(WebElement element){
+        element.clear();
     }
 }
