@@ -77,7 +77,7 @@ configurations {
 test{
     useTestNG(){
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger","User"])
     }
 }
 
@@ -88,10 +88,14 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger","User"])
         def smoke = project.hasProperty("Smoke")
         def regression = project.hasProperty("Reg")
         def sanity = project.hasProperty("Sanity")
+        def search = project.hasProperty("Search")
+        def pdp = project.hasProperty("PDP")
+        def plp = project.hasProperty("PLP")
+
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -102,6 +106,18 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         if (sanity){
             suites "src/test/resources/mySuites/sanitySuite.xml"
         }
+        if(regression){
+            if(search){
+                suites  "src/test/resources/mySuites/searchSuite.xml";
+            }
+            else if (pdp){
+                suites "src/test/resources/mySuites/pdpSuite.xml"
+            }
+            else if (plp){
+                suites "src/test/resources/mySuites/plpSuite.xml"
+            }
+        }
+
     }
 }
 

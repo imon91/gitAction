@@ -23,11 +23,13 @@ public class ShopUpPostMan {
     private String cookie;
     private String module;
     private String cookieKey;
+    private String user;
 
     public ShopUpPostMan(String module){
         this.module = module;
         String app = System.getProperty(BuildParameterKeys.KEY_APP);
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+        user = System.getProperty(BuildParameterKeys.KEY_USER);
 //        String app = CoreConstants.APP_WMS;
 //        String env = CoreConstants.ENV_STAGE;
 
@@ -216,12 +218,23 @@ public class ShopUpPostMan {
         System.out.println("Base-URL is : "+baseURL);
         RestAssured.baseURI = baseURL;
         if(module.equalsIgnoreCase(CoreConstants.MODULE_ANDROID_UI)){
+            try
+            {
+                if (user.equalsIgnoreCase(CoreConstants.MOKAM_USER)){
+                patch = EndPoints.COMMERCE_SEND_USER_OTP;
+                System.out.println("Final URL : "+baseURL+patch);
+                filePath1 = CoreFileUtils.commerceSendOtpSRJsonPath;
+                System.out.println(filePath1);
+                filePath2 = CoreFileUtils.commerceVerifyOtpSRJsonPath;
+                System.out.println(filePath2);}
+            }
+            catch(Exception e){
             patch = EndPoints.COMMERCE_SEND_USER_OTP;
             System.out.println("Final URL : "+baseURL+patch);
             filePath1 = CoreFileUtils.commerceSendOtpJsonPath;
             System.out.println(filePath1);
             filePath2 = CoreFileUtils.commerceVerifyOtpJsonPath;
-            System.out.println(filePath2);
+            System.out.println(filePath2);}
         }else if(module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)){
             patch = EndPoints.WMS.USER_SIGN_IN;
             System.out.println("Final URL : "+baseURL+patch);

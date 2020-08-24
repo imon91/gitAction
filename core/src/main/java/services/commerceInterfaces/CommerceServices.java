@@ -24,4 +24,6 @@ public interface CommerceServices {
 
     public GetMyOrderApiResponse getControlOverMyOrderApiResponse();
 
+    public GetSalesRepApiResponse getControlOverSalesRepApiResponse();
+
 }

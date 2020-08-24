@@ -1,13 +1,12 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
-import services.commerceMethods.GetMyBagApiResponse;
+import services.commerceMethods.*;
 import utils.*;
 import java.util.*;
 
@@ -237,7 +236,12 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfOrderValuePerItem(){
-            String yourOrderValuePerItemXPath = containerParentPath+"/div[2]//div[4]/span[2]";
+            String yourOrderValuePerItemXPath = null;
+            if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+                yourOrderValuePerItemXPath = containerParentPath + "/div[2]//div[4]/span[2]";
+            } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                yourOrderValuePerItemXPath = containerParentPath + "//div[2]//div[3]//span[2]";
+            }
             List<WebElement> yourOrderValuePerItemList = androidDriver.findElements(By.xpath(yourOrderValuePerItemXPath));
             return yourOrderValuePerItemList;
         }
@@ -613,7 +617,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
     @FindBy(xpath = "(//a[@href='/checkout/address']/button)[2]")
     private WebElement placeOrderButtonReseller;
 
-    @FindBy(xpath = "//div[@class='unicornButton___G3iNs']//button")
+    @FindBy(xpath = "//div[@class='proceed-checkout text-center place-order']//button")
     private WebElement placeOrderButtonUnicorn;
 
 
