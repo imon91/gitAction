@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
 
@@ -191,6 +192,7 @@ public class ShopUpPostMan {
 
 
     public Response getCall(String path){
+        HashMap<String,String> headers = new HashMap();
         String cookie = null;
         try{
             cookie = CookieManager.getValueOfKey(cookieKey);
@@ -203,12 +205,21 @@ public class ShopUpPostMan {
         System.out.println("Base-URL is : "+baseURL);
         RestAssured.baseURI = baseURL;
         System.out.println("Final URL is : "+baseURL+path);
-        Response  response = given().header("Content-Type","application/json")
-                .header("cookie",cookie)
-                .header("cookie",sessionCookie)
-                .when()
-                .get(path);
-        return response;
+        if(module == CoreConstants.MODULE_WMS_UI) {
+            Response response = given().header("Content-Type", "application/json")
+                    .header("cookie", cookie)
+                    .header("cookie", sessionCookie)
+                    .when()
+                    .get(path);
+            return response;
+        }
+        else{
+            Response response = given().header("Content-Type", "application/json")
+                    .header("cookie", cookie)
+                    .when()
+                    .get(path);
+            return response;
+        }
     }
 
 
