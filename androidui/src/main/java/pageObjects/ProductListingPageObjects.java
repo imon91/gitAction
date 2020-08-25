@@ -1,6 +1,7 @@
 package pageObjects;
 
 
+import coreUtils.*;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
@@ -25,6 +26,7 @@ public class ProductListingPageObjects extends AndroidBaseClass {
     public String plpView, view_type;
     private GetCommerceApiResponse getCommerceApiResponse;
     private GetPLPModuleApiResponse getPLPModuleApiResponse;
+    private String host;
 
 
     public ProductListingPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -35,6 +37,7 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         serviceRequestLayer = new ServiceRequestLayer();
         getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
         getPLPModuleApiResponse = serviceRequestLayer.getControlOverPLPModuleApiResponse();
+        host = System.getProperty(BuildParameterKeys.KEY_HOST);
 
         packageName = getAppPackage();
         try {
@@ -120,7 +123,7 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         List<WebElement> itemImages = null;
         if (plpView.equalsIgnoreCase(OLD_PLP_VIEW)) {
             itemImages =
-                    xpathListSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/image']");
+                    xpathListSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/ecommerce_image']");
         } else if (plpView.equalsIgnoreCase(NEW_PLP_VIEW)) {
             itemImages =
                     xpathListSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/list_product_image']");
@@ -394,19 +397,20 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
 
             // Scroll into View that product by its name and perform click on that
+            if(host.equalsIgnoreCase("Local")){
             if (plpView.equalsIgnoreCase(OLD_PLP_VIEW)) {
                 System.out.println(androidDriver.findElementByAndroidUIAutomator(
                         "new UiScrollable(new UiSelector().resourceId(\"" + packageName + ":id/recycler_feed_item\")).scrollIntoView("
                                 + "new UiSelector().text(\"" + productResult.getName() + "\"))").getText());
-                // Click on that Item
-                clickOnProductItem(getItemImages().get(productIndex));
             } else if (plpView.equalsIgnoreCase(NEW_PLP_VIEW)) {
                 System.out.println(androidDriver.findElementByAndroidUIAutomator(
                         "new UiScrollable(new UiSelector().resourceId(\"" + packageName + ":id/recycler_feed_fragment\")).scrollIntoView("
                                 + "new UiSelector().text(\"" + productResult.getName() + "\"))").getText());
+            }
+            }
                 // Click on that Item
                 clickOnProductItem(getItemImages().get(productIndex));
-            }
+
         } catch (Exception e) {
             System.out.println("Exception At SelectValidProductToPDP : Updating ProductDetails to DynamicData");
             System.out.println(e);
