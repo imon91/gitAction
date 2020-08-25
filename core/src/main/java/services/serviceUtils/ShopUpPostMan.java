@@ -264,15 +264,15 @@ public class ShopUpPostMan {
         try{
             Object obj1 = new JSONParser().parse(new FileReader(filePath1));
             JSONObject jo1 = (JSONObject) obj1;
-            System.out.println("Body is : "+jo1);
+            //System.out.println("Body is : "+jo1);
             response = given().header("Content-Type","application/json")
                     .body(jo1).post(patch);
             response.then().log().all();
             if(module.equalsIgnoreCase(CoreConstants.MODULE_ANDROID_UI)){
-                System.out.println("COMMERCE_VERIFY_OTP URL : "+baseURL+EndPoints.COMMERCE_VERIFY_OTP);
+                //System.out.println("COMMERCE_VERIFY_OTP URL : "+baseURL+EndPoints.COMMERCE_VERIFY_OTP);
                 Object obj2 = new JSONParser().parse(new FileReader(filePath2));
                 JSONObject jo2 = (JSONObject) obj2;
-                System.out.println("Body is : "+jo2);
+                //System.out.println("Body is : "+jo2);
                 response = given().header("Content-Type","application/json")
                         .body(jo2).post(EndPoints.COMMERCE_VERIFY_OTP);
                 response.then().log().all();
