@@ -133,12 +133,17 @@ public class PLP extends AndroidBaseClass {
     public void verifyApplyingFilterOnPLP(String filterCategory,String filterItem) {
         System.out.println("Verify applying filter on plp was called");
         productListingPageObjects.clickOnFilterButton();
-        Random random1 = new Random();
-        int randomCategory = random1.nextInt(productFilterPageObjects.getListOfFilterNames().size());
-        // Select Some Random Filter Parent
-                        productFilterPageObjects.
-                                clickOnFilterName(productFilterPageObjects.
-                                        getListOfFilterNames().get(randomCategory));
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            productFilterPageObjects.clickOnFilterName(productFilterPageObjects.getListOfFilterNames().get(1));
+            productFilterPageObjects.clickOnFilterItemByIndex(productFilterPageObjects.getListOfFilterItemCheckBoxes().get(0));
+            productFilterPageObjects.clickOnApplyFilter();
+        } else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            Random random1 = new Random();
+            int randomCategory = random1.nextInt(productFilterPageObjects.getListOfFilterNames().size());
+            // Select Some Random Filter Parent
+            productFilterPageObjects.
+                    clickOnFilterName(productFilterPageObjects.
+                            getListOfFilterNames().get(randomCategory));
             //productFilterPageObjects.clickOnFilterNameByValue(filterCategory);
 
             // select Random Item
@@ -151,6 +156,7 @@ public class PLP extends AndroidBaseClass {
                                         getListOfFilterItemCheckBoxes().get(randomValue));
             // Click on Apply Filter button
             productFilterPageObjects.clickOnApplyFilter();
+        }
     }
 
 

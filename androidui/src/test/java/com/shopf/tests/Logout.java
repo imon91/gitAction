@@ -1,5 +1,6 @@
 package com.shopf.tests;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.WebElement;
@@ -30,6 +31,10 @@ public class Logout extends AndroidBaseClass {
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         toolBarObjects = new ToolBarObjects(androidDriver);
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            myActions.clickOnHardKeyBack();
+            myActions.clickOnHardKeyBack();
+        }
     }
 
 

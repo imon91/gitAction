@@ -3,9 +3,11 @@ package com.shopf.tests;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.BottomNavigationObjects;
 import pageObjects.HomePageObjects;
+import utils.WAPConstants;
 import utils.WebAppBaseClass;
 
 
@@ -45,16 +47,29 @@ public class Authentication extends WebAppBaseClass {
 
 
 
+    @Test(  groups = {"Authentication.verifyAuthenticationUrl",
+            CoreConstants.GROUP_SMOKE,
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verify URL of Authentication page")
+    public void verifyAuthenticationUrl(){
+        System.out.println("verifyAuthentication is called");
+        bottomnavigationobject.clickOnBottomBarMyOrdersIcon();
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.contains(WAPConstants.AUTHENTICATION));
+        System.out.println("Control is in Authentication page");
+    }
+
+
+
     @Test(  groups = {"Authentication.verifyAuthenticationWithValidCredentials",
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Authentication With Valid Credentials",
-            dataProvider = "getUserAuthenticationData" )
+            dataProvider = "getUserAuthenticationData", dependsOnMethods = "verifyAuthenticationUrl")
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
-        System.out.println("verifyAuthentication is called");
-        bottomnavigationobject.clickOnBottomBarMyOrdersIcon();
-        homepageobject.login("1877755590","666666");
+        homepageobject.login(mobileNumber, otp);
         sleep(1000);
     }
 

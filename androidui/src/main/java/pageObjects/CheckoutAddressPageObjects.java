@@ -1,5 +1,7 @@
 package pageObjects;
 
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import org.openqa.selenium.By;
@@ -34,6 +36,9 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[1]")
     private WebElement cartValueLabelText;
 
+    @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[7]")
+    private WebElement cartValue;
+
     @FindBy(xpath = "//div[@class='summary-container']/div[2]//p/span[3]/span[2]")
     private WebElement totalItemsCountValue;
 
@@ -43,9 +48,16 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "(//button[contains(text(),'Proceed to Payment')])[2]")
     private WebElement proceedToPaymentButtonBottom;
 
+    @FindBy(xpath = "//div[@class='proceed-checkout text-center']//button")
+    private WebElement confirmButtonBottom;
+
 
     public String getCartValueLabelText(){
         return myActions.action_getText(cartValueLabelText);
+    }
+
+    public String getCartValue(){
+        return myActions.action_getText(cartValue);
     }
 
     public String getTotalItemsCountValue(){
@@ -57,7 +69,11 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     }
 
     public void clickOnProceedToPaymentBottomButton(){
-        myActions.action_click(proceedToPaymentButtonBottom);
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            myActions.action_click(proceedToPaymentButtonBottom);
+        }else if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            myActions.action_click(confirmButtonBottom);
+        }
     }
 
 
@@ -290,15 +306,25 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
                 List<Integer> codNotAvailable = getCommerceApiResponse.getCodNotAvailableItemsFromShoppingCart();
                 int size = codNotAvailable.size();
                 if (size != 0) {
-                    for (int i = productsSize; i > 0; i--) {
-                        for (int j = size - 1; j >= 0; j--) {
-                            int productIndex = (codNotAvailable.get(j));
-                            productIndex++;
-                            if (i == productIndex) {
-                                clickOnEstimatedDeliveryItem(getListOfEstimatedDeliveryItemDelete().get(i));
-                                sleep(3500);
-                            }
-                        }
+//                    for (int i = productsSize; i > 0; i--) {
+//                        for (int j = size - 1; j >= 0; j--) {
+//                            int productIndex = (codNotAvailable.get(j));
+//                            productIndex++;
+//                            if (i == productIndex) {
+//                                WebElement element = getListOfEstimatedDeliveryItemDelete().get(i);
+//                                JavascriptExecutor jse = (JavascriptExecutor)androidDriver;
+//                                jse.executeScript("arguments[0].click()",element);
+//                                sleep(3500);
+//                            }
+//                        }
+//                    }
+                    for(int i=size-1;i>=0;i--)
+                    {
+                        int index =  codNotAvailable.get(i);
+                        WebElement element = getListOfEstimatedDeliveryItemDelete().get(index);
+                        JavascriptExecutor jse = (JavascriptExecutor)androidDriver;
+                        jse.executeScript("arguments[0].click()",element);
+
                     }
                 }
             }

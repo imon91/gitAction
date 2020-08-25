@@ -3,11 +3,10 @@ package pageObjects;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import services.commerceMethods.*;
-import services.responseModels.commerceModels.MyOrderModel;
+import services.responseModels.commerceModels.*;
 import utils.*;
 import java.util.*;
 
@@ -125,6 +124,11 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
         return getMyOrderApiResponse.getOrderDetailsInActiveTab(k);
     }
 
+    public MyOrderDetailsModel getResultsOfMyOrderDetailsApi(String orderId)
+    {
+        return getMyOrderApiResponse.getOrderDetailsOfOrderId(orderId);
+    }
+
     public void findTheOrderId(String orderId)
     {
         try {
@@ -152,7 +156,50 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
 
     public void clickOnLoadMore()
     {
-        scrollToOrderID("Load More");
+        myActions.action_click(scrollToOrderID("Load More"));
+    }
+
+    public List<String> orderPaymentContainer(int purchaseValue,int delivery,int advance,int total)
+    {
+        scrollAtOrderDetailPage("Customer Details");
+        sleep(4000);
+        List<String> paymentContainer = new ArrayList<>();
+        String totalPurchaseValueTK = myActions.action_getText(xpathSetter("//android.view.View[@text='Tk "+purchaseValue+"']"));
+        String totalPurchaseValue = totalPurchaseValueTK.replaceAll("[^0-9]","");
+        String deliveryChargeTK =myActions.action_getText(xpathSetter("//android.view.View[@text='Tk "+delivery+"']"));
+        String deliveryCharge =   deliveryChargeTK.replaceAll("[^0-9]","");
+        String advancePaidTK=myActions.action_getText(xpathSetter("//android.view.View[@text='- Tk "+advance+"']"));
+        String advancePaid = advancePaidTK.replaceAll("[^0-9]","");
+        String totalOrderSummaryTk = myActions.action_getText(xpathSetter("//android.view.View[@text='Tk "+total+"']"));
+        String totalOrderSummary=totalOrderSummaryTk.replaceAll("[^0-9]","");
+        paymentContainer.add(totalPurchaseValue);
+        paymentContainer.add(deliveryCharge);
+        paymentContainer.add(advancePaid);
+        paymentContainer.add(totalOrderSummary);
+        return paymentContainer;
+
+    }
+
+    public List<String> addressDetailContainer(String Name,String Address)
+    {
+        scrollAtOrderDetailPage("Payment Method");
+        sleep(2000);
+
+        List<String> customerDetailContainerUI = new ArrayList<>();
+        String name = myActions.action_getText(xpathSetter("//android.view.View[@text='"+Name+"']"));
+        String address = myActions.action_getText(xpathSetter("//android.view.View[@text='"+Address+"']"));
+
+
+        customerDetailContainerUI.add(name);
+        customerDetailContainerUI.add(address);
+        return customerDetailContainerUI;
+    }
+    public WebElement scrollAtOrderDetailPage(String text)
+    {
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"content\")).scrollIntoView("
+                        + "new UiSelector().text(\""+text+ "\"))"));
+        return element;
     }
 
 
