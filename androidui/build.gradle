@@ -60,9 +60,11 @@ dependencies {
     implementation group: 'io.cucumber', name: 'gherkin', version: '5.1.0'
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
     implementation group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
-    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    // https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
     // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
     implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
+
 
     // Including Core module as dependency
     implementation project(path : ':core')
@@ -90,15 +92,21 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         def smoke = project.hasProperty("Smoke")
         def regression = project.hasProperty("Reg")
         def sanity = project.hasProperty("Sanity")
+        def mybag = project.hasProperty("Bag")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
         }
         if(regression){
-            suites "src/test/resources/mySuites/regressionSuite.xml"
+            //suites "src/test/resources/mySuites/regressionSuite.xml"
         }
         if (sanity){
             suites "src/test/resources/mySuites/sanitySuite.xml"
+        }
+        if (regression){
+            if (mybag){
+                suites "src/test/resources/mySuites/myBagRegressionSuite.xml"
+            }
         }
     }
 }

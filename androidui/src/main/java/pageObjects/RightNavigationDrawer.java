@@ -1,5 +1,7 @@
 package pageObjects;
 
+import coreUtils.BuildParameterKeys;
+import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
@@ -63,9 +65,13 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='4']")
     private WebElement navigationItemMyShop;
 
-    // NavigationItem Change Language
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Change Language']")
-    private WebElement navigationItemChangeLanguage;
+    // NavigationItem Change Language Mokam
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=5]")
+    private WebElement navigationItemChangeLanguageMokam;
+
+    // NavigationItem Change Language Reseller
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=6]")
+    private WebElement navigationItemChangeLanguageReseller;
 
     // NavigationItem Reseller Policy
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reseller Policy']")
@@ -92,9 +98,13 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Contact us']")
     private WebElement navigationItemContactUs;
 
-    // NavigationItem Logout
+    // NavigationItem Logout Reseller
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='13']")
-    private WebElement navigationItemLogout;
+    private WebElement navigationItemLogoutReseller;
+
+    // NavigationItem Logout Mokam
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='9']")
+    private WebElement navigationItemLogoutMokam;
 
 
 
@@ -132,7 +142,11 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     }
 
     public void clickOnItemChangeLanguage(){
-        myActions.action_click(navigationItemChangeLanguage);
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            myActions.action_click(navigationItemChangeLanguageMokam);
+        }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            myActions.action_click(navigationItemChangeLanguageReseller);
+        }
     }
 
     public void clickOnItemResellerPolicy(){
@@ -160,7 +174,19 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     }
 
     public void clickOnItemLogout(){
-        myActions.action_click(navigationItemLogout);
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            myActions.action_click(navigationItemLogoutReseller);
+        }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            myActions.action_click(navigationItemLogoutMokam);
+        }
+    }
+
+    public void selectEnglish(){
+        myActions.action_click(xpathSetter("//android.widget.RadioButton[@text='English']"));
+    }
+
+    public void saveLanguage(){
+        myActions.action_click(xpathSetter("//android.widget.TextView[@text='SAVE']"));
     }
 
 

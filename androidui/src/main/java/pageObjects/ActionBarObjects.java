@@ -1,5 +1,6 @@
 package pageObjects;
 
+import coreUtils.BuildParameterKeys;
 import org.openqa.selenium.*;
 import utils.*;
 import io.appium.java_client.android.*;
@@ -10,12 +11,14 @@ public class ActionBarObjects extends AndroidBaseClass {
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
+    private String app;
 
     public ActionBarObjects(AndroidDriver<WebElement> androidDriver){
         switchFromWebToNative();
         this.androidDriver = androidDriver;
         myActions = new MyActions();
        packageName = getAppPackage();
+       app = System.getProperty(BuildParameterKeys.KEY_APP);
     }
 
     private WebElement hamburgerMenuIcon;
@@ -44,12 +47,12 @@ public class ActionBarObjects extends AndroidBaseClass {
     }
 
     public void clickOnSearchImageButton(){
-        searchImageButton = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/searchButton']");
+        searchImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/searchButton']");
         myActions.action_click(searchImageButton);
     }
 
     public void clickOnBagImageButton(){
-        bagImageButton = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/cartButton']");
+        bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cartButton']");
         myActions.action_click(bagImageButton);
     }
 
@@ -59,7 +62,7 @@ public class ActionBarObjects extends AndroidBaseClass {
     }
 
     public void clickOnUserProfileImageButton(){
-        profileImageButton = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/profile']");
+        profileImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/profile']");
         myActions.action_click(profileImageButton);
     }
 

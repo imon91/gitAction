@@ -15,10 +15,10 @@ public class MyActions extends WebAppBaseClass{
             element.click();
         }catch (ElementClickInterceptedException e){
             sleep(2000);
-            element.click();
+            action_click(element);
         }catch (StaleElementReferenceException e){
             sleep(2000);
-            element.click();
+            action_click(element);
         }
     }
 

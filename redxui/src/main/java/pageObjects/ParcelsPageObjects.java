@@ -1,5 +1,6 @@
 package pageObjects;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import utils.*;
 
@@ -19,7 +20,9 @@ public class ParcelsPageObjects extends RedXBaseClass
         /*----------ELements----------*/
 
         private WebElement backButton;
+        private WebElement pageTitle;
         private WebElement searchButton;
+        private WebElement parcelDetailsTitle;
 
         /*----------Actions----------*/
 
@@ -33,6 +36,18 @@ public class ParcelsPageObjects extends RedXBaseClass
         {
             searchButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView[@index='0']");
             myActions.action_click(searchButton);
+        }
+
+        public String getPageTitle()
+        {
+            pageTitle = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[@index='1']");
+            return myActions.action_getText(pageTitle);
+        }
+
+        public String getParcelDetailsTitle()
+        {
+            parcelDetailsTitle = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView[@index='0']");
+            return myActions.action_getText(parcelDetailsTitle);
         }
     }
 
@@ -49,22 +64,35 @@ public class ParcelsPageObjects extends RedXBaseClass
 
         /*----------Actions----------*/
 
-        public void clickNextMonthButton()
+        public void clickPreviousMonthButton()
         {
             nextMonthButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[@index='0']");
             myActions.action_click(nextMonthButton);
         }
 
-        public void clickPreviousMonthButton()
+        public void clickNextMonthButton()
         {
             previousMonthButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView[@index='0']");
             myActions.action_click(previousMonthButton);
         }
 
-        public void getCurrentMonth()
+        public String getCurrentMonth()
         {
             currentMonth = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='0']/android.view.ViewGroup[2]/android.view.ViewGroup[1]/android.widget.TextView");
-            myActions.action_getText(currentMonth);
+            return myActions.action_getText(currentMonth);
+        }
+
+        /*----------Functions----------*/
+
+        public void chooseMonthByText(String month)
+        {
+            System.out.println("Required Month: " + month);
+            while(!getCurrentMonth().equals(month))
+            {
+                System.out.println("Current Month: " + getCurrentMonth() + " ");
+                clickPreviousMonthButton();
+                sleep(1000);
+            }
         }
     }
 
@@ -123,7 +151,14 @@ public class ParcelsPageObjects extends RedXBaseClass
 
         public void clickParcelByIndex(int index)
         {
-            System.out.println(index+1);
+            String date = myActions.action_getText(childXpathSetter(parcelsList,index,"//android.widget.TextView[@index='0']"));
+            try {
+                PropertyReader.setValue(PropertyReader.Keys.PARCEL_DATE,date);
+                System.out.println("Index: " + index);
+                System.out.println("Date :" + date);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             myActions.action_click(parcelsList.get(index));
         }
 

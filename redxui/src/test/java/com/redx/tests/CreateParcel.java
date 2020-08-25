@@ -3,6 +3,7 @@ package com.redx.tests;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.RedXBaseClass;
@@ -34,7 +35,9 @@ public class CreateParcel extends RedXBaseClass
     {
         System.out.println("Creating New Parcel");
         homePageObjects.clickDeliverYourParcelModule();
+        Assert.assertEquals(addParcelPageObjects.getPageTitle(),"Add parcel");
         addParcelPageObjects.addParcel();
+        Assert.assertEquals(homePageObjects.getToastMessage(),"1 parcels added");
     }
 
     @AfterClass(alwaysRun = true)

@@ -45,7 +45,6 @@ public class PurchaseOrderList extends WmsBaseClass {
         int i;
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(1000);
         purchaseOrderListModels = getWMSApiResponse.getPurchaseOrderList(1,30);
         System.out.println("List Size: " + purchaseOrderListModels.size());
 

@@ -34,16 +34,12 @@ public class PackageDetails extends WmsBaseClass {
         String pId = "135979";
         homePageObject.clickPackages();
         packagesPageObjects.clickPackageDetailsTab();
-        sleep(1000);
         packageDetailsTab.enterPackageID(pId);
-        sleep(1000);
         String binCode = packageDetailsTab.getBinCode();
         String code = binCode.substring(binCode.indexOf(':') + 2);
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickBinDetailsTab();
-        sleep(1000);
         warehouseBinDetailsTab.enterBinCodeBinDetails(code);
-        sleep(1000);
         int i, total = warehouseBinDetailsTab.getTotalProducts();
         for (i = 1; i <= total; i++) {
             String packages = warehouseBinDetailsTab.getPackageIds(i);

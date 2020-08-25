@@ -19,6 +19,8 @@ public class PLP extends AndroidBaseClass {
     private ProductListingPageObjects productListingPageObjects;
     private SortPageObjects sortPageObjects;
     private ProductFilterPageObjects productFilterPageObjects;
+    private SearchPageObjects searchPageObjects;
+    private ActionBarObjects actionBarObjects;
     private SoftAssert softAssert;
     private String suiteName;
     private AndroidScriptRouter androidScriptRouter;
@@ -32,21 +34,47 @@ public class PLP extends AndroidBaseClass {
         androidDriver = getBaseDriver();
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
         sortPageObjects = new SortPageObjects(androidDriver);
+        searchPageObjects = new SearchPageObjects(androidDriver);
+        actionBarObjects = new ActionBarObjects(androidDriver);
         softAssert = new SoftAssert();
         androidScriptRouter = new AndroidScriptRouter();
 //        String activityName = androidDriver.currentActivity();
 //        androidScriptRouter.getMeTheCurrentPage();
 //        androidScriptRouter.getTheControlHere(activityName,null);
         productFilterPageObjects = new ProductFilterPageObjects(androidDriver);
+
     }
 
 
     @Parameters("suite")
-    @BeforeTest(alwaysRun = true)
-    public void beforeTest(String testName)
+
+
+    @BeforeMethod(groups = {CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SMOKE,
+            CoreConstants.GROUP_SANITY},
+            description = "Before method for every test")
+    public void beforeMethod()
     {
-        suiteName=testName;
+        String productName="shirts";
+        actionBarObjects.clickOnSearchImageButton();
+        searchPageObjects.searchForTheGivenProduct(productName);
     }
+
+    @DataProvider(name = "getProductName")
+    public Object[][] getProductName(){
+        String searchTerm = null;
+        if(System.getProperty(BuildParameterKeys.KEY_APP)
+                .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            searchTerm = "Biscuit";
+        }else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                .equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            searchTerm = "Shirts";
+        }
+        return new Object[][]{
+                {searchTerm}
+        };
+    }
+
+
 
 
     @Test(  groups = {"PLP.verifyApplyingSortOnPLP",
@@ -55,8 +83,9 @@ public class PLP extends AndroidBaseClass {
             CoreConstants.GROUP_REGRESSION},
             enabled = true,
             description = "Verifies Applying Sort On The Product List",
+            priority = 2,
             dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
-    public void verifyApplyingSortOnPLP(){
+    public void verifyApplyingSortOnPLP(){ System.out.println("Verify applying sort was called");
         productListingPageObjects.clickOnSortButton();
         // Get the value from sort key
         System.out.println("Current Activity at PLP on Sort is : "+androidDriver.currentActivity());
@@ -93,22 +122,28 @@ public class PLP extends AndroidBaseClass {
     }
 
 
-
     @Test(  groups = {"PLP.verifyApplyingFilterOnPLP",
             CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
             CoreConstants.GROUP_REGRESSION},
             dataProvider = "dataForApplyFilter",
             description = "Verifies Applying Filter On The PLP Page",
-            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"   )
+            priority = 1)
+
     public void verifyApplyingFilterOnPLP(String filterCategory,String filterItem) {
+        System.out.println("Verify applying filter on plp was called");
         productListingPageObjects.clickOnFilterButton();
-        Random random1 = new Random();
-        int randomCategory = random1.nextInt(productFilterPageObjects.getListOfFilterNames().size());
-        // Select Some Random Filter Parent
-                        productFilterPageObjects.
-                                clickOnFilterName(productFilterPageObjects.
-                                        getListOfFilterNames().get(randomCategory));
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            productFilterPageObjects.clickOnFilterName(productFilterPageObjects.getListOfFilterNames().get(1));
+            productFilterPageObjects.clickOnFilterItemByIndex(productFilterPageObjects.getListOfFilterItemCheckBoxes().get(0));
+            productFilterPageObjects.clickOnApplyFilter();
+        } else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            Random random1 = new Random();
+            int randomCategory = random1.nextInt(productFilterPageObjects.getListOfFilterNames().size());
+            // Select Some Random Filter Parent
+            productFilterPageObjects.
+                    clickOnFilterName(productFilterPageObjects.
+                            getListOfFilterNames().get(randomCategory));
             //productFilterPageObjects.clickOnFilterNameByValue(filterCategory);
 
             // select Random Item
@@ -121,6 +156,7 @@ public class PLP extends AndroidBaseClass {
                                         getListOfFilterItemCheckBoxes().get(randomValue));
             // Click on Apply Filter button
             productFilterPageObjects.clickOnApplyFilter();
+        }
     }
 
 
@@ -128,8 +164,9 @@ public class PLP extends AndroidBaseClass {
             CoreConstants.GROUP_SMOKE},
             enabled = true,
             description = "Verifies Selecting Item On PLP",
-            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions" )
+            priority = 9)
     public void verifySelectingItemOnPLP(){
+        System.out.println("Verify selecting item on PLP");
         int productsCount = productListingPageObjects.getItemImages().size();
         System.out.println("Total Products are : "+productsCount);
         System.out.println("Current Activity at PLP on Listing is : "+androidDriver.currentActivity());
@@ -144,8 +181,9 @@ public class PLP extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY},
             enabled = true,
             description = "Verifies Selecting Item On PLP",
-            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
-    public void verifySelectingValidSizeItemOnPlpToPDP(){
+            priority = 10)
+            public void verifySelectingValidSizeItemOnPlpToPDP(){
+        System.out.println("Verify selecting valid size item on PLP to PDP");
         try {
             String searchTerm = PropertyReader.getValueOfKey(PropertyReader.Keys.SEARCH_TERM);
             productListingPageObjects.selectValidProductToPDP(searchTerm);
@@ -163,10 +201,11 @@ public class PLP extends AndroidBaseClass {
 
     @Test(  groups = {"PLP.verifyApplying/RemovingFilterOnPLP",
             CoreConstants.GROUP_SANITY},
-            enabled = false,
             description = "Verifies Applying / Removing Filter On The PLP Page",
-            dependsOnGroups = "Search.verifySearchFunctionalityWithoutSelectingSuggestions"  )
+            priority = 3)
+
     public void verifyApplyingAndRemovingFilterOnPLP(){
+        System.out.println("Verify Applying and removing Filter on PLP");
 
        String totalItem= productListingPageObjects.getTextOnTitleHeader();
         //adding filter
@@ -202,11 +241,14 @@ public class PLP extends AndroidBaseClass {
 
 
 
-    @Test(groups = {"PLP.Verify all data of products",
+    @Test(groups = {"PLP.Verify all data of products",CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
-            description = "Verify product dates in PLP page")
+            description = "Verify product dates in PLP page",
+            priority = 4,
+             dataProvider = "getProductName")
     public void verifyProductsDataInPLPWithoutFilter(String searchTerm) throws Exception {
-        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm);
+        System.out.println("Verify products Data in PLP without Filter");
+        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm,"null");
         System.out.println("The total pages :" + totalNumberOfPages);
         String productNameFromApi;
 
@@ -214,7 +256,7 @@ public class PLP extends AndroidBaseClass {
 
                 if (page == 1 || page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
 
-                    List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page).getResults();
+                    List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page,"null").getResults();
 
                 for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
                     if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
@@ -268,17 +310,23 @@ public class PLP extends AndroidBaseClass {
         }
     }
 
-    @Test(groups = {"PLP.Verify all data of products after filter",
+    @Test(groups = {"PLP.Verify all data of products after filter",CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
-            description = "Verify product dates in PLP page after filter")
-    public void verifyProductsDataInPLPWithFilterApplied(String searchTerm) throws Exception {
-        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm);
+            description = "Verify product dates in PLP page after filter",
+            priority = 5,
+             dataProvider = "getProductName")
+    public void verifyProductsDataInPLPWithFilterOnly(String searchTerm) throws Exception {
+        System.out.println("Verify products Data in PLP with Filter Only");
+        //applying Filter
+        verifyApplyingFilterOnPLP(null,null);
+
+        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm,"filter");
         System.out.println("The total pages :" + totalNumberOfPages);
         String productNameFromApi;
         for (int page = 1; page <= totalNumberOfPages; page++) {
             if (page == 1 || page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
 
-                List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page).getResults();
+                List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page,"filter").getResults();
 
                 for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
                     if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
@@ -316,6 +364,225 @@ public class PLP extends AndroidBaseClass {
                                 //verification of DeliveryTag
                                 if (productResultsPLPApi.get(productIndex).getProduct_stamp() != null) {
                                     assertTrue(productPropertiesApi.get(2).equalsIgnoreCase(productPropertiesUI.get(2)));
+                                }
+                                softAssert.assertAll();
+                                System.out.println("All data of product were verified successfully");
+                            }
+                        }
+                        if ((productIndex % 2 != 0) && !suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)) {
+                            productListingPageObjects.verifyScroll();
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
+    @Test(groups = {"PLP.Verify all data of products",CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verify product dates in PLP page",
+            priority = 6,
+             dataProvider = "getProductName")
+    public void verifyProductsDataInPLPWithSortOnly(String searchTerm) throws Exception {
+        System.out.println("Verify products Data in PLP with Sort Only");
+        //applying sort
+        verifyApplyingSortOnPLP();
+
+        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm,"sort");
+        System.out.println("The total pages :" + totalNumberOfPages);
+        String productNameFromApi;
+
+        for (int page = 1; page <= totalNumberOfPages; page++) {
+
+            if (page == 1 || page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+
+                List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page,"sort").getResults();
+
+                for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
+                    if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                        productNameFromApi = productResultsPLPApi.get(productIndex).getName();
+                        //scroll to last product if "test=sanity"
+                        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY) && (productIndex == productResultsPLPApi.size() - 1)) {
+                            System.out.println("The test was sanity");
+                            String totalNumberOfProduct = productListingPageObjects.getTextOnTitleHeader();
+                            String numerical = totalNumberOfProduct.replaceAll("[^0-9]", "");
+                            int number = Integer.parseInt(numerical);
+                            int numberOfSwipe = (number - 1) / 2;
+                            for (int w = 1; w <= numberOfSwipe; w++) {
+                                productListingPageObjects.verifyScroll();
+                            }
+                        }
+                        for (int j = 0; j < productListingPageObjects.productPropertiesListUI("name").size(); j++) {
+                            String names = productListingPageObjects.namesListOfProduct(j);
+                            if (productNameFromApi.equalsIgnoreCase(names)) {
+                                List<String> productPropertiesUI = productListingPageObjects.getDetailsOfProductContainerUI(j);
+                                //Storing all values from Api in array
+                                List<String> productPropertiesApi = new ArrayList<>();
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getPrice());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getOriginal_price());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getProduct_stamp());
+                                productPropertiesApi.add(String.valueOf(productResultsPLPApi.get(productIndex).getDiscount()));
+                                System.out.println(productPropertiesApi);
+
+                                //verification of price
+                                assertTrue(productPropertiesApi.get(0).equalsIgnoreCase(productPropertiesUI.get(0)));
+                                //Verification of Discount and original price
+                                if (!productResultsPLPApi.get(productIndex).getOriginal_price().equals(productResultsPLPApi.get(productIndex).getPrice())) {
+                                    assertTrue(productPropertiesApi.get(1).equalsIgnoreCase(productPropertiesUI.get(1)));
+                                    assertTrue(productPropertiesApi.get(3).equalsIgnoreCase(productPropertiesUI.get(3)));
+                                }
+                                //verification of DeliveryTag
+                                if (productResultsPLPApi.get(productIndex).getProduct_stamp() != null) {
+                                    assertTrue(productPropertiesApi.get(2).equalsIgnoreCase(productPropertiesUI.get(2)));
+                                }
+                                softAssert.assertAll();
+                                System.out.println("All data of product were verified successfully");
+                            }
+                        }
+                        if ((productIndex % 2 != 0) && !suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)) {
+                            productListingPageObjects.verifyScroll();
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
+    @Test(groups = {"PLP.Verify all data of products",CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verify product dates in PLP page",
+            priority = 7,
+            dataProvider = "getProductName")
+    public void verifyProductsDataInPLPWithFilterAndSort(String searchTerm) throws Exception {
+        System.out.println("Verify products Data in PLP with FilterAndSort");
+        //applying filter and sort
+        verifyApplyingFilterOnPLP(null,null);
+        verifyApplyingSortOnPLP();
+
+        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm,"filterSort");
+        System.out.println("The total pages :" + totalNumberOfPages);
+        String productNameFromApi;
+
+        for (int page = 1; page <= totalNumberOfPages; page++) {
+
+            if (page == 1 || page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+
+                List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page,"filterSort").getResults();
+
+                for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
+                    if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                        productNameFromApi = productResultsPLPApi.get(productIndex).getName();
+                        //scroll to last product if "test=sanity"
+                        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY) && (productIndex == productResultsPLPApi.size() - 1)) {
+                            System.out.println("The test was sanity");
+                            String totalNumberOfProduct = productListingPageObjects.getTextOnTitleHeader();
+                            String numerical = totalNumberOfProduct.replaceAll("[^0-9]", "");
+                            int number = Integer.parseInt(numerical);
+                            int numberOfSwipe = (number - 1) / 2;
+                            for (int w = 1; w <= numberOfSwipe; w++) {
+                                productListingPageObjects.verifyScroll();
+                            }
+                        }
+                        for (int j = 0; j < productListingPageObjects.productPropertiesListUI("name").size(); j++) {
+                            String names = productListingPageObjects.namesListOfProduct(j);
+                            if (productNameFromApi.equalsIgnoreCase(names)) {
+                                List<String> productPropertiesUI = productListingPageObjects.getDetailsOfProductContainerUI(j);
+                                //Storing all values from Api in array
+                                List<String> productPropertiesApi = new ArrayList<>();
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getPrice());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getOriginal_price());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getProduct_stamp());
+                                productPropertiesApi.add(String.valueOf(productResultsPLPApi.get(productIndex).getDiscount()));
+                                System.out.println(productPropertiesApi);
+
+                                //verification of price
+                                assertTrue(productPropertiesApi.get(0).equalsIgnoreCase(productPropertiesUI.get(0)));
+                                //Verification of Discount and original price
+                                if (!productResultsPLPApi.get(productIndex).getOriginal_price().equals(productResultsPLPApi.get(productIndex).getPrice())) {
+                                    assertTrue(productPropertiesApi.get(1).equalsIgnoreCase(productPropertiesUI.get(1)));
+                                    assertTrue(productPropertiesApi.get(3).equalsIgnoreCase(productPropertiesUI.get(3)));
+                                }
+                                //verification of DeliveryTag
+                                if (productResultsPLPApi.get(productIndex).getProduct_stamp() != null) {
+                                    assertTrue(productPropertiesApi.get(2).equalsIgnoreCase(productPropertiesUI.get(2)));
+                                }
+                                softAssert.assertAll();
+                                System.out.println("All data of product were verified successfully");
+                            }
+                        }
+                        if ((productIndex % 2 != 0) && !suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY)) {
+                            productListingPageObjects.verifyScroll();
+                        }
+                    }
+
+                }
+
+            }
+        }
+    }
+
+    @Test(groups = {"PLP.Verify all data of products",
+            CoreConstants.GROUP_SANITY,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verify product dates in PLP page",
+            priority = 8,
+            dataProvider = "getProductName")
+    public void verifyProductsDataInPLPWithSortAndFilter(String searchTerm) throws Exception {
+        System.out.println("Verify products Data in PLP with SortAndFilter");
+        //applying sort and filter
+        verifyApplyingSortOnPLP();
+        verifyApplyingFilterOnPLP(null,null);
+
+        int totalNumberOfPages = productListingPageObjects.totalNumberOfPages(searchTerm,"filterSort");
+        System.out.println("The total pages :" + totalNumberOfPages);
+        String productNameFromApi;
+
+        for (int page = 1; page <= totalNumberOfPages; page++) {
+
+            if (page == 1 || page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+
+                List<ProductListingResultsModel.ResultsBean> productResultsPLPApi = productListingPageObjects.productResultsPLPApi(searchTerm, page,"filterSort").getResults();
+
+                for (int productIndex = 0; productIndex < productResultsPLPApi.size(); productIndex++) {
+                    if (productIndex == 0 && page == 1 || productIndex == productResultsPLPApi.size() - 1 && page == totalNumberOfPages || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
+                        productNameFromApi = productResultsPLPApi.get(productIndex).getName();
+                        //scroll to last product if "test=sanity"
+                        if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_SANITY) && (productIndex == productResultsPLPApi.size() - 1)) {
+                            System.out.println("The test was sanity");
+                            String totalNumberOfProduct = productListingPageObjects.getTextOnTitleHeader();
+                            String numerical = totalNumberOfProduct.replaceAll("[^0-9]", "");
+                            int number = Integer.parseInt(numerical);
+                            int numberOfSwipe = (number - 1) / 2;
+                            for (int w = 1; w <= numberOfSwipe; w++) {
+                                productListingPageObjects.verifyScroll();
+                            }
+                        }
+                        for (int j = 0; j < productListingPageObjects.productPropertiesListUI("name").size(); j++) {
+                            String names = productListingPageObjects.namesListOfProduct(j);
+                            if (productNameFromApi.equalsIgnoreCase(names)) {
+                                List<String> productPropertiesUI = productListingPageObjects.getDetailsOfProductContainerUI(j);
+                                //Storing all values from Api in array
+                                List<String> productPropertiesApi = new ArrayList<>();
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getPrice());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getOriginal_price());
+                                productPropertiesApi.add(productResultsPLPApi.get(productIndex).getProduct_stamp());
+                                productPropertiesApi.add(String.valueOf(productResultsPLPApi.get(productIndex).getDiscount()));
+                                System.out.println(productPropertiesApi);
+
+                                //verification of price
+                                assertTrue(productPropertiesApi.get(0).equalsIgnoreCase(productPropertiesUI.get(0)));
+                                //Verification of Discount and original price
+                                if (!productResultsPLPApi.get(productIndex).getOriginal_price().equals(productResultsPLPApi.get(productIndex).getPrice())) {
+                                    assertTrue(productPropertiesApi.get(1).equalsIgnoreCase(productPropertiesUI.get(1)));
+                                    assertTrue(productPropertiesApi.get(3).equalsIgnoreCase(productPropertiesUI.get(2)));
+                                }
+                                //verification of DeliveryTag
+                                if (productResultsPLPApi.get(productIndex).getProduct_stamp() != null) {
+                                    assertTrue(productPropertiesApi.get(2).equalsIgnoreCase(productPropertiesUI.get(3)));
                                 }
                                 softAssert.assertAll();
                                 System.out.println("All data of product were verified successfully");
