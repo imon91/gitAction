@@ -3,6 +3,7 @@ package com.shopf.tests.Warehouses;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.*;
 import pageObjects.*;
 import utils.*;
 
@@ -18,6 +19,7 @@ public class UpdateBinCapacity extends WmsBaseClass {
     private WarehousesPageObjects.UpdateBinCapacityTab updateBinCapacityTab;
     private Scanner s;
     private Random random;
+    private Assertion assertion;
 
     @BeforeClass(alwaysRun = true)
     public void updateBinCapacityBeforeClass() throws Exception {
@@ -27,6 +29,7 @@ public class UpdateBinCapacity extends WmsBaseClass {
         warehousesPageObjects = new WarehousesPageObjects(driver);
         updateBinCapacityTab = warehousesPageObjects.new UpdateBinCapacityTab(driver);
         random = new Random();
+        assertion = new Assertion();
     }
 
     @DataProvider(name = "warehouseBins")
@@ -55,10 +58,10 @@ public class UpdateBinCapacity extends WmsBaseClass {
         int n = 10 + random.nextInt(10);
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickUpdateBinCapacityTab();
-        sleep(1000);
         updateBinCapacityTab.updateBinCapacity(id, String.valueOf(n));
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
+        assertion.assertEquals(message,"Bin Capacity is updated");
     }
 
     @AfterClass(alwaysRun = true)

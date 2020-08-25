@@ -17,4 +17,14 @@ public class CoreFileUtils {
     public static final String domainPropertiesFilePath = CoreFileRouters.scriptPropertiesFolderPath+"domains.properties";
     public static final String storeSendOtpJsonPath = CoreFileRouters.storeAuthData+"send_otp.json";
     public static final String storeLoginJsonPath = CoreFileRouters.storeAuthData+"login.json";
+
+
+    public static class Reports{
+        public static final String resellerAppResultsFilePath =
+                CoreFileRouters.Reports.reportsFolderPath+"reseller_app.json";
+        public static final String resellerWapResultsFilePath =
+                CoreFileRouters.Reports.reportsFolderPath+"reseller_wap.json";
+        public static final String resellerWEBResultsFilePath =
+                CoreFileRouters.Reports.reportsFolderPath+"reseller_web.json";
+    }
 }

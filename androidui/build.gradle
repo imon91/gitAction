@@ -77,7 +77,7 @@ configurations {
 test{
     useTestNG(){
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
     }
 }
 
@@ -88,7 +88,7 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
         def smoke = project.hasProperty("Smoke")
         def regression = project.hasProperty("Reg")
         def sanity = project.hasProperty("Sanity")
@@ -118,10 +118,9 @@ task androidUiDebug(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
         suites "src/test/resources/mySuites/debugSuite.xml"
     }
-
 }
 
 

@@ -18,12 +18,11 @@ public class Logout extends WmsBaseClass {
         homePageObject = new HomePageObject(driver);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},
+    @Test(groups = {CoreConstants.GROUP_SMOKE,CoreConstants.GROUP_SANITY},
             description = "Logout on click",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials")
     public void verifyLogout() {
         System.out.println("Verify Logout is being called");
-        sleep(2000);
         homePageObject.clickLogout();
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);

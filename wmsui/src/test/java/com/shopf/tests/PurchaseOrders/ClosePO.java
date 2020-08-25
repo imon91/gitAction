@@ -3,6 +3,7 @@ package com.shopf.tests.PurchaseOrders;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
+import org.testng.asserts.Assertion;
 import pageObjects.*;
 import utils.*;
 
@@ -13,6 +14,7 @@ public class ClosePO extends WmsBaseClass {
     private PurchaseOrdersPageObjects purchaseOrdersPageObjects;
     private PurchaseOrdersPageObjects.EditPurchaseOrder editPurchaseOrder;
     private PurchaseOrdersPageObjects.PurchaseOrderList purchaseOrderList;
+    private Assertion assertion;
 
     @BeforeClass(alwaysRun = true)
     public void closePOBeforeClass() throws Exception {
@@ -22,6 +24,7 @@ public class ClosePO extends WmsBaseClass {
         purchaseOrdersPageObjects = new PurchaseOrdersPageObjects(driver);
         purchaseOrderList = new PurchaseOrdersPageObjects(driver).new PurchaseOrderList(driver);
         editPurchaseOrder = new PurchaseOrdersPageObjects(driver).new EditPurchaseOrder(driver);
+        assertion = new Assertion();
     }
 
     @Test(groups = (CoreConstants.GROUP_SMOKE),
@@ -31,7 +34,6 @@ public class ClosePO extends WmsBaseClass {
         System.out.println("Close PO Verification is called");
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-        sleep(1000);
         int i, total = purchaseOrderList.getTotalPurchaseOrders();
         for (i = 1; i <= total; i++)
             if (!purchaseOrderList.getStatus(i).equalsIgnoreCase("CLOSED"))
@@ -40,12 +42,10 @@ public class ClosePO extends WmsBaseClass {
         String poId = purchaseOrderList.getPOID(i);
         purchaseOrdersPageObjects.clickEditPurchaseOrderTab();
         editPurchaseOrder.poIdInput(poId);
-        sleep(1000);
         editPurchaseOrder.clickClosePOButton();
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
-        purchaseOrdersPageObjects.clickPurchaseOrderListTab();
-
+        assertion.assertEquals(message,"Purchase Order is closed");
     }
 
     @AfterClass(alwaysRun = true)

@@ -49,9 +49,7 @@ public class PurchaseOrderDetails extends WmsBaseClass {
         System.out.println("Purchase Order Id : " + poIDJson);
         homePageObject.clickPurchaseOrders();
         purchaseOrdersPageObjects.clickEditPurchaseOrderTab();
-        sleep(1000);
         editPurchaseOrder.poIdInput(poIDJson);
-        sleep(1000);
         purchaseOrderModel = getWMSApiResponse.getPurchaseOrderDetails(poIDJson);
         String status = editPurchaseOrder.getPOStatus().substring(8);
 

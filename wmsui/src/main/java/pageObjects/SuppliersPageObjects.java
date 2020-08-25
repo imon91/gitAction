@@ -5,19 +5,27 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
+import utils.WmsBaseClass;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class SuppliersPageObjects {
-    private final WebDriver driver;
-    private final MyActions myActions;
+
+public class SuppliersPageObjects extends WmsBaseClass {
+  
+    private WebDriver driver;
+    private MyActions myActions;
+    private WebDriverWait wait;
 
     public SuppliersPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
     //Migrate Seller Tab
@@ -32,18 +40,30 @@ public class SuppliersPageObjects {
     @FindBy(xpath = "//a[text()='Sellers List']")
     private WebElement sellersListTab;
 
+    //Add Supplier Tab
+    @FindBy(xpath = "//a[text()='Add Suppliers']")
+    private WebElement addSupplierTab;
+
 
     /*--------------Actions-------------------*/
     public void clickMigrateSellerTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(migrateSellerTab));
         myActions.action_click(migrateSellerTab);
     }
 
     public void clickSuppliersListTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(suppliersListTab));
         myActions.action_click(suppliersListTab);
     }
 
     public void clickSellersListTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(sellersListTab));
         myActions.action_click(sellersListTab);
+    }
+
+    public void clickAddSupplierTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(addSupplierTab));
+        myActions.action_click(addSupplierTab);
     }
 
 
@@ -69,10 +89,12 @@ public class SuppliersPageObjects {
 
         /*--------------Actions-------------------*/
         public void setSellerCodeEntry(String sellerCode) {
+            wait.until(ExpectedConditions.visibilityOf(sellerCodeEntry));
             myActions.action_sendKeys(sellerCodeEntry, sellerCode);
         }
 
         public void clickSubmitSellerCodeButton() {
+            wait.until(ExpectedConditions.visibilityOf(submitSellerCodeButton));
             myActions.action_click(submitSellerCodeButton);
         }
 
@@ -96,6 +118,11 @@ public class SuppliersPageObjects {
             myActions = new MyActions();
         }
 
+        @FindBy(xpath = "//body/div/div/div/div/div/div/select[1]")
+        private WebElement sellerDropDown;
+
+        @FindBy(xpath = "//body//button[2]")
+        private WebElement okButton;
 
         /*--------------Functions-------------------*/
         public int getTotalSuppliers() {
@@ -121,8 +148,17 @@ public class SuppliersPageObjects {
             return myActions.action_getText(phoneNo);
         }
 
+        public void addSellerToSupplier(int index,String seller) {
+            String addSellerXpath = "//div[@id='SuppliersList']//tbody/tr[" + index + "]/td[4]/button";
+            WebElement addSeller = driver.findElement(By.xpath(addSellerXpath));
+            myActions.action_click(addSeller);
+            sleep(1000);
+            myActions.action_select(sellerDropDown,seller);
+            myActions.action_click(okButton);
+        }
+
         public void displayAddressDetails(int index) {
-            String addressDetailsXpath = "//div[@id='SuppliersList']//tbody/tr[" + index + "]/td[4]/a";
+            String addressDetailsXpath = "//div[@id='SuppliersList']//tbody/tr[" + index + "]/td[5]/a";
             WebElement addressDetails = driver.findElement(By.xpath(addressDetailsXpath));
             myActions.action_click(addressDetails);
         }
@@ -183,7 +219,139 @@ public class SuppliersPageObjects {
             WebElement syncNewVariantsButton = driver.findElement(By.xpath(syncNewVariantsXpath));
             myActions.action_click(syncNewVariantsButton);
         }
+    }
 
+
+    /*--------------Add Supplier Tab-------------------*/
+    public class AddSupplierTab {
+        private WebDriver driver;
+        private MyActions myActions;
+        private Random random;
+
+        public AddSupplierTab(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements(driver, this);
+            myActions = new MyActions();
+            random = new Random();
+        }
+
+        //Enter Name
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='name']")
+        private WebElement supplierNameEntry;
+
+        //Enter Email
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='email']")
+        private WebElement supplierEmail;
+
+        //Enter Phone Number
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='phone']")
+        private WebElement supplierPhoneNumberEntry;
+
+        //Enter Address Line 1
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='address1']")
+        private WebElement supplierAddressEntry1;
+
+        //Enter Address Line 2
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='address2']")
+        private WebElement supplierAddressEntry2;
+
+        //Enter Landmark
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='land_mark']")
+        private WebElement supplierLandmarkEntry;
+
+        //Enter City
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='city']")
+        private WebElement supplierCityEntry;
+
+        //Enter State
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='state']")
+        private WebElement supplierStateEntry;
+
+        //Enter Zipcode
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='Zipcode']")
+        private WebElement supplierZipcodeEntry;
+
+        //Enter GSTNo
+        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='GstNumber']")
+        private WebElement supplierGSTNoEntry;
+
+        //Enter
+        @FindBy(xpath = "//div[@id='AddSupplier']//button")
+        private WebElement addSupplierButton;
+
+
+        /*--------------Actions-------------------*/
+        public void enterName(String name) {
+            wait.until(ExpectedConditions.visibilityOf(supplierNameEntry));
+            myActions.action_sendKeys(supplierNameEntry, name);
+        }
+
+        public void enterEmail(String name) {
+            wait.until(ExpectedConditions.visibilityOf(supplierEmail));
+            myActions.action_sendKeys(supplierEmail, name);
+        }
+
+        public void enterPhoneNo(String phone_no) {
+            wait.until(ExpectedConditions.visibilityOf(supplierPhoneNumberEntry));
+            myActions.action_sendKeys(supplierPhoneNumberEntry, phone_no);
+        }
+
+        public void enterAddress1(String address1) {
+            wait.until(ExpectedConditions.visibilityOf(supplierAddressEntry1));
+            myActions.action_sendKeys(supplierAddressEntry1, address1);
+        }
+
+        public void enterAddress2(String address2) {
+            wait.until(ExpectedConditions.visibilityOf(supplierAddressEntry2));
+            myActions.action_sendKeys(supplierAddressEntry2, address2);
+        }
+
+        public void enterLandmark(String landmark) {
+            wait.until(ExpectedConditions.visibilityOf(supplierLandmarkEntry));
+            myActions.action_sendKeys(supplierLandmarkEntry, landmark);
+        }
+
+        public void enterCity(String city) {
+            wait.until(ExpectedConditions.visibilityOf(supplierCityEntry));
+            myActions.action_sendKeys(supplierCityEntry, city);
+        }
+
+        public void enterState(String state) {
+            wait.until(ExpectedConditions.visibilityOf(supplierStateEntry));
+            myActions.action_sendKeys(supplierStateEntry, state);
+        }
+
+        public void enterZipcode(String zipcode) {
+            wait.until(ExpectedConditions.visibilityOf(supplierZipcodeEntry));
+            myActions.action_sendKeys(supplierZipcodeEntry, zipcode);
+        }
+
+        public void enterGSTNo(String gstNo) {
+            wait.until(ExpectedConditions.visibilityOf(supplierGSTNoEntry));
+            myActions.action_sendKeys(supplierGSTNoEntry, gstNo); }
+
+        public void clickAddSupplierButton() {
+            wait.until(ExpectedConditions.visibilityOf(addSupplierButton));
+            myActions.action_click(addSupplierButton);
+        }
+
+
+        /*--------------Functions-------------------*/
+        public String addNewSupplier() {
+            int randomNum = random.nextInt(5000);
+            String name = "TestName" + randomNum;
+            enterName(name);
+            enterEmail(name.toLowerCase() + "@gmail.com");
+            enterPhoneNo("9442139828");
+            enterAddress1("First Line Of Address");
+            enterAddress2("Second Line Of Address");
+            enterLandmark("Near Lank Mark");
+            enterCity("Testing City");
+            enterState("Testing State");
+            enterZipcode("123456");
+            enterGSTNo(randomNum + randomNum + randomNum + "GST");
+            clickAddSupplierButton();
+            return name;
+        }
     }
 }
-

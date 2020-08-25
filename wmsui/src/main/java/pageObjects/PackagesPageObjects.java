@@ -5,16 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 
 public class PackagesPageObjects {
-    private final WebDriver driver;
-    private final MyActions myActions;
+
+    private WebDriver driver;
+    private MyActions myActions;
+    private WebDriverWait wait;
 
     public PackagesPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
 
@@ -37,22 +42,27 @@ public class PackagesPageObjects {
 
     /*--------------Actions-------------------*/
     public void clickPackagesListTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(packagesListTab));
         myActions.action_click(packagesListTab);
     }
 
     public void clickCreatePutawayListTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(createPutawayListTab));
         myActions.action_click(createPutawayListTab);
     }
 
     public void clickBinInScanTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(binInScanTab));
         myActions.action_click(binInScanTab);
     }
 
     public void clickBinResetTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(binResetTab));
         myActions.action_click(binResetTab);
     }
 
     public void clickPackageDetailsTab() {
+        wait.until(ExpectedConditions.elementToBeClickable(packageDetailsTab));
         myActions.action_click(packageDetailsTab);
     }
 
@@ -77,10 +87,12 @@ public class PackagesPageObjects {
 
         /*--------------Actions-------------------*/
         public void selectStatus(String status) {
+            wait.until(ExpectedConditions.visibilityOf(selectStatusDropdown));
             myActions.action_select(selectStatusDropdown, status);
         }
 
         public void clickSelectAllButton() {
+            wait.until(ExpectedConditions.visibilityOf(selectAllButton));
             myActions.action_click(selectAllButton);
         }
 
@@ -189,18 +201,22 @@ public class PackagesPageObjects {
 
         /*--------------Actions-------------------*/
         public void inputPackageID(String packageID) {
+            wait.until(ExpectedConditions.visibilityOf(packageIDEntry));
             myActions.action_sendKeys(packageIDEntry, packageID);
         }
 
         public void selectStatus(String status) {
+            wait.until(ExpectedConditions.visibilityOf(selectStatusDropdown));
             myActions.action_select(selectStatusDropdown, status);
         }
 
         public void clickResetButton() {
+            wait.until(ExpectedConditions.visibilityOf(resetBinButton));
             myActions.action_click(resetButton);
         }
 
         public void clickResetBinButton() {
+            wait.until(ExpectedConditions.visibilityOf(resetBinButton));
             myActions.action_click(resetBinButton);
         }
 
@@ -236,6 +252,7 @@ public class PackagesPageObjects {
 
         /*--------------Actions-------------------*/
         public void enterPackageID(String packageID) {
+            wait.until(ExpectedConditions.visibilityOf(packageIDEntry));
             myActions.action_sendKeys(packageIDEntry, packageID);
             myActions.action_enter(packageIDEntry);
         }
@@ -318,6 +335,7 @@ public class PackagesPageObjects {
         }
 
         public void clickPrintPackage() {
+            wait.until(ExpectedConditions.visibilityOf(printPackageButton));
             myActions.action_click(printPackageButton);
         }
     }
@@ -349,18 +367,22 @@ public class PackagesPageObjects {
 
         /*--------------Actions-------------------*/
         public void binCodeInput(String binCode) {
+            wait.until(ExpectedConditions.visibilityOf(binCodeEntry));
             myActions.action_sendKeys(binCodeEntry, binCode);
         }
 
         public void packageIdInput(String packageId) {
+            wait.until(ExpectedConditions.visibilityOf(packageIdEntry));
             myActions.action_sendKeys(packageIdEntry, packageId);
         }
 
         public void clickResetButton() {
+            wait.until(ExpectedConditions.visibilityOf(resetButton));
             myActions.action_click(resetButton);
         }
 
         public void clickInScanButton() {
+            wait.until(ExpectedConditions.visibilityOf(inScanButton));
             myActions.action_click(inScanButton);
         }
 
