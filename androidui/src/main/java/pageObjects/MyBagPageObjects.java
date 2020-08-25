@@ -1,13 +1,12 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
-import services.commerceMethods.GetMyBagApiResponse;
+import services.commerceMethods.*;
 import utils.*;
 import java.util.*;
 

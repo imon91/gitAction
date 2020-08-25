@@ -1,15 +1,11 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.PageFactory;
-import utils.AndroidBaseClass;
-import utils.MyActions;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
 public class RightNavigationDrawer extends AndroidBaseClass{
 
@@ -98,13 +94,28 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Contact us']")
     private WebElement navigationItemContactUs;
 
-    // NavigationItem Logout Reseller
+    // NavigationItem Logout for reseller
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='13']")
     private WebElement navigationItemLogoutReseller;
 
     // NavigationItem Logout Mokam
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='9']")
     private WebElement navigationItemLogoutMokam;
+
+    // NavigationItem Change Language Mokam
+    private WebElement navigationItemChangeLanguageMokam;
+
+    private WebElement navigationItemChangeLanguageReseller;
+
+    private WebElement profileEditButton;
+
+    private WebElement profileSaveButton;
+
+    private WebElement profileShopName;
+
+    private WebElement profileOwnerName;
+
+    private WebElement profileBusinessType;
 
 
 
@@ -140,12 +151,16 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     public void clickOnItemMyShop(){
         myActions.action_click(navigationItemMyShop);
     }
-
+  
     public void clickOnItemChangeLanguage(){
-        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
-            myActions.action_click(navigationItemChangeLanguageMokam);
-        }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
+        {
+            navigationItemChangeLanguageReseller = xpathSetter("//android.widget.RelativeLayout[@index=6]");
             myActions.action_click(navigationItemChangeLanguageReseller);
+
+        }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            navigationItemChangeLanguageMokam = xpathSetter("//android.widget.RelativeLayout[@index=5]");
+            myActions.action_click(navigationItemChangeLanguageMokam); 
         }
     }
 
@@ -184,11 +199,36 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     public void selectEnglish(){
         myActions.action_click(xpathSetter("//android.widget.RadioButton[@text='English']"));
     }
-
     public void saveLanguage(){
         myActions.action_click(xpathSetter("//android.widget.TextView[@text='SAVE']"));
     }
 
+    public void clickProfileEditButton(){
+        profileEditButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_edit']");
+        myActions.action_click(profileEditButton);}
+
+        public WebElement shopNameEdit()
+        {
+          profileShopName = idSetter(packageName+":id/add_retailer_edit_shop_name");
+          return profileShopName;
+        }
+
+    public WebElement ownerNameEdit()
+    {
+        profileShopName = idSetter(packageName+":id/add_retailer_owner_name");
+        return profileShopName;
+    }
+
+    public WebElement businessTypeEdit(int index)
+    {
+        return profileBusinessType = classListSetter("android.widget.CompoundButton").get(index);
+    }
+
+        public void clickOnProfileSaveButton()
+        {
+            profileSaveButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next_on_boarding']");
+            myActions.action_click(profileSaveButton);
+        }
 
 
     /*------------Functions-----------*/

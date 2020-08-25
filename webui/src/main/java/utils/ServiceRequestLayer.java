@@ -63,5 +63,10 @@ public class ServiceRequestLayer implements CommerceServices {
         return null;
     }
 
+    @Override
+    public GetSalesRepApiResponse getControlOverSalesRepApiResponse() {
+        return null;
+    }
+
 }
 

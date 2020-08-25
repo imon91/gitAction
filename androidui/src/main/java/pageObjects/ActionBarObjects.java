@@ -1,6 +1,6 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
+import coreUtils.*;
 import org.openqa.selenium.*;
 import utils.*;
 import io.appium.java_client.android.*;
@@ -33,6 +33,7 @@ public class ActionBarObjects extends AndroidBaseClass {
 
     private WebElement profileImageButton;
 
+    private WebElement ownerNameSRFeature;
 
     /*--------------Actions-------------------*/
 
@@ -46,14 +47,29 @@ public class ActionBarObjects extends AndroidBaseClass {
         myActions.action_click(shopUpIcon);
     }
 
+    public WebElement ownerNameTextAtTop()
+    { return ownerNameSRFeature = idSetter("com.mokam.app:id/retailer_name"); }
+
     public void clickOnSearchImageButton(){
-        searchImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/searchButton']");
+      
+       if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            searchImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/searchButton']");
+       } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            searchImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/searchButton']");
+       }
         myActions.action_click(searchImageButton);
+      
     }
 
     public void clickOnBagImageButton(){
-        bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cartButton']");
+      
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cartButton']");
+        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cartButton']");
+        }
         myActions.action_click(bagImageButton);
+      
     }
 
     public String getTextFromCartCountHolder(){
@@ -62,8 +78,16 @@ public class ActionBarObjects extends AndroidBaseClass {
     }
 
     public void clickOnUserProfileImageButton(){
-        profileImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/profile']");
+       if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+           profileImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/profile']");
+       }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            profileImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/profile']");
+       }
         myActions.action_click(profileImageButton);
     }
 
+    public void clickOnBackButton() {
+        WebElement backButton = idSetter(packageName+":id/back_button_feed");
+        myActions.action_click(backButton);
+    }
 }

@@ -2,12 +2,12 @@ package com.shopf.tests.integrationTests;
 
 import com.shopf.tests.*;
 import coreUtils.*;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.android.*;
+import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
-
+import java.util.Random;
 
 
 public class SmokeFlow extends AndroidBaseClass {
@@ -35,6 +35,12 @@ public class SmokeFlow extends AndroidBaseClass {
     private final String NEW_PLP_VIEW = "New";
     private final String OLD_PLP_VIEW = "Old";
     private ServiceRequestLayer serviceRequestLayer;
+    private SalesRepFeature salesRepFeature;
+    private SalesRepFeaturePageObject salesRepFeaturePageObject;
+    private PaymentModePageObjects paymentModePageObjects;
+    private MyActions myActions;
+    private RightNavigationDrawer rightNavigationDrawer;
+    private Random random;
 
 
     @BeforeSuite(alwaysRun = true)
@@ -73,6 +79,12 @@ public class SmokeFlow extends AndroidBaseClass {
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         myActions = new MyActions();
         plp_view = productListingPageObjects.plpView;
+        salesRepFeaturePageObject = new SalesRepFeaturePageObject(androidDriver);
+        salesRepFeature = new SalesRepFeature();
+        paymentModePageObjects = new PaymentModePageObjects(androidDriver);
+        myActions = new MyActions();
+        rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        random = new Random();
         setImplicitWait(15);
     }
 
@@ -84,10 +96,16 @@ public class SmokeFlow extends AndroidBaseClass {
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             mobileNumber = "1877755590";
             otp = "666666";
+        }
+        else if(System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER))
+        {
+            mobileNumber = "1877775590";
+            otp = "666666";
         }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             mobileNumber = "1877755590";
             otp = "666666";
         }
+
         return new Object[][]{
                 {mobileNumber,otp}
         };
@@ -112,10 +130,19 @@ public class SmokeFlow extends AndroidBaseClass {
     public void performAuthenticationWithValidCredentials(String mobileNumber,String otp) throws Exception {
         authentication.authenticationSetUp();
         authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);
+//        salesRepFeaturePageObject.performAuthentication("01877755590","666666");
     }
+  
+  @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 2)
+    public void verifyAddingRetailer()
+    {  if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+        salesRepFeature.salesRepPageBeforeClass();
+        salesRepFeature.verifyAddingRetailer();
+    sleep(4000);}
+    }
+  
 
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 2)
+     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 3)
     public void performChangeLanguage(){
         if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             switchFromWebToNative();
@@ -127,81 +154,119 @@ public class SmokeFlow extends AndroidBaseClass {
         }
     }
 
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 4)
+    public void verifyAddedRetailer()
+    {if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
+    {salesRepFeature.verifyAddedRetailer();}
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 5)
+    public void verifyRetailerSwitch()
+    {if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
+    {
+        salesRepFeature.verifyRetailerSwitch();
+    sleep(3000);}
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 6)
+    public void verifyEditProfile()
+    {if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
+    {
+        actionBarObjects.clickOnUserProfileImageButton();
+        rightNavigationDrawer.clickOnItemMyAccount();
+        rightNavigationDrawer.clickProfileEditButton();
+        rightNavigationDrawer.shopNameEdit().clear();
+        myActions.action_sendKeys(rightNavigationDrawer.shopNameEdit(),"Modified ShopName"+random.nextInt(10));
+        rightNavigationDrawer.ownerNameEdit().clear();
+        myActions.action_sendKeys(rightNavigationDrawer.ownerNameEdit(),"Modified OwnerName"+random.nextInt(100));
+        rightNavigationDrawer.businessTypeEdit(1);
+        rightNavigationDrawer.clickOnProfileSaveButton();
+        androidDriver.navigate().back();}
+    }
+
     
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 3,dataProvider = "dataForSearchTerm")
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 7,dataProvider = "dataForSearchTerm")
     public void searchToObject(String searchTerm){
         search.searchBeforeClass();
         actionBarObjects.clickOnSearchImageButton();
         search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 4)
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 8)
     public void verifyApplyingSortOnPLP() throws Exception {
-        if(host.equalsIgnoreCase("Local")){
             plp.productListingPageBeforeClass();
             plp.verifyApplyingSortOnPLP();
-        }
     }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 5)
+  
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 9)
     public void verifyApplyingFilterOnPLP() throws Exception
     {
         plp.productListingPageBeforeClass();
         plp.verifyApplyingFilterOnPLP(null,null);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 6)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 10)
     public void verifySelectingValidProduct(){
         plp.verifySelectingValidSizeItemOnPlpToPDP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 7)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 11)
     public void verifyPlaceOrderThroughPDP(){
         pdp.productDescriptionPageBeforeClass();
         pdp.verifyPlaceOrderThroughPDP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 8)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 12)
     public void verifyProductIncrementInMyBag() throws Exception {
              myBag.myBagBeforeClass();
             myBag.verifyItemIncrementFunctionalityOnMyBag();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 9)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
     public void verifyApplyShippingChargeInMyBag()
     {
-        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
-            myBag.verifyApplyingShippingCharges();
-        }
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
+        { myBag.verifyApplyingShippingCharges();}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 10)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
     public void verifyPlaceOrderInMyBag()
     {
         myBag.verifyPlaceOrderInMyBag();
     }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 11)
+  
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
     public void verifyDeletingCodDisabledProductInAddress()
     {  //sleep(4000);
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
+        {
         myBag.deleteProductWithCODDisabled();
+        }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 12)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
     public void verifySelectAddress()
     {
-        myBag.verifySelectAddressInMyBag();
+        if(System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER))
+    {
+        myBag.verifyProceedToPaymentByCreatingNewAddress();
+        sleep(4000);
+    }else
+        {
+        myBag.verifySelectAddressInMyBag();}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
     public void verifyProceedToPaymentInAddress()
     {
-        myBag.verifyCheckoutProceedInMyBag();
+        if(!System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER)){
+            myBag.verifyCheckoutProceedInMyBag();
+        sleep(3000);}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
     public void verifyCheckoutWithCOD()
-
     {
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
             sleep(3500);
@@ -217,13 +282,14 @@ public class SmokeFlow extends AndroidBaseClass {
     }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 15)
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 19)
     public void verifyOrderIdInOrderSuccessfulPage() {
         orderSuccessFulPageObjects.clickOnClickHereButton();
+
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 20)
     public void verifyOrderInMyOrders() throws Exception{
 //        //Assert That Control is in MyOrdersPage
 //        //Identify Order Number
@@ -239,15 +305,19 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 21)
     public void verifyLogout() throws Exception {
         if(host.equalsIgnoreCase("Local")){
             // Do nothing
         }else {
             //sleep(2800);
             logout.logoutBeforeClass();
+//            if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                actionBarObjects.clickOnBackButton();
+                sleep(1000);
+                actionBarObjects.clickOnBackButton();}
             logout.verifyLogoutFunctionality();
-        }
+//        }
     }
 
 

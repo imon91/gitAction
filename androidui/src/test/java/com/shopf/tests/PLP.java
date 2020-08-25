@@ -2,10 +2,10 @@ package com.shopf.tests;
 
 import coreUtils.*;
 import io.appium.java_client.android.*;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
-import static org.testng.Assert.assertTrue;
+import org.testng.asserts.*;
+import static org.testng.Assert.*;
 import pageObjects.*;
 import services.responseModels.commerceModels.*;
 import utils.*;
@@ -91,14 +91,20 @@ public class PLP extends AndroidBaseClass {
         System.out.println("Current Activity at PLP on Sort is : "+androidDriver.currentActivity());
         Random random1 = new Random();
         int randomSortIndex = random1.nextInt(sortPageObjects.getSortTexts().size());
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
+        {
         if(sortPageObjects.getSortTexts()
                 .get(randomSortIndex).getText().equalsIgnoreCase("What's New") ||
                 sortPageObjects.getSortTexts()
                         .get(randomSortIndex).getText().equalsIgnoreCase("SORT") ){
             randomSortIndex = randomSortIndex+1;
-        }
-        sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
+        }sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
                 .get(randomSortIndex).getText());
+        }
+        else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM))
+        { sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
+                    .get(2).getText());
+        }
         // Verify sorted products from their sort orders
     }
 
@@ -133,7 +139,7 @@ public class PLP extends AndroidBaseClass {
     public void verifyApplyingFilterOnPLP(String filterCategory,String filterItem) {
         System.out.println("Verify applying filter on plp was called");
         productListingPageObjects.clickOnFilterButton();
-        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             productFilterPageObjects.clickOnFilterName(productFilterPageObjects.getListOfFilterNames().get(1));
             productFilterPageObjects.clickOnFilterItemByIndex(productFilterPageObjects.getListOfFilterItemCheckBoxes().get(0));
             productFilterPageObjects.clickOnApplyFilter();
@@ -153,7 +159,7 @@ public class PLP extends AndroidBaseClass {
 //                    clickOnFilterItemByValue(filterItem);
             productFilterPageObjects
                     .clickOnFilterItemByIndex(productFilterPageObjects.
-                                        getListOfFilterItemCheckBoxes().get(randomValue));
+                            getListOfFilterItemCheckBoxes().get(randomValue));
             // Click on Apply Filter button
             productFilterPageObjects.clickOnApplyFilter();
         }

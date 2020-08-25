@@ -1,12 +1,12 @@
 package com.shopf.tests;
 
 import coreUtils.*;
-import io.appium.java_client.TouchAction;
+import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
-import org.testng.Assert;
+import org.testng.*;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
+import org.testng.asserts.*;
 import pageObjects.*;
 import services.commerceMethods.*;
 import utils.*;
@@ -70,6 +70,12 @@ public class MyBag extends AndroidBaseClass {
         //actionBarObjects.clickOnBagImageButton();
         sleep(5000);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
+        }
         // This Block is responsible to get the control from anywhere to MyBag
         //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
@@ -485,7 +491,9 @@ public class MyBag extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY}, enabled = true,
             dependsOnGroups = "MyBag.verifyDeleteProductInAddressPage")
     public void deleteProductWithCODDisabled() {
-        estimatedDeliveryDatesItems.deleteProductWithCODDisabled();
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            estimatedDeliveryDatesItems.deleteProductWithCODDisabled();
+        }
     }
 
 

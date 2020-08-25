@@ -1,15 +1,11 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import io.appium.java_client.pagefactory.*;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import services.commerceMethods.GetCommerceApiResponse;
-import services.commerceMethods.GetMyBagApiResponse;
+import services.commerceMethods.*;
 import utils.*;
 import java.util.*;
 
@@ -50,7 +46,6 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
 
     @FindBy(xpath = "//div[@class='proceed-checkout text-center']//button")
     private WebElement confirmButtonBottom;
-
 
     public String getCartValueLabelText(){
         return myActions.action_getText(cartValueLabelText);
@@ -100,6 +95,7 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
         @FindBy(xpath = "//div[@class='showMore-address']/span[2]")
         private WebElement addNewAddress;
 
+        private WebElement addNewAddressButton;
 
         public String getSelectAddressHeadingText(){
             return myActions.action_getText(selectAddressHeadingText);
@@ -114,7 +110,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
         }
 
         public void clickOnAddNewAddress(){
-            myActions.action_click(addNewAddress);
+            addNewAddressButton = xpathSetter("//div[@class='select_address_heading']/p[1]/span");
+            myActions.action_click(addNewAddressButton);
         }
 
         public void selectAnAddress(WebElement address){

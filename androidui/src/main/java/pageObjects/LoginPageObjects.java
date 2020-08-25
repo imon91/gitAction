@@ -1,6 +1,6 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
+import coreUtils.*;
 import org.openqa.selenium.*;
 import utils.*;
 import io.appium.java_client.android.*;
@@ -8,9 +8,9 @@ import io.appium.java_client.android.*;
 
 public class LoginPageObjects extends AndroidBaseClass{
 
-    private final AndroidDriver<WebElement> androidDriver;
-    private final MyActions myActions;
-    private final String packageName;
+    private AndroidDriver<WebElement> androidDriver;
+    private MyActions myActions;
+    private String packageName;
     private String app;
 
     public LoginPageObjects(AndroidDriver<WebElement> androidDriver){
@@ -41,32 +41,53 @@ public class LoginPageObjects extends AndroidBaseClass{
     /*--------------Actions-------------------*/
 
     private void enterMobileNumber(String mobileNumber){
-        enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
-        myActions.action_sendKeys(enterMobileNumberEditText, mobileNumber);
+      enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
+        myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
     }
 
     private void clickOnVerifyOtpButton(){
-        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+       if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+           verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+       } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+           verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+       }
         myActions.action_click(verifyOtpButton);
     }
 
+
     private void enterOtp(String otp){
-        enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
+       if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+           enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
+       }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+           enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
+        }
         myActions.action_sendKeys(enterOtpEditText,otp);
     }
 
     private void clickOnProceedButton(){
-        proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+       if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+           proceedButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName +":id/action_verify_otp']");
+       }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+       }
         myActions.action_click(proceedButton);
     }
 
     private void clickOnEditMobileNumberButton(){
-        editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_change_mobile']");
+       if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+           editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName +":id/action_change_mobile']");
+       } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+           editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_change_mobile']");
+       }
         myActions.action_click(editMobileNumberButton);
     }
 
     private void clickOnResendOtpButton(){
-        resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_resend_otp']");
+       if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+           resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_resend_otp']");
+       } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+           resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_resend_otp']");
+       }
         myActions.action_click(resendOtpButton);
     }
 

@@ -51,19 +51,19 @@ public class SortPageObjects extends AndroidBaseClass{
 
     public List<WebElement> getSortTexts(){
         List<WebElement> sortTextList = null;
-        if(plpView.equalsIgnoreCase(NEW_PLP_VIEW)){
+//        if(plpView.equalsIgnoreCase(NEW_PLP_VIEW)){
             sortTextList =
                     xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_item_text']");
-        }else if(plpView.equalsIgnoreCase(OLD_PLP_VIEW)){
-            sortTextList =
-                    xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_text']");
-        }
+//        }else if(plpView.equalsIgnoreCase(OLD_PLP_VIEW)){
+//            sortTextList =
+//                    xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/sort_text']");
+//        }
         return sortTextList;
     }
 
 
     public void clickOnSortElement(String sortText){
-        WebElement sortElement = xpathSetter("//android.widget.TextView[@text='"+sortText+"']");
+        WebElement sortElement = xpathSetter("//android.widget.TextView[@text='"+ sortText +"']");
         try{
             String sortIndex=null;
             myActions.action_click(sortElement);
