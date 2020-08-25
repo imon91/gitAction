@@ -60,56 +60,67 @@ public class WarehousesPageObjects extends WmsBaseClass {
         /*--------------Actions-------------------*/
         public void enterWarehouseCode(String binCode) {
             WebElement warehouseCodeEntry = xpathSetter("//input[@id='warehouseCode']");
+            myActions.action_clear_text(warehouseCodeEntry);
             myActions.action_sendKeys(warehouseCodeEntry, binCode);
         }
 
         public void enterName(String name) {
             WebElement warehouseNameEntry = xpathSetter("//input[@id='firstname']");
+            myActions.action_clear_text(warehouseNameEntry);
             myActions.action_sendKeys(warehouseNameEntry, name);
         }
 
         public void enterAddress1(String address1) {
             WebElement warehouseAddressEntry1 = xpathSetter("//input[@id='warehouseAddress']");
+            myActions.action_clear_text(warehouseAddressEntry1);
             myActions.action_sendKeys(warehouseAddressEntry1, address1);
         }
 
         public void enterAddress2(String address2) {
             WebElement warehouseAddressEntry2 = xpathSetter("//input[@id='warehouseAddress2']");
+            myActions.action_clear_text(warehouseAddressEntry2);
             myActions.action_sendKeys(warehouseAddressEntry2, address2);
         }
 
         public void enterLandmark(String landmark) {
             WebElement warehouseLandmarkEntry = xpathSetter("//input[@id='warehouseLandmark']");
+            myActions.action_clear_text(warehouseLandmarkEntry);
             myActions.action_sendKeys(warehouseLandmarkEntry, landmark);
         }
 
         public void enterCity(String city) {
             WebElement warehouseCityEntry = xpathSetter("//input[@id='warehouseCity']");
+            myActions.action_clear_text(warehouseCityEntry);
             myActions.action_sendKeys(warehouseCityEntry, city);
         }
 
         public void enterState(String state) {
             WebElement warehouseStateEntry = xpathSetter("//input[@id='warehouseState']");
+            myActions.action_clear_text(warehouseStateEntry);
             myActions.action_sendKeys(warehouseStateEntry, state);
         }
 
         public void enterCountry(String country) {
             WebElement warehouseCountryEntry = xpathSetter("//input[@id='warehouseCountry']");
+            myActions.action_clear_text(warehouseCountryEntry);
             myActions.action_sendKeys(warehouseCountryEntry, country);
         }
 
         public void enterZipcode(String zipcode) {
             WebElement warehouseZipcodeEntry = xpathSetter("//input[@id='Zipcode']");
+            myActions.action_clear_text(warehouseZipcodeEntry);
             myActions.action_sendKeys(warehouseZipcodeEntry, zipcode);
         }
 
         public void enterPhoneNo(String phone_no) {
             WebElement warehousePhoneNumberEntry = xpathSetter("//input[@id='phone']");
+            myActions.action_clear_text(warehousePhoneNumberEntry);
             myActions.action_sendKeys(warehousePhoneNumberEntry, phone_no);
         }
 
         public void enterAlterPhoneNo(String alter_phone_no) {
             WebElement warehouseAlternativePhoneEntry = xpathSetter("//input[@id='alternative_phone']");
+            myActions.action_clear_text(warehouseAlternativePhoneEntry);
             myActions.action_sendKeys(warehouseAlternativePhoneEntry, alter_phone_no);
         }
 
@@ -131,13 +142,286 @@ public class WarehousesPageObjects extends WmsBaseClass {
             enterLandmark("Near Lank Mark");
             enterCity("Testing City");
             enterState("Testing State");
-            //enterCountry("India");
+            //enterCountry("Japan");
             enterZipcode("123456");
-            enterPhoneNo("9442139828");
+            enterPhoneNo("eeeeee");
             enterAlterPhoneNo("9943225871");
             clickAddWarehouseButton();
             return binCode;
         }
+        public void addNewWarehouse(String[] input){
+            enterWarehouseCode(input[0]);
+            enterName(input[1]);
+            enterAddress1(input[2]);
+            enterAddress2(input[3]);
+            enterLandmark(input[4]);
+            enterCity(input[5]);
+            enterState(input[6]);
+            enterCountry(input[7]);
+            enterZipcode(input[8]);
+            enterPhoneNo(input[9]);
+            enterAlterPhoneNo(input[10]);
+            clickAddWarehouseButton();
+        }
+
+        public String[] getAllInputData(String[] inputData)
+        {
+            return new String[]
+                    {
+                            getInputData("WarehouseCode", inputData[0]),
+                            getInputData("Name", inputData[1]),
+                            getInputData("Address", inputData[2]),
+                            getInputData("Address2", inputData[3]),
+                            getInputData("LandMark", inputData[4]),
+                            getInputData("City", inputData[5]),
+                            getInputData("State", inputData[6]),
+                            getInputData("Country", inputData[7]),
+                            getInputData("Zipcode", inputData[8]),
+                            getInputData("Phone", inputData[9]),
+                            getInputData("AlternativePhone", inputData[10])
+                    };
+        }
+
+        public String getInputData(String attribute,String input)
+        {
+            int randomNum = random.nextInt(5000);
+            switch (attribute)
+            {
+                case "WarehouseCode":
+                    switch (input){
+                        case "Any String":
+                        case "New":
+                            return "TestWarehouse"+randomNum;
+                        case "Existing":
+                            return "TestWarehouse";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Name":
+                    switch (input){
+                        case "Any String":
+                            return "TestName";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address":
+                    switch (input){
+                        case "Any String":
+                            return "First Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address2":
+                    switch (input){
+                        case "Any String":
+                            return "Second Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "LandMark":
+                    switch (input){
+                        case "Any String":
+                            return "LandMark";
+                        case "N/A":
+                            return " ";
+                    }
+                case "City":
+                    switch (input){
+                        case "Any String":
+                            return "CityX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "State":
+                    switch (input){
+                        case "Any String":
+                            return "StateX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Country":
+                    switch (input){
+                        case "Any String":
+                            return "CountryX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Zipcode":
+                    switch (input){
+                        case "Valid String":
+                            return "123456";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Phone":
+                    switch (input){
+                        case "Valid String":
+                            return "9442139828";
+                        case "N/A":
+                            return " ";
+                    }
+                case "AlternativePhone":
+                    switch (input){
+                        case "Valid String":
+                            return "9442139827";
+                        case "N/A":
+                            return " ";
+                    }
+                default:return " ";
+            }
+
+        }
+
+        public String[] getAllErrorMessageData(String[] inputData)
+        {
+            return new String[]
+                    {
+                            getErrorMessage("WarehouseCode", inputData[0]),
+                            getErrorMessage("Name", inputData[1]),
+                            getErrorMessage("Address", inputData[2]),
+                            getErrorMessage("Address2", inputData[3]),
+                            getErrorMessage("LandMark", inputData[4]),
+                            getErrorMessage("City", inputData[5]),
+                            getErrorMessage("State", inputData[6]),
+                            getErrorMessage("Country", inputData[7]),
+                            getErrorMessage("Zipcode", inputData[8]),
+                            getErrorMessage("Phone", inputData[9]),
+                            getErrorMessage("AlternativePhone", inputData[10])
+                    };
+        }
+
+        public String getErrorMessage(String attribute,String input)
+        {
+            switch (attribute)
+            {
+                case "WarehouseCode":
+                    switch (input){
+                        case "Any String":
+                        case "New":
+                        case "Existing":
+                            return "";
+                        case "N/A":
+                            return "This field is required";
+                    }
+                case "Name":
+                    switch (input){
+                        case "Any String":
+                            return "";
+                        case "N/A":
+                            return "This field is required";
+                    }
+                case "Address":
+                    switch (input){
+                        case "Any String":
+                            return "";
+                        case "N/A":
+                            return "This field is required";
+                    }
+                case "Address2":
+                    switch (input){
+                        case "Any String":
+                        case "N/A":
+                            return "";
+                    }
+                case "LandMark":
+                    switch (input){
+                        case "Any String":
+                        case "N/A":
+                            return "";
+                    }
+                case "City":
+                    switch (input){
+                        case "Any String":
+                            return "";
+                        case "N/A":
+                            return "This field is required";
+                    }
+                case "State":
+                    switch (input){
+                        case "Any String":
+                            return "";
+                        case "N/A":
+                            return "This field is required";
+                    }
+                case "Country":
+                    switch (input){
+                        case "Any String":
+                            return "";
+                        case "N/A":
+                            return "This field is required";
+                    }
+                case "Zipcode":
+                    switch (input){
+                        case "Valid String":
+                            return "";
+                        default:
+                            return "Enter Zipcode";
+                    }
+                case "Phone":
+                    switch (input){
+                        case "Valid String":
+                        case "Invalid String":
+                            return "";
+                        case "N/A":
+                            return "This field is required";
+                    }
+                case "AlternativePhone":
+                    switch (input){
+                        case "Valid String":
+                        case "Invalid String":
+                        case "N/A":
+                            return "";
+                    }
+                default:return "";
+            }
+
+        }
+        public boolean verifyElementVisibilityWithText(String value)
+        {
+            WebElement element =
+                    xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+        }
+
+        public boolean verifyVisibilityForAllErrorMessages(int i) {
+            boolean assertData = false;
+            switch (i) {
+                case 0:
+                    if (verifyElementVisibilityWithText("This field is required"))
+                        assertData = true;
+                    else break;
+                case 1:
+                    if (verifyElementVisibilityWithText("This field is required"))
+                        assertData = true;
+                    else break;
+                case 2:
+                    if (verifyElementVisibilityWithText("This field is required"))
+                        assertData = true;
+                    else break;
+                case 5:
+                    if (verifyElementVisibilityWithText("This field is required"))
+                        assertData = true;
+                    else break;
+                case 6:
+                    if(verifyElementVisibilityWithText("This field is required"))
+                        assertData=true;
+                    else break;
+                case 7:
+                    if(verifyElementVisibilityWithText("This field is required"))
+                        assertData=true;
+                    else break;
+//                case 8:
+//                    if(verifyElementVisibilityWithText("Enter Zipcode"))
+//                        assertData=true;
+//                    else break;
+                case 9:
+                    if(verifyElementVisibilityWithText("This field is required"))
+                        assertData=true;
+                    else break;
+            }
+            return assertData;
+        }
+
     }
 
 

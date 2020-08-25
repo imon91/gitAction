@@ -1,6 +1,5 @@
 package com.shopf.tests;
 
-import auth.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
