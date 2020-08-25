@@ -16,6 +16,9 @@ dependencies {
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
     // https://mvnrepository.com/artifact/io.appium/java-client
     implementation group: 'io.appium', name: 'java-client', version: '7.3.0'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
 
     // Including Core module as dependency
     implementation project(path : ':core')
@@ -24,7 +27,7 @@ dependencies {
 test{
     useTestNG(){
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
     }
 }
 
@@ -35,7 +38,7 @@ task redxuiTest(type: Test) {// we define a task with name ‘androiduiTest’
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
         def smoke = project.hasProperty("Smoke")
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
@@ -63,7 +66,7 @@ task redxUiDebug(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
         suites "src/test/resources/mySuites/debugSuite.xml"
     }
 

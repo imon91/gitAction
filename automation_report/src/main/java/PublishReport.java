@@ -1,46 +1,37 @@
-package generator;
-
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Test;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
 public class PublishReport {
 
-    @BeforeSuite
-    public void beforeSuite(){
-        System.out.println("Called here");
+
+    public static void main(String[] args) throws Exception{
         WebDriverManager.chromedriver().setup();
-    }
-
-
-    @Test
-    public void publish() throws Exception{
-        Runtime.getRuntime().exec("python3 -m http.server 8000 --bind 0.0.0.0");
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--headless");
+        chromeOptions.setAcceptInsecureCerts(true);
         WebDriver driver = new ChromeDriver(chromeOptions);
-        driver.get("http://0.0.0.0:8000/src/main/java/index.html");
+        driver.get("https://automation-report.herokuapp.com/index.html");
+        for(int i=0;i<2;i++){
+            Thread.sleep(5000);
+            driver.navigate().refresh();
+        }
+        Thread.sleep(10000);
         System.out.println(driver.getCurrentUrl());
         String htmlData = driver.findElement(By.id("parent-tag")).getAttribute("outerHTML");
         System.out.println(htmlData);
-        System.out.println("Total Tests Count : "+driver.findElement(By.id("tests-count")).getText());
+        //System.out.println("Total Tests Count : "+driver.findElement(By.id("tests-count")).getText());
         driver.quit();
         File htmlTemplateFile = new File(System.getProperty("user.dir")+"/src/main/java/finalReports/daily_report.html");
         FileOutputStream fileOutputStream = new FileOutputStream(htmlTemplateFile);
         fileOutputStream.write(htmlData.getBytes());
         fileOutputStream.close();
         //Runtime.getRuntime().exec("ps aux && pid=$(pgrep Python) && kill -9 $pid");
+        //System.out.println("Done");
     }
-
-    @AfterSuite
-    public void killAllProcess() throws Exception{
-        System.out.println("Done");
-        }
 }
