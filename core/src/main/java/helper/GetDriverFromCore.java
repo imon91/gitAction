@@ -6,6 +6,7 @@ import io.appium.java_client.remote.MobileBrowserType;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import io.appium.java_client.service.local.AppiumServiceBuilder;
 import io.appium.java_client.service.local.flags.GeneralServerFlag;
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -141,13 +142,14 @@ public class GetDriverFromCore {
         if(host.equalsIgnoreCase(HOST_LOCAL)){
             System.out.println("Control came to getWebDriver for Host : local");
             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setBrowserName(CHROME_DRIVER);
-            ChromeOptions chOptions = new ChromeOptions();
-            chOptions.addArguments("--disable-plugins", "--disable-extensions",
-                    "--disable-popup-blocking","--disable-notifications","--headless");
-            capabilities.setCapability(ChromeOptions.CAPABILITY,chOptions);
-            return new ChromeDriver(capabilities);
+//            DesiredCapabilities capabilities = new DesiredCapabilities();
+//            capabilities.setBrowserName(CHROME_DRIVER);
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--headless");
+            chromeOptions.setAcceptInsecureCerts(true);
+            WebDriver driver = new ChromeDriver(chromeOptions);
+            return driver;
         }else {
             setBrowserStackUrl();
             System.out.println("Control came to getWebDriver for Host : browserStack");
