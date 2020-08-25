@@ -37,9 +37,6 @@ public class SmokeFlow extends AndroidBaseClass {
     private ServiceRequestLayer serviceRequestLayer;
     private SalesRepFeature salesRepFeature;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
-    private PaymentModePageObjects paymentModePageObjects;
-    private MyActions myActions;
-    private RightNavigationDrawer rightNavigationDrawer;
     private Random random;
 
 
@@ -171,8 +168,9 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 6)
     public void verifyEditProfile()
-    {if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
     {
+        if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
+        {
         actionBarObjects.clickOnUserProfileImageButton();
         rightNavigationDrawer.clickOnItemMyAccount();
         rightNavigationDrawer.clickProfileEditButton();
@@ -182,7 +180,8 @@ public class SmokeFlow extends AndroidBaseClass {
         myActions.action_sendKeys(rightNavigationDrawer.ownerNameEdit(),"Modified OwnerName"+random.nextInt(100));
         rightNavigationDrawer.businessTypeEdit(1);
         rightNavigationDrawer.clickOnProfileSaveButton();
-        androidDriver.navigate().back();}
+        androidDriver.navigate().back();
+        }
     }
 
     

@@ -102,11 +102,6 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='9']")
     private WebElement navigationItemLogoutMokam;
 
-    // NavigationItem Change Language Mokam
-    private WebElement navigationItemChangeLanguageMokam;
-
-    private WebElement navigationItemChangeLanguageReseller;
-
     private WebElement profileEditButton;
 
     private WebElement profileSaveButton;
