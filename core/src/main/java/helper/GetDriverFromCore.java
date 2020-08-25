@@ -145,7 +145,7 @@ public class GetDriverFromCore {
             capabilities.setBrowserName(CHROME_DRIVER);
             ChromeOptions chOptions = new ChromeOptions();
             chOptions.addArguments("--disable-plugins", "--disable-extensions",
-                    "--disable-popup-blocking","--disable-notifications");
+                    "--disable-popup-blocking","--disable-notifications","--headless");
             capabilities.setCapability(ChromeOptions.CAPABILITY,chOptions);
             return new ChromeDriver(capabilities);
         }else {
