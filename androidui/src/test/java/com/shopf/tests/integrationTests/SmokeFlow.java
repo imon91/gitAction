@@ -37,9 +37,6 @@ public class SmokeFlow extends AndroidBaseClass {
     private ServiceRequestLayer serviceRequestLayer;
     private SalesRepFeature salesRepFeature;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
-    private PaymentModePageObjects paymentModePageObjects;
-    private MyActions myActions;
-    private RightNavigationDrawer rightNavigationDrawer;
     private Random random;
 
 
@@ -144,14 +141,12 @@ public class SmokeFlow extends AndroidBaseClass {
 
      @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 3)
     public void performChangeLanguage(){
-        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             switchFromWebToNative();
             actionBarObjects.clickOnUserProfileImageButton();
             rightNavigationDrawer.clickOnItemChangeLanguage();
             rightNavigationDrawer.selectEnglish();
             rightNavigationDrawer.saveLanguage();
             sleep(5000);
-        }
     }
 
 
@@ -248,7 +243,7 @@ public class SmokeFlow extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
     public void verifySelectAddress()
     {
-        if(System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER))
+        if(app.equalsIgnoreCase(CoreConstants.MOKAM_USER))
     {
         myBag.verifyProceedToPaymentByCreatingNewAddress();
         sleep(4000);
@@ -260,7 +255,7 @@ public class SmokeFlow extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
     public void verifyProceedToPaymentInAddress()
     {
-        if(!System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER)){
+        if(!app.equalsIgnoreCase(CoreConstants.MOKAM_USER)){
             myBag.verifyCheckoutProceedInMyBag();
         sleep(3000);}
     }
