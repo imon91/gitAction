@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -209,6 +210,30 @@ public class ShopUpPostMan {
     }
 
 
+
+    public Response postCall(String path,Map object){
+        String cookie = null;
+        try{
+            cookie = CookieManager.getValueOfKey(cookieKey);
+            //System.out.println("User Cookie is : "+cookie);
+        }catch (Exception e){
+            System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
+        }
+        System.out.println("Control in PostCall");
+        System.out.println("Base-URL is : "+baseURL);
+        RestAssured.baseURI = baseURL;
+        System.out.println("Final URL is : "+baseURL+path);
+        JSONObject request=new JSONObject(object);
+        System.out.println(request);
+        Response  response = given().header("Content-Type","application/json")
+                .header("cookie",cookie)
+                .body(request.toJSONString())
+                .when()
+                .post(path);
+        return response;
+    }
+
+
     public void performAuthenticationInShopUpPostman(){
         Response response = null;
         String patch = null;
@@ -252,12 +277,15 @@ public class ShopUpPostMan {
         try{
             Object obj1 = new JSONParser().parse(new FileReader(filePath1));
             JSONObject jo1 = (JSONObject) obj1;
+            //System.out.println("Body is : "+jo1);
             response = given().header("Content-Type","application/json")
                     .body(jo1).post(patch);
             response.then().log().all();
             if(module.equalsIgnoreCase(CoreConstants.MODULE_ANDROID_UI)){
+                //System.out.println("COMMERCE_VERIFY_OTP URL : "+baseURL+EndPoints.COMMERCE_VERIFY_OTP);
                 Object obj2 = new JSONParser().parse(new FileReader(filePath2));
                 JSONObject jo2 = (JSONObject) obj2;
+                //System.out.println("Body is : "+jo2);
                 response = given().header("Content-Type","application/json")
                         .body(jo2).post(EndPoints.COMMERCE_VERIFY_OTP);
                 response.then().log().all();

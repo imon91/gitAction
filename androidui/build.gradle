@@ -95,17 +95,12 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         def search = project.hasProperty("Search")
         def pdp = project.hasProperty("PDP")
         def plp = project.hasProperty("PLP")
-
+        def mybag = project.hasProperty("Bag")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
         }
-        if(regression){
-            suites "src/test/resources/mySuites/regressionSuite.xml"
-        }
-        if (sanity){
-            suites "src/test/resources/mySuites/sanitySuite.xml"
-        }
+        
         if(regression){
             if(search){
                 suites  "src/test/resources/mySuites/searchSuite.xml";
@@ -116,8 +111,14 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
             else if (plp){
                 suites "src/test/resources/mySuites/plpSuite.xml"
             }
+            else if (mybag){
+                suites "src/test/resources/mySuites/myBagRegressionSuite.xml"
+            }
         }
-
+        
+        if (sanity){
+            suites "src/test/resources/mySuites/sanitySuite.xml"
+        }
     }
 }
 

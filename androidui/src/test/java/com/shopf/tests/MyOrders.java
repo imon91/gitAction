@@ -202,23 +202,25 @@ public class MyOrders extends AndroidBaseClass {
 
         MyOrderModel myOrderModelResults=myOrderDetailsPageObject.getResultsOfMyOrdersApi(1);
         //Click on Load More button
-
-        for(int numberOfClickOnLoadMore =1;numberOfClickOnLoadMore<3;numberOfClickOnLoadMore++)//just Hard coded to load 21 orderId
+        for(int numberOfClickOnLoadMore =1;numberOfClickOnLoadMore<3;numberOfClickOnLoadMore++)//just Hard coded to load 3 orderId
         { myOrderDetailsPageObject.clickOnLoadMore();
         sleep(1000);
         }
 
         //verification Of names for particular OrderId
-        for(int j=0; j<21 ;j++)
+        for(int j=0; j<5 ;j++)
         {
-            String orderIdApi = myOrderModelResults.getAllmyorders().get(j).getCustomer_order().getNumber();
+            String orderIdApi = myOrderModelResults.getJson_response().getAllmyorders().get(j).getCustomer_order().getNumber();
+            String nameApi = myOrderModelResults.getJson_response().getAllmyorders().get(j).getCustomer_order().getShip_address().getFirstname();
             myOrderDetailsPageObject.scrollToOrderID(orderIdApi);
             for(int i=0;i<myOrderDetailsPageObject.listOfOrderId().size();i++)
             {
                 if(orderIdApi.equalsIgnoreCase(myActions.action_getText(myOrderDetailsPageObject.listOfOrderId().get(i))))
                 {
-                    String orderIdUI = myActions.action_getText(myOrderDetailsPageObject.listOfName().get(i));
-                    assertTrue(orderIdApi.equalsIgnoreCase(orderIdUI));
+                    String namesUI = myActions.action_getText(myOrderDetailsPageObject.listOfName().get(i));
+                    assertTrue(nameApi.equalsIgnoreCase(namesUI));
+                    System.out.println(nameApi);
+                    System.out.println(namesUI);
                     System.out.println("Data was verified");
                 }
             }
@@ -227,6 +229,59 @@ public class MyOrders extends AndroidBaseClass {
 
 
     }
+
+
+
+    @Test(groups ={ "MyOrder.VerifyDataInOrderDetail",
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifying all data In MyOrderDetailPage")
+    public void verifyDataOfOrderInOrderDetailPage() {
+
+        MyOrderModel myOrderModelResults=myOrderDetailsPageObject.getResultsOfMyOrdersApi(1);
+        sleep(2000);
+        for(int orderNo=0;orderNo<3;orderNo++) {
+            System.out.println("The order details of " + myOrderModelResults.getJson_response().getAllmyorders().get(orderNo).getCustomer_order().getNumber() + "was under Verification");
+            myActions.action_click(myOrderDetailsPageObject.scrollToOrderID(myOrderModelResults.getJson_response().getAllmyorders().get(orderNo).getCustomer_order().getNumber()));
+            sleep(2000);
+            MyOrderDetailsModel myOrderDetailsModel = myOrderDetailsPageObject.getResultsOfMyOrderDetailsApi(myOrderModelResults.getJson_response().getAllmyorders().get(orderNo).getCustomer_order().getNumber());
+            sleep(2500);
+            //Verification of orderId
+            String orderId = myOrderDetailsPageObject.getOrderIdAfterClickingOnOrder();
+            assertTrue(orderId.equalsIgnoreCase(myOrderDetailsModel.getCustomer_order().getNumber()));
+            System.out.println("Order ID was verified successfully");
+
+            //Verification of ProductName
+            for (int product = 0; product < myOrderDetailsModel.getCustomer_order().getVendor_orders().get(0).getVendor_packages().get(0).getVendor_order_line_items().size(); product++) {
+                String productName = myOrderDetailsModel.getCustomer_order().getVendor_orders().get(0).getVendor_packages().get(0).getVendor_order_line_items().get(product).getProduct_name();
+                myOrderDetailsPageObject.scrollAtOrderDetailPage(productName);
+                sleep(1000);
+            }
+            System.out.println("product names were verified");
+            //Verification of Payment Summary
+            List<String> paymentSummaryContainerApi = new ArrayList<>();
+            List<String> paymentSummaryContainerUI = myOrderDetailsPageObject.orderPaymentContainer(myOrderDetailsModel.getCustomer_order().getItem_total(), myOrderDetailsModel.getCustomer_order().getTotal_shipping(), myOrderDetailsModel.getCustomer_order().getAdvance_amount_paid(), myOrderDetailsModel.getCustomer_order().getTotal());
+            paymentSummaryContainerApi.add(String.valueOf(myOrderDetailsModel.getCustomer_order().getItem_total()));
+            paymentSummaryContainerApi.add(String.valueOf(myOrderDetailsModel.getCustomer_order().getTotal_shipping()));
+            paymentSummaryContainerApi.add(String.valueOf(myOrderDetailsModel.getCustomer_order().getAdvance_amount_paid()));
+            paymentSummaryContainerApi.add(String.valueOf(myOrderDetailsModel.getCustomer_order().getTotal()));
+            assertEquals(paymentSummaryContainerUI, paymentSummaryContainerApi);
+
+            //Verification of Customer Detail
+            List<String> customerDetailApi = new ArrayList<>();
+            customerDetailApi.add(myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname());
+            customerDetailApi.add(myOrderDetailsModel.getCustomer_order().getShip_address().getAddress1());
+            System.out.println(myOrderDetailsModel.getCustomer_order().getShip_address().getPhone());
+
+            List<String> customerDetailUI = myOrderDetailsPageObject.addressDetailContainer(myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname(), myOrderDetailsModel.getCustomer_order().getShip_address().getAddress1());
+            assertEquals(customerDetailUI, customerDetailApi);
+            System.out.println(customerDetailUI);
+            softAssert.assertAll();
+            myActions.action_click(xpathSetter("//android.widget.ImageButton[@content-desc='Navigate up']"));
+
+        }
+    }
+
+
 
 
     @AfterClass(alwaysRun = true)

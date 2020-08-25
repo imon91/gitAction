@@ -1,7 +1,7 @@
 package utils;
 
 import coreUtils.CoreConstants;
-import services.commerceInterfaces.CommerceServices;
+import services.commerceInterfaces.*;
 import services.commerceMethods.*;
 
 public class ServiceRequestLayer implements CommerceServices {

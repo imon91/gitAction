@@ -1,6 +1,16 @@
 plugins {
     id 'java'
+    id "application"
 }
+apply plugin : "java"
+ext {
+    javaMainClass = "PublishReport"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+
 
 group 'UiTests'
 version '1.0-SNAPSHOT'
@@ -17,20 +27,4 @@ dependencies {
     implementation group: 'org.testng', name: 'testng', version: '6.14.3'
     // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.1'
-}
-
-test{
-    useTestNG(){
-        useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env"])
-        suites "src/test/resources/mySuites/suite.xml"
-    }
-}
-
-task updateReport(type: Test) {
-    useTestNG(){
-        systemProperties project.properties.subMap(["Module","BuildNumber","App","Env"])
-        suites "src/test/resources/mySuites/suite.xml"
-    }
-
 }

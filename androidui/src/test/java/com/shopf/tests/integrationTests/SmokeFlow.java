@@ -26,6 +26,9 @@ public class SmokeFlow extends AndroidBaseClass {
     private ActionBarObjects actionBarObjects;
     private MyOrdersPageObjects myOrdersPageObjects;
     private MyOrdersPageObjects.OrderDetails orderDetails;
+    private PaymentModePageObjects paymentModePageObjects;
+    private RightNavigationDrawer rightNavigationDrawer;
+    private MyActions myActions;
     private String app;
     private String host;
     private String plp_view;
@@ -72,6 +75,9 @@ public class SmokeFlow extends AndroidBaseClass {
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
+        paymentModePageObjects = new PaymentModePageObjects(androidDriver);
+        rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        myActions = new MyActions();
         plp_view = productListingPageObjects.plpView;
         salesRepFeaturePageObject = new SalesRepFeaturePageObject(androidDriver);
         salesRepFeature = new SalesRepFeature();
@@ -126,26 +132,28 @@ public class SmokeFlow extends AndroidBaseClass {
         authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);
 //        salesRepFeaturePageObject.performAuthentication("01877755590","666666");
     }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 3)
-    public void performChangeLanguage(){
-//        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
-            switchFromWebToNative();
-            actionBarObjects.clickOnUserProfileImageButton();
-             rightNavigationDrawer.clickOnItemChangeLanguage();
-             rightNavigationDrawer.selectEnglish();
-             rightNavigationDrawer.saveLanguage();
-            sleep(5000);
-//        }
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 2)
+  
+  @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 2)
     public void verifyAddingRetailer()
     {  if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
         salesRepFeature.salesRepPageBeforeClass();
         salesRepFeature.verifyAddingRetailer();
     sleep(4000);}
     }
+  
+
+     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 3)
+    public void performChangeLanguage(){
+        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            switchFromWebToNative();
+            actionBarObjects.clickOnUserProfileImageButton();
+            rightNavigationDrawer.clickOnItemChangeLanguage();
+            rightNavigationDrawer.selectEnglish();
+            rightNavigationDrawer.saveLanguage();
+            sleep(5000);
+        }
+    }
+
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 4)
     public void verifyAddedRetailer()
@@ -177,6 +185,7 @@ public class SmokeFlow extends AndroidBaseClass {
         androidDriver.navigate().back();}
     }
 
+    
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 7,dataProvider = "dataForSearchTerm")
     public void searchToObject(String searchTerm){
         search.searchBeforeClass();
@@ -186,12 +195,10 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 8)
     public void verifyApplyingSortOnPLP() throws Exception {
-//        if(host.equalsIgnoreCase("Local")){
             plp.productListingPageBeforeClass();
             plp.verifyApplyingSortOnPLP();
-//        }
     }
-
+  
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 9)
     public void verifyApplyingFilterOnPLP() throws Exception
     {
@@ -223,18 +230,19 @@ public class SmokeFlow extends AndroidBaseClass {
         { myBag.verifyApplyingShippingCharges();}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
     public void verifyPlaceOrderInMyBag()
     {
         myBag.verifyPlaceOrderInMyBag();
     }
-
+  
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
     public void verifyDeletingCodDisabledProductInAddress()
     {  //sleep(4000);
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
         {
-        myBag.deleteProductWithCODDisabled();}
+        myBag.deleteProductWithCODDisabled();
+        }
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
@@ -259,9 +267,19 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
     public void verifyCheckoutWithCOD()
-    {       //sleep(3500);
-           if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){myBag.verifyProceedPaymentWithoutChangeAddress();}
-            sleep(2000);
+    {
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            sleep(3500);
+//             myBag.verifyProceedPaymentWithoutChangeAddress();
+//             if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+//                 paymentModePageObjects.closeJoinPrimoPage();
+//             }
+//         }
+//         sleep(6000);
+    //{       sleep(3500);
+            myBag.verifyProceedPaymentWithoutChangeAddress();
+            //sleep(2000);
+    }
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 19)

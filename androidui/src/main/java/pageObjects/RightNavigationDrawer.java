@@ -61,9 +61,13 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='4']")
     private WebElement navigationItemMyShop;
 
-    // NavigationItem Change Language
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Change Language']")
-    private WebElement navigationItemChangeLanguage;
+    // NavigationItem Change Language Mokam
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=5]")
+    private WebElement navigationItemChangeLanguageMokam;
+
+    // NavigationItem Change Language Reseller
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=6]")
+    private WebElement navigationItemChangeLanguageReseller;
 
     // NavigationItem Reseller Policy
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reseller Policy']")
@@ -147,16 +151,18 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     public void clickOnItemMyShop(){
         myActions.action_click(navigationItemMyShop);
     }
-
-    public void clickOnItemChangeLanguage()
-        {if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
+  
+    public void clickOnItemChangeLanguage(){
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
         {
             navigationItemChangeLanguageReseller = xpathSetter("//android.widget.RelativeLayout[@index=6]");
             myActions.action_click(navigationItemChangeLanguageReseller);
 
         }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             navigationItemChangeLanguageMokam = xpathSetter("//android.widget.RelativeLayout[@index=5]");
-            myActions.action_click(navigationItemChangeLanguageMokam); }}
+            myActions.action_click(navigationItemChangeLanguageMokam); 
+        }
+    }
 
     public void clickOnItemResellerPolicy(){
         myActions.action_click(navigationItemResellerPolicy);
@@ -189,6 +195,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
             myActions.action_click(navigationItemLogoutMokam);
         }
     }
+
     public void selectEnglish(){
         myActions.action_click(xpathSetter("//android.widget.RadioButton[@text='English']"));
     }
