@@ -1,20 +1,16 @@
 package pageObejcts;
 
 
-import coreUtils.CoreConstants;
 import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.annotations.*;
 import utils.StoreWapActions;
 import utils.StoreWapBaseClass;
 
@@ -29,7 +25,7 @@ public class AuthenticationPageObjects extends StoreWapBaseClass {
 
 
     //mobile number text input
-    @FindBy(xpath = "//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-fdjqy7']")
+    @FindBy(xpath = "//div[text()='Enter Mobile Number']//following-sibling::input")
     private WebElement mobileNumberText;
 
     //Terms of Service button
@@ -49,7 +45,7 @@ public class AuthenticationPageObjects extends StoreWapBaseClass {
     private WebElement verifyMobileNumberButton;
 
     //otp text input
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-eqz5dr']//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-fdjqy7']")
+    @FindBy(xpath = "//div[text()='Enter OTP']//following-sibling::input")
     private WebElement otpText;
 
     //request another otp button
@@ -93,14 +89,14 @@ public class AuthenticationPageObjects extends StoreWapBaseClass {
 
     public void sendOtp(String mobileNumber){
         System.out.println("Mobile Number is : "+mobileNumber);
-        enterMobileNumber(mobileNumber);
+        enterMobileNumber(mobileNumber+ "\n");
         clickVerifyMobileNumberButton();
     }
 
     public void sendOtpInvalidMobileNumber(){
         String invalidMobileNumber = "12345678900";
         System.out.println("Invalid mobile number : "+ invalidMobileNumber);
-        enterMobileNumber(invalidMobileNumber);
+        enterMobileNumber(invalidMobileNumber +  "\n");
         //clickVerifyMobileNumberButton();
     }
 
@@ -127,30 +123,33 @@ public class AuthenticationPageObjects extends StoreWapBaseClass {
     public void enterValidOtp(){
         String otp = new DataBaseCore().getOTPForStore();
         System.out.println("Valid OTP : "+otp);
-        enterOtp(otp);
+        enterOtp(otp + "\n");
         clickVerifyMobileNumberButton();
     }
 
     public void enterInValidOtp(){
         String otp = "112345";
         System.out.println("Invalid OTP : "+otp);
-        enterOtp(otp);
+        enterOtp(otp + "\n");
         clickVerifyMobileNumberButton();
     }
 
     public void enterValidResendOtp(){
+        sleep(32000);
         clickRequestAnotherOtp();
+        sleep(5000);
         String otp = new DataBaseCore().getOTPForStore();
         System.out.println("Valid resent OTP : "+otp);
-        enterOtp(otp);
+        enterOtp(otp+ "\n");
         clickVerifyMobileNumberButton();
     }
 
     public void enterInValidResendOtp(){
+        sleep(32000);
         clickRequestAnotherOtp();
         String otp = "112345";
         System.out.println("Invalid resend OTP : "+otp);
-        enterOtp(otp);
+        enterOtp(otp+ "\n");
         clickVerifyMobileNumberButton();
     }
 

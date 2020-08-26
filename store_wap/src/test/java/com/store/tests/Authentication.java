@@ -1,14 +1,13 @@
 package com.store.tests;
 
 import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObejcts.AuthenticationPageObjects;
 import services.commerceMethods.GetAuthenticationApiResponse;
-import services.commerceMethods.GetCommerceApiResponse;
 import utils.StoreWapBaseClass;
 
 public class Authentication extends StoreWapBaseClass {
@@ -21,8 +20,7 @@ public class Authentication extends StoreWapBaseClass {
     public void resellerAndroidBeforeSuite() throws Exception {
         System.out.println("resellerAndroidBeforeSuite is called");
         // This code is to set the Cookie for API usage
-        new GetAuthenticationApiResponse(CoreConstants.MODULE_STORE_WAP)
-                .performAuthentication();
+        new GetAuthenticationApiResponse(CoreConstants.MODULE_STORE_WAP).performAuthentication();
         androidDriver = getBaseDriver();
         androidDriver.get(getWAPBaseUrl());
         setImplicitWait(30);
@@ -39,17 +37,17 @@ public class Authentication extends StoreWapBaseClass {
     @DataProvider(name = "dataForAuthentication")
     public Object[][] dataForAuthentication() {
         return new Object[][]{
-                {"01877755590"}
+                {"01877755580"}
         };
     }
 
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dataProvider = "dataForAuthentication")
     public void authenticationWithValidCredentials(String mobileNumber) {
-        System.out.println("Welcome To Store WAP Testing Vishnuvarthan!!");
+        System.out.println("Welcome To Store WAP Testing Vishnuvarthan!!" );
         System.out.println("authenticationWithValidCredentials is called");
         authenticationPageObjects.sendOtp(mobileNumber);
-        Assert.assertEquals(authenticationPageObjects.getOtpStatusMessage(), "otp sent succesfully");
+        Assert.assertEquals(authenticationPageObjects.getOtpStatusMessage(), "otp sent successfully");
         authenticationPageObjects.enterValidOtp();
     }
 
