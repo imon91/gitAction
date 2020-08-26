@@ -23,6 +23,9 @@ dependencies {
     compile group: 'com.opencsv', name: 'opencsv', version: '5.2'
     // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
     implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.1'
+    // https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder
+    compile group: 'com.github.stephenc.monte', name: 'monte-screen-recorder', version: '0.7.7.0'
+
 
 }
 

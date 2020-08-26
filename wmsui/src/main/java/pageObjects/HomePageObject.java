@@ -70,15 +70,9 @@ public class HomePageObject extends WmsBaseClass {
         return myActions.action_getText(popUpMessageElement);
     }
 
-    public void selectWarehouse(String warehouse) throws Exception {
+    public void selectWarehouse(String warehouse) {
         WebElement selectWarehouseDropDown = xpathSetter("//div[@id='root']//form//select");
         myActions.action_select(selectWarehouseDropDown,warehouse);
-        sleep(2000);
-        for(Cookie cookie : driver.manage().getCookies()){
-            if(cookie.getName().contains("session_"))
-            ck = cookie.getName() + "=" + cookie.getValue() + " ";
-        }
-        CookieManager.setValue(CookieManager.Keys.WMS_SESSION,ck);
     }
 }
 

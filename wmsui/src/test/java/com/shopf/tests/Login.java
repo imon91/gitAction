@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import utils.*;
 import pageObjects.*;
+import videoRecorder.ScreenRecorder;
 
 
 public class Login extends WmsBaseClass {
@@ -12,9 +13,11 @@ public class Login extends WmsBaseClass {
     private WebDriver driver;
     private LoginPageObject loginPageObject;
 
+
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception {
         System.out.println("WMSBeforeSuite is called");
+        ScreenRecorder.startRecording("");
         driver = getBaseDriver();
         setImplicitWait(10000);
         driver.get(getWmsBaseUrl());
@@ -59,8 +62,9 @@ public class Login extends WmsBaseClass {
 
 
     @AfterSuite(alwaysRun = true)
-    public void wmsAfterSuite() {
+    public void wmsAfterSuite() throws Exception {
         System.out.println("WMSAfterSuite Is Called");
+        ScreenRecorder.stopRecording();
         quitBaseDriver();
     }
 }

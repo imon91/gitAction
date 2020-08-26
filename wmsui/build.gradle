@@ -63,7 +63,7 @@ task wmsuiTest(type: Test){
         def smoke = project.hasProperty("Smoke")
         def sanity = project.hasProperty("Sanity")
         def regression = project.hasProperty("Reg")
-        def regWH = project.hasProperty("WHReg")
+        def addWarehouse = project.hasProperty("AddingWarehouse")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -77,9 +77,11 @@ task wmsuiTest(type: Test){
             suites "src/test/resources/mySuites/regressionSuite.xml"
         }
 
-        if(regWH){
+        if(addWarehouse){
             suites "src/test/resources/mySuites/warehouse.xml"
         }
+
+
     }
 }
 

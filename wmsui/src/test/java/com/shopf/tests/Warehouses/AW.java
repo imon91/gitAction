@@ -53,20 +53,9 @@ public class AW extends WmsBaseClass {
         Gson gson = new Gson();
         AddingWarehouseModel addingWarehouseModel = gson.fromJson(body.toString(),AddingWarehouseModel.class);
 
-        String[] allInputDataFromCsv = addingWarehouseModel.getAll();
         String[] allInputData = addWarehouseTab.getAllInputData(addingWarehouseModel.getAll());
         String[] allErrorData = addWarehouseTab.getAllErrorMessageData(addingWarehouseModel.getAll());
         System.out.println(addingWarehouseModel.getTestCaseId()+" - "+addingWarehouseModel.getTestCase());
-        for(i=0;i<allInputDataFromCsv.length;i++)
-        {
-            System.out.print(allInputDataFromCsv[i]);
-            System.out.print(" - ");
-            System.out.print(allInputData[i]);
-            System.out.print(" - ");
-            System.out.println(allErrorData[i]);
-        }
-
-
         addWarehouseTab.addNewWarehouse(allInputData);
         if(addingWarehouseModel.getToastMessage().equals("N/A"))
             for(i=0;i<allErrorData.length;i++)
@@ -82,7 +71,6 @@ public class AW extends WmsBaseClass {
         else  System.out.println(addingWarehouseModel.getToastMessage());
 
         driver.navigate().refresh();
-
     }
 
     @AfterClass(alwaysRun = true)
