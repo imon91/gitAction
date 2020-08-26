@@ -1,15 +1,15 @@
 package utils;
 
 import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
 import io.appium.java_client.android.nativekey.*;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import pageObjects.NativePopUpProgressBarPO;
 
 public class MyActions extends AndroidBaseClass{
 
     private String host = System.getProperty(BuildParameterKeys.KEY_HOST);
+    private NativePopUpProgressBarPO nativePopUpProgressBarPO
+            = new NativePopUpProgressBarPO(getBaseDriver());
 
     public void action_click(WebElement element){
         sleep(300);
@@ -24,6 +24,14 @@ public class MyActions extends AndroidBaseClass{
         }
         catch (Exception e){
             System.out.println(e);
+        }
+
+        if(nativePopUpProgressBarPO.isProgressBarCrossingThreshold()){
+            System.out.println("Progress Bar Is Still Visible");
+            // Take the snapshot and Quit the process
+            System.exit(1);
+        }else {
+            // Do Nothing
         }
     }
 

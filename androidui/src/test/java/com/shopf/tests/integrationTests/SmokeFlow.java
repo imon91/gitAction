@@ -31,6 +31,7 @@ public class SmokeFlow extends AndroidBaseClass {
     private MyActions myActions;
     private String app;
     private String host;
+    private String mokamUser;
     private String plp_view;
     private final String NEW_PLP_VIEW = "New";
     private final String OLD_PLP_VIEW = "Old";
@@ -58,6 +59,7 @@ public class SmokeFlow extends AndroidBaseClass {
         System.out.println("Smoke Test Started");
         app = System.getProperty(BuildParameterKeys.KEY_APP);
         host = System.getProperty(BuildParameterKeys.KEY_HOST);
+        mokamUser = System.getProperty(BuildParameterKeys.KEY_USER);
         androidDriver = getBaseDriver();
         authentication = new Authentication();
         myBag = new MyBag();
@@ -243,21 +245,25 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
-    public void verifySelectAddress()
-    {
-        if(app.equalsIgnoreCase(CoreConstants.MOKAM_USER))
-    {
-        myBag.verifyProceedToPaymentByCreatingNewAddress();
-        sleep(4000);
-    }else
-        {
-        myBag.verifySelectAddressInMyBag();}
+    public void verifySelectAddress() {
+        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            if(mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)){
+                // SR
+                myBag.verifyProceedToPaymentByCreatingNewAddress();
+                sleep(4000);
+            }else{
+                myBag.verifySelectAddressInMyBag();
+            }
+        }
+        else {
+        myBag.verifySelectAddressInMyBag();
+        }
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
     public void verifyProceedToPaymentInAddress()
     {
-        if(!app.equalsIgnoreCase(CoreConstants.MOKAM_USER)){
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
             myBag.verifyCheckoutProceedInMyBag();
         sleep(3000);}
     }

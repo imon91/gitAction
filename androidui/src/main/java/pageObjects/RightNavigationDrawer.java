@@ -61,6 +61,14 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='4']")
     private WebElement navigationItemMyShop;
 
+    // NavigationItem Change Language Mokam
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=5]")
+    private WebElement navigationItemChangeLanguageMokam;
+
+    // NavigationItem Change Language Reseller
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=6]")
+    private WebElement navigationItemChangeLanguageReseller;
+
     // NavigationItem Reseller Policy
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reseller Policy']")
     private WebElement navigationItemResellerPolicy;

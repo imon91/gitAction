@@ -206,6 +206,11 @@ public class ShopUpPostMan {
                 .header("cookie",cookie)
                 .when()
                 .get(path);
+        if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
+            // Exit Java Process
+            System.out.println("Service is temporarily unavailable : "+ response.getStatusCode());
+            System.exit(1);
+        }
         return response;
     }
 
@@ -230,6 +235,11 @@ public class ShopUpPostMan {
                 .body(request.toJSONString())
                 .when()
                 .post(path);
+        if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
+            // Exit Java Process
+            System.out.println("Service is temporarily unavailable : "+ response.getStatusCode());
+            System.exit(1);
+        }
         return response;
     }
 
