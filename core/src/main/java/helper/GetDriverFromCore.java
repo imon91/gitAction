@@ -2,21 +2,13 @@ package helper;
 
 import coreUtils.*;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileBrowserType;
-import io.appium.java_client.service.local.AppiumDriverLocalService;
-import io.appium.java_client.service.local.AppiumServiceBuilder;
-import io.appium.java_client.service.local.flags.GeneralServerFlag;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.net.ServerSocket;
-import java.net.URL;
-
+import io.appium.java_client.service.local.*;
+import io.appium.java_client.service.local.flags.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.firefox.*;
+import org.openqa.selenium.remote.*;
+import java.net.*;
 
 public class GetDriverFromCore {
 
@@ -25,8 +17,8 @@ public class GetDriverFromCore {
     private static final String FIREFOX_DRIVER = "firefox";
     private static final String USERNAME = "techautomation1";
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
-    private static final String APP_RESELLER = "bs://635aae825c9f83d49efe5a44129a019044ca17ef";
-    private static final String APP_MOKAM = "bs://3e9fabcff33f12fa17798f9be86231922c267277";
+    private static final String APP_RESELLER = "bs://ae0d24a76911bff4913071b739216f6da1fe16fb";
+    private static final String APP_MOKAM = "bs://20ee0ee5c077e170ecbdccd38dc0c0072ac1eb39";
     private static final String APP_RED_X = "bs://8d5d5e3f9ec3520fc5c1b9cac95e1e3f51f91c06";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";

@@ -4,11 +4,13 @@ import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pageObjects.HomePageObjects;
+import utils.WAPConstants;
 import utils.WebAppBaseClass;
 
 public class Search extends WebAppBaseClass {
@@ -47,9 +49,12 @@ public class Search extends WebAppBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE},
                     dataProvider = "getProductName")
     public void verifySearchingObject(String productName){
-        System.out.println("Control come to verifySeearchingObject");
+        System.out.println("Control come to verifySearchingObject");
         System.setProperty("searchTerm",productName);
         homepageobject.searchForObject(productName);
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.SEARCH_FOR_TERM+productName));
+        System.out.println("Control is in search page");
     }
 
 

@@ -47,7 +47,7 @@ public class SellersList extends WmsBaseClass {
         System.out.println("List Size: " + sellersListModels.size());
 
         for (i = 0; i < sellersListModels.size(); i++) {
-            if (i == 0 || i == (sellersListModels.size() - 1) || test
+            if (i == 0 || test
                     .equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
 
                 System.out.println("-----------*-----*-----*------------");

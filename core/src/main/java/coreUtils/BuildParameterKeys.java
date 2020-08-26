@@ -11,5 +11,7 @@ public class BuildParameterKeys {
     public static final String KEY_OPERATING_SYSTEM = "Os";
     public static final String KEY_OPERATING_SYSTEM_VERSION = "OSv";
     public static final String KEY_HOST = "Host";
+    public static final String KEY_TRIGGER = "Trigger";
+    public static final String KEY_USER = "User";
 
 }

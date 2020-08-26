@@ -5,17 +5,21 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.MyActions;
 
 public class LoginPageObject {
 
-    private final WebDriver driver;
-    private final MyActions myActions;
+    private WebDriver driver;
+    private MyActions myActions;
+    private WebDriverWait wait;
 
     public LoginPageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
+        wait = new WebDriverWait(driver,10);
     }
 
 
@@ -34,14 +38,17 @@ public class LoginPageObject {
 
     /*--------------Actions-------------------*/
     private void enterEmail(String email) {
+        wait.until(ExpectedConditions.visibilityOf(emailEntry));
         myActions.action_sendKeys(emailEntry, email);
     }
 
     private void enterPassword(String password) {
+        wait.until(ExpectedConditions.visibilityOf(passwordEntry));
         myActions.action_sendKeys(passwordEntry, password);
     }
 
     private void clickOnSubmitButton() {
+        wait.until(ExpectedConditions.visibilityOf(submitButton));
         myActions.action_click(submitButton);
     }
 

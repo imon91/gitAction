@@ -1,20 +1,11 @@
 package pageObjects;
 
-import coreUtils.CoreConstants;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.PageFactory;
-import services.commerceMethods.GetCommerceApiResponse;
-import services.serviceUtils.ApiKeyConstants.FiltersNewKeys.*;
-import utils.AndroidBaseClass;
-import utils.MyActions;
-import utils.PropertyReader;
-import utils.ServiceRequestLayer;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.openqa.selenium.support.*;
+import utils.*;
+import java.util.*;
 
 import static services.serviceUtils.ApiKeyConstants.FiltersNewKeys.*;
 
@@ -55,7 +46,7 @@ public class ProductFilterPageObjects extends AndroidBaseClass {
         List<WebElement> listOfFilterNames = null;
         if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)) {
             listOfFilterNames =
-                    xpathListSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/filter_name_text']");
+                    xpathListSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/filter_name']");
         }else if(plp_view.equalsIgnoreCase(NEW_PLP_VIEW)){
             listOfFilterNames  =
                     xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_name']");
@@ -71,7 +62,7 @@ public class ProductFilterPageObjects extends AndroidBaseClass {
                     xpathListSetter("//android.widget.CheckBox[@resource-id='"+packageName+":id/checkbox_sub_filter']");
         }else if(plp_view.equalsIgnoreCase(OLD_PLP_VIEW)){
             listOfFilterItemCheckBoxes  =
-                    xpathListSetter("//android.widget.TextView[@resource-id='"+packageName+":id/filter_item_text']");
+                    xpathListSetter("//android.widget.CheckBox[@resource-id='"+packageName+":id/checkbox_sub_filter']");
         }
         return listOfFilterItemCheckBoxes;
     }

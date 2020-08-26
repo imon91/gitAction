@@ -23,6 +23,7 @@ public class AndroidAppConstants {
     public static final String URL_MY_ORDER_INDIVIDUAL = "https://uatwap.shopups2.xyz/orders/myorders";
     public static final String URL_CHECKOUT_ADDRESS = "https://uatwap.shopups2.xyz/checkout/address";
     public static final String URL_CHECKOUT_PAYMENT = "https://uatwap.shopups2.xyz/checkout/payment";
+    public static final String URL_CHECKOUT_THANKYOU = "https://uatwap.shopups2.xyz/checkout/thankyou";
     public static final String URL_MY_ACCOUNT_INCOME = "https://uatwap.shopups2.xyz//myaccount/income";
     public static final String URL_MY_ORDER_TRACK = "https://uatwap.shopups2.xyz//orders/myorders/R3263574631/track";
     public static final String URL_MY_INCOME_LIST = "https://uatwap.shopups2.xyz//myaccount/income/list";

@@ -8,7 +8,7 @@
             </run>
         </groups>
         <classes>
-
+            <class name="com.shopf.tests.Debug1"></class>
         </classes>
     </test>
 </suite>

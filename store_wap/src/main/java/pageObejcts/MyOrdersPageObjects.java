@@ -6,16 +6,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.StoreWapActions;
+import org.openqa.selenium.support.ui.*;
+import utils.*;
 
 
-import static utils.StoreWapBaseClass.getBaseDriver;
-
-
-
-public class MyOrdersPageObjects {
+public class MyOrdersPageObjects extends StoreWapBaseClass{
 
 
 

@@ -19,11 +19,16 @@ public class LoginPageObjects extends RedXBaseClass
     private WebElement loginButton;
     private WebElement enterMobileNumber;
     private WebElement submitMobileNumberButton;
+    private WebElement mobileNumberMessage;
     private WebElement enterOtpCode;
     private WebElement submitOtpCodeButton;
     private WebElement resendOtpButton;
     private WebElement confirmResendOtpButton;
     private WebElement changeMobileNumberButton;
+    private WebElement otpMessage;
+    private  WebElement popUpMessage;
+    private WebElement popUpButton;
+    private WebElement popUpTitle;
 
     /*----------Actions----------*/
 
@@ -41,20 +46,31 @@ public class LoginPageObjects extends RedXBaseClass
 
     public void clickSubmitMobileNumber()
     {
-        submitMobileNumberButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup[3]");
+        submitMobileNumberButton = xpathSetter("//android.widget.TextView[@text='NEXT']");
         myActions.action_click(submitMobileNumberButton);
         myActions.action_click(submitMobileNumberButton);
     }
 
+    public String  verifyMobileNumber()
+    {
+        mobileNumberMessage = xpathSetter("//android.widget.TextView[3]");
+        if(mobileNumberMessage.isDisplayed())
+        {
+            return myActions.action_getText(mobileNumberMessage);
+        }
+        else
+            return "Valid Mobile Number";
+    }
+
     public void enterOtpCode(String otp)
     {
-        enterOtpCode = xpathSetter("//android.view.ViewGroup/android.widget.EditText");
+        enterOtpCode = xpathSetter("//android.widget.EditText[@text='4-digit code']");
         myActions.action_sendKeys(enterOtpCode,otp);
     }
 
     public void clickSubmitOtp()
     {
-        submitOtpCodeButton = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup[2]");
+        submitOtpCodeButton = xpathSetter("//android.widget.TextView[@text='NEXT']");
         myActions.action_click(submitOtpCodeButton);
     }
 
@@ -62,7 +78,6 @@ public class LoginPageObjects extends RedXBaseClass
     {
         resendOtpButton = xpathSetter("//android.view.ViewGroup/android.widget.TextView[2]");
         myActions.action_click(resendOtpButton);
-
     }
 
     public void clickConfirmButton()
@@ -77,28 +92,59 @@ public class LoginPageObjects extends RedXBaseClass
         myActions.action_click(changeMobileNumberButton);
     }
 
-    /*----------Functions----------*/
-    public void performAuthentication(String mobileNumber,String otp)
+    public String getPopUpTitle()
     {
+        popUpTitle = xpathSetter("//android.widget.LinearLayout[@resource-id='android:id/title_template']/android.widget.TextView");
+        return myActions.action_getText(popUpTitle);
+    }
 
+    public String getPopUpMessage()
+    {
+        popUpMessage = idSetter("android:id/message");
+        return myActions.action_getText(popUpMessage);
+    }
+
+    public void clickPopUpButton()
+    {
+        popUpButton = idSetter("android:id/button1");
+        myActions.action_click(popUpButton);
+    }
+
+    public String verifyOtp()
+    {
+        otpMessage = xpathSetter("//android.widget.TextView[2]");
+        if(otpMessage.isDisplayed())
+        {
+            return myActions.action_getText(otpMessage);
+        }
+        else return "Valid Otp";
+    }
+
+    /*----------Functions----------*/
+
+    public void performAuthentication(String mobileNumber,String otp1)
+    {
+        System.out.println("Performing Authentication");
         clickLoginButton();
-        sleep(1000);
         enterMobileNumber(mobileNumber);
+//        System.out.println(verifyMobileNumber());
+//        if (verifyMobileNumber() == "Valid Mobile Number")
+//        {
+//            clickSubmitMobileNumber();
+//            popUpBox();
+//            enterOtpCode(otp1);
+//            clickSubmitOtp();
+//            System.out.println(verifyOtp());
+//        }
         clickSubmitMobileNumber();
-        sleep(5000);
-        enterOtpCode(otp);
+        enterOtpCode(otp1);
         clickSubmitOtp();
     }
 
-    public void performResendOtp(String mobileNumber, String otp)
+    public void performResendOtp(String otp)
     {
-        clickLoginButton();
-        sleep(1000);
-        enterMobileNumber(mobileNumber);
-        clickSubmitMobileNumber();
-        sleep(3000);
+        System.out.println("Performing Resend Otp");
         clickResendOtpButton();
-        sleep(1000);
         clickConfirmButton();
         enterOtpCode(otp);
         clickSubmitOtp();
@@ -106,19 +152,23 @@ public class LoginPageObjects extends RedXBaseClass
 
     public void performChangeNumber(String mobileNumber, String otp)
     {
-        clickLoginButton();
-        sleep(1000);
-        enterMobileNumber(mobileNumber);
-        clickSubmitMobileNumber();
-        sleep(3000);
+        System.out.println("Performing Change Mobile Number");
         clickChangeMobileNumberButton();
-        sleep(2000);
         myActions.action_clearText(enterMobileNumber);
         enterMobileNumber(mobileNumber);
         clickSubmitMobileNumber();
-        sleep(2000);
         enterOtpCode(otp);
         clickSubmitOtp();
+    }
+
+    public void popUpBox()
+    {
+        if(popUpTitle.isDisplayed())
+        {
+            System.out.println("PopUp Title :" + getPopUpTitle());
+            System.out.println("PopUp Message :" + getPopUpMessage());
+            clickPopUpButton();
+        }
     }
 
 }

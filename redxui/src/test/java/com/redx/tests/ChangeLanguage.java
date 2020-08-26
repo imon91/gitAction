@@ -11,12 +11,14 @@ public class ChangeLanguage extends RedXBaseClass
 {
     private AndroidDriver<WebElement> androidDriver;
     private HomePageObjects homePageObjects;
+    private SettingsPageObjects settingsPageObjects;
     private SettingsPageObjects.OtherSettings otherSettings;
 
     public void pageInitializer()
     {
         homePageObjects = new HomePageObjects();
-        otherSettings = new SettingsPageObjects().new OtherSettings();
+        settingsPageObjects = new SettingsPageObjects();
+        otherSettings = settingsPageObjects.new OtherSettings();
     }
 
     @BeforeClass(alwaysRun = true)
@@ -51,7 +53,8 @@ public class ChangeLanguage extends RedXBaseClass
     @AfterClass(alwaysRun = true)
     public void afterChangeLanguageClass()
     {
-        otherSettings.clickBackButton();
+        settingsPageObjects.clickBackButton();
+        settingsPageObjects.clickBackButton();
         System.out.println("After Change Language Class");
     }
 }

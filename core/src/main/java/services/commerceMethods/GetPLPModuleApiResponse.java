@@ -110,16 +110,18 @@ public class GetPLPModuleApiResponse {
         for (int i = 0; i < productListingResultsModel.getResults().size(); i++) {
             List<ProductListingResultsModel.ResultsBean.SizesBean> productSizes =
                     productListingResultsModel.getResults().get(i).getSizes();
-            for (int j = 0; j < productSizes.size(); j++) {
-                if (productSizes.get(j).getCount_on_hand() > 0 &&
-                        productSizes.get(j).getCorrected_count_on_hand() > 0) {
-                    // This is a product with valid
-                    productDetailsMap.put("ValidProductIndex", i);
-                    productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
-                    productDetailsMap.put("ValidSizeIndex", j);
-                    productDetailsMap.put("ProductCount",productListingResultsModel.getProducts_count());
-                    System.out.println(productListingResultsModel.getResults().get(i));
-                    return productDetailsMap;
+            if (productSizes.size() < 6) {
+                for (int j = 0; j < productSizes.size(); j++) {
+                    if (productSizes.get(j).getCount_on_hand() > 0 &&
+                            productSizes.get(j).getCorrected_count_on_hand() > 0) {
+                        // This is a product with valid
+                        productDetailsMap.put("ValidProductIndex", i);
+                        productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
+                        productDetailsMap.put("ValidSizeIndex", j);
+                        productDetailsMap.put("ProductCount", productListingResultsModel.getProducts_count());
+                        System.out.println(productListingResultsModel.getResults().get(i));
+                        return productDetailsMap;
+                    }
                 }
             }
         }
@@ -139,31 +141,23 @@ public class GetPLPModuleApiResponse {
         for (int i = 0; i < productListingResultsModel.getResults().size(); i++) {
             List<ProductListingResultsModel.ResultsBean.SizesBean> productSizes =
                     productListingResultsModel.getResults().get(i).getSizes();
-            for (int j = 0; j < productSizes.size(); j++) {
-                if (productSizes.get(j).getCount_on_hand() > 0 &&
-                        productSizes.get(j).getCorrected_count_on_hand() > 0) {
-                    // This is a product with valid
-                    productDetailsMap.put("ValidProductIndex", i);
-                    productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
-                    productDetailsMap.put("ValidSizeIndex", j);
-                    productDetailsMap.put("ProductCount",productListingResultsModel.getProducts_count());
-                    System.out.println(productListingResultsModel.getResults().get(i));
-                    return productDetailsMap;
+            if (productSizes.size() < 6) {
+                for (int j = 0; j < productSizes.size(); j++) {
+                    if (productSizes.get(j).getCount_on_hand() > 0 &&
+                            productSizes.get(j).getCorrected_count_on_hand() > 0) {
+                        // This is a product with valid
+                        productDetailsMap.put("ValidProductIndex", i);
+                        productDetailsMap.put("ValidProductDetails", productListingResultsModel.getResults().get(i));
+                        productDetailsMap.put("ValidSizeIndex", j);
+                        productDetailsMap.put("ProductCount", productListingResultsModel.getProducts_count());
+                        System.out.println(productListingResultsModel.getResults().get(i));
+                        return productDetailsMap;
+                    }
                 }
             }
         }
         return null;
     }
-
-
-     /*    public ProductDescriptionModel getProductDescriptionPageResults(String slug)
-        {
-        response = shopUpPostMan.getCall(EndPoints.RECOMMENDATIONS+slug+".json");
-        return gson.fromJson(response.getBody().asString(), ProductDescriptionModel.class);
-        }
-
-
-      */
 
 }
 

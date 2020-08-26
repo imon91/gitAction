@@ -1,0 +1,1315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html id="parent-tag" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ShopUp Automation Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="text/javascript">
+
+      readNew1();
+
+      async function readNew1() {
+        const response = await fetch(
+          "https://automation-report.herokuapp.com/daily/date/2020-08-18"
+        );
+        if (response.status === 200) {
+          const data = await response.json();
+          set_overall_data(data);
+          set_wms_ui(data);
+          set_reseller_ui(data);
+          set_mokam_ui(data);
+          set_redx_ui(data);
+          set_stores_ui(data);
+        }
+      }
+
+      function set_overall_data(responseData) {
+        document.getElementById("tests-count").innerHTML =
+          responseData.total_tests;
+
+        document.getElementById("fail-percentage").innerHTML =
+          responseData.fail_percentage;
+
+        document.getElementById("pass-percentage").innerHTML =
+          responseData.pass_percentage;
+
+        document.getElementById("skip-percentage").innerHTML =
+          responseData.skip_percentage;
+
+        document.getElementById("total-fail").innerHTML =
+          responseData.total_fail_tests;
+
+        document.getElementById("total-pass").innerHTML =
+          responseData.total_pass_tests;
+
+        document.getElementById("total-skip").innerHTML =
+          responseData.total_skip_tests;
+
+        document.getElementById("today-date").innerHTML =
+          responseData.report_date;
+      }
+
+      function set_wms_ui(responseData) {
+        document.getElementById("wms-test-count").innerHTML =
+          responseData.wms_ui;
+        //console.log("WMS UI Results Setter");
+      }
+
+      function set_reseller_ui(responseData) {
+        document.getElementById("reseller-test-count").innerHTML =
+          responseData.reseller_ui;
+        //console.log("Reseller App Results Setter");
+      }
+
+      function set_mokam_ui(responseData) {
+        document.getElementById("mokam-test-count").innerHTML =
+          responseData.mokam_ui;
+        // console.log("Mokam App Results Setter");
+      }
+
+      function set_redx_ui(responseData) {
+        document.getElementById("redx-test-count").innerHTML =
+          responseData.redx_ui;
+        //console.log("RedX Results Setter");
+      }
+
+      function set_stores_ui(responseData) {
+        document.getElementById("stores-test-count").innerHTML =
+          responseData.stores_ui;
+        //console.log("Stores Wap Results Setter");
+      }
+
+      function generateRandomNumber(offset) {
+        return Math.floor(Math.random() * offset); //returns a random number between 0 to 3
+      }
+    </script>
+</head>
+<body style="margin: 0; padding: 0;">
+<table
+        align="center"
+        class="m_-2098612574997718002outer"
+        style="
+        border-spacing: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #666666;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 600px;
+      "
+        width="100%"
+>
+    <tbody>
+    <tr>
+        <td
+                class="m_-2098612574997718002masthead"
+                style="
+              padding: 20px;
+              text-align: center;
+              font-size: 0;
+              background-color: #1c272b;
+              color: #ffffff;
+              padding-top: 20px;
+              padding-bottom: 20px;
+              padding-right: 20px;
+              padding-left: 20px;
+            "
+                align="center"
+                bgcolor="#1C272B"
+        >
+            <div
+                    class="m_-2098612574997718002column"
+                    style="
+                width: 100%;
+                max-width: 100%;
+                display: inline-block;
+                vertical-align: middle;
+              "
+            >
+                <table
+                        style="
+                  border-spacing: 0;
+                  font-family: Arial, Helvetica, sans-serif;
+                  color: #666666;
+                "
+                        width="100%"
+                >
+                    <tbody>
+                    <tr>
+                        <td
+                                style="
+                        padding: 0;
+                        padding-top: 10px;
+                        padding-bottom: 0;
+                        padding-right: 0;
+                        padding-left: 10px;
+                      "
+                        >
+                            <table
+                                    class="m_-2098612574997718002contents"
+                                    style="
+                          border-spacing: 0;
+                          font-family: Arial, Helvetica, sans-serif;
+                          color: #666666;
+                          width: 100%;
+                          font-size: 16px;
+                          text-align: left;
+                        "
+                                    width="100%"
+                                    align="left"
+                            >
+                                <tbody>
+                                <tr>
+                                    <td
+                                            style="
+                                padding: 0;
+                                padding-top: 0;
+                                padding-bottom: 0;
+                                padding-right: 0;
+                                padding-left: 0;
+                              "
+                                    >
+                                        <img
+                                                alt="Postman"
+                                                class="m_-2098612574997718002mastheadLogo CToWUd a6T"
+                                                style="
+                                  border: 0;
+                                  border-width: 0;
+                                  width: 150px;
+                                  height: auto;
+                                "
+                                                width="150"
+                                                src="https://shopup.com.bd/home/icons/shopup-logo-md.png"
+                                        />
+                                        <div
+                                                class="a6S"
+                                                dir="ltr"
+                                                style="opacity: 0.01; left: 362px; top: 43px;"
+                                        >
+                                            <div
+                                                    id=":1pi"
+                                                    class="T-I J-J5-Ji aQv T-I-ax7 L3 a5q"
+                                                    tabindex="0"
+                                            >
+                                                <div class="aSK J-J5-Ji aYr"></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div
+                    class="m_-2098612574997718002column"
+                    style="
+                width: 100%;
+                max-width: 100%;
+                display: inline-block;
+                vertical-align: middle;
+              "
+            >
+                <table
+                        style="
+                  border-spacing: 0;
+                  font-family: Arial, Helvetica, sans-serif;
+                  color: #666666;
+                "
+                        width="100%"
+                >
+                    <tbody>
+                    <tr>
+                        <td
+                                style="
+                        padding: 0;
+                        padding-top: 0;
+                        padding-bottom: 10px;
+                        padding-right: 10px;
+                        padding-left: 0;
+                      "
+                        >
+                            <table
+                                    class="m_-2098612574997718002contents"
+                                    style="
+                          border-spacing: 0;
+                          font-family: Arial, Helvetica, sans-serif;
+                          color: #666666;
+                          width: 100%;
+                          font-size: 16px;
+                        "
+                                    width="100%"
+                                    align="left"
+                            >
+                                <tbody>
+                                <tr>
+                                    <td
+                                            class="m_-2098612574997718002text"
+                                            style="
+                                padding: 0;
+                                padding-bottom: 0;
+                                padding-right: 0;
+                                padding-left: 0;
+                                padding-top: 10px;
+                              "
+                                    >
+                                        <p
+                                                class="m_-2098612574997718002h2 m_-2098612574997718002type-of-email m_-2098612574997718002mb-1"
+                                                style="
+                                  margin: 0;
+                                  line-height: 34px;
+                                  font-family: 'Open Sans', Arial, Helvetica,
+                                    sans-serif;
+                                  font-size: 28px;
+                                  font-weight: bold;
+                                  color: #ffffff;
+                                  text-align: right;
+                                  text-align: right;
+                                "
+                                        >
+                                            Daily Automation Report
+                                        </p>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td
+                class="m_-2098612574997718002one-column"
+                style="
+              padding: 0;
+              padding-top: 0;
+              padding-bottom: 0;
+              padding-right: 0;
+              padding-left: 0;
+            "
+        >
+            <table
+                    style="
+                border-spacing: 0;
+                font-family: Arial, Helvetica, sans-serif;
+                color: #666666;
+                margin-bottom: 32px !important;
+              "
+                    width="100%"
+            >
+                <tbody>
+                <tr>
+                    <td
+                            class="m_-2098612574997718002feature-box-alt m_-2098612574997718002contents"
+                            style="
+                      padding: 0;
+                      padding-top: 0;
+                      padding-bottom: 0;
+                      padding-right: 0;
+                      padding-left: 0;
+                      width: 100%;
+                      text-align: left;
+                    "
+                            width="100%"
+                            align="left"
+                    >
+                        <table
+                                style="
+                        border-spacing: 0;
+                        font-family: Arial, Helvetica, sans-serif;
+                        color: #666666;
+                      "
+                                width="100%"
+                        >
+                            <tbody>
+                            <!--                            <tr>-->
+                            <!--                                <td class="m_-2098612574997718002one-column" style="padding:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">-->
+                            <!--                                    <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666;margin:16px 0px!important" width="100%">-->
+                            <!--                                        <tbody>-->
+                            <!--                                        <tr>-->
+                            <!--                                            <td class="m_-2098612574997718002inner m_-2098612574997718002contents" style="padding:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;width:100%;text-align:left" width="100%" align="left">-->
+                            <!--                                                <p class="m_-2098612574997718002h1" style="Margin:0;Margin-bottom:24px;margin:0px 0px 16px;line-height:34px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-size:32px;font-weight:bold;color:#505050;text-align:center">Report Of The day</p>-->
+                            <!--                                                <p style="Margin:0;Margin-bottom:16px;margin:0px 0px 16px;line-height:22px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-size:24px;font-weight:bold;color:#666666;text-align:center">Today</p>-->
+                            <!--                                            </td>-->
+                            <!--                                        </tr>-->
+                            <!--                                        </tbody>-->
+                            <!--                                    </table>-->
+                            <!--                                </td>-->
+                            <!--                            </tr>-->
+                            <tr>
+                                <td
+                                        style="
+                              padding: 0;
+                              padding-top: 0;
+                              padding-bottom: 0;
+                              padding-right: 0;
+                              padding-left: 0;
+                            "
+                                >
+                                    <table
+                                            style="
+                                border-spacing: 0;
+                                font-family: Arial, Helvetica, sans-serif;
+                                color: #666666;
+                              "
+                                            width="100%"
+                                    >
+                                        <tbody>
+                                        <tr>
+                                            <td
+                                                    class="m_-2098612574997718002two-column"
+                                                    style="
+                                      padding: 0;
+                                      padding-top: 0;
+                                      padding-bottom: 0;
+                                      padding-right: 0;
+                                      padding-left: 0;
+                                      font-size: 0;
+                                    "
+                                            >
+                                                <div
+                                                        class="m_-2098612574997718002column"
+                                                        style="
+                                        max-width: 100%;
+                                        width: 100%;
+                                        display: inline-block;
+                                        vertical-align: top;
+                                      "
+                                                >
+                                                    <table
+                                                            style="
+                                          border-spacing: 20px;
+                                          font-family: Arial, Helvetica,
+                                            sans-serif;
+                                          color: #666666;
+                                        "
+                                                            width="100%"
+                                                    >
+                                                        <tbody>
+                                                        <tr>
+                                                            <td
+                                                                    class="m_-2098612574997718002inner m_-2098612574997718002contents"
+                                                                    style="
+                                                padding: 10px;
+                                                background: #f4f3f2;
+                                                font-size: 16px;
+                                                padding-top: 25px;
+                                                padding-bottom: 25px;
+                                                padding-right: 10px;
+                                                padding-left: 10px;
+                                                width: 100%;
+                                                text-align: left;
+                                                border: 1px solid #c4c4c4;
+                                                border-radius: 8px;
+                                              "
+                                                                    width="100%"
+                                                                    align="left"
+                                                            >
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 0;
+                                                  font-size: 24px;
+                                                  line-height: 38px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target=""
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span style="color: #282828;"
+                                                  >Total Tests :
+                                                    <span
+                                                            id="tests-count"
+                                                            style="
+                                                        color: #282828;
+                                                        font-size: 48px;
+                                                      "
+                                                    >1</span
+                                                    ></span
+                                                  >
+                                                                    </a>
+                                                                </p>
+
+                                                                <div style="padding: 10px;">
+                                                                    <ul
+                                                                            style="
+                                                    display: flex;
+                                                    list-style: none;
+                                                    align-items: stretch;
+                                                    justify-content: space-between;
+                                                    width: 100%;
+                                                    padding: 0px;
+                                                    margin: 0px;
+                                                  "
+                                                                    >
+                                                                        <li
+                                                                                style="
+                                                      display: block;
+                                                      flex: 0 1 auto;
+                                                      background: #ffcccc;
+                                                      border-radius: 5px;
+                                                      padding: 40px;
+                                                      font-size: 18px;
+                                                      list-style-type: none;
+                                                      margin: 8px;
+                                                      border: 2px solid #ff0000;
+                                                      color: #ff0000;
+                                                      font-weight: 600;
+                                                      text-align: center;
+                                                    "
+                                                                        >
+                                                                            Fail
+                                                                            <span
+                                                                                    id="fail-percentage"
+                                                                                    style="font-size: 32px;"
+                                                                            >0</span
+                                                                            ><span
+                                                                                style="font-size: 32px;"
+                                                                        >%</span
+                                                                        >
+                                                                            <span id="total-fail"
+                                                                            >1</span
+                                                                            >
+                                                                        </li>
+                                                                        <li
+                                                                                style="
+                                                      display: block;
+                                                      flex: 0 1 auto;
+                                                      background: #ccffcc;
+                                                      border-radius: 5px;
+                                                      padding: 40px;
+                                                      font-size: 18px;
+                                                      list-style-type: none;
+                                                      margin: 8px;
+                                                      border: 2px solid #006600;
+                                                      color: #006600;
+                                                      font-weight: 600;
+                                                      text-align: center;
+                                                    "
+                                                                        >
+                                                                            Pass
+                                                                            <span
+                                                                                    id="pass-percentage"
+                                                                                    style="font-size: 32px;"
+                                                                            >0</span
+                                                                            ><span
+                                                                                style="font-size: 32px;"
+                                                                        >%</span
+                                                                        >
+                                                                            <span id="total-pass"
+                                                                            >1</span
+                                                                            >
+                                                                        </li>
+                                                                        <li
+                                                                                style="
+                                                      display: block;
+                                                      flex: 0 1 auto;
+                                                      background: #fff6e5;
+                                                      border-radius: 5px;
+                                                      padding: 40px;
+                                                      font-size: 18px;
+                                                      list-style-type: none;
+                                                      margin: 8px;
+                                                      border: 2px solid #ffa500;
+                                                      color: #ffa500;
+                                                      font-weight: 600;
+                                                      text-align: center;
+                                                    "
+                                                                        >
+                                                                            Skip
+                                                                            <span
+                                                                                    id="skip-percentage"
+                                                                                    style="font-size: 32px;"
+                                                                            >0</span
+                                                                            ><span
+                                                                                style="font-size: 32px;"
+                                                                        >%</span
+                                                                        >
+                                                                            <span id="total-skip"
+                                                                            >1</span
+                                                                            >
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                // WMS-UI
+                                                <div
+                                                        class="m_-2098612574997718002column"
+                                                        style="
+                                        max-width: 50%;
+                                        width: 100%;
+                                        display: inline-block;
+                                        vertical-align: top;
+                                      "
+                                                >
+                                                    <table
+                                                            style="
+                                          border-spacing: 20px;
+                                          font-family: Arial, Helvetica,
+                                            sans-serif;
+                                          color: #666666;
+                                        "
+                                                            width="100%"
+                                                    >
+                                                        <tbody>
+                                                        <tr>
+                                                            <td
+                                                                    class="m_-2098612574997718002inner m_-2098612574997718002contents"
+                                                                    style="
+                                                padding: 10px;
+                                                font-size: 16px;
+                                                padding-top: 25px;
+                                                padding-bottom: 25px;
+                                                padding-right: 10px;
+                                                padding-left: 10px;
+                                                width: 100%;
+                                                text-align: left;
+                                                border: 1px solid #c4c4c4;
+                                                border-radius: 8px;
+                                              "
+                                                                    width="50%"
+                                                                    align="left"
+                                                            >
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 0;
+                                                  font-size: 24px;
+                                                  line-height: 38px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #3988fd;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target=""
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="wms-title"
+                                                          style="color: #3988fd;"
+                                                  >Wms</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 16px 0px;
+                                                  font-size: 60px;
+                                                  line-height: 70px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target=""
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="wms-test-count"
+                                                          style="color: #282828;"
+                                                  >1</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <!--                                                                <p style="Margin-bottom:16px;color:#666666;Margin:0;line-height:25px;font-size:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;text-align:center">-->
+                                                                <!--                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="" data-saferedirecturl="">-->
+                                                                <!--                                                                        <span id="" style="color:#666666">10 Total Collections</span>-->
+                                                                <!--                                                                    </a>-->
+                                                                <!--                                                                </p>-->
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                // Reseller APP
+                                                <div
+                                                        class="m_-2098612574997718002column"
+                                                        style="
+                                        max-width: 50%;
+                                        width: 100%;
+                                        display: inline-block;
+                                        vertical-align: top;
+                                      "
+                                                >
+                                                    <table
+                                                            style="
+                                          border-spacing: 20px;
+                                          font-family: Arial, Helvetica,
+                                            sans-serif;
+                                          color: #666666;
+                                        "
+                                                            width="100%"
+                                                    >
+                                                        <tbody>
+                                                        <tr>
+                                                            <td
+                                                                    class="m_-2098612574997718002inner m_-2098612574997718002contents"
+                                                                    style="
+                                                padding: 10px;
+                                                font-size: 16px;
+                                                padding-top: 25px;
+                                                padding-bottom: 25px;
+                                                padding-right: 10px;
+                                                padding-left: 10px;
+                                                width: 100%;
+                                                text-align: left;
+                                                border: 1px solid #c4c4c4;
+                                                border-radius: 8px;
+                                              "
+                                                                    width="100%"
+                                                                    align="left"
+                                                            >
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 0;
+                                                  font-size: 24px;
+                                                  line-height: 38px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target=""
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="reseller-app-title"
+                                                          style="color: #f27123;"
+                                                  >Reseller</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 16px 0px;
+                                                  font-size: 60px;
+                                                  line-height: 70px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target=""
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="reseller-test-count"
+                                                          style="color: #282828;"
+                                                  >1</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <!--                                                                <p style="Margin-bottom:16px;color:#666666;Margin:0;line-height:25px;font-size:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;text-align:center">-->
+                                                                <!--                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                                <!--                                                                        <span style="color:#666666">2 Total Mock Servers</span>-->
+                                                                <!--                                                                    </a>-->
+                                                                <!--                                                                </p>-->
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                // Reseller WAP
+                                                <!--                                                <div class="m_-2098612574997718002column" style="max-width:50%;width:100%;display:inline-block;vertical-align:top">-->
+                                                <!--                                                    <table style="border-spacing:20px;font-family:Arial,Helvetica,sans-serif;color:#666666" width="100%">-->
+                                                <!--                                                        <tbody>-->
+                                                <!--                                                        <tr>-->
+                                                <!--                                                            <td class="m_-2098612574997718002inner m_-2098612574997718002contents" style="background-color:#f27123;padding:10px;font-size:16px;padding-top:25px;padding-bottom:25px;padding-right:10px;padding-left:10px;width:100%;text-align:left;border:1px solid #c4c4c4;border-radius:8px" width="100%" align="left"> <p style="Margin-bottom:16px;color:#666666;Margin:0;font-size:24px;line-height:38px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-weight:bold;text-align:center">-->
+                                                <!--                                                                <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                <!--                                                                    <span id="reseller-wap-title" style="color:#282828">Reseller-Wap</span>-->
+                                                <!--                                                                </a>-->
+                                                <!--                                                            </p>-->
+                                                <!--                                                                <p style="Margin-bottom:16px;color:#666666;Margin:16px 0px;font-size:60px;line-height:70px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-weight:bold;text-align:center">-->
+                                                <!--                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                <!--                                                                        <span id="reseller-wap-tests" style="color:#282828">12</span>-->
+                                                <!--                                                                    </a>-->
+                                                <!--                                                                </p>-->
+                                                <!--&lt;!&ndash;                                                                <p style="Margin-bottom:16px;color:#666666;Margin:0;line-height:25px;font-size:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;text-align:center">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                        <span style="color:#666666">3 Total APIs</span>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                    </a>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                </p>&ndash;&gt;-->
+                                                <!--                                                            </td>-->
+                                                <!--                                                        </tr>-->
+                                                <!--                                                        </tbody>-->
+                                                <!--                                                    </table>-->
+                                                <!--                                                </div>-->
+
+                                                // Reseller Web
+                                                <!--                                                <div class="m_-2098612574997718002column" style="max-width:50%;width:100%;display:inline-block;vertical-align:top">-->
+                                                <!--                                                    <table style="border-spacing:20px;font-family:Arial,Helvetica,sans-serif;color:#666666" width="100%">-->
+                                                <!--                                                        <tbody>-->
+                                                <!--                                                        <tr>-->
+                                                <!--                                                            <td class="m_-2098612574997718002inner m_-2098612574997718002contents" style="background-color:#f27123;padding:10px;font-size:16px;padding-top:25px;padding-bottom:25px;padding-right:10px;padding-left:10px;width:100%;text-align:left;border:1px solid #c4c4c4;border-radius:8px" width="100%" align="left"> <p style="Margin-bottom:16px;color:#666666;Margin:0;font-size:24px;line-height:38px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-weight:bold;text-align:center">-->
+                                                <!--                                                                <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                <!--                                                                    <span id="reseller-web-title" style="color:#282828">Reseller-Web</span>-->
+                                                <!--                                                                </a>-->
+                                                <!--                                                            </p>-->
+                                                <!--                                                                <p style="Margin-bottom:16px;color:#666666;Margin:16px 0px;font-size:60px;line-height:70px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-weight:bold;text-align:center">-->
+                                                <!--                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                <!--                                                                        <span id="reseller-web-tests" style="color:#282828">10</span>-->
+                                                <!--                                                                    </a>-->
+                                                <!--                                                                </p>-->
+                                                <!--&lt;!&ndash;                                                                <p style="Margin-bottom:16px;color:#666666;Margin:0;line-height:25px;font-size:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;text-align:center">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                        <span style="color:#666666">3 Total APIs</span>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                    </a>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;                                                                </p>&ndash;&gt;-->
+                                                <!--                                                            </td>-->
+                                                <!--                                                        </tr>-->
+                                                <!--                                                        </tbody>-->
+                                                <!--                                                    </table>-->
+                                                <!--                                                </div>-->
+
+                                                // Mokam UI
+                                                <div
+                                                        class="m_-2098612574997718002column"
+                                                        style="
+                                        max-width: 50%;
+                                        width: 100%;
+                                        display: inline-block;
+                                        vertical-align: top;
+                                      "
+                                                >
+                                                    <table
+                                                            style="
+                                          border-spacing: 20px;
+                                          font-family: Arial, Helvetica,
+                                            sans-serif;
+                                          color: #666666;
+                                        "
+                                                            width="100%"
+                                                    >
+                                                        <tbody>
+                                                        <tr>
+                                                            <td
+                                                                    class="m_-2098612574997718002inner m_-2098612574997718002contents"
+                                                                    style="
+                                                padding: 10px;
+                                                font-size: 16px;
+                                                padding-top: 25px;
+                                                padding-bottom: 25px;
+                                                padding-right: 10px;
+                                                padding-left: 10px;
+                                                width: 100%;
+                                                text-align: left;
+                                                border: 1px solid #c4c4c4;
+                                                border-radius: 8px;
+                                              "
+                                                                    width="100%"
+                                                                    align="left"
+                                                            >
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 0;
+                                                  font-size: 24px;
+                                                  line-height: 38px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target="_blank"
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="mokam-app-title"
+                                                          style="color: #4b0082;"
+                                                  >Mokam</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 16px 0px;
+                                                  font-size: 60px;
+                                                  line-height: 70px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target="_blank"
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="mokam-test-count"
+                                                          style="color: #282828;"
+                                                  >1</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <!--                                                                <p style="Margin-bottom:16px;color:#666666;Margin:0;line-height:25px;font-size:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;text-align:center">-->
+                                                                <!--                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                                <!--                                                                        <span style="color:#666666">3 Total APIs</span>-->
+                                                                <!--                                                                    </a>-->
+                                                                <!--                                                                </p>-->
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                // RedX App
+                                                <div
+                                                        class="m_-2098612574997718002column"
+                                                        style="
+                                        max-width: 50%;
+                                        width: 100%;
+                                        display: inline-block;
+                                        vertical-align: top;
+                                      "
+                                                >
+                                                    <table
+                                                            style="
+                                          border-spacing: 20px;
+                                          font-family: Arial, Helvetica,
+                                            sans-serif;
+                                          color: #666666;
+                                        "
+                                                            width="100%"
+                                                    >
+                                                        <tbody>
+                                                        <tr>
+                                                            <td
+                                                                    class="m_-2098612574997718002inner m_-2098612574997718002contents"
+                                                                    style="
+                                                padding: 10px;
+                                                font-size: 16px;
+                                                padding-top: 25px;
+                                                padding-bottom: 25px;
+                                                padding-right: 10px;
+                                                padding-left: 10px;
+                                                width: 100%;
+                                                text-align: left;
+                                                border: 1px solid #c4c4c4;
+                                                border-radius: 8px;
+                                              "
+                                                                    width="100%"
+                                                                    align="left"
+                                                            >
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 0;
+                                                  font-size: 24px;
+                                                  line-height: 38px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target="_blank"
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="redx-app-title"
+                                                          style="color: #ed1c24;"
+                                                  >RedX</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 16px 0px;
+                                                  font-size: 60px;
+                                                  line-height: 70px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target="_blank"
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="redx-test-count"
+                                                          style="color: #282828;"
+                                                  >1</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <!--                                                                <p style="Margin-bottom:16px;color:#666666;Margin:0;line-height:25px;font-size:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;text-align:center">-->
+                                                                <!--                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                                <!--                                                                        <span style="color:#666666">3 Total APIs</span>-->
+                                                                <!--                                                                    </a>-->
+                                                                <!--                                                                </p>-->
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                                // Stores WAP
+                                                <div
+                                                        class="m_-2098612574997718002column"
+                                                        style="
+                                        max-width: 100%;
+                                        width: 100%;
+                                        display: inline-block;
+                                        vertical-align: top;
+                                      "
+                                                >
+                                                    <table
+                                                            style="
+                                          border-spacing: 20px;
+                                          font-family: Arial, Helvetica,
+                                            sans-serif;
+                                          color: #666666;
+                                        "
+                                                            width="100%"
+                                                    >
+                                                        <tbody>
+                                                        <tr>
+                                                            <td
+                                                                    class="m_-2098612574997718002inner m_-2098612574997718002contents"
+                                                                    style="
+                                                padding: 10px;
+                                                font-size: 16px;
+                                                padding-top: 25px;
+                                                padding-bottom: 25px;
+                                                padding-right: 10px;
+                                                padding-left: 10px;
+                                                width: 100%;
+                                                text-align: left;
+                                                border: 1px solid #c4c4c4;
+                                                border-radius: 8px;
+                                              "
+                                                                    width="100%"
+                                                                    align="left"
+                                                            >
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 0;
+                                                  font-size: 24px;
+                                                  line-height: 38px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target="_blank"
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="stores-test-title"
+                                                          style="color: #37b4af;"
+                                                  >Stores</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <p
+                                                                        style="
+                                                  margin-bottom: 16px;
+                                                  color: #666666;
+                                                  margin: 16px 0px;
+                                                  font-size: 60px;
+                                                  line-height: 70px;
+                                                  font-family: 'Open Sans',
+                                                    Arial, Helvetica, sans-serif;
+                                                  font-weight: bold;
+                                                  text-align: center;
+                                                "
+                                                                >
+                                                                    <a
+                                                                            style="
+                                                    color: #ff6c37;
+                                                    font-weight: 600;
+                                                    text-decoration: none;
+                                                  "
+                                                                            href=""
+                                                                            target="_blank"
+                                                                            data-saferedirecturl=""
+                                                                    >
+                                                  <span
+                                                          id="stores-test-count"
+                                                          style="color: #282828;"
+                                                  >2</span
+                                                  >
+                                                                    </a>
+                                                                </p>
+                                                                <!--                                                                <p style="Margin-bottom:16px;color:#666666;Margin:0;line-height:25px;font-size:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;text-align:center">-->
+                                                                <!--                                                                    <a style="color:#ff6c37;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">-->
+                                                                <!--                                                                        <span style="color:#666666">3 Total APIs</span>-->
+                                                                <!--                                                                    </a>-->
+                                                                <!--                                                                </p>-->
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td
+                class="m_-2098612574997718002one-column"
+                style="
+              padding: 0;
+              padding-top: 0;
+              padding-bottom: 0;
+              padding-right: 0;
+              padding-left: 0;
+            "
+        >
+            <div style="background-color: #1c272b; padding: 30px;">
+                <p
+                        id="today-date"
+                        class="m_-2098612574997718002h2 m_-2098612574997718002type-of-email m_-2098612574997718002mb-1"
+                        style="
+                  margin: 0;
+                  line-height: 22px;
+                  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+                  font-size: 20px;
+                  font-weight: bold;
+                  color: #ffffff;
+                  text-align: left;
+                  margin-bottom: 8px !important;
+                "
+                >
+                    Date : Today
+                </p>
+            </div>
+        </td>
+    </tr>
+    <!--    <tr>-->
+    <!--        <td class="m_-2098612574997718002one-column" style="padding:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">-->
+    <!--            <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666;margin-bottom:32px!important" width="100%">-->
+    <!--                <tbody>-->
+    <!--                <tr>-->
+    <!--                    <td class="m_-2098612574997718002feature-box-alt m_-2098612574997718002contents" style="padding:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;width:100%;text-align:left" width="100%" align="left">-->
+    <!--                        <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666" width="100%">-->
+    <!--                            <tbody>-->
+    <!--                            <tr>-->
+    <!--                                <td class="m_-2098612574997718002one-column" style="padding:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">-->
+    <!--                                    <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666;margin-bottom:16px!important" width="100%">-->
+    <!--                                        <tbody>-->
+    <!--                                        <tr>-->
+    <!--                                            <td class="m_-2098612574997718002inner m_-2098612574997718002contents" style="padding:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;width:100%;text-align:left" width="100%" align="left">-->
+    <!--                                                <p class="m_-2098612574997718002h2" style="Margin:0;line-height:22px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-size:20px;font-weight:bold;Margin-bottom:16px;color:#282828">There’s more you can do with Postman</p>-->
+    <!--                                                <img alt="" height="2" style="border:0;border-width:0" width="200" src="https://ci3.googleusercontent.com/proxy/wXrMyuSXYyPkiUxfVbwxDXeI8rqcZf83hAWPufmHG7mqcNlXotGkbii_eCemiYFA4LDqexaDwZU56ig6rPaVgjMFKyQ48X6s8g=s0-d-e1-ft#https://assets.getpostman.com/email/rule-orange-80.jpg" class="CToWUd">-->
+    <!--                                            </td>-->
+    <!--                                        </tr>-->
+    <!--                                        </tbody>-->
+    <!--                                    </table>-->
+    <!--                                </td>-->
+    <!--                            </tr>-->
+    <!--                            <tr>-->
+    <!--                                <td style="padding:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">-->
+    <!--                                    <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666" width="100%">-->
+    <!--                                        <tbody>-->
+    <!--                                        <tr>-->
+    <!--                                            <td class="m_-2098612574997718002left-sidebar" style="padding:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;font-size:0">-->
+    <!--                                                <div class="m_-2098612574997718002column m_-2098612574997718002left" style="width:100%;display:inline-block;vertical-align:top;max-width:15%">-->
+    <!--                                                    <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666;margin-bottom:8px!important" width="100%">-->
+    <!--                                                        <tbody>-->
+    <!--                                                        <tr>-->
+    <!--                                                            <td class="m_-2098612574997718002inner m_-2098612574997718002full-width-image" style="padding:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px">-->
+    <!--                                                                <div style="text-align:center">-->
+    <!--                                                                    <img alt="" style="border:0;border-width:0;width:100%;height:auto;max-width:100px" width="70" src="https://ci3.googleusercontent.com/proxy/VtU41x6AUVtB0ALKGYHhEorYDeEboyAIrGK6Trmf4SImGAV4FxbkctrBWC7mInIm8mQfCHZwTVbMaS9_i_jpQOJLw_Ixu9gXcyBOKBqjVw=s0-d-e1-ft#https://skills-assets.pstmn.io/email-assets/monitor_icon.png" class="CToWUd">-->
+    <!--                                                                </div>-->
+    <!--                                                            </td>-->
+    <!--                                                        </tr>-->
+    <!--                                                        </tbody>-->
+    <!--                                                    </table>-->
+    <!--                                                </div>-->
+    <!--                                                <div class="m_-2098612574997718002column m_-2098612574997718002right" style="width:100%;display:inline-block;vertical-align:top;max-width:85%">-->
+    <!--                                                    <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666" width="100%">-->
+    <!--                                                        <tbody>-->
+    <!--                                                        <tr>-->
+    <!--                                                            <td class="m_-2098612574997718002inner m_-2098612574997718002contents" style="padding:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;width:100%;text-align:left;font-size:16px" width="100%" align="left">-->
+    <!--                                                                <p style="Margin:0;Margin-bottom:16px;color:#666666;font-size:14px;font-family:'Open Sans',Arial,Helvetica,sans-serif;line-height:22px">Postman API Monitoring allows you to review your API responses, availability, and performance with each run so you can ensure that your API is always healthy.</p>-->
+    <!--                                                                <p style="color:#666666;Margin:0;Margin-bottom:16px;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-size:16px;line-height:22px">-->
+    <!--                                                                    <a style="color:#ff6c37;text-decoration:none;font-weight:600" href="" target="_blank" data-saferedirecturl="">Learn more</a>-->
+    <!--                                                                </p>-->
+    <!--                                                            </td>-->
+    <!--                                                        </tr>-->
+    <!--                                                        </tbody>-->
+    <!--                                                    </table>-->
+    <!--                                                </div>-->
+    <!--                                            </td>-->
+    <!--                                        </tr>-->
+    <!--                                        </tbody>-->
+    <!--                                    </table>-->
+    <!--                                </td>-->
+    <!--                            </tr>-->
+    <!--                            </tbody>-->
+    <!--                        </table>-->
+    <!--                    </td>-->
+    <!--                </tr>-->
+    <!--                </tbody>-->
+    <!--            </table>-->
+    <!--        </td>-->
+    <!--    </tr>-->
+    <!--    <tr>-->
+    <!--        <td style="padding:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0">-->
+    <!--            <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666;margin-bottom:40px!important" width="100%">-->
+    <!--                <tbody>-->
+    <!--                <tr>-->
+    <!--                    <td class="m_-2098612574997718002feature-box m_-2098612574997718002right-sidebar m_-2098612574997718002background-night-sky" style="padding:40px;padding-top:20px;padding-bottom:20px;padding-right:40px;padding-left:40px;background-color:#2b3b41;font-size:0" bgcolor="#2B3B41">-->
+    <!--                        <div class="m_-2098612574997718002column m_-2098612574997718002left m_-2098612574997718002center-align" style="width:100%;display:inline-block;max-width:64%;vertical-align:middle">-->
+    <!--                            <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666" width="100%">-->
+    <!--                                <tbody>-->
+    <!--                                <tr>-->
+    <!--                                    <td class="m_-2098612574997718002altInner" style="padding:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px">-->
+    <!--                                        <p class="m_-2098612574997718002font-white m_-2098612574997718002mb-0" style="Margin:0;font-size:16px;line-height:22px;font-family:'Open Sans',Arial,Helvetica,sans-serif;color:#fff!important;Margin-bottom:0px!important">Invite your team to Postman and supercharge your API development </p>-->
+    <!--                                    </td>-->
+    <!--                                </tr>-->
+    <!--                                </tbody>-->
+    <!--                            </table>-->
+    <!--                        </div>-->
+    <!--                        <div class="m_-2098612574997718002column m_-2098612574997718002right m_-2098612574997718002center-align" style="text-align:right;width:100%;display:inline-block;max-width:33%;vertical-align:middle">-->
+    <!--                            <table style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666" width="100%">-->
+    <!--                                <tbody>-->
+    <!--                                <tr>-->
+    <!--                                    <td class="m_-2098612574997718002altInner m_-2098612574997718002contents" style="padding:10px;padding-top:10px;padding-bottom:10px;padding-right:10px;padding-left:10px;width:100%;font-size:16px" width="100%">-->
+    <!--                                        <table border="0" cellpadding="0" cellspacing="0" class="m_-2098612574997718002emailButton" style="border-spacing:0;font-family:Arial,Helvetica,sans-serif;color:#666666;border-radius:3px;background-color:#ff6c37;display:inline-table" bgcolor="#FF6C37">-->
+    <!--                                            <tbody>-->
+    <!--                                            <tr>-->
+    <!--                                                <td align="center" class="m_-2098612574997718002emailButtonContent" style="padding:0;padding-top:15px;padding-right:30px;padding-bottom:15px;padding-left:30px" valign="middle">-->
+    <!--                                                    <a class="m_-2098612574997718002emailButtonText" style="color:#ffffff;font-family:'Open Sans',Arial,Helvetica,sans-serif;font-size:16px;font-weight:600;text-decoration:none" href="" target="_blank" data-saferedirecturl="">Invite</a>-->
+    <!--                                                </td>-->
+    <!--                                            </tr>-->
+    <!--                                            </tbody>-->
+    <!--                                        </table>-->
+    <!--                                    </td>-->
+    <!--                                </tr>-->
+    <!--                                </tbody>-->
+    <!--                            </table>-->
+    <!--                        </div>-->
+    <!--                    </td>-->
+    <!--                </tr>-->
+    <!--                </tbody>-->
+    <!--            </table>-->
+    <!--        </td>-->
+    <!--    </tr>  -->
+    </tbody>
+</table>
+<!--    <script type="text/javascript" src="reseller_app.json">-->
+<!--        -->
+<!--    </script>-->
+</body>
+</html>

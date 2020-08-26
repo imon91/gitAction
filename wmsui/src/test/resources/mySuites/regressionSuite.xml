@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="RegressionTestSuite">
+    <listeners>
+        <listener class-name="listeners.WmsUiTestNgListener"></listener>
+    </listeners>
     <parameter name="test" value="regression"></parameter>
     <test name="RegressionTests">
             <groups>
@@ -18,7 +21,7 @@
                 <class name="com.shopf.tests.Variants.VariantList"></class>
                 <class name="com.shopf.tests.PurchaseOrders.PurchaseOrderList"></class>
                 <class name="com.shopf.tests.Packages.PackagesList"></class>
-                <class name="com.shopf.tests.PickOrders.AllPickLists"></class>
+                <class name="com.shopf.tests.Logout"></class>
             </classes>
         </test>
 </suite>

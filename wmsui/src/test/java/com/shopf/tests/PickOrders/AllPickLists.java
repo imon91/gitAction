@@ -34,6 +34,7 @@ public class AllPickLists extends WmsBaseClass {
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         assertion = new Assertion();
+        homePageObject.selectWarehouse("Shopup Dhaka");
     }
 
 
@@ -45,7 +46,6 @@ public class AllPickLists extends WmsBaseClass {
         System.out.println("Verifying All Pick List Class");
         homePageObject.clickPickOrders();
         pickOrdersPageObjects.clickAllPickListsTab();
-        sleep(1000);
         allPickListModelList = getWMSApiResponse.getAllPickLists(1,30);
         List<AllPickListModel.PickListsDataBean> list = allPickListModelList.getPick_lists_data();
         System.out.println("List Size: " + list.size());

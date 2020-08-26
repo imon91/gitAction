@@ -73,8 +73,6 @@ public class VariantBinDetails extends WmsBaseClass {
         int i;
         homePageObject.clickVariants();
         variantsPageObjects.clickBinsForSkuTab();
-        sleep(1000);
-
         binsForSkuTab.checkVariantBins("DFW", id);
         variantsBinDetailsModel = getWMSApiResponse
                 .getVariantBinDetails(id, "29");

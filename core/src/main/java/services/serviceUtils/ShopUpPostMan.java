@@ -12,6 +12,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
@@ -23,11 +24,13 @@ public class ShopUpPostMan {
     private String cookie;
     private String module;
     private String cookieKey;
+    private String user;
 
     public ShopUpPostMan(String module){
         this.module = module;
         String app = System.getProperty(BuildParameterKeys.KEY_APP);
         String env = System.getProperty(BuildParameterKeys.KEY_ENV);
+        user = System.getProperty(BuildParameterKeys.KEY_USER);
 //        String app = CoreConstants.APP_WMS;
 //        String env = CoreConstants.ENV_STAGE;
 
@@ -203,6 +206,40 @@ public class ShopUpPostMan {
                 .header("cookie",cookie)
                 .when()
                 .get(path);
+        if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
+            // Exit Java Process
+            System.out.println("Service is temporarily unavailable : "+ response.getStatusCode());
+            System.exit(1);
+        }
+        return response;
+    }
+
+
+
+    public Response postCall(String path,Map object){
+        String cookie = null;
+        try{
+            cookie = CookieManager.getValueOfKey(cookieKey);
+            //System.out.println("User Cookie is : "+cookie);
+        }catch (Exception e){
+            System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
+        }
+        System.out.println("Control in PostCall");
+        System.out.println("Base-URL is : "+baseURL);
+        RestAssured.baseURI = baseURL;
+        System.out.println("Final URL is : "+baseURL+path);
+        JSONObject request=new JSONObject(object);
+        System.out.println(request);
+        Response  response = given().header("Content-Type","application/json")
+                .header("cookie",cookie)
+                .body(request.toJSONString())
+                .when()
+                .post(path);
+        if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
+            // Exit Java Process
+            System.out.println("Service is temporarily unavailable : "+ response.getStatusCode());
+            System.exit(1);
+        }
         return response;
     }
 
@@ -216,12 +253,23 @@ public class ShopUpPostMan {
         System.out.println("Base-URL is : "+baseURL);
         RestAssured.baseURI = baseURL;
         if(module.equalsIgnoreCase(CoreConstants.MODULE_ANDROID_UI)){
+            try
+            {
+                if (user.equalsIgnoreCase(CoreConstants.MOKAM_USER)){
+                patch = EndPoints.COMMERCE_SEND_USER_OTP;
+                System.out.println("Final URL : "+baseURL+patch);
+                filePath1 = CoreFileUtils.commerceSendOtpSRJsonPath;
+                System.out.println(filePath1);
+                filePath2 = CoreFileUtils.commerceVerifyOtpSRJsonPath;
+                System.out.println(filePath2);}
+            }
+            catch(Exception e){
             patch = EndPoints.COMMERCE_SEND_USER_OTP;
             System.out.println("Final URL : "+baseURL+patch);
             filePath1 = CoreFileUtils.commerceSendOtpJsonPath;
             System.out.println(filePath1);
             filePath2 = CoreFileUtils.commerceVerifyOtpJsonPath;
-            System.out.println(filePath2);
+            System.out.println(filePath2);}
         }else if(module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)){
             patch = EndPoints.WMS.USER_SIGN_IN;
             System.out.println("Final URL : "+baseURL+patch);
@@ -239,12 +287,15 @@ public class ShopUpPostMan {
         try{
             Object obj1 = new JSONParser().parse(new FileReader(filePath1));
             JSONObject jo1 = (JSONObject) obj1;
+            //System.out.println("Body is : "+jo1);
             response = given().header("Content-Type","application/json")
                     .body(jo1).post(patch);
             response.then().log().all();
             if(module.equalsIgnoreCase(CoreConstants.MODULE_ANDROID_UI)){
+                //System.out.println("COMMERCE_VERIFY_OTP URL : "+baseURL+EndPoints.COMMERCE_VERIFY_OTP);
                 Object obj2 = new JSONParser().parse(new FileReader(filePath2));
                 JSONObject jo2 = (JSONObject) obj2;
+                //System.out.println("Body is : "+jo2);
                 response = given().header("Content-Type","application/json")
                         .body(jo2).post(EndPoints.COMMERCE_VERIFY_OTP);
                 response.then().log().all();

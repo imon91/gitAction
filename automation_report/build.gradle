@@ -1,0 +1,30 @@
+plugins {
+    id 'java'
+    id "application"
+}
+apply plugin : "java"
+ext {
+    javaMainClass = "PublishReport"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+
+
+group 'UiTests'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+    // https://mvnrepository.com/artifact/org.testng/testng
+    implementation group: 'org.testng', name: 'testng', version: '6.14.3'
+    // https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '3.8.1'
+}
