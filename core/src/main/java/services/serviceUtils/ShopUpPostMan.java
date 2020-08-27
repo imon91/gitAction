@@ -207,6 +207,7 @@ public class ShopUpPostMan {
                 .when()
                 .get(path);
         if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
+            response.then().log().all();
             // Exit Java Process
             System.out.println("Service is temporarily unavailable : "+ response.getStatusCode());
             System.exit(1);
@@ -236,6 +237,7 @@ public class ShopUpPostMan {
                 .when()
                 .post(path);
         if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
+            response.then().log().all();
             // Exit Java Process
             System.out.println("Service is temporarily unavailable : "+ response.getStatusCode());
             System.exit(1);

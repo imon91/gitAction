@@ -109,6 +109,18 @@ public class  EditOrdersPageObjects{
         storeWapActions.action_click(newButton);
     }
 
+    public void enterCustomerName(String customerName){
+        storeWapActions.action_sendKeys(customerNameText,customerName);
+    }
+
+    public void enterDiscount(String discount){
+        storeWapActions.action_sendKeys(discountText,discount);
+    }
+
+    public void enterDeliveryCharge(String deliveryCharge){
+        storeWapActions.action_sendKeys(deliveryChargeText,deliveryCharge);
+    }
+
 
     public void enterValidDiscount(){
         String discount = String.valueOf(random.nextInt(99))+"\n";
@@ -118,6 +130,10 @@ public class  EditOrdersPageObjects{
     public void enterValidDeliveryCharge(){
         String deliveryCharge = String.valueOf(random.nextInt(99))+"\n";
         storeWapActions.action_sendKeys(deliveryChargeText,deliveryCharge);
+    }
+
+    public void editCustomerName(String newCustomerName){
+        new Actions(androidDriver).click(customerNameText).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newCustomerName).perform();
     }
 
     public void editDiscount(String newDiscount){

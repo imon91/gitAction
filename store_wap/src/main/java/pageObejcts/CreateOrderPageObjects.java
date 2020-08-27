@@ -108,6 +108,30 @@ public class CreateOrderPageObjects {
         new Actions(androidDriver).click(productAmount).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newAmount).perform();
     }
 
+    public void enterProductAmount(int productIndex,String productAmount){
+        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-1ff274t']";
+        WebElement amountElement = androidDriver.findElement(By.xpath(baseXpath));
+        storeWapActions.action_sendKeys(amountElement,productAmount);
+    }
+
+    public void editProductName(int productIndex,String newName){
+        String baseXpath = "//div[@class='css-1dbjc4n']["+productIndex+"]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-fdjqy7']";
+        WebElement productName = androidDriver.findElement(By.xpath(baseXpath));
+        new Actions(androidDriver).click(productName).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newName).perform();
+    }
+
+    public void editProductQuantity(int productIndex,String newQty){
+        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-q4m81j']";
+        WebElement productQuantity = androidDriver.findElement(By.xpath(baseXpath));
+        new Actions(androidDriver).click(productQuantity).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newQty).perform();
+    }
+
+    public void editProductAmount(int productIndex,String newAmount){
+        String baseXpath = "//div[@class='css-1dbjc4n'][" + productIndex + "]//input[@class='css-1cwyjr8 r-ymttw5 r-1f1sjgu r-1ff274t']";
+        WebElement productAmount = androidDriver.findElement(By.xpath(baseXpath));
+        new Actions(androidDriver).click(productAmount).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newAmount).perform();
+    }
+
 
     public void editProductNameWithInvalidName(int productIndex){
         String baseXpath = "//div[text()='PRODUCT NAME']//parent::div//parent::div//parent::div/div[2]/div/div/div["+productIndex+"]/div[1]//input";
