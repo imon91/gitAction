@@ -142,11 +142,8 @@ public class GetDriverFromCore {
         if(host.equalsIgnoreCase(HOST_LOCAL)){
              System.out.println("Control came to getWebDriver for Host : local");
             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
-//            DesiredCapabilities capabilities = new DesiredCapabilities();
-//            capabilities.setBrowserName(CHROME_DRIVER);
             WebDriverManager.chromedriver().setup();
             ChromeOptions chromeOptions = new ChromeOptions();
-//             chromeOptions.addArguments("--headless");
             chromeOptions.setAcceptInsecureCerts(true);
             WebDriver driver = new ChromeDriver(chromeOptions);
             return driver;

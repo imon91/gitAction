@@ -74,6 +74,14 @@ public class HomePageObject extends WmsBaseClass {
         WebElement selectWarehouseDropDown = xpathSetter("//div[@id='root']//form//select");
         myActions.action_select(selectWarehouseDropDown,warehouse);
     }
+
+    public void setSessionCookie() throws Exception {
+        for(Cookie cookie : driver.manage().getCookies()){
+            if(cookie.getName().contains("session_"))
+                ck = cookie.getName() + "=" + cookie.getValue() + " ";
+        }
+        CookieManager.setValue(CookieManager.Keys.WMS_SESSION,ck);
+    }
 }
 
 

@@ -17,11 +17,11 @@ public class Login extends WmsBaseClass {
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception {
         System.out.println("WMSBeforeSuite is called");
-        ScreenRecorder.startRecording("");
         driver = getBaseDriver();
         setImplicitWait(10000);
         driver.get(getWmsBaseUrl());
         driver.manage().window().fullscreen();
+        ScreenRecorder.startRecording("");
     }
 
 

@@ -142,9 +142,9 @@ public class WarehousesPageObjects extends WmsBaseClass {
             enterLandmark("Near Lank Mark");
             enterCity("Testing City");
             enterState("Testing State");
-            //enterCountry("Japan");
+            enterCountry("Japan");
             enterZipcode("123456");
-            enterPhoneNo("eeeeee");
+            enterPhoneNo("9943225871");
             enterAlterPhoneNo("9943225871");
             clickAddWarehouseButton();
             return binCode;

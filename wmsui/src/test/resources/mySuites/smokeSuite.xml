@@ -10,12 +10,12 @@
         <classes>
             <class name="com.shopf.tests.Login"></class>
             <class name="com.shopf.tests.PurchaseOrders.CreatingPurchaseOrder"></class>
-<!--             <class name="com.shopf.tests.PurchaseOrders.ClosePO"></class>
+            <class name="com.shopf.tests.PurchaseOrders.ClosePO"></class>
             <class name="com.shopf.tests.PurchaseOrders.GRNCreation"></class>
             <class name="com.shopf.tests.PurchaseOrders.QCScan"></class>
             <class name="com.shopf.tests.Returns.PickListReturn"></class>
             <class name="com.shopf.tests.PickOrders.AddingPickList"></class>
-            <class name="com.shopf.tests.Packages.PackageDetails"></class> -->
+            <class name="com.shopf.tests.Packages.PackageDetails"></class>
             <class name="com.shopf.tests.Logout"></class>
         </classes>
     </test>
