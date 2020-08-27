@@ -86,8 +86,8 @@ public class PickOrdersPageObjects extends WmsBaseClass {
         public void skuCodeInput(int index, String skuCode) {
             String skuCodeXPath = "//div[@id='NewPickList']//input[@id='select" + index + "']";
             WebElement skuCodeEntry = xpathSetterPresence(skuCodeXPath);
-            myActions.action_sendKeys(skuCodeEntry, skuCode);
-            myActions.action_enter(skuCodeEntry);
+            myActions.action_sendKeys(skuCodeEntry, skuCode+"\n");
+//            myActions.action_enter(skuCodeEntry);
         }
 
         public void quantityInput(int index, String quantity) {

@@ -113,7 +113,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public void skuCodeInput(int index, String skuCode) {
             String skuCodeXPath = "//div[@id='Addpurchage']//input[@id='select" + index + "']";
             WebElement skuCodeEntry = xpathSetterPresence(skuCodeXPath);
-            myActions.action_sendKeys(skuCodeEntry, skuCode);
+            myActions.action_sendKeys(skuCodeEntry, skuCode+"\n");
             myActions.action_enter(skuCodeEntry);
         }
 
