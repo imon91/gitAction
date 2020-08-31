@@ -1,18 +1,14 @@
 package services.commerceMethods;
 
 import com.google.gson.Gson;
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import io.restassured.response.Response;
-import services.responseModels.commerceModels.OrderCheckoutModel;
-import services.responseModels.commerceModels.ShoppingCartResponseModel;
-import services.serviceUtils.EndPoints;
-import services.serviceUtils.ShopUpPostMan;
+import services.responseModels.commerceModels.*;
+import services.responseModels.wmsModels.VariantDetailsModel;
+import services.serviceUtils.*;
+import services.wmsMethods.GetWMSApiResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class GetMyBagApiResponse {
 
@@ -148,6 +144,17 @@ public class GetMyBagApiResponse {
         shopUpPostMan.getCall(EndPoints.SHOPPING_CART+productId+EndPoints.ADD_TO_CART_JSON);
     }
 
+    public void addRandomItemToCart(){
+        GetCommerceApiResponse getPLPModuleApiResponse = new GetCommerceApiResponse(CoreConstants.MODULE_ANDROID_UI);
+        Map<String,Object> resultsMap = getPLPModuleApiResponse.getProductWithValidSize("Shirts");
+//        int productIndex = (int) resultsMap.get("ValidProductIndex"); // Returns product Index
+        ProductListingResultsModel.ResultsBean productResult =
+                (ProductListingResultsModel.ResultsBean) resultsMap.get("ValidProductDetails"); // Returns the Whole Product
+        int sizeIndex = (int) resultsMap.get("ValidSizeIndex"); // Returns the Valid Size-Id
+        System.out.println("Product-id is : "+productResult.getSizes().get(sizeIndex).getId());
+        shopUpPostMan.getCall(EndPoints.SHOPPING_CART+productResult.getSizes().get(sizeIndex).getId()+EndPoints.ADD_TO_CART_JSON);
+    }
+
 
     public List<String> getOrderDetails(){
         List<String> orderDetails = new ArrayList<>();
@@ -167,6 +174,5 @@ public class GetMyBagApiResponse {
         ShoppingCartResponseModel shoppingCartResponseModel = gson.fromJson(response.getBody().asString(),ShoppingCartResponseModel.class);
         return shoppingCartResponseModel.getOrder_number();
     }
-
 
 }

@@ -115,7 +115,7 @@ public class SmokeFlow extends AndroidBaseClass {
     public Object[][] dataForSearchTerm(){
         String searchTerm=null;
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-            searchTerm = "Watches";
+            searchTerm = "Shirts";
         }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             searchTerm = "Dettol";
         }

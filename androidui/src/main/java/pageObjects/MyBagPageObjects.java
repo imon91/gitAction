@@ -664,6 +664,10 @@ public class MyBagPageObjects extends AndroidBaseClass {
         return getMyBagApiResponse.getContainerDetailsMap();
     }
 
+    public void createRandomItemInMyBag(){
+        getMyBagApiResponse.addRandomItemToCart();
+    };
+
     public void createItemInMyBag(int productId){getMyBagApiResponse.addToCart(productId);}
 
 //    public String getPriceDetails(String price,String productName,String size) {

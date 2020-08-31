@@ -1,23 +1,15 @@
 package com.shopf.tests;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-import pageObjects.ActionBarObjects;
-import pageObjects.MyBagPageObjects;
+import pageObjects.*;
 import services.commerceMethods.GetMyBagApiResponse;
-import utils.AndroidAppConstants;
-import utils.AndroidBaseClass;
-import utils.MyActions;
-import utils.ServiceRequestLayer;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import utils.*;
+import java.util.*;
 
 public class MyCart extends AndroidBaseClass {
 
@@ -25,6 +17,7 @@ public class MyCart extends AndroidBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private MyBagPageObjects myBagPageObjects;
+    private RightNavigationDrawer rightNavigationDrawer;
     private MyBagPageObjects.ItemContainer itemContainer;
     private MyBagPageObjects.CreditsAndCoupons creditsAndCoupons;
     private ActionBarObjects actionBarObjects;
@@ -49,8 +42,17 @@ public class MyCart extends AndroidBaseClass {
         myActions = new MyActions();
         serviceRequestLayer = new ServiceRequestLayer();
         getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
-        myBagPageObjects.createItemInMyBag(82513);
+        myBagPageObjects.createRandomItemInMyBag();
         suiteName = "regression";
+
+        //Change Language
+        rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        switchFromWebToNative();
+        actionBarObjects.clickOnUserProfileImageButton();
+        rightNavigationDrawer.clickOnItemChangeLanguage();
+        rightNavigationDrawer.selectEnglish();
+        rightNavigationDrawer.saveLanguage();
+
         actionBarObjects.clickOnBagImageButton();
         sleep(5000);
         //androidScriptRouter.getTheControlHere(AndroidAppConstants.WEB_VIEW_CART_ACTIVITY,AndroidAppConstants.URL_MY_BAG);
@@ -74,6 +76,12 @@ public class MyCart extends AndroidBaseClass {
             Assert.assertTrue(currentPage.equalsIgnoreCase(AndroidAppConstants.URL_MY_BAG));
         }
         System.out.println("MyBag page loaded successfully");
+    }
+
+
+    @Test
+    public void verifyThatDuplicateVariantAreNotDisplayed(){
+
     }
 
 
@@ -341,7 +349,7 @@ public class MyCart extends AndroidBaseClass {
     @Test(groups = {"MyCart.verifyTotalEarningsandOrderValueData",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION}, enabled = true,dependsOnMethods = "MyCart.verifyApplyingShippingChargesData")
-    public void verifyTotalEarningsandOrderValueData() {
+    public void verifyTotalEarningsAndOrderValueData() {
         List<Integer> chargesList = myBagPageObjects.getChargeandTotalValue();
 
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
@@ -363,7 +371,7 @@ public class MyCart extends AndroidBaseClass {
 
     @Test(groups = {"MyCart.verifyContinueShopping",
             CoreConstants.GROUP_SANITY,
-            CoreConstants.GROUP_REGRESSION},dependsOnMethods = "MyCart.verifyTotalEarningsandOrderValueData")
+            CoreConstants.GROUP_REGRESSION},dependsOnMethods = "MyCart.verifyTotalEarningsAndOrderValueData")
     public void verifyContinueShopping(){
 //        myBagPageObjects.clickOnContinueShoppingButton();
 //        String activity = androidDriver.currentActivity();

@@ -54,6 +54,7 @@ public class Authentication extends AndroidBaseClass {
 
     @Test(  groups = {"Authentication.verifyAuthenticationWithValidCredentials",
             CoreConstants.GROUP_SMOKE,
+            CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Authentication With Valid Credentials",
             dataProvider = "getUserAuthenticationData")
@@ -67,7 +68,7 @@ public class Authentication extends AndroidBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SMOKE,
             CoreConstants.GROUP_FUNCTIONAL,
-            CoreConstants.GROUP_REGRESSION},
+            CoreConstants.GROUP_REGRESSION},enabled = false,
             description = "Verifies Authentication With InValid Credentials",
             dataProvider = "getUserAuthenticationData"  )
     public void verifyAuthenticationWithInvalidOtp(String mobileNumber,String otp1){
@@ -80,7 +81,7 @@ public class Authentication extends AndroidBaseClass {
     @Test(  groups = {"Authentication.verifyEditMobileNumber",
             CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_FUNCTIONAL,
-            CoreConstants.GROUP_REGRESSION},
+            CoreConstants.GROUP_REGRESSION},enabled = false,
             description = "Verifies Authentication By Editing The MobilNumber",
             dataProvider = "getUserAuthenticationData"  )
     public void verifyEditMobileNumber(String mobileNumber,String otp){
@@ -92,7 +93,7 @@ public class Authentication extends AndroidBaseClass {
 
 
     @Test(  groups = {CoreConstants.GROUP_FUNCTIONAL,
-            CoreConstants.GROUP_REGRESSION},
+            CoreConstants.GROUP_REGRESSION},enabled = false,
             description = "Verifies Authentication With ResendOTP",
             dataProvider = "getUserAuthenticationData"  )
     public void verifyResendOTP(String mobileNumber,String otp){

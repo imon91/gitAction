@@ -11,9 +11,9 @@
         <classes>
             <class name="com.shopf.tests.Authentication"></class>
             <class name="com.shopf.tests.MyCart"></class>
-            <class name="com.shopf.tests.Address"></class>
-            <class name="com.shopf.tests.Payments"></class>
-            <class name="com.shopf.tests.OrderSuccessfulPage"></class>
+<!--            <class name="com.shopf.tests.Address"></class>-->
+<!--            <class name="com.shopf.tests.Payments"></class>-->
+<!--            <class name="com.shopf.tests.OrderSuccessfulPage"></class>-->
         </classes>
     </test>
 </suite>
