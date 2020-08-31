@@ -20,7 +20,7 @@ public class Login extends WmsBaseClass {
         driver = getBaseDriver();
         setImplicitWait(10000);
         driver.get(getWmsBaseUrl());
-        driver.manage().window().fullscreen();
+//         driver.manage().window().fullscreen();
         ScreenRecorder.startRecording("");
     }
 
