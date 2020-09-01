@@ -11,10 +11,7 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.Login"></class>
-            <class name="com.shopf.tests.Warehouses.AddWarehouseRegression"></class>
             <class name="com.shopf.tests.Warehouses.UpdateBinCapacityRegression"></class>
-            <class name="com.shopf.tests.Warehouses.WarehouseBinDetailRegression"></class>
-<!--            <class name="com.shopf.tests.Warehouses.WarehouseBinCreate"></class>-->
         </classes>
     </test>
 

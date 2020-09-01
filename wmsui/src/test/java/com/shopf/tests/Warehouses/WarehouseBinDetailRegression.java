@@ -25,9 +25,6 @@ public class WarehouseBinDetailRegression extends WmsBaseClass {
     private List<WarehouseBinDetails.PackageDetailsBean> packageDetails;
     private Assertion assertion;
     private String test;
-    private Scanner s;
-    private Random random;
-
 
     @Parameters({"test"})
     @BeforeClass(alwaysRun = true)
@@ -50,7 +47,7 @@ public class WarehouseBinDetailRegression extends WmsBaseClass {
 
     }
 
-    @Test(groups = {CoreConstants.GROUP_REGRESSION, CoreConstants.GROUP_SANITY},
+    @Test(groups = {CoreConstants.GROUP_REGRESSION},
             dataProvider = "CSVData",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Warehouse Bin Details")

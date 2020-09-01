@@ -1,11 +1,17 @@
 package pageObjects;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import services.responseModels.wmsModels.AllSellersModel;
+import services.responseModels.wmsModels.VariantDetailsModel;
 import utils.*;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 import java.util.NoSuchElementException;
 
@@ -44,6 +50,7 @@ public class WarehousesPageObjects extends WmsBaseClass {
     public void clickWarehouseBinsCreateTab() {
         WebElement warehouseBinsCreateTab = xpathSetterClick("//a[text()='Warehouse Bins create']");
         myActions.action_click(warehouseBinsCreateTab); }
+
 
 
     /*--------------Add Warehouse Tab-------------------*/
@@ -584,11 +591,13 @@ public class WarehousesPageObjects extends WmsBaseClass {
     public class WarehouseBinsCreateTab {
         private WebDriver driver;
         private MyActions myActions;
+        private Random random;
 
         public WarehouseBinsCreateTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
         }
 
 
@@ -670,6 +679,19 @@ public class WarehousesPageObjects extends WmsBaseClass {
             return warehouseUsers;
         }
 
+        public String getUsersJson() throws FileNotFoundException {
+            Gson gson = new Gson();
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/allUsers.json";
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            AllSellersModel allSellersModel = gson.fromJson(bufferedReader,
+                    AllSellersModel.class);
+            List<AllSellersModel.ResultBean> list = allSellersModel.getResult();
+            int n = random.nextInt(list.size());
+            return list.get(n+1).getName();
+        }
+
         /*--------------Sellers Section-------------------*/
         // Sellers Section
         @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Sellers']")
@@ -703,6 +725,19 @@ public class WarehousesPageObjects extends WmsBaseClass {
             for (WebElement element : seller)
                 sellers.add(myActions.action_getText(element));
             return sellers;
+        }
+
+        public String getSellersJson() throws FileNotFoundException {
+            Gson gson = new Gson();
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/allSellers.json";
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            AllSellersModel allSellersModel = gson.fromJson(bufferedReader,
+                    AllSellersModel.class);
+            List<AllSellersModel.ResultBean> list = allSellersModel.getResult();
+            int n = random.nextInt(list.size());
+            return list.get(n+1).getName();
         }
     }
 }

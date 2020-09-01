@@ -43,7 +43,7 @@ public class UpdateBinCapacityRegression extends WmsBaseClass {
 
     }
 
-    @Test(groups = CoreConstants.GROUP_SANITY,
+    @Test(groups = CoreConstants.GROUP_REGRESSION,
             dataProvider = "CSVData",
             dependsOnGroups = "Login.verifyAuthenticationWithValidCredentials",
             description = "Verify Update Bin Capacity")

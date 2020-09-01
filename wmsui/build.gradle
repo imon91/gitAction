@@ -63,7 +63,10 @@ task wmsuiTest(type: Test){
         def smoke = project.hasProperty("Smoke")
         def sanity = project.hasProperty("Sanity")
         def regression = project.hasProperty("Reg")
-        def addWarehouse = project.hasProperty("AddingWarehouse")
+        def warehouse = project.hasProperty("Warehouse")
+        def addWarehouse = project.hasProperty("AddWarehouse")
+        def updateBinCapacity = project.hasProperty("UpdateBinCapacity")
+        def warehouseBin = project.hasProperty("WarehouseBinDetails")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -77,9 +80,22 @@ task wmsuiTest(type: Test){
             suites "src/test/resources/mySuites/regressionSuite.xml"
         }
 
-        if(addWarehouse){
+        if(warehouse){
             suites "src/test/resources/mySuites/warehouse.xml"
         }
+
+        if(addWarehouse){
+            suites "src/test/resources/mySuites/addWarehouse.xml"
+        }
+
+        if(updateBinCapacity){
+            suites "src/test/resources/mySuites/binCapacity.xml"
+        }
+
+        if(warehouseBin){
+            suites "src/test/resources/mySuites/warehouseBin.xml"
+        }
+
 
 
     }
