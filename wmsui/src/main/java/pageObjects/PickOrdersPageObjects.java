@@ -87,7 +87,6 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             String skuCodeXPath = "//div[@id='NewPickList']//input[@id='select" + index + "']";
             WebElement skuCodeEntry = xpathSetterPresence(skuCodeXPath);
             myActions.action_sendKeys(skuCodeEntry, skuCode+"\n");
-//            myActions.action_enter(skuCodeEntry);
         }
 
         public void quantityInput(int index, String quantity) {
@@ -122,9 +121,10 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             selectType("PHOTOSHOOT");
         }
 
-        public void createPickListOrder(){
-            skuCodeInput(0,"139743");
-            quantityInput(0,"2");
+        public void createPickListOrder(String skuCode){
+            skuCodeInput(0,skuCode);
+            quantityInput(0,"1");
+            transferPriceInput(0,"200");
             clickCreatePickListButton();
         }
 

@@ -4,7 +4,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.NoSuchElementException;
 
 public class WarehousesPageObjects extends WmsBaseClass {
 
@@ -272,156 +275,12 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         }
 
-        public String[] getAllErrorMessageData(String[] inputData)
-        {
-            return new String[]
-                    {
-                            getErrorMessage("WarehouseCode", inputData[0]),
-                            getErrorMessage("Name", inputData[1]),
-                            getErrorMessage("Address", inputData[2]),
-                            getErrorMessage("Address2", inputData[3]),
-                            getErrorMessage("LandMark", inputData[4]),
-                            getErrorMessage("City", inputData[5]),
-                            getErrorMessage("State", inputData[6]),
-                            getErrorMessage("Country", inputData[7]),
-                            getErrorMessage("Zipcode", inputData[8]),
-                            getErrorMessage("Phone", inputData[9]),
-                            getErrorMessage("AlternativePhone", inputData[10])
-                    };
-        }
-
-        public String getErrorMessage(String attribute,String input)
-        {
-            switch (attribute)
-            {
-                case "WarehouseCode":
-                    switch (input){
-                        case "Any String":
-                        case "New":
-                        case "Existing":
-                            return "";
-                        case "N/A":
-                            return "This field is required";
-                    }
-                case "Name":
-                    switch (input){
-                        case "Any String":
-                            return "";
-                        case "N/A":
-                            return "This field is required";
-                    }
-                case "Address":
-                    switch (input){
-                        case "Any String":
-                            return "";
-                        case "N/A":
-                            return "This field is required";
-                    }
-                case "Address2":
-                    switch (input){
-                        case "Any String":
-                        case "N/A":
-                            return "";
-                    }
-                case "LandMark":
-                    switch (input){
-                        case "Any String":
-                        case "N/A":
-                            return "";
-                    }
-                case "City":
-                    switch (input){
-                        case "Any String":
-                            return "";
-                        case "N/A":
-                            return "This field is required";
-                    }
-                case "State":
-                    switch (input){
-                        case "Any String":
-                            return "";
-                        case "N/A":
-                            return "This field is required";
-                    }
-                case "Country":
-                    switch (input){
-                        case "Any String":
-                            return "";
-                        case "N/A":
-                            return "This field is required";
-                    }
-                case "Zipcode":
-                    switch (input){
-                        case "Valid String":
-                            return "";
-                        default:
-                            return "Enter Zipcode";
-                    }
-                case "Phone":
-                    switch (input){
-                        case "Valid String":
-                        case "Invalid String":
-                            return "";
-                        case "N/A":
-                            return "This field is required";
-                    }
-                case "AlternativePhone":
-                    switch (input){
-                        case "Valid String":
-                        case "Invalid String":
-                        case "N/A":
-                            return "";
-                    }
-                default:return "";
-            }
-
-        }
         public boolean verifyElementVisibilityWithText(String value)
         {
             WebElement element =
                     xpathSetter("//label[contains(text(),'"+value+"')]");
             return element.isDisplayed();
         }
-
-        public boolean verifyVisibilityForAllErrorMessages(int i) {
-            boolean assertData = false;
-            switch (i) {
-                case 0:
-                    if (verifyElementVisibilityWithText("This field is required"))
-                        assertData = true;
-                    else break;
-                case 1:
-                    if (verifyElementVisibilityWithText("This field is required"))
-                        assertData = true;
-                    else break;
-                case 2:
-                    if (verifyElementVisibilityWithText("This field is required"))
-                        assertData = true;
-                    else break;
-                case 5:
-                    if (verifyElementVisibilityWithText("This field is required"))
-                        assertData = true;
-                    else break;
-                case 6:
-                    if(verifyElementVisibilityWithText("This field is required"))
-                        assertData=true;
-                    else break;
-                case 7:
-                    if(verifyElementVisibilityWithText("This field is required"))
-                        assertData=true;
-                    else break;
-//                case 8:
-//                    if(verifyElementVisibilityWithText("Enter Zipcode"))
-//                        assertData=true;
-//                    else break;
-                case 9:
-                    if(verifyElementVisibilityWithText("This field is required"))
-                        assertData=true;
-                    else break;
-            }
-            return assertData;
-        }
-
     }
 
 
@@ -430,22 +289,26 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         private final WebDriver driver;
         private final MyActions myActions;
+        private Random random;
 
         public UpdateBinCapacityTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
         }
 
 
         /*--------------Actions-------------------*/
         public void enterBinCodeUpdateCapacity(String binCode) {
             WebElement binCodeUpdateCapacity = xpathSetter("//input[@id='binCapacityBincode']");
+            myActions.action_clear_text(binCodeUpdateCapacity);
             myActions.action_sendKeys(binCodeUpdateCapacity, binCode);
         }
 
         public void enterCapacity(String capacity) {
             WebElement binCapacityUpdateCapacity = xpathSetter("//input[@id='binCapacity']");
+            myActions.action_clear_text(binCapacityUpdateCapacity);
             myActions.action_sendKeys(binCapacityUpdateCapacity, capacity);
         }
 
@@ -461,6 +324,81 @@ public class WarehousesPageObjects extends WmsBaseClass {
             enterCapacity(capacity);
             clickUpdateCapacityButton();
         }
+
+        public void updateBinCapacity(String[] input) {
+            enterBinCodeUpdateCapacity(input[0]);
+            enterCapacity(input[1]);
+            clickUpdateCapacityButton();
+        }
+
+        public String binCodeSetter() throws FileNotFoundException {
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/WarehouseBinsSD.txt";
+
+            Scanner s = new Scanner(new File(filePath));
+            List<String> list = new ArrayList<>();
+            while (s.hasNextLine())
+                list.add(s.nextLine());
+
+            int n = random.nextInt(list.size()) + 1;
+            String binCode = list.get(n - 1);
+            return binCode;
+        }
+
+        public String[] getAllInputData(String[] inputData) throws FileNotFoundException {
+            return new String[]
+                    {
+                            getInputData("WarehouseCode", inputData[0]),
+                            getInputData("BinCapacity", inputData[1]),
+                    };
+        }
+
+        public String getInputData(String attribute, String input) throws FileNotFoundException {
+
+            switch (attribute) {
+                case "WarehouseCode":
+                    switch (input) {
+                        case "Valid Code":
+                            return binCodeSetter();
+                        case "InvalidCode":
+                            return "xxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                case "BinCapacity":
+                    switch (input) {
+                        case "Valid Number":
+                            return String.valueOf((random.nextInt(30)+10));
+                        case "Invalid Number":
+                            return "xxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                default : return " ";
+            }
+
+        }
+
+        public boolean verifyElementVisibilityWithText(String value) {
+            WebElement element = xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+
+        }
+
+        public boolean verifyVisibilityForErrorMessages1() {
+            boolean assertData = false;
+            if (verifyElementVisibilityWithText("This field is required."))
+                assertData = true;
+            return assertData;
+        }
+
+        public boolean verifyVisibilityForErrorMessages2(){
+            boolean assertData = false;
+            if (verifyElementVisibilityWithText("Please enter only digits."))
+                assertData = true;
+            return assertData;
+        }
+
     }
 
 
@@ -468,11 +406,13 @@ public class WarehousesPageObjects extends WmsBaseClass {
     public class WarehouseBinDetailsTab {
         private final WebDriver driver;
         private final MyActions myActions;
+        private Random random;
 
         public WarehouseBinDetailsTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
         }
 
 
@@ -488,6 +428,8 @@ public class WarehousesPageObjects extends WmsBaseClass {
         public void binCodeEntry(String binCode) {
             enterBinCodeBinDetails(binCode);
         }
+
+        public void binCodeEntry(String[] binCode){enterBinCodeBinDetails(binCode[0]);}
 
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='WarehouseBinDetail']//tbody/tr"));
@@ -524,6 +466,39 @@ public class WarehousesPageObjects extends WmsBaseClass {
             return myActions.action_getText(scannedPackageIds);
         }
 
+        public String binCodeSetter() throws FileNotFoundException {
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/WarehouseBinsSD.txt";
+
+            Scanner s = new Scanner(new File(filePath));
+            List<String> list = new ArrayList<>();
+            while (s.hasNextLine())
+                list.add(s.nextLine());
+
+            int n = random.nextInt(list.size()) + 1;
+            String binCode = list.get(n - 1);
+            return binCode;
+        }
+
+        public String[] getAllInputData(String[] inputData) throws FileNotFoundException {
+            return new String[]
+                    {
+                     getInputData("WarehouseCode", inputData[0])
+                    };
+        }
+
+        public String getInputData(String attribute, String input) throws FileNotFoundException {
+            switch (input) {
+                case "Valid Code":
+                    return binCodeSetter();
+                case "InvalidCode":
+                    return "xxxxx";
+                case "N/A":
+                    return " ";
+                default:
+                    return "";
+            }
+        }
     }
 
 

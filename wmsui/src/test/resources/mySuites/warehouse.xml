@@ -11,7 +11,7 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.Login"></class>
-            <class name="com.shopf.tests.Warehouses.AW"></class>
+            <class name="com.shopf.tests.Warehouses.AddWarehouseRegression"></class>
         </classes>
     </test>
 

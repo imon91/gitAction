@@ -1,0 +1,3 @@
+floor_id,row_id,rack_id,column_id,zone_type,bin_type,bin_id,capacity
+1,1,1,1,SALABLE,MULTIPLE_VARIANT,1,1000000
+1,1,1,1,REJECTED,SINGLE_VARIANT,1,1000000

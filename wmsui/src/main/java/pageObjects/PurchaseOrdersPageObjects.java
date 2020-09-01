@@ -114,7 +114,6 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             String skuCodeXPath = "//div[@id='Addpurchage']//input[@id='select" + index + "']";
             WebElement skuCodeEntry = xpathSetterPresence(skuCodeXPath);
             myActions.action_sendKeys(skuCodeEntry, skuCode+"\n");
-            myActions.action_enter(skuCodeEntry);
         }
 
         public void quantityInput(int index, String quantity) {
@@ -164,6 +163,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public void createPurchaseOrder(String skuCode){
             skuCodeInput(0,skuCode);
             quantityInput(0,"1");
+            transferPriceInput(0,"200");
             clickCreatePOButton();
         }
         public void createPO(int no_of_products, String[] skuCode, String[] quantity, String[] price) {

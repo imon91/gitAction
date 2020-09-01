@@ -10,7 +10,7 @@ import pageObjects.*;
 import services.responseModels.wmsModels.AddingWarehouseModel;
 import utils.*;
 
-public class AW extends WmsBaseClass {
+public class AddWarehouseRegression extends WmsBaseClass {
 
     private WebDriver driver;
     private HomePageObject homePageObject;
@@ -54,13 +54,15 @@ public class AW extends WmsBaseClass {
         AddingWarehouseModel addingWarehouseModel = gson.fromJson(body.toString(),AddingWarehouseModel.class);
 
         String[] allInputData = addWarehouseTab.getAllInputData(addingWarehouseModel.getAll());
-        String[] allErrorData = addWarehouseTab.getAllErrorMessageData(addingWarehouseModel.getAll());
         System.out.println(addingWarehouseModel.getTestCaseId()+" - "+addingWarehouseModel.getTestCase());
         addWarehouseTab.addNewWarehouse(allInputData);
-        if(addingWarehouseModel.getToastMessage().equals("N/A"))
-            for(i=0;i<allErrorData.length;i++)
-                if(allErrorData[i].equals("This field is required"))
-                    assertion.assertTrue(addWarehouseTab.verifyVisibilityForAllErrorMessages(i));
+        if(addingWarehouseModel.getToastMessage().equals("N/A")) {
+            if(addingWarehouseModel.getTestCaseId().equals("AW_76"))
+                assertion.assertTrue(addWarehouseTab.verifyElementVisibilityWithText("Enter Zipcode"));
+            else
+                assertion.assertTrue(addWarehouseTab.verifyElementVisibilityWithText("This field is required"));
+
+        }
 
         else if(addingWarehouseModel.getToastMessage().equals("Code is already present"))
             assertion.assertTrue(homePageObject.getPopUpMessage().equals(addingWarehouseModel.getToastMessage()));

@@ -1,0 +1,10 @@
+TestCaseId,TestCase,TestData,WarehouseBinCode,Capacity,ToastMessage
+UBC_1,withNoInput,Input,This field is required,This field is required,N/A
+UBC_2,withOnlyValidWarehouseCode,Input,Valid Code,N/A,N/A
+UBC_3,withOnlyInvalidWarehouseCode,Input,InvalidCode,N/A,N/A
+UBC_4,withOnlyValidNumerical,Input,N/A,Valid Number,N/A
+UBC_5,withOnlyInvalidNumerical,Input,N/A,Invalid Number,N/A
+UBC_6,withValidCodeInvalidNumerical,Input,Valid Code,Invalid Number,N/A
+UBC_7,withInvalidCodevalidNumerical,Input,InvalidCode,Valid Number,Bin capacity updation failed
+UBC_8,withInvalidCodeInvalidNumerical,Input,InvalidCode,Invalid Number,N/A
+UBC_9,withvalidCodevalidNumerical,Input,Valid Code,Valid Number,Bin Capacity is updated
