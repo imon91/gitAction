@@ -270,5 +270,147 @@ public class SuppliersPageObjects extends WmsBaseClass {
             clickAddSupplierButton();
             return name;
         }
+
+        public void addNewSupplier(String[] input){
+            enterName(input[0]);
+            enterEmail(input[1]);
+            enterPhoneNo(input[2]);
+            enterAddress1(input[3]);
+            enterAddress2(input[4]);
+            enterLandmark(input[5]);
+            enterCity(input[6]);
+            enterState(input[7]);
+            enterZipcode(input[8]);
+            enterGSTNo(input[9]);
+            clickAddSupplierButton();
+        }
+
+        public String[] getAllInputData(String[] inputData)
+        {
+            return new String[]
+                    {
+                            getInputData("Name", inputData[0]),
+                            getInputData("Email", inputData[1]),
+                            getInputData("Phone", inputData[2]),
+                            getInputData("Address1", inputData[3]),
+                            getInputData("Address2", inputData[4]),
+                            getInputData("LandMark", inputData[5]),
+                            getInputData("City", inputData[6]),
+                            getInputData("State", inputData[7]),
+                            getInputData("ZipCode", inputData[8]),
+                            getInputData("VATNumber", inputData[9])
+                    };
+        }
+
+        public String getInputData(String attribute,String input)
+        {
+            int randomNum = random.nextInt(5000);
+            switch (attribute)
+            {
+                case "Name":
+                    switch (input){
+                        case "Any String":
+                        case "New":
+                            return "TestSupplier"+randomNum;
+                        case "Existing":
+                            return "TestX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Email":
+                    switch (input){
+                        case "Valid String":
+                            return "x@gmail.com";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Phone":
+                    switch (input){
+                        case "Valid String":
+                            return "9442139828";
+                        case "Invalid String":
+                            return "xxxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address1":
+                    switch (input){
+                        case "Any String":
+                            return "First Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address2":
+                    switch (input){
+                        case "Any String":
+                            return "Second Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "LandMark":
+                    switch (input){
+                        case "Any String":
+                            return "LandMark";
+                        case "N/A":
+                            return " ";
+                    }
+                case "City":
+                    switch (input){
+                        case "Any String":
+                            return "CityX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "State":
+                    switch (input){
+                        case "Any String":
+                            return "StateX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "ZipCode":
+                    switch (input){
+                        case "Valid String":
+                            return "123456";
+                        case "Invalid String":
+                            return "xxxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                case "VATNumber":
+                    switch (input){
+                        case "Any String":
+                            return "vat"+randomNum;
+                        case "N/A":
+                            return " ";
+                    }
+
+                default:return " ";
+            }
+        }
+
+        public boolean verifyElementVisibilityWithText(String value)
+        {
+            WebElement element =
+                    xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+        }
+
+        public boolean testCaseAssert(String testCase){
+            switch (testCase){
+
+                case "AS_72":
+                    return verifyElementVisibilityWithText("Enter Zipcode");
+
+                case "AS_13":
+                case "AS_14":
+                    return verifyElementVisibilityWithText("Please enter only digits.");
+
+                default:
+                    return verifyElementVisibilityWithText("This field is required.");
+            }
+
+
+        }
     }
 }

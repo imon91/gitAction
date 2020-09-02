@@ -67,6 +67,7 @@ task wmsuiTest(type: Test){
         def addWarehouse = project.hasProperty("AddWarehouse")
         def updateBinCapacity = project.hasProperty("UpdateBinCapacity")
         def warehouseBin = project.hasProperty("WarehouseBinDetails")
+        def addSupplier = project.hasProperty("AddSupplier")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -94,6 +95,10 @@ task wmsuiTest(type: Test){
 
         if(warehouseBin){
             suites "src/test/resources/mySuites/warehouseBin.xml"
+        }
+
+        if(addSupplier){
+            suites "src/test/resources/mySuites/addSupplier.xml"
         }
 
 
