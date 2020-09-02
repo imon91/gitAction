@@ -96,12 +96,12 @@ public class SmokeFlow extends AndroidBaseClass {
             mobileNumber = "1877755590";
             otp = "666666";
         }
-        else if(System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER))
+        else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            mobileNumber = "1877755590";
+            otp = "666666";
+        } else if(System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER))
         {
             mobileNumber = "1877775590";
-            otp = "666666";
-        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            mobileNumber = "1877755590";
             otp = "666666";
         }
 
@@ -134,11 +134,17 @@ public class SmokeFlow extends AndroidBaseClass {
   
   @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 2)
     public void verifyAddingRetailer()
-    {  if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+    {  if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+        try{
+            if (mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)) {
         salesRepFeature.salesRepPageBeforeClass();
         salesRepFeature.verifyAddingRetailer();
-    sleep(4000);}
-    }
+         sleep(4000);}
+        }
+        catch (NullPointerException e){
+            sleep(500);
+        }
+    }}
   
 
      @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 3)
@@ -154,22 +160,34 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 4)
     public void verifyAddedRetailer()
-    {if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
-    {salesRepFeature.verifyAddedRetailer();}
-    }
+    {if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+        try {
+            if (mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)) {
+                salesRepFeature.verifyAddedRetailer();
+            }
+        }catch (NullPointerException e){
+            sleep(500);
+        }
+    }}
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 5)
     public void verifyRetailerSwitch()
-    {if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
-    {
-        salesRepFeature.verifyRetailerSwitch();
-    sleep(3000);}
-    }
+    {if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+        try {
+            if (mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)) {
+                salesRepFeature.verifyRetailerSwitch();
+                sleep(3000);
+            }
+        }catch (NullPointerException e){
+            sleep(500);
+        }
+    }}
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 6)
     public void verifyEditProfile()
-    {
-        if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM))
+    {if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+        try {
+        if (mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER))
         {
         actionBarObjects.clickOnUserProfileImageButton();
         rightNavigationDrawer.clickOnItemMyAccount();
@@ -181,6 +199,10 @@ public class SmokeFlow extends AndroidBaseClass {
         rightNavigationDrawer.businessTypeEdit(1);
         rightNavigationDrawer.clickOnProfileSaveButton();
         androidDriver.navigate().back();
+        }
+        }catch (NullPointerException e){
+            sleep(500);
+        }
         }
     }
 

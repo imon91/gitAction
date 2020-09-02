@@ -4,10 +4,11 @@ import coreUtils.*;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
+import org.testng.asserts.*;
 import static org.testng.Assert.*;
 import pageObjects.*;
 import services.responseModels.commerceModels.*;
+import testData.*;
 import utils.*;
 import java.util.*;
 
@@ -22,12 +23,27 @@ public class Search extends AndroidBaseClass {
     private AndroidDriver<WebElement> androidDriver;
     private String suiteName;
     private SoftAssert softAssert;
+    private Random random;
+    private ServiceRequestLayer serviceRequestLayer;
+    private Authentication authentication;
+    private ReadJSONFile readJSONFile;
+    private String app;
+    private ProductListingPageObjects productListingPageObjects;
 
-
-
+    @BeforeSuite(alwaysRun = true)
+    public void smokeBeforeSuite(){
+        try{
+            PropertyReader.flushDynamicData();
+        }catch (Exception e){
+            System.out.println("Exception at SmokeBeforeSuite : flushDynamicData");
+        }
+        serviceRequestLayer = new ServiceRequestLayer();
+        serviceRequestLayer.getControlOverAuthentication()
+                .performAuthentication();
+    }
 
     @BeforeClass(alwaysRun = true)
-    public void searchBeforeClass(){
+    public void searchBeforeClass() {
         System.out.println("SearchBeforeClass is called");
         androidDriver = getBaseDriver();
         switchFromWebToNative();
@@ -35,6 +51,13 @@ public class Search extends AndroidBaseClass {
         searchPageObjects = new SearchPageObjects(androidDriver);
         myActions = new MyActions();
         softAssert = new SoftAssert();
+        random = new Random();
+        authentication = new Authentication();
+        serviceRequestLayer = new ServiceRequestLayer();
+        readJSONFile = serviceRequestLayer.getControlOverReadJSONFile();
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
+        productListingPageObjects = new ProductListingPageObjects(androidDriver);
+        setImplicitWait(15);
     }
 
 
@@ -66,9 +89,33 @@ public class Search extends AndroidBaseClass {
     description = "Before method for every test")
     public void searchBeforeMethod()
     {
-        actionBarObjects.clickOnSearchImageButton();
+        sleep(2000);
+        if(androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.resellerActivities.homeActivity)||androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.mokamActivities.homeActivity)){
+            System.out.println("Current activity was home activity");
+            actionBarObjects.clickOnSearchImageButton();}
+        else if(androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.resellerActivities.searchActivity)||androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.mokamActivities.searchActivity)){
+            System.out.println("Current activity was search activity");
+            searchPageObjects.searchBarEditText().clear(); }
+        else if(androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.resellerActivities.PLPActivity)) {
+            System.out.println("The activity was PLP activity");
+            productListingPageObjects.clickOnPLPBackButton();
+            sleep(1500);
+            actionBarObjects.clickOnSearchImageButton();}
+        else {
+            System.out.println("ExceptionAtSearchIconClick");
+        }
     }
 
+
+
+    @Test(groups = {"Search.Authentication with valid credential",
+    CoreConstants.GROUP_REGRESSION},
+    description = "Authentication for regression testCases in Search",
+    priority = 1)
+    public void authenticationWithValidCredential() throws Exception {
+        authentication.authenticationSetUp();
+        authentication.verifyAuthenticationWithValidCredentials("01877755590","666666");
+    }
 
 
     @Test(  groups = {"Search.verifySearchFunctionalityWithoutSelectingSuggestions" ,
@@ -78,6 +125,7 @@ public class Search extends AndroidBaseClass {
             dependsOnGroups = {"Authentication.verifyEditMobileNumber"},
             description = "Verifies Search Functionality Without Selecting Any Suggestions",
             priority = 4,
+            enabled = false,
             dataProvider = "getProductName"  )
     public void verifySearchFunctionalityWithoutSelectingSuggestions(String productName){
         System.setProperty("androidSearchTerm",productName);
@@ -94,6 +142,7 @@ public class Search extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY},
             dependsOnGroups = {"Authentication.verifyEditMobileNumber"},
             priority = 6,
+            enabled = false,
             description = "Verifies click on recently viewed product")
     public void verifyRecentlyViewedProductClickable()
     {
@@ -119,26 +168,39 @@ public class Search extends AndroidBaseClass {
     @Test(  groups = {"Search.verifySearchFunctionalityWithCancellingIt" ,CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Search Functionality and Cancelling it",
-            priority = 1,
+            priority = 2,
             dataProvider = "getProductName"  )
     public void verifySearchFunctionalityAndCancelIt(String productName){
         System.out.println("Verify search Functionality and cancel it was called");
-        searchPageObjects.enterTheProductNameAndCancel(productName);
-        androidDriver.navigate().back();
+        //Visibility of recently viewed container
+        sleep(2000);
+        assertTrue(searchPageObjects.recentlyViewedContainerVisibility());
+        //entering search term
+        searchPageObjects.enterProductName(productName);
+        //visibility of searchSuggestion, not recentlyViewed container
+        sleep(1500);
+//        assertFalse(searchPageObjects.recentlyViewedContainerVisibility());
+        //Visibility of search suggestions
+        assertNotNull(searchPageObjects.searchSuggestionTitleListUI());
+
+        //click on cancel button
+        searchPageObjects.clickOnSearchCancelButton();
+        softAssert.assertAll();
+        sleep(500);
     }
 
 
     @Test(  groups = {"Search.verifySearchFunctionalityWithSelectingSuggestions" ,CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Search Functionality With Selecting Any Suggestions",
-            priority = 2,
-            dataProvider = "getProductName"  )
-    public void verifySearchFunctionalityWithSelectingSuggestions(String productName){
+            priority = 6)
+    public void verifySearchFunctionalityWithSelectingSuggestions() throws Exception {
         System.out.println("Verification of Search Functionality with selecting suggestions was called");
 
         //just enter product name
-        WebElement searchBarText = idSetter("com.shopup.reseller:id/etSearch");
-        myActions.action_sendKeys(searchBarText,productName);
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app).size());
+        String productName = (String)readJSONFile.getJSONFileData(app).get(randomIndex);
+         searchPageObjects.enterProductName(productName);
         sleep(1000);
 
         List<SearchSuggestionsModel.ResultsBean.SuggestionsBean> searchSuggestionDataFromApi = searchPageObjects.searchSuggestionListFromApi(productName);
@@ -163,12 +225,12 @@ public class Search extends AndroidBaseClass {
                     assertTrue(uiSuggestion1.equalsIgnoreCase(apiSuggestion1));
                 }
             }
-            System.out.println("The serchSuggestionDataWasVerified");
-            //click on suggession
-            sleep(1000);
-            searchPageObjects.clickOnSearchSuggestion(1);
+            System.out.println("The searchSuggestionDataWasVerified");
+            //click on suggestion
+           int index = random.nextInt(searchPageObjects.searchSuggestionTitleListUI().size());
+            searchPageObjects.clickOnSearchSuggestion(index);
+            sleep(3000);
     }
-
 
    @Test(  groups = {"Search.verifySearchFunctionalityWithSelectingSuggestions" ,
            CoreConstants.GROUP_REGRESSION},
@@ -228,21 +290,65 @@ public class Search extends AndroidBaseClass {
     @Test(  groups = {"Search.verifySearchToObjectAndClickBack" ,CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Search To object and go back",
-            priority = 5,
-            dataProvider = "getProductName" )
-    public void searchToObjectAndClickBack(String productName)
-    {
+            priority = 3)
+    public void searchToObjectAndClickBack() throws Exception {
         System.out.println("Verification of search to object and click back called");
+        //just enter product name
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app).size());
+        String productName = (String)readJSONFile.getJSONFileData(app).get(randomIndex);
         searchPageObjects.enterTheProductNameGoBack(productName);
     }
 
+    @Test(  groups = {"Search.verifySearchTextBarPlaceHolderText" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search bar place holder",
+            priority = 4)
+    public void searchPlaceHolder() {
+        System.out.println("Verification of search place holder");
+        String placeHolder = myActions.action_getText(searchPageObjects.searchBarEditText());
+        System.out.print("the place holder was  "+placeHolder);
+        assertNotNull(placeHolder);
+        softAssert.assertAll();
+    }
 
 
+    @Test(  groups = {"Search.verifySearchBarPlaceHolderGone" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search bar place holder vanish while entering text",
+            priority = 5)
+    public void searchPlaceHolderVanishWithSearchTerm() throws Exception {
+        System.out.println("Verification of search place holder vanishing");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app).size());
+        String productName = (String)readJSONFile.getJSONFileData(app).get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        String placeHolder = myActions.action_getText(searchPageObjects.searchBarEditText());
+        assertEquals(productName,placeHolder);
+        softAssert.assertAll();
+        searchPageObjects.searchBarEditText().clear(); }
+
+    @Test(  groups = {"Search.verifyCharacterInSearchBar" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies character in Search ",
+            priority = 7)
+    public void verifyCharactersAllowInSearchBox() {
+        System.out.println("Verification of character in searchBar ");
+        String productName = "shirt 1330 @!$";
+        searchPageObjects.enterProductName(productName);
+        String placeHolder = myActions.action_getText(searchPageObjects.searchBarEditText());
+        assertEquals(placeHolder,(productName));
+        softAssert.assertAll();
+        searchPageObjects.searchBarEditText().clear();}
 
 
     @AfterClass(alwaysRun = true)
     public void searchAfterClass(){
         System.out.println("SearchAfterClass is called");
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void resellerAndroidAfterSuite(){
+        System.out.println("AfterSuite Is Called");
+        quitBaseDriver();
     }
 
 

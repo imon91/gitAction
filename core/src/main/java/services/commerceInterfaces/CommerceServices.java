@@ -1,5 +1,6 @@
 package services.commerceInterfaces;
 
+import testData.ReadJSONFile;
 import services.commerceMethods.*;
 
 public interface CommerceServices {
@@ -25,5 +26,7 @@ public interface CommerceServices {
     public GetMyOrderApiResponse getControlOverMyOrderApiResponse();
 
     public GetSalesRepApiResponse getControlOverSalesRepApiResponse();
+
+    public ReadJSONFile getControlOverReadJSONFile();
 
 }

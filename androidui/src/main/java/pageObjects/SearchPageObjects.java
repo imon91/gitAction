@@ -1,12 +1,12 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
+import coreUtils.*;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
 import io.appium.java_client.touch.offset.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
 import services.commerceMethods.*;
 import services.responseModels.commerceModels.*;
 import utils.*;
@@ -25,6 +25,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     private GetSearchSuggestionsApiResponse getSearchSuggestionsApiResponse;
     private String app;
     TouchAction touchActions;
+    private Random random;
 
 
     public SearchPageObjects(AndroidDriver<WebElement> androidDriver){
@@ -36,6 +37,7 @@ public class SearchPageObjects extends AndroidBaseClass {
         touchActions = new TouchAction(androidDriver);
         getSearchSuggestionsApiResponse = serviceRequestLayer.getControlOverSearchSuggestionsApi();
         app = System.getProperty(BuildParameterKeys.KEY_APP);
+        random = new Random();
     }
 
 
@@ -59,6 +61,9 @@ public class SearchPageObjects extends AndroidBaseClass {
     // Recent Suggestions RecyclerView
     private WebElement recentSuggestionsRecycler;
 
+    //recent Viewed Container
+    private WebElement recentlyViewedContainer;
+
 
 
 
@@ -69,9 +74,13 @@ public class SearchPageObjects extends AndroidBaseClass {
         myActions.action_click(searchBackButton);
     }
 
+    public WebElement searchBarEditText()
+    {
+        return searchBarEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/etSearch']");
+    }
+
     public void enterProductName(String product){
-        searchBarEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/etSearch']");
-        myActions.action_sendKeys(searchBarEditText,product);
+        myActions.action_sendKeys(searchBarEditText(),product);
     }
 
     public void clickOnSearchButton(String product){
@@ -148,12 +157,15 @@ public class SearchPageObjects extends AndroidBaseClass {
 
     public void enterTheProductNameGoBack(String productName){
         enterProductName(productName);
-        clickOnSearchBackButton();
-    }
+        int randomFunction = random.nextInt(2);
+        if (randomFunction == 0) {
+            androidDriver.navigate().back();
+        } else
+        { clickOnSearchBackButton(); }}
 
     public String clickOnSearchSuggestion(int suggestionIndex)
     {
-        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id("com.shopup.reseller:id/text"));
+        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id(packageName+":id/text"));
         String suggestionText = null;
         if(suggestionIndex>=0) {
             suggestionText = myActions.action_getText(suggestionTitleList.get(suggestionIndex));
@@ -181,19 +193,19 @@ public class SearchPageObjects extends AndroidBaseClass {
 
     public List<WebElement> searchSuggestionTitleListUI()
     {
-        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id("com.shopup.reseller:id/text"));
+        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id(packageName+":id/text"));
         return suggestionTitleList;
     }
 
     public List<WebElement> searchSuggestionInLineLabelListUI()
     {
-        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id("com.shopup.reseller:id/inlineLabel"));
+        List<WebElement> suggestionTitleList = androidDriver.findElements(By.id(packageName+":id/inlineLabel"));
         return suggestionTitleList;
     }
 
     public List<WebElement> searchRecentProductsNameListUI()
     {
-        List<WebElement> nameList = androidDriver.findElements(By.id("com.shopup.reseller:id/tvName"));
+        List<WebElement> nameList = androidDriver.findElements(By.id(packageName+":id/tvName"));
         return nameList;
     }
 
@@ -203,16 +215,16 @@ public class SearchPageObjects extends AndroidBaseClass {
         switch (price_or_originalPrice_or_deliveryTag_or_discount)
         {
             case ("price") :
-                propertiesList = androidDriver.findElements(By.id("com.shopup.reseller:id/tvSellingPrice"));
+                propertiesList = androidDriver.findElements(By.id(packageName+":id/tvSellingPrice"));
             break;
             case ("originalPrice") :
-                propertiesList = androidDriver.findElements(By.id("com.shopup.reseller:id/tvRealPrice"));
+                propertiesList = androidDriver.findElements(By.id(packageName+":id/tvRealPrice"));
                 break;
             case ("deliveryTag") :
-                propertiesList =   androidDriver.findElements(By.id("com.shopup.reseller:id/tvTag"));
+                propertiesList =   androidDriver.findElements(By.id(packageName+":id/tvTag"));
                 break;
             case ("discount") :
-                propertiesList = androidDriver.findElements(By.id("com.shopup.reseller:id/tvDiscount"));
+                propertiesList = androidDriver.findElements(By.id(packageName+":id/tvDiscount"));
                 break;
         }
         return propertiesList;
@@ -282,6 +294,45 @@ public class SearchPageObjects extends AndroidBaseClass {
                     .perform().release();
             return true;
 
+    }
+
+    public boolean recentlyViewedContainerVisibility()
+    {
+        try{
+        recentlyViewedContainer = xpathSetter("//android.widget.TextView[@text='RECENTLY VIEWED']");
+        myActions.action_getText(recentlyViewedContainer);
+        System.out.print("Recently viewed container was visible successfully");
+        return true;
+        }
+        catch (Exception e){
+            System.out.print("Verification of recently viewed container non visibility");
+        return false;
+        }
+    }
+
+    public String productName(int index) {
+        String productName=null;
+        switch (index) {
+            case (1):
+                productName = "sh";
+                break;
+            case (2):
+                productName = "wa";
+                break;
+            case (3):
+                productName = "sa";
+                break;
+            case (4):
+                productName = "ri";
+                break;
+            case (5):
+                productName = "sp";
+                break;
+            case (6):
+                productName = "wr";
+                break;
+        }
+        return productName;
     }
 
 }
