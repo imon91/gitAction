@@ -58,7 +58,7 @@ public class  EditOrdersPageObjects{
     @FindBy(xpath = "//div[text()='Select Customer']/following-sibling::div")
     private WebElement customerListButton;
 
-    @FindBy(xpath = "//input[contains(@placeholder,'Search or Add New customer')]")
+    @FindBy(xpath = "//div[contains(text(),'Search Customer')]//parent::div//parent::div//parent::div//input")
     private WebElement searchOrAddNewCustomerTabText;
 
     @FindBy(xpath = "//div[text()='+ New']")
@@ -99,7 +99,7 @@ public class  EditOrdersPageObjects{
     public void enterValidCustomerName(){
         clickCustomerListButton();
         String customerName = "Automation - Testin'G " + RandomStringUtils.randomAlphabetic(5) ;
-        searchOrAddNewCustomer(customerName+"\n");
+        searchOrAddNewCustomer(customerName);
         storeWapActions.action_click(newButton);
     }
 

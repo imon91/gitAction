@@ -15,7 +15,7 @@ public class DashBoardPageObjects {
     private StoreWapActions storeWapActions;
 
 
-    @FindBy(xpath = "//div[text()='My Orders']")
+    @FindBy(xpath = "//div[text()='Customer Orders']")
     private WebElement myOrdersButton;
 
     @FindBy(xpath = "//div[text()='Delivery']")
@@ -24,7 +24,7 @@ public class DashBoardPageObjects {
     @FindBy(xpath = "//div[text()='Payments']")
     private WebElement paymentsButton;
 
-    @FindBy(xpath = "//div[text()='Customer List']")
+    @FindBy(xpath = "//div[text()='Customers']")
     private WebElement customerListButton;
 
     @FindBy(xpath = "//div[text()='Income']//parent::div/div/div/div[2]")

@@ -50,7 +50,7 @@ public class QuickOrderFlowTestCases {
         androidDriver = getBaseDriver();
         System.out.println("quickOrderFlowTestCasesBeforeClass is called");
         pageInitializer();
-        String facebookPage = facebookPageObjects.connectRandomFacebookPage(3);
+        String facebookPage = facebookPageObjects.connectRandomFacebookPage(1);
         System.out.println(facebookPage + " is selected");
         facebookPageObjects.clickContinueAfterConnectFacebookPage();
         sleep(3000);
@@ -135,8 +135,7 @@ public class QuickOrderFlowTestCases {
     public void getOrderID(){
         System.out.println("getOrderID is called");
         String orderID = orderConfirmationPageObjects.getOrderID();
-        System.out.println("The OrderID of the new order is,");
-        System.out.println(orderID);
+        System.out.println("The OrderID of the new order is," + orderID);
         sleep(2000);
     }
 
@@ -157,9 +156,9 @@ public class QuickOrderFlowTestCases {
         System.out.println("enterCustomerDetails is called");
         customerDetailsPageObjects.enterValidMobileNumber();
         customerDetailsPageObjects.enterAddress();
-        customerDetailsPageObjects.chooseAreaName(0);
-        customerDetailsPageObjects.enterCustomerTags();
-        customerDetailsPageObjects.enterCustomerTags();
+        customerDetailsPageObjects.chooseAreaName(1);
+//        customerDetailsPageObjects.enterCustomerTags();
+//        customerDetailsPageObjects.enterCustomerTags();
         customerDetailsPageObjects.chooseRatingForCustomer(0);
     }
 
@@ -172,7 +171,7 @@ public class QuickOrderFlowTestCases {
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifySaveButtonFunctionality" )
     public void getCustomerDetailsSuccessMessagePopUp(){
         System.out.println("getCustomerDetailsSuccessMessagePopUp is called");
-        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"success");
+        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"Profile update success");
         sleep(3000);
     }
 
@@ -230,7 +229,9 @@ public class QuickOrderFlowTestCases {
     public void fillFieldsOfDeliveryDetailsPage(){
         System.out.println("fillFieldsOfDeliveryDetailsPage is called");
         deliveryDetailsPageObjects.enterParcelWeight("1");
+        androidDriver.hideKeyboard();
         deliveryDetailsPageObjects.enterCollectionAmount("0");
+        androidDriver.hideKeyboard();
         deliveryDetailsPageObjects.selectPreferredDeliveryDay(2);
         deliveryDetailsPageObjects.selectPreferredDeliveryTime(3);
     }
@@ -254,7 +255,7 @@ public class QuickOrderFlowTestCases {
     }
 
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void createOrderTestCasesAfterClass() {
         System.out.println("createOrderAfterClass is called");
     }

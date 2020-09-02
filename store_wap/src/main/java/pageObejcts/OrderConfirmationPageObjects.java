@@ -20,7 +20,7 @@ public class OrderConfirmationPageObjects {
     @FindBy(xpath = "//div[text()='Order Confirmation']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div[1]")
     private WebElement backButton;
 
-    @FindBy(xpath= "//div[text()='Order Confirmation']")
+    @FindBy(xpath= "//div[contains(text(),'Successfully Created')]//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@class='css-901oao r-14iuakf r-pz5f6p r-ubezar r-1jkjb']")
     private WebElement pageTitle;
 
     @FindBy(xpath = "//div[text()='Order Confirmation']//parent::div//parent::div//parent::div//following-sibling::div")
@@ -73,13 +73,11 @@ public class OrderConfirmationPageObjects {
 
 
     public String getOrderID(){
-        String orderID = storeWapActions.action_getText(orderIDxpath);
-        return orderID;
+        return storeWapActions.action_getText(orderIDxpath);
     }
 
     public String getPageTitleText(){
-        String pageTitleText = storeWapActions.action_getText(pageTitle);
-        return pageTitleText;
+        return storeWapActions.action_getText(pageTitle);
     }
 
 
