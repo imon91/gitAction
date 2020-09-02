@@ -88,6 +88,9 @@ public class ProductListingPageObjects extends AndroidBaseClass {
     // View Items In Cart Text
     private WebElement viewItemsInCartText;
 
+    // PLP BackButton
+    private WebElement plpBackButton;
+
 
     public void getFeedItemRecyclerView() {
 
@@ -228,6 +231,11 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
 
     /*-------Actions---------*/
+
+    public void clickOnPLPBackButton(){
+        plpBackButton = idSetter(packageName+":id/back_button_feed");
+        myActions.action_click(plpBackButton);
+    }
 
     public void clickOnFilterButton() {
         sleep(3000);
