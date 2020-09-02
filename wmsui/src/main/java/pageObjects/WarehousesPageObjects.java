@@ -143,7 +143,7 @@ public class WarehousesPageObjects extends WmsBaseClass {
         /*--------------Functions-------------------*/
         public String addNewWarehouse() {
             int randomNum = random.nextInt(5000);
-            String binCode = "WMSTesting" + randomNum;
+            String binCode = "WMSTest" + randomNum;
             String name = "TestName" + randomNum;
             enterWarehouseCode(binCode);
             enterName(name);
@@ -201,7 +201,7 @@ public class WarehousesPageObjects extends WmsBaseClass {
                     switch (input){
                         case "Any String":
                         case "New":
-                            return "TestWarehouse"+randomNum;
+                            return "TestRegWarehouse"+randomNum;
                         case "Existing":
                             return "TestWarehouse";
                         case "N/A":
