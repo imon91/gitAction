@@ -79,7 +79,6 @@ public class QCScan extends WmsBaseClass{
         qcScanTab.packageIDScan(packId);
         String message = homePageObject.getPopUpMessage();
         System.out.println(message);
-        browserFullScreen();
         homePageObject.clickPackages();
         System.out.println(name + " : " + id);
         packagesPageObjects.clickBinInScanTab();

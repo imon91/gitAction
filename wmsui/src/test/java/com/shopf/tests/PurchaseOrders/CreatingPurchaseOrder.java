@@ -71,6 +71,7 @@ public class CreatingPurchaseOrder extends WmsBaseClass {
         purchaseOrdersPageObjects.clickPurchaseOrderListTab();
         String poId = purchaseOrderList.getPOID(1);
         System.out.println("The last added PO: " + poId);
+        driver.navigate().refresh();
     }
 
     @AfterClass(alwaysRun = true)

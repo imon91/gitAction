@@ -48,7 +48,6 @@ public class AddWarehouseRegression extends WmsBaseClass {
     public void verifyWarehouseAddition(Object body) throws Exception {
         System.out.println("Warehouse Addition Verification is called");
         homePageObject.clickWarehouses();
-        sleep(1000);
         Gson gson = new Gson();
         AddingWarehouseModel addingWarehouseModel = gson.fromJson(body.toString(),AddingWarehouseModel.class);
 
