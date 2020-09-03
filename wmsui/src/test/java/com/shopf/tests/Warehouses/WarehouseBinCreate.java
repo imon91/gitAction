@@ -44,17 +44,21 @@ public class WarehouseBinCreate extends WmsBaseClass {
         homePageObject.clickWarehouses();
         warehousesPageObjects.clickWarehouseListTab();
         int n = warehouseListTab.getTotalWarehouses();
-        String wCode = warehouseListTab.getWarehouseCode(random.nextInt(n)+1);
+        String wCode = warehouseListTab.getWarehouseCode(n);
         System.out.println(wCode);
         homePageObject.selectWarehouse(wCode);
-        warehousesPageObjects.clickWarehouseBinsCreateTab();
-        warehouseBinsCreateTab.clickPickupAgentsSection();
-        warehouseBinsCreateTab.enterPickupAgents("PickupNikhil");
-        warehouseBinsCreateTab.clickWarehouseUsersSection();
-        warehouseBinsCreateTab.enterWarehouseUser(warehouseBinsCreateTab.getUsersJson());
-        warehouseBinsCreateTab.clickSellersSection();
-        warehouseBinsCreateTab.enterSeller(warehouseBinsCreateTab.getSellersJson());
-        sleep(2000);
+        warehouseBinsCreateTab.performPickupAgentAssociation();
+        assertion.assertTrue(homePageObject.getPopUpMessage().equals("Added Successfully"));
+        warehouseBinsCreateTab.performUserAssociation(warehouseBinsCreateTab.getUsersJson());
+        assertion.assertTrue(homePageObject.getPopUpMessage().equals("Mapping done successfully"));
+        warehouseBinsCreateTab.performSellerAssociation(warehouseBinsCreateTab.getSellersJson());
+        assertion.assertTrue(homePageObject.getPopUpMessage().equals("Mapping done successfully"));
+
+        homePageObject.selectWarehouse("TestWarehouse");
+        warehouseBinsCreateTab.performUserAssociation("VilaraVnksrvcApiUser");
+        assertion.assertTrue(homePageObject.getPopUpMessage().equals("User already mapped"));
+        warehouseBinsCreateTab.performSellerAssociation("DFW");
+        assertion.assertTrue(homePageObject.getPopUpMessage().equals("Warehouse Warehouse is already present for the seller"));
     }
 
     @AfterClass(alwaysRun = true)

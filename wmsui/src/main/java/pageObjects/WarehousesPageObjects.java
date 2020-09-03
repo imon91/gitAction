@@ -592,6 +592,7 @@ public class WarehousesPageObjects extends WmsBaseClass {
         private WebDriver driver;
         private MyActions myActions;
         private Random random;
+        private boolean evaluate;
 
         public WarehouseBinsCreateTab(WebDriver driver) {
             this.driver = driver;
@@ -738,6 +739,27 @@ public class WarehousesPageObjects extends WmsBaseClass {
             List<AllSellersModel.ResultBean> list = allSellersModel.getResult();
             int n = random.nextInt(list.size());
             return list.get(n+1).getName();
+        }
+
+        public void performPickupAgentAssociation(){
+            driver.navigate().refresh();
+            clickWarehouseBinsCreateTab();
+            clickPickupAgentsSection();
+            enterPickupAgents("PickupNikhil");}
+
+        public void performUserAssociation(String s){
+            driver.navigate().refresh();
+            clickWarehouseBinsCreateTab();
+            clickWarehouseUsersSection();
+            enterWarehouseUser(s);
+
+        }
+
+        public void performSellerAssociation(String s){
+            driver.navigate().refresh();
+            clickWarehouseBinsCreateTab();
+            clickSellersSection();
+            enterSeller(s);
         }
     }
 }
