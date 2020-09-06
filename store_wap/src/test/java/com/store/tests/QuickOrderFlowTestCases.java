@@ -10,6 +10,8 @@ import org.testng.annotations.Test;
 import pageObejcts.*;
 import sun.misc.ASCIICaseInsensitiveComparator;
 
+import java.util.Optional;
+
 import static utils.StoreWapBaseClass.getBaseDriver;
 import static utils.StoreWapBaseClass.sleep;
 
@@ -29,6 +31,7 @@ public class QuickOrderFlowTestCases {
     private CustomerDetailsPageObjects customerDetailsPageObjects;
     private DeliveryDetailsPageObjects deliveryDetailsPageObjects;
     private RecordPaymentsPageObjects recordPaymentsPageObjects;
+    private OrderDetailsPageObjects orderDetailsPageObjects;
 
 
     public void pageInitializer() {
@@ -42,6 +45,7 @@ public class QuickOrderFlowTestCases {
         customerDetailsPageObjects = new CustomerDetailsPageObjects(androidDriver);
         deliveryDetailsPageObjects = new DeliveryDetailsPageObjects(androidDriver);
         recordPaymentsPageObjects = new RecordPaymentsPageObjects(androidDriver);
+        orderDetailsPageObjects = new OrderDetailsPageObjects(androidDriver);
     }
 
 
@@ -81,6 +85,10 @@ public class QuickOrderFlowTestCases {
         createOrderPageObjects.enterValidRandomProductAmount(1);
         createOrderPageObjects.clickAddMoreButton();
         createOrderPageObjects.enterValidRandomProductAmount(2);
+        createOrderPageObjects.clickAddMoreButton();
+        createOrderPageObjects.enterValidRandomProductAmount(3);
+        createOrderPageObjects.clickAddMoreButton();
+        createOrderPageObjects.enterValidRandomProductAmount(4);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "createOrders")
@@ -104,15 +112,23 @@ public class QuickOrderFlowTestCases {
         Assert.assertEquals(editOrdersPageObject.getPageTitleText(), "Edit Orders");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyEditOrdersPageTitle")
-    public void fillFieldsInEditOrdersPage(){
-        System.out.println("completeFieldsInEditOrdersPage is called");
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, enabled = false, dependsOnMethods = "verifyEditOrdersPageTitle")
+    public void fillFieldsInEditOrdersPageWithNewCustomer(){
+        System.out.println("completeFieldsInEditOrdersPageWithNewCustomer is called");
         editOrdersPageObject.enterValidCustomerName();
         editOrdersPageObject.enterValidDiscount();
         editOrdersPageObject.enterValidDeliveryCharge();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "fillFieldsInEditOrdersPage")
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyEditOrdersPageTitle")
+    public void fillFieldsInEditOrdersPageWithExistingCustomer(){
+        System.out.println("completeFieldsInEditOrdersPageWithExistingCustomer");
+        editOrdersPageObject.selectExistingCustomerFrmCustomerList(1);
+        editOrdersPageObject.enterValidDiscount();
+        editOrdersPageObject.enterValidDeliveryCharge();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "fillFieldsInEditOrdersPageWithExistingCustomer")
     public void verifyCreateOrderButtonFunctionality() {
         System.out.println("createOrder is called");
         editOrdersPageObject.clickCreateOrderButton();
@@ -139,43 +155,96 @@ public class QuickOrderFlowTestCases {
         sleep(2000);
     }
 
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getCustomerDetailsSuccessMessagePopUp")
+    public void verifyViewMyOrderButtonFunctionality(){
+//        System.out.println("verifyViewMyOrderButtonFunctionality is called");
+//        orderConfirmationPageObjects.clickViewMyOrderButton();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyViewMyOrderButtonFunctionality")
+    public void verifyOrderDetailsPageTitle(){
+//        System.out.println("verifyOrderDetailsPageTitle is called");
+//        Assert.assertEquals(orderDetailsPageObjects.getPageTitle(),"Order Details");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyOrderDetailsPageTitle")
+    public void verifyEditDetailsButton(){
+//        System.out.println("verifyEditDetailsButton is called");
+//        orderDetailsPageObjects.clickOnEditDetailsButton();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditDetailsButton")
+    public void verifyEditProductsPageTitle(){
+//        System.out.println("verifyEditProductsPageTitle is called");
+//        System.out.println(editOrdersPageObject.getPageTitleText());
+//        //Assert.assertEquals(editOrdersPageObject.getPageTitleText(),"Edit Products");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditProductsPageTitle")
+    public void editProductDetails(){
+//        System.out.println("editProductDetails is called");
+//        //editOrdersPageObject.deleteProduct(4);
+//        editOrdersPageObject.editProductName(1,"box");
+//        editOrdersPageObject.editProductQuantityWithValidQuantity(1);
+//        editOrdersPageObject.editProductAmount(1,"100");
+//        editOrdersPageObject.editProductName(2,"bat");
+//        editOrdersPageObject.editProductQuantityWithValidQuantity(2);
+//        editOrdersPageObject.editProductAmount(2,"70");
+//        editOrdersPageObject.editProductName(3,"ball");
+//        editOrdersPageObject.editProductQuantityWithValidQuantity(3);
+//        editOrdersPageObject.editProductAmount(3,"50");
+//        editOrdersPageObject.clickOnNextButtonInEditProductsPage();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "editProductDetails")
+    public void verifyEditTotalCost(){
+//        System.out.println("verifyEditTotalCost is called");
+//        orderDetailsPageObjects.clickOnEditTotalCostButton();
+//        int productValue = orderDetailsPageObjects.getTotalProductValue();
+//        String totalCost = String.valueOf(productValue - ((int)(productValue*0.2)));
+//        orderDetailsPageObjects.enterTotalCost(totalCost);
+//        orderDetailsPageObjects.clickOnSaveTotalCostButton();
+//        sleep(3000);
+//        orderDetailsPageObjects.clickBackButton();
+    }
+
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderID")
     public void verifyEnterCustomerDetailsButtonFunctionality(){
-        System.out.println("verifyEnterCustomerDetailsButtonFunctionality is called");
-        orderConfirmationPageObjects.clickEnterCustomerDetailsButton();
+//        System.out.println("verifyEnterCustomerDetailsButtonFunctionality is called");
+//        orderConfirmationPageObjects.clickEnterCustomerDetailsButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEnterCustomerDetailsButtonFunctionality" )
     public void verifyCustomerDetailsPageTitle(){
-        System.out.println("verifyCustomerDetailsPageTitle is called");
-        Assert.assertEquals(customerDetailsPageObjects.getTitleName_QuickOrderFlow(),"Customer Details");
+//        System.out.println("verifyCustomerDetailsPageTitle is called");
+//        Assert.assertEquals(customerDetailsPageObjects.getTitleName_QuickOrderFlow(),"Customer Details");
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyCustomerDetailsPageTitle" )
     public void enterCustomerDetails(){
-        System.out.println("enterCustomerDetails is called");
-        customerDetailsPageObjects.enterValidMobileNumber();
-        customerDetailsPageObjects.enterAddress();
-        customerDetailsPageObjects.chooseAreaName(1);
-//        customerDetailsPageObjects.enterCustomerTags();
-//        customerDetailsPageObjects.enterCustomerTags();
-        customerDetailsPageObjects.chooseRatingForCustomer(0);
+//        System.out.println("enterCustomerDetails is called");
+//        customerDetailsPageObjects.editMobileNumberWithValidMobileNumber();
+//        customerDetailsPageObjects.editAddress();
+//        customerDetailsPageObjects.chooseAreaName(1);
+////        customerDetailsPageObjects.enterCustomerTags();
+////        customerDetailsPageObjects.enterCustomerTags();
+//        customerDetailsPageObjects.chooseRatingForCustomer(0);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterCustomerDetails" )
     public void verifySaveButtonFunctionality(){
-        System.out.println("verifySaveButtonFunctionality is called");
-        customerDetailsPageObjects.clickOnSaveButton();
+//        System.out.println("verifySaveButtonFunctionality is called");
+//        customerDetailsPageObjects.clickOnSaveButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifySaveButtonFunctionality" )
     public void getCustomerDetailsSuccessMessagePopUp(){
-        System.out.println("getCustomerDetailsSuccessMessagePopUp is called");
-        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"Profile update success");
-        sleep(3000);
+//        System.out.println("getCustomerDetailsSuccessMessagePopUp is called");
+//        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"Profile update success");
+//        sleep(3000);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getCustomerDetailsSuccessMessagePopUp" )
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditTotalCost" )
     public void verifyRecordPaymentsButtonFunctionality(){
         System.out.println("verifyRecordPaymentsButtonFunctionality is called");
         orderConfirmationPageObjects.clickRecordPaymentsButton();
@@ -193,7 +262,21 @@ public class QuickOrderFlowTestCases {
         System.out.println(recordPaymentsPageObjects.getOrderID());
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderIDInRecordPaymentsPage" )
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderIDInRecordPaymentsPage")
+    public void enterPartialAmountForPayment(){
+        System.out.println("enterPartialAmountForPayment is called");
+        int totalDue = Integer.parseInt(recordPaymentsPageObjects.getDueAmount().replaceAll(",",""));
+        String partialAmount = String.valueOf((int)(0.3*totalDue));
+        recordPaymentsPageObjects.editPayingAmount(partialAmount);
+        System.out.println("Partial amount added :"+ partialAmount);
+        recordPaymentsPageObjects.clickAddButton();
+        recordPaymentsPageObjects.clickCashOption();
+        recordPaymentsPageObjects.clickConfirmButton();
+        sleep(3000);
+
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterPartialAmountForPayment" )
     public void enterAmountForPayment(){
         System.out.println("enterAmountForPayment is called");
         String totalDueAmount = recordPaymentsPageObjects.getDueAmount();

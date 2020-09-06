@@ -64,6 +64,9 @@ public class  EditOrdersPageObjects{
     @FindBy(xpath = "//div[text()='+ New']")
     private WebElement newButton;
 
+    @FindBy(xpath = "//div[text()='Next']")
+    private WebElement nextButtonInEditProducts;
+
     public EditOrdersPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -83,6 +86,8 @@ public class  EditOrdersPageObjects{
 
     public void clickCustomerListButton(){ storeWapActions.action_click(customerListButton);}
 
+    public void clickOnNextButtonInEditProductsPage(){storeWapActions.action_click(nextButtonInEditProducts);}
+
     public void removeCustomerName(){ storeWapActions.action_click(removeCustomerNameButton); }
 
     public void searchOrAddNewCustomer(String customerName){ storeWapActions.action_sendKeys(searchOrAddNewCustomerTabText,customerName);}
@@ -90,7 +95,7 @@ public class  EditOrdersPageObjects{
     /*------------------------------------------Functions---------------------------------------------*/
     public void selectExistingCustomerFrmCustomerList(int customerNameIndex){
         clickCustomerListButton();
-        String xpath = "//input[contains(@placeholder,'Search or Add New customer')]//parent::div//parent::div//following-sibling::div/div/div/div[" + customerNameIndex + "]/div/div/div/div" ;
+        String xpath = "//div[text()='Search Customer']//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-1loqt21 r-13awgt0 r-18u37iz r-1otgn73 r-eafdt9 r-1i6wzkk r-lrvibr'][" + customerNameIndex + "]" ;
         WebElement customer = androidDriver.findElement(By.xpath(xpath));
         //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
         storeWapActions.action_click(customer);

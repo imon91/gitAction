@@ -30,7 +30,7 @@ public class RecordPaymentsPageObjects {
     @FindBy(xpath = "//div[text()='Due']//parent::div/div[3]/div")
     private WebElement dueAmountText;
 
-    @FindBy(xpath = "//div[text()='+ Add']//parent::Div//parent::Div/input")
+    @FindBy(xpath = "//div[text()='+ Add']//parent::Div//parent::Div//input")
     private WebElement payAmountTabText;
 
     @FindBy(xpath = "//div[text()='+ Add']")
