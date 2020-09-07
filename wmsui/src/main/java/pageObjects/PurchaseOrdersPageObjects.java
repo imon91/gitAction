@@ -1,9 +1,14 @@
 package pageObjects;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import services.responseModels.wmsModels.CreatePOModel;
+import services.responseModels.wmsModels.VariantDetailsModel;
 import utils.*;
 
+import java.io.*;
 import java.util.*;
 
 public class PurchaseOrdersPageObjects extends WmsBaseClass {
@@ -69,13 +74,16 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
     public class CreatePurchaseOrderTab {
         private final WebDriver driver;
         private final MyActions myActions;
-
+        private Random random;
+        private HomePageObject homePageObject;
 
 
         public CreatePurchaseOrderTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
+            homePageObject = new HomePageObject(driver);
         }
 
 
@@ -166,17 +174,129 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             transferPriceInput(0,"200");
             clickCreatePOButton();
         }
-        public void createPO(int no_of_products, String[] skuCode, String[] quantity, String[] price) {
-            for (int i = 0; i < no_of_products; i++) {
-                skuCodeInput(i, skuCode[i]);
-                quantityInput(i, quantity[i]);
-                transferPriceInput(i, price[i]);
-                String src = productImage(i);
-                if (i != (no_of_products - 1)) {
-                    clickAddSkuInputFields();
+
+        public boolean createPOReg(CreatePOModel c) throws FileNotFoundException {
+            String testCase = c.getTestCaseId();
+            String error = c.getErrorMessage();
+            homePageObject.selectWarehouse(getInputData("WarehouseCode",c.getWarehouseCode()));
+            selectSellerDropdown(getInputData("Seller",c.getSeller()));
+            selectShippingModeDropdown(getInputData("Shipping Mode",c.getShippingMode()));
+                if(testCase.equals("PO_1") || testCase.equals("PO_3") ||testCase.equals("PO_4"))
+                    System.out.println(" ");
+                else {
+                    skuCodeInput(0, getInputData("Sku Code", c.getSKU()));
+                    quantityInput(0, getInputData("Quantity", c.getOrderedQuantity()));
+                    transferPriceInput(0, getInputData("Transfer Price", c.getTransferPrice()));
+
+                    if(testCase.equals("PO_15") || testCase.equals("PO_16") || testCase.equals("PO_17") || testCase.equals("PO_18")){
+                        clickAddSkuInputFields();
+                        skuCodeInput(1, getInputData("Sku Code", c.getSKU()));
+                    }
+                    if(testCase.equals("PO_16") || testCase.equals("PO_17") || testCase.equals("PO_18")){
+                        quantityInput(1, getInputData("Quantity", c.getOrderedQuantity()));
+                        transferPriceInput(1, getInputData("Transfer Price", c.getTransferPrice()));
+                    }
+                    if(testCase.equals("PO_17") || testCase.equals("PO_18")){
+                        clickAddSkuInputFields();
+                        skuCodeInput(2, getInputData("Sku Code", c.getSKU()));
+                        quantityInput(2, getInputData("Quantity", c.getOrderedQuantity()));
+                        transferPriceInput(2, getInputData("Transfer Price", c.getTransferPrice()));
+                    }
+                    if(testCase.equals("PO_18")){
+                        clickAddSkuInputFields();
+                        skuCodeInput(3, getInputData("Sku Code", c.getSKU()));
+                        quantityInput(3, getInputData("Quantity", c.getOrderedQuantity()));
+                        transferPriceInput(3, getInputData("Transfer Price", c.getTransferPrice()));
+                    }
                 }
-            }
+
             clickCreatePOButton();
+            if(error.equals("N/A")) return homePageObject.getPopUpMessage().equals(c.getToastMessage());
+            else return verifyElementVisibilityWithText(error);
+        }
+        public boolean verifyElementVisibilityWithText(String value)
+        {
+            WebElement element =
+                    xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+        }
+
+        public String getInputData(String attribute,String input) throws FileNotFoundException {
+            switch (attribute) {
+                case "WarehouseCode":
+                    switch (input) {
+                        case "Selected":
+                            return "Shopup Dhaka";
+                        case "N/A":
+                            return "Choose WareHouse";
+                    }
+                case "Seller":
+                    switch (input) {
+                        case "Selected":
+                            return "DFW";
+                        case "N/A":
+                            return "Select Seller";
+                    }
+                case "Shipping Mode":
+                    switch (input) {
+                        case "Selected":
+                        case "Surface":
+                            return " Surface ";
+                        case "N/A":
+                            return "Select Shipping Mode";
+                        case "Air":
+                            return " Air ";
+                    }
+                case "Sku Code":
+                    switch (input) {
+                        case "Selected":
+                            return getSkuCodeData();
+                        case "Invalid":
+                            return "xyz";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Quantity":
+                    switch (input) {
+                        case "Valid":
+                            return String.valueOf(random.nextInt(3)+1);
+                        case "Invalid":
+                            return "xyz";
+                        case "Negative":
+                            return "-1";
+                        case "Zero":
+                            return "0";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Transfer Price":
+                    switch (input) {
+                        case "Valid":
+                            return String.valueOf(random.nextInt(300));
+                        case "Invalid":
+                            return "xyz";
+                        case "Negative":
+                            return "-1";
+                        case "Zero":
+                            return "0";
+                        case "N/A":
+                            return " ";
+                    }
+                default: return " ";
+            }
+        }
+
+        public String getSkuCodeData() throws FileNotFoundException {
+            Gson gson = new Gson();
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/sellerSkuCodes.json";
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            List<VariantDetailsModel> list = gson.fromJson(bufferedReader,
+                    new TypeToken<List<VariantDetailsModel>>(){}.getType());
+
+            int n = random.nextInt(list.size());
+            return list.get(n).getSku_code();
         }
     }
 
