@@ -5,6 +5,7 @@ import com.google.gson.reflect.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import services.responseModels.wmsModels.CreatePOModel;
+import services.responseModels.wmsModels.EditPOModel;
 import services.responseModels.wmsModels.VariantDetailsModel;
 import utils.*;
 
@@ -133,6 +134,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public void transferPriceInput(int index, String price) {
             String transferPriceXpath = "//div[@id='Addpurchage']//input[@id='transferPrice" + index + "']";
             WebElement transferPriceEntry = driver.findElement(By.xpath(transferPriceXpath));
+            transferPriceEntry.clear();
             myActions.action_sendKeys(transferPriceEntry, price);
         }
 
@@ -305,11 +307,15 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
     public class EditPurchaseOrder {
         private final WebDriver driver;
         private final MyActions myActions;
+        private HomePageObject homePageObject;
+        private PurchaseOrderList purchaseOrderList;
 
         public EditPurchaseOrder(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            homePageObject = new HomePageObject(driver);
+            purchaseOrderList = new PurchaseOrderList(driver);
         }
 
 
@@ -347,6 +353,21 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
            return myActions.action_getText(purchaseOrderStatus);
         }
 
+        public void clickClosePOButtonNo() {
+            WebElement closePOButton =
+                    xpathSetter("//button[text()='Close PO']");
+            myActions.action_click(closePOButton);
+            WebElement clickNo =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//button[text()='No']");
+            myActions.action_click(clickNo);
+        }
+        public void clickClose() {
+            WebElement closePOButton =
+                    xpathSetter("//button[text()='Close PO']");
+            myActions.action_click(closePOButton);
+        }
+
+
 
         /*--------------Functions-------------------*/
         public int getTotalProducts() {
@@ -372,6 +393,35 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             return myActions.action_getText(quantity);
         }
 
+        public boolean editPO(EditPOModel e){
+            String id = e.getTestCaseId();
+            String testCase = e.getPODetails();
+            String toast = e.getToastMessage();
+            String poId = e.getPOIDInput();
+
+            clickEditPurchaseOrderTab();
+
+            if(testCase.equals("Displayed")) {
+                if (poId.equals("Valid"))
+                    poIdInput(purchaseOrderList.editPO());
+                else
+                    poIdInput("217776");
+
+                if(id.equals("EPO_4")) clickClosePOButtonNo();
+                else if (id.equals("EPO_6")) clickClose();
+                else if (!id.equals("EPO_3")) clickClosePOButton();
+
+            }
+            else {
+                if (poId.equals("Invalid")) poIdInput("xxx");
+                else poIdInput(" ");
+            }
+
+            if(!toast.equals("N/A"))
+                if(homePageObject.getPopUpMessage().equals(toast)) return true;
+                else return false;
+            else return true;
+        }
     }
 
 
@@ -460,6 +510,16 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             String printUsingBarcodePrinterXpath = "//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr[" + index + "]/td[9]/div/a[2]";
             WebElement printUsingBarcodePrinterElement = driver.findElement(By.xpath(printUsingBarcodePrinterXpath));
             myActions.action_click(printUsingBarcodePrinterElement);
+        }
+        public String editPO(){
+            clickPurchaseOrderListTab();
+            int i, total = getTotalPurchaseOrders();
+            for (i = 1; i <= total; i++)
+                if (!getStatus(i).equalsIgnoreCase("CLOSED"))
+                    if (!getStatus(i).equalsIgnoreCase("RECEIVED"))
+                        break;
+            String poId = getPOID(i);
+            return poId;
         }
 
 
