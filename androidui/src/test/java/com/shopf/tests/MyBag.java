@@ -400,7 +400,7 @@ public class MyBag extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY}, enabled = false, dependsOnGroups = "MyBag.verifyPlaceOrderInMyBag")
     public void verifyProceedToPaymentByCreatingNewAddress() {
         selectAddress.clickOnAddNewAddress();
-        addNewAddressPageObjects.createNewAddress("Naveen", "Shopf Street", "1877655690");
+        addNewAddressPageObjects.createNewAddress("SmokeFlow Testing", "Shopf Street", "1877655690");
     }
 
 

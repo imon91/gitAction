@@ -29,6 +29,7 @@ public class Search extends AndroidBaseClass {
     private ReadJSONFile readJSONFile;
     private String app;
     private ProductListingPageObjects productListingPageObjects;
+    private ProductDescriptionPageObjects productDescriptionPageObjects;
 
     @BeforeSuite(alwaysRun = true)
     public void smokeBeforeSuite(){
@@ -57,6 +58,7 @@ public class Search extends AndroidBaseClass {
         readJSONFile = serviceRequestLayer.getControlOverReadJSONFile();
         app = System.getProperty(BuildParameterKeys.KEY_APP);
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
+        productDescriptionPageObjects = new ProductDescriptionPageObjects(androidDriver);
         setImplicitWait(15);
     }
 
@@ -95,7 +97,7 @@ public class Search extends AndroidBaseClass {
             actionBarObjects.clickOnSearchImageButton();}
         else if(androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.resellerActivities.searchActivity)||androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.mokamActivities.searchActivity)){
             System.out.println("Current activity was search activity");
-            searchPageObjects.searchBarEditText().clear(); }
+            myActions.action_clearText(searchPageObjects.searchBarEditText()); }
         else if(androidDriver.currentActivity().equalsIgnoreCase(AndroidActivities.resellerActivities.PLPActivity)) {
             System.out.println("The activity was PLP activity");
             productListingPageObjects.clickOnPLPBackButton();
@@ -193,13 +195,13 @@ public class Search extends AndroidBaseClass {
     @Test(  groups = {"Search.verifySearchFunctionalityWithSelectingSuggestions" ,CoreConstants.GROUP_SANITY,
             CoreConstants.GROUP_REGRESSION},
             description = "Verifies Search Functionality With Selecting Any Suggestions",
-            priority = 6)
+            priority = 8)
     public void verifySearchFunctionalityWithSelectingSuggestions() throws Exception {
         System.out.println("Verification of Search Functionality with selecting suggestions was called");
 
         //just enter product name
-        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app).size());
-        String productName = (String)readJSONFile.getJSONFileData(app).get(randomIndex);
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
          searchPageObjects.enterProductName(productName);
         sleep(1000);
 
@@ -294,8 +296,8 @@ public class Search extends AndroidBaseClass {
     public void searchToObjectAndClickBack() throws Exception {
         System.out.println("Verification of search to object and click back called");
         //just enter product name
-        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app).size());
-        String productName = (String)readJSONFile.getJSONFileData(app).get(randomIndex);
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
         searchPageObjects.enterTheProductNameGoBack(productName);
     }
 
@@ -318,8 +320,8 @@ public class Search extends AndroidBaseClass {
             priority = 5)
     public void searchPlaceHolderVanishWithSearchTerm() throws Exception {
         System.out.println("Verification of search place holder vanishing");
-        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app).size());
-        String productName = (String)readJSONFile.getJSONFileData(app).get(randomIndex);
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
         searchPageObjects.enterProductName(productName);
         String placeHolder = myActions.action_getText(searchPageObjects.searchBarEditText());
         assertEquals(productName,placeHolder);
@@ -337,7 +339,196 @@ public class Search extends AndroidBaseClass {
         String placeHolder = myActions.action_getText(searchPageObjects.searchBarEditText());
         assertEquals(placeHolder,(productName));
         softAssert.assertAll();
-        searchPageObjects.searchBarEditText().clear();}
+        myActions.action_clearText(searchPageObjects.searchBarEditText());}
+
+
+    @Test(  groups = {"Search.verifyAutoSuggestionInSearchBar" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies AutoSuggestion in Search bar",
+            priority = 6)
+    public void verifyAutoSuggestionInSearch() throws Exception {
+        System.out.println("Verification of search autoSuggestion");
+        for(int p=1;p<=4;p++)
+        {
+            String productName = (String)readJSONFile.getJSONFileData(app,"twoLetterTerm").get(p);
+            searchPageObjects.enterProductName(productName);
+
+            List<SearchSuggestionsModel.ResultsBean.SuggestionsBean> searchSuggestionDataFromApi = searchPageObjects.searchSuggestionListFromApi(productName);
+            //verifying data :title
+            for(int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++) {
+                if (i == 0 || i ==(searchPageObjects.searchSuggestionTitleListUI().size()-1) || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) ) {
+                    String apiSuggestion = searchSuggestionDataFromApi.get(i).getValue().getTitle();
+                    sleep(500);
+                    System.out.println("Api suggestion "+apiSuggestion);
+                    String uiSuggestion = myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(i));
+                    sleep(500);
+                    System.out.println("uiSuggestion"+uiSuggestion);
+                    assertEquals(uiSuggestion,apiSuggestion);
+                    softAssert.assertAll();
+                }
+            }
+            myActions.action_clearText(searchPageObjects.searchBarEditText());
+            sleep(500);
+        }
+    }
+
+    @Test(  groups = {"Search.verifySearchWithoutInputtingData" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search without data",
+            priority = 9)
+    public void verifySearchWithoutData() throws Exception {
+        System.out.println("Verification of search without data");
+        String activityBefore = androidDriver.currentActivity();
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.clickOnSearchButton(productName);
+        sleep(1000);
+        String activityAfter = androidDriver.currentActivity();
+        assertEquals(activityBefore,activityAfter);}
+
+    @Test(  groups = {"Search.verifySearchTermTrimSpaces" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Term Trim Spaces",
+            priority = 10)
+    public void verifySearchTermTrimSpaces() throws Exception {
+        System.out.println("Verification of search Term Trim Spaces");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName("   "+productName);
+        searchPageObjects.clickOnSearchButton("   "+productName);
+        sleep(2500);
+        String activityAfter = androidDriver.currentActivity();
+        System.out.println("plp activity reseller"+activityAfter);
+        assertEquals(activityAfter,AndroidActivities.resellerActivities.PLPActivity);
+    }
+
+    @Test(  groups = {"Search.verifySearchTermErasedWhenGoBack" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Term Erased WhenGoBack",
+            priority = 11)
+    public void verifySearchTermErasedWhenGoBack() throws Exception {
+        System.out.println("Verification of search Term Erased When Go Back");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        sleep(500);
+        searchPageObjects.clickOnSearchBackButton();
+        sleep(1000);
+        actionBarObjects.clickOnSearchImageButton();
+        String term = myActions.action_getText(searchPageObjects.searchBarEditText());
+        assertNotEquals(productName,term);
+    }
+
+    @Test(  groups = {"Search.verifySearchRecentlyViewedContainerVisibility" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Recently Viewed Container Visibility",
+            priority = 12)
+    public void verifyRecentlyViewedContainerVisibility() throws Exception {
+        System.out.println("Verification of search Recently Viewed Container Visibility was called");
+        assertTrue(searchPageObjects.recentlyViewedContainerVisibility());
+    }
+
+    @Test(  groups = {"Search.verifySearchRecentlyViewedContainerNonVisibleAfterSearchTerm" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Recently Viewed Container not visible After SearchTerm",
+            priority = 13)
+    public void verifyRecentlyViewedContainerAfterSearchTerm() throws Exception {
+        System.out.println("Verification of search Recently Viewed Container not visible After SearchTerm");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        sleep(4000);
+        searchPageObjects.recentlyViewedContainerVisibility();
+        softAssert.assertAll();
+        myActions.action_clearText(searchPageObjects.searchBarEditText());
+    }
+
+    @Test(  groups = {"Search.verifySearchSuggestionVisibilityAfterParticularSearchTerm" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Suggestion Visibility After Particular SearchTerm",
+            priority = 14)
+    public void verifySearchSuggestionVisibilityAfterParticularSearchTerm() throws Exception {
+        System.out.println("Verification of SearchSuggestion Visibility After Particular SearchTerm");
+        searchPageObjects.enterProductName("w");
+        //verify visibility of suggestion title
+        try {
+            searchPageObjects.searchSuggestionTitleListUI();
+        } catch (Exception e) {
+            System.out.println("Suggestion was not triggered");
+        }
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"twoLetterTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"twoLetterTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        //verify visibility of suggestion title
+        assertNotNull(searchPageObjects.searchSuggestionTitleListUI());
+        myActions.action_clearText(searchPageObjects.searchBarEditText());
+    }
+
+    @Test(  groups = {"Search.verifySearchSuggestionClickable" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies SearchSuggestion clickable",
+            priority = 15)
+    public void verifySearchSuggestionClickable() throws Exception {
+        System.out.println("Verification of searchSuggestion clickable");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        //click on searchSuggestion
+        int index = random.nextInt(searchPageObjects.searchSuggestionTitleListUI().size());
+        searchPageObjects.clickOnSearchSuggestion(index);sleep(1500);
+        assertEquals(androidDriver.currentActivity(),AndroidActivities.resellerActivities.PLPActivity);
+    }
+
+    @Test(  groups = {"Search.verifySearchSuggestionContainerScrollable" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search suggestion container scrollable",
+            priority = 16)
+    public void verifySearchSuggestionContainerScrollable() throws Exception {
+        System.out.println("Verification of searchSuggestion container scrollable");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        //scroll to last searchSuggestion
+        int index = (searchPageObjects.searchSuggestionTitleListUI().size()-1);
+        assertTrue(searchPageObjects.scrollToElementSearchSuggestion(myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(index))));
+    }
+
+//    @Test(  groups = {"Search.verifySearchRecentlyViewedContainerScrollable" ,
+//            CoreConstants.GROUP_REGRESSION},
+//            description = "Verifies Search recently viewed container scrollable",
+//            priority = 17)
+//    public void verifySearchRecentlyViewedContainerScrollable() {
+//        System.out.println("Verification of recently viewed container scrolling was called");
+//
+//        List<SearchRecentProductsModel.ResultsBean> resultsBeansFromApi = searchPageObjects.getResultsOfRecentProductsFromApiList();
+//        int productIndex = (resultsBeansFromApi.size()-1);
+//        //scroll to last product
+//        assertTrue(searchPageObjects.scrollToElement(resultsBeansFromApi.get(productIndex).getName()));
+//    }
+//
+//    @Test(  groups = {"Search.verifySearchRecentlyViewedContainerClickable" ,
+//            CoreConstants.GROUP_REGRESSION},
+//            description = "Verifies Search recently viewed container clickable",
+//            priority = 18)
+//    public void verifySearchRecentlyViewedItemClickable() {
+//        System.out.println("Verification of recentlyViewed items clickable");
+//        if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+//            assertEquals(androidDriver.currentActivity(), AndroidActivities.mokamActivities.searchActivity);
+//        String productName = myActions.action_getText(searchPageObjects.searchRecentProductsNameListUI().get(random.nextInt(searchPageObjects.searchRecentProductsNameListUI().size())));
+//        myActions.action_click(searchPageObjects.searchRecentProductsNameListUI().get(random.nextInt(searchPageObjects.searchRecentProductsNameListUI().size())));
+//        sleep(2000);
+//        assertEquals(androidDriver.currentActivity(),AndroidActivities.mokamActivities.PDPActivity);
+//        assertEquals(productDescriptionPageObjects.getProductName(),productName);
+//
+//        }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+//            assertEquals(androidDriver.currentActivity(),AndroidActivities.resellerActivities.searchActivity);
+//            String productName = myActions.action_getText(searchPageObjects.searchRecentProductsNameListUI().get(random.nextInt(searchPageObjects.searchRecentProductsNameListUI().size())));
+//            myActions.action_click(searchPageObjects.searchRecentProductsNameListUI().get(random.nextInt(searchPageObjects.searchRecentProductsNameListUI().size())));
+//            sleep(2000);
+//            assertEquals(androidDriver.currentActivity(),AndroidActivities.resellerActivities.PDPActivity);
+//            assertEquals(productDescriptionPageObjects.getProductName(),productName);        }
+//    }
+
 
 
     @AfterClass(alwaysRun = true)
