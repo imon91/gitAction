@@ -30,8 +30,8 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
         packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
         getPLPModuleApiResponse = serviceRequestLayer.getControlOverPLPModuleApiResponse();
-        minSalePrice = Integer.parseInt(System.getProperty("minSalePrice"));
-        maxSalePrice = Integer.parseInt(System.getProperty("maxSalePrice"));
+        try{minSalePrice = Integer.parseInt(System.getProperty("minSalePrice"));
+        maxSalePrice = Integer.parseInt(System.getProperty("maxSalePrice"));}catch(Exception e){System.out.println("min and max salePrice was null");}
         System.out.println(minSalePrice+" , "+maxSalePrice);
     }
 

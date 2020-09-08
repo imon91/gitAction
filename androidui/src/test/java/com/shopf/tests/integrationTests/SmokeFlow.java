@@ -97,12 +97,13 @@ public class SmokeFlow extends AndroidBaseClass {
             otp = "666666";
         }
         else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            try {
+                if(mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)){
+                mobileNumber = "1877775590";
+                otp = "666666";}
+            }catch (Exception e){
             mobileNumber = "1877755590";
-            otp = "666666";
-        } else if(System.getProperty(BuildParameterKeys.KEY_USER).equalsIgnoreCase(CoreConstants.MOKAM_USER))
-        {
-            mobileNumber = "1877775590";
-            otp = "666666";
+            otp = "666666";}
         }
 
         return new Object[][]{
@@ -268,26 +269,16 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
     public void verifySelectAddress() {
-        if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            if(mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)){
-                // SR
                 myBag.verifyProceedToPaymentByCreatingNewAddress();
                 sleep(4000);
-            }else{
-                myBag.verifySelectAddressInMyBag();
-            }
-        }
-        else {
-        myBag.verifySelectAddressInMyBag();
-        }
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
     public void verifyProceedToPaymentInAddress()
     {
-        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-            myBag.verifyCheckoutProceedInMyBag();
-        sleep(3000);}
+//        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+//            myBag.verifyCheckoutProceedInMyBag();
+//        sleep(3000);}
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)

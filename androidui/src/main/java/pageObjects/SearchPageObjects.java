@@ -280,6 +280,16 @@ public class SearchPageObjects extends AndroidBaseClass {
         return true;
     }
 
+    public boolean scrollToElementSearchSuggestion(String productName)
+    {
+
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/suggestions_recycler\")).scrollIntoView("
+                        + "new UiSelector().text(\""+productName+ "\"))"));
+        String text =element.getText();
+        return true;
+    }
+
     public boolean verifyScroll() {
 
             WebElement ele1 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/item']");
@@ -310,29 +320,5 @@ public class SearchPageObjects extends AndroidBaseClass {
         }
     }
 
-    public String productName(int index) {
-        String productName=null;
-        switch (index) {
-            case (1):
-                productName = "sh";
-                break;
-            case (2):
-                productName = "wa";
-                break;
-            case (3):
-                productName = "sa";
-                break;
-            case (4):
-                productName = "ri";
-                break;
-            case (5):
-                productName = "sp";
-                break;
-            case (6):
-                productName = "wr";
-                break;
-        }
-        return productName;
-    }
 
 }

@@ -13,12 +13,13 @@ public class ReadJSONFile {
         this.module = module;
     }
 
-    public JSONArray getJSONFileData(String appName) throws Exception{
+    public JSONArray getJSONFileData(String appName,String arrayKey) throws Exception{
         JSONParser jsonParser = new JSONParser();
         String filePath = CoreFileUtils.searchTermJsonPath;
         FileReader reader= new FileReader(filePath);
 
         JSONObject outerObject = (JSONObject) jsonParser.parse(reader);
-        return (JSONArray)outerObject.get(appName);
+        JSONObject app = (JSONObject)outerObject.get(appName);
+        return(JSONArray)app.get(arrayKey);
     }
 }
