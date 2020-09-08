@@ -53,10 +53,10 @@ public class CustomerDetailsPageObjects {
     @FindBy(xpath = "//div[text()='Area Name']//parent::div//parent::div/div[2]/div")
     private WebElement areaNameDropdown;
 
-    @FindBy(xpath = "//input[@class='css-1cwyjr8 r-14lw9ot r-u0ci3n r-v4som1 r-fnigne r-f1w8kp r-rs99b7 r-lgvlli r-pz5f6p r-1qhn6m8']")
+    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-19fu0aa r-eqz5dr r-1rks9hb']/div/div/div[1]//input")
     private WebElement customerTagText;
 
-    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-19fu0aa r-eqz5dr r-1rks9hb']/div/div/div")
+    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-19fu0aa r-eqz5dr r-1rks9hb']/div/div/div[2]")
     private WebElement addCustomerTagButton;
 
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-eqz5dr r-1hbzrj0 r-1s2bzr4']/div/div/div/div/div")

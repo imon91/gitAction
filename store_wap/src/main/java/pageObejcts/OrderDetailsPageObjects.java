@@ -1,7 +1,9 @@
 package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.StoreWapActions;
@@ -58,7 +60,9 @@ public class OrderDetailsPageObjects {
 
     public void clickOnSaveTotalCostButton(){storeWapActions.action_click(saveTotalCostButton);}
 
-    public void enterTotalCost(String cost){storeWapActions.action_sendKeys(editTotalCostInput,cost);}
+    public void enterTotalCost(String cost){
+        new Actions(androidDriver).click(editTotalCostInput).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(cost).perform();
+    }
 
 
     /*-----------------------------------------------Functions--------------------------------------------------------*/
@@ -66,6 +70,6 @@ public class OrderDetailsPageObjects {
 
     public String getPageTitle(){return storeWapActions.action_getText(pageTitle);}
 
-    public int getTotalProductValue(){return Integer.parseInt(storeWapActions.action_getText(totalProductValue));}
+    public int getTotalProductValue(){return Integer.parseInt(editTotalCostInput.getAttribute("value"));}
 
 }

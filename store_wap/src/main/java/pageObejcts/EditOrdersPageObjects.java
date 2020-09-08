@@ -64,9 +64,6 @@ public class  EditOrdersPageObjects{
     @FindBy(xpath = "//div[text()='+ New']")
     private WebElement newButton;
 
-    @FindBy(xpath = "//div[text()='Next']")
-    private WebElement nextButtonInEditProducts;
-
     public EditOrdersPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -85,8 +82,6 @@ public class  EditOrdersPageObjects{
     public void clickSideNavButton(){ storeWapActions.action_click(sideNavButton);}
 
     public void clickCustomerListButton(){ storeWapActions.action_click(customerListButton);}
-
-    public void clickOnNextButtonInEditProductsPage(){storeWapActions.action_click(nextButtonInEditProducts);}
 
     public void removeCustomerName(){ storeWapActions.action_click(removeCustomerNameButton); }
 

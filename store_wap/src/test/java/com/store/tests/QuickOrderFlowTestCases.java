@@ -32,6 +32,7 @@ public class QuickOrderFlowTestCases {
     private DeliveryDetailsPageObjects deliveryDetailsPageObjects;
     private RecordPaymentsPageObjects recordPaymentsPageObjects;
     private OrderDetailsPageObjects orderDetailsPageObjects;
+    private EditProductsPageObjects editProductsPageObjects;
 
 
     public void pageInitializer() {
@@ -46,6 +47,7 @@ public class QuickOrderFlowTestCases {
         deliveryDetailsPageObjects = new DeliveryDetailsPageObjects(androidDriver);
         recordPaymentsPageObjects = new RecordPaymentsPageObjects(androidDriver);
         orderDetailsPageObjects = new OrderDetailsPageObjects(androidDriver);
+        editProductsPageObjects = new EditProductsPageObjects(androidDriver);
     }
 
 
@@ -54,7 +56,7 @@ public class QuickOrderFlowTestCases {
         androidDriver = getBaseDriver();
         System.out.println("quickOrderFlowTestCasesBeforeClass is called");
         pageInitializer();
-        String facebookPage = facebookPageObjects.connectRandomFacebookPage(1);
+        String facebookPage = facebookPageObjects.connectRandomFacebookPage(2);
         System.out.println(facebookPage + " is selected");
         facebookPageObjects.clickContinueAfterConnectFacebookPage();
         sleep(3000);
@@ -157,91 +159,91 @@ public class QuickOrderFlowTestCases {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getCustomerDetailsSuccessMessagePopUp")
     public void verifyViewMyOrderButtonFunctionality(){
-//        System.out.println("verifyViewMyOrderButtonFunctionality is called");
-//        orderConfirmationPageObjects.clickViewMyOrderButton();
+        System.out.println("verifyViewMyOrderButtonFunctionality is called");
+        orderConfirmationPageObjects.clickViewMyOrderButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyViewMyOrderButtonFunctionality")
     public void verifyOrderDetailsPageTitle(){
-//        System.out.println("verifyOrderDetailsPageTitle is called");
-//        Assert.assertEquals(orderDetailsPageObjects.getPageTitle(),"Order Details");
+        System.out.println("verifyOrderDetailsPageTitle is called");
+        Assert.assertEquals(orderDetailsPageObjects.getPageTitle(),"Order Details");
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyOrderDetailsPageTitle")
     public void verifyEditDetailsButton(){
-//        System.out.println("verifyEditDetailsButton is called");
-//        orderDetailsPageObjects.clickOnEditDetailsButton();
+        System.out.println("verifyEditDetailsButton is called");
+        orderDetailsPageObjects.clickOnEditDetailsButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditDetailsButton")
     public void verifyEditProductsPageTitle(){
-//        System.out.println("verifyEditProductsPageTitle is called");
-//        System.out.println(editOrdersPageObject.getPageTitleText());
-//        //Assert.assertEquals(editOrdersPageObject.getPageTitleText(),"Edit Products");
+        System.out.println("verifyEditProductsPageTitle is called");
+        Assert.assertEquals(editProductsPageObjects.getPageTitleText(),"Edit Products");
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditProductsPageTitle")
-    public void editProductDetails(){
-//        System.out.println("editProductDetails is called");
-//        //editOrdersPageObject.deleteProduct(4);
-//        editOrdersPageObject.editProductName(1,"box");
-//        editOrdersPageObject.editProductQuantityWithValidQuantity(1);
-//        editOrdersPageObject.editProductAmount(1,"100");
-//        editOrdersPageObject.editProductName(2,"bat");
-//        editOrdersPageObject.editProductQuantityWithValidQuantity(2);
-//        editOrdersPageObject.editProductAmount(2,"70");
-//        editOrdersPageObject.editProductName(3,"ball");
-//        editOrdersPageObject.editProductQuantityWithValidQuantity(3);
-//        editOrdersPageObject.editProductAmount(3,"50");
-//        editOrdersPageObject.clickOnNextButtonInEditProductsPage();
+    public void editProductDetails() throws Exception {
+        System.out.println("editProductDetails is called");
+        editProductsPageObjects.deleteProduct(4);
+        editProductsPageObjects.editProductName("Rice",1);
+        editProductsPageObjects.editProductQuantity("1",1);
+        editProductsPageObjects.editProductAmount("460",1);
+        editProductsPageObjects.editProductName("Dabur Honey",2);
+        editProductsPageObjects.editProductQuantity("2",2);
+        editProductsPageObjects.editProductAmount("300",2);
+        editProductsPageObjects.editProductName("Pran UHT milk",3);
+        editProductsPageObjects.editProductQuantity("2",3);
+        editProductsPageObjects.editProductAmount("40",3);
+        editProductsPageObjects.clickOnNextButton();
+        sleep(4000);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "editProductDetails")
     public void verifyEditTotalCost(){
-//        System.out.println("verifyEditTotalCost is called");
-//        orderDetailsPageObjects.clickOnEditTotalCostButton();
-//        int productValue = orderDetailsPageObjects.getTotalProductValue();
-//        String totalCost = String.valueOf(productValue - ((int)(productValue*0.2)));
-//        orderDetailsPageObjects.enterTotalCost(totalCost);
-//        orderDetailsPageObjects.clickOnSaveTotalCostButton();
-//        sleep(3000);
-//        orderDetailsPageObjects.clickBackButton();
+        System.out.println("verifyEditTotalCost is called");
+        orderDetailsPageObjects.clickOnEditTotalCostButton();
+        int productValue = orderDetailsPageObjects.getTotalProductValue();
+        String totalCost = String.valueOf(productValue - ((int)(productValue*0.2)));
+        orderDetailsPageObjects.enterTotalCost(totalCost);
+        orderDetailsPageObjects.clickOnSaveTotalCostButton();
+        sleep(3000);
+        orderDetailsPageObjects.clickBackButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderID")
     public void verifyEnterCustomerDetailsButtonFunctionality(){
-//        System.out.println("verifyEnterCustomerDetailsButtonFunctionality is called");
-//        orderConfirmationPageObjects.clickEnterCustomerDetailsButton();
+        System.out.println("verifyEnterCustomerDetailsButtonFunctionality is called");
+        orderConfirmationPageObjects.clickEnterCustomerDetailsButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEnterCustomerDetailsButtonFunctionality" )
     public void verifyCustomerDetailsPageTitle(){
-//        System.out.println("verifyCustomerDetailsPageTitle is called");
-//        Assert.assertEquals(customerDetailsPageObjects.getTitleName_QuickOrderFlow(),"Customer Details");
+        System.out.println("verifyCustomerDetailsPageTitle is called");
+        Assert.assertEquals(customerDetailsPageObjects.getTitleName_QuickOrderFlow(),"Customer Details");
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyCustomerDetailsPageTitle" )
     public void enterCustomerDetails(){
-//        System.out.println("enterCustomerDetails is called");
-//        customerDetailsPageObjects.editMobileNumberWithValidMobileNumber();
-//        customerDetailsPageObjects.editAddress();
-//        customerDetailsPageObjects.chooseAreaName(1);
-////        customerDetailsPageObjects.enterCustomerTags();
-////        customerDetailsPageObjects.enterCustomerTags();
-//        customerDetailsPageObjects.chooseRatingForCustomer(0);
+        System.out.println("enterCustomerDetails is called");
+        customerDetailsPageObjects.editMobileNumberWithValidMobileNumber();
+        customerDetailsPageObjects.editAddress();
+        customerDetailsPageObjects.chooseAreaName(1);
+        customerDetailsPageObjects.enterCustomerTags();
+        customerDetailsPageObjects.enterCustomerTags();
+        customerDetailsPageObjects.chooseRatingForCustomer(0);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterCustomerDetails" )
     public void verifySaveButtonFunctionality(){
-//        System.out.println("verifySaveButtonFunctionality is called");
-//        customerDetailsPageObjects.clickOnSaveButton();
+        System.out.println("verifySaveButtonFunctionality is called");
+        customerDetailsPageObjects.clickOnSaveButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifySaveButtonFunctionality" )
     public void getCustomerDetailsSuccessMessagePopUp(){
-//        System.out.println("getCustomerDetailsSuccessMessagePopUp is called");
-//        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"Profile update success");
-//        sleep(3000);
+        System.out.println("getCustomerDetailsSuccessMessagePopUp is called");
+        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"Profile update success");
+        sleep(3000);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditTotalCost" )
