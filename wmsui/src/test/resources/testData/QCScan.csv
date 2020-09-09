@@ -1,0 +1,19 @@
+Test Case Description,,Verify QC Scan,,,,,
+Prerequisites,,,,,,,
+Name,URL,,,,,,
+Form,https://uatwms.vnksrvc.com/purchase_orders,,,,,,
+TestScenario,,Verify QC Scanning,,,,,
+Test Case Id,Test Case,Test Data,ScanImages,Image,ScanPackages,ToastMessage,PO Creation
+QC_1,withoutAnySelection,Input,N/A,Not Displayed,Not Displayed,N/A,QC NOT Scanned
+QC_2,SPInvalid,Input,Invalid,Not Displayed,Not Displayed,Package not found,QC NOT Scanned
+QC_3,SPValidImageN/A,Input,Valid,Displayed,N/A,Package not found,QC NOT Scanned
+QC_4,SPValidImageInvalidScan,Input,Valid,Displayed,Invalid,Package not found,QC NOT Scanned
+QC_5,SPValidImageAnotherScan,Input,Valid,Displayed,Another,Package belongs to a different Variant,QC NOT Scanned
+QC_6,SPValidImageAlreadyScanned,Input,Valid,Displayed,Already Scanned,Package is in QC_PASSED state,QC Scanned
+QC_7,SPValidImageValidScan,Input,Valid,Displayed,Valid,QC scanned,QC Scanned
+QC_8,GPInvalid,Input,Invalid,Not Displayed,Not Displayed,Package not found,QC NOT Scanned
+QC_9,GPValidImageN/A,Input,Valid,Displayed,N/A,Package not found,QC NOT Scanned
+QC_10,GPValidImageInvalidScan,Input,Valid,Displayed,Invalid,Package not found,QC NOT Scanned
+QC_11,GPValidImageAnotherScan,Input,Valid,Displayed,Another,Package belongs to a different Variant,QC NOT Scanned
+QC_12,GPValidImageAlreadyScanned,Input,Valid,Displayed,Already Scanned,QC scanned 0 packages,QC Scanned
+QC_13,GPValidImageValidScan,Input,Valid,Displayed,Valid,QC scanned (n) packages,QC Scanned

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import services.responseModels.wmsModels.CreateGRNModel;
 import services.responseModels.wmsModels.CreatePOModel;
 import services.responseModels.wmsModels.EditPOModel;
 import services.responseModels.wmsModels.VariantDetailsModel;
@@ -77,6 +78,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         private final MyActions myActions;
         private Random random;
         private HomePageObject homePageObject;
+        private PurchaseOrderList purchaseOrderList;
 
 
         public CreatePurchaseOrderTab(WebDriver driver) {
@@ -85,6 +87,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
             random = new Random();
             homePageObject = new HomePageObject(driver);
+            purchaseOrderList = new PurchaseOrderList(driver);
         }
 
 
@@ -127,13 +130,13 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
         public void quantityInput(int index, String quantity) {
             String quantityXpath = "//div[@id='Addpurchage']//input[@id='orderQuantity" + index + "']";
-            WebElement quantityEntry = driver.findElement(By.xpath(quantityXpath));
+            WebElement quantityEntry = xpathSetterPresence(quantityXpath);
             myActions.action_sendKeys(quantityEntry, quantity);
         }
 
         public void transferPriceInput(int index, String price) {
             String transferPriceXpath = "//div[@id='Addpurchage']//input[@id='transferPrice" + index + "']";
-            WebElement transferPriceEntry = driver.findElement(By.xpath(transferPriceXpath));
+            WebElement transferPriceEntry = xpathSetterPresence(transferPriceXpath);
             transferPriceEntry.clear();
             myActions.action_sendKeys(transferPriceEntry, price);
         }
@@ -175,6 +178,22 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             quantityInput(0,"1");
             transferPriceInput(0,"200");
             clickCreatePOButton();
+        }
+
+        public void createPurchaseOrder(String skuCode,int qty,String sm) throws FileNotFoundException {
+            if(sm.equals("s")){
+                skuCodeInput(0,skuCode);
+                quantityInput(0, String.valueOf(qty));
+                clickCreatePOButton();
+            }
+            else {
+                skuCodeInput(0,skuCode);
+                quantityInput(0, String.valueOf(qty));
+                clickAddSkuInputFields();
+                skuCodeInput(1,getSkuCodeData());
+                quantityInput(1, String.valueOf(qty));
+                clickCreatePOButton();
+            }
         }
 
         public boolean createPOReg(CreatePOModel c) throws FileNotFoundException {
@@ -299,6 +318,38 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
             int n = random.nextInt(list.size());
             return list.get(n).getSku_code();
+        }
+
+        public List<String > createPOForGRN() throws FileNotFoundException {
+            List<String > list = new ArrayList<>();
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),2,"s");
+            homePageObject.getPopUpMessage().contains("success");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),2,"m");
+            homePageObject.getPopUpMessage().contains("success");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),100,"s");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),100,"m");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            return list;
         }
     }
 
@@ -616,6 +667,93 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             String receivedQuantityXpath = "//div[@id='CreateGrn']//tbody/tr[" + index + "]/td[5]//input";
             WebElement receivedQuantity = driver.findElement(By.xpath(receivedQuantityXpath));
             myActions.action_sendKeys(receivedQuantity, quantityReceived);
+        }
+
+        public void clickAddGRN(int index) {
+            index = (2*index) - 1;
+            String addGRN = "//div[@id='GrnCreate']//tbody//tr[" + index + "]//button";
+            WebElement addGRNButton = xpathSetterPresence(addGRN);
+            myActions.action_click(addGRNButton);
+        }
+
+        public void addPackagesButton(int index){
+            index *= 2;
+            String addPackagesXpath = "//div[@id='GrnCreate']//tbody//tr[" + index + "]//button[contains(text(),'+ Add Packages')]";
+            WebElement addPackagesButton = xpathSetter(addPackagesXpath);
+            myActions.action_click(addPackagesButton);
+        }
+
+        public void qtyInput(int skuindex, int pindex, String  qty){
+            skuindex *= 2;
+            String qtyXpath = "//div[@id='GrnCreate']//tbody//tr[" + skuindex + "]//input[@id='perPackageQuantity"+pindex+"']";
+            WebElement qtyInput = xpathSetterPresence(qtyXpath);
+            myActions.action_sendKeys(qtyInput, qty);
+        }
+
+        public void numberInput(int skuindex, int pindex, String number){
+            skuindex *= 2;
+            String numberXpath = "//div[@id='GrnCreate']//tbody//tr[" + skuindex + "]//input[@id='groupPackageCount"+pindex+"']";
+            WebElement numberInput = xpathSetterPresence(numberXpath);
+            myActions.action_sendKeys(numberInput, number);
+        }
+
+        public void createGRNReg(CreateGRNModel c, List<String >list){
+            String id = c.getTestCaseId();
+            String poId = "";
+
+            if(id.equals("CGRN_1")) poIDEntry(" ");
+
+            else if(id.equals("CGRN_2")) poIDEntry("xxx");
+
+            else if(id.equals("CGRN_3")) {
+                poIDEntry(list.get(0));
+                clickGRNButton();
+            }
+            else if(id.equals("CGRN_4")){
+                poIDEntry(list.get(1));
+                clickGRNButton();
+            }
+
+            else if (id.equals("CGRN_9") || id.equals("CGRN_10") || id.equals("CGRN_11") || id.equals("CGRN_12")){
+                poId = list.get(3);
+
+                poIDEntry(poId);
+                clickAddGRN(1);
+                qtyInput(1,0,c.getQuantity());
+                numberInput(1,0,c.getNumber());
+                clickAddGRN(2);
+                qtyInput(2,0,c.getQuantity());
+                numberInput(2,0,c.getNumber());
+
+                if (id.equals("CGRN_11") || id.equals("CGRN_12")) {
+                    addPackagesButton(1);
+                    qtyInput(1, 1, c.getQuantity());
+                    numberInput(1, 1, c.getNumber());
+                    addPackagesButton(2);
+                    qtyInput(2, 1, c.getQuantity());
+                    numberInput(2, 1, c.getNumber());
+                }
+                clickGRNButton();
+            }
+
+            else{
+                poId = list.get(2);
+
+                poIDEntry(poId);
+                clickAddGRN(1);
+                qtyInput(1,0,c.getQuantity());
+                numberInput(1,0,c.getNumber());
+
+
+                if (id.equals("CGRN_7") || id.equals("CGRN_8")) {
+                    addPackagesButton(1);
+                    qtyInput(1, 1, c.getQuantity());
+                    numberInput(1, 1, c.getNumber());
+                }
+                clickGRNButton();
+            }
+
+
         }
     }
 

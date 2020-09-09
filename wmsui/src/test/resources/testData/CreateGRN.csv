@@ -1,0 +1,19 @@
+TestCaseId,TestCase,POIDInput,GRN Details,Quantity,Number,ToastMessage,GRN Creation
+CGRN_1,withoutAnyInput,N/A,Not Displayed,N/A,N/A,N/A,GRN Not Created
+CGRN_2,withInvalidPO,Invalid,Not Displayed,N/A,N/A,N/A,GRN Not Created
+CGRN_3,withValidPOSingleSkuInd,Valid,Displayed,N/A,N/A,GRN Created,GRN Created
+CGRN_4,withValidPOMultipleSkuInd,Valid,Displayed,N/A,N/A,GRN Created,GRN Created
+CGRN_5,withValidPOSingleSkuSingleGroup,Valid,Displayed,1,1,GRN Created,GRN Created
+CGRN_6,withValidPOSingleSkuSingleGroupExceeding Qty,Valid,Displayed,100,100,GRN creation failed,GRN Not Created
+CGRN_7,withValidPOSingleSkuMultipleGroup,Valid,Displayed,2,3,GRN Created,GRN Created
+CGRN_8,withValidPOSingleSkuMultipleGroupExceeding Qty,Valid,Displayed,100,100,GRN creation failed,GRN Not Created
+CGRN_9,withValidPOMultipleSkuMultipleGroup,Valid,Displayed,2,3,GRN Created,GRN Created
+CGRN_10,withValidPOMultipleSkuMultipleGroupExceeding Qty,Valid,Displayed,100,100,GRN creation failed,GRN Not Created
+CGRN_11,withValidPOMultipleSkuSingleGroup,Valid,Displayed,1,1,GRN Created,GRN Created
+CGRN_12,withValidPOMultipleSkuSingleGroupExceeding Qty,Valid,Displayed,100,100,GRN creation failed,GRN Not Created
+CGRN_13,withNegativeQty,Valid,Displayed,-1,1,GRN Created,GRN Not Created
+CGRN_14,withNegativePrice,Valid,Displayed,1,-1,GRN Created,GRN Not Created
+CGRN_15,withNegativePriceNegativeQty,Valid,Displayed,-1,-1,GRN Created,GRN Not Created
+CGRN_16,withInvalidQty,Valid,Displayed,xx,1,GRN Created,GRN Not Created
+CGRN_17,withInvalidPrice,Valid,Displayed,1,xx,GRN Created,GRN Not Created
+CGRN_18,withInvalidPriceInvalidQty,Valid,Displayed,xx,xx,GRN Created,GRN Not Created
