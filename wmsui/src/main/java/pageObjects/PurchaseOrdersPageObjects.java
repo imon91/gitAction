@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import services.responseModels.wmsModels.CreateGRNModel;
-import services.responseModels.wmsModels.CreatePOModel;
-import services.responseModels.wmsModels.EditPOModel;
-import services.responseModels.wmsModels.VariantDetailsModel;
+import services.responseModels.wmsModels.*;
 import utils.*;
 
 import java.io.*;
@@ -573,6 +570,18 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             return poId;
         }
 
+        public String qcScanPO(String x){
+            clickPurchaseOrderListTab();
+            int i, total = getTotalPurchaseOrders();
+            for (i = 1; i <= total; i++) {
+                if (getStatus(i).equalsIgnoreCase(x) && getSkuCode(i).size() == 2)
+                    break;
+            }
+            String poId = getPOID(i);
+            return poId;
+        }
+
+
 
         /*--------------Actions-------------------*/
         public void goToNextPage() {
@@ -774,6 +783,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public void packageIDInput(String packageID){
             WebElement packageIDEntry =
                     xpathSetter("//div[@id='QcScan']/div/div[1]/div/div/div/input");
+            packageIDEntry.clear();
             myActions.action_sendKeys(packageIDEntry,packageID);
             myActions.action_enter(packageIDEntry);
         }
@@ -781,8 +791,15 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public void packageIDScan(String packageID){
             WebElement packageIDEntryScan =
                     xpathSetter("//div[@id='QcScan']//div[3]//input[@type='text']");
+            packageIDEntryScan.clear();
             myActions.action_sendKeys(packageIDEntryScan,packageID);
             myActions.action_enter(packageIDEntryScan);
+        }
+
+        public String getImage(){
+            WebElement imageScan =
+                    xpathSetter("//div[@id='QcScan']//img");
+            return imageScan.getAttribute("src");
         }
 
         public void clickCancelButton(){
@@ -791,9 +808,37 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions.action_click(cancelButton);
         }
 
-        public String getFirstPackage(){
-            WebElement firstPackage = xpathSetter("//body//div[1]//div[1]");
+        public String getFirstPackage(String index){
+            WebElement firstPackage = xpathSetter("//body//div["+index+"]//div[1]");
             return myActions.action_getText(firstPackage);
+        }
+
+        public void qcScanner(QCScanModel q,String spId1,String spId2,String gpId1,String gpId2){
+            String id = q.getTestCaseId();
+            if(id.equals("QC_1")) packageIDInput(" ");
+            else if(id.equals("QC_2") || id.equals("QC_8")) packageIDInput("gp-123");
+            else {
+                if(id.equals("QC_3") || id.equals("QC_4") || id.equals("QC_5") || id.equals("QC_6") || id.equals("QC_7"))
+                    packageIDInput(spId1);
+                else if(id.equals("QC_9") || id.equals("QC_10") || id.equals("QC_11") || id.equals("QC_12") || id.equals("QC_13"))
+                    packageIDInput(gpId1);
+                System.out.println(getImage());
+
+                if(id.equals("QC_3") || id.equals("QC_9"))
+                    packageIDScan(" ");
+                else if(id.equals("QC_4"))
+                    packageIDScan("0000x");
+                else if(id.equals("QC_10"))
+                    packageIDScan("gp-123");
+                else if(id.equals("QC_5"))
+                    packageIDScan(spId2);
+                else if(id.equals("QC_11"))
+                    packageIDScan(gpId2);
+                else if(id.equals("QC_6") || id.equals("QC_7"))
+                    packageIDScan(spId1);
+                else if(id.equals("QC_12") || id.equals("QC_13"))
+                    packageIDScan(gpId1);
+            }
         }
 
 
@@ -1017,6 +1062,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void poIDEntry(String poID) {
+            poIDEntryField.clear();
             myActions.action_sendKeys(poIDEntryField, poID);
             myActions.action_enter(poIDEntryField);
         }
@@ -1025,5 +1071,13 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             List<WebElement> grn = driver.findElements(By.xpath("//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr"));
             return grn.size();
         }
+
+        public String getGRNId(String index) {
+            WebElement grnId = driver.findElement(By.xpath("//div[@id='GrnView']//tbody/tr["+index+"]/td[2]"));
+            return myActions.action_getText(grnId);
+        }
+
+
+
     }
 }

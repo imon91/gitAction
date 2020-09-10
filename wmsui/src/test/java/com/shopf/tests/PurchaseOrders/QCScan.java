@@ -71,7 +71,7 @@ public class QCScan extends WmsBaseClass{
         String poId = purchaseOrderList.getPOID(i);
         driver.get("https://uatwms.vnksrvc.com/purchase_orders/"+poId+"/print?print_type=barcode");
         actions.sendKeys(Keys.ESCAPE).build().perform();
-        String packId = qcScanTab.getFirstPackage();
+        String packId = qcScanTab.getFirstPackage("1");
         System.out.println(packId);
         driver.get("https://uatwms.vnksrvc.com/purchase_orders");
         purchaseOrdersPageObjects.clickQcScanTab();

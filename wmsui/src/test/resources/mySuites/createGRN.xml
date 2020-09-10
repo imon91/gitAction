@@ -12,6 +12,7 @@
         <classes>
             <class name="com.shopf.tests.Login"></class>
             <class name="com.shopf.tests.PurchaseOrders.CreateGRNRegression"></class>
+            <class name="com.shopf.tests.PurchaseOrders.QCScanRegression"></class>
         </classes>
     </test>
 
