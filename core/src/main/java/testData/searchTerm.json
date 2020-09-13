@@ -1,0 +1,9 @@
+{
+  "Reseller":
+  {"searchTerm":["shirt","watch","wallet","saree","speaker","T-Sirt","mobile cover","pant"],
+  "twoLetterTerm":["sh","wa","sa","mo","sp","wr"]},
+
+  "Mokam":
+    {"searchTerm": ["dettol","rice","oil","lizol","harppic","soap","face wash","sugar"],
+    "twoLetterTerm": ["ri","de","dh","so","su","li"]}
+}

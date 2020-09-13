@@ -1,13 +1,12 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import coreUtils.*;
 import io.appium.java_client.android.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
+import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
-import services.commerceMethods.GetMyBagApiResponse;
+import services.commerceMethods.*;
 import utils.*;
 import java.util.*;
 
@@ -100,6 +99,13 @@ public class MyBagPageObjects extends AndroidBaseClass {
             }catch (Exception e){
                 System.out.println("Exception At ItemContainer Constructor : Reading min and max");
             }
+        }
+
+
+        public void cancelInfoPopup(){
+            String cancelInfoXpath = "//div[@class='modal-content']//div[@class='flex___1bJDE end___ihLmU close___9t_gS']/*";
+            WebElement cancelInfoElement = xpathSetter(cancelInfoXpath);
+            myActions.action_click(cancelInfoElement);
         }
 
 
@@ -237,7 +243,12 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfOrderValuePerItem(){
-            String yourOrderValuePerItemXPath = containerParentPath+"/div[2]//div[4]/span[2]";
+            String yourOrderValuePerItemXPath = null;
+            if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+                yourOrderValuePerItemXPath = containerParentPath + "/div[2]//div[4]/span[2]";
+            } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+                yourOrderValuePerItemXPath = containerParentPath + "//div[2]//div[3]//span[2]";
+            }
             List<WebElement> yourOrderValuePerItemList = androidDriver.findElements(By.xpath(yourOrderValuePerItemXPath));
             return yourOrderValuePerItemList;
         }
@@ -369,12 +380,13 @@ public class MyBagPageObjects extends AndroidBaseClass {
             myActions.action_click(xpathSetter(closeButton));
         }
 
-        public void givingRandomSalePrice(int index,int minSalePrice,int maxSalePrice){
+        public int givingRandomSalePrice(int index,int minSalePrice,int maxSalePrice){
             int salePrice = random.nextInt((maxSalePrice-minSalePrice))+minSalePrice;
             getListOfSalePriceEditTexts().get(index).clear();
             getListOfSalePriceEditTexts().get(index).sendKeys(""+salePrice);
             sleep(3000);
             getListOfSalePriceLabel().get(index).click();
+            return salePrice;
         }
 
 
@@ -613,7 +625,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
     @FindBy(xpath = "(//a[@href='/checkout/address']/button)[2]")
     private WebElement placeOrderButtonReseller;
 
-    @FindBy(xpath = "//div[@class='unicornButton___G3iNs']//button")
+    @FindBy(xpath = "//div[@class='proceed-checkout text-center place-order']//button")
     private WebElement placeOrderButtonUnicorn;
 
 
@@ -651,6 +663,10 @@ public class MyBagPageObjects extends AndroidBaseClass {
     public Map<Integer,List<String>> getContainerData(){
         return getMyBagApiResponse.getContainerDetailsMap();
     }
+
+    public void createRandomItemInMyBag(){
+        getMyBagApiResponse.addRandomItemToCart();
+    };
 
     public void createItemInMyBag(int productId){getMyBagApiResponse.addToCart(productId);}
 

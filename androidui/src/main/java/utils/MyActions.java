@@ -1,11 +1,15 @@
 package utils;
 
+import coreUtils.BuildParameterKeys;
 import io.appium.java_client.android.nativekey.*;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import pageObjects.NativePopUpProgressBarPO;
 
 public class MyActions extends AndroidBaseClass{
+
+    private String host = System.getProperty(BuildParameterKeys.KEY_HOST);
+    private NativePopUpProgressBarPO nativePopUpProgressBarPO
+            = new NativePopUpProgressBarPO(getBaseDriver());
 
     public void action_click(WebElement element){
         sleep(300);
@@ -21,21 +25,39 @@ public class MyActions extends AndroidBaseClass{
         catch (Exception e){
             System.out.println(e);
         }
+
+        if(nativePopUpProgressBarPO.isProgressBarCrossingThreshold()){
+            System.out.println("Progress Bar Is Still Visible");
+            // Take the snapshot and Quit the process
+            System.exit(1);
+        }else {
+            // Do Nothing
+        }
     }
 
     public void action_sendKeys(WebElement element, String data){
         sleep(300);
         try{
             element.sendKeys(data);
+            if(host.equalsIgnoreCase("bs")){
+                if (getBaseDriver().isKeyboardShown()){
+                    getBaseDriver().hideKeyboard();
+                }
+            }
         }catch (StaleElementReferenceException e){
             sleep(2000);
-            element.click();
+            action_sendKeys(element,data);
         }catch (IllegalStateException e){
             sleep(2000);
-            element.click();
+            action_sendKeys(element,data);
         }
         catch (Exception e){
             System.out.println(e);
+        }
+        if(System.getProperty(BuildParameterKeys.KEY_HOST).equalsIgnoreCase("bs")){
+            if (getBaseDriver().isKeyboardShown()){
+                getBaseDriver().hideKeyboard();
+            }
         }
     }
 
@@ -61,9 +83,17 @@ public class MyActions extends AndroidBaseClass{
 
     public void action_clearText(WebElement element){
         element.clear();
-//        if (getBaseDriver().isKeyboardShown()){
-//            getBaseDriver().hideKeyboard();
-//        }
+        if(System.getProperty(BuildParameterKeys.KEY_HOST).equalsIgnoreCase("bs")){
+            if (getBaseDriver().isKeyboardShown()){
+                getBaseDriver().hideKeyboard();
+            }
+        }
+//         if(host.equalsIgnoreCase("bs")){
+//             if (getBaseDriver().isKeyboardShown()){
+//             getBaseDriver().hideKeyboard();
+//             }
+//         }
+              
     }
 
     public void clickOnHardKeyBack() throws Exception{

@@ -1,13 +1,11 @@
 package pageObjects;
 
+import coreUtils.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
-import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.PageFactory;
-import utils.AndroidBaseClass;
-import utils.MyActions;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
 public class RightNavigationDrawer extends AndroidBaseClass{
 
@@ -63,9 +61,13 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='4']")
     private WebElement navigationItemMyShop;
 
-    // NavigationItem Change Language
-    @AndroidFindBy(xpath = "//android.widget.TextView[@text='Change Language']")
-    private WebElement navigationItemChangeLanguage;
+    // NavigationItem Change Language Mokam
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=5]")
+    private WebElement navigationItemChangeLanguageMokam;
+
+    // NavigationItem Change Language Reseller
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=6]")
+    private WebElement navigationItemChangeLanguageReseller;
 
     // NavigationItem Reseller Policy
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Reseller Policy']")
@@ -92,9 +94,23 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     @AndroidFindBy(xpath = "//android.widget.TextView[@text='Contact us']")
     private WebElement navigationItemContactUs;
 
-    // NavigationItem Logout
+    // NavigationItem Logout for reseller
     @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='13']")
-    private WebElement navigationItemLogout;
+    private WebElement navigationItemLogoutReseller;
+
+    // NavigationItem Logout Mokam
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='9']")
+    private WebElement navigationItemLogoutMokam;
+
+    private WebElement profileEditButton;
+
+    private WebElement profileSaveButton;
+
+    private WebElement profileShopName;
+
+    private WebElement profileOwnerName;
+
+    private WebElement profileBusinessType;
 
 
 
@@ -130,9 +146,17 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     public void clickOnItemMyShop(){
         myActions.action_click(navigationItemMyShop);
     }
-
+  
     public void clickOnItemChangeLanguage(){
-        myActions.action_click(navigationItemChangeLanguage);
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
+        {
+            navigationItemChangeLanguageReseller = xpathSetter("//android.widget.RelativeLayout[@index=6]");
+            myActions.action_click(navigationItemChangeLanguageReseller);
+
+        }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            navigationItemChangeLanguageMokam = xpathSetter("//android.widget.RelativeLayout[@index=5]");
+            myActions.action_click(navigationItemChangeLanguageMokam); 
+        }
     }
 
     public void clickOnItemResellerPolicy(){
@@ -160,9 +184,46 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     }
 
     public void clickOnItemLogout(){
-        myActions.action_click(navigationItemLogout);
+        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            myActions.action_click(navigationItemLogoutReseller);
+        }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            myActions.action_click(navigationItemLogoutMokam);
+        }
     }
 
+    public void selectEnglish(){
+        myActions.action_click(xpathSetter("//android.widget.RadioButton[@text='English']"));
+    }
+    public void saveLanguage(){
+        myActions.action_click(xpathSetter("//android.widget.TextView[@text='SAVE']"));
+    }
+
+    public void clickProfileEditButton(){
+        profileEditButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_edit']");
+        myActions.action_click(profileEditButton);}
+
+        public WebElement shopNameEdit()
+        {
+          profileShopName = idSetter(packageName+":id/add_retailer_edit_shop_name");
+          return profileShopName;
+        }
+
+    public WebElement ownerNameEdit()
+    {
+        profileShopName = idSetter(packageName+":id/add_retailer_owner_name");
+        return profileShopName;
+    }
+
+    public WebElement businessTypeEdit(int index)
+    {
+        return profileBusinessType = classListSetter("android.widget.CompoundButton").get(index);
+    }
+
+        public void clickOnProfileSaveButton()
+        {
+            profileSaveButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next_on_boarding']");
+            myActions.action_click(profileSaveButton);
+        }
 
 
     /*------------Functions-----------*/

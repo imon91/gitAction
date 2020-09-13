@@ -1,6 +1,7 @@
 package utils;
 
 import coreUtils.CoreConstants;
+import testData.ReadJSONFile;
 import services.commerceInterfaces.CommerceServices;
 import services.commerceMethods.*;
 
@@ -59,9 +60,18 @@ public class ServiceRequestLayer implements CommerceServices {
         return new GetMyOrderApiResponse(module);
     }
 
+    @Override
+    public GetSalesRepApiResponse getControlOverSalesRepApiResponse() {
+        return new GetSalesRepApiResponse(module);
+    }
+
 
     public GetSearchSuggestionsApiResponse getControlOverSearchSuggestionsApi() {
         return new GetSearchSuggestionsApiResponse(module);
+    }
+
+    public ReadJSONFile getControlOverReadJSONFile(){
+        return new ReadJSONFile(module);
     }
   
 }
