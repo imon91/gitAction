@@ -114,7 +114,7 @@ public class QuickOrderFlowTestCases {
         Assert.assertEquals(editOrdersPageObject.getPageTitleText(), "Edit Orders");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, enabled = false, dependsOnMethods = "verifyEditOrdersPageTitle")
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyEditOrdersPageTitle")
     public void fillFieldsInEditOrdersPageWithNewCustomer(){
         System.out.println("completeFieldsInEditOrdersPageWithNewCustomer is called");
         editOrdersPageObject.enterValidCustomerName();
@@ -122,7 +122,7 @@ public class QuickOrderFlowTestCases {
         editOrdersPageObject.enterValidDeliveryCharge();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyEditOrdersPageTitle")
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, enabled = false, dependsOnMethods = "verifyEditOrdersPageTitle")
     public void fillFieldsInEditOrdersPageWithExistingCustomer(){
         System.out.println("completeFieldsInEditOrdersPageWithExistingCustomer");
         editOrdersPageObject.selectExistingCustomerFrmCustomerList(1);
@@ -130,7 +130,7 @@ public class QuickOrderFlowTestCases {
         editOrdersPageObject.enterValidDeliveryCharge();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "fillFieldsInEditOrdersPageWithExistingCustomer")
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "fillFieldsInEditOrdersPageWithNewCustomer")
     public void verifyCreateOrderButtonFunctionality() {
         System.out.println("createOrder is called");
         editOrdersPageObject.clickCreateOrderButton();
@@ -265,8 +265,8 @@ public class QuickOrderFlowTestCases {
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderIDInRecordPaymentsPage")
-    public void enterPartialAmountForPayment(){
-        System.out.println("enterPartialAmountForPayment is called");
+    public void enterPartialAmountForCashPayment(){
+        System.out.println("enterPartialAmountForCashPayment is called");
         int totalDue = Integer.parseInt(recordPaymentsPageObjects.getDueAmount().replaceAll(",",""));
         String partialAmount = String.valueOf((int)(0.3*totalDue));
         recordPaymentsPageObjects.editPayingAmount(partialAmount);
@@ -278,22 +278,22 @@ public class QuickOrderFlowTestCases {
 
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterPartialAmountForPayment" )
-    public void enterAmountForPayment(){
-        System.out.println("enterAmountForPayment is called");
-        String totalDueAmount = recordPaymentsPageObjects.getDueAmount();
-        System.out.println("Due amount : " + totalDueAmount);
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterPartialAmountForCashPayment" )
+    public void enterPartialAmountForOnlinePayment(){
+        System.out.println("enterPartialAmountForOnlinePayment is called");
+        int totalDueAmount = Integer.parseInt(recordPaymentsPageObjects.getDueAmount().replaceAll(",",""));
+        String partialAmount = String.valueOf((int)(0.4*totalDueAmount));
+        recordPaymentsPageObjects.editPayingAmount(partialAmount);
         recordPaymentsPageObjects.clickAddButton();
-        recordPaymentsPageObjects.clickCashOption();
+        recordPaymentsPageObjects.clickDebitCardOption();
         recordPaymentsPageObjects.clickConfirmButton();
         sleep(3000);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterAmountForPayment" )
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterPartialAmountForOnlinePayment" )
     public void verifyPaymentIsMade(){
         System.out.println("verifyPaymentIsMade is called");
         System.out.println("Payments Made : "+ recordPaymentsPageObjects.getTotalPaymentsMade());
-        Assert.assertEquals(recordPaymentsPageObjects.getFullyPaidText(),"Fully Paid");
         recordPaymentsPageObjects.clickBackButton();
         sleep(3000);
     }
@@ -315,8 +315,8 @@ public class QuickOrderFlowTestCases {
         System.out.println("fillFieldsOfDeliveryDetailsPage is called");
         deliveryDetailsPageObjects.enterParcelWeight("1");
         androidDriver.hideKeyboard();
-        deliveryDetailsPageObjects.enterCollectionAmount("0");
-        androidDriver.hideKeyboard();
+//        deliveryDetailsPageObjects.enterCollectionAmount("0");
+//        androidDriver.hideKeyboard();
         deliveryDetailsPageObjects.selectPreferredDeliveryDay(2);
         deliveryDetailsPageObjects.selectPreferredDeliveryTime(3);
     }
