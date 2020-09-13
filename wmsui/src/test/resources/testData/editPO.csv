@@ -1,0 +1,7 @@
+TestCaseId,TestCase,POIDInput,PODetails,ToastMessage,PO Close
+EPO_1,withoutAnyInput,N/A,Not Displayed,N/A,PO Close N/A
+EPO_2,withInvalidPO,Invalid,Not Displayed,N/A,PO Close N/A
+EPO_3,withValidPO,Valid,Displayed,N/A,PO Close N/A
+EPO_4,withValidPOCloseNo,Valid,Displayed,N/A,PO Close N/A
+EPO_5,withValidPOCloseYes,Valid,Displayed,Purchase Order is closed,PO Closed
+EPO_6,withReceivedOrder,Received,Displayed,Purchase Order is in received state,PO Close N/A

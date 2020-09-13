@@ -57,6 +57,14 @@ task wmsuiTest(type: Test){
         def smoke = project.hasProperty("Smoke")
         def sanity = project.hasProperty("Sanity")
         def regression = project.hasProperty("Reg")
+        def warehouse = project.hasProperty("Warehouse")
+        def addWarehouse = project.hasProperty("AddWarehouse")
+        def updateBinCapacity = project.hasProperty("UpdateBinCapacity")
+        def warehouseBin = project.hasProperty("WarehouseBinDetails")
+        def addSupplier = project.hasProperty("AddSupplier")
+        def createPO = project.hasProperty("CreatePO")
+        def editPO = project.hasProperty("EditPO")
+        def createGRN = project.hasProperty("CreateGRN")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -68,6 +76,35 @@ task wmsuiTest(type: Test){
 
         if(regression){
             suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+
+        if(warehouse){
+            suites "src/test/resources/mySuites/warehouse.xml"
+        }
+
+        if(addWarehouse){
+            suites "src/test/resources/mySuites/addWarehouse.xml"
+        }
+
+        if(updateBinCapacity){
+            suites "src/test/resources/mySuites/binCapacity.xml"
+        }
+
+        if(warehouseBin){
+            suites "src/test/resources/mySuites/warehouseBin.xml"
+        }
+
+        if(addSupplier){
+            suites "src/test/resources/mySuites/addSupplier.xml"
+        }
+        if(createPO){
+            suites "src/test/resources/mySuites/createPO.xml"
+        }
+        if(editPO){
+            suites "src/test/resources/mySuites/editPO.xml"
+        }
+        if(createGRN) {
+            suites "src/test/resources/mySuites/createGRN.xml"
         }
     }
 }

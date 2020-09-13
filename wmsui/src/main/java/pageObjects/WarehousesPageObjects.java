@@ -1,85 +1,56 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
-import utils.WmsBaseClass;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import services.responseModels.wmsModels.AllSellersModel;
+import services.responseModels.wmsModels.VariantDetailsModel;
+import utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.*;
+import java.util.NoSuchElementException;
 
 public class WarehousesPageObjects extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public WarehousesPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-    //Add Warehouse Tab
-    @FindBy(xpath = "//a[text()='Add Warehouse']")
-    private WebElement addWarehouseTab;
-
-    //Warehouse List Tab
-    @FindBy(xpath = "//a[text()='Warehouses List']")
-    private WebElement warehousesListTab;
-
-    //Update Bin Capacity Tab
-    @FindBy(xpath = "//a[text()='Update Bin Capacity']")
-    private WebElement updateBinCapacityTab;
-
-    //Warehouse Bin Details Tab
-    @FindBy(xpath = "//a[text()='Warehouse Bin Details']")
-    private WebElement binDetailsTab;
-
-    //Warehouse Bin Details Tab
-    @FindBy(xpath = "//a[text()='Warehouse Bins create']")
-    private WebElement warehouseBinsCreateTab;
-
-    //Warehouse Select
-    @FindBy(xpath = "//div[@id='root']//form//select")
-    private WebElement selectWarehouseDropDown;
 
 
     /*--------------Actions-------------------*/
     public void clickAddWarehouseTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(addWarehouseTab));
+        WebElement addWarehouseTab = xpathSetterClick("//a[text()='Add Warehouse']");
         myActions.action_click(addWarehouseTab);
     }
 
     public void clickWarehouseListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(warehousesListTab));
+        WebElement warehousesListTab = xpathSetterClick("//a[text()='Warehouses List']");
         myActions.action_click(warehousesListTab);
     }
 
     public void clickUpdateBinCapacityTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(updateBinCapacityTab));
+        WebElement updateBinCapacityTab = xpathSetterClick("//a[text()='Update Bin Capacity']");
         myActions.action_click(updateBinCapacityTab);
     }
 
     public void clickBinDetailsTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(binDetailsTab));
+        WebElement binDetailsTab = xpathSetterClick("//a[text()='Warehouse Bin Details']");
         myActions.action_click(binDetailsTab);}
 
     public void clickWarehouseBinsCreateTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(warehouseBinsCreateTab));
+        WebElement warehouseBinsCreateTab = xpathSetterClick("//a[text()='Warehouse Bins create']");
         myActions.action_click(warehouseBinsCreateTab); }
 
-    public void selectWarehouse(String warehouse) {
-        wait.until(ExpectedConditions.elementToBeClickable(selectWarehouseDropDown));
-        myActions.action_select(selectWarehouseDropDown,warehouse); }
 
 
     /*--------------Add Warehouse Tab-------------------*/
@@ -95,113 +66,76 @@ public class WarehousesPageObjects extends WmsBaseClass {
             random = new Random();
         }
 
-        //Enter Warehouse Code
-        @FindBy(xpath = "//input[@id='warehouseCode']")
-        private WebElement warehouseCodeEntry;
-
-        //Enter Name
-        @FindBy(xpath = "//input[@id='firstname']")
-        private WebElement warehouseNameEntry;
-
-        //Enter Address Line 1
-        @FindBy(xpath = "//input[@id='warehouseAddress']")
-        private WebElement warehouseAddressEntry1;
-
-        //Enter Address Line 2
-        @FindBy(xpath = "//input[@id='warehouseAddress2']")
-        private WebElement warehouseAddressEntry2;
-
-        //Enter Landmark
-        @FindBy(xpath = "//input[@id='warehouseLandmark']")
-        private WebElement warehouseLandmarkEntry;
-
-        //Enter City
-        @FindBy(xpath = "//input[@id='warehouseCity']")
-        private WebElement warehouseCityEntry;
-
-        //Enter State
-        @FindBy(xpath = "//input[@id='warehouseState']")
-        private WebElement warehouseStateEntry;
-
-        //Enter Country
-        @FindBy(xpath = "//input[@id='warehouseCountry']")
-        private WebElement warehouseCountryEntry;
-
-        //Enter Zipcode
-        @FindBy(xpath = "//input[@id='Zipcode']")
-        private WebElement warehouseZipcodeEntry;
-
-        //Enter Phone Number
-        @FindBy(xpath = "//input[@id='phone']")
-        private WebElement warehousePhoneNumberEntry;
-
-        //Enter
-        @FindBy(xpath = "//input[@id='alternative_phone']")
-        private WebElement warehouseAlternativePhoneEntry;
-
-        //Enter
-        @FindBy(xpath = "//button[text()='Add Warehouse']")
-        private WebElement addWarehouseButton;
-
 
         /*--------------Actions-------------------*/
         public void enterWarehouseCode(String binCode) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseCodeEntry));
+            WebElement warehouseCodeEntry = xpathSetter("//input[@id='warehouseCode']");
+            myActions.action_clear_text(warehouseCodeEntry);
             myActions.action_sendKeys(warehouseCodeEntry, binCode);
         }
 
         public void enterName(String name) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseNameEntry));
+            WebElement warehouseNameEntry = xpathSetter("//input[@id='firstname']");
+            myActions.action_clear_text(warehouseNameEntry);
             myActions.action_sendKeys(warehouseNameEntry, name);
         }
 
         public void enterAddress1(String address1) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseAddressEntry1));
+            WebElement warehouseAddressEntry1 = xpathSetter("//input[@id='warehouseAddress']");
+            myActions.action_clear_text(warehouseAddressEntry1);
             myActions.action_sendKeys(warehouseAddressEntry1, address1);
         }
 
         public void enterAddress2(String address2) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseAddressEntry2));
+            WebElement warehouseAddressEntry2 = xpathSetter("//input[@id='warehouseAddress2']");
+            myActions.action_clear_text(warehouseAddressEntry2);
             myActions.action_sendKeys(warehouseAddressEntry2, address2);
         }
 
         public void enterLandmark(String landmark) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseLandmarkEntry));
+            WebElement warehouseLandmarkEntry = xpathSetter("//input[@id='warehouseLandmark']");
+            myActions.action_clear_text(warehouseLandmarkEntry);
             myActions.action_sendKeys(warehouseLandmarkEntry, landmark);
         }
 
         public void enterCity(String city) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseCityEntry));
+            WebElement warehouseCityEntry = xpathSetter("//input[@id='warehouseCity']");
+            myActions.action_clear_text(warehouseCityEntry);
             myActions.action_sendKeys(warehouseCityEntry, city);
         }
 
         public void enterState(String state) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseStateEntry));
+            WebElement warehouseStateEntry = xpathSetter("//input[@id='warehouseState']");
+            myActions.action_clear_text(warehouseStateEntry);
             myActions.action_sendKeys(warehouseStateEntry, state);
         }
 
         public void enterCountry(String country) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseNameEntry));
+            WebElement warehouseCountryEntry = xpathSetter("//input[@id='warehouseCountry']");
+            myActions.action_clear_text(warehouseCountryEntry);
             myActions.action_sendKeys(warehouseCountryEntry, country);
         }
 
         public void enterZipcode(String zipcode) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseZipcodeEntry));
+            WebElement warehouseZipcodeEntry = xpathSetter("//input[@id='Zipcode']");
+            myActions.action_clear_text(warehouseZipcodeEntry);
             myActions.action_sendKeys(warehouseZipcodeEntry, zipcode);
         }
 
         public void enterPhoneNo(String phone_no) {
-            wait.until(ExpectedConditions.visibilityOf(warehousePhoneNumberEntry));
+            WebElement warehousePhoneNumberEntry = xpathSetter("//input[@id='phone']");
+            myActions.action_clear_text(warehousePhoneNumberEntry);
             myActions.action_sendKeys(warehousePhoneNumberEntry, phone_no);
         }
 
         public void enterAlterPhoneNo(String alter_phone_no) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseAlternativePhoneEntry));
+            WebElement warehouseAlternativePhoneEntry = xpathSetter("//input[@id='alternative_phone']");
+            myActions.action_clear_text(warehouseAlternativePhoneEntry);
             myActions.action_sendKeys(warehouseAlternativePhoneEntry, alter_phone_no);
         }
 
         public void clickAddWarehouseButton() {
-            wait.until(ExpectedConditions.visibilityOf(addWarehouseButton));
+            WebElement addWarehouseButton = xpathSetter("//button[text()='Add Warehouse']");
             myActions.action_click(addWarehouseButton);
         }
 
@@ -209,7 +143,7 @@ public class WarehousesPageObjects extends WmsBaseClass {
         /*--------------Functions-------------------*/
         public String addNewWarehouse() {
             int randomNum = random.nextInt(5000);
-            String binCode = "WMSTesting" + randomNum;
+            String binCode = "WMSTest" + randomNum;
             String name = "TestName" + randomNum;
             enterWarehouseCode(binCode);
             enterName(name);
@@ -218,12 +152,141 @@ public class WarehousesPageObjects extends WmsBaseClass {
             enterLandmark("Near Lank Mark");
             enterCity("Testing City");
             enterState("Testing State");
-            //enterCountry("India");
+            enterCountry("Japan");
             enterZipcode("123456");
-            enterPhoneNo("9442139828");
+            enterPhoneNo("9943225871");
             enterAlterPhoneNo("9943225871");
             clickAddWarehouseButton();
             return binCode;
+        }
+        public void addNewWarehouse(String[] input){
+            enterWarehouseCode(input[0]);
+            enterName(input[1]);
+            enterAddress1(input[2]);
+            enterAddress2(input[3]);
+            enterLandmark(input[4]);
+            enterCity(input[5]);
+            enterState(input[6]);
+            enterCountry(input[7]);
+            enterZipcode(input[8]);
+            enterPhoneNo(input[9]);
+            enterAlterPhoneNo(input[10]);
+            clickAddWarehouseButton();
+        }
+
+        public String[] getAllInputData(String[] inputData)
+        {
+            return new String[]
+                    {
+                            getInputData("WarehouseCode", inputData[0]),
+                            getInputData("Name", inputData[1]),
+                            getInputData("Address", inputData[2]),
+                            getInputData("Address2", inputData[3]),
+                            getInputData("LandMark", inputData[4]),
+                            getInputData("City", inputData[5]),
+                            getInputData("State", inputData[6]),
+                            getInputData("Country", inputData[7]),
+                            getInputData("Zipcode", inputData[8]),
+                            getInputData("Phone", inputData[9]),
+                            getInputData("AlternativePhone", inputData[10])
+                    };
+        }
+
+        public String getInputData(String attribute,String input)
+        {
+            int randomNum = random.nextInt(5000);
+            switch (attribute)
+            {
+                case "WarehouseCode":
+                    switch (input){
+                        case "Any String":
+                        case "New":
+                            return "TestRegWarehouse"+randomNum;
+                        case "Existing":
+                            return "TestWarehouse";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Name":
+                    switch (input){
+                        case "Any String":
+                            return "TestName";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address":
+                    switch (input){
+                        case "Any String":
+                            return "First Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address2":
+                    switch (input){
+                        case "Any String":
+                            return "Second Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "LandMark":
+                    switch (input){
+                        case "Any String":
+                            return "LandMark";
+                        case "N/A":
+                            return " ";
+                    }
+                case "City":
+                    switch (input){
+                        case "Any String":
+                            return "CityX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "State":
+                    switch (input){
+                        case "Any String":
+                            return "StateX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Country":
+                    switch (input){
+                        case "Any String":
+                            return "CountryX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Zipcode":
+                    switch (input){
+                        case "Valid String":
+                            return "123456";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Phone":
+                    switch (input){
+                        case "Valid String":
+                            return "9442139828";
+                        case "N/A":
+                            return " ";
+                    }
+                case "AlternativePhone":
+                    switch (input){
+                        case "Valid String":
+                            return "9442139827";
+                        case "N/A":
+                            return " ";
+                    }
+                default:return " ";
+            }
+
+        }
+
+        public boolean verifyElementVisibilityWithText(String value)
+        {
+            WebElement element =
+                    xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
         }
     }
 
@@ -233,39 +296,31 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         private final WebDriver driver;
         private final MyActions myActions;
+        private Random random;
 
         public UpdateBinCapacityTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
         }
-
-        //Enter Bin Code Update Bin Capacity
-        @FindBy(xpath = "//input[@id='binCapacityBincode']")
-        private WebElement binCodeUpdateCapacity;
-
-        //Enter Bin Capacity
-        @FindBy(xpath = "//input[@id='binCapacity']")
-        private WebElement binCapacityUpdateCapacity;
-
-        //Update Capacity Button
-        @FindBy(xpath = "//button[text()='Update Bin Capacity']")
-        private WebElement updateCapacityButton;
 
 
         /*--------------Actions-------------------*/
         public void enterBinCodeUpdateCapacity(String binCode) {
-            wait.until(ExpectedConditions.visibilityOf(binCodeUpdateCapacity));
+            WebElement binCodeUpdateCapacity = xpathSetter("//input[@id='binCapacityBincode']");
+            myActions.action_clear_text(binCodeUpdateCapacity);
             myActions.action_sendKeys(binCodeUpdateCapacity, binCode);
         }
 
         public void enterCapacity(String capacity) {
-            wait.until(ExpectedConditions.visibilityOf(binCapacityUpdateCapacity));
+            WebElement binCapacityUpdateCapacity = xpathSetter("//input[@id='binCapacity']");
+            myActions.action_clear_text(binCapacityUpdateCapacity);
             myActions.action_sendKeys(binCapacityUpdateCapacity, capacity);
         }
 
         public void clickUpdateCapacityButton() {
-            wait.until(ExpectedConditions.visibilityOf(updateCapacityButton));
+            WebElement updateCapacityButton = xpathSetter("//button[text()='Update Bin Capacity']");
             myActions.action_click(updateCapacityButton);
         }
 
@@ -276,6 +331,81 @@ public class WarehousesPageObjects extends WmsBaseClass {
             enterCapacity(capacity);
             clickUpdateCapacityButton();
         }
+
+        public void updateBinCapacity(String[] input) {
+            enterBinCodeUpdateCapacity(input[0]);
+            enterCapacity(input[1]);
+            clickUpdateCapacityButton();
+        }
+
+        public String binCodeSetter() throws FileNotFoundException {
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/WarehouseBinsSD.txt";
+
+            Scanner s = new Scanner(new File(filePath));
+            List<String> list = new ArrayList<>();
+            while (s.hasNextLine())
+                list.add(s.nextLine());
+
+            int n = random.nextInt(list.size()) + 1;
+            String binCode = list.get(n - 1);
+            return binCode;
+        }
+
+        public String[] getAllInputData(String[] inputData) throws FileNotFoundException {
+            return new String[]
+                    {
+                            getInputData("WarehouseCode", inputData[0]),
+                            getInputData("BinCapacity", inputData[1]),
+                    };
+        }
+
+        public String getInputData(String attribute, String input) throws FileNotFoundException {
+
+            switch (attribute) {
+                case "WarehouseCode":
+                    switch (input) {
+                        case "Valid Code":
+                            return binCodeSetter();
+                        case "InvalidCode":
+                            return "xxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                case "BinCapacity":
+                    switch (input) {
+                        case "Valid Number":
+                            return String.valueOf((random.nextInt(30)+10));
+                        case "Invalid Number":
+                            return "xxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                default : return " ";
+            }
+
+        }
+
+        public boolean verifyElementVisibilityWithText(String value) {
+            WebElement element = xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+
+        }
+
+        public boolean verifyVisibilityForErrorMessages1() {
+            boolean assertData = false;
+            if (verifyElementVisibilityWithText("This field is required."))
+                assertData = true;
+            return assertData;
+        }
+
+        public boolean verifyVisibilityForErrorMessages2(){
+            boolean assertData = false;
+            if (verifyElementVisibilityWithText("Please enter only digits."))
+                assertData = true;
+            return assertData;
+        }
+
     }
 
 
@@ -283,21 +413,19 @@ public class WarehousesPageObjects extends WmsBaseClass {
     public class WarehouseBinDetailsTab {
         private final WebDriver driver;
         private final MyActions myActions;
+        private Random random;
 
         public WarehouseBinDetailsTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
         }
-
-        //Enter Bin Code
-        @FindBy(xpath = "//input[@id='BinDetailBinCode']")
-        private WebElement binCodeBinDetails;
 
 
         /*--------------Actions-------------------*/
         public void enterBinCodeBinDetails(String binCode) {
-            wait.until(ExpectedConditions.visibilityOf(binCodeBinDetails));
+            WebElement binCodeBinDetails = xpathSetter("//input[@id='BinDetailBinCode']");
             myActions.action_sendKeys(binCodeBinDetails, binCode);
             myActions.action_enter(binCodeBinDetails);
         }
@@ -307,6 +435,8 @@ public class WarehousesPageObjects extends WmsBaseClass {
         public void binCodeEntry(String binCode) {
             enterBinCodeBinDetails(binCode);
         }
+
+        public void binCodeEntry(String[] binCode){enterBinCodeBinDetails(binCode[0]);}
 
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='WarehouseBinDetail']//tbody/tr"));
@@ -343,6 +473,39 @@ public class WarehousesPageObjects extends WmsBaseClass {
             return myActions.action_getText(scannedPackageIds);
         }
 
+        public String binCodeSetter() throws FileNotFoundException {
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/WarehouseBinsSD.txt";
+
+            Scanner s = new Scanner(new File(filePath));
+            List<String> list = new ArrayList<>();
+            while (s.hasNextLine())
+                list.add(s.nextLine());
+
+            int n = random.nextInt(list.size()) + 1;
+            String binCode = list.get(n - 1);
+            return binCode;
+        }
+
+        public String[] getAllInputData(String[] inputData) throws FileNotFoundException {
+            return new String[]
+                    {
+                     getInputData("WarehouseCode", inputData[0])
+                    };
+        }
+
+        public String getInputData(String attribute, String input) throws FileNotFoundException {
+            switch (input) {
+                case "Valid Code":
+                    return binCodeSetter();
+                case "InvalidCode":
+                    return "xxxxx";
+                case "N/A":
+                    return " ";
+                default:
+                    return "";
+            }
+        }
     }
 
 
@@ -412,13 +575,13 @@ public class WarehousesPageObjects extends WmsBaseClass {
 
         public void displayBinDetails(int index) {
             String binDetailsXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[9]/a";
-            WebElement binDetails = driver.findElement(By.xpath(binDetailsXpath));
+            WebElement binDetails = xpathSetter(binDetailsXpath);
             myActions.action_click(binDetails);
         }
 
         public void printBinLabels(int index) {
             String printLabelXpath = "//div[@id='WarehousesList']//tr[" + index + "]/td[10]/a";
-            WebElement printLabel = driver.findElement(By.xpath(printLabelXpath));
+            WebElement printLabel = xpathSetter(printLabelXpath);
             myActions.action_click(printLabel);
         }
     }
@@ -428,22 +591,20 @@ public class WarehousesPageObjects extends WmsBaseClass {
     public class WarehouseBinsCreateTab {
         private WebDriver driver;
         private MyActions myActions;
+        private Random random;
+        private boolean evaluate;
 
         public WarehouseBinsCreateTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
         }
-
-
-        /*--------------Bin Create Section-------------------*/
-        // Bin Create Section
-        @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Bin Create']")
-        private WebElement binCreateSection;
 
 
         /*--------------Actions-------------------*/
         public void clickBinCreateSection() {
+            WebElement binCreateSection = xpathSetter("//div[@id='WarehouseBinCreate']//div[text()='Bin Create']");
             myActions.action_click(binCreateSection);
         }
 
@@ -519,6 +680,19 @@ public class WarehousesPageObjects extends WmsBaseClass {
             return warehouseUsers;
         }
 
+        public String getUsersJson() throws FileNotFoundException {
+            Gson gson = new Gson();
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/allUsers.json";
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            AllSellersModel allSellersModel = gson.fromJson(bufferedReader,
+                    AllSellersModel.class);
+            List<AllSellersModel.ResultBean> list = allSellersModel.getResult();
+            int n = random.nextInt(list.size());
+            return list.get(n+1).getName();
+        }
+
         /*--------------Sellers Section-------------------*/
         // Sellers Section
         @FindBy(xpath = "//div[@id='WarehouseBinCreate']//div[text()='Sellers']")
@@ -552,6 +726,40 @@ public class WarehousesPageObjects extends WmsBaseClass {
             for (WebElement element : seller)
                 sellers.add(myActions.action_getText(element));
             return sellers;
+        }
+
+        public String getSellersJson() throws FileNotFoundException {
+            Gson gson = new Gson();
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/allSellers.json";
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            AllSellersModel allSellersModel = gson.fromJson(bufferedReader,
+                    AllSellersModel.class);
+            List<AllSellersModel.ResultBean> list = allSellersModel.getResult();
+            int n = random.nextInt(list.size());
+            return list.get(n+1).getName();
+        }
+
+        public void performPickupAgentAssociation(){
+            driver.navigate().refresh();
+            clickWarehouseBinsCreateTab();
+            clickPickupAgentsSection();
+            enterPickupAgents("PickupNikhil");}
+
+        public void performUserAssociation(String s){
+            driver.navigate().refresh();
+            clickWarehouseBinsCreateTab();
+            clickWarehouseUsersSection();
+            enterWarehouseUser(s);
+
+        }
+
+        public void performSellerAssociation(String s){
+            driver.navigate().refresh();
+            clickWarehouseBinsCreateTab();
+            clickSellersSection();
+            enterSeller(s);
         }
     }
 }

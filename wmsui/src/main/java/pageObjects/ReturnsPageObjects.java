@@ -16,13 +16,11 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public ReturnsPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
 
     @FindBy(xpath = "//div[@class='returns-tabs']/ul[1]/li[1]/a")
@@ -40,24 +38,26 @@ public class ReturnsPageObjects extends WmsBaseClass {
     @FindBy(xpath = "//div[@class='returns-tabs']/ul[1]/li[5]/a")
     private WebElement rTSUploadManifestTab;
 
+   WebElement emailEntry = xpathSetter("");
+
     public void clickReturnInScanTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(returnInScanTab));
+        WebElement returnInScanTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[1]/a");
         myActions.action_click(returnInScanTab);}
 
     public void clickReturnQcScanTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(returnQcScanTab));
+        WebElement returnQcScanTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[2]/a");
         myActions.action_click(returnQcScanTab);}
 
     public void clickRTSCreateManifestTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(rTSCreateManifestTab));
+        WebElement rTSCreateManifestTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[3]/a");
         myActions.action_click(rTSCreateManifestTab);}
 
     public void clickRTSOutScanTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(rTSOutScanTab));
+        WebElement rTSOutScanTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[4]/a");
         myActions.action_click(rTSOutScanTab);}
 
     public void clickRTSUploadManifestTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(rTSUploadManifestTab));
+        WebElement rTSUploadManifestTab = xpathSetterClick("//div[@class='returns-tabs']/ul[1]/li[5]/a");
         myActions.action_click(rTSUploadManifestTab);}
 
 
@@ -103,19 +103,19 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void clickPickListReturnsSection(){
-            wait.until(ExpectedConditions.visibilityOf(pickListReturnsSection));
+            WebElement pickListReturnsSection = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[1]/div[1]/span[1]//*[local-name()='svg']");
             myActions.action_click(pickListReturnsSection);}
 
         public void pickListIdInput(String pickListId){
-            wait.until(ExpectedConditions.visibilityOf(pickListIdEntry));
+            WebElement pickListIdEntry = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[1]/div[2]//form//input");
             myActions.action_sendKeys(pickListIdEntry,pickListId);}
 
         public void clickPickListIdSubmitButton(){
-            wait.until(ExpectedConditions.visibilityOf(pickListIdSubmitButton));
+            WebElement pickListIdSubmitButton = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[1]/div[2]//form//button");
             myActions.action_click(pickListIdSubmitButton);}
 
         public void clickPickListReturnSubmitButton(){
-            wait.until(ExpectedConditions.visibilityOf(pickListReturnSubmitButton));
+            WebElement pickListReturnSubmitButton = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[1]/div[2]/div[1]/div[2]//button");
             myActions.action_click(pickListReturnSubmitButton);}
 
 
@@ -189,26 +189,26 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void clickReturnInwardSkuSection(){
-            wait.until(ExpectedConditions.visibilityOf(returnInwardSkuSection));
+            WebElement returnInwardSkuSection = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[2]/div[1]/span[1]//*[local-name()='svg']");
             myActions.action_click(returnInwardSkuSection);}
 
         public void selectWarehouseDropdown(String warehouse) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseDropdown));
+            WebElement warehouseDropdown = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[2]//form/div[1]//select");
             myActions.action_select(warehouseDropdown, warehouse);
         }
 
         public void selectSellerDropdown(String seller) {
-            wait.until(ExpectedConditions.visibilityOf(sellerDropdown));
+            WebElement sellerDropdown = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[2]//form/div[2]//select");
             myActions.action_select(sellerDropdown, seller);
         }
 
         public void selectSupplierDropdown(String supplier) {
-            wait.until(ExpectedConditions.visibilityOf(supplierDropdown));
+            WebElement supplierDropdown = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[2]//form/div[3]//select");
             myActions.action_select(supplierDropdown, supplier);
         }
 
         public void selectAddressDropdown(String address) {
-            wait.until(ExpectedConditions.visibilityOf(addressDropdown));
+            WebElement addressDropdown = xpathSetter("//div[@id='RtnInScan']/div[1]/div[2]/div[2]//form/div[4]//select");
             myActions.action_select(addressDropdown, address);
         }
 
@@ -248,12 +248,12 @@ public class ReturnsPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void clickAddSkuInputFields() {
-            wait.until(ExpectedConditions.visibilityOf(addSkuInputFields));
+            WebElement addSkuInputFields = xpathSetter("//div[@id='RtnInScan']//form[@id='createReturnPOForm']/div[5]/button");
             myActions.action_click(addSkuInputFields);
         }
 
         public void clickInwardReturnButton() {
-            wait.until(ExpectedConditions.visibilityOf(inwardReturnButton));
+            WebElement inwardReturnButton = xpathSetter("//div[@id='RtnInScan']//form[@id='createReturnPOForm']/div[6]/button");
             myActions.action_click(inwardReturnButton);
         }
 
@@ -423,6 +423,4 @@ public class ReturnsPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
     }
-
-
 }

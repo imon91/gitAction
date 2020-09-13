@@ -2,13 +2,15 @@ package helper;
 
 import coreUtils.*;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileBrowserType;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import java.net.*;
 import io.appium.java_client.service.local.*;
 import io.appium.java_client.service.local.flags.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.remote.*;
-import java.net.*;
 
 public class GetDriverFromCore {
 
@@ -131,15 +133,13 @@ public class GetDriverFromCore {
 
     public static WebDriver getWebDriver(String os,String os_version,String browser,String browser_version,String host) throws Exception{
         if(host.equalsIgnoreCase(HOST_LOCAL)){
-            System.out.println("Control came to getWebDriver for Host : local");
+             System.out.println("Control came to getWebDriver for Host : local");
             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setBrowserName(CHROME_DRIVER);
-            ChromeOptions chOptions = new ChromeOptions();
-            chOptions.addArguments("--disable-plugins", "--disable-extensions",
-                    "--disable-popup-blocking","--disable-notifications");
-            capabilities.setCapability(ChromeOptions.CAPABILITY,chOptions);
-            return new ChromeDriver(capabilities);
+            WebDriverManager.chromedriver().setup();
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setAcceptInsecureCerts(true);
+            WebDriver driver = new ChromeDriver(chromeOptions);
+            return driver;
         }else {
             setBrowserStackUrl();
             System.out.println("Control came to getWebDriver for Host : browserStack");

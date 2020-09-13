@@ -36,6 +36,7 @@ public class CookieManager {
         public static final String MOKAM_COOKIE = "MOKAM_COOKIE";
         public static final String RED_X_COOKIE = "RED_X_COOKIE";
         public static final String STORE_WAP_COOKIE = "STORE_WAP_COOKIE";
+        public static final String WMS_SESSION = "WMS_SESSION";
     }
 
 }

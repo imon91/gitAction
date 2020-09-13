@@ -29,6 +29,7 @@ public class PickListReturn extends WmsBaseClass {
         pickOrdersPageObjects = new PickOrdersPageObjects(driver);
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
         assertion = new Assertion();
+//        homePageObject.selectWarehouse("Shopup Dhaka");
     }
 
     @Test(groups = CoreConstants.GROUP_SMOKE,
@@ -43,7 +44,7 @@ public class PickListReturn extends WmsBaseClass {
         pickOrdersPageObjects.clickAllPickListsTab();
         int i = 0, total = allPickListsTab.getTotalPickLists();
         Random random = new Random();
-        int n = random.nextInt(total);
+        int n = random.nextInt(total)+1;
         String pickListId = allPickListsTab.getPickListID(n);
         String status = allPickListsTab.getStatus(n);
         String reason = allPickListsTab.getPickListReason(n);
