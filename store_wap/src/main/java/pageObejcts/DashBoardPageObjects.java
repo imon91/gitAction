@@ -57,6 +57,9 @@ public class DashBoardPageObjects {
     @FindBy(xpath = "//div[text()='Boost']")
     private WebElement boostButton;
 
+    @FindBy(xpath = "//div[text()='Create Order']")
+    private WebElement createOrderButton;
+
     public DashBoardPageObjects(AndroidDriver<WebElement> androidDriver) {
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -86,6 +89,8 @@ public class DashBoardPageObjects {
     public void clickInboxButton(){ storeWapActions.action_click(inboxButton);}
 
     public void clickBoostButton(){ storeWapActions.action_click(boostButton);}
+
+    public void clickOnCreateOrderButton(){storeWapActions.action_click(createOrderButton);}
 
 
     /*----------------------------------------------Functions-------------------------------------------------------- */

@@ -14,7 +14,7 @@ public class DataBaseCore {
         Connection connection = null;
         try{
             // Read Credentials Properties file
-            mobileNumber = "8801877755580";//"%01877755580%"
+            mobileNumber = "8801877755530";//"%01877755580%"
         }catch (Exception e){
 
         }
