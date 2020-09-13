@@ -60,19 +60,12 @@ public class QuickOrderFlowTestCases {
         System.out.println(facebookPage + " is selected");
         facebookPageObjects.clickContinueAfterConnectFacebookPage();
         sleep(3000);
-        dashBoardPageObjects.clickMyOrdersButton();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
-    public void verifyMyOrdersPageTitle(){
-        System.out.println("verifyMyOrdersPageTitle is called");
-        Assert.assertEquals(myOrdersPageObjects.getPageTitleText(), "My Orders");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyMyOrdersPageTitle")
+    @Test(groups = {CoreConstants.GROUP_SMOKE} )
     public void verifyCreateNewOrderButtonFunctionality(){
         System.out.println("verifyCreateNewOrderButtonFunctionality is called");
-        myOrdersPageObjects.clickCreateNewOrderButton();
+        dashBoardPageObjects.clickOnCreateOrderButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyCreateNewOrderButtonFunctionality")
