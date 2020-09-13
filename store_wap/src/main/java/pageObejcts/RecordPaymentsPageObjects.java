@@ -15,22 +15,22 @@ public class RecordPaymentsPageObjects {
     private StoreWapActions storeWapActions;
 
 
-    @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div")
+    @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div[@data-testid='navback']")
     private WebElement backButton;
 
     @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-1loqt21 r-1otgn73 r-eafdt9 r-1i6wzkk r-lrvibr']")
     private WebElement sideNavButton;
 
-    @FindBy(xpath = "//div[text()='Order ID']//parent::div/div")
+    @FindBy(xpath = "//div[text()='Order ID']//parent::div/div[@class='css-901oao r-14iuakf r-pz5f6p r-ubezar r-1jkjb']")
     private WebElement pageTitleText;
 
-    @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div/div[2]")
+    @FindBy(xpath = "//div[text()='Order ID']")
     private WebElement orderIDText;
 
     @FindBy(xpath = "//div[text()='Due']//parent::div/div[3]/div")
     private WebElement dueAmountText;
 
-    @FindBy(xpath = "//div[text()='+ Add']//parent::Div//parent::Div/input")
+    @FindBy(xpath = "//div[text()='+ Add']//parent::Div//parent::Div//input")
     private WebElement payAmountTabText;
 
     @FindBy(xpath = "//div[text()='+ Add']")
@@ -90,18 +90,15 @@ public class RecordPaymentsPageObjects {
     /*-----------------------------------------------Functions--------------------------------------------------------*/
 
     public String getPageTitle(){
-        String pageTitle = storeWapActions.action_getText(pageTitleText);
-        return pageTitle;
+        return storeWapActions.action_getText(pageTitleText);
     }
 
     public String getOrderID(){
-        String orderID = storeWapActions.action_getText(orderIDText);
-        return orderID;
+        return storeWapActions.action_getText(orderIDText);
     }
 
     public String getDueAmount(){
-        String due = storeWapActions.action_getText(dueAmountText);
-        return due;
+        return storeWapActions.action_getText(dueAmountText);
     }
 
     public void editPayingAmount(String amount){
@@ -115,13 +112,11 @@ public class RecordPaymentsPageObjects {
     }
 
     public String getTotalPaymentsMade(){
-        String details = storeWapActions.action_getText(paymentsReceived_AmountText);
-        return details;
+        return storeWapActions.action_getText(paymentsReceived_AmountText);
     }
 
     public String getFullyPaidText(){
-        String text = storeWapActions.action_getText(fullyPaidText);
-        return text;
+        return storeWapActions.action_getText(fullyPaidText);
     }
 
 }

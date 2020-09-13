@@ -26,7 +26,7 @@ public class CustomerDetailsPageObjects {
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-13awgt0 r-1d5kdc7']//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][2]//div[contains(@data-testid,'navback')]")
     private WebElement backButton_IfThroughCustomerList;
 
-    @FindBy(xpath= "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[contains(@data-testid,'headerTitle')]")
+    @FindBy(xpath= "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[contains(@data-testid,'headerTitle')]")
     private WebElement pageTitle_IfThroughCustomerList;
 
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-13awgt0 r-1d5kdc7']//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][2]//div[@class='css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1wtj0ep']/div[2]")
@@ -35,7 +35,7 @@ public class CustomerDetailsPageObjects {
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-13awgt0 r-1d5kdc7']//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][5]//div[contains(@data-testid,'navback')]")
     private WebElement backButton_QuickOrderFlow;
 
-    @FindBy(xpath= "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[contains(@data-testid,'headerTitle')]")
+    @FindBy(xpath= "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[contains(@data-testid,'headerTitle')]")
     private WebElement pageTitle_QuickOrderFlow;
 
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-13awgt0 r-1d5kdc7']//div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][5]//div[@class='css-1dbjc4n r-1awozwy r-13awgt0 r-18u37iz r-1wtj0ep']/div[2]")
@@ -53,10 +53,10 @@ public class CustomerDetailsPageObjects {
     @FindBy(xpath = "//div[text()='Area Name']//parent::div//parent::div/div[2]/div")
     private WebElement areaNameDropdown;
 
-    @FindBy(xpath = "//input[@class='css-1cwyjr8 r-14lw9ot r-u0ci3n r-v4som1 r-fnigne r-f1w8kp r-rs99b7 r-lgvlli r-pz5f6p r-1qhn6m8']")
+    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-19fu0aa r-eqz5dr r-1rks9hb']/div/div/div[1]//input")
     private WebElement customerTagText;
 
-    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div/div[6]/div/div/div")
+    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-19fu0aa r-eqz5dr r-1rks9hb']/div/div/div[2]")
     private WebElement addCustomerTagButton;
 
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-eqz5dr r-1hbzrj0 r-1s2bzr4']/div/div/div/div/div")
@@ -105,13 +105,11 @@ public class CustomerDetailsPageObjects {
     /*-----------------------------------------------Functions--------------------------------------------------------*/
 
     public String getTitleName_IfThroughCustomerList(){
-        String titleName = storeWapActions.action_getText(pageTitle_IfThroughCustomerList);
-        return titleName;
+        return storeWapActions.action_getText(pageTitle_IfThroughCustomerList);
     }
 
     public String getTitleName_QuickOrderFlow(){
-        String titleName = storeWapActions.action_getText(pageTitle_QuickOrderFlow);
-        return titleName;
+        return storeWapActions.action_getText(pageTitle_QuickOrderFlow);
     }
 
     public void searchAreaNameInAreaDropdown_IfThroughCustomerList(String areaName){
