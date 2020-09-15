@@ -280,6 +280,15 @@ public class SearchPageObjects extends AndroidBaseClass {
         return true;
     }
 
+    public boolean scrollToElementSearchBar(String productName)
+    {
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/etSearch\")).setAsHorizontalList().scrollIntoView("
+                        + "new UiSelector().text(\""+productName+ "\"))"));
+        String text =element.getText();
+        return true;
+    }
+
     public boolean scrollToElementSearchSuggestion(String productName)
     {
 

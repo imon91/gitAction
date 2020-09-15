@@ -2,6 +2,7 @@ package com.shopf.tests;
 
 import coreUtils.*;
 import io.appium.java_client.android.*;
+import io.appium.java_client.android.nativekey.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import org.testng.asserts.*;
@@ -528,6 +529,285 @@ public class Search extends AndroidBaseClass {
 //            assertEquals(androidDriver.currentActivity(),AndroidActivities.resellerActivities.PDPActivity);
 //            assertEquals(productDescriptionPageObjects.getProductName(),productName);        }
 //    }
+
+    @Test(  groups = {"Search.verifyRecentlyViewedVisibilityWhileCancelSearchTerm" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Recently Viewed Visibility While Cancel SearchTerm",
+            priority = 19)
+    public void verifyRecentlyViewedVisibilityWhileCancelSearchTerm() throws Exception {
+        System.out.println("Verification of recently viewed visibility while cancel search term");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        String placeHolder = myActions.action_getText(searchPageObjects.searchBarEditText());
+        assertEquals(productName,placeHolder);
+        softAssert.assertAll();
+        myActions.action_clearText(searchPageObjects.searchBarEditText());
+        assertTrue(searchPageObjects.recentlyViewedContainerVisibility());
+    }
+
+    @Test(  groups = {"Search.verifyCancelClearsSearchTerm" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Cancel Clears SearchTerm",
+            priority = 20)
+    public void verifyCancelClearsSearchTerm() throws Exception {
+        System.out.println("Verification of cancel vanish search term");
+        String placeHolderBefore = myActions.action_getText(searchPageObjects.searchBarEditText());
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        String placeHolder = myActions.action_getText(searchPageObjects.searchBarEditText());
+        assertEquals(productName,placeHolder);
+        softAssert.assertAll();
+        myActions.action_clearText(searchPageObjects.searchBarEditText());
+        assertEquals(myActions.action_getText(searchPageObjects.searchBarEditText()),placeHolderBefore);
+    }
+//
+//    @Test(  groups = {"Search.verifyProductAddedToRecentlyViewedAfterViewingAtPDP" ,
+//            CoreConstants.GROUP_REGRESSION},
+//            description = "Verifies Product Added To Recently Viewed After Viewing At PDP",
+//            priority = 21)
+//    public void verifyProductAddedToRecentlyViewedAfterViewingAtPDP() throws Exception {
+//        System.out.println("Verification of Production of RecentlyViewed product After Viewing At PDP was");
+//        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+//        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+//        searchPageObjects.enterProductName(productName);
+//        searchPageObjects.clickOnSearchButton(productName);
+//        String productNamePLP = productListingPageObjects.namesListOfProduct(2);
+//        productListingPageObjects.clickOnProductItem(productListingPageObjects.getItemImages().get(2));
+//        productListingPageObjects.clickOnPLPBackButton();
+//        actionBarObjects.clickOnSearchImageButton();
+//        sleep(500);
+//        assertTrue(searchPageObjects.scrollToElement(productNamePLP));
+//    softAssert.assertAll();
+//    }
+
+    @Test(  groups = {"Search.verifyControlWhenLaunchApp" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Control When Launch App",
+            priority = 22)
+    public void verifyControlWhenLaunchAppAgain(){
+        System.out.println("verify control when launch app again was called");
+        searchPageObjects.enterProductName("shirt");
+        String currentActivity = androidDriver.currentActivity();
+        androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
+        sleep(1500);
+        androidDriver.launchApp();
+        sleep(2000);
+        System.out.println("When launch app again the control was on "+androidDriver.currentActivity()+" before closing it was "+currentActivity);
+    }
+
+    @Test(  groups = {"Search.verifySearchBarScrollable" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Bar Scrollable",
+            priority = 23)
+    public void verifySearchBarScrollable() {
+        System.out.println("Verification of search Bar scrollable was called");
+        searchPageObjects.enterProductName("Search.verifySearchBarScrollable @ verification of searchBarScrollable");
+        assertTrue(searchPageObjects.scrollToElementSearchBar("Search.verifySearchBarScrollable @ verification of searchBarScrollable"));
+        searchPageObjects.clickOnSearchCancelButton();
+    }
+
+//    @Test(  groups = {"Search.verifyRecentlyViewedProducts" ,
+//            CoreConstants.GROUP_REGRESSION},
+//            description = "Verifies Recently Viewed Products",
+//            priority = 24)
+//    public void verifyRecentlyViewedProductsData() {
+//        System.out.println("Verification of recently viewed products Data");
+//        String productName;
+//       String productNameFromUI;
+//
+//       List<SearchRecentProductsModel.ResultsBean> resultsBeansFromApi = searchPageObjects.getResultsOfRecentProductsFromApiList();
+//
+//       for (int productIndex = 0; productIndex < 2; productIndex++) {
+//               productName = resultsBeansFromApi.get(productIndex).getName();
+//                searchPageObjects.scrollToElement(productName);
+//               sleep(1000);
+//
+//               for (int j = 0; j < searchPageObjects.searchRecentProductsNameListUI().size(); j++) {
+//
+//                   productNameFromUI = myActions.action_getText(searchPageObjects.searchRecentProductsNameListUI().get(j));
+//
+//                   if (productName.equals(productNameFromUI)) {
+//                       //ui data
+//                       List<String> containerDataUI = searchPageObjects.recentProductContainerDataFromUI(j);
+//                       System.out.println(j);
+//                       //api data
+//                       List<String> containerDataApi = new ArrayList<>();
+//                       containerDataApi.add(resultsBeansFromApi.get(productIndex).getPrice());
+//                       containerDataApi.add(resultsBeansFromApi.get(productIndex).getOriginal_price());
+//                       if (containerDataApi.get(2) != null) {containerDataApi.add(resultsBeansFromApi.get(productIndex).getProduct_stamp());}
+//                       String discount = String.valueOf(resultsBeansFromApi.get(productIndex).getDiscount());
+//                       containerDataApi.add(discount);
+//                       //verify price
+//                       assertEquals(containerDataApi.get(0), containerDataUI.get(0));
+//                       //verify original price and discount
+//                       if (!resultsBeansFromApi.get(productIndex).getOriginal_price().equals(resultsBeansFromApi.get(productIndex).getPrice())) {
+//                           assertEquals(containerDataApi.get(1), containerDataUI.get(1));
+//                           assertEquals(containerDataApi.get(3),containerDataUI.get(3));
+//                       }
+//                       //verify DeliveryTag
+//                       if (containerDataApi.get(2) != null) {
+//                           assertEquals(containerDataApi.get(2), containerDataUI.get(2));
+//                       }
+//                       softAssert.assertAll();
+//                       System.out.println("done");
+//               }
+//           }
+//        }
+//           System.out.println("Recently Viewed Products Was Verified");
+//    softAssert.assertAll();
+//       }
+
+
+    @Test(  groups = {"Search.ProductsThroughSearchQuery" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Products Through Search Query",
+            priority = 25)
+    public void verifyProductsThroughSearchQuery() throws Exception {
+        System.out.println("verification of search Query");
+        for (int i=0;i<readJSONFile.getJSONFileData(app,"searchTerm").size();i++){
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        searchPageObjects.clickOnSearchButton(productName);
+        sleep(1000);
+        assertEquals(androidDriver.currentActivity(),AndroidActivities.resellerActivities.PLPActivity);
+        productListingPageObjects.clickOnPLPBackButton();
+        sleep(1000);
+        actionBarObjects.clickOnSearchImageButton();
+        softAssert.assertAll();
+        System.out.println("Search Query was verified successfully");
+    softAssert.assertAll();
+        }
+    }
+
+    @Test(  groups = {"Search.SearchTriggersOnDeviceSearchButton" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Triggers On Device SearchButton",
+            priority = 26)
+    public void verifySearchTriggersOnDeviceSearchButton() throws Exception {
+        System.out.println("Verification of Search Triggers On Device SearchButton was called");
+        int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app,"searchTerm").size());
+        String productName = (String)readJSONFile.getJSONFileData(app,"searchTerm").get(randomIndex);
+        searchPageObjects.enterProductName(productName);
+        searchPageObjects.clickOnSearchButton(productName);
+        assertEquals(AndroidActivities.resellerActivities.PLPActivity,androidDriver.currentActivity());
+        softAssert.assertAll();
+    }
+
+    @Test(  groups = {"Search.RecentSuggestionUpdatedOnClickingSearchSuggestion" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Recent Suggestion Updated On Clicking Search Suggestion",
+            priority = 27)
+    public void verifyRecentSuggestionUpdatedOnClickingSearchSuggestion() throws Exception {
+        System.out.println("Verification of RecentSuggestion Updated On Clicking SearchSuggestion was called");
+            int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app, "searchTerm").size());
+            String productName = (String) readJSONFile.getJSONFileData(app, "searchTerm").get(randomIndex);
+            searchPageObjects.enterProductName(productName);
+            int index = random.nextInt(searchPageObjects.searchSuggestionInLineLabelListUI().size());
+            String titleSearchSuggestion = myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(index));
+            String inLineLabelSearchSuggestion = myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(index));
+            searchPageObjects.clickOnSearchSuggestion(index);
+            sleep(1500);
+            assertEquals(androidDriver.currentActivity(), AndroidActivities.resellerActivities.PLPActivity);
+            productListingPageObjects.clickOnPLPBackButton();
+            sleep(1000);
+            actionBarObjects.clickOnSearchImageButton();
+            sleep(1500);
+            String titleRecentSuggestion = myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(0));
+            String inLineLabelRecentSuggestion = myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(0));
+            assertEquals(titleSearchSuggestion, titleRecentSuggestion);
+           System.out.println(inLineLabelSearchSuggestion+"  ,  " +inLineLabelRecentSuggestion);
+            myActions.action_clearText(searchPageObjects.searchBarEditText());
+            softAssert.assertAll();
+    }
+
+    @Test(  groups = {"Search.SearchRecentSuggestionVisibility" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Recent Suggestion Visibility",
+            priority = 28)
+    public void verifySearchRecentSuggestionVisibility(){
+        System.out.println("verify Search Recent Suggestion Visibility was called");
+        //RecentSuggestion visibility
+        assertNotNull(searchPageObjects.searchSuggestionTitleListUI());
+        System.out.println("The recently Suggestion was visible successfully");
+        softAssert.assertAll();
+    }
+
+    @Test(  groups = {"Search.SearchRecentSuggestionClickable" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Recent Suggestion Clickable",
+            priority = 29)
+    public void verifySearchRecentSuggestionClickable(){
+        System.out.println("verify Search Recent Suggestion Clickable was called");
+        //click on RecentSuggestion
+        System.out.println("The size of recent Suggestion "+searchPageObjects.searchSuggestionTitleListUI().size());
+        int index = random.nextInt(searchPageObjects.searchSuggestionTitleListUI().size());
+        searchPageObjects.clickOnSearchSuggestion(index);sleep(1500);
+        assertEquals(androidDriver.currentActivity(),AndroidActivities.resellerActivities.PLPActivity);
+        softAssert.assertAll();
+    }
+
+    @Test(  groups = {"Search.SearchRecentSuggestionOnClosingTheApp" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Recent Suggestion On Closing The App",
+            priority = 30)
+    public void verifySearchRecentSuggestionOnClosingTheApp() {
+        System.out.println("Verification of Search Recent suggestion on closing the app was called");
+        androidDriver.closeApp();
+        sleep(1500);
+        androidDriver.launchApp();
+        sleep(1500);
+        actionBarObjects.clickOnSearchImageButton();
+        assertNotNull(searchPageObjects.searchSuggestionTitleListUI());
+        softAssert.assertAll();
+    }
+
+        @Test(  groups = {"Search.SearchRecentSuggestionDataOnRelaunchApp" ,
+                CoreConstants.GROUP_REGRESSION},
+                description = "Verifies Search Recent Suggestion Data On RelaunchApp",
+                priority = 31)
+        public void verifySearchRecentSuggestionDataOnRelaunchApp(){
+    System.out.println("Verification of search suggestion Data on relaunch the app was called");
+    List<String> titleArray = new ArrayList<>();
+    List<String> inLineLabelArray = new ArrayList<>();
+    //Storing title
+             for(int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++){
+    titleArray.add(myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(i)));
+            }
+             //Storing inLineLabel
+             for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelListUI().size();j++){
+                 inLineLabelArray.add(myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(j)));
+             }
+             androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
+             sleep(1000);
+             androidDriver.launchApp();
+             sleep(1500);
+             //Verification of title
+             for (int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++){
+                 assertEquals(titleArray.get(i),myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(i)));
+             }
+             //Verification of inLineLabel
+             for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelListUI().size();j++){
+                 assertEquals(inLineLabelArray.get(j),myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(j)));
+             }
+            softAssert.assertAll();
+        }
+
+    @Test(  groups = {"Search.SearchRecentSuggestionClickable" ,
+            CoreConstants.GROUP_REGRESSION},
+            description = "Verifies Search Recent Suggestion Clickable",
+            priority = 32)
+    public void verifyDeviceSearchButtonWithoutData() {
+    System.out.println("Verification of device search button without data was called");
+    searchPageObjects.clickOnSearchButton("Shirt");
+    if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+    assertEquals(AndroidActivities.resellerActivities.searchActivity,androidDriver.currentActivity());}
+    else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+        assertEquals(AndroidActivities.mokamActivities.searchActivity,androidDriver.currentActivity());}
+        softAssert.assertAll();
+    }
 
 
 
