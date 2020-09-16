@@ -1,0 +1,85 @@
+plugins {
+    id 'java'
+}
+
+group 'UiTests'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.141.59'
+    // https://mvnrepository.com/artifact/org.testng/testng
+    implementation group: 'org.testng', name: 'testng', version: '6.14.3'
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
+    // https://mvnrepository.com/artifact/io.rest-assured/json-path
+    implementation group: 'io.rest-assured', name: 'json-path', version: '4.1.0'
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+    implementation group: 'org.codehaus.groovy', name: 'groovy-all', version: '3.0.4', ext: 'pom'
+    // https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-json
+    implementation group: 'org.codehaus.groovy', name: 'groovy-json', version: '3.0.4'
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.3'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.11.1'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.11.1'
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
+
+
+    // Including Core module as dependency
+    implementation project(path : ':core')
+}
+
+test{
+    useTestNG() {
+        useDefaultListeners = true
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","App","Trigger"])
+    }
+}
+
+task omsuiTest(type: Test){
+    useTestNG() {
+        useDefaultListeners = true
+        scanForTestClasses = false
+        //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+        testLogging.showStandardStreams = true
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","App","Trigger"])
+        def smoke = project.hasProperty("Smoke")
+        def sanity = project.hasProperty("Sanity")
+        def regression = project.hasProperty("Reg")
+
+        if(smoke) {
+            suites "src/test/resources/mySuites/smokeSuite.xml"
+        }
+
+        if(sanity) {
+            suites "src/test/resources/mySuites/sanitySuite.xml"
+        }
+
+        if(regression){
+            suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+    }
+}
+
+
+task omsUiDebug(type: Test) {
+    useTestNG() {
+        useDefaultListeners = true
+        scanForTestClasses = false
+        //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+        testLogging.showStandardStreams = true
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","Env","Trigger"])
+        suites "src/test/resources/mySuites/debugSuite.xml"
+    }
+}
