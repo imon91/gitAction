@@ -1,11 +1,11 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
+import coreUtils.*;
+import org.openqa.selenium.*;
 import org.testng.annotations.*;
-import pageObjects.LoginPageObject;
-import utils.OmsBaseClass;
-import videoRecorder.ScreenRecorder;
+import pageObjects.*;
+import utils.*;
+import videoRecorder.*;
 
 public class LoginAdminPanel extends OmsBaseClass {
 
@@ -15,7 +15,7 @@ public class LoginAdminPanel extends OmsBaseClass {
 
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception {
-        System.out.println("WMSBeforeSuite is called");
+        System.out.println("OMSBeforeSuite is called");
         driver = getBaseDriver();
         setImplicitWait(10000);
         driver.get(getOmsBaseUrl());
@@ -59,7 +59,7 @@ public class LoginAdminPanel extends OmsBaseClass {
 
     @AfterSuite(alwaysRun = true)
     public void wmsAfterSuite() throws Exception {
-        System.out.println("WMSAfterSuite Is Called");
+        System.out.println("OMSAfterSuite Is Called");
         ScreenRecorder.stopRecording();
         quitBaseDriver();
     }

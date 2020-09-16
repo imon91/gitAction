@@ -57,4 +57,24 @@ public class CatalogPageObjects extends OmsBaseClass {
         clickUpload();
     }
 
+    public class ViewUploadHistory{
+        private WebDriver driver;
+        private MyActions myActions;
+        private String ck;
+
+        public ViewUploadHistory(WebDriver driver) {
+            this.driver = driver;
+            PageFactory.initElements((driver), this);
+            myActions = new MyActions();
+        }
+
+
+        /*--------------Actions-------------------*/
+        private void clickSelectCategory() {
+            WebElement selectCategory = xpathSetter("//body/div/div/div/div/form/div/button[1]");
+            myActions.action_click(selectCategory);
+        }
+
+    }
+
 }
