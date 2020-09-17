@@ -146,7 +146,7 @@ public class GetDriverFromCore {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setAcceptInsecureCerts(true);
             chromeOptions.addArguments("--headless");
-//             chromeOptions.addArguments("--no-sandbox"); 
+            chromeOptions.addArguments("--verbose"); 
 //             chromeOptions.addArguments("--disable-dev-shm-usage");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
