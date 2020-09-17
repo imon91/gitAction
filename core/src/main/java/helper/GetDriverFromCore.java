@@ -140,13 +140,14 @@ public class GetDriverFromCore {
             String dir = System.getProperty("user.dir");
             String filePath = dir + "/Downloads";
             System.out.println(filePath);
-            System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
+//             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
+            System.setProperty("webdriver.chrome.verboseLogging", "true");
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setAcceptInsecureCerts(true);
-            chromeOptions.addArguments("--headless");
-            chromeOptions.addArguments("--verbose"); 
+//             chromeOptions.addArguments("--headless");
+//             chromeOptions.addArguments("--verbose"); 
 //             chromeOptions.addArguments("--disable-dev-shm-usage");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
