@@ -5,6 +5,9 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileBrowserType;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.net.*;
+import java.util.HashMap;
+import java.util.Map;
+
 import io.appium.java_client.service.local.*;
 import io.appium.java_client.service.local.flags.*;
 import org.openqa.selenium.*;
@@ -134,11 +137,21 @@ public class GetDriverFromCore {
     public static WebDriver getWebDriver(String os,String os_version,String browser,String browser_version,String host) throws Exception{
         if(host.equalsIgnoreCase(HOST_LOCAL)){
              System.out.println("Control came to getWebDriver for Host : local");
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/Downloads";
+            System.out.println(filePath);
             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
             WebDriverManager.chromedriver().setup();
+
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setAcceptInsecureCerts(true);
-            WebDriver driver = new ChromeDriver(chromeOptions);
+            Map<String,Object> prefs = new HashMap<>();
+            prefs.put("download.default_directory",filePath);
+            chromeOptions.setExperimentalOption("prefs",prefs);
+
+            DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+            desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
+            WebDriver driver = new ChromeDriver(desiredCapabilities);
             return driver;
         }else {
             setBrowserStackUrl();

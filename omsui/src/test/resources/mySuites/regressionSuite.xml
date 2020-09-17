@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="RegressionTestSuite">
+    <listeners>
+        <listener class-name="listeners.OmsUiTestNgListener"></listener>
+    </listeners>
+    <parameter name="test" value="regression"></parameter>
+    <test name="RegressionTests">
+            <groups>
+                <run>
+                    <include name="regression"/>
+                </run>
+            </groups>
+            <classes>
+
+            </classes>
+        </test>
+</suite>
