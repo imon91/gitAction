@@ -20,27 +20,27 @@ public class LoginPageObject extends OmsBaseClass {
 
 
     /*--------------Actions-------------------*/
-    private void enterInternalPortal() {
+    public void enterInternalPortal() {
         WebElement internalPortal = xpathSetter("//div[2]//a/img");
         myActions.action_click(internalPortal);
     }
 
-    private void enterEmail(String email) {
+    public void enterEmail(String email) {
         WebElement emailEntry = xpathSetter("//input[@id='identifierId']");
         myActions.action_sendKeys(emailEntry, email);
     }
 
-    private void clickOnEmailNextButton() {
+    public void clickOnEmailNextButton() {
         WebElement submitButton = xpathSetter("//div[@id='identifierNext']//div[2]");
         myActions.action_click(submitButton);
     }
 
-    private void enterPassword(String password) {
+    public void enterPassword(String password) {
         WebElement passwordEntry = xpathSetter("//input[@name='password']");
         myActions.action_sendKeys(passwordEntry, password);
     }
 
-    private void clickOnPWNextButton() {
+    public void clickOnPWNextButton() {
         WebElement submitButton = xpathSetter("//div[@id='passwordNext']//div[2]");
         myActions.action_click(submitButton);
     }

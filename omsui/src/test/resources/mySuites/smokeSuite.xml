@@ -12,7 +12,7 @@
         </groups>
         <classes>
             <class name="com.shopf.tests.LoginAdminPanel"></class>
-            <class name="com.shopf.tests.CatalogDownload"></class>
+            <class name="com.shopf.tests.CatalogDownloadUpload"></class>
         </classes>
     </test>
 </suite>
