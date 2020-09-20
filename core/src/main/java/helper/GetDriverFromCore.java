@@ -148,12 +148,15 @@ public class GetDriverFromCore {
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
             chromeOptions.setExperimentalOption("prefs",prefs);
-
+            chromeOptions.addArguments("--allow-running-insecure-content", "--no-sandbox", "--disable-web-security");
             DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
             desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
             WebDriver driver = new ChromeDriver(desiredCapabilities);
             return driver;
         }else {
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/Downloads";
+            System.out.println(filePath);
             setBrowserStackUrl();
             System.out.println("Control came to getWebDriver for Host : browserStack");
             DesiredCapabilities caps = new DesiredCapabilities();
@@ -182,7 +185,9 @@ public class GetDriverFromCore {
                     "--disable-popup-blocking", "--disable-notifications", "--allow-running-insecure-content");
 //                     "--disable-web-security", "--user-data-dir", "--allow-running-insecure-content" );
             caps.setCapability(ChromeOptions.CAPABILITY,chOptions);
-            return new RemoteWebDriver(url,caps);
+            WebDriver driver =  new RemoteWebDriver(url,caps);
+            ((RemoteWebDriver) driver).setFileDetector(new LocalFileDetector());
+            return driver;
         }
 
     }
