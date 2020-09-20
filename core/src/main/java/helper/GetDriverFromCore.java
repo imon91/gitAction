@@ -145,10 +145,11 @@ public class GetDriverFromCore {
 
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setAcceptInsecureCerts(true);
+            chromeOptions.addArguments("--disable-plugins", "--disable-extensions",
+                    "--disable-popup-blocking", "--disable-notifications", "--allow-running-insecure-content");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
             chromeOptions.setExperimentalOption("prefs",prefs);
-            chromeOptions.addArguments("--allow-running-insecure-content");
 
             DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
             desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
