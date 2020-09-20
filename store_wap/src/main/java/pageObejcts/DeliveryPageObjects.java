@@ -41,8 +41,8 @@ public class DeliveryPageObjects {
     @FindBy(xpath = "//div[text()='Filters']//parent::div/div[2]")
     private WebElement cancelFilterButton;
 
-    @FindBy(xpath = "//div[text()='Send (']")
-    private WebElement sendOrdersForDeliveryButton_pending;
+    @FindBy(xpath = "//div[text()='Select orders for Delivery']//parent::div//parent::div//parent::div/div[3]/div/div")
+    private WebElement sendOrdersForDeliveryButton;
 
 
     public DeliveryPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -65,20 +65,18 @@ public class DeliveryPageObjects {
 
     public void clickOnCancelFilterButton(){ storeWapActions.action_click(cancelFilterButton);}
 
-    public void clickOnSendOrdersForDelivery(){ storeWapActions.action_click(sendOrdersForDeliveryButton_pending);}
+    public void clickOnSendOrdersForDelivery(){ storeWapActions.action_click(sendOrdersForDeliveryButton);}
 
 
     /*-----------------------------------------------Functions--------------------------------------------------------*/
 
 
     public String getPageTitle(){
-        String title = storeWapActions.action_getText(pageTitle);
-        return title;
+        return storeWapActions.action_getText(pageTitle);
     }
 
     public String getOrdersSentToDelivery(){
-        String text = storeWapActions.action_getText(totalOrdersSentToDelivery);
-        return text;
+        return storeWapActions.action_getText(totalOrdersSentToDelivery);
     }
 
     public String getOrderDetailsOrderID(int orderIndex){
@@ -115,6 +113,27 @@ public class DeliveryPageObjects {
         String xpath = "//div[text()='Status']//parent::div//parent::div/div[3]/div/div["+filterIndex+"]" ;
         WebElement filterConstrains = androidDriver.findElement(By.xpath(xpath));
         storeWapActions.action_click(filterConstrains);
+    }
+
+
+    public void selectOrderForSendToDelivery(int orderIndex){
+        String xpath = "//div[text()='Select orders for Delivery']//parent::div//parent::div//parent::div/div[2]/div/div/div["+orderIndex+"]/div/div/div/div[1]/div";
+        WebElement selectOrder = androidDriver.findElement(By.xpath(xpath));
+        storeWapActions.action_click(selectOrder);
+    }
+
+    public void selectFirstEligibleOrderForSendToDelivery(){
+        int i =1;
+        while (i >= 1) {
+            String incompleteProfileText = storeWapActions.action_getText(androidDriver.findElement(By.xpath("//div[text()='Select orders for Delivery']/parent::div//parent::div//parent::div/div[2]/div/div/div["+i+"]/div/div/div/div[2]/div[2]")));
+            if (!incompleteProfileText.equalsIgnoreCase("Incomplete Profile")){
+                selectOrderForSendToDelivery(i);
+                break;
+            }
+            else {
+                i++;
+            }
+        }
     }
 
 

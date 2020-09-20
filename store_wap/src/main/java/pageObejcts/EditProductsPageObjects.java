@@ -1,6 +1,7 @@
 package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -92,6 +93,11 @@ public class EditProductsPageObjects {
         String xpath = "//div[text()='Enter Customer Name']//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-13awgt0 r-eqz5dr']/div[@class='css-1dbjc4n']["+ productIndex +"]/div/div[3]/div[2]";
         WebElement deleteElement = androidDriver.findElement(By.xpath(xpath));
         storeWapActions.action_click(deleteElement);
+    }
+
+    public void editCustomerNameWithRandomName(){
+        String newName = "Automation-Testing" + RandomStringUtils.randomAlphabetic(5);
+        new Actions(androidDriver).click(customerName).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newName).perform();
     }
 
 }

@@ -68,8 +68,11 @@ public class CustomerDetailsPageObjects {
     @FindBy(xpath = "//input[contains(@placeholder,'Search')]")
     private WebElement searchAreaNameText;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-13awgt0']/div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][5]//div[text()='View My Order']")
+    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[text()='View My Order']")
     private WebElement viewMyOrder;
+
+    @FindBy(xpath = "//div[text()='Next']")
+    private WebElement nextButton_Inbox;
 
 
     public CustomerDetailsPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -100,6 +103,10 @@ public class CustomerDetailsPageObjects {
     public void enterCustomerAddress(String address){ storeWapActions.action_sendKeys(customerAddressText,address);}
 
     public void removeTag(){ storeWapActions.action_click(removeTagButton);}
+
+    public void clickViewMyOrderButton(){storeWapActions.action_click(viewMyOrder);}
+
+    public void clickOnNextButtonInInbox(){storeWapActions.action_click(nextButton_Inbox);}
 
 
     /*-----------------------------------------------Functions--------------------------------------------------------*/
@@ -209,6 +216,7 @@ public class CustomerDetailsPageObjects {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='css-901oao r-75nptz r-pz5f6p r-1b43r93 r-5njf8e']"))).getText();
         } catch (Exception e){
             System.out.println(e);
+
             return null;
         }
     }

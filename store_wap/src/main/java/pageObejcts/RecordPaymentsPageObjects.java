@@ -42,7 +42,7 @@ public class RecordPaymentsPageObjects {
     @FindBy(xpath = "//div[text()='No payments received yet.']//following-sibling::div")
     private WebElement noPaymentsReceivedText2;
 
-    @FindBy(xpath = "//div[text()='Debit & Credit Card/Mobile Bankings']//parent::div//following-sibling::div/div")
+    @FindBy(xpath = "//div[text()='Debit & Credit Card/Mobile Bankings']//parent::div//parent::div/div[@class='css-1dbjc4n r-eqz5dr r-1777fci r-1jkjb']/div")
     private WebElement debitCardOptionButton;
 
     @FindBy(xpath = "//div[text()='Received as Cash']//parent::div//following-sibling::div/div")

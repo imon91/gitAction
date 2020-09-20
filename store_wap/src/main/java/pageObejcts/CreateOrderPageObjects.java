@@ -178,6 +178,13 @@ public class CreateOrderPageObjects {
         }
     }
 
+    public void enterRandomProductAmount_Inbox(int productIndex){
+        String xpath = "//div[text()='+ Add More']//parent::div//parent::div//parent::div//parent::div/div/div/div/div/div/div/div/div/div["+ ++productIndex +"]//input[@class='css-1cwyjr8 r-pz5f6p r-19yat4t r-d9fdf6 r-ttdzmv r-1ff274t']";
+        WebElement amountElement = androidDriver.findElement(By.xpath(xpath));
+        String amount = String.valueOf(random.nextInt(2000)+1);
+        storeWapActions.action_sendKeys(amountElement,amount);
+    }
+
 
 
 }

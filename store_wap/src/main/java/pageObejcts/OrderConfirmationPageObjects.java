@@ -2,9 +2,12 @@ package pageObejcts;
 
 
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import utils.StoreWapActions;
 
 
@@ -44,6 +47,9 @@ public class OrderConfirmationPageObjects {
     @FindBy(xpath = "//div[text()='Record Payments']")
     private WebElement recordPaymentsButton;
 
+    @FindBy(xpath = "//div[text()='Go Back to Chat']")
+    private WebElement goBackToChatButton;
+
     public OrderConfirmationPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -60,13 +66,22 @@ public class OrderConfirmationPageObjects {
 
     public void clickCreateNewOrderButton(){ storeWapActions.action_click(createNewOrderButton);}
 
-    public void clickViewMyOrderButton(){ storeWapActions.action_click(viewMyOrderButton);}
+    public void clickViewMyOrderButton(){
+        try{
+            storeWapActions.action_click(viewMyOrderButton);
+            Assert.assertEquals(storeWapActions.action_getText(androidDriver.findElement(By.xpath("//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@data-testid='headerTitle']"))),"Order Details");
+        } catch (NoSuchElementException e){
+            clickViewMyOrderButton();
+        }
+    }
 
     public void clickEnterCustomerDetailsButton(){ storeWapActions.action_click(enterCustomerDetailsButton);}
 
     public void clickSendToDeliveryButton(){ storeWapActions.action_click(sendToDeliveryButton);}
 
     public void clickRecordPaymentsButton(){ storeWapActions.action_click(recordPaymentsButton);}
+
+    public void clickOnGoBackToChatButton(){storeWapActions.action_click(goBackToChatButton);}
 
 
     /*------------------------------------------Functions---------------------------------------------*/

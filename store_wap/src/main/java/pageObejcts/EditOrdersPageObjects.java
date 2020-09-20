@@ -282,6 +282,8 @@ public class  EditOrdersPageObjects{
             return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='successfully created']"))).getText();
         } catch (Exception e) {
             System.out.println(e);
+            clickCreateOrderButton();
+            getSuccessMessage();
             return null;
         }
     }

@@ -13,7 +13,11 @@
         </groups>
         <classes>
             <class name="com.store.tests.Authentication"></class>
-            <class name="com.store.tests.QuickOrderFlowTestCases"></class>
+<!--            <class name="com.store.tests.InboxTestCases"></class>-->
+<!--            <class name="com.store.tests.InboxQuickOrderTestCases"></class>-->
+            <class name="com.store.tests.SideNavTestCases"></class>
+<!--            <class name="com.store.tests.DeliveryTestCases"></class>-->
+<!--            <class name="com.store.tests.QuickOrderFlowTestCases"></class>-->
 <!--        <class name="com.store.tests.CreateOrderTestCases"></class>-->
 <!--        <class name="com.store.tests.CustomerListTestCases"></class>-->
         </classes>
