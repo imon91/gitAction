@@ -33,7 +33,7 @@ public class LoginAdminPanel extends OmsBaseClass {
     @DataProvider(name = "getUserAuthenticationData")
     public Object[][] getUserAuthenticationData() {
         return new Object[][]{
-                {"nikhil.j@shopf.co", "hahinikhil1429"}
+                {"jnikhilyeah_bt@mepcoeng.ac.in", "gtasagta"}
         };
     }
 
