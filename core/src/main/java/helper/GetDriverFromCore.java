@@ -179,7 +179,8 @@ public class GetDriverFromCore {
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_NETWORK_LOGS,CoreConstants.TRUE);
             ChromeOptions chOptions = new ChromeOptions();
             chOptions.addArguments("--disable-plugins", "--disable-extensions",
-                    "--disable-popup-blocking","--disable-notifications");
+                    "--disable-popup-blocking", "--disable-notifications", "--allow-running-insecure-content");
+//                     "--disable-web-security", "--user-data-dir", "--allow-running-insecure-content" );
             caps.setCapability(ChromeOptions.CAPABILITY,chOptions);
             return new RemoteWebDriver(url,caps);
         }

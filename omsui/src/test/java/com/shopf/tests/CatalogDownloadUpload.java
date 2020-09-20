@@ -62,7 +62,7 @@ public class CatalogDownloadUpload extends OmsBaseClass {
             driver.navigate().refresh();
 
         viewUploadHistory.downloadErrorSheet(1);
-
+        sleep(5000);
 
 
         for(File file : folder.listFiles())
