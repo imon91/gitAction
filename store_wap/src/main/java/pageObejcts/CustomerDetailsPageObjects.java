@@ -216,7 +216,6 @@ public class CustomerDetailsPageObjects {
             return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='css-901oao r-75nptz r-pz5f6p r-1b43r93 r-5njf8e']"))).getText();
         } catch (Exception e){
             System.out.println(e);
-
             return null;
         }
     }
