@@ -705,6 +705,7 @@ public class Search extends AndroidBaseClass {
             int randomIndex = random.nextInt(readJSONFile.getJSONFileData(app, "searchTerm").size());
             String productName = (String) readJSONFile.getJSONFileData(app, "searchTerm").get(randomIndex);
             searchPageObjects.enterProductName(productName);
+            sleep(2500);
             int index = random.nextInt(searchPageObjects.searchSuggestionInLineLabelListUI().size());
             String titleSearchSuggestion = myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(index));
             String inLineLabelSearchSuggestion = myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(index));
