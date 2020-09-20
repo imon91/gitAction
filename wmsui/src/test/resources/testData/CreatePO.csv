@@ -1,0 +1,22 @@
+TestCaseId,TestCase,TestData,WarehouseCode,Seller,Supplier,Address,ShippingMode,SKU,OrderedQuantity,TransferPrice,SkuImage,MoreThanOneSku,ErrorMessage,ToastMessage,POCreation
+PO_1,withoutAnySelection,Input,N/A,N/A,N/A,N/A,N/A,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,N/A,Select Warehouse,PO NOT Created
+PO_2,withoutWarehouseSelection,Input,N/A,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,N,N/A,Select Warehouse,PO NOT Created
+PO_3,withOnlyWarehouseSelection,Input,Selected,N/A,N/A,N/A,N/A,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,N/A,Select Warehouse,PO NOT Created
+PO_4,withOnlyShippingMethod,Input,Selected,N/A,N/A,N/A,Selected,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,N/A,Select Warehouse,PO NOT Created
+PO_5,withOnlySku,Input,Selected,Selected,Selected,Selected,N/A,Selected,N/A,N/A,Displayed,N,This field is required.,N/A,PO NOT Created
+PO_6,withOnlyQty,Input,Selected,Selected,Selected,Selected,N/A,N/A,Valid,N/A,N/A,N,This field is required.,N/A,PO NOT Created
+PO_7,withOnlyPrice,Input,Selected,Selected,Selected,Selected,N/A,N/A,N/A,Valid,N/A,N,This field is required.,N/A,PO NOT Created
+PO_8,withOnlyInvalidQty,Input,Selected,Selected,Selected,Selected,N/A,N/A,Invalid,N/A,N/A,N,Please enter only digits.,N/A,PO NOT Created
+PO_9,withOnlyNegativeQty,Input,Selected,Selected,Selected,Selected,N/A,N/A,Negative,N/A,N/A,N,Please enter only digits.,N/A,PO NOT Created
+PO_10,withOnlyInvalidPrice,Input,Selected,Selected,Selected,Selected,N/A,N/A,N/A,Invalid,N/A,N,Please enter a valid number.,N/A,PO NOT Created
+PO_11,withOnlyNegativePrice,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Negative,N/A,N,N/A,PO creation success,PO NOT Created
+PO_12,withInvalidSku,Input,Selected,Selected,Selected,Selected,N/A,Invalid,Valid,Valid,N/A,N,N/A,PO creation failed,PO NOT Created
+PO_13,withNoSku,Input,Selected,Selected,Selected,Selected,N/A,N/A,Valid,Valid,N/A,N,N/A,PO creation failed,PO NOT Created
+PO_14,withOneSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,N,N/A,PO creation success,PO Created
+PO_15,withMoreThanOneSkuOneFilled,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,N/A,Y,N/A,PO creation success,PO Created
+PO_16,withMoreThanOneSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,Y,N/A,PO creation success,PO Created
+PO_17,withThreeSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,Y,N/A,PO creation success,PO Created
+PO_18,withFourSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,Y,N/A,PO creation success,PO Created
+PO_19,withZeroQuantity,Input,Selected,Selected,Selected,Selected,N/A,Selected,Zero,Zero,Displayed,N,N/A,PO creation success,PO Created
+PO_20,withSurfaceShipping,Input,Selected,Selected,Selected,Selected,Surface,Selected,Valid,Valid,Displayed,N,N/A,PO creation success,PO Created
+PO_21,withAirShipping,Input,Selected,Selected,Selected,Selected,Air,Selected,Valid,Valid,Displayed,N,N/A,PO creation success,PO Created

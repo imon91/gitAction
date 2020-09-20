@@ -1,130 +1,89 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
-import utils.WmsBaseClass;
+import auth.CookieManager;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
+
 
 public class HomePageObject extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
+    private String ck;
   
     public HomePageObject(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-    //Warehouses
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[1]/a")
-    private WebElement warehouseModule;
-
-    //Suppliers
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[2]/a")
-    private WebElement suppliersModule;
-
-    //Variants
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[3]/a")
-    private WebElement variantsModule;
-
-    //Purchase Orders
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[4]/a")
-    private WebElement purchaseOrdersModule;
-
-    //Packages
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[5]/a")
-    private WebElement packagesModule;
-
-    //Pick Orders
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[6]/a")
-    private WebElement pickOrdersModule;
-
-    //Order Process
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[7]/a")
-    private WebElement orderProcessModule;
-
-    //Returns
-    @FindBy(xpath = "//div[@class='left-sidebar-main']/ul[1]/li[8]/a")
-    private WebElement returnsModule;
-
-    //Logout
-    @FindBy(xpath = "//div[@id='root']//h3//a[text()='Log out']")
-    private WebElement logoutButton;
-
-    //Warehouse Select
-    @FindBy(xpath = "//div[@id='root']//form//select")
-    private WebElement selectWarehouseDropDown;
-
 
     /*--------------Actions-------------------*/
     public void clickWarehouses() {
-        wait.until(ExpectedConditions.elementToBeClickable(warehouseModule));
+        WebElement warehouseModule = xpathSetterClick("//a[contains(text(),'Warehouses')]");
         myActions.action_click(warehouseModule);
     }
 
     public void clickSuppliers() {
-        wait.until(ExpectedConditions.elementToBeClickable(suppliersModule));
+        WebElement suppliersModule = xpathSetterClick("//a[contains(text(),'Suppliers')]");
         myActions.action_click(suppliersModule);
     }
 
     public void clickVariants() {
-        wait.until(ExpectedConditions.elementToBeClickable(variantsModule));
+        WebElement variantsModule = xpathSetterClick("//a[contains(text(),'Variants')]");
         myActions.action_click(variantsModule);
     }
 
     public void clickPurchaseOrders() {
-        wait.until(ExpectedConditions.elementToBeClickable(purchaseOrdersModule));
+        WebElement purchaseOrdersModule = xpathSetterClick("//a[contains(text(),'Purchase Orders')]");
         myActions.action_click(purchaseOrdersModule);
     }
 
     public void clickPackages() {
-        wait.until(ExpectedConditions.elementToBeClickable(packagesModule));
+        WebElement packagesModule = xpathSetterClick("//a[contains(text(),'Packages')]");
         myActions.action_click(packagesModule);
     }
 
     public void clickPickOrders() {
-        wait.until(ExpectedConditions.elementToBeClickable(pickOrdersModule));
+        WebElement pickOrdersModule = xpathSetterClick("//a[contains(text(),'Pick Orders')]");
         myActions.action_click(pickOrdersModule);
     }
 
     public void clickOrderProcess() {
-        wait.until(ExpectedConditions.elementToBeClickable(orderProcessModule));
+        WebElement orderProcessModule = xpathSetterClick("//a[contains(text(),'Order Process')]");
         myActions.action_click(orderProcessModule);
     }
 
     public void clickReturns() {
-        wait.until(ExpectedConditions.elementToBeClickable(returnsModule));
+        WebElement returnsModule = xpathSetterClick("//a[contains(text(),'Returns')]");
         myActions.action_click(returnsModule);
     }
 
     public void clickLogout() {
-        wait.until(ExpectedConditions.elementToBeClickable(logoutButton));
+        WebElement logoutButton = xpathSetterClick("//div[@id='root']//h3//a[text()='Log out']");
         myActions.action_click(logoutButton);
     }
 
     public String getPopUpMessage(){
         String popUpMessage = "//div[@id='toastbar-text']";
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(popUpMessage))));
-        WebElement popUpMessageElement = driver.findElement(By.xpath(popUpMessage));
+        WebElement popUpMessageElement = xpathSetter(popUpMessage);
         return myActions.action_getText(popUpMessageElement);
     }
 
     public void selectWarehouse(String warehouse) {
-        wait.until(ExpectedConditions.visibilityOf(selectWarehouseDropDown));
+        WebElement selectWarehouseDropDown = xpathSetter("//div[@id='root']//form//select");
         myActions.action_select(selectWarehouseDropDown,warehouse);
     }
 
-    public void popUpInvisibility(){
-        wait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElement(By.xpath("//div[@id='toastbar-text']"))));
+    public void setSessionCookie() throws Exception {
+        for(Cookie cookie : driver.manage().getCookies()){
+            if(cookie.getName().contains("session_"))
+                ck = cookie.getName() + "=" + cookie.getValue() + " ";
+        }
+        CookieManager.setValue(CookieManager.Keys.WMS_SESSION,ck);
     }
 }
+
+
+
+

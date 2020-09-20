@@ -74,7 +74,7 @@ public class CustomerListTestCases extends StoreWapBaseClass {
         customerDetailsPageObjects.editCustomerNameWithValidName();
         customerDetailsPageObjects.editMobileNumberWithValidMobileNumber();
         customerDetailsPageObjects.editAddress();
-        customerDetailsPageObjects.chooseAreaName(0);
+        customerDetailsPageObjects.chooseAreaName(1);
         customerDetailsPageObjects.chooseRatingForCustomer(0);
         customerDetailsPageObjects.enterCustomerTags();
     }
@@ -84,7 +84,7 @@ public class CustomerListTestCases extends StoreWapBaseClass {
     public void verifySaveButtonFunctionality(){
         System.out.println("verifySaveButtonFunctionality is called");
         customerDetailsPageObjects.clickOnSaveButton();
-        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"success");
+        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"Profile update success");
     }
 
 

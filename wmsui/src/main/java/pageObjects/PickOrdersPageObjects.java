@@ -1,64 +1,41 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
-import utils.WmsBaseClass;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class PickOrdersPageObjects extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public PickOrdersPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-
-    /*--------------Tabs-------------------*/
-    @FindBy(xpath = "//div[@class='packages-details-tabs']/ul/li[1]/a")
-    private WebElement createPickListTab;
-
-    @FindBy(xpath = "//div[@class='packages-details-tabs']/ul/li[2]/a")
-    private WebElement demandLessPickListTab;
-
-    @FindBy(xpath = "//a[text()='All Pick Lists']")
-    private WebElement allPickListsTab;
-
-    @FindBy(xpath = "//div[@class='packages-details-tabs']/ul/li[4]/a")
-    private WebElement pickListActionTab;
 
 
     /*--------------Actions-------------------*/
     public void clickCreatePickListTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(createPickListTab));
+        WebElement createPickListTab = xpathSetterClick("//div[@class='packages-details-tabs']/ul/li[1]/a");
         myActions.action_click(createPickListTab);
     }
 
     public void clickDemandLessPickListTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(demandLessPickListTab));
+        WebElement demandLessPickListTab = xpathSetterClick("//div[@class='packages-details-tabs']/ul/li[2]/a");
         myActions.action_click(demandLessPickListTab);
     }
 
     public void clickAllPickListsTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(allPickListsTab));
+        WebElement allPickListsTab = xpathSetterClick("//a[text()='All Pick Lists']");
         myActions.action_click(allPickListsTab);
     }
 
     public void clickPickListActionTab(){
-        wait.until(ExpectedConditions.elementToBeClickable(pickListActionTab));
+        WebElement pickListActionTab = xpathSetterClick("//div[@class='packages-details-tabs']/ul/li[4]/a");
         myActions.action_click(pickListActionTab);
     }
 
@@ -74,65 +51,42 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='NewPickList']//select[@id='ManualPickListWarehouseId']")
-        private WebElement selectWarehouseIdDropdown;
-
-        @FindBy(xpath = "//div[@id='NewPickList']//select[@id='ManualPickListSellerId']")
-        private WebElement selectSellerIdDropdown;
-
-        @FindBy(xpath = "//div[@id='NewPickList']//select[@id='ManualPickListPickupAgentId']")
-        private WebElement selectPickupAgentIdDropdown;
-
-        @FindBy(xpath = "//div[@id='NewPickList']//select[@id='ManualPickListTypeId']")
-        private WebElement selectTypeIdDropdown;
-
-        @FindBy(xpath = "//div[@id='NewPickList']//button[@type='submit']")
-        private WebElement select;
-
-        @FindBy(xpath = "//button[contains(text(),'Create sku wise PickList')]")
-        private WebElement createPickListButton;
-
-        @FindBy(xpath = "//div[@id='NewPickList']//div[@class='skuInput-main']/button")
-        private WebElement addSkuInputFields;
-
 
         /*--------------Actions-------------------*/
         public void clickAddSkuInputFields() {
-            wait.until(ExpectedConditions.visibilityOf(addSkuInputFields));
+            WebElement addSkuInputFields =
+                    xpathSetter("//div[@id='NewPickList']//div[@class='skuInput-main']/button");
             myActions.action_click(addSkuInputFields);
         }
 
         public void clickCreatePickListButton() {
-            wait.until(ExpectedConditions.visibilityOf(createPickListButton));
+            WebElement createPickListButton =
+                    xpathSetter("//button[contains(text(),'Create sku wise PickList')]");
             myActions.action_click(createPickListButton);
         }
 
-        public void selectWarehouse(String warehouse) {
-            wait.until(ExpectedConditions.visibilityOf(selectWarehouseIdDropdown));
-            myActions.action_select(selectWarehouseIdDropdown, warehouse);
-        }
-
         public void selectSeller(String seller) {
-            wait.until(ExpectedConditions.visibilityOf(selectSellerIdDropdown));
+            WebElement selectSellerIdDropdown =
+                    xpathSetter("//div[@id='NewPickList']//select[@id='ManualPickListSellerId']");
             myActions.action_select(selectSellerIdDropdown, seller);
         }
 
         public void selectPickupAgent(String pickup_agent) {
-            wait.until(ExpectedConditions.visibilityOf(selectPickupAgentIdDropdown));
+            WebElement selectPickupAgentIdDropdown =
+                    xpathSetter("//div[@id='NewPickList']//select[@id='ManualPickListPickupAgentId']");
             myActions.action_sendKeys(selectPickupAgentIdDropdown, pickup_agent);
         }
 
         public void selectType(String picklist_type) {
-            wait.until(ExpectedConditions.visibilityOf(selectTypeIdDropdown));
+            WebElement selectTypeIdDropdown =
+                    xpathSetter("//div[@id='NewPickList']//select[@id='ManualPickListTypeId']");
             myActions.action_select(selectTypeIdDropdown, picklist_type);
         }
 
         public void skuCodeInput(int index, String skuCode) {
             String skuCodeXPath = "//div[@id='NewPickList']//input[@id='select" + index + "']";
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(skuCodeXPath)));
-            WebElement skuCodeEntry = driver.findElement(By.xpath(skuCodeXPath));
-            myActions.action_sendKeys(skuCodeEntry, skuCode);
-            myActions.action_enter(skuCodeEntry);
+            WebElement skuCodeEntry = xpathSetterPresence(skuCodeXPath);
+            myActions.action_sendKeys(skuCodeEntry, skuCode+"\n");
         }
 
         public void quantityInput(int index, String quantity) {
@@ -165,12 +119,12 @@ public class PickOrdersPageObjects extends WmsBaseClass {
         public void enterWarehouseDetails() {
             selectSeller("DFW");
             selectType("PHOTOSHOOT");
-            sleep(10000);
         }
 
-        public void createPickListOrder(){
-            skuCodeInput(0,"139743");
-            quantityInput(0,"2");
+        public void createPickListOrder(String skuCode){
+            skuCodeInput(0,skuCode);
+            quantityInput(0,"1");
+            transferPriceInput(0,"200");
             clickCreatePickListButton();
         }
 
@@ -200,69 +154,48 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='PackageOutScan']//input[@id='packageOutScanPickListId']")
-        private WebElement pickListIdEntry;
-
-        @FindBy(xpath = "//div[@id='PackageOutScan']//input[@id='packageOutScanId']")
-        private WebElement packageIdEntry;
-
-        @FindBy(xpath = "//div[@id='PackageOutScan']//label[2]//span[1]//input[1]")
-        private WebElement qcPassCheckBox;
-
-        @FindBy(xpath = "//div[@id='PackageOutScan']//label[3]//span[1]//input[1]")
-        private WebElement qcFailCheckBox;
-
-        @FindBy(xpath = "//div[@id='PackageOutScan']//button[1]")
-        private WebElement resetButton;
-
-        @FindBy(xpath = "//div[@id='PackageOutScan']//button[2]")
-        private WebElement submitOutScanButton;
-
 
         /*--------------Actions-------------------*/
-        public void pickListIdInput(String pickListId){
-            wait.until(ExpectedConditions.visibilityOf(pickListIdEntry));
-            myActions.action_sendKeys(pickListIdEntry,pickListId);
-        }
+
 
         public void packageIdInput(String packageId){
-            wait.until(ExpectedConditions.visibilityOf(packageIdEntry));
+            WebElement packageIdEntry =
+                    xpathSetter("//div[@id='PackageOutScan']//input[@id='packageOutScanId']");
             myActions.action_sendKeys(packageIdEntry,packageId);
         }
 
         public void clickQcPassCheckBox(){
-            wait.until(ExpectedConditions.visibilityOf(qcPassCheckBox));
+            WebElement qcPassCheckBox =
+                    xpathSetter("//div[@id='PackageOutScan']//label[2]//span[1]//input[1]");
             myActions.action_click(qcPassCheckBox);
         }
 
         public void clickQcFailCheckBox(){
-            wait.until(ExpectedConditions.visibilityOf(qcFailCheckBox));
+            WebElement qcFailCheckBox =
+                    xpathSetter("//div[@id='PackageOutScan']//label[3]//span[1]//input[1]");
             myActions.action_click(qcFailCheckBox);
         }
 
         public void clickResetButton(){
-            wait.until(ExpectedConditions.visibilityOf(resetButton));
+            WebElement resetButton =
+                    xpathSetter("//div[@id='PackageOutScan']//button[1]");
             myActions.action_click(resetButton);
         }
 
         public void clickSubmitOutScanButton(){
-            wait.until(ExpectedConditions.visibilityOf(submitOutScanButton));
+            WebElement submitOutScanButton =
+                    xpathSetter("//div[@id='PackageOutScan']//button[2]");
             myActions.action_click(submitOutScanButton);}
 
-        public void performOutScan(String pickListId, String packageId) {
-            pickListIdInput(pickListId);
-            packageIdInput(packageId);
-            clickSubmitOutScanButton();
-        }
-
         public void pickListIdEntry(String id){
+            WebElement pickListIdEntry =
+                    xpathSetter("//div[@id='PackageOutScan']//input[@id='packageOutScanPickListId']");
             myActions.action_sendKeys(pickListIdEntry,id);
             myActions.action_enter(pickListIdEntry);
         }
 
         public int getTotalProducts(){
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='PackageOutScan']//tbody/tr"));
-            wait.until(ExpectedConditions.visibilityOfAllElements(products));
             return products.size();
         }
 
@@ -433,22 +366,18 @@ public class PickOrdersPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void goToNextPage() {
-            wait.until(ExpectedConditions.visibilityOf(nextPage));
             myActions.action_click(nextPage);
         }
 
         public void selectPageSize(String size) {
-            wait.until(ExpectedConditions.visibilityOf(pageSize));
             myActions.action_select(pageSize, size);
         }
 
         public void goToPreviousPage() {
-            wait.until(ExpectedConditions.visibilityOf(previousPage));
             myActions.action_click(previousPage);
         }
 
         public void enterPageNumber(String pageNumber){
-            wait.until(ExpectedConditions.visibilityOf(pageNumberEntry));
             myActions.action_sendKeys(pageNumberEntry,pageNumber);
             myActions.action_enter(pageNumberEntry);
         }

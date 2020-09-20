@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="SanityTestSuite">
-    <test name="SanityTests" preserve-order="true" parallel="false">
+<suite name="RegressionTestSuite">
+    <test name="RegressionTests" preserve-order="true" parallel="false">
         <parameter name="suite" value="regression"/>
         <groups>
             <run>
@@ -11,9 +11,9 @@
         <classes>
             <class name="com.shopf.tests.Authentication"></class>
             <class name="com.shopf.tests.MyCart"></class>
-            <class name="com.shopf.tests.Address"></class>
-            <class name="com.shopf.tests.Payments"></class>
-            <class name="com.shopf.tests.OrderSuccessfulPage"></class>
+<!--            <class name="com.shopf.tests.Address"></class>-->
+<!--            <class name="com.shopf.tests.Payments"></class>-->
+<!--            <class name="com.shopf.tests.OrderSuccessfulPage"></class>-->
         </classes>
     </test>
 </suite>

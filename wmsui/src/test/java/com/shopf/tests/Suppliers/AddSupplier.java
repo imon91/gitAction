@@ -30,7 +30,7 @@ public class AddSupplier extends WmsBaseClass {
     @Test(groups = (CoreConstants.GROUP_SANITY),
             dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
             description = "Adds Supplier")
-    public void verifyWarehouseAddition() {
+    public void verifySupplierAddition() {
         System.out.println("Supplier Addition Verification is called");
         homePageObject.clickSuppliers();
         suppliersPageObjects.clickAddSupplierTab();

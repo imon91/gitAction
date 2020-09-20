@@ -58,7 +58,7 @@ public class  EditOrdersPageObjects{
     @FindBy(xpath = "//div[text()='Select Customer']/following-sibling::div")
     private WebElement customerListButton;
 
-    @FindBy(xpath = "//input[contains(@placeholder,'Search or Add New customer')]")
+    @FindBy(xpath = "//div[contains(text(),'Search Customer')]//parent::div//parent::div//parent::div//input")
     private WebElement searchOrAddNewCustomerTabText;
 
     @FindBy(xpath = "//div[text()='+ New']")
@@ -90,7 +90,7 @@ public class  EditOrdersPageObjects{
     /*------------------------------------------Functions---------------------------------------------*/
     public void selectExistingCustomerFrmCustomerList(int customerNameIndex){
         clickCustomerListButton();
-        String xpath = "//input[contains(@placeholder,'Search or Add New customer')]//parent::div//parent::div//following-sibling::div/div/div/div[" + customerNameIndex + "]/div/div/div/div" ;
+        String xpath = "//div[text()='Search Customer']//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-1loqt21 r-13awgt0 r-18u37iz r-1otgn73 r-eafdt9 r-1i6wzkk r-lrvibr'][" + customerNameIndex + "]" ;
         WebElement customer = androidDriver.findElement(By.xpath(xpath));
         //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
         storeWapActions.action_click(customer);
@@ -99,7 +99,7 @@ public class  EditOrdersPageObjects{
     public void enterValidCustomerName(){
         clickCustomerListButton();
         String customerName = "Automation - Testin'G " + RandomStringUtils.randomAlphabetic(5) ;
-        searchOrAddNewCustomer(customerName+"\n");
+        searchOrAddNewCustomer(customerName);
         storeWapActions.action_click(newButton);
     }
 

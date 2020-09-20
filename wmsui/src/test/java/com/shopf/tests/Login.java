@@ -6,6 +6,7 @@ import org.testng.annotations.*;
 import services.commerceMethods.GetAuthenticationApiResponse;
 import utils.*;
 import pageObjects.*;
+import videoRecorder.ScreenRecorder;
 
 
 public class Login extends WmsBaseClass {
@@ -13,6 +14,7 @@ public class Login extends WmsBaseClass {
     private WebDriver driver;
     private LoginPageObject loginPageObject;
     private GetAuthenticationApiResponse getAuthenticationApiResponse;
+
 
     @BeforeSuite(alwaysRun = true)
     public void wmsBeforeSuite() throws Exception {
@@ -22,7 +24,7 @@ public class Login extends WmsBaseClass {
         driver = getBaseDriver();
         setImplicitWait(10000);
         driver.get(getWmsBaseUrl());
-        driver.manage().window().fullscreen();
+        ScreenRecorder.startRecording("");
     }
 
 
@@ -48,14 +50,12 @@ public class Login extends WmsBaseClass {
             description = "Verify Authentication with Valid Credentials",
             dataProvider = "getUserAuthenticationData"
     )
-    public void verifyAuthenticationWithValidCredentials(String email, String password) {
+    public void verifyAuthenticationWithValidCredentials(String email, String password) throws Exception {
         System.out.println("verifyAuthentication is called");
         loginPageObject.performLogin(email, password);
-        sleep(1000);
         String url = driver.getCurrentUrl();
         System.out.println(email + ":" + password);
         System.out.println(url);
-        sleep(1000);
     }
 
     @AfterClass(alwaysRun = true)
@@ -65,8 +65,9 @@ public class Login extends WmsBaseClass {
 
 
     @AfterSuite(alwaysRun = true)
-    public void wmsAfterSuite() {
+    public void wmsAfterSuite() throws Exception {
         System.out.println("WMSAfterSuite Is Called");
+        ScreenRecorder.stopRecording();
         quitBaseDriver();
     }
 }
