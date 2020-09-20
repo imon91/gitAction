@@ -148,6 +148,7 @@ public class GetDriverFromCore {
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
             chromeOptions.setExperimentalOption("prefs",prefs);
+            chromeOptions.addArguments("--allow-running-insecure-content");
 
             DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
             desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
