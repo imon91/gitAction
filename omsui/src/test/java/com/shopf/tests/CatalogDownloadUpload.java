@@ -7,6 +7,7 @@ import org.testng.asserts.*;
 import pageObjects.*;
 import utils.*;
 import java.io.*;
+import java.util.Base64;
 
 public class CatalogDownloadUpload extends OmsBaseClass {
     private WebDriver driver;
@@ -44,6 +45,26 @@ public class CatalogDownloadUpload extends OmsBaseClass {
         catalogPageObjects.downloadCatalog();
 
         sleep(5000);
+
+        String host = System.getProperty("Host");
+
+        if(host.equalsIgnoreCase("bs")) {
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
+            // check if file exists
+            System.out.println(jse.executeScript("browserstack_executor: {\"action\": \"fileExists\", \"arguments\": {\"fileName\": \"admin_master_template.xlsx\"}}"));
+
+            // get file properties
+            System.out.println(jse.executeScript("browserstack_executor: {\"action\": \"getFileProperties\", \"arguments\": {\"fileName\": \"admin_master_template.xlsx\"}}"));
+
+            // get file content. The content is Base64 encoded
+            String base64EncodedFile = (String) jse.executeScript("browserstack_executor: {\"action\": \"getFileContent\", \"arguments\": {\"fileName\": \"admin_master_template.xlsx\"}}");
+
+            //decode the content to Base64
+            byte[] data = Base64.getDecoder().decode(base64EncodedFile);
+            OutputStream stream = new FileOutputStream(filePath + "/admin_master_template.xlsx");
+            stream.write(data);
+            stream.close();
+        }
 
         File list[] = folder.listFiles();
         assertion.assertNotEquals(list.length,0);
