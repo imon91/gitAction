@@ -1,12 +1,12 @@
 package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
 import utils.StoreWapActions;
+
+import java.util.Random;
 
 public class RecordPaymentsPageObjects {
 
@@ -60,6 +60,9 @@ public class RecordPaymentsPageObjects {
     @FindBy(xpath = "//div[text()='Fully Paid']")
     private WebElement fullyPaidText;
 
+    @FindBy(xpath = "//div[text()='Copy']")
+    private WebElement copyButton;
+
     //div[text()='Payments Received']//parent::div//parent::div/div[2]/div/div/div/div/div[2]/
 
     public RecordPaymentsPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -109,6 +112,16 @@ public class RecordPaymentsPageObjects {
         String text1= storeWapActions.action_getText(noPaymentsReceivedText1);
         String text2= storeWapActions.action_getText(noPaymentsReceivedText2);
         return text1+""+text2;
+    }
+
+    public String copyPaymentLink(int linkIndex){
+        if (linkIndex == 0) {
+            int totalLinksPresent = androidDriver.findElements(By.xpath("//div[text()='Copy']")).size();
+            Random random = new Random();
+            linkIndex = random.nextInt(totalLinksPresent)+1;
+        }
+        WebElement copyElement = androidDriver.findElement(By.xpath("//div[text()='Payment Links']//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-13awgt0 r-18u37iz r-eafdt9 r-1i6wzkk r-lrvibr']["+linkIndex+"]/div/div[2]/div"));
+        return storeWapActions.action_getText(copyElement);
     }
 
     public String getTotalPaymentsMade(){

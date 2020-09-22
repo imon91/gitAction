@@ -1,11 +1,8 @@
 package pageObejcts;
 
-import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
 import utils.StoreWapActions;
 
 public class DashBoardPageObjects {

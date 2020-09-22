@@ -3,18 +3,11 @@ package com.store.tests;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObejcts.BusinessInfoPageObjects;
-import pageObejcts.DashBoardPageObjects;
-import pageObejcts.FacebookPageObjects;
-import pageObejcts.SideNavPageObjects;
+import org.testng.annotations.*;
+import pageObejcts.*;
+import utils.StoreWapBaseClass;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
-import static utils.StoreWapBaseClass.sleep;
-
-public class SideNavTestCases {
+public class SideNavTestCases extends StoreWapBaseClass {
 
 
     private AndroidDriver<WebElement> androidDriver;

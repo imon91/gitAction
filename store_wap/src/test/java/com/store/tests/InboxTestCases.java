@@ -2,17 +2,15 @@ package com.store.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageObejcts.*;
+import utils.StoreWapBaseClass;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
-import static utils.StoreWapBaseClass.sleep;
+import java.util.ArrayList;
 
-public class InboxTestCases {
+public class InboxTestCases extends StoreWapBaseClass {
 
 
     private AndroidDriver<WebElement> androidDriver;
@@ -21,6 +19,7 @@ public class InboxTestCases {
     private InboxPageObjects inboxPageObjects;
     private ChatScreenPageObjects chatScreenPageObjects;
     private RecordPaymentsPageObjects recordPaymentsPageObjects;
+    private OnlinePaymentPageObjects onlinePaymentPageObjects;
 
 
     public void pageInitializer(){
@@ -29,6 +28,7 @@ public class InboxTestCases {
         inboxPageObjects = new InboxPageObjects(androidDriver);
         chatScreenPageObjects = new ChatScreenPageObjects(androidDriver);
         recordPaymentsPageObjects = new RecordPaymentsPageObjects(androidDriver);
+        onlinePaymentPageObjects = new OnlinePaymentPageObjects(androidDriver);
     }
 
 
@@ -53,14 +53,14 @@ public class InboxTestCases {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyClickingCustomer")
     public void verifyShareProductsImageFunctionality(){
-        System.out.println("verifyShareProductsImageFunctionality is called");
-        chatScreenPageObjects.shareImage(2,1);
+//        System.out.println("verifyShareProductsImageFunctionality is called");
+//        chatScreenPageObjects.shareImage(2,1);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyShareProductsImageFunctionality")
-    public void recordPaymentsInInbox(){
-        System.out.println("recordPaymentsInInbox is called");
-        //chatScreenPageObjects.clickOnBottomPanelIcon();
+    public void createPaymentLinkInInbox(){
+        System.out.println("createPaymentLinkInInbox is called");
+        chatScreenPageObjects.clickOnBottomPanelIcon();
         chatScreenPageObjects.clickOnRecordPaymentsIcon();
         sleep(4000);
         chatScreenPageObjects.selectOrderForPayments();
@@ -69,13 +69,31 @@ public class InboxTestCases {
         recordPaymentsPageObjects.editPayingAmount(partialAmount);
         System.out.println("Partial amount added :"+ partialAmount);
         recordPaymentsPageObjects.clickAddButton();
-        recordPaymentsPageObjects.clickCashOption();
+        recordPaymentsPageObjects.clickDebitCardOption();
         recordPaymentsPageObjects.clickConfirmButton();
         sleep(3000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "createPaymentLinkInInbox")
+    public void onlineCashPayment(){
+        System.out.println("onlineCashPayment is called");
+        String paymentLink = recordPaymentsPageObjects.copyPaymentLink(1);
+        ((JavascriptExecutor)androidDriver).executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs.get(1));
+        androidDriver.get(paymentLink);
+        sleep(6000);
+        onlinePaymentPageObjects.clickPayNowButton();
+        sleep(4000);
+        ArrayList<String> tabs1 = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs1.get(2));
+        onlinePaymentPageObjects.payWithVisaCard();
+        ArrayList<String> tabs2 = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs2.get(0));
         chatScreenPageObjects.clickOnCloseButton();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "recordPaymentsInInbox")
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "onlineCashPayment")
     public void trackOrderInInbox(){
         System.out.println("trackOrderInInbox is called");
         chatScreenPageObjects.clickOnTrackOrderIcon();

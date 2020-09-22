@@ -3,20 +3,17 @@ package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import utils.*;
 import java.util.*;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
-import static utils.StoreWapBaseClass.sleep;
 
 
-public class  EditOrdersPageObjects{
+
+public class  EditOrdersPageObjects extends StoreWapBaseClass{
 
 
 
