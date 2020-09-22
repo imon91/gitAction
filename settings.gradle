@@ -8,4 +8,5 @@ include 'redxui'
 include 'store_wap'
 include 'automation_report'
 include 'misc'
+include 'stores_app'
 
