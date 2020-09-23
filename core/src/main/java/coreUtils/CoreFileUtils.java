@@ -8,6 +8,8 @@ public class CoreFileUtils {
     public static final String mokamProdApk = "";
     public static final String redXStageApk = CoreFileRouters.apkPath+"app-redx-debug.apk";
     public static final String redXProdApk = "";
+    public static final String storesStageApk = CoreFileRouters.apkPath+"shopupstore.apk";
+    public static final String storesProdApk = "";
     public static final String chromeDriver = CoreFileRouters.chromeDriversFolderPath+"chromedriver83";
     public static final String chromeDriversFolderPath = CoreFileRouters.chromeDriversFolderPath;
     public static final String commerceSendOtpJsonPath = CoreFileRouters.commerceAuthData+"send_otp.json";
