@@ -2,9 +2,9 @@ package pageObejcts;
 
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import org.testng.Assert;
 import utils.StoreWapActions;
 
 
@@ -20,7 +20,7 @@ public class OrderConfirmationPageObjects {
     @FindBy(xpath = "//div[text()='Order Confirmation']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div[1]")
     private WebElement backButton;
 
-    @FindBy(xpath= "//div[text()='Order Confirmation']")
+    @FindBy(xpath= "//div[contains(text(),'Successfully Created')]//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@class='css-901oao r-14iuakf r-pz5f6p r-ubezar r-1jkjb']")
     private WebElement pageTitle;
 
     @FindBy(xpath = "//div[text()='Order Confirmation']//parent::div//parent::div//parent::div//following-sibling::div")
@@ -44,6 +44,9 @@ public class OrderConfirmationPageObjects {
     @FindBy(xpath = "//div[text()='Record Payments']")
     private WebElement recordPaymentsButton;
 
+    @FindBy(xpath = "//div[text()='Go Back to Chat']")
+    private WebElement goBackToChatButton;
+
     public OrderConfirmationPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -60,7 +63,14 @@ public class OrderConfirmationPageObjects {
 
     public void clickCreateNewOrderButton(){ storeWapActions.action_click(createNewOrderButton);}
 
-    public void clickViewMyOrderButton(){ storeWapActions.action_click(viewMyOrderButton);}
+    public void clickViewMyOrderButton(){
+        try{
+            storeWapActions.action_click(viewMyOrderButton);
+            Assert.assertEquals(storeWapActions.action_getText(androidDriver.findElement(By.xpath("//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@data-testid='headerTitle']"))),"Order Details");
+        } catch (NoSuchElementException e){
+            clickViewMyOrderButton();
+        }
+    }
 
     public void clickEnterCustomerDetailsButton(){ storeWapActions.action_click(enterCustomerDetailsButton);}
 
@@ -68,18 +78,18 @@ public class OrderConfirmationPageObjects {
 
     public void clickRecordPaymentsButton(){ storeWapActions.action_click(recordPaymentsButton);}
 
+    public void clickOnGoBackToChatButton(){storeWapActions.action_click(goBackToChatButton);}
+
 
     /*------------------------------------------Functions---------------------------------------------*/
 
 
     public String getOrderID(){
-        String orderID = storeWapActions.action_getText(orderIDxpath);
-        return orderID;
+        return storeWapActions.action_getText(orderIDxpath);
     }
 
     public String getPageTitleText(){
-        String pageTitleText = storeWapActions.action_getText(pageTitle);
-        return pageTitleText;
+        return storeWapActions.action_getText(pageTitle);
     }
 
 

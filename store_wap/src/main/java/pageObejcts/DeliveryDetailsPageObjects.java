@@ -2,22 +2,17 @@ package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.StoreWapActions;
+import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
+import utils.*;
 
 
 import java.util.Random;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
 
-public class DeliveryDetailsPageObjects{
+public class DeliveryDetailsPageObjects extends StoreWapBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private StoreWapActions storeWapActions;
@@ -54,10 +49,10 @@ public class DeliveryDetailsPageObjects{
     @FindBy(xpath = "//div[text()='Area Name']//parent::div/div[2]/div")   //
     private WebElement areaNameDropDownButton_DeliveryTab;
 
-    @FindBy(xpath = "//div[text()='Enter cash collection amount']/following-sibling::input")
+    @FindBy(xpath = "//div[text()='Enter cash collection amount']/following-sibling::div//input")
     private WebElement collectionAmountText;
 
-    @FindBy(xpath = "//div[text()='Parcel Weight']//parent::div/input")
+    @FindBy(xpath = "//div[text()='Parcel Weight (in gram)']//parent::div/input")
     private WebElement parcelWeightText;
 
     @FindBy(xpath = "//div[text()=' Delivery Charge']/following-sibling::div")
@@ -97,13 +92,13 @@ public class DeliveryDetailsPageObjects{
     @FindBy(xpath = "//div[text()='View All Delivery']")
     private WebElement viewAllDeliveryButton;
 
-    @FindBy(xpath = "//div[text()='Customer / Shipment Details']//parent::div//parent::div//parent::div//parent::div//parent::div/div/div/div[2]/div")
+    @FindBy(xpath = "//div[text()='Customer / Shipment Details']//parent::div//parent::div//parent::div//parent::div//parent::div/div/div/div[2]/div[1]")
     private WebElement shipmentDetails;
 
-    @FindBy(xpath = "//div[text()='Successfully Sent for']")
+    @FindBy(xpath = "//div[@class='css-901oao r-jwli3a r-1fap712 r-1i10wst r-vw2c0b'][1]")
     private WebElement successfullySentForText;
 
-    @FindBy(xpath = "//div[text()='Successfully Sent for']//following-sibling::div")
+    @FindBy(xpath = "//div[@class='css-901oao r-jwli3a r-1fap712 r-1i10wst r-vw2c0b'][2]")
     private WebElement deliveryText;
 
     public DeliveryDetailsPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -268,28 +263,23 @@ public class DeliveryDetailsPageObjects{
 
 
     public String  getPageTitle_DeliveryTab(){
-        String pageTitle = storeWapActions.action_getText(pageTitle_DeliveryTab);
-        return pageTitle;
+        return storeWapActions.action_getText(pageTitle_DeliveryTab);
     }
 
     public String getPageTitle_QuickOrderFlow(){
-        String pageTitle = storeWapActions.action_getText(pageTitle_QuickOrderFlow);
-        return pageTitle;
+        return storeWapActions.action_getText(pageTitle_QuickOrderFlow);
     }
 
     public String getDeliveryCharge(){
-        String deliveryCharge = storeWapActions.action_getText(deliveryChargeText);
-        return deliveryCharge;
+        return storeWapActions.action_getText(deliveryChargeText);
     }
 
     public String getSellerName(){
-        String sellerName = storeWapActions.action_getText(sellerNameText);
-        return sellerName;
+        return storeWapActions.action_getText(sellerNameText);
     }
 
     public String getPickUpAddress(){
-        String pickUpAddress = storeWapActions.action_getText(pickupAddress);
-        return pickUpAddress;
+        return storeWapActions.action_getText(pickupAddress);
     }
 
     public String getPickUpArea(){
@@ -381,13 +371,11 @@ public class DeliveryDetailsPageObjects{
     }
 
     public String getSuccessfullySentForDeliveryText(){
-        String successfulText = storeWapActions.action_getText(successfullySentForText)+" "+storeWapActions.action_getText(deliveryText);
-        return successfulText;
+        return storeWapActions.action_getText(successfullySentForText)+" "+storeWapActions.action_getText(deliveryText);
     }
 
     public String getShipmentDetails(){
-        String details = storeWapActions.action_getText(shipmentDetails);
-        return details;
+        return storeWapActions.action_getText(shipmentDetails);
     }
 
 

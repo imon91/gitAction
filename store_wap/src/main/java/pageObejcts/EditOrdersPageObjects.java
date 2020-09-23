@@ -3,20 +3,17 @@ package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import utils.*;
 import java.util.*;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
-import static utils.StoreWapBaseClass.sleep;
 
 
-public class  EditOrdersPageObjects{
+
+public class  EditOrdersPageObjects extends StoreWapBaseClass{
 
 
 
@@ -58,7 +55,7 @@ public class  EditOrdersPageObjects{
     @FindBy(xpath = "//div[text()='Select Customer']/following-sibling::div")
     private WebElement customerListButton;
 
-    @FindBy(xpath = "//input[contains(@placeholder,'Search or Add New customer')]")
+    @FindBy(xpath = "//div[contains(text(),'Search Customer')]//parent::div//parent::div//parent::div//input")
     private WebElement searchOrAddNewCustomerTabText;
 
     @FindBy(xpath = "//div[text()='+ New']")
@@ -90,7 +87,7 @@ public class  EditOrdersPageObjects{
     /*------------------------------------------Functions---------------------------------------------*/
     public void selectExistingCustomerFrmCustomerList(int customerNameIndex){
         clickCustomerListButton();
-        String xpath = "//input[contains(@placeholder,'Search or Add New customer')]//parent::div//parent::div//following-sibling::div/div/div/div[" + customerNameIndex + "]/div/div/div/div" ;
+        String xpath = "//div[text()='Search Customer']//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-1loqt21 r-13awgt0 r-18u37iz r-1otgn73 r-eafdt9 r-1i6wzkk r-lrvibr'][" + customerNameIndex + "]" ;
         WebElement customer = androidDriver.findElement(By.xpath(xpath));
         //wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
         storeWapActions.action_click(customer);
@@ -99,7 +96,7 @@ public class  EditOrdersPageObjects{
     public void enterValidCustomerName(){
         clickCustomerListButton();
         String customerName = "Automation - Testin'G " + RandomStringUtils.randomAlphabetic(5) ;
-        searchOrAddNewCustomer(customerName+"\n");
+        searchOrAddNewCustomer(customerName);
         storeWapActions.action_click(newButton);
     }
 
@@ -282,6 +279,8 @@ public class  EditOrdersPageObjects{
             return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='successfully created']"))).getText();
         } catch (Exception e) {
             System.out.println(e);
+            clickCreateOrderButton();
+            getSuccessMessage();
             return null;
         }
     }

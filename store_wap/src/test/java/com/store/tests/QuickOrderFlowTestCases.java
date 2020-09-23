@@ -2,19 +2,16 @@ package com.store.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageObejcts.*;
-import sun.misc.ASCIICaseInsensitiveComparator;
+import utils.StoreWapBaseClass;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
-import static utils.StoreWapBaseClass.sleep;
+import java.util.ArrayList;
 
 
-public class QuickOrderFlowTestCases {
+public class QuickOrderFlowTestCases extends StoreWapBaseClass {
 
 
 
@@ -29,6 +26,9 @@ public class QuickOrderFlowTestCases {
     private CustomerDetailsPageObjects customerDetailsPageObjects;
     private DeliveryDetailsPageObjects deliveryDetailsPageObjects;
     private RecordPaymentsPageObjects recordPaymentsPageObjects;
+    private OrderDetailsPageObjects orderDetailsPageObjects;
+    private EditProductsPageObjects editProductsPageObjects;
+    private OnlinePaymentPageObjects onlinePaymentPageObjects;
 
 
     public void pageInitializer() {
@@ -42,6 +42,9 @@ public class QuickOrderFlowTestCases {
         customerDetailsPageObjects = new CustomerDetailsPageObjects(androidDriver);
         deliveryDetailsPageObjects = new DeliveryDetailsPageObjects(androidDriver);
         recordPaymentsPageObjects = new RecordPaymentsPageObjects(androidDriver);
+        orderDetailsPageObjects = new OrderDetailsPageObjects(androidDriver);
+        editProductsPageObjects = new EditProductsPageObjects(androidDriver);
+        onlinePaymentPageObjects = new OnlinePaymentPageObjects(androidDriver);
     }
 
 
@@ -50,23 +53,16 @@ public class QuickOrderFlowTestCases {
         androidDriver = getBaseDriver();
         System.out.println("quickOrderFlowTestCasesBeforeClass is called");
         pageInitializer();
-        String facebookPage = facebookPageObjects.connectRandomFacebookPage(3);
+        String facebookPage = facebookPageObjects.connectRandomFacebookPage(2);
         System.out.println(facebookPage + " is selected");
         facebookPageObjects.clickContinueAfterConnectFacebookPage();
         sleep(3000);
-        dashBoardPageObjects.clickMyOrdersButton();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE})
-    public void verifyMyOrdersPageTitle(){
-        System.out.println("verifyMyOrdersPageTitle is called");
-        Assert.assertEquals(myOrdersPageObjects.getPageTitleText(), "My Orders");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyMyOrdersPageTitle")
+    @Test(groups = {CoreConstants.GROUP_SMOKE} )
     public void verifyCreateNewOrderButtonFunctionality(){
         System.out.println("verifyCreateNewOrderButtonFunctionality is called");
-        myOrdersPageObjects.clickCreateNewOrderButton();
+        dashBoardPageObjects.clickOnCreateOrderButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyCreateNewOrderButtonFunctionality")
@@ -81,6 +77,10 @@ public class QuickOrderFlowTestCases {
         createOrderPageObjects.enterValidRandomProductAmount(1);
         createOrderPageObjects.clickAddMoreButton();
         createOrderPageObjects.enterValidRandomProductAmount(2);
+        createOrderPageObjects.clickAddMoreButton();
+        createOrderPageObjects.enterValidRandomProductAmount(3);
+        createOrderPageObjects.clickAddMoreButton();
+        createOrderPageObjects.enterValidRandomProductAmount(4);
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "createOrders")
@@ -105,14 +105,22 @@ public class QuickOrderFlowTestCases {
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "verifyEditOrdersPageTitle")
-    public void fillFieldsInEditOrdersPage(){
-        System.out.println("completeFieldsInEditOrdersPage is called");
+    public void fillFieldsInEditOrdersPageWithNewCustomer(){
+        System.out.println("completeFieldsInEditOrdersPageWithNewCustomer is called");
         editOrdersPageObject.enterValidCustomerName();
         editOrdersPageObject.enterValidDiscount();
         editOrdersPageObject.enterValidDeliveryCharge();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "fillFieldsInEditOrdersPage")
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, enabled = false, dependsOnMethods = "verifyEditOrdersPageTitle")
+    public void fillFieldsInEditOrdersPageWithExistingCustomer(){
+        System.out.println("completeFieldsInEditOrdersPageWithExistingCustomer");
+        editOrdersPageObject.selectExistingCustomerFrmCustomerList(1);
+        editOrdersPageObject.enterValidDiscount();
+        editOrdersPageObject.enterValidDeliveryCharge();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "fillFieldsInEditOrdersPageWithNewCustomer")
     public void verifyCreateOrderButtonFunctionality() {
         System.out.println("createOrder is called");
         editOrdersPageObject.clickCreateOrderButton();
@@ -135,9 +143,61 @@ public class QuickOrderFlowTestCases {
     public void getOrderID(){
         System.out.println("getOrderID is called");
         String orderID = orderConfirmationPageObjects.getOrderID();
-        System.out.println("The OrderID of the new order is,");
-        System.out.println(orderID);
+        System.out.println("The OrderID of the new order is," + orderID);
         sleep(2000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getCustomerDetailsSuccessMessagePopUp")
+    public void verifyViewMyOrderButtonFunctionality(){
+        System.out.println("verifyViewMyOrderButtonFunctionality is called");
+        orderConfirmationPageObjects.clickViewMyOrderButton();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyViewMyOrderButtonFunctionality")
+    public void verifyOrderDetailsPageTitle(){
+        System.out.println("verifyOrderDetailsPageTitle is called");
+        Assert.assertEquals(orderDetailsPageObjects.getPageTitle(),"Order Details");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyOrderDetailsPageTitle")
+    public void verifyEditDetailsButton(){
+        System.out.println("verifyEditDetailsButton is called");
+        orderDetailsPageObjects.clickOnEditDetailsButton();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditDetailsButton")
+    public void verifyEditProductsPageTitle(){
+        System.out.println("verifyEditProductsPageTitle is called");
+        Assert.assertEquals(editProductsPageObjects.getPageTitleText(),"Edit Products");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditProductsPageTitle")
+    public void editProductDetails() throws Exception {
+        System.out.println("editProductDetails is called");
+        editProductsPageObjects.deleteProduct(4);
+        editProductsPageObjects.editProductName("Rice",1);
+        editProductsPageObjects.editProductQuantity("1",1);
+        editProductsPageObjects.editProductAmount("460",1);
+        editProductsPageObjects.editProductName("Dabur Honey",2);
+        editProductsPageObjects.editProductQuantity("2",2);
+        editProductsPageObjects.editProductAmount("300",2);
+        editProductsPageObjects.editProductName("Pran UHT milk",3);
+        editProductsPageObjects.editProductQuantity("2",3);
+        editProductsPageObjects.editProductAmount("40",3);
+        editProductsPageObjects.clickOnNextButton();
+        sleep(4000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "editProductDetails")
+    public void verifyEditTotalCost(){
+        System.out.println("verifyEditTotalCost is called");
+        orderDetailsPageObjects.clickOnEditTotalCostButton();
+        int productValue = orderDetailsPageObjects.getTotalProductValue();
+        String totalCost = String.valueOf(productValue - ((int)(productValue*0.2)));
+        orderDetailsPageObjects.enterTotalCost(totalCost);
+        orderDetailsPageObjects.clickOnSaveTotalCostButton();
+        sleep(3000);
+        orderDetailsPageObjects.clickBackButton();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderID")
@@ -155,9 +215,9 @@ public class QuickOrderFlowTestCases {
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyCustomerDetailsPageTitle" )
     public void enterCustomerDetails(){
         System.out.println("enterCustomerDetails is called");
-        customerDetailsPageObjects.enterValidMobileNumber();
-        customerDetailsPageObjects.enterAddress();
-        customerDetailsPageObjects.chooseAreaName(0);
+        customerDetailsPageObjects.editMobileNumberWithValidMobileNumber();
+        customerDetailsPageObjects.editAddress();
+        customerDetailsPageObjects.chooseAreaName(8);
         customerDetailsPageObjects.enterCustomerTags();
         customerDetailsPageObjects.enterCustomerTags();
         customerDetailsPageObjects.chooseRatingForCustomer(0);
@@ -172,11 +232,11 @@ public class QuickOrderFlowTestCases {
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifySaveButtonFunctionality" )
     public void getCustomerDetailsSuccessMessagePopUp(){
         System.out.println("getCustomerDetailsSuccessMessagePopUp is called");
-        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"success");
+        Assert.assertEquals(customerDetailsPageObjects.getSuccessMessage(),"Profile update success");
         sleep(3000);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getCustomerDetailsSuccessMessagePopUp" )
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyEditTotalCost" )
     public void verifyRecordPaymentsButtonFunctionality(){
         System.out.println("verifyRecordPaymentsButtonFunctionality is called");
         orderConfirmationPageObjects.clickRecordPaymentsButton();
@@ -194,22 +254,57 @@ public class QuickOrderFlowTestCases {
         System.out.println(recordPaymentsPageObjects.getOrderID());
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderIDInRecordPaymentsPage" )
-    public void enterAmountForPayment(){
-        System.out.println("enterAmountForPayment is called");
-        String totalDueAmount = recordPaymentsPageObjects.getDueAmount();
-        System.out.println("Due amount : " + totalDueAmount);
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "getOrderIDInRecordPaymentsPage")
+    public void enterPartialAmountForCashPayment(){
+        System.out.println("enterPartialAmountForCashPayment is called");
+        int totalDue = Integer.parseInt(recordPaymentsPageObjects.getDueAmount().replaceAll(",",""));
+        String partialAmount = String.valueOf((int)(0.3*totalDue));
+        recordPaymentsPageObjects.editPayingAmount(partialAmount);
+        System.out.println("Partial amount added :"+ partialAmount);
         recordPaymentsPageObjects.clickAddButton();
         recordPaymentsPageObjects.clickCashOption();
         recordPaymentsPageObjects.clickConfirmButton();
         sleep(3000);
+
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterAmountForPayment" )
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterPartialAmountForCashPayment" )
+    public void enterPartialAmountForOnlinePayment(){
+        System.out.println("enterPartialAmountForOnlinePayment is called");
+        int totalDueAmount = Integer.parseInt(recordPaymentsPageObjects.getDueAmount().replaceAll(",",""));
+        String partialAmount = String.valueOf((int)(0.4*totalDueAmount));
+        recordPaymentsPageObjects.editPayingAmount(partialAmount);
+        recordPaymentsPageObjects.clickAddButton();
+        recordPaymentsPageObjects.clickDebitCardOption();
+        recordPaymentsPageObjects.clickConfirmButton();
+        sleep(3000);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "enterPartialAmountForOnlinePayment")
+    public void onlineCashPayment(){
+        System.out.println("onlineCashPayment is called");
+        String paymentLink = recordPaymentsPageObjects.copyPaymentLink(1);
+        ((JavascriptExecutor)androidDriver).executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs.get(1));
+        androidDriver.get(paymentLink);
+        sleep(6000);
+        onlinePaymentPageObjects.clickPayNowButton();
+        sleep(4000);
+        ArrayList<String> tabs1 = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs1.get(2));
+        onlinePaymentPageObjects.payWithVisaCard();
+        ArrayList<String> tabs2 = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs2.get(0));
+        recordPaymentsPageObjects.clickBackButton();
+        sleep(3000);
+        orderConfirmationPageObjects.clickRecordPaymentsButton();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "onlineCashPayment" )
     public void verifyPaymentIsMade(){
         System.out.println("verifyPaymentIsMade is called");
         System.out.println("Payments Made : "+ recordPaymentsPageObjects.getTotalPaymentsMade());
-        Assert.assertEquals(recordPaymentsPageObjects.getFullyPaidText(),"Fully Paid");
         recordPaymentsPageObjects.clickBackButton();
         sleep(3000);
     }
@@ -230,7 +325,9 @@ public class QuickOrderFlowTestCases {
     public void fillFieldsOfDeliveryDetailsPage(){
         System.out.println("fillFieldsOfDeliveryDetailsPage is called");
         deliveryDetailsPageObjects.enterParcelWeight("1");
-        deliveryDetailsPageObjects.enterCollectionAmount("0");
+        androidDriver.hideKeyboard();
+//        deliveryDetailsPageObjects.enterCollectionAmount("0");
+//        androidDriver.hideKeyboard();
         deliveryDetailsPageObjects.selectPreferredDeliveryDay(2);
         deliveryDetailsPageObjects.selectPreferredDeliveryTime(3);
     }
@@ -254,7 +351,7 @@ public class QuickOrderFlowTestCases {
     }
 
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void createOrderTestCasesAfterClass() {
         System.out.println("createOrderAfterClass is called");
     }

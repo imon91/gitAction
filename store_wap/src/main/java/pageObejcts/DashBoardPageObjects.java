@@ -1,11 +1,8 @@
 package pageObejcts;
 
-import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
 import utils.StoreWapActions;
 
 public class DashBoardPageObjects {
@@ -15,7 +12,7 @@ public class DashBoardPageObjects {
     private StoreWapActions storeWapActions;
 
 
-    @FindBy(xpath = "//div[text()='My Orders']")
+    @FindBy(xpath = "//div[text()='Customer Orders']")
     private WebElement myOrdersButton;
 
     @FindBy(xpath = "//div[text()='Delivery']")
@@ -24,7 +21,7 @@ public class DashBoardPageObjects {
     @FindBy(xpath = "//div[text()='Payments']")
     private WebElement paymentsButton;
 
-    @FindBy(xpath = "//div[text()='Customer List']")
+    @FindBy(xpath = "//div[text()='Customers']")
     private WebElement customerListButton;
 
     @FindBy(xpath = "//div[text()='Income']//parent::div/div/div/div[2]")
@@ -57,6 +54,9 @@ public class DashBoardPageObjects {
     @FindBy(xpath = "//div[text()='Boost']")
     private WebElement boostButton;
 
+    @FindBy(xpath = "//div[text()='Create Order']")
+    private WebElement createOrderButton;
+
     public DashBoardPageObjects(AndroidDriver<WebElement> androidDriver) {
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -86,6 +86,8 @@ public class DashBoardPageObjects {
     public void clickInboxButton(){ storeWapActions.action_click(inboxButton);}
 
     public void clickBoostButton(){ storeWapActions.action_click(boostButton);}
+
+    public void clickOnCreateOrderButton(){storeWapActions.action_click(createOrderButton);}
 
 
     /*----------------------------------------------Functions-------------------------------------------------------- */

@@ -1,12 +1,12 @@
 package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
 import utils.StoreWapActions;
+
+import java.util.Random;
 
 public class RecordPaymentsPageObjects {
 
@@ -15,22 +15,22 @@ public class RecordPaymentsPageObjects {
     private StoreWapActions storeWapActions;
 
 
-    @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div")
+    @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div[@data-testid='navback']")
     private WebElement backButton;
 
     @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-1loqt21 r-1otgn73 r-eafdt9 r-1i6wzkk r-lrvibr']")
     private WebElement sideNavButton;
 
-    @FindBy(xpath = "//div[text()='Order ID']//parent::div/div")
+    @FindBy(xpath = "//div[text()='Order ID']//parent::div/div[@class='css-901oao r-14iuakf r-pz5f6p r-ubezar r-1jkjb']")
     private WebElement pageTitleText;
 
-    @FindBy(xpath = "//div[text()='Order ID']//parent::div//parent::div//parent::div//parent::div/div[2]")
+    @FindBy(xpath = "//div[text()='Order ID']")
     private WebElement orderIDText;
 
     @FindBy(xpath = "//div[text()='Due']//parent::div/div[3]/div")
     private WebElement dueAmountText;
 
-    @FindBy(xpath = "//div[text()='+ Add']//parent::Div//parent::Div/input")
+    @FindBy(xpath = "//div[text()='+ Add']//parent::Div//parent::Div//input")
     private WebElement payAmountTabText;
 
     @FindBy(xpath = "//div[text()='+ Add']")
@@ -42,7 +42,7 @@ public class RecordPaymentsPageObjects {
     @FindBy(xpath = "//div[text()='No payments received yet.']//following-sibling::div")
     private WebElement noPaymentsReceivedText2;
 
-    @FindBy(xpath = "//div[text()='Debit & Credit Card/Mobile Bankings']//parent::div//following-sibling::div/div")
+    @FindBy(xpath = "//div[text()='Debit & Credit Card/Mobile Bankings']//parent::div//parent::div/div[@class='css-1dbjc4n r-eqz5dr r-1777fci r-1jkjb']/div")
     private WebElement debitCardOptionButton;
 
     @FindBy(xpath = "//div[text()='Received as Cash']//parent::div//following-sibling::div/div")
@@ -59,6 +59,9 @@ public class RecordPaymentsPageObjects {
 
     @FindBy(xpath = "//div[text()='Fully Paid']")
     private WebElement fullyPaidText;
+
+    @FindBy(xpath = "//div[text()='Copy']")
+    private WebElement copyButton;
 
     //div[text()='Payments Received']//parent::div//parent::div/div[2]/div/div/div/div/div[2]/
 
@@ -90,18 +93,15 @@ public class RecordPaymentsPageObjects {
     /*-----------------------------------------------Functions--------------------------------------------------------*/
 
     public String getPageTitle(){
-        String pageTitle = storeWapActions.action_getText(pageTitleText);
-        return pageTitle;
+        return storeWapActions.action_getText(pageTitleText);
     }
 
     public String getOrderID(){
-        String orderID = storeWapActions.action_getText(orderIDText);
-        return orderID;
+        return storeWapActions.action_getText(orderIDText);
     }
 
     public String getDueAmount(){
-        String due = storeWapActions.action_getText(dueAmountText);
-        return due;
+        return storeWapActions.action_getText(dueAmountText);
     }
 
     public void editPayingAmount(String amount){
@@ -114,14 +114,22 @@ public class RecordPaymentsPageObjects {
         return text1+""+text2;
     }
 
+    public String copyPaymentLink(int linkIndex){
+        if (linkIndex == 0) {
+            int totalLinksPresent = androidDriver.findElements(By.xpath("//div[text()='Copy']")).size();
+            Random random = new Random();
+            linkIndex = random.nextInt(totalLinksPresent)+1;
+        }
+        WebElement copyElement = androidDriver.findElement(By.xpath("//div[text()='Payment Links']//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-13awgt0 r-18u37iz r-eafdt9 r-1i6wzkk r-lrvibr']["+linkIndex+"]/div/div[2]/div"));
+        return storeWapActions.action_getText(copyElement);
+    }
+
     public String getTotalPaymentsMade(){
-        String details = storeWapActions.action_getText(paymentsReceived_AmountText);
-        return details;
+        return storeWapActions.action_getText(paymentsReceived_AmountText);
     }
 
     public String getFullyPaidText(){
-        String text = storeWapActions.action_getText(fullyPaidText);
-        return text;
+        return storeWapActions.action_getText(fullyPaidText);
     }
 
 }

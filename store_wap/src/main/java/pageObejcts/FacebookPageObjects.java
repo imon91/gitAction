@@ -2,12 +2,9 @@ package pageObejcts;
 
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
 import utils.StoreWapActions;
-import java.util.List;
 import java.util.Random;
 
 
@@ -43,15 +40,15 @@ public class FacebookPageObjects {
 
     /* zeplin - https://zpl.io/aXxx0yM */
     public String connectRandomFacebookPage(int index){
-        String baseXpath = "//div[@class='css-1dbjc4n r-150rngu r-eqz5dr r-16y2uox r-1wbh5a2 r-11yh6sk r-1rnoaur r-1sncvnh']/div";
+        String baseXpath = "//div[@class='css-1dbjc4n r-eqz5dr r-1ydw1k6']/div/div/div";
         //List<WebElement> connectedPagesList = androidDriver.findElements(By.xpath(baseXpath));
         //if(index==0 || index>connectedPagesList.size()){
         //    index = random.nextInt(connectedPagesList.size()+1);
         //}
-        String pageName = baseXpath + "/div["+index+"]//div[@class='css-901oao r-14iuakf r-pz5f6p r-1b43r93']";
+        String pageName = baseXpath +"["+ index +"]//div[@class='css-901oao r-14iuakf r-pz5f6p r-1b43r93']";
         WebElement nameOfPage = androidDriver.findElement(By.xpath(pageName));
         String name = storeWapActions.action_getText(nameOfPage);
-        String pageXpath = baseXpath +"/div["+index+"]/div/div/div/div[3]/div";
+        String pageXpath = baseXpath +"["+index+"]/div/div/div/div[3]/div";
         WebElement selectPage = androidDriver.findElement(By.xpath(pageXpath));
         storeWapActions.action_click(selectPage);
         return name;
