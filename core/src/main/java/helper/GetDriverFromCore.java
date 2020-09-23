@@ -25,6 +25,8 @@ public class GetDriverFromCore {
     private static final String APP_RESELLER = "bs://ae0d24a76911bff4913071b739216f6da1fe16fb";
     private static final String APP_MOKAM = "bs://20ee0ee5c077e170ecbdccd38dc0c0072ac1eb39";
     private static final String APP_RED_X = "bs://413125d12445e7b9cc729a2b2772b6694a92546a";
+//     private static final String APP_RED_X = "bs://8d5d5e3f9ec3520fc5c1b9cac95e1e3f51f91c06";
+    private static final String APP_STORES = "bs://59f775697e32f859255074777f727a4fd73be12a";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";
     private static final String KEY_BROWSER_NAME = "browserName";
@@ -231,6 +233,10 @@ public class GetDriverFromCore {
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "RedX-Android-UI");
                 caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "RedXAndroidBuild");
                 caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_RED_X);
+            }else if(app.equalsIgnoreCase(CoreConstants.APP_STORES)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Stores-Android-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "StoresAndroidBuild");
+                caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_STORES);
             }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "AndroidAppTest");
 //            if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){

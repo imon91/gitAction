@@ -1,21 +1,16 @@
 package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.StoreWapActions;
+import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
+import utils.*;
 
 import java.util.Random;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
-
-public class EditProductsPageObjects {
+public class EditProductsPageObjects extends StoreWapBaseClass {
 
 
     private AndroidDriver<WebElement> androidDriver;
@@ -92,6 +87,11 @@ public class EditProductsPageObjects {
         String xpath = "//div[text()='Enter Customer Name']//parent::div//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-13awgt0 r-eqz5dr']/div[@class='css-1dbjc4n']["+ productIndex +"]/div/div[3]/div[2]";
         WebElement deleteElement = androidDriver.findElement(By.xpath(xpath));
         storeWapActions.action_click(deleteElement);
+    }
+
+    public void editCustomerNameWithRandomName(){
+        String newName = "Automation-Testing" + RandomStringUtils.randomAlphabetic(5);
+        new Actions(androidDriver).click(customerName).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newName).perform();
     }
 
 }

@@ -4,8 +4,7 @@ package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
 import utils.StoreWapActions;
 
 
@@ -21,11 +20,14 @@ public class SideNavPageObjects {
     @FindBy(xpath = "//div[text()='Business Info']")
     private WebElement businessInfoButton;
 
-    @FindBy(xpath = "//div[text()='Delivery Pickup Address']")
-    private WebElement deliveryPickupAddressButton;
+    @FindBy(xpath = "//div[text()='Payment Settings']")
+    private WebElement paymentSettingsButton;
 
-    @FindBy(xpath = "//div[text()='Facebook Shop']")
-    private WebElement facebookShopButton;
+    @FindBy(xpath = "//div[text()='Delivery Settings']")
+    private WebElement deliverySettingsButton;
+
+    @FindBy(xpath = "//div[text()='Change Page']")
+    private WebElement changePageButton;
 
     @FindBy(xpath = "//div[text()='Logout']")
     private WebElement logoutButton;
@@ -39,8 +41,8 @@ public class SideNavPageObjects {
     @FindBy(xpath = "//div[text()='Policy']")
     private WebElement policyButton;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-6dt33c']")
-    private WebElement backToPreviousPage;
+    @FindBy(xpath = "//div[text()='Business Info']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div/div/div/div[2]/div/div")
+    private WebElement closeButton;
 
     @FindBy(xpath = "//div[@class='css-1dbjc4n r-eqz5dr r-17s6mgv r-1peese0 r-1kqp4h8']/div[1]")
     private WebElement businessName;
@@ -61,9 +63,11 @@ public class SideNavPageObjects {
 
     public void clickBusinessInfoButton(){ storeWapActions.action_click(businessInfoButton);}
 
-    public void clickDeliveryPickupAddressButton(){ storeWapActions.action_click(deliveryPickupAddressButton);}
+    public void clickPaymentSettingsButton(){storeWapActions.action_click(paymentSettingsButton);}
 
-    public void clickFacebookShopButton(){ storeWapActions.action_click(facebookShopButton);}
+    public void clickDeliverySettingsButton(){ storeWapActions.action_click(deliverySettingsButton);}
+
+    public void clickChangePageButton(){ storeWapActions.action_click(changePageButton);}
 
     public void clickLogoutButton(){ storeWapActions.action_click(logoutButton);}
 
@@ -73,20 +77,18 @@ public class SideNavPageObjects {
 
     public void clickPolicyButton(){ storeWapActions.action_click(policyButton);}
 
-    public void clickBackToPreviousPage(){ storeWapActions.action_click(backToPreviousPage);}
+    public void clickOnCloseButton(){ storeWapActions.action_click(closeButton);}
 
 
     /*-----------------------------------------------Functions------------------------------------------------*/
 
 
     public String getBusinessName(){
-        String name = storeWapActions.action_getText(businessName);
-        return name;
+        return storeWapActions.action_getText(businessName);
     }
 
     public String getBusinessMobileNumber(){
-        String mobileNumber = storeWapActions.action_getText(businessMobileNumber);
-        return mobileNumber;
+        return storeWapActions.action_getText(businessMobileNumber);
     }
 
 

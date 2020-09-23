@@ -1,14 +1,10 @@
 package com.store.tests;
 
 import coreUtils.CoreConstants;
-import dataBase.DataBaseCore;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObejcts.*;
-import services.commerceMethods.GetAuthenticationApiResponse;
-import services.commerceMethods.GetCommerceApiResponse;
 import utils.StoreWapBaseClass;
 
 public class CreateOrder extends StoreWapBaseClass {
