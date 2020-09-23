@@ -1,104 +1,70 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
-import utils.WmsBaseClass;
+import com.google.gson.Gson;
+import com.google.gson.reflect.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import services.responseModels.wmsModels.*;
+import utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
+import java.util.*;
 
 public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public PurchaseOrdersPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-
-    /*--------------Tabs-------------------*/
-    @FindBy(xpath = "//a[text()='Create Purchase Order']")
-    private WebElement createPurchaseOrderTab;
-
-    @FindBy(xpath = "//a[text()='Create Bulk PO']")
-    private WebElement createBulkPOTab;
-
-    @FindBy(xpath = "//a[text()='Create TO']")
-    private WebElement createTOTab;
-
-    @FindBy(xpath = "//a[text()='Qc Scan']")
-    private WebElement qcScanTab;
-
-    @FindBy(xpath = "//a[text()='Edit PurchaseOrder']")
-    private WebElement editPurchaseOrderTab;
-
-    @FindBy(xpath = "//a[text()='Purchase Order List']")
-    private WebElement purchaseOrderListTab;
-
-    @FindBy(xpath = "//a[text()='TO List']")
-    private WebElement tOListTab;
-
-    @FindBy(xpath = "//a[text()='Create GRN']")
-    private WebElement createGRNTab;
-
-    @FindBy(xpath = "//a[text()='GRN View']")
-    private WebElement gRNViewTab;
 
 
     /*--------------Actions-------------------*/
     public void clickCreatePurchaseOrderTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createPurchaseOrderTab));
+        WebElement createPurchaseOrderTab = xpathSetterClick("//a[text()='Create Purchase Order']");
         myActions.action_click(createPurchaseOrderTab);
     }
 
     public void clickCreateBulkPOTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createBulkPOTab));
+        WebElement createBulkPOTab = xpathSetterClick("//a[text()='Create Bulk PO']");
         myActions.action_click(createBulkPOTab);
     }
 
     public void clickCreateTOTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createTOTab));
+        WebElement createTOTab = xpathSetterClick("//a[text()='Create TO']");
         myActions.action_click(createTOTab);
     }
 
     public void clickQcScanTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(qcScanTab));
+        WebElement qcScanTab = xpathSetterClick("//a[text()='Qc Scan']");
         myActions.action_click(qcScanTab);
     }
 
     public void clickEditPurchaseOrderTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(editPurchaseOrderTab));
+        WebElement editPurchaseOrderTab = xpathSetterClick("//a[text()='Edit PurchaseOrder']");
         myActions.action_click(editPurchaseOrderTab);
     }
 
     public void clickPurchaseOrderListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(purchaseOrderListTab));
+        WebElement purchaseOrderListTab = xpathSetterClick("//a[text()='Purchase Order List']");
         myActions.action_click(purchaseOrderListTab);
     }
 
     public void clickTOListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(tOListTab));
+        WebElement tOListTab = xpathSetterClick("//a[text()='TO List']");
         myActions.action_click(tOListTab);
     }
 
     public void clickCreateGRNTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createGRNTab));
+        WebElement createGRNTab = xpathSetterClick("//a[text()='Create GRN']");
         myActions.action_click(createGRNTab);
     }
 
     public void clickGRNViewTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(gRNViewTab));
+        WebElement gRNViewTab = xpathSetterClick("//a[text()='GRN View']");
         myActions.action_click(gRNViewTab);
     }
 
@@ -107,80 +73,68 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
     public class CreatePurchaseOrderTab {
         private final WebDriver driver;
         private final MyActions myActions;
-
+        private Random random;
+        private HomePageObject homePageObject;
+        private PurchaseOrderList purchaseOrderList;
 
 
         public CreatePurchaseOrderTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            random = new Random();
+            homePageObject = new HomePageObject(driver);
+            purchaseOrderList = new PurchaseOrderList(driver);
         }
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_warehouse']/following-sibling::select")
-        private WebElement warehouseDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_seller']/following-sibling::select")
-        private WebElement sellerDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//label[@for='sel_supplier']/following-sibling::select")
-        private WebElement supplierDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[3]//div[1]//div[1]//select[1]")
-        private WebElement addressDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[4]//div[1]//div[1]//select[1]")
-        private WebElement shippingModeDropdown;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[@class='skuInput-main']/button")
-        private WebElement addSkuInputFields;
-
-        @FindBy(xpath = "//div[@id='Addpurchage']//div[@class='text-center']/button")
-        private WebElement createPOButton;
 
 
         /*--------------Actions-------------------*/
         public void selectWarehouseDropdown(String warehouse) {
-            wait.until(ExpectedConditions.visibilityOf(warehouseDropdown));
+            WebElement warehouseDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//label[@for='sel_warehouse']/following-sibling::select");
             myActions.action_select(warehouseDropdown, warehouse);
         }
 
         public void selectSellerDropdown(String seller) {
-            wait.until(ExpectedConditions.visibilityOf(sellerDropdown));
+            WebElement sellerDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//label[@for='sel_seller']/following-sibling::select");
             myActions.action_select(sellerDropdown, seller);
         }
 
         public void selectSupplierDropdown(String supplier) {
-            wait.until(ExpectedConditions.visibilityOf(supplierDropdown));
+            WebElement supplierDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//label[@for='sel_supplier']/following-sibling::select");
             myActions.action_select(supplierDropdown, supplier);
         }
 
         public void selectAddressDropdown(String address) {
-            wait.until(ExpectedConditions.visibilityOf(addressDropdown));
+            WebElement addressDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//div[3]//div[1]//div[1]//select[1]");
             myActions.action_select(addressDropdown, address);
         }
 
         public void selectShippingModeDropdown(String mode) {
-            wait.until(ExpectedConditions.visibilityOf(shippingModeDropdown));
+            WebElement shippingModeDropdown =
+                    xpathSetter("//div[@id='Addpurchage']//div[4]//div[1]//div[1]//select[1]");
             myActions.action_select_index(shippingModeDropdown, 1);
         }
 
         public void skuCodeInput(int index, String skuCode) {
             String skuCodeXPath = "//div[@id='Addpurchage']//input[@id='select" + index + "']";
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(skuCodeXPath)));
-            WebElement skuCodeEntry = driver.findElement(By.xpath(skuCodeXPath));
-            myActions.action_sendKeys(skuCodeEntry, skuCode);
-            myActions.action_enter(skuCodeEntry);
+            WebElement skuCodeEntry = xpathSetterPresence(skuCodeXPath);
+            myActions.action_sendKeys(skuCodeEntry, skuCode+"\n");
         }
 
         public void quantityInput(int index, String quantity) {
             String quantityXpath = "//div[@id='Addpurchage']//input[@id='orderQuantity" + index + "']";
-            WebElement quantityEntry = driver.findElement(By.xpath(quantityXpath));
+            WebElement quantityEntry = xpathSetterPresence(quantityXpath);
             myActions.action_sendKeys(quantityEntry, quantity);
         }
 
         public void transferPriceInput(int index, String price) {
             String transferPriceXpath = "//div[@id='Addpurchage']//input[@id='transferPrice" + index + "']";
-            WebElement transferPriceEntry = driver.findElement(By.xpath(transferPriceXpath));
+            WebElement transferPriceEntry = xpathSetterPresence(transferPriceXpath);
+            transferPriceEntry.clear();
             myActions.action_sendKeys(transferPriceEntry, price);
         }
 
@@ -198,12 +152,14 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         }
 
         public void clickAddSkuInputFields() {
-            wait.until(ExpectedConditions.visibilityOf(addSkuInputFields));
+            WebElement addSkuInputFields =
+                    xpathSetter("//div[@id='Addpurchage']//div[@class='skuInput-main']/button");
             myActions.action_click(addSkuInputFields);
         }
 
         public void clickCreatePOButton() {
-            wait.until(ExpectedConditions.visibilityOf(createPOButton));
+            WebElement createPOButton =
+                    xpathSetter("//div[@id='Addpurchage']//div[@class='text-center']/button");
             myActions.action_click(createPOButton);
         }
 
@@ -212,25 +168,185 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         public void enterWarehouseDetails() {
             selectSellerDropdown("DFW");
             selectShippingModeDropdown(" Surface ");
-            sleep(10000);
         }
 
         public void createPurchaseOrder(String skuCode){
             skuCodeInput(0,skuCode);
             quantityInput(0,"1");
+            transferPriceInput(0,"200");
             clickCreatePOButton();
         }
-        public void createPO(int no_of_products, String[] skuCode, String[] quantity, String[] price) {
-            for (int i = 0; i < no_of_products; i++) {
-                skuCodeInput(i, skuCode[i]);
-                quantityInput(i, quantity[i]);
-                transferPriceInput(i, price[i]);
-                String src = productImage(i);
-                if (i != (no_of_products - 1)) {
-                    clickAddSkuInputFields();
-                }
+
+        public void createPurchaseOrder(String skuCode,int qty,String sm) throws FileNotFoundException {
+            if(sm.equals("s")){
+                skuCodeInput(0,skuCode);
+                quantityInput(0, String.valueOf(qty));
+                clickCreatePOButton();
             }
+            else {
+                skuCodeInput(0,skuCode);
+                quantityInput(0, String.valueOf(qty));
+                clickAddSkuInputFields();
+                skuCodeInput(1,getSkuCodeData());
+                quantityInput(1, String.valueOf(qty));
+                clickCreatePOButton();
+            }
+        }
+
+        public boolean createPOReg(CreatePOModel c) throws FileNotFoundException {
+            String testCase = c.getTestCaseId();
+            String error = c.getErrorMessage();
+            homePageObject.selectWarehouse(getInputData("WarehouseCode",c.getWarehouseCode()));
+            selectSellerDropdown(getInputData("Seller",c.getSeller()));
+            selectShippingModeDropdown(getInputData("Shipping Mode",c.getShippingMode()));
+                if(testCase.equals("PO_1") || testCase.equals("PO_3") ||testCase.equals("PO_4"))
+                    System.out.println(" ");
+                else {
+                    skuCodeInput(0, getInputData("Sku Code", c.getSKU()));
+                    quantityInput(0, getInputData("Quantity", c.getOrderedQuantity()));
+                    transferPriceInput(0, getInputData("Transfer Price", c.getTransferPrice()));
+
+                    if(testCase.equals("PO_15") || testCase.equals("PO_16") || testCase.equals("PO_17") || testCase.equals("PO_18")){
+                        clickAddSkuInputFields();
+                        skuCodeInput(1, getInputData("Sku Code", c.getSKU()));
+                    }
+                    if(testCase.equals("PO_16") || testCase.equals("PO_17") || testCase.equals("PO_18")){
+                        quantityInput(1, getInputData("Quantity", c.getOrderedQuantity()));
+                        transferPriceInput(1, getInputData("Transfer Price", c.getTransferPrice()));
+                    }
+                    if(testCase.equals("PO_17") || testCase.equals("PO_18")){
+                        clickAddSkuInputFields();
+                        skuCodeInput(2, getInputData("Sku Code", c.getSKU()));
+                        quantityInput(2, getInputData("Quantity", c.getOrderedQuantity()));
+                        transferPriceInput(2, getInputData("Transfer Price", c.getTransferPrice()));
+                    }
+                    if(testCase.equals("PO_18")){
+                        clickAddSkuInputFields();
+                        skuCodeInput(3, getInputData("Sku Code", c.getSKU()));
+                        quantityInput(3, getInputData("Quantity", c.getOrderedQuantity()));
+                        transferPriceInput(3, getInputData("Transfer Price", c.getTransferPrice()));
+                    }
+                }
+
             clickCreatePOButton();
+            if(error.equals("N/A")) return homePageObject.getPopUpMessage().equals(c.getToastMessage());
+            else return verifyElementVisibilityWithText(error);
+        }
+        public boolean verifyElementVisibilityWithText(String value)
+        {
+            WebElement element =
+                    xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+        }
+
+        public String getInputData(String attribute,String input) throws FileNotFoundException {
+            switch (attribute) {
+                case "WarehouseCode":
+                    switch (input) {
+                        case "Selected":
+                            return "Shopup Dhaka";
+                        case "N/A":
+                            return "Choose WareHouse";
+                    }
+                case "Seller":
+                    switch (input) {
+                        case "Selected":
+                            return "DFW";
+                        case "N/A":
+                            return "Select Seller";
+                    }
+                case "Shipping Mode":
+                    switch (input) {
+                        case "Selected":
+                        case "Surface":
+                            return " Surface ";
+                        case "N/A":
+                            return "Select Shipping Mode";
+                        case "Air":
+                            return " Air ";
+                    }
+                case "Sku Code":
+                    switch (input) {
+                        case "Selected":
+                            return getSkuCodeData();
+                        case "Invalid":
+                            return "xyz";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Quantity":
+                    switch (input) {
+                        case "Valid":
+                            return String.valueOf(random.nextInt(3)+1);
+                        case "Invalid":
+                            return "xyz";
+                        case "Negative":
+                            return "-1";
+                        case "Zero":
+                            return "0";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Transfer Price":
+                    switch (input) {
+                        case "Valid":
+                            return String.valueOf(random.nextInt(300));
+                        case "Invalid":
+                            return "xyz";
+                        case "Negative":
+                            return "-1";
+                        case "Zero":
+                            return "0";
+                        case "N/A":
+                            return " ";
+                    }
+                default: return " ";
+            }
+        }
+
+        public String getSkuCodeData() throws FileNotFoundException {
+            Gson gson = new Gson();
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/src/test/resources/testData/sellerSkuCodes.json";
+
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            List<VariantDetailsModel> list = gson.fromJson(bufferedReader,
+                    new TypeToken<List<VariantDetailsModel>>(){}.getType());
+
+            int n = random.nextInt(list.size());
+            return list.get(n).getSku_code();
+        }
+
+        public List<String > createPOForGRN() throws FileNotFoundException {
+            List<String > list = new ArrayList<>();
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),2,"s");
+            homePageObject.getPopUpMessage().contains("success");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),2,"m");
+            homePageObject.getPopUpMessage().contains("success");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),100,"s");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            clickCreatePurchaseOrderTab();
+            enterWarehouseDetails();
+            createPurchaseOrder(getSkuCodeData(),100,"m");
+            clickPurchaseOrderListTab();
+            list.add(purchaseOrderList.getPOID(1));
+
+            return list;
         }
     }
 
@@ -239,70 +355,71 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
     public class EditPurchaseOrder {
         private final WebDriver driver;
         private final MyActions myActions;
+        private HomePageObject homePageObject;
+        private PurchaseOrderList purchaseOrderList;
 
         public EditPurchaseOrder(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            homePageObject = new HomePageObject(driver);
+            purchaseOrderList = new PurchaseOrderList(driver);
         }
-
-        public void clickPOIDEntry(String poID) {
-            myActions.action_sendKeys(poIDEntry, poID);
-            myActions.action_enter(poIDEntry);
-        }
-
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//input[@type='text']")
-        private WebElement poIDEntry;
-
-        @FindBy(xpath = "//button[text()='Close PO']")
-        private WebElement closePOButton;
-
-        @FindBy(xpath = "//a[text()='Print Purchase order']")
-        private WebElement printPurchaseOrder;
-
-        @FindBy(xpath = "//a[text()='Print using barcode printer']")
-        private WebElement printUsingBarcodePrinter;
-
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//div//div//div//div//b")
-        private WebElement purchaseOrderStatus;
-
-        @FindBy(xpath = "//div[@id='EditPurchaseOrder']//button[text()='Yes']")
-        private WebElement clickYes;
 
 
         /*--------------Actions-------------------*/
         public void  poIdInput(String poId){
-            wait.until(ExpectedConditions.visibilityOf(poIDEntry));
+            WebElement poIDEntry =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//input[@type='text']");
             myActions.action_sendKeys(poIDEntry,poId);
             myActions.action_enter(poIDEntry);
         }
         public void clickClosePOButton() {
-            wait.until(ExpectedConditions.visibilityOf(closePOButton));
+            WebElement closePOButton =
+                    xpathSetter("//button[text()='Close PO']");
             myActions.action_click(closePOButton);
-            wait.until(ExpectedConditions.visibilityOf(clickYes));
+            WebElement clickYes =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//button[text()='Yes']");
             myActions.action_click(clickYes);
         }
 
         public void clickPrintPurchaseOrder() {
-            wait.until(ExpectedConditions.visibilityOf(printPurchaseOrder));
+            WebElement printPurchaseOrder =
+                    xpathSetter("//a[text()='Print Purchase order']");
             myActions.action_click(printPurchaseOrder);
         }
 
         public void clickPrintUsingBarcodePrinter() {
-            wait.until(ExpectedConditions.visibilityOf(printUsingBarcodePrinter));
+            WebElement printUsingBarcodePrinter =
+                    xpathSetter("//a[text()='Print using barcode printer']");
             myActions.action_click(printUsingBarcodePrinter);
         }
 
         public String getPOStatus() {
-            wait.until(ExpectedConditions.visibilityOf(purchaseOrderStatus));
+            WebElement purchaseOrderStatus =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//div//div//div//div//b");
            return myActions.action_getText(purchaseOrderStatus);
         }
+
+        public void clickClosePOButtonNo() {
+            WebElement closePOButton =
+                    xpathSetter("//button[text()='Close PO']");
+            myActions.action_click(closePOButton);
+            WebElement clickNo =
+                    xpathSetter("//div[@id='EditPurchaseOrder']//button[text()='No']");
+            myActions.action_click(clickNo);
+        }
+        public void clickClose() {
+            WebElement closePOButton =
+                    xpathSetter("//button[text()='Close PO']");
+            myActions.action_click(closePOButton);
+        }
+
 
 
         /*--------------Functions-------------------*/
         public int getTotalProducts() {
             List<WebElement> products = driver.findElements(By.xpath("//div[@id='EditPurchaseOrder']//tbody/tr"));
-            wait.until(ExpectedConditions.visibilityOfAllElements(products));
             return products.size();
         }
 
@@ -324,6 +441,35 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             return myActions.action_getText(quantity);
         }
 
+        public boolean editPO(EditPOModel e){
+            String id = e.getTestCaseId();
+            String testCase = e.getPODetails();
+            String toast = e.getToastMessage();
+            String poId = e.getPOIDInput();
+
+            clickEditPurchaseOrderTab();
+
+            if(testCase.equals("Displayed")) {
+                if (poId.equals("Valid"))
+                    poIdInput(purchaseOrderList.editPO());
+                else
+                    poIdInput("217776");
+
+                if(id.equals("EPO_4")) clickClosePOButtonNo();
+                else if (id.equals("EPO_6")) clickClose();
+                else if (!id.equals("EPO_3")) clickClosePOButton();
+
+            }
+            else {
+                if (poId.equals("Invalid")) poIdInput("xxx");
+                else poIdInput(" ");
+            }
+
+            if(!toast.equals("N/A"))
+                if(homePageObject.getPopUpMessage().equals(toast)) return true;
+                else return false;
+            else return true;
+        }
     }
 
 
@@ -413,48 +559,58 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             WebElement printUsingBarcodePrinterElement = driver.findElement(By.xpath(printUsingBarcodePrinterXpath));
             myActions.action_click(printUsingBarcodePrinterElement);
         }
+        public String editPO(){
+            clickPurchaseOrderListTab();
+            int i, total = getTotalPurchaseOrders();
+            for (i = 1; i <= total; i++)
+                if (!getStatus(i).equalsIgnoreCase("CLOSED"))
+                    if (!getStatus(i).equalsIgnoreCase("RECEIVED"))
+                        break;
+            String poId = getPOID(i);
+            return poId;
+        }
 
+        public String qcScanPO(String x){
+            clickPurchaseOrderListTab();
+            int i, total = getTotalPurchaseOrders();
+            for (i = 1; i <= total; i++) {
+                if (getStatus(i).equalsIgnoreCase(x) && getSkuCode(i).size() == 2)
+                    break;
+            }
+            String poId = getPOID(i);
+            return poId;
+        }
 
-        /*--------------Page Handling-------------------*/
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Next Page']")
-        private WebElement nextPage;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//select[@type='text']")
-        private WebElement pageSize;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Previous Page']")
-        private WebElement previousPage;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='First Page']")
-        private WebElement firstPage;
-
-        @FindBy(xpath = "//div[@id='PurchaseOrderList']//button[@title='Current Page Number']/span")
-        private WebElement pageNo;
 
 
         /*--------------Actions-------------------*/
         public void goToNextPage() {
-            wait.until(ExpectedConditions.visibilityOf(nextPage));
+            WebElement nextPage =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='Next Page']");
             myActions.action_click(nextPage);
         }
 
         public void selectPageSize(String size) {
-            wait.until(ExpectedConditions.visibilityOf(pageSize));
+            WebElement pageSize =
+                    xpathSetter("//div[@id='PurchaseOrderList']//select[@type='text']");
             myActions.action_select(pageSize, size);
         }
 
         public void goToPreviousPage() {
-            wait.until(ExpectedConditions.visibilityOf(previousPage));
+            WebElement previousPage =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='Previous Page']");
             myActions.action_click(previousPage);
         }
 
         public void goToFirstPage() {
-            wait.until(ExpectedConditions.visibilityOf(firstPage));
+            WebElement firstPage =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='First Page']");
             myActions.action_click(firstPage);
         }
 
         public int getPageNumber() {
-            wait.until(ExpectedConditions.visibilityOf(pageNo));
+            WebElement pageNo =
+                    xpathSetter("//div[@id='PurchaseOrderList']//button[@title='Current Page Number']/span");
             int pageNoInteger = Integer.valueOf(myActions.action_getText(pageNo));
             return pageNoInteger;
         }
@@ -472,22 +628,16 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='GrnCreate']//input[@type='text']")
-        private WebElement poIDEntryField;
-
-        @FindBy(xpath = "//button[contains(text(),'Create GRN')]")
-        private WebElement createGRNButton;
-
 
         /*--------------Actions-------------------*/
         public void poIDEntry(String poID) {
-            wait.until(ExpectedConditions.visibilityOf(poIDEntryField));
+            WebElement poIDEntryField = xpathSetter("//div[@id='GrnCreate']//input[@type='text']");
             myActions.action_sendKeys(poIDEntryField, poID);
             myActions.action_enter(poIDEntryField);
         }
 
         public void clickGRNButton() {
-            wait.until(ExpectedConditions.visibilityOf(createGRNButton));
+            WebElement createGRNButton = xpathSetter("//button[contains(text(),'Create GRN')]");
             myActions.action_click(createGRNButton);
         }
 
@@ -527,6 +677,93 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             WebElement receivedQuantity = driver.findElement(By.xpath(receivedQuantityXpath));
             myActions.action_sendKeys(receivedQuantity, quantityReceived);
         }
+
+        public void clickAddGRN(int index) {
+            index = (2*index) - 1;
+            String addGRN = "//div[@id='GrnCreate']//tbody//tr[" + index + "]//button";
+            WebElement addGRNButton = xpathSetterPresence(addGRN);
+            myActions.action_click(addGRNButton);
+        }
+
+        public void addPackagesButton(int index){
+            index *= 2;
+            String addPackagesXpath = "//div[@id='GrnCreate']//tbody//tr[" + index + "]//button[contains(text(),'+ Add Packages')]";
+            WebElement addPackagesButton = xpathSetter(addPackagesXpath);
+            myActions.action_click(addPackagesButton);
+        }
+
+        public void qtyInput(int skuindex, int pindex, String  qty){
+            skuindex *= 2;
+            String qtyXpath = "//div[@id='GrnCreate']//tbody//tr[" + skuindex + "]//input[@id='perPackageQuantity"+pindex+"']";
+            WebElement qtyInput = xpathSetterPresence(qtyXpath);
+            myActions.action_sendKeys(qtyInput, qty);
+        }
+
+        public void numberInput(int skuindex, int pindex, String number){
+            skuindex *= 2;
+            String numberXpath = "//div[@id='GrnCreate']//tbody//tr[" + skuindex + "]//input[@id='groupPackageCount"+pindex+"']";
+            WebElement numberInput = xpathSetterPresence(numberXpath);
+            myActions.action_sendKeys(numberInput, number);
+        }
+
+        public void createGRNReg(CreateGRNModel c, List<String >list){
+            String id = c.getTestCaseId();
+            String poId = "";
+
+            if(id.equals("CGRN_1")) poIDEntry(" ");
+
+            else if(id.equals("CGRN_2")) poIDEntry("xxx");
+
+            else if(id.equals("CGRN_3")) {
+                poIDEntry(list.get(0));
+                clickGRNButton();
+            }
+            else if(id.equals("CGRN_4")){
+                poIDEntry(list.get(1));
+                clickGRNButton();
+            }
+
+            else if (id.equals("CGRN_9") || id.equals("CGRN_10") || id.equals("CGRN_11") || id.equals("CGRN_12")){
+                poId = list.get(3);
+
+                poIDEntry(poId);
+                clickAddGRN(1);
+                qtyInput(1,0,c.getQuantity());
+                numberInput(1,0,c.getNumber());
+                clickAddGRN(2);
+                qtyInput(2,0,c.getQuantity());
+                numberInput(2,0,c.getNumber());
+
+                if (id.equals("CGRN_11") || id.equals("CGRN_12")) {
+                    addPackagesButton(1);
+                    qtyInput(1, 1, c.getQuantity());
+                    numberInput(1, 1, c.getNumber());
+                    addPackagesButton(2);
+                    qtyInput(2, 1, c.getQuantity());
+                    numberInput(2, 1, c.getNumber());
+                }
+                clickGRNButton();
+            }
+
+            else{
+                poId = list.get(2);
+
+                poIDEntry(poId);
+                clickAddGRN(1);
+                qtyInput(1,0,c.getQuantity());
+                numberInput(1,0,c.getNumber());
+
+
+                if (id.equals("CGRN_7") || id.equals("CGRN_8")) {
+                    addPackagesButton(1);
+                    qtyInput(1, 1, c.getQuantity());
+                    numberInput(1, 1, c.getNumber());
+                }
+                clickGRNButton();
+            }
+
+
+        }
     }
 
 
@@ -541,48 +778,67 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='QcScan']/div/div[1]/div/div/div/input")
-        private WebElement packageIDEntry;
-
-        @FindBy(xpath = "//div[@id='QcScan']//tbody/tr/td[1]")
-        private WebElement skuCode;
-
-        @FindBy(xpath = "//div[@id='QcScan']//tbody/tr/td[2]")
-        private WebElement description;
-
-        @FindBy(xpath = "//div[@id='QcScan']//tbody/tr/td[3]//img")
-        private WebElement image;
-
-        @FindBy(xpath = "//div[@id='QcScan']//div[3]//input[@type='text']")
-        private WebElement packageIDEntryScan;
-
-        @FindBy(xpath = "//*[@id='sidebar']//print-preview-button-strip//div/cr-button[1]")
-        private WebElement cancelButton;
-
-        @FindBy(xpath = "//body//div[1]//div[1]")
-        private WebElement firstPackage;
 
         /*--------------Actions-------------------*/
         public void packageIDInput(String packageID){
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntry));
+            WebElement packageIDEntry =
+                    xpathSetter("//div[@id='QcScan']/div/div[1]/div/div/div/input");
+            packageIDEntry.clear();
             myActions.action_sendKeys(packageIDEntry,packageID);
             myActions.action_enter(packageIDEntry);
         }
 
         public void packageIDScan(String packageID){
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntryScan));
+            WebElement packageIDEntryScan =
+                    xpathSetter("//div[@id='QcScan']//div[3]//input[@type='text']");
+            packageIDEntryScan.clear();
             myActions.action_sendKeys(packageIDEntryScan,packageID);
             myActions.action_enter(packageIDEntryScan);
         }
 
+        public String getImage(){
+            WebElement imageScan =
+                    xpathSetter("//div[@id='QcScan']//img");
+            return imageScan.getAttribute("src");
+        }
+
         public void clickCancelButton(){
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntryScan));
+            WebElement cancelButton =
+                    xpathSetter("//*[@id='sidebar']//print-preview-button-strip//div/cr-button[1]");
             myActions.action_click(cancelButton);
         }
 
-        public String getFirstPackage(){
-            wait.until(ExpectedConditions.visibilityOf(firstPackage));
+        public String getFirstPackage(String index){
+            WebElement firstPackage = xpathSetter("//body//div["+index+"]//div[1]");
             return myActions.action_getText(firstPackage);
+        }
+
+        public void qcScanner(QCScanModel q,String spId1,String spId2,String gpId1,String gpId2){
+            String id = q.getTestCaseId();
+            if(id.equals("QC_1")) packageIDInput(" ");
+            else if(id.equals("QC_2") || id.equals("QC_8")) packageIDInput("gp-123");
+            else {
+                if(id.equals("QC_3") || id.equals("QC_4") || id.equals("QC_5") || id.equals("QC_6") || id.equals("QC_7"))
+                    packageIDInput(spId1);
+                else if(id.equals("QC_9") || id.equals("QC_10") || id.equals("QC_11") || id.equals("QC_12") || id.equals("QC_13"))
+                    packageIDInput(gpId1);
+                System.out.println(getImage());
+
+                if(id.equals("QC_3") || id.equals("QC_9"))
+                    packageIDScan(" ");
+                else if(id.equals("QC_4"))
+                    packageIDScan("0000x");
+                else if(id.equals("QC_10"))
+                    packageIDScan("gp-123");
+                else if(id.equals("QC_5"))
+                    packageIDScan(spId2);
+                else if(id.equals("QC_11"))
+                    packageIDScan(gpId2);
+                else if(id.equals("QC_6") || id.equals("QC_7"))
+                    packageIDScan(spId1);
+                else if(id.equals("QC_12") || id.equals("QC_13"))
+                    packageIDScan(gpId1);
+            }
         }
 
 
@@ -600,7 +856,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
         }
 
         public String productImage() {
-            String productImageXpath = "//div[@id='QcScan']//table/tbody/tr/td[3]";
+            String productImageXpath = "//div[@id='QcScan']//tbody/tr/td[3]//img";
             WebElement productImageElement = driver.findElement(By.xpath(productImageXpath));
             String src = productImageElement.getAttribute("src");
             return src;
@@ -806,6 +1062,7 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
 
         /*--------------Actions-------------------*/
         public void poIDEntry(String poID) {
+            poIDEntryField.clear();
             myActions.action_sendKeys(poIDEntryField, poID);
             myActions.action_enter(poIDEntryField);
         }
@@ -814,5 +1071,13 @@ public class PurchaseOrdersPageObjects extends WmsBaseClass {
             List<WebElement> grn = driver.findElements(By.xpath("//div[@id='PurchaseOrderList']//thead/following-sibling::tbody/tr"));
             return grn.size();
         }
+
+        public String getGRNId(String index) {
+            WebElement grnId = driver.findElement(By.xpath("//div[@id='GrnView']//tbody/tr["+index+"]/td[2]"));
+            return myActions.action_getText(grnId);
+        }
+
+
+
     }
 }

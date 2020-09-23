@@ -34,7 +34,6 @@ public class AllPickLists extends WmsBaseClass {
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         assertion = new Assertion();
-        homePageObject.selectWarehouse("Shopup Dhaka");
     }
 
 
@@ -65,7 +64,7 @@ public class AllPickLists extends WmsBaseClass {
 
                 System.out.println(list.get(i).getReason_code());
                 assertion.assertTrue(allPickListsTab.getPickListReason(i + 1)
-                                .equalsIgnoreCase(list.get(i).getReason_code()),
+                                .contains(list.get(i).getReason_code()),
                         "Pick List Reasons Do Not Match");
 
                 System.out.println(list.get(i).getStatus());

@@ -1,0 +1,73 @@
+TestCaseId,TestCase,TestData,Name,Email,Phone,Address1,Address2,LandMark,City,State,ZipCode,VATNumber,ToastMessage
+AS_1,withNoInputs,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_2,withOnlyName,Input,Any String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_3,withOnlyValidEmail,Input,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_4,withOnlyPhone,Input,N/A,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_5,withOnlyAddress1,Input,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_6,withOnlyAddress2,Input,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A,N/A
+AS_7,withOnlyLandmark,Input,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A
+AS_8,withOnlyCity,Input,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A
+AS_9,withOnlyState,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A
+AS_10,withOnlyValidZipcode,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Valid String,N/A,N/A
+AS_11,withOnlyVATNumber,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A
+AS_13,withOnlyInvalidZipcode,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Invalid String,N/A,N/A
+AS_14,withOnlyInvalidPhone,Input,N/A,N/A,Invalid String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_15,withNameAndValidEmail,Input,Any String,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_16,withNameAndValidPhone,Input,Any String,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_17,withNameAndAddress1,Input,Any String,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_18,withNameAndAddress2,Input,Any String,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A,N/A
+AS_19,withNameAndLandmark,Input,Any String,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A
+AS_20,withNameAndCity,Input,Any String,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A
+AS_21,withNameAndState,Input,Any String,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A
+AS_22,withNameAndValidZipcode,Input,Any String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Valid String,N/A,N/A
+AS_23,withNameAndVATNo,Input,Any String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A
+AS_24,withEmailAndValidPhone,Input,N/A,Valid String,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_25,withEmailAndAddress1,Input,N/A,Valid String,N/A,Any String,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_26,withEmailAndAddress2,Input,N/A,Valid String,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A,N/A
+AS_27,withEmailAndLandmark,Input,N/A,Valid String,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A
+AS_28,withEmailAndCity,Input,N/A,Valid String,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A
+AS_29,withEmailAndState,Input,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A
+AS_30,withEmailAndValidZipcode,Input,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,Valid String,N/A,N/A
+AS_31,withEmailAndVATNo,Input,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A
+AS_32,withPhoneAndAddress1,Input,N/A,N/A,Valid String,Any String,N/A,N/A,N/A,N/A,N/A,N/A,N/A
+AS_33,withPhoneAndAddress2,Input,N/A,N/A,Valid String,N/A,Any String,N/A,N/A,N/A,N/A,N/A,N/A
+AS_34,withPhoneAndLandmark,Input,N/A,N/A,Valid String,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A
+AS_35,withPhoneAndCity,Input,N/A,N/A,Valid String,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A
+AS_36,withPhoneAndState,Input,N/A,N/A,Valid String,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A
+AS_37,withPhoneAndValidZipcode,Input,N/A,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,Valid String,N/A,N/A
+AS_38,withPhoneAndVATNo,Input,N/A,N/A,Valid String,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A
+AS_39,withAddress1AndAddress2,Input,N/A,N/A,N/A,Any String,Any String,N/A,N/A,N/A,N/A,N/A,N/A
+AS_40,withAddress1AndLandmark,Input,N/A,N/A,N/A,Any String,N/A,Any String,N/A,N/A,N/A,N/A,N/A
+AS_41,withAddress1AndCity,Input,N/A,N/A,N/A,Any String,N/A,N/A,Any String,N/A,N/A,N/A,N/A
+AS_42,withAddress1AndState,Input,N/A,N/A,N/A,Any String,N/A,N/A,N/A,Any String,N/A,N/A,N/A
+AS_43,withAddress1AndValidZipcode,Input,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,Valid String,N/A,N/A
+AS_44,withAddress1AndVATNo,Input,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,N/A,Any String,N/A
+AS_45,withAddress2AndLandmark,Input,N/A,N/A,N/A,N/A,Any String,Any String,N/A,N/A,N/A,N/A,N/A
+AS_46,withAddress2AndCity,Input,N/A,N/A,N/A,N/A,Any String,N/A,Any String,N/A,N/A,N/A,N/A
+AS_47,withAddress2AndState,Input,N/A,N/A,N/A,N/A,Any String,N/A,N/A,Any String,N/A,N/A,N/A
+AS_48,withAddress2AndValidZipcode,Input,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,Valid String,N/A,N/A
+AS_49,withAddress2AndVATNo,Input,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,N/A,Any String,N/A
+AS_50,withLandmarkAndCity,Input,N/A,N/A,N/A,N/A,N/A,Any String,Any String,N/A,N/A,N/A,N/A
+AS_51,withLandmarkAndState,Input,N/A,N/A,N/A,N/A,N/A,Any String,N/A,Any String,N/A,N/A,N/A
+AS_52,withLandmarkAndValidZipcode,Input,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,Valid String,N/A,N/A
+AS_53,withLandmarkAndVATNo,Input,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,N/A,Any String,N/A
+AS_54,withCityAndState,Input,N/A,N/A,N/A,N/A,N/A,N/A,Any String,Any String,N/A,N/A,N/A
+AS_55,withCityAndZipcode,Input,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A,Valid String,N/A,N/A
+AS_56,withCityAndVATNo,Input,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A,N/A,Any String,N/A
+AS_57,withStateAndValidZipcode,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Any String,Valid String,N/A,N/A
+AS_58,withStateAndVATNo,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Any String,N/A,Any String,N/A
+AS_59,withValidZipcodeAndVATNo,Input,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,Valid String,Any String,N/A
+AS_60,withExistingName,Input,Existing,Valid String,Valid String,Any String,Any String,Any String,Any String,Any String,Valid String,Any String,Supplier creation failed
+AS_61,withNewName,Input,New,Valid String,Valid String,Any String,Any String,Any String,Any String,Any String,Valid String,Any String,Supplier Added
+AS_62,withNewNameOnlyMandatory,Input,New,Valid String,Valid String,Any String,N/A,N/A,Any String,Any String,Valid String,Any String,Supplier Added
+AS_63,withExistingNameOnlyMandatory,Input,Existing,Valid String,Valid String,Any String,N/A,N/A,Any String,Any String,Valid String,Any String,Supplier creation failed
+AS_64,withNoName,Input,N/A,Valid String,Valid String,Any String,Any String,Any String,Any String,Any String,Valid String,Any String,N/A
+AS_65,withNoEmail,Input,New,N/A,Valid String,Any String,Any String,Any String,Any String,Any String,Valid String,Any String,N/A
+AS_66,withNoPhone,Input,New,Valid String,N/A,Any String,Any String,Any String,Any String,Any String,Valid String,Any String,N/A
+AS_67,withNoAddress1,Input,New,Valid String,Valid String,N/A,Any String,Any String,Any String,Any String,Valid String,Any String,N/A
+AS_68,withNoAddress2,Input,New,Valid String,Valid String,Any String,N/A,Any String,Any String,Any String,Valid String,Any String,Supplier Added
+AS_69,withNoLandmark,Input,New,Valid String,Valid String,Any String,Any String,N/A,Any String,Any String,Valid String,Any String,Supplier Added
+AS_70,withNoCity,Input,New,Valid String,Valid String,Any String,Any String,Any String,N/A,Any String,Valid String,Any String,N/A
+AS_71,withNoState,Input,New,Valid String,Valid String,Any String,Any String,Any String,Any String,N/A,Valid String,Any String,N/A
+AS_72,withNoZipcode,Input,New,Valid String,Valid String,Any String,Any String,Any String,Any String,Any String,N/A,Any String,N/A
+AS_73,withNoVATNo,Input,New,Valid String,Valid String,Any String,Any String,Any String,Any String,Any String,Valid String,N/A,N/A

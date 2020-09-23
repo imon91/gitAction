@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SanityTestSuite">
+    <listeners>
+        <listener class-name="listeners.OmsUiTestNgListener"></listener>
+    </listeners>
+    <parameter name="test" value="sanity"></parameter>
+    <test name="SanityTests">
+        <groups>
+            <run>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.shopf.tests.Login"></class>
+            <class name="com.shopf.tests.Warehouses.AddingWarehouse"></class>
+            <class name="com.shopf.tests.Warehouses.WarehouseList"></class>
+            <class name="com.shopf.tests.Warehouses.UpdateBinCapacity"></class>
+            <class name="com.shopf.tests.Suppliers.SuppliersList"></class>
+            <class name="com.shopf.tests.Suppliers.SellersList"></class>
+            <class name="com.shopf.tests.Suppliers.AddSupplier"></class>
+            <class name="com.shopf.tests.Variants.VariantBinDetails"></class>
+            <class name="com.shopf.tests.PurchaseOrders.PurchaseOrderList"></class>
+            <class name="com.shopf.tests.PurchaseOrders.PurchaseOrderDetails"></class>
+            <class name="com.shopf.tests.Packages.BinReset"></class>
+            <class name="com.shopf.tests.Packages.BinInScan"></class>
+            <class name="com.shopf.tests.PickOrders.AllPickLists"></class>
+            <class name="com.shopf.tests.PickOrders.PickListAction"></class>
+            <class name="com.shopf.tests.OrderProcess.OrderDetails"></class>
+            <class name="com.shopf.tests.Logout"></class>
+        </classes>
+    </test>
+</suite>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="RegressionTestSuite">
-    <test name="RegressionTests" preserve-order="true" parallel="false">
+<suite name="MyBagSuite">
+    <test name="MyBagTests" preserve-order="true" parallel="false">
         <parameter name="suite" value="regression"/>
         <groups>
             <run>

@@ -2,13 +2,18 @@ package helper;
 
 import coreUtils.*;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.MobileBrowserType;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import java.net.*;
+import java.util.HashMap;
+import java.util.Map;
+
 import io.appium.java_client.service.local.*;
 import io.appium.java_client.service.local.flags.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.remote.*;
-import java.net.*;
 
 public class GetDriverFromCore {
 
@@ -18,8 +23,10 @@ public class GetDriverFromCore {
     private static final String USERNAME = "techautomation1";
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
     private static final String APP_RESELLER = "bs://ae0d24a76911bff4913071b739216f6da1fe16fb";
-    private static final String APP_MOKAM = "bs://20ee0ee5c077e170ecbdccd38dc0c0072ac1eb39";
-    private static final String APP_RED_X = "bs://8d5d5e3f9ec3520fc5c1b9cac95e1e3f51f91c06";
+    private static final String APP_MOKAM = "bs://1dd7dcd62bf0745ba9e62693f67d612a0d504119";
+    private static final String APP_RED_X = "bs://413125d12445e7b9cc729a2b2772b6694a92546a";
+   // private static final String APP_MOKAM = "bs://20ee0ee5c077e170ecbdccd38dc0c0072ac1eb39";
+   // private static final String APP_RED_X = "bs://8d5d5e3f9ec3520fc5c1b9cac95e1e3f51f91c06";
     private static final String APP_STORES = "";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";
@@ -132,15 +139,27 @@ public class GetDriverFromCore {
 
     public static WebDriver getWebDriver(String os,String os_version,String browser,String browser_version,String host) throws Exception{
         if(host.equalsIgnoreCase(HOST_LOCAL)){
-            System.out.println("Control came to getWebDriver for Host : local");
-            System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
-            DesiredCapabilities capabilities = new DesiredCapabilities();
-            capabilities.setBrowserName(CHROME_DRIVER);
-            ChromeOptions chOptions = new ChromeOptions();
-            chOptions.addArguments("--disable-plugins", "--disable-extensions",
-                    "--disable-popup-blocking","--disable-notifications");
-            capabilities.setCapability(ChromeOptions.CAPABILITY,chOptions);
-            return new ChromeDriver(capabilities);
+             System.out.println("Control came to getWebDriver for Host : local");
+            String dir = System.getProperty("user.dir");
+            String filePath = dir + "/Downloads";
+            System.out.println(filePath);
+//             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
+            System.setProperty("webdriver.chrome.verboseLogging", "true");
+            WebDriverManager.chromedriver().setup();
+
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setAcceptInsecureCerts(true);
+            chromeOptions.addArguments("'--disable-web-security");
+            chromeOptions.addArguments("--no-sandbox"); 
+            chromeOptions.addArguments("--user-data-dir");
+            Map<String,Object> prefs = new HashMap<>();
+            prefs.put("download.default_directory",filePath);
+            chromeOptions.setExperimentalOption("prefs",prefs);
+
+            DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+            desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
+            WebDriver driver = new ChromeDriver(desiredCapabilities);
+            return driver;
         }else {
             setBrowserStackUrl();
             System.out.println("Control came to getWebDriver for Host : browserStack");
@@ -167,7 +186,7 @@ public class GetDriverFromCore {
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_NETWORK_LOGS,CoreConstants.TRUE);
             ChromeOptions chOptions = new ChromeOptions();
             chOptions.addArguments("--disable-plugins", "--disable-extensions",
-                    "--disable-popup-blocking","--disable-notifications");
+                    "--disable-popup-blocking", "--disable-notifications", "--disable-web-security", "--user-data-dir", "--allow-running-insecure-content" );
             caps.setCapability(ChromeOptions.CAPABILITY,chOptions);
             return new RemoteWebDriver(url,caps);
         }

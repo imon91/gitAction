@@ -35,7 +35,7 @@ public class PurchaseOrderDetails extends WmsBaseClass {
         getWMSApiResponse = new GetWMSApiResponse(CoreConstants.MODULE_WMS_UI);
         purchaseOrderListModels = getWMSApiResponse.getPurchaseOrderList(1,30);
         assertion = new Assertion();
-        n = random.nextInt(purchaseOrderListModels.size()) - 1;
+        n = random.nextInt(purchaseOrderListModels.size()) + 1;
     }
 
 

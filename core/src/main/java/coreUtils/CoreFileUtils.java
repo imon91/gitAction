@@ -21,6 +21,7 @@ public class CoreFileUtils {
     public static final String domainPropertiesFilePath = CoreFileRouters.scriptPropertiesFolderPath+"domains.properties";
     public static final String storeSendOtpJsonPath = CoreFileRouters.storeAuthData+"send_otp.json";
     public static final String storeLoginJsonPath = CoreFileRouters.storeAuthData+"login.json";
+    public static final String searchTermJsonPath = CoreFileRouters.testDataFolderPath+"searchTerm.json";
 
 
     public static class Reports{

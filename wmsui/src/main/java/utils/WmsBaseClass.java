@@ -4,7 +4,11 @@ import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import coreUtils.DomainPropertyReader;
 import helper.GetDriverFromCore;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
@@ -96,7 +100,62 @@ public class WmsBaseClass extends GetDriverFromCore{
         }
     }
 
+    public static WebElement xpathSetter(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),5)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    xpathSetter(xpath);
+                    loop++;
+                }
+            }
 
+        }
+        return null;
+    }
+
+    public static WebElement xpathSetterPresence(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),5)
+                    .until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    xpathSetterPresence(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public static WebElement xpathSetterClick(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),5)
+                    .until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    xpathSetterClick(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
 
     public static void quitBaseDriver(){
         driver.quit();

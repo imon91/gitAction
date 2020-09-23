@@ -16,8 +16,8 @@ public class Authentication extends StoreWapBaseClass {
 
 
     @BeforeSuite(alwaysRun = true)
-    public void resellerAndroidBeforeSuite() throws Exception {
-        System.out.println("resellerAndroidBeforeSuite is called");
+    public void storesBeforeSuite() throws Exception {
+        System.out.println("storesBeforeSuite is called");
         // This code is to set the Cookie for API usage
         new GetAuthenticationApiResponse(CoreConstants.MODULE_STORE_WAP).performAuthentication();
         androidDriver = getBaseDriver();
@@ -36,7 +36,7 @@ public class Authentication extends StoreWapBaseClass {
     @DataProvider(name = "dataForAuthentication")
     public Object[][] dataForAuthentication() {
         return new Object[][]{
-                {"8801877755580"}
+                {"8801877755530"}
         };
     }
 
@@ -48,6 +48,7 @@ public class Authentication extends StoreWapBaseClass {
         authenticationPageObjects.sendOtp(mobileNumber);
         Assert.assertEquals(authenticationPageObjects.getOtpStatusMessage(), "otp sent successfully");
         authenticationPageObjects.enterValidOtp();
+        sleep(3000);
     }
 
 
@@ -100,6 +101,13 @@ public class Authentication extends StoreWapBaseClass {
     @AfterClass(alwaysRun = true)
     public void authenticationAfterClass() {
         System.out.println("Authentication AfterClass Is Called");
+    }
+
+
+    @AfterSuite(alwaysRun = true)
+    public void storesAfterSuite(){
+        System.out.println("Stores After Suite is called");
+        quitBaseDriver();
     }
 
 
