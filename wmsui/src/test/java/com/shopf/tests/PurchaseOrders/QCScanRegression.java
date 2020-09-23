@@ -1,19 +1,15 @@
 package com.shopf.tests.PurchaseOrders;
 
-import com.google.gson.Gson;
-import coreUtils.CoreConstants;
-import dataParcer.CSVParser;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.interactions.Actions;
+import com.google.gson.*;
+import coreUtils.*;
+import dataParcer.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.*;
 import org.testng.annotations.*;
 import org.testng.asserts.*;
 import pageObjects.*;
-import services.responseModels.wmsModels.CreateGRNModel;
-import services.responseModels.wmsModels.QCScanModel;
+import services.responseModels.wmsModels.*;
 import utils.*;
-
-import java.io.*;
 import java.util.*;
 
 public class QCScanRegression extends WmsBaseClass {

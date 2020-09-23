@@ -13,51 +13,64 @@ import utils.*;
 import java.io.*;
 import java.util.*;
 
-public class AddingPickListRegression extends WmsBaseClass {
+public class PickListActionRegression  extends WmsBaseClass {
 
     private WebDriver driver;
     private HomePageObject homePageObject;
     private PickOrdersPageObjects pickOrdersPageObjects;
     private PickOrdersPageObjects.DemandLessPickListTab demandLessPickListTab;
     private PickOrdersPageObjects.AllPickListsTab allPickListsTab;
+    private PickOrdersPageObjects.PickListActionTab pickListActionTab;
     private Random random;
     private Assertion assertion;
+    private String id;
 
     @BeforeClass(alwaysRun = true)
-    public void addingPickListBeforeClass() throws Exception {
-        System.out.println("Adding Pick List Before Class is called");
+    public void pickListActionBeforeClass() throws Exception {
+        System.out.println("Pick List Action Before Class");
         driver = getBaseDriver();
         homePageObject = new HomePageObject(driver);
         pickOrdersPageObjects = new PickOrdersPageObjects(driver);
         demandLessPickListTab = pickOrdersPageObjects.new DemandLessPickListTab(driver);
         allPickListsTab = pickOrdersPageObjects.new AllPickListsTab(driver);
+        pickListActionTab = pickOrdersPageObjects.new PickListActionTab(driver);
         random = new Random();
         assertion = new Assertion();
+        homePageObject.clickPickOrders();
+        homePageObject.selectWarehouse("TestWarehouse");
+        pickOrdersPageObjects.clickDemandLessPickListTab();
+        demandLessPickListTab.enterWarehouseDetails();
+        demandLessPickListTab.createPickListOrder("172910");
+        pickOrdersPageObjects.clickAllPickListsTab();
+        id = allPickListsTab.outForPickup(1);
     }
 
     @DataProvider(name = "CSVData")
     public Object[][] getCSVData(){
         String dir = System.getProperty("user.dir");
-        String filePath = dir + "/src/test/resources/testData/AddingPickList.csv";
-        return CSVParser.getDataForDataProvider(filePath, AddingPickListModel.class);
+        String filePath = dir + "/src/test/resources/testData/PickListAction.csv";
+        return CSVParser.getDataForDataProvider(filePath, PickListActionModel.class);
     }
 
     @Test(groups = (CoreConstants.GROUP_REGRESSION),
             dataProvider = "CSVData",
             dependsOnGroups = ("Login.verifyAuthenticationWithValidCredentials"),
-            description = "Adds Pick List")
+            description = "Verify Pick List Action")
     public void createPurchaseOrderVerification(Object body) throws FileNotFoundException {
-        System.out.println("Create Purchase Order Verification is Called");
-        homePageObject.clickPickOrders();
-        pickOrdersPageObjects.clickDemandLessPickListTab();
+        System.out.println("Pick List Action Verification is Called");
+        pickOrdersPageObjects.clickPickListActionTab();
         Gson gson = new Gson();
-        AddingPickListModel addingPickListModel = gson.fromJson(body.toString(),AddingPickListModel.class);
-        demandLessPickListTab.addPickList(addingPickListModel);
+        PickListActionModel pickListActionModel = gson.fromJson(body.toString(),PickListActionModel.class);
+        assertion.assertTrue(pickListActionTab.pickListActionReg(pickListActionModel,id));
+
         driver.navigate().refresh();
+
+
+
     }
 
     @AfterClass(alwaysRun = true)
-    public void addingPickListAfterClass() {
-        System.out.println("Adding Pick List After Class is called");
+    public void pickListActionAfterClass() {
+        System.out.println("Pick List Action After Class");
     }
 }

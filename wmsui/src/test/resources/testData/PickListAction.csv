@@ -1,0 +1,8 @@
+TestCaseId,TestCase,TestData,PickListId,ScanPackages,ErrorMessages,ToastMessage
+PLA_1,withoutAnySelection,Input,N/A,N/A,This field is required.,N/A
+PLA_2,SPInvalid,Input,Valid,N/A,This field is required.,N/A
+PLA_3,SPValidImageN/A,Input,N/A,Valid,This field is required.,N/A
+PLA_4,SPValidImageInvalidScan,Input,Invalid,Invalid,N/A,Pick List not found
+PLA_5,SPValidImageAnotherScan,Input,Invalid,Valid,N/A,Pick List not found
+PLA_6,SPValidImageAlreadyScanned,Input,Valid,Invalid,N/A,Package not found
+PLA_7,SPValidImageValidScan,Input,Valid,N/A,N/A,PickList is outwarded

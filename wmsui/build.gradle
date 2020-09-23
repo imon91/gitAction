@@ -69,6 +69,7 @@ task wmsuiTest(type: Test){
         def editPO = project.hasProperty("EditPO")
         def createGRN = project.hasProperty("CreateGRN")
         def createPickList = project.hasProperty("CreatePickList")
+        def pickListAction = project.hasProperty("PickListAction")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -113,6 +114,9 @@ task wmsuiTest(type: Test){
 
         if(createPickList){
             suites "src/test/resources/mySuites/createPickList.xml"
+        }
+        if(pickListAction){
+            suites "src/test/resources/mySuites/pickListAction.xml"
         }
     }
 }

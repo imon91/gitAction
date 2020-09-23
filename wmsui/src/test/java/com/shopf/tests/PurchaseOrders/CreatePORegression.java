@@ -1,6 +1,6 @@
 package com.shopf.tests.PurchaseOrders;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import coreUtils.*;
 import dataParcer.*;
 import org.openqa.selenium.*;
@@ -10,7 +10,7 @@ import pageObjects.*;
 import services.responseModels.wmsModels.*;
 import utils.*;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 public class CreatePORegression extends WmsBaseClass {

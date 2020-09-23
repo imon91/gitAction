@@ -3,9 +3,11 @@ package pageObjects;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
 import services.responseModels.wmsModels.AddingPickListModel;
 import services.responseModels.wmsModels.CreatePOModel;
+import services.responseModels.wmsModels.PickListActionModel;
 import services.responseModels.wmsModels.VariantDetailsModel;
 import utils.*;
 
@@ -279,11 +281,13 @@ public class PickOrdersPageObjects extends WmsBaseClass {
     public class PickListActionTab{
         private final WebDriver driver;
         private final MyActions myActions;
+        private HomePageObject homePageObject;
 
         public PickListActionTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            homePageObject = new HomePageObject(driver);
         }
 
 
@@ -296,16 +300,22 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             myActions.action_sendKeys(packageIdEntry,packageId);
         }
 
-        public void clickQcPassCheckBox(){
-            WebElement qcPassCheckBox =
-                    xpathSetter("//div[@id='PackageOutScan']//label[2]//span[1]//input[1]");
-            myActions.action_click(qcPassCheckBox);
+        public void pickListIdInput(String id){
+            WebElement pickListIdEntry =
+                    xpathSetter("//div[@id='PackageOutScan']//input[@id='packageOutScanPickListId']");
+            myActions.action_sendKeys(pickListIdEntry,id);
         }
 
-        public void clickQcFailCheckBox(){
-            WebElement qcFailCheckBox =
-                    xpathSetter("//div[@id='PackageOutScan']//label[3]//span[1]//input[1]");
-            myActions.action_click(qcFailCheckBox);
+        public void clickSubmitOutScan(){
+            WebElement submitOutScan =
+                    xpathSetter("//button[contains(text(),'Submit OutScan')]");
+            myActions.action_click(submitOutScan);
+        }
+
+        public void clickYes(){
+            WebElement yesButton =
+                    xpathSetter("//body/div/div/div/div/div/div/div/button[2]");
+            myActions.action_click(yesButton);
         }
 
         public void clickResetButton(){
@@ -314,9 +324,9 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             myActions.action_click(resetButton);
         }
 
-        public void clickSubmitOutScanButton(){
+        public void clickSubmitOutwardPickListButton(){
             WebElement submitOutScanButton =
-                    xpathSetter("//div[@id='PackageOutScan']//button[2]");
+                    xpathSetter("//div[@id='PackageOutScan']//div//div//div[1]//div[1]//button[1]");
             myActions.action_click(submitOutScanButton);}
 
         public void pickListIdEntry(String id){
@@ -374,14 +384,59 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             return myActions.action_getText(warehouseBinCode);
         }
 
-
         public String getStatus(int index) {
             String statusXpath = "//div[@id='PackageOutScan']//tbody/tr["+index+"]/td[8]";
             WebElement status = driver.findElement(By.xpath(statusXpath));
             return myActions.action_getText(status);
         }
 
+        public boolean pickListActionReg(PickListActionModel p, String id) throws FileNotFoundException {
+            String testCase = p.getTestCaseId();
+            String error = p.getErrorMessages();
+            if(testCase.equals("PLA_7")) {
+                pickListIdEntry(getInputData("PickListId", p.getPickListId(), id));
+                clickSubmitOutwardPickListButton();
+                clickYes();
+            }
+            else{
+                pickListIdInput(getInputData("PickListId", p.getPickListId(), id));
+                packageIdInput(getInputData("ScanPackages",p.getScanPackages(),id));
+                clickSubmitOutScan();
+            }
+            if(error.equals("N/A")) return homePageObject.getPopUpMessage().equals(p.getToastMessage());
+            else return verifyElementVisibilityWithText(error);
+        }
 
+        public boolean verifyElementVisibilityWithText(String value)
+        {
+            WebElement element =
+                    xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+        }
+
+        public String getInputData(String attribute,String input, String id) throws FileNotFoundException {
+            switch (attribute) {
+                case "PickListId":
+                    switch (input) {
+                        case "Valid":
+                            return id;
+                        case "Invalid":
+                            return "xxx";
+                        case "N/A":
+                            return " ";
+                    }
+                case "ScanPackages":
+                    switch (input) {
+                        case "Valid":
+                            return "942727";
+                        case "Invalid":
+                            return "xxx";
+                        case "N/A":
+                            return " ";
+                    }
+                default: return " ";
+            }
+        }
     }
 
 
@@ -389,11 +444,13 @@ public class PickOrdersPageObjects extends WmsBaseClass {
     public class AllPickListsTab{
         private final WebDriver driver;
         private final MyActions myActions;
+        private final Actions actions;
 
         public AllPickListsTab(WebDriver driver) {
             this.driver = driver;
             PageFactory.initElements(driver, this);
             myActions = new MyActions();
+            actions = new Actions(driver);
         }
 
 
@@ -512,6 +569,17 @@ public class PickOrdersPageObjects extends WmsBaseClass {
         public void enterPageNumber(String pageNumber){
             myActions.action_sendKeys(pageNumberEntry,pageNumber);
             myActions.action_enter(pageNumberEntry);
+        }
+
+        public String outForPickup(int index){
+            String id  = getPickListID(index);
+            printInvoice(index);
+            ArrayList<String> tabs = new ArrayList (driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(1));
+            actions.sendKeys(Keys.ESCAPE).build().perform();
+            driver.close();
+            driver.switchTo().window(tabs.get(0));
+            return id;
         }
     }
 }
