@@ -2,7 +2,6 @@ package com.store.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
