@@ -10,7 +10,6 @@ import org.testng.asserts.*;
 import pageObjects.*;
 import services.responseModels.wmsModels.*;
 import utils.*;
-import java.util.*;
 
 public class QCScanRegression extends WmsBaseClass {
     private WebDriver driver;

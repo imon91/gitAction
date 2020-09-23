@@ -1,19 +1,15 @@
 package pageObjects;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
-import services.responseModels.wmsModels.AddingPickListModel;
-import services.responseModels.wmsModels.CreatePOModel;
-import services.responseModels.wmsModels.PickListActionModel;
-import services.responseModels.wmsModels.VariantDetailsModel;
+import services.responseModels.wmsModels.*;
 import utils.*;
-
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 import java.util.*;
 
 public class PickOrdersPageObjects extends WmsBaseClass {
@@ -316,6 +312,17 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             WebElement yesButton =
                     xpathSetter("//body/div/div/div/div/div/div/div/button[2]");
             myActions.action_click(yesButton);
+          
+        public void clickQcPassCheckBox(){
+            WebElement qcPassCheckBox =
+                    xpathSetter("//div[@id='PackageOutScan']//label[2]//span[1]//input[1]");
+            myActions.action_click(qcPassCheckBox);
+        }
+
+        public void clickQcFailCheckBox(){
+            WebElement qcFailCheckBox =
+                    xpathSetter("//div[@id='PackageOutScan']//label[3]//span[1]//input[1]");
+            myActions.action_click(qcFailCheckBox);
         }
 
         public void clickResetButton(){
@@ -327,6 +334,11 @@ public class PickOrdersPageObjects extends WmsBaseClass {
         public void clickSubmitOutwardPickListButton(){
             WebElement submitOutScanButton =
                     xpathSetter("//div[@id='PackageOutScan']//div//div//div[1]//div[1]//button[1]");
+
+        public void clickSubmitOutScanButton(){
+            WebElement submitOutScanButton =
+                    xpathSetter("//div[@id='PackageOutScan']//button[2]");
+
             myActions.action_click(submitOutScanButton);}
 
         public void pickListIdEntry(String id){

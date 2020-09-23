@@ -88,10 +88,9 @@ public class EditProductsPageObjects extends StoreWapBaseClass {
         WebElement deleteElement = androidDriver.findElement(By.xpath(xpath));
         storeWapActions.action_click(deleteElement);
     }
-
+  
     public void editCustomerNameWithRandomName(){
         String newName = "Automation-Testing" + RandomStringUtils.randomAlphabetic(5);
         new Actions(androidDriver).click(customerName).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(newName).perform();
     }
-
 }

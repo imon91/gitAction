@@ -9,7 +9,6 @@ import org.testng.Assert;
 import utils.StoreWapActions;
 
 import java.util.Random;
-
 import static utils.StoreWapBaseClass.getBaseDriver;
 
 public class OrderDetailsPageObjects {
@@ -95,7 +94,6 @@ public class OrderDetailsPageObjects {
     public void clickOnSendToDeliveryButton(){ storeWapActions.action_click(sendToDeliveryButton);}
 
     public void clickOnRecordPaymentsButton(){ storeWapActions.action_click(recordPaymentsButton);}
-
 
     /*-----------------------------------------------Functions--------------------------------------------------------*/
 

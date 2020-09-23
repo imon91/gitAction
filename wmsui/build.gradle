@@ -111,7 +111,6 @@ task wmsuiTest(type: Test){
         if(createGRN) {
             suites "src/test/resources/mySuites/createGRN.xml"
         }
-
         if(createPickList){
             suites "src/test/resources/mySuites/createPickList.xml"
         }

@@ -116,7 +116,8 @@ public class AuthenticationPageObjects extends StoreWapBaseClass {
     }
 
     public void enterValidOtp(){
-        String otp = new DataBaseCore().getOTPForStore();
+//        String otp = new DataBaseCore().getOTPForStore();
+        String otp = "666666";
         System.out.println("Valid OTP : "+otp);
         enterOtp(otp + "\n");
         clickVerifyMobileNumberButton();

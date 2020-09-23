@@ -65,7 +65,7 @@ public class CatalogDownloadUpload extends OmsBaseClass {
             stream.write(data);
             stream.close();
         }
-
+      
         File list[] = folder.listFiles();
         assertion.assertNotEquals(list.length,0);
 

@@ -7,9 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObejcts.*;
 import utils.StoreWapBaseClass;
-
-import java.util.ArrayList;
-
+import java.util.*;
 
 public class QuickOrderFlowTestCases extends StoreWapBaseClass {
 
