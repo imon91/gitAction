@@ -4,13 +4,8 @@ import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObejcts.CustomerDetailsPageObjects;
-import pageObejcts.CustomerListPageObjects;
-import pageObejcts.DashBoardPageObjects;
-import pageObejcts.FacebookPageObjects;
+import org.testng.annotations.*;
+import pageObejcts.*;
 import utils.StoreWapBaseClass;
 
 

@@ -150,7 +150,7 @@ public class GetDriverFromCore {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setAcceptInsecureCerts(true);
             chromeOptions.addArguments("'--disable-web-security");
-            chromeOptions.addArguments("--no-sandbox"); 
+            chromeOptions.addArguments("--no-sandbox");
             chromeOptions.addArguments("--user-data-dir");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);

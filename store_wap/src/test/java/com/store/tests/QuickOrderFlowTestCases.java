@@ -2,21 +2,14 @@ package com.store.tests;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageObejcts.*;
-import sun.misc.ASCIICaseInsensitiveComparator;
+import utils.StoreWapBaseClass;
+import java.util.*;
 
-import java.util.Optional;
-
-import static utils.StoreWapBaseClass.getBaseDriver;
-import static utils.StoreWapBaseClass.sleep;
-
-
-public class QuickOrderFlowTestCases {
+public class QuickOrderFlowTestCases extends StoreWapBaseClass {
 
 
 
@@ -33,6 +26,7 @@ public class QuickOrderFlowTestCases {
     private RecordPaymentsPageObjects recordPaymentsPageObjects;
     private OrderDetailsPageObjects orderDetailsPageObjects;
     private EditProductsPageObjects editProductsPageObjects;
+    private OnlinePaymentPageObjects onlinePaymentPageObjects;
 
 
     public void pageInitializer() {
@@ -48,6 +42,7 @@ public class QuickOrderFlowTestCases {
         recordPaymentsPageObjects = new RecordPaymentsPageObjects(androidDriver);
         orderDetailsPageObjects = new OrderDetailsPageObjects(androidDriver);
         editProductsPageObjects = new EditProductsPageObjects(androidDriver);
+        onlinePaymentPageObjects = new OnlinePaymentPageObjects(androidDriver);
     }
 
 
@@ -220,7 +215,7 @@ public class QuickOrderFlowTestCases {
         System.out.println("enterCustomerDetails is called");
         customerDetailsPageObjects.editMobileNumberWithValidMobileNumber();
         customerDetailsPageObjects.editAddress();
-        customerDetailsPageObjects.chooseAreaName(1);
+        customerDetailsPageObjects.chooseAreaName(8);
         customerDetailsPageObjects.enterCustomerTags();
         customerDetailsPageObjects.enterCustomerTags();
         customerDetailsPageObjects.chooseRatingForCustomer(0);
@@ -283,7 +278,28 @@ public class QuickOrderFlowTestCases {
         sleep(3000);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "enterPartialAmountForOnlinePayment" )
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, dependsOnMethods = "enterPartialAmountForOnlinePayment")
+    public void onlineCashPayment(){
+        System.out.println("onlineCashPayment is called");
+        String paymentLink = recordPaymentsPageObjects.copyPaymentLink(1);
+        ((JavascriptExecutor)androidDriver).executeScript("window.open()");
+        ArrayList<String> tabs = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs.get(1));
+        androidDriver.get(paymentLink);
+        sleep(6000);
+        onlinePaymentPageObjects.clickPayNowButton();
+        sleep(4000);
+        ArrayList<String> tabs1 = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs1.get(2));
+        onlinePaymentPageObjects.payWithVisaCard();
+        ArrayList<String> tabs2 = new ArrayList<String>(androidDriver.getWindowHandles());
+        androidDriver.switchTo().window(tabs2.get(0));
+        recordPaymentsPageObjects.clickBackButton();
+        sleep(3000);
+        orderConfirmationPageObjects.clickRecordPaymentsButton();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "onlineCashPayment" )
     public void verifyPaymentIsMade(){
         System.out.println("verifyPaymentIsMade is called");
         System.out.println("Payments Made : "+ recordPaymentsPageObjects.getTotalPaymentsMade());
