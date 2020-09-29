@@ -56,7 +56,7 @@ public class VariantBinDetails extends WmsBaseClass {
         variantDetailsModels = gson.fromJson(bufferedReader,
                 new TypeToken<List<VariantDetailsModel>>(){}.getType());
 
-        int n = random.nextInt(20);
+        int n = random.nextInt(20)+1;
         return new Object[][]{
                 {"Id",variantDetailsModels.get(n-1).getSku_code()}
         };

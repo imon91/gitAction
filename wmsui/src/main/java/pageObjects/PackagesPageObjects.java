@@ -1,76 +1,58 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
-public class PackagesPageObjects {
+import java.util.*;
 
+public class PackagesPageObjects extends WmsBaseClass {
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public PackagesPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-
-    /*--------------Tabs-------------------*/
-    @FindBy(xpath = "//div[@class='packages-container']//ul/li[1]/a")
-    private WebElement packagesListTab;
-
-    @FindBy(xpath = "//div[@class='packages-container']//ul/li[2]/a")
-    private WebElement createPutawayListTab;
-
-    @FindBy(xpath = "//div[@class='packages-container']//ul/li[3]/a")
-    private WebElement binInScanTab;
-
-    @FindBy(xpath = "//div[@class='packages-container']//ul/li[4]/a")
-    private WebElement binResetTab;
-
-    @FindBy(xpath = "//div[@class='packages-container']//ul/li[5]/a")
-    private WebElement packageDetailsTab;
 
 
     /*--------------Actions-------------------*/
     public void clickPackagesListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(packagesListTab));
+        WebElement packagesListTab =
+                xpathSetter("//a[contains(text(),'Packages List')]");
         myActions.action_click(packagesListTab);
     }
 
     public void clickCreatePutawayListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(createPutawayListTab));
+        WebElement createPutawayListTab =
+                xpathSetter("//a[contains(text(),'Create Putaway List')]");
         myActions.action_click(createPutawayListTab);
     }
 
     public void clickBinInScanTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(binInScanTab));
+        WebElement binInScanTab =
+                xpathSetter("//a[contains(text(),'Bin In Scan')]");
         myActions.action_click(binInScanTab);
     }
 
     public void clickBinResetTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(binResetTab));
+        WebElement binResetTab =
+                xpathSetter("//a[contains(text(),'Bin Reset')]");
         myActions.action_click(binResetTab);
     }
 
     public void clickPackageDetailsTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(packageDetailsTab));
+        WebElement packageDetailsTab =
+                xpathSetter("//a[contains(text(),'Package Details')]");
         myActions.action_click(packageDetailsTab);
     }
 
 
     /*--------------Packages List Tab-------------------*/
     public class PackagesListTab {
-        private final WebDriver driver;
-        private final MyActions myActions;
+        private WebDriver driver;
+        private MyActions myActions;
 
         public PackagesListTab(WebDriver driver) {
             this.driver = driver;
@@ -78,21 +60,16 @@ public class PackagesPageObjects {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='PackagesList']//select")
-        private WebElement selectStatusDropdown;
-
-        @FindBy(xpath = "//div[@id='PackagesList']//button")
-        private WebElement selectAllButton;
-
 
         /*--------------Actions-------------------*/
         public void selectStatus(String status) {
-            wait.until(ExpectedConditions.visibilityOf(selectStatusDropdown));
+            WebElement selectStatusDropdown =
+                    xpathSetter("//div[@id='PackagesList']//select");
             myActions.action_select(selectStatusDropdown, status);
         }
 
         public void clickSelectAllButton() {
-            wait.until(ExpectedConditions.visibilityOf(selectAllButton));
+            WebElement selectAllButton = xpathSetter("//div[@id='PackagesList']//button");
             myActions.action_click(selectAllButton);
         }
 
@@ -125,8 +102,8 @@ public class PackagesPageObjects {
 
     /*--------------Create Put-away List Tab-------------------*/
     public class CreatePutawayListTab {
-        private final WebDriver driver;
-        private final MyActions myActions;
+        private WebDriver driver;
+        private MyActions myActions;
 
         public CreatePutawayListTab(WebDriver driver) {
             this.driver = driver;
@@ -177,8 +154,8 @@ public class PackagesPageObjects {
 
     /*--------------Bin Reset Tab-------------------*/
     public class BinResetTab {
-        private final WebDriver driver;
-        private final MyActions myActions;
+        private WebDriver driver;
+        private MyActions myActions;
 
         public BinResetTab(WebDriver driver) {
             this.driver = driver;
@@ -186,37 +163,29 @@ public class PackagesPageObjects {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='BinReset']//input[@id='binResetPackageId']")
-        private WebElement packageIDEntry;
-
-        @FindBy(xpath = "//div[@id='BinReset']//select[@id='binResetPackageIdStatus']")
-        private WebElement selectStatusDropdown;
-
-        @FindBy(xpath = "//div[@id='BinReset']//div[2]/button[1]")
-        private WebElement resetButton;
-
-        @FindBy(xpath = "//div[@id='BinReset']//div[2]/button[2]")
-        private WebElement resetBinButton;
-
 
         /*--------------Actions-------------------*/
         public void inputPackageID(String packageID) {
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntry));
+            WebElement packageIDEntry =
+                    xpathSetter("//div[@id='BinReset']//input[@id='binResetPackageId']");
             myActions.action_sendKeys(packageIDEntry, packageID);
         }
 
         public void selectStatus(String status) {
-            wait.until(ExpectedConditions.visibilityOf(selectStatusDropdown));
+            WebElement selectStatusDropdown =
+                    xpathSetter("//div[@id='BinReset']//select[@id='binResetPackageIdStatus']");
             myActions.action_select(selectStatusDropdown, status);
         }
 
         public void clickResetButton() {
-            wait.until(ExpectedConditions.visibilityOf(resetBinButton));
+            WebElement resetButton =
+                    xpathSetter("//div[@id='BinReset']//div[2]/button[1]");
             myActions.action_click(resetButton);
         }
 
         public void clickResetBinButton() {
-            wait.until(ExpectedConditions.visibilityOf(resetBinButton));
+            WebElement resetBinButton =
+                    xpathSetter("//div[@id='BinReset']//div[2]/button[2]");
             myActions.action_click(resetBinButton);
         }
 
@@ -237,8 +206,8 @@ public class PackagesPageObjects {
 
     /*--------------Package Details Tab-------------------*/
     public class PackageDetailsTab {
-        private final WebDriver driver;
-        private final MyActions myActions;
+        private WebDriver driver;
+        private MyActions myActions;
 
         public PackageDetailsTab(WebDriver driver) {
             this.driver = driver;
@@ -246,19 +215,14 @@ public class PackagesPageObjects {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='PackageDetail']//input[@id='PackageDetailPackageID']")
-        private WebElement packageIDEntry;
-
 
         /*--------------Actions-------------------*/
         public void enterPackageID(String packageID) {
-            wait.until(ExpectedConditions.visibilityOf(packageIDEntry));
+            WebElement packageIDEntry =
+                    xpathSetter("//div[@id='PackageDetail']//input[@id='PackageDetailPackageID']");
             myActions.action_sendKeys(packageIDEntry, packageID);
             myActions.action_enter(packageIDEntry);
         }
-
-        @FindBy(xpath = "//div[@id='PackageDetail']//div[9]/button")
-        private WebElement printPackageButton;
 
 
         /*--------------Functions-------------------*/
@@ -335,7 +299,7 @@ public class PackagesPageObjects {
         }
 
         public void clickPrintPackage() {
-            wait.until(ExpectedConditions.visibilityOf(printPackageButton));
+            WebElement printPackageButton = xpathSetter("//div[@id='PackageDetail']//div[9]/button");
             myActions.action_click(printPackageButton);
         }
     }
@@ -343,8 +307,8 @@ public class PackagesPageObjects {
 
     /*--------------Bin In Scan Tab-------------------*/
     public class BinInScanTab {
-        private final WebDriver driver;
-        private final MyActions myActions;
+        private WebDriver driver;
+        private MyActions myActions;
 
         public BinInScanTab(WebDriver driver) {
             this.driver = driver;
@@ -352,37 +316,29 @@ public class PackagesPageObjects {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//div[@id='InScan']//input[@id='packageinscanBinCode']")
-        private WebElement binCodeEntry;
-
-        @FindBy(xpath = "//div[@id='InScan']//input[@id='inScanPackageId']")
-        private WebElement packageIdEntry;
-
-        @FindBy(xpath = "//div[@id='InScan']//div/button[1]")
-        private WebElement resetButton;
-
-        @FindBy(xpath = "//div[@id='InScan']//div/button[2]")
-        private WebElement inScanButton;
-
 
         /*--------------Actions-------------------*/
         public void binCodeInput(String binCode) {
-            wait.until(ExpectedConditions.visibilityOf(binCodeEntry));
+            WebElement binCodeEntry =
+                    xpathSetter("//div[@id='InScan']//input[@id='packageinscanBinCode']");
             myActions.action_sendKeys(binCodeEntry, binCode);
         }
 
         public void packageIdInput(String packageId) {
-            wait.until(ExpectedConditions.visibilityOf(packageIdEntry));
+            WebElement packageIdEntry =
+                    xpathSetter("//div[@id='InScan']//input[@id='inScanPackageId']");
             myActions.action_sendKeys(packageIdEntry, packageId);
         }
 
         public void clickResetButton() {
-            wait.until(ExpectedConditions.visibilityOf(resetButton));
+            WebElement resetButton =
+                    xpathSetter("//div[@id='InScan']//div/button[1]");
             myActions.action_click(resetButton);
         }
 
         public void clickInScanButton() {
-            wait.until(ExpectedConditions.visibilityOf(inScanButton));
+            WebElement inScanButton =
+                    xpathSetter("//div[@id='InScan']//div/button[2]");
             myActions.action_click(inScanButton);
         }
 

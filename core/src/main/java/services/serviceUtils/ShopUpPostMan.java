@@ -10,9 +10,8 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 import java.io.FileReader;
-import java.util.Map;
+import java.util.*;
 
 import static io.restassured.RestAssured.given;
 
@@ -24,6 +23,8 @@ public class ShopUpPostMan {
     private String cookie;
     private String module;
     private String cookieKey;
+    private String sessionCookie;
+    private String sessionCookieKey;
     private String user;
 
     public ShopUpPostMan(String module){
@@ -171,6 +172,7 @@ public class ShopUpPostMan {
                                 DomainPropertyReader.
                                         getValueOfKey(DomainPropertyReader.Keys.WMS_WEB_STAGE_BASE_URL);
                             cookieKey = CookieManager.Keys.WMS_COOKIE;
+                            sessionCookieKey = CookieManager.Keys.WMS_SESSION;
                             break;
                         case CoreConstants.ENV_PROD : this.baseURL =
                                 DomainPropertyReader.
@@ -191,9 +193,12 @@ public class ShopUpPostMan {
 
 
     public Response getCall(String path){
+      Response response = null;
+        HashMap<String,String> headers = new HashMap();
         String cookie = null;
         try{
             cookie = CookieManager.getValueOfKey(cookieKey);
+            sessionCookie = CookieManager.getValueOfKey(sessionCookieKey);
             //System.out.println("User Cookie is : "+cookie);
         }catch (Exception e){
             System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
@@ -202,10 +207,22 @@ public class ShopUpPostMan {
         System.out.println("Base-URL is : "+baseURL);
         RestAssured.baseURI = baseURL;
         System.out.println("Final URL is : "+baseURL+path);
-        Response  response = given().header("Content-Type","application/json")
-                .header("cookie",cookie)
-                .when()
-                .get(path);
+      
+        if(module == CoreConstants.MODULE_WMS_UI) {
+            response = given().header("Content-Type", "application/json")
+                    .header("cookie", cookie)
+                    .header("cookie", sessionCookie)
+                    .when()
+                    .get(path);
+            //return response;
+        }
+        else{
+            response = given().header("Content-Type", "application/json")
+                    .header("cookie", cookie)
+                    .when()
+                    .get(path);
+            //return response;
+        }
         if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
             response.then().log().all();
             // Exit Java Process
@@ -271,13 +288,16 @@ public class ShopUpPostMan {
             filePath1 = CoreFileUtils.commerceSendOtpJsonPath;
             System.out.println(filePath1);
             filePath2 = CoreFileUtils.commerceVerifyOtpJsonPath;
-            System.out.println(filePath2);}
-        }else if(module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)){
-            patch = EndPoints.WMS.USER_SIGN_IN;
-            System.out.println("Final URL : "+baseURL+patch);
-            filePath1 = CoreFileUtils.wmsUserSignInJsonPath;
-            System.out.println(filePath1);
-        } else if (module.equalsIgnoreCase(CoreConstants.MODULE_STORE_WAP)) {
+            System.out.println(filePath2);
+            }
+        }
+//       else if(module.equalsIgnoreCase(CoreConstants.MODULE_WMS_UI)){
+//             patch = EndPoints.WMS.USER_SIGN_IN;
+//             System.out.println("Final URL : "+baseURL+patch);
+//             filePath1 = CoreFileUtils.wmsUserSignInJsonPath;
+//             System.out.println(filePath1);
+        //} 
+  else if (module.equalsIgnoreCase(CoreConstants.MODULE_STORE_WAP)) {
             patch = EndPoints.Store.SEND_OTP;
             System.out.println("Final URL : "+baseURL+patch);
             filePath1 = CoreFileUtils.storeSendOtpJsonPath;

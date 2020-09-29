@@ -5,7 +5,7 @@
         <parameter name="suite" value="regression"/>
         <groups>
             <run>
-                <include name="Regression"/>
+                <include name="regression"/>
             </run>
         </groups>
         <classes>

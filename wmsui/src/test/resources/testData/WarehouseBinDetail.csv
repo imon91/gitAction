@@ -1,0 +1,4 @@
+TestCaseId,TestCase,TestData,WarehouseBinCode,ToastMessage
+VBD_1,withNoInput,Input,N/A,Bin Not Found
+VBD_2,withInValidWarehouseCode,Input,InvalidCode,Bin Not Found
+VBD_3,withValidWarehouseCodewithNoProducts,Input,Valid Code,N/A

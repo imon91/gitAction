@@ -16,6 +16,7 @@ public class CoreFileRouters {
     public static final String wmsAuthData = authFolderPath+"wms/";
     public static final String storeAuthData = authFolderPath+"store/";
     public static final String scriptPropertiesFolderPath = filepath+"/scriptProperties/";
+    public static final String testDataFolderPath = filepath+"/core/src/main/java/testData/";
 
 
     public static class Reports{

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="RegressionTestSuite">
+    <parameter name="test" value="regression"></parameter>
+
+    <test name="RegressionTests">
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.shopf.tests.Login"></class>
+            <class name="com.shopf.tests.PickOrders.PickListActionRegression"></class>
+        </classes>
+    </test>
+
+</suite>

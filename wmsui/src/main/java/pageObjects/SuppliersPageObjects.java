@@ -1,68 +1,42 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.MyActions;
-import utils.WmsBaseClass;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class SuppliersPageObjects extends WmsBaseClass {
   
     private WebDriver driver;
     private MyActions myActions;
-    private WebDriverWait wait;
 
     public SuppliersPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
         myActions = new MyActions();
-        wait = new WebDriverWait(driver,10);
     }
-
-    //Migrate Seller Tab
-    @FindBy(xpath = "//a[text()='Migrate Seller']")
-    private WebElement migrateSellerTab;
-
-    //Migrate Seller Tab
-    @FindBy(xpath = "//a[text()='Suppliers List']")
-    private WebElement suppliersListTab;
-
-    //Sellers List Tab
-    @FindBy(xpath = "//a[text()='Sellers List']")
-    private WebElement sellersListTab;
-
-    //Add Supplier Tab
-    @FindBy(xpath = "//a[text()='Add Suppliers']")
-    private WebElement addSupplierTab;
 
 
     /*--------------Actions-------------------*/
     public void clickMigrateSellerTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(migrateSellerTab));
+        WebElement migrateSellerTab = xpathSetterClick("//a[text()='Migrate Seller']");
         myActions.action_click(migrateSellerTab);
     }
 
     public void clickSuppliersListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(suppliersListTab));
+        WebElement suppliersListTab = xpathSetterClick("//a[text()='Suppliers List']");
         myActions.action_click(suppliersListTab);
     }
 
     public void clickSellersListTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(sellersListTab));
+        WebElement sellersListTab = xpathSetterClick("//a[text()='Sellers List']");
         myActions.action_click(sellersListTab);
     }
 
     public void clickAddSupplierTab() {
-        wait.until(ExpectedConditions.elementToBeClickable(addSupplierTab));
+        WebElement addSupplierTab = xpathSetterClick("//a[text()='Add Suppliers']");
         myActions.action_click(addSupplierTab);
     }
 
@@ -78,23 +52,15 @@ public class SuppliersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        // Seller Code Entry Field
-        @FindBy(xpath = "///div[@id='MigrateSeller']//input")
-        private WebElement sellerCodeEntry;
-
-        //Submit Seller Code Button
-        @FindBy(xpath = "//div[@id='MigrateSeller']//button")
-        private WebElement submitSellerCodeButton;
-
 
         /*--------------Actions-------------------*/
         public void setSellerCodeEntry(String sellerCode) {
-            wait.until(ExpectedConditions.visibilityOf(sellerCodeEntry));
+            WebElement sellerCodeEntry = xpathSetter("///div[@id='MigrateSeller']//input");
             myActions.action_sendKeys(sellerCodeEntry, sellerCode);
         }
 
         public void clickSubmitSellerCodeButton() {
-            wait.until(ExpectedConditions.visibilityOf(submitSellerCodeButton));
+            WebElement submitSellerCodeButton = xpathSetter("//div[@id='MigrateSeller']//button");
             myActions.action_click(submitSellerCodeButton);
         }
 
@@ -118,11 +84,6 @@ public class SuppliersPageObjects extends WmsBaseClass {
             myActions = new MyActions();
         }
 
-        @FindBy(xpath = "//body/div/div/div/div/div/div/select[1]")
-        private WebElement sellerDropDown;
-
-        @FindBy(xpath = "//body//button[2]")
-        private WebElement okButton;
 
         /*--------------Functions-------------------*/
         public int getTotalSuppliers() {
@@ -149,10 +110,10 @@ public class SuppliersPageObjects extends WmsBaseClass {
         }
 
         public void addSellerToSupplier(int index,String seller) {
-            String addSellerXpath = "//div[@id='SuppliersList']//tbody/tr[" + index + "]/td[4]/button";
-            WebElement addSeller = driver.findElement(By.xpath(addSellerXpath));
+            WebElement addSeller = xpathSetter("//div[@id='SuppliersList']//tbody/tr[" + index + "]/td[4]/button");
             myActions.action_click(addSeller);
-            sleep(1000);
+            WebElement sellerDropDown = xpathSetter("//body/div/div/div/div/div/div/select[1]");
+            WebElement okButton = xpathSetter("//body//button[2]");
             myActions.action_select(sellerDropDown,seller);
             myActions.action_click(okButton);
         }
@@ -235,103 +196,59 @@ public class SuppliersPageObjects extends WmsBaseClass {
             random = new Random();
         }
 
-        //Enter Name
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='name']")
-        private WebElement supplierNameEntry;
-
-        //Enter Email
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='email']")
-        private WebElement supplierEmail;
-
-        //Enter Phone Number
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='phone']")
-        private WebElement supplierPhoneNumberEntry;
-
-        //Enter Address Line 1
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='address1']")
-        private WebElement supplierAddressEntry1;
-
-        //Enter Address Line 2
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='address2']")
-        private WebElement supplierAddressEntry2;
-
-        //Enter Landmark
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='land_mark']")
-        private WebElement supplierLandmarkEntry;
-
-        //Enter City
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='city']")
-        private WebElement supplierCityEntry;
-
-        //Enter State
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='state']")
-        private WebElement supplierStateEntry;
-
-        //Enter Zipcode
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='Zipcode']")
-        private WebElement supplierZipcodeEntry;
-
-        //Enter GSTNo
-        @FindBy(xpath = "//div[@id='AddSupplier']//input[@id='GstNumber']")
-        private WebElement supplierGSTNoEntry;
-
-        //Enter
-        @FindBy(xpath = "//div[@id='AddSupplier']//button")
-        private WebElement addSupplierButton;
-
 
         /*--------------Actions-------------------*/
         public void enterName(String name) {
-            wait.until(ExpectedConditions.visibilityOf(supplierNameEntry));
+            WebElement supplierNameEntry = xpathSetter("//div[@id='AddSupplier']//input[@id='name']");
             myActions.action_sendKeys(supplierNameEntry, name);
         }
 
         public void enterEmail(String name) {
-            wait.until(ExpectedConditions.visibilityOf(supplierEmail));
+            WebElement supplierEmail = xpathSetter("//div[@id='AddSupplier']//input[@id='email']");
             myActions.action_sendKeys(supplierEmail, name);
         }
 
         public void enterPhoneNo(String phone_no) {
-            wait.until(ExpectedConditions.visibilityOf(supplierPhoneNumberEntry));
+            WebElement supplierPhoneNumberEntry = xpathSetter("//div[@id='AddSupplier']//input[@id='phone']");
             myActions.action_sendKeys(supplierPhoneNumberEntry, phone_no);
         }
 
         public void enterAddress1(String address1) {
-            wait.until(ExpectedConditions.visibilityOf(supplierAddressEntry1));
+            WebElement supplierAddressEntry1 = xpathSetter("//div[@id='AddSupplier']//input[@id='address1']");
             myActions.action_sendKeys(supplierAddressEntry1, address1);
         }
 
         public void enterAddress2(String address2) {
-            wait.until(ExpectedConditions.visibilityOf(supplierAddressEntry2));
+            WebElement supplierAddressEntry2 = xpathSetter("//div[@id='AddSupplier']//input[@id='address2']");
             myActions.action_sendKeys(supplierAddressEntry2, address2);
         }
 
         public void enterLandmark(String landmark) {
-            wait.until(ExpectedConditions.visibilityOf(supplierLandmarkEntry));
+            WebElement supplierLandmarkEntry = xpathSetter("//div[@id='AddSupplier']//input[@id='land_mark']");
             myActions.action_sendKeys(supplierLandmarkEntry, landmark);
         }
 
         public void enterCity(String city) {
-            wait.until(ExpectedConditions.visibilityOf(supplierCityEntry));
+            WebElement supplierCityEntry = xpathSetter("//div[@id='AddSupplier']//input[@id='city']");
             myActions.action_sendKeys(supplierCityEntry, city);
         }
 
         public void enterState(String state) {
-            wait.until(ExpectedConditions.visibilityOf(supplierStateEntry));
+            WebElement supplierStateEntry = xpathSetter("//div[@id='AddSupplier']//input[@id='state']");
             myActions.action_sendKeys(supplierStateEntry, state);
         }
 
         public void enterZipcode(String zipcode) {
-            wait.until(ExpectedConditions.visibilityOf(supplierZipcodeEntry));
+            WebElement supplierZipcodeEntry = xpathSetter("//div[@id='AddSupplier']//input[@id='Zipcode']");
             myActions.action_sendKeys(supplierZipcodeEntry, zipcode);
         }
 
         public void enterGSTNo(String gstNo) {
-            wait.until(ExpectedConditions.visibilityOf(supplierGSTNoEntry));
+            WebElement supplierGSTNoEntry = xpathSetter("//div[@id='AddSupplier']//input[@id='GstNumber']");
             myActions.action_sendKeys(supplierGSTNoEntry, gstNo); }
 
         public void clickAddSupplierButton() {
-            wait.until(ExpectedConditions.visibilityOf(addSupplierButton));
+            WebElement addSupplierButton = xpathSetter("//div[@id='AddSupplier']//button");
             myActions.action_click(addSupplierButton);
         }
 
@@ -352,6 +269,148 @@ public class SuppliersPageObjects extends WmsBaseClass {
             enterGSTNo(randomNum + randomNum + randomNum + "GST");
             clickAddSupplierButton();
             return name;
+        }
+
+        public void addNewSupplier(String[] input){
+            enterName(input[0]);
+            enterEmail(input[1]);
+            enterPhoneNo(input[2]);
+            enterAddress1(input[3]);
+            enterAddress2(input[4]);
+            enterLandmark(input[5]);
+            enterCity(input[6]);
+            enterState(input[7]);
+            enterZipcode(input[8]);
+            enterGSTNo(input[9]);
+            clickAddSupplierButton();
+        }
+
+        public String[] getAllInputData(String[] inputData)
+        {
+            return new String[]
+                    {
+                            getInputData("Name", inputData[0]),
+                            getInputData("Email", inputData[1]),
+                            getInputData("Phone", inputData[2]),
+                            getInputData("Address1", inputData[3]),
+                            getInputData("Address2", inputData[4]),
+                            getInputData("LandMark", inputData[5]),
+                            getInputData("City", inputData[6]),
+                            getInputData("State", inputData[7]),
+                            getInputData("ZipCode", inputData[8]),
+                            getInputData("VATNumber", inputData[9])
+                    };
+        }
+
+        public String getInputData(String attribute,String input)
+        {
+            int randomNum = random.nextInt(5000);
+            switch (attribute)
+            {
+                case "Name":
+                    switch (input){
+                        case "Any String":
+                        case "New":
+                            return "TestSupplier"+randomNum;
+                        case "Existing":
+                            return "TestX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Email":
+                    switch (input){
+                        case "Valid String":
+                            return "x@gmail.com";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Phone":
+                    switch (input){
+                        case "Valid String":
+                            return "9442139828";
+                        case "Invalid String":
+                            return "xxxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address1":
+                    switch (input){
+                        case "Any String":
+                            return "First Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "Address2":
+                    switch (input){
+                        case "Any String":
+                            return "Second Line of Address";
+                        case "N/A":
+                            return " ";
+                    }
+                case "LandMark":
+                    switch (input){
+                        case "Any String":
+                            return "LandMark";
+                        case "N/A":
+                            return " ";
+                    }
+                case "City":
+                    switch (input){
+                        case "Any String":
+                            return "CityX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "State":
+                    switch (input){
+                        case "Any String":
+                            return "StateX";
+                        case "N/A":
+                            return " ";
+                    }
+                case "ZipCode":
+                    switch (input){
+                        case "Valid String":
+                            return "123456";
+                        case "Invalid String":
+                            return "xxxxxx";
+                        case "N/A":
+                            return " ";
+                    }
+                case "VATNumber":
+                    switch (input){
+                        case "Any String":
+                            return "vat"+randomNum;
+                        case "N/A":
+                            return " ";
+                    }
+
+                default:return " ";
+            }
+        }
+
+        public boolean verifyElementVisibilityWithText(String value)
+        {
+            WebElement element =
+                    xpathSetter("//label[contains(text(),'"+value+"')]");
+            return element.isDisplayed();
+        }
+
+        public boolean testCaseAssert(String testCase){
+            switch (testCase){
+
+                case "AS_72":
+                    return verifyElementVisibilityWithText("Enter Zipcode");
+
+                case "AS_13":
+                case "AS_14":
+                    return verifyElementVisibilityWithText("Please enter only digits.");
+
+                default:
+                    return verifyElementVisibilityWithText("This field is required.");
+            }
+
+
         }
     }
 }
