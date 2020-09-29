@@ -6,7 +6,7 @@ import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObejcts.*;
-import utils.StoreWapBaseClass;=
+import utils.StoreWapBaseClass;
 import java.util.*;
 
 public class QuickOrderFlowTestCases extends StoreWapBaseClass {
