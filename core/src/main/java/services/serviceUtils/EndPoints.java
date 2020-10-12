@@ -13,7 +13,7 @@ public class EndPoints {
     public static final String APP_PREFERENCES = "app_preferences/";
     public static final String SHOPPING_CART_JSON = "shopping_cart.json";
     public static final String SHOPPING_CART = "shopping_cart/";
-    public static final String ADD_TO_CART_JSON = "/add_to_cart.json";
+    public static final String ADD_TO_CART_JSON = "/add_to_cart.json?";
     public static final String ORDER_CHECKOUT_JSON = "order_checkout.json";
     public static final String COMMERCE_SEND_USER_OTP = "users/send_user_otp.json";
     public static final String COMMERCE_VERIFY_OTP = "users/sign_up_user.json";

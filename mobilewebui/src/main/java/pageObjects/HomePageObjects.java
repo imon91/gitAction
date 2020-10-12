@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Random;
 
 public class HomePageObjects extends WebAppBaseClass {
-    private AndroidDriver<WebElement> driver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private Random random;
     private String app;
 
     public HomePageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
-        this.driver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        this.androidDriver = androidDriver;
+        PageFactory.initElements(new AppiumFieldDecorator(this.androidDriver), this);
         myActions = new MyActions();
         random = new Random();
         app = getAppName();
@@ -157,7 +157,7 @@ public class HomePageObjects extends WebAppBaseClass {
 
     public void clickOnShopUpLogo(){myActions.action_click(ShopUpLogo);}
 
-    private void clickOnSearchButton(){
+    public void clickOnSearchButton(){
         clickOnShopUpLogo();
         if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             myActions.action_click(SearchButton);
@@ -177,7 +177,7 @@ public class HomePageObjects extends WebAppBaseClass {
         }
     }
 
-    private void clickOnMyBag(){myActions.action_click(BagButton);}
+    public void clickOnMyBag(){myActions.action_click(BagButton);}
 
     private void clickOnEnterMobileNumber(String MobileNumber){myActions.action_sendKeys(EnterMobileNumber,MobileNumber);}
 
@@ -224,11 +224,11 @@ public class HomePageObjects extends WebAppBaseClass {
 
     public void login(String MobileNumber, String OTP){
         clickOnEnterMobileNumber(MobileNumber);
-        driver.hideKeyboard();
+        androidDriver.hideKeyboard();
         clickOnContinueButton();
         //sleep(3500);
         clickOnEnterOTP(OTP);
-        driver.hideKeyboard();
+        androidDriver.hideKeyboard();
         //myActions.swipe(200,20);
         clickOnSubmitButton();
     }
@@ -285,7 +285,7 @@ public class HomePageObjects extends WebAppBaseClass {
     public String tabContainer(int tabid){
         String tab;
         String tabXpath = "//div[@class='flex___1bJDE middle___1jEMZ']//div";
-        List<WebElement> tablist = driver.findElements(By.xpath(tabXpath));
+        List<WebElement> tablist = androidDriver.findElements(By.xpath(tabXpath));
         if(tabid != 0){
             tab = tabXpath+"["+tabid+"]";
         } else {
@@ -293,8 +293,8 @@ public class HomePageObjects extends WebAppBaseClass {
             tab = tabXpath+"["+ ++id +"]";
         }
         String tabName = tab+"/p";
-        WebElement tabelement = driver.findElement(By.xpath(tab));
-        WebElement tabnameelement = driver.findElement(By.xpath(tabName));
+        WebElement tabelement = androidDriver.findElement(By.xpath(tab));
+        WebElement tabnameelement = androidDriver.findElement(By.xpath(tabName));
         String tabselected = myActions.action_getText(tabnameelement);
         myActions.action_click(tabelement);
         return tabselected;

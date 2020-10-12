@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="MyBagSuite">
+    <test name="MyBagClassTests" preserve-order="true" parallel="false">
+        <parameter name="suite" value="regression"/>
+        <groups>
+            <run>
+                <include name="regression"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="regressionTest.MyBag"></class>
+        </classes>
+    </test>
+</suite>
