@@ -95,10 +95,10 @@ public class DeliveryDetailsPageObjects extends StoreWapBaseClass {
     @FindBy(xpath = "//div[text()='Customer / Shipment Details']//parent::div//parent::div//parent::div//parent::div//parent::div/div/div/div[2]/div[1]")
     private WebElement shipmentDetails;
 
-    @FindBy(xpath = "//div[@class='css-901oao r-jwli3a r-1fap712 r-1i10wst r-vw2c0b'][1]")
+    @FindBy(xpath = "//div[text()='Successfully Sent for']")
     private WebElement successfullySentForText;
 
-    @FindBy(xpath = "//div[@class='css-901oao r-jwli3a r-1fap712 r-1i10wst r-vw2c0b'][2]")
+    @FindBy(xpath = "//div[text()='Successfully Sent for']//following-sibling::div")
     private WebElement deliveryText;
 
     public DeliveryDetailsPageObjects(AndroidDriver<WebElement> androidDriver) {

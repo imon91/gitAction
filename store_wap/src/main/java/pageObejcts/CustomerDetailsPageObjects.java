@@ -134,7 +134,7 @@ public class CustomerDetailsPageObjects extends StoreWapBaseClass {
         if(rating == 0 || rating>5){
             rating = random.nextInt(4)+1;
         }
-        String xpath = "//div[@class='css-1dbjc4n r-18u37iz r-11yq8vr r-7e3msg']/div["+rating+"]/div/div";
+        String xpath = "//div[@class='css-1dbjc4n r-18u37iz r-11yq8vr r-7e3msg']/div["+rating+"]/div";
         storeWapActions.action_click(androidDriver.findElement(By.xpath(xpath)));
     }
 

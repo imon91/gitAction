@@ -38,13 +38,13 @@ public class CreateOrderPageObjects extends StoreWapBaseClass {
     @FindBy(xpath = "//div[text()='Next']")
     private WebElement nextButton;
 
-    @FindBy(xpath = "//div[text()='+ Add More']")
+    @FindBy(xpath = "//div[text()='Add More']")
     private WebElement addMoreButton;
 
-    @FindBy(xpath = "//span[@class='css-901oao css-16my406 r-jwli3a r-1fap712 r-ubezar r-vw2c0b']")
+    @FindBy(xpath = "//span")
     private WebElement totalAmountText;
 
-    @FindBy(xpath = "//div[@class='css-901oao r-jwli3a r-pz5f6p r-1b43r93'][2]")
+    @FindBy(xpath = "//span//parent::div//following-sibling::div")
     private WebElement totalNumberOFItems;
 
     public CreateOrderPageObjects(AndroidDriver<WebElement> androidDriver){
