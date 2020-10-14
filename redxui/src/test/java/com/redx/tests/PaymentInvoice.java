@@ -52,9 +52,11 @@ public class PaymentInvoice extends RedXBaseClass
 
         System.out.println("Verify Parcel Invoice");
         homePageObjects.clickViewPaymentUpdatesModule();
+        sleep(1000);
         Assert.assertEquals(actionBarPageObjects.getPageTitle(),"Payment updates");
 
         paymentUpdatesPageObjects.clickPaidAmountTab();
+        sleep(1000);
         parcelsList = paymentUpdatesPageObjects.setParcelsList();
         if(parcelsList.size()!=0) {
             index = random.nextInt(parcelsList.size());
@@ -75,6 +77,7 @@ public class PaymentInvoice extends RedXBaseClass
                 viewInvoice.getParcelDetails();
                 index = random.nextInt(parcelsList.size());
                 viewInvoice.clickDetailsByIndex(index);
+                sleep(1000);
                 try
                 {
                     assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID);
@@ -85,6 +88,7 @@ public class PaymentInvoice extends RedXBaseClass
                 Assert.assertEquals(actionBarPageObjects.getParcelDetailsTitle(), assertVariable);
                 viewInvoice.getInvoiceDetails();
                 actionBarPageObjects.clickBackButton();
+                sleep(500);
                 actionBarPageObjects.clickBackButton();
             } else {
                 System.out.println("No Parcels Found");
