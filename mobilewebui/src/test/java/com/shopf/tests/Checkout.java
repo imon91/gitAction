@@ -55,6 +55,7 @@ public class Checkout extends WebAppBaseClass {
     public void verifyCheckout() throws Exception {
         System.out.println("control came to verifyCheckout");
         checkoutpageobject.confirmingOrder();
+        sleep(3000);
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
         //checkoutpageobject.clickOnPlaceOrder();
     }

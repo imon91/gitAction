@@ -67,9 +67,10 @@ public class Address {
         System.out.println(orderno);
         sleep(1500);
         order.navigationToHome();
+        sleep(500);
         bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();
         sleep(1500);
-        home.navigateToMyOrder();
+        //home.navigateToMyOrder();
         //String Orderno = order.getRecentOrderId();
         //System.out.println(Orderno);
         String Orderno = order.orderid(1);

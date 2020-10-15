@@ -110,7 +110,7 @@ public class AddressPageObjects extends WebAppBaseClass {
     private WebElement close;
 
     //selectCashonDelivery
-    @FindBy(xpath = "//a[@class='collapsed']")
+    @FindBy(xpath = "//a[@class='collapsed' and text()='CASH ON DELIVERY']")
     private WebElement CashOnDelivery;
 
     //makepayment

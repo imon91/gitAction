@@ -53,6 +53,7 @@ public class Search extends WebAppBaseClass {
         System.setProperty("searchTerm",productName);
         homepageobject.searchForObject(productName);
         String currentPage = androidDriver.getCurrentUrl();
+        System.out.println(currentPage);
         Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.SEARCH_FOR_TERM+productName));
         System.out.println("Control is in search page");
     }
