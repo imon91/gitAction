@@ -5,12 +5,14 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pageObjects.CheckoutPageObjects;
 import pageObjects.HomePageObjects;
 import pageObjects.PDPPageObjects;
+import utils.WAPConstants;
 import utils.WebAppBaseClass;
 
 public class Checkout extends WebAppBaseClass {
@@ -54,6 +56,8 @@ public class Checkout extends WebAppBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifyCheckout() throws Exception {
         System.out.println("control came to verifyCheckout");
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.MY_BAG));
         checkoutpageobject.confirmingOrder();
         sleep(3000);
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
