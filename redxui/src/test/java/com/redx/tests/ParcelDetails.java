@@ -58,7 +58,7 @@ public class ParcelDetails extends RedXBaseClass {
         Assert.assertEquals(actionBarPageObjects.getPageTitle(), "Parcels");
         dateFilterPageObjects.chooseMonthByText("Jul, 2020");
 
-        orderStatusPageObjects.clickFailedParcelsTab();
+        orderStatusPageObjects.clickDeliveredParcelsTab();
         parcelsList = parcelsManifestList.setParcelsList();
         if (parcelsList.size() != 0) {
             index = random.nextInt(parcelsList.size());

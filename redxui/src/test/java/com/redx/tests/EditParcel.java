@@ -1,14 +1,12 @@
 package com.redx.tests;
 
-import coreUtils.CoreConstants;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+import coreUtils.*;
+import io.appium.java_client.android.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import utils.PropertyReader;
-import utils.RedXBaseClass;
-
+import utils.*;
 import java.util.*;
 
 
@@ -74,7 +72,7 @@ public class EditParcel extends RedXBaseClass
         homePageObjects.clickViewParcelUpdatesModule();
         Assert.assertEquals(actionBarPageObjects.getPageTitle(),"Parcels");
 
-        dateFilterPageObjects.chooseMonthByText("Aug, 2020");
+        dateFilterPageObjects.chooseMonthByText("Oct, 2020");
         orderStatusPageObjects.clickInProgressParcelsTab();
 
         parcelsList = parcelsManifestList.setParcelsList();
@@ -82,6 +80,7 @@ public class EditParcel extends RedXBaseClass
         {
             index = random.nextInt(parcelsList.size());
             parcelsManifestList.clickParcelByIndex(index);
+            sleep(1000);
             try
             {
                 assertVariable = PropertyReader.getValueOfKey("PARCEL_DATE");
@@ -96,6 +95,7 @@ public class EditParcel extends RedXBaseClass
             {
                 index = random.nextInt(parcelsList.size());
                 manifestParcelDetails.clickEditPackageByIndex(index);
+                sleep(1000);
                 try
                 {
                     assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.PARCEL_ID);
@@ -114,6 +114,7 @@ public class EditParcel extends RedXBaseClass
                 System.out.println("No Parcels Found");
                 actionBarPageObjects.clickBackButton();
             }
+            sleep(500);
             actionBarPageObjects.clickBackButton();
         } else {
             System.out.println("No Parcels Found");
