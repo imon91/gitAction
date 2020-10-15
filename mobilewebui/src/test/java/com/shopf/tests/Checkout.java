@@ -6,14 +6,9 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
-import pageObjects.CheckoutPageObjects;
-import pageObjects.HomePageObjects;
-import pageObjects.PDPPageObjects;
-import utils.WAPConstants;
-import utils.WebAppBaseClass;
+import org.testng.annotations.*;
+import pageObjects.*;
+import utils.*;
 
 public class Checkout extends WebAppBaseClass {
 

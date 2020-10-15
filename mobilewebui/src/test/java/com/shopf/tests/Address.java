@@ -1,24 +1,14 @@
 package com.shopf.tests;
 
 import coreUtils.CoreConstants;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageObjects.*;
-import utils.MyActions;
-import utils.WAPConstants;
+import utils.*;
 
-import java.awt.*;
-
-import static utils.WebAppBaseClass.getBaseDriver;
-import static utils.WebAppBaseClass.sleep;
-
-public class Address {
+public class Address extends WebAppBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private AddressPageObjects addresspageobject;
