@@ -38,7 +38,7 @@ public class MyOrderPageObjects extends WebAppBaseClass {
     private WebElement orderno;
 
 //navigateTohome
-    @FindBy(xpath = "//a[@href='/r']")
+    @FindBy(xpath = "//a[@href='/r']/span")
     private WebElement home;
 
 //searchOrder
