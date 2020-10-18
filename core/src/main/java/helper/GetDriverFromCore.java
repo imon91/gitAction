@@ -1,13 +1,10 @@
 package helper;
 
 import coreUtils.*;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.remote.MobileBrowserType;
-import io.github.bonigarcia.wdm.WebDriverManager;
+import io.appium.java_client.android.*;
+import io.github.bonigarcia.wdm.*;
 import java.net.*;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.*;
 import io.appium.java_client.service.local.*;
 import io.appium.java_client.service.local.flags.*;
 import org.openqa.selenium.*;
@@ -31,6 +28,7 @@ public class GetDriverFromCore {
     private static final String KEY_BROWSER_NAME = "browserName";
     private static final String HOST_LOCAL = "local";
     private static final String HOST_BROWSER_STACK = "bs";
+    private static final String module = System.getProperty("App");
 
 
     private static AppiumDriverLocalService appiumDriverLocalService;
@@ -146,13 +144,17 @@ public class GetDriverFromCore {
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions chromeOptions = new ChromeOptions();
-            chromeOptions.setAcceptInsecureCerts(true);
+            chromeOptions.addArguments("--disable-plugins", "--disable-extensions",
+                    "--disable-popup-blocking","--disable-notifications");
+            if(module.equals(CoreConstants.APP_WMS)) {
+                chromeOptions.setAcceptInsecureCerts(true);
             chromeOptions.addArguments("'--disable-web-security");
             chromeOptions.addArguments("--no-sandbox");
             chromeOptions.addArguments("--user-data-dir");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
             chromeOptions.setExperimentalOption("prefs",prefs);
+            }
 
             DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
             desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
@@ -188,6 +190,7 @@ public class GetDriverFromCore {
             caps.setCapability(ChromeOptions.CAPABILITY,chOptions);
             return new RemoteWebDriver(url,caps);
         }
+
 
     }
 
