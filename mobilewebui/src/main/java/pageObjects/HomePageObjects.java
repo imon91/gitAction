@@ -48,7 +48,7 @@ public class HomePageObjects extends WebAppBaseClass {
     private WebElement CloseMenuButton;
 
     //ShopUp logo
-    @FindBy(xpath = "//a/img[@class = 'mainLogo___10PZp']")
+    @FindBy(xpath = "//a[@href='/r']/img")
     private WebElement ShopUpLogo;
 
     //searchiconforMokam
