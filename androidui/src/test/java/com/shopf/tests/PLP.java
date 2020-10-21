@@ -142,7 +142,7 @@ public class PLP extends AndroidBaseClass {
         System.out.println("Verify applying filter on plp was called");
         productListingPageObjects.clickOnFilterButton();
         if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
-            productFilterPageObjects.clickOnFilterName(productFilterPageObjects.getListOfFilterNames().get(1));
+            productFilterPageObjects.clickOnFilterName(productFilterPageObjects.getListOfFilterNames().get(0));
             productFilterPageObjects.clickOnFilterItemByIndex(productFilterPageObjects.getListOfFilterItemCheckBoxes().get(0));
             productFilterPageObjects.clickOnApplyFilter();
         } else if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
