@@ -2,10 +2,8 @@ package pageObejcts;
 
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import utils.*;
 
@@ -91,7 +89,7 @@ public class MyOrdersPageObjects extends StoreWapBaseClass{
     }
 
     public void clickAnOrderFromOrderList(int x){
-        String xpath = "//div[@class='css-1dbjc4n']//div[@class='css-1dbjc4n']["+"]//div[@class='css-1dbjc4n r-13awgt0 r-eqz5dr']";
+        String xpath = "//div[text()='My Orders']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div/div/div/div/div[2]/div/div/div["+ ++x +"]/div/div/div";
         storeWapActions.action_click(androidDriver.findElement(By.xpath(xpath)));
     }
 

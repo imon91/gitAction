@@ -8,7 +8,7 @@ import pageObjects.*;
 import utils.*;
 import static utils.WebAppBaseClass.*;
 
-public class Address {
+public class Address extends WebAppBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private AddressPageObjects addresspageobject;
@@ -28,6 +28,8 @@ public class Address {
         bottomNavigationObjects = new BottomNavigationObjects(androidDriver);
         home = new HomePageObjects(androidDriver);
         myActions = new MyActions();
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.CHECKOUT_ADDRESS));
     }
 
 
@@ -59,9 +61,10 @@ public class Address {
         System.out.println(orderno);
         sleep(1500);
         order.navigationToHome();
+        sleep(500);
         bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();
         sleep(1500);
-        home.navigateToMyOrder();
+        //home.navigateToMyOrder();
         //String Orderno = order.getRecentOrderId();
         //System.out.println(Orderno);
         String Orderno = order.orderid(1);

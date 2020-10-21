@@ -1,0 +1,24 @@
+TestCaseId,TestCase,TestData,WarehouseCode,Seller,PickupAgents,Type,Remarks,SKU,OrderedQuantity,TransferPrice,SkuImage,MoreThanOneSku,ErrorMessage,ToastMessage
+DPL_1,withoutAnySelection,Input,N/A,N/A,N/A,N/A,N/A,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,N/A,select warehouse
+DPL_2,withoutWarehouseSelection,Input,N/A,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,N,N/A,select warehouse
+DPL_3,withOnlyWarehouseSelection,Input,Selected,N/A,N/A,N/A,N/A,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,This field is required.,N/A
+DPL_4,withOnlySeller,Input,Selected,Selected,N/A,N/A,N/A,Selected,Valid,Valid,Displayed,N,N/A,PickList creation failed
+DPL_5,withOnlyPickup,Input,Selected,N/A,Selected,N/A,N/A,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,This field is required.,N/A
+DPL_6,withOnlyType,Input,Selected,N/A,N/A,Selected,N/A,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,This field is required.,N/A
+DPL_7,withOnlyRemarks,Input,Selected,N/A,N/A,N/A,Valid,Not Displayed,Not Displayed,Not Displayed,Not Displayed,N,This field is required.,N/A
+DPL_8,withOnlySku,Input,Selected,Selected,Selected,Selected,N/A,Selected,N/A,N/A,Displayed,N,This field is required.,N/A
+DPL_9,withOnlyQty,Input,Selected,Selected,Selected,Selected,N/A,N/A,Valid,N/A,N/A,N,This field is required.,N/A
+DPL_10,withOnlyPrice,Input,Selected,Selected,Selected,Selected,N/A,N/A,N/A,Valid,N/A,N,This field is required.,N/A
+DPL_11,withOnlyInvalidQty,Input,Selected,Selected,Selected,Selected,N/A,N/A,Invalid,N/A,N/A,N,Please enter only digits.,N/A
+DPL_12,withOnlyNegativeQty,Input,Selected,Selected,Selected,Selected,N/A,N/A,Negative,N/A,N/A,N,Please enter only digits.,N/A
+DPL_13,withOnlyInvalidPrice,Input,Selected,Selected,Selected,Selected,N/A,N/A,N/A,Invalid,N/A,N,Please enter a valid number.,N/A
+DPL_14,withOnlyNegativePrice,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Negative,N/A,N,N/A,PickList Created
+DPL_15,withInvalidSku,Input,Selected,Selected,Selected,Selected,N/A,Invalid,Valid,Valid,N/A,N,N/A,PickList creation failed
+DPL_16,withNoSku,Input,Selected,Selected,Selected,Selected,N/A,N/A,Valid,Valid,N/A,N,N/A,PickList creation failed
+DPL_17,withOneSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,N,N/A,PickList Created
+DPL_18,withMoreThanOneSkuOneFilled,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,N/A,Y,N/A,PickList Created
+DPL_19,withMoreThanOneSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,Y,N/A,PickList Created
+DPL_20,withThreeSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,Y,N/A,PickList Created
+DPL_21,withFourSku,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,Y,N/A,PickList Created
+DPL_22,withValidRemarks,Input,Selected,Selected,Selected,Selected,Valid,Selected,Valid,Valid,Displayed,N,N/A,PickList Created
+DPL_23,withNoRemarks,Input,Selected,Selected,Selected,Selected,N/A,Selected,Valid,Valid,Displayed,N,N/A,PickList Created

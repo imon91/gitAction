@@ -30,7 +30,7 @@ public class PDPPageObjects extends WebAppBaseClass {
     private WebElement AddToMyShopButton;
 
     //BuyNowButton
-    @FindBy(xpath = "//button[contains(text(),'Buy Now')]")
+    @FindBy(xpath = "//span[contains(text(),'Buy Now')]")
     private WebElement BuyNowButton;
 
     //ImageofProduct

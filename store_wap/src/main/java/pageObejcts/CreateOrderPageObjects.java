@@ -4,23 +4,19 @@ package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.StoreWapActions;
+import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
+import utils.*;
+
 import java.util.Random;
 
 
-import static utils.StoreWapBaseClass.getBaseDriver;
 
 
 
-public class CreateOrderPageObjects {
+public class CreateOrderPageObjects extends StoreWapBaseClass {
 
 
 
@@ -42,13 +38,13 @@ public class CreateOrderPageObjects {
     @FindBy(xpath = "//div[text()='Next']")
     private WebElement nextButton;
 
-    @FindBy(xpath = "//div[text()='+ Add More']")
+    @FindBy(xpath = "//div[text()='Add More']")
     private WebElement addMoreButton;
 
-    @FindBy(xpath = "//span[@class='css-901oao css-16my406 r-jwli3a r-1fap712 r-ubezar r-vw2c0b']")
+    @FindBy(xpath = "//span")
     private WebElement totalAmountText;
 
-    @FindBy(xpath = "//div[@class='css-901oao r-jwli3a r-pz5f6p r-1b43r93'][2]")
+    @FindBy(xpath = "//span//parent::div//following-sibling::div")
     private WebElement totalNumberOFItems;
 
     public CreateOrderPageObjects(AndroidDriver<WebElement> androidDriver){
@@ -176,6 +172,13 @@ public class CreateOrderPageObjects {
             System.out.println(e);
             return null;
         }
+    }
+
+    public void enterRandomProductAmount_Inbox(int productIndex){
+        String xpath = "//div[text()='+ Add More']//parent::div//parent::div//parent::div//parent::div/div/div/div/div/div/div/div/div/div["+ ++productIndex +"]//input[@class='css-1cwyjr8 r-pz5f6p r-19yat4t r-d9fdf6 r-ttdzmv r-1ff274t']";
+        WebElement amountElement = androidDriver.findElement(By.xpath(xpath));
+        String amount = String.valueOf(random.nextInt(2000)+1);
+        storeWapActions.action_sendKeys(amountElement,amount);
     }
 
 

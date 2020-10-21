@@ -1,12 +1,12 @@
 package com.redx.tests;
 
-import coreUtils.CoreConstants;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
+import coreUtils.*;
+import io.appium.java_client.android.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import utils.RedXBaseClass;
+import utils.*;
 
 public class Settings extends RedXBaseClass
 {
@@ -37,6 +37,7 @@ public class Settings extends RedXBaseClass
         System.out.println("Verifying Payment Details");
         settingsPageObjects.clickPaymentDetailsModule();
         Assert.assertEquals(settingsPageObjects.getPageTitle(),"Payment Details");
+        settingsPageObjects.clickBackButton();
     }
 
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION},
@@ -47,6 +48,7 @@ public class Settings extends RedXBaseClass
         System.out.println("Verifying Pickup Area");
         settingsPageObjects.clickPickupAreaModule();
         Assert.assertEquals(settingsPageObjects.getPageTitle(),"Pickup information");
+        settingsPageObjects.clickBackButton();
     }
 
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION},
@@ -57,6 +59,7 @@ public class Settings extends RedXBaseClass
         System.out.println("Verifying Other Settings");
         settingsPageObjects.clickOtherSettingsModule();
         Assert.assertEquals(settingsPageObjects.getPageTitle(),"Other Information");
+        settingsPageObjects.clickBackButton();
     }
 
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION},
@@ -67,6 +70,9 @@ public class Settings extends RedXBaseClass
         System.out.println("Verifying Terms Of Delivery");
         settingsPageObjects.clickTermsOfDeliveryModule();
         Assert.assertEquals(settingsPageObjects.getPageTitle(),"Delivery Terms");
+        settingsPageObjects.clickBackButton();
+        sleep(500);
+        settingsPageObjects.clickBackButton();
     }
 
 

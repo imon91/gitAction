@@ -1,14 +1,15 @@
 package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
+import org.testng.Assert;
 import utils.StoreWapActions;
 
 import java.util.Random;
+import static utils.StoreWapBaseClass.getBaseDriver;
 
 public class OrderDetailsPageObjects {
 
@@ -41,6 +42,15 @@ public class OrderDetailsPageObjects {
     @FindBy(xpath = "//div[text()='Total Cost of Product (s)']//parent::div//parent::div//parent::div/div[4]")
     private WebElement saveTotalCostButton;
 
+    @FindBy(xpath = "//div[text()='Order Details']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[text()='Enter Customer Details']")
+    private WebElement enterCustomerDetailsButton;
+
+    @FindBy(xpath = "//div[text()='Order Details']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[text()='Send to Delivery']")
+    private WebElement sendToDeliveryButton;
+
+    @FindBy(xpath = "//div[text()='Order Details']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[text()='Record Payments']")
+    private WebElement recordPaymentsButton;
+
     public OrderDetailsPageObjects(AndroidDriver<WebElement> androidDriver) {
         this.androidDriver = androidDriver;
         PageFactory.initElements((androidDriver), this);
@@ -54,9 +64,24 @@ public class OrderDetailsPageObjects {
 
     public void clickBackButton(){ storeWapActions.action_click(backButton);}
 
-    public void clickOnEditDetailsButton(){storeWapActions.action_click(editDetailsButton);}
+    public void clickOnEditDetailsButton(){
+        try{
+            storeWapActions.action_click(editDetailsButton);
+            Assert.assertEquals(storeWapActions.action_getText(androidDriver.findElement(By.xpath("//div[text()='Enter Customer Name']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[@data-testid='headerTitle']"))),"Edit Products");
+        }catch (NoSuchElementException e){
+            clickOnEditDetailsButton();
+        }
+    }
 
-    public void clickOnEditTotalCostButton(){storeWapActions.action_click(editTotalCostButton);}
+    public void clickOnEditTotalCostButton(){
+        try{
+            storeWapActions.action_click(editTotalCostButton);
+            WebDriverWait wait = new WebDriverWait(getBaseDriver(),30);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[text()='Total Cost of Product (s)']//parent::div//parent::div//parent::div//input")));
+        } catch (Exception e){
+            clickOnEditTotalCostButton();
+        }
+    }
 
     public void clickOnSaveTotalCostButton(){storeWapActions.action_click(saveTotalCostButton);}
 
@@ -64,6 +89,11 @@ public class OrderDetailsPageObjects {
         new Actions(androidDriver).click(editTotalCostInput).sendKeys(Keys.END).keyDown(Keys.SHIFT).sendKeys(Keys.HOME).keyUp(Keys.SHIFT).sendKeys(Keys.BACK_SPACE).sendKeys(cost).perform();
     }
 
+    public void clickOnEnterCustomerDetailsButton(){ storeWapActions.action_click(enterCustomerDetailsButton);}
+
+    public void clickOnSendToDeliveryButton(){ storeWapActions.action_click(sendToDeliveryButton);}
+
+    public void clickOnRecordPaymentsButton(){ storeWapActions.action_click(recordPaymentsButton);}
 
     /*-----------------------------------------------Functions--------------------------------------------------------*/
 

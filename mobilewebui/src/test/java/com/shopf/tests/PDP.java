@@ -78,7 +78,7 @@ public class PDP {
         pdp.selectSize(++size);
         pdp.clickOnBuyNow();
         //touch.press(PointOption.point(0,500)).waitAction().moveTo(PointOption.point(0,200)).release().perform();
-        sleep(1500);
+        sleep(3500);
         //checkoutpageobject.clickOnPlaceOrder();
     }
 

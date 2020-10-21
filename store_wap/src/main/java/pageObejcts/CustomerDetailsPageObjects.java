@@ -2,21 +2,17 @@ package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import utils.StoreWapActions;
+import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
+import utils.*;
 
 import java.util.Random;
 
-import static utils.StoreWapBaseClass.getBaseDriver;
 
-public class CustomerDetailsPageObjects {
+
+public class CustomerDetailsPageObjects extends StoreWapBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private StoreWapActions storeWapActions;
@@ -68,8 +64,11 @@ public class CustomerDetailsPageObjects {
     @FindBy(xpath = "//input[contains(@placeholder,'Search')]")
     private WebElement searchAreaNameText;
 
-    @FindBy(xpath = "//div[@class='css-1dbjc4n r-13awgt0']/div[@class='css-1dbjc4n r-1p0dtai r-1d2f490 r-12vffkv r-u8s1d r-zchlnj r-ipm5af'][5]//div[text()='View My Order']")
+    @FindBy(xpath = "//div[text()='Add Customer Tags']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//div[text()='View My Order']")
     private WebElement viewMyOrder;
+
+    @FindBy(xpath = "//div[text()='Next']")
+    private WebElement nextButton_Inbox;
 
 
     public CustomerDetailsPageObjects(AndroidDriver<WebElement> androidDriver) {
@@ -101,6 +100,10 @@ public class CustomerDetailsPageObjects {
 
     public void removeTag(){ storeWapActions.action_click(removeTagButton);}
 
+    public void clickViewMyOrderButton(){storeWapActions.action_click(viewMyOrder);}
+
+    public void clickOnNextButtonInInbox(){storeWapActions.action_click(nextButton_Inbox);}
+
 
     /*-----------------------------------------------Functions--------------------------------------------------------*/
 
@@ -131,7 +134,7 @@ public class CustomerDetailsPageObjects {
         if(rating == 0 || rating>5){
             rating = random.nextInt(4)+1;
         }
-        String xpath = "//div[@class='css-1dbjc4n r-18u37iz r-11yq8vr r-7e3msg']/div["+rating+"]/div/div";
+        String xpath = "//div[@class='css-1dbjc4n r-18u37iz r-11yq8vr r-7e3msg']/div["+rating+"]/div";
         storeWapActions.action_click(androidDriver.findElement(By.xpath(xpath)));
     }
 

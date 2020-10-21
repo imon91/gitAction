@@ -323,7 +323,8 @@ public class ShopUpPostMan {
                 response.then().log().all();
             }if(module.equalsIgnoreCase(CoreConstants.MODULE_STORE_WAP)){
                 // Get OTP From DataBase
-                String otp = new DataBaseCore().getOTPForStore();
+//                String otp = new DataBaseCore().getOTPForStore();
+                String otp = "666666";
                 Object obj2 = new JSONParser().parse(new FileReader(filePath2));
                 JSONObject jo2 = (JSONObject) obj2;
                 // Update OTP
