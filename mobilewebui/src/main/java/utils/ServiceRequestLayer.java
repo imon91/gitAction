@@ -46,7 +46,7 @@ public class ServiceRequestLayer implements CommerceServices {
 
     @Override
     public GetAuthenticationApiResponse getControlOverAuthentication() {
-        return null;
+        return new GetAuthenticationApiResponse(module);
     }
 
     @Override
