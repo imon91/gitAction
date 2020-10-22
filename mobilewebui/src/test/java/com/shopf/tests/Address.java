@@ -3,6 +3,7 @@ package com.shopf.tests;
 import coreUtils.*;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
@@ -30,6 +31,7 @@ public class Address extends WebAppBaseClass {
         myActions = new MyActions();
         String currentPage = androidDriver.getCurrentUrl();
         Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.CHECKOUT_ADDRESS));
+
     }
 
 
