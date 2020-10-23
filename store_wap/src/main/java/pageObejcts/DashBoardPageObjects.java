@@ -1,7 +1,7 @@
 package pageObejcts;
 
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.StoreWapActions;
 
@@ -12,7 +12,7 @@ public class DashBoardPageObjects {
     private StoreWapActions storeWapActions;
 
 
-    @FindBy(xpath = "//div[text()='Customer Orders']")
+    @FindBy(xpath = "//div[text()='Home']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div/div/div/div/div/div/div/div/div[2]/div/div[1]/div/div/div[2]")
     private WebElement myOrdersButton;
 
     @FindBy(xpath = "//div[text()='Delivery']")
@@ -111,6 +111,11 @@ public class DashBoardPageObjects {
     public String getPageTitleText(){
         String pageTitleText = storeWapActions.action_getText(pageTitle);
         return pageTitleText;
+    }
+
+    public void closeTutorial(){
+        WebElement closeElement = androidDriver.findElement(By.xpath("//div[text()='How to get started?']//parent::div//parent::div/div[2]/div[@tabindex='0']"));
+        storeWapActions.action_click(closeElement);
     }
 
 

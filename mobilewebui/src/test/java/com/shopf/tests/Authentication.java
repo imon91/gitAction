@@ -5,17 +5,14 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import pageObjects.BottomNavigationObjects;
 import pageObjects.HomePageObjects;
-import utils.WAPConstants;
-import utils.WebAppBaseClass;
+import utils.*;
 
 
 public class Authentication extends WebAppBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private HomePageObjects homepageobject;
-    private BottomNavigationObjects bottomnavigationobject;
 
 
 
@@ -33,7 +30,7 @@ public class Authentication extends WebAppBaseClass {
     public void authenticationSetUp() throws Exception {
         System.out.println("authenticationSetUp is called");
         homepageobject = new HomePageObjects(androidDriver);
-        bottomnavigationobject = new BottomNavigationObjects(androidDriver);
+        homepageobject.clickSignIn();
     }
 
 
@@ -54,7 +51,7 @@ public class Authentication extends WebAppBaseClass {
             description = "Verify URL of Authentication page")
     public void verifyAuthenticationUrl(){
         System.out.println("verifyAuthentication is called");
-        bottomnavigationobject.clickOnBottomBarMyOrdersIcon();
+        sleep(1000);
         String currentPage = androidDriver.getCurrentUrl();
         Assert.assertTrue(currentPage.contains(WAPConstants.AUTHENTICATION));
         System.out.println("Control is in Authentication page");

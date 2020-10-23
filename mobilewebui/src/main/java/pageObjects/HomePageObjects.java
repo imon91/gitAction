@@ -3,15 +3,11 @@ package pageObjects;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import utils.MyActions;
-import utils.WebAppBaseClass;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class HomePageObjects extends WebAppBaseClass {
     private AndroidDriver<WebElement> androidDriver;
@@ -136,7 +132,7 @@ public class HomePageObjects extends WebAppBaseClass {
     private WebElement SignOut;
 
     //changeLanguage
-    @FindBy(xpath = "//span[contains(text(), 'Change Language (BN)')]")
+    @FindBy(xpath = "//span[contains(text(),'Change Language')]")
     private WebElement ChangeLanguage;
 
     //closeUserProfileIcon
@@ -158,7 +154,7 @@ public class HomePageObjects extends WebAppBaseClass {
     public void clickOnShopUpLogo(){myActions.action_click(ShopUpLogo);}
 
     public void clickOnSearchButton(){
-        clickOnShopUpLogo();
+        //clickOnShopUpLogo();
         if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             myActions.action_click(SearchButton);
         }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
@@ -274,10 +270,43 @@ public class HomePageObjects extends WebAppBaseClass {
         clickOnFAQ();
     }
 
-    public void SignOut(){
+    public void SignOut() throws Exception {
         clickOnUserProfile();
-        clickOnSignOut();
+        try {
+            //SignOut.click();
+            androidDriver.findElement(By.xpath("//div[@class='drawerContainer___7enVI']/div/div[2]/div[3]/div[2]/p")).click();
+        } catch (ElementClickInterceptedException e){
+            JavascriptExecutor js = (JavascriptExecutor) androidDriver;
+            js.executeScript("arguments[0].scrollIntoView(true)",androidDriver.findElement(By.xpath("//div[@class='drawerContainer___7enVI']/div/div[2]/div[3]/div[2]/p")));
+            //myActions.scrollVerticallyToElement("//span[contains(text(),'Change Language')]");
+            //clickOnSignOut();
+            androidDriver.findElement(By.xpath("//div[@class='drawerContainer___7enVI']/div/div[2]/div[3]/div[2]/p")).click();
+        }
         sleep(2000);
+    }
+
+    public void clickSignIn(){
+        closePopup();
+        clickOnUserProfile();
+        WebElement signInElement = xpathSetter("//p[text()='Sign In']");
+        myActions.action_click(signInElement);
+    }
+
+    public void closePopup(){
+        androidDriver.context(CoreConstants.SHOP_UP_NATIVE_VIEW);
+        System.out.println("Context Switched From Web To Native");
+        WebElement popupCloseElement = xpathSetter("//android.widget.ImageButton[@index='2']");
+        myActions.action_click(popupCloseElement);
+        sleep(2000);
+        // Context Switching
+        Set<String> contextNames = androidDriver.getContextHandles();
+        int n = contextNames.size();
+        String[] contextData = new String[n];
+        contextData = contextNames.toArray(contextData);
+        for(int i=0;i<contextData.length;i++){
+            System.out.println(contextData[i]);
+        }
+        androidDriver.context("CHROMIUM");
     }
 
     /*--------dynamicfunctions-----------*/

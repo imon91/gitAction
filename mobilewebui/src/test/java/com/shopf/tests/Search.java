@@ -47,6 +47,7 @@ public class Search extends WebAppBaseClass {
         System.out.println("Control come to verifySearchingObject");
         System.setProperty("searchTerm",productName);
         homepageobject.searchForObject(productName);
+        sleep(1000);
         String currentPage = androidDriver.getCurrentUrl();
         Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.SEARCH_FOR_TERM+productName));
         System.out.println("Control is in search page");
