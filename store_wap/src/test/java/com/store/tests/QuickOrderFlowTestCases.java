@@ -8,6 +8,7 @@ import org.testng.annotations.*;
 import pageObejcts.*;
 import utils.StoreWapBaseClass;
 import java.util.*;
+import java.util.NoSuchElementException;
 
 public class QuickOrderFlowTestCases extends StoreWapBaseClass {
 
@@ -53,6 +54,7 @@ public class QuickOrderFlowTestCases extends StoreWapBaseClass {
         System.out.println(facebookPage + " is selected");
         facebookPageObjects.clickContinueAfterConnectFacebookPage();
         sleep(3000);
+        dashBoardPageObjects.closeTutorial();
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE} )
@@ -291,9 +293,14 @@ public class QuickOrderFlowTestCases extends StoreWapBaseClass {
         sleep(6000);
         onlinePaymentPageObjects.clickPayNowButton();
         sleep(4000);
-        ArrayList<String> tabs1 = new ArrayList<String>(androidDriver.getWindowHandles());
-        androidDriver.switchTo().window(tabs1.get(2));
-        onlinePaymentPageObjects.payWithVisaCard();
+        try {
+            ArrayList<String> tabs1 = new ArrayList<String>(androidDriver.getWindowHandles());
+            androidDriver.switchTo().window(tabs1.get(2));
+            onlinePaymentPageObjects.payWithVisaCard();
+        } catch (NoSuchElementException e){
+            androidDriver.navigate().refresh();
+            onlinePaymentPageObjects.payWithVisaCard();
+        }
         ArrayList<String> tabs2 = new ArrayList<String>(androidDriver.getWindowHandles());
         androidDriver.switchTo().window(tabs2.get(0));
         recordPaymentsPageObjects.clickBackButton();

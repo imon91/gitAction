@@ -7,7 +7,6 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
-import static utils.WebAppBaseClass.*;
 
 public class Address extends WebAppBaseClass {
 
@@ -77,7 +76,7 @@ public class Address extends WebAppBaseClass {
 
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyMyOrder")
-    public void verifySignOut(){
+    public void verifySignOut() throws Exception {
         System.out.println("Control came to verifySignout");
         home.SignOut();
         home.navigateToMyOrder();

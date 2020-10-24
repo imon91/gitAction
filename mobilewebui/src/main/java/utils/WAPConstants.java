@@ -3,7 +3,7 @@ package utils;
 public class WAPConstants {
 
 
-    public static final String AUTHENTICATION = "https://shopups2.xyz/authorize";
+    public static final String AUTHENTICATION = "https://shopups2.xyz/authorize?ref=%2Fr";
     public static final String MY_SHOP = "https://shopups2.xyz/wishlist";
     public static final String MY_ORDERS = "https://shopups2.xyz/orders/myorders";
     public static final String MY_INCOME ="https://shopups2.xyz/myaccount/income";
