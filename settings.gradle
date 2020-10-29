@@ -10,4 +10,5 @@ include 'automation_report'
 include 'omsui'
 include 'misc'
 include 'stores_app'
+include 'redx_web_ui'
 
