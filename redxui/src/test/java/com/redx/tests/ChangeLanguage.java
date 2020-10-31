@@ -13,12 +13,21 @@ public class ChangeLanguage extends RedXBaseClass
     private HomePageObjects homePageObjects;
     private SettingsPageObjects settingsPageObjects;
     private SettingsPageObjects.OtherSettings otherSettings;
+    private Authentication authentication;
 
     public void pageInitializer()
     {
         homePageObjects = new HomePageObjects();
         settingsPageObjects = new SettingsPageObjects();
         otherSettings = settingsPageObjects.new OtherSettings();
+        authentication = new Authentication();
+    }
+
+    @BeforeSuite(alwaysRun = true)
+    public void redXAndroidBeforeSuite()
+    {
+        System.out.println("redXAndroidBeforeSuite is called");
+        androidDriver = getBaseDriver();
     }
 
     @BeforeClass(alwaysRun = true)
@@ -29,9 +38,27 @@ public class ChangeLanguage extends RedXBaseClass
         pageInitializer();
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION},
+    @DataProvider(name = "getUserAuthenticationData")
+    public Object[][] getUserAuthenticationData(){
+        return new Object[][]{
+                {"01401122188","6666"}
+        };
+    }
+
+    @Test(  groups = {"Authentication.verifyAuthenticationWithValidCredentials",
+            CoreConstants.GROUP_SANITY},
+            description = "Verifies Authentication With Valid Credentials",
+            priority = 1,
+            dataProvider = "getUserAuthenticationData")
+    public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp) throws Exception {
+        System.out.println("Verify Authentication is called");
+        authentication.authenticationSetUp();
+    authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);}
+
+    @Test(  groups = {"Settings.verifyChangeLanguageToENGLISH",
+            CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION,CoreConstants.GROUP_SANITY},
             description = "Change Language To English",
-            dependsOnGroups = {"Authentication.verifyAuthenticationWithValidCredentials"})
+            priority = 2)
     public void changeToEnglishLanguage()
     {
         System.out.println("Changing to English Language");
@@ -43,8 +70,8 @@ public class ChangeLanguage extends RedXBaseClass
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY, CoreConstants.GROUP_REGRESSION},
-            description = "Change Language To Bangla",
-            dependsOnGroups = {"Authentication.verifyAuthenticationWithValidCredentials"})
+            priority = 3,
+            description = "Change Language To Bangla")
     public void changeToBanglaLanguage()
     {
         System.out.println("Changing to Bangla Language");
@@ -56,8 +83,16 @@ public class ChangeLanguage extends RedXBaseClass
     @AfterClass(alwaysRun = true)
     public void afterChangeLanguageClass()
     {
-        settingsPageObjects.clickBackButton();
-        settingsPageObjects.clickBackButton();
         System.out.println("After Change Language Class");
     }
+
+    @AfterSuite(alwaysRun = true)
+    public void redXAndroidAfterSuite(){
+        System.out.println("redXAndroidAfterSuite Is Called");
+        quitBaseDriver();
+
+    }
+
+
+
 }

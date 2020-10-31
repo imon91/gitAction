@@ -84,6 +84,7 @@ public class ManifestParcelDetails extends RedXBaseClass
         }
         if(parcelStatus.equals("PICKUP PENDING"))
         {
+            sleep(2000);
             WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='EDIT']"));
             myActions.action_click(selectedPackage);
         }
@@ -300,7 +301,27 @@ public class ManifestParcelDetails extends RedXBaseClass
             enterInstruction(instruction);
             clickUpdateButton();
         }
-    }
+
+        public List<String> editedParcelData()
+        {
+            List<String> array = new ArrayList<>();
+            nameEntry = xpathSetter("//android.widget.EditText[@index='1']");
+            phoneEntry = xpathSetter("//android.widget.EditText[@index='3']");
+            cashEntry = xpathSetter("//android.widget.EditText[@index='5']");
+            sellingPriceEntry = xpathSetter("//android.widget.EditText[@index='7']");
+            addressEntry = xpathSetter("//android.widget.EditText[@index='10']");
+            invoiceNumberEntry = xpathSetter("//android.widget.EditText[@index='17']");
+            String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.widget.EditText\").index(" + 19 + "))";
+            instructionEntry = uiAutomatorSetter(instructionSelector);
+            array.add(myActions.action_getText(nameEntry));
+            array.add(myActions.action_getText(phoneEntry));
+            array.add(myActions.action_getText(cashEntry));
+            array.add(myActions.action_getText(sellingPriceEntry));
+            array.add(myActions.action_getText(addressEntry));
+            array.add(myActions.action_getText(invoiceNumberEntry));
+            array.add(myActions.action_getText(instructionEntry));
+            return array;
+    }}
 
 
     /*----------Edit Package Module----------*/
@@ -324,6 +345,7 @@ public class ManifestParcelDetails extends RedXBaseClass
         private WebElement invoice;
         private WebElement parcelID;
         private WebElement paymentId;
+        private WebElement callRedXOption;
 
         /*----------Actions----------*/
 
@@ -428,6 +450,13 @@ public class ManifestParcelDetails extends RedXBaseClass
             sleep(1000);
             paymentId = xpathSetter("//android.view.ViewGroup[@index='39']/android.widget.TextView[@index='2']");
             return myActions.action_getText(paymentId);
+        }
+
+        public void clickOnCallRedXOption()
+        {
+            String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.view.ViewGroup\").index(" + 39 + "))";
+            WebElement callRedX = uiAutomatorSetter(instructionSelector);
+            myActions.action_click(callRedX);
         }
 
         /*----------Functions----------*/

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SanityTestSuite">
+    <listeners>
+        <listener class-name="listeners.RedXUiTestNgListener"></listener>
+    </listeners>
+    <test name="SanityTests" preserve-order="true" parallel="false">
+        <groups>
+            <run>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.redx.tests.CreateParcel"></class>
+        </classes>
+    </test>
+</suite>

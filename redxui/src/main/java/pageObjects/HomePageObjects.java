@@ -1,10 +1,8 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import utils.*;
-
-import java.util.List;
+import java.util.*;
 
 public class HomePageObjects extends RedXBaseClass
 {
@@ -73,6 +71,7 @@ public class HomePageObjects extends RedXBaseClass
         /*----------Elements----------*/
 
         private List<WebElement> shopsList;
+        private WebElement backButton;
 
         /*----------Actions----------*/
 
@@ -106,6 +105,11 @@ public class HomePageObjects extends RedXBaseClass
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        public void clickOnBackButton()
+        {
+            backButton = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup/android.widget.TextView[@index='0']");
+            myActions.action_click(backButton);
         }
     }
 }

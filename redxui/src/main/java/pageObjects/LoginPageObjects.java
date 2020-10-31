@@ -1,6 +1,7 @@
 package pageObjects;
 
 import org.openqa.selenium.*;
+import org.testng.*;
 import utils.*;
 
 
@@ -150,13 +151,33 @@ public class LoginPageObjects extends RedXBaseClass
         clickSubmitOtp();
     }
 
-    public void performChangeNumber(String mobileNumber, String otp)
+    public void performAuthenticationWithChangeNumber(String mobileNumber, String otp)
     {
         System.out.println("Performing Change Mobile Number");
+        clickLoginButton();
+        enterMobileNumber(mobileNumber);
+        clickSubmitMobileNumber();
+        sleep(3000);
         clickChangeMobileNumberButton();
         myActions.action_clearText(enterMobileNumber);
         enterMobileNumber(mobileNumber);
         clickSubmitMobileNumber();
+        enterOtpCode(otp);
+        clickSubmitOtp();
+    }
+
+    public void performAuthenticationWithWrongOTP(String mobileNumber,String otp)
+    {
+        clickLoginButton();
+        enterMobileNumber(mobileNumber);
+        clickSubmitMobileNumber();
+        // Enter the wrong OTP
+        enterOtpCode("5555");
+        clickSubmitOtp();
+        String cautionMessage =verifyOtp();
+        //Verification of the caution message
+        Assert.assertEquals(cautionMessage,"Your provided code is either invalid or expired!");
+        myActions.action_clearText(enterOtpCode);
         enterOtpCode(otp);
         clickSubmitOtp();
     }
