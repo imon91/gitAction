@@ -1,11 +1,11 @@
 package com.redx.tests;
 
-import coreUtils.CoreConstants;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
+import coreUtils.*;
+import io.appium.java_client.android.*;
+import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import utils.RedXBaseClass;
+import utils.*;
 
 public class ChangeLanguage extends RedXBaseClass
 {
@@ -37,6 +37,9 @@ public class ChangeLanguage extends RedXBaseClass
         System.out.println("Changing to English Language");
         homePageObjects.clickSettingsButton();
         otherSettings.changeToEnglish();
+        settingsPageObjects.clickBackButton();
+        sleep(1000);
+        settingsPageObjects.clickBackButton();
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY, CoreConstants.GROUP_REGRESSION},

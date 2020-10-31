@@ -1,14 +1,8 @@
 package pageObjects;
 
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import utils.*;
-
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class ManifestParcelDetails extends RedXBaseClass
 {
@@ -112,6 +106,7 @@ public class ManifestParcelDetails extends RedXBaseClass
         {
             WebElement selectedPackage = packagesList.get(index).findElement(By.xpath("//android.widget.TextView[@text='DELETE']"));
             myActions.action_click(selectedPackage);
+            sleep(1000);
             clickConfirmDeleteButton();
         }
         else
@@ -259,7 +254,7 @@ public class ManifestParcelDetails extends RedXBaseClass
 
         public void enterInvoiceNumber(String invoiceNumber)
         {
-            invoiceNumberEntry = xpathSetter("//android.widget.EditText[@index='14']");
+            invoiceNumberEntry = xpathSetter("//android.widget.EditText[@index='17']");
             myActions.action_sendKeys(invoiceNumberEntry,invoiceNumber);
             try {
                 PropertyReader.setValue(PropertyReader.Keys.INVOICE_NUMBER,invoiceNumber);
@@ -297,8 +292,10 @@ public class ManifestParcelDetails extends RedXBaseClass
             enterSellingPrice(sellingPrice);
             enterAddress(address);
             enterArea();
+            sleep(1000);
             int index = random.nextInt(areaList().size());
             selectAreaById(areaList(),index);
+            sleep(1000);
             enterInvoiceNumber(invoiceNumber);
             enterInstruction(instruction);
             clickUpdateButton();
@@ -426,9 +423,10 @@ public class ManifestParcelDetails extends RedXBaseClass
 
         public String getPaymentId()
         {
-            String parentSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\"Payment Id\"))";
+            String parentSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().text(\"Call RedX\"))";
             WebElement parent = uiAutomatorSetter(parentSelector);
-            paymentId = xpathSetter("//android.view.ViewGroup[@index='38']/android.widget.TextView[@index='2']");
+            sleep(1000);
+            paymentId = xpathSetter("//android.view.ViewGroup[@index='39']/android.widget.TextView[@index='2']");
             return myActions.action_getText(paymentId);
         }
 
@@ -453,8 +451,8 @@ public class ManifestParcelDetails extends RedXBaseClass
             System.out.println("Delivery Date : " + getDeliveryDate());
             //System.out.println("Delivery Instruction : " + getDeliveryInstruction());
             //System.out.println("Invoice : "+ getInvoice());//
-            if(module == "Payment")
-                System.out.println("Payment ID : "+ getPaymentId());
+            if(module!=null){if(module.equals("Payment"))
+                System.out.println("Payment ID : "+ getPaymentId());}
         }
     }
 

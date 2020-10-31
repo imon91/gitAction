@@ -42,7 +42,7 @@ public class RecordPaymentsPageObjects {
     @FindBy(xpath = "//div[text()='No payments received yet.']//following-sibling::div")
     private WebElement noPaymentsReceivedText2;
 
-    @FindBy(xpath = "//div[text()='Debit & Credit Card/Mobile Bankings']//parent::div//parent::div/div[@class='css-1dbjc4n r-eqz5dr r-1777fci r-1jkjb']/div")
+    @FindBy(xpath = "//div[text()='Debit & Credit Card/Mobile Banking']//parent::div//parent::div/div[@class='css-1dbjc4n r-eqz5dr r-1777fci r-1jkjb']/div")
     private WebElement debitCardOptionButton;
 
     @FindBy(xpath = "//div[text()='Received as Cash']//parent::div//following-sibling::div/div")
@@ -119,8 +119,8 @@ public class RecordPaymentsPageObjects {
             int totalLinksPresent = androidDriver.findElements(By.xpath("//div[text()='Copy']")).size();
             Random random = new Random();
             linkIndex = random.nextInt(totalLinksPresent)+1;
-        }
-        WebElement copyElement = androidDriver.findElement(By.xpath("//div[text()='Payment Links']//parent::div//parent::div//parent::div//div[@class='css-1dbjc4n r-13awgt0 r-18u37iz r-eafdt9 r-1i6wzkk r-lrvibr']["+linkIndex+"]/div/div[2]/div"));
+        } linkIndex += 3;
+        WebElement copyElement = androidDriver.findElement(By.xpath("//div[text()='Payment Links']//parent::div//parent::div//parent::div/div["+linkIndex+"]/div/div/div[2]/div"));
         return storeWapActions.action_getText(copyElement);
     }
 

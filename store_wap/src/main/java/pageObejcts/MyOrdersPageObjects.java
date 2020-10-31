@@ -89,7 +89,7 @@ public class MyOrdersPageObjects extends StoreWapBaseClass{
     }
 
     public void clickAnOrderFromOrderList(int x){
-        String xpath = "//div[@class='css-1dbjc4n']//div[@class='css-1dbjc4n']["+"]//div[@class='css-1dbjc4n r-13awgt0 r-eqz5dr']";
+        String xpath = "//div[text()='My Orders']//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div//parent::div/div/div/div/div/div[2]/div/div/div["+ ++x +"]/div/div/div";
         storeWapActions.action_click(androidDriver.findElement(By.xpath(xpath)));
     }
 

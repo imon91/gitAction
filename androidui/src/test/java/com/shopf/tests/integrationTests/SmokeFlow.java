@@ -7,7 +7,7 @@ import org.openqa.selenium.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
-import java.util.Random;
+import java.util.*;
 
 
 public class SmokeFlow extends AndroidBaseClass {
@@ -39,6 +39,7 @@ public class SmokeFlow extends AndroidBaseClass {
     private SalesRepFeature salesRepFeature;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
     private Random random;
+    private Address address;
 
 
     @BeforeSuite(alwaysRun = true)
@@ -84,6 +85,7 @@ public class SmokeFlow extends AndroidBaseClass {
         myActions = new MyActions();
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         random = new Random();
+        address = new Address();
         setImplicitWait(15);
     }
 
@@ -132,7 +134,14 @@ public class SmokeFlow extends AndroidBaseClass {
         authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);
 //        salesRepFeaturePageObject.performAuthentication("01877755590","666666");
     }
-  
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},
+            enabled = false,priority = 2)
+    public void createAddressUsingGeoLocation() throws Exception {
+        address.addressBeforeClass();
+        address.createAddressUsingGeoLocation();
+    }
+
   @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 2)
     public void verifyAddingRetailer()
     {  if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
@@ -146,7 +155,7 @@ public class SmokeFlow extends AndroidBaseClass {
             sleep(500);
         }
     }}
-  
+
 
      @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 3)
     public void performChangeLanguage(){
@@ -207,7 +216,7 @@ public class SmokeFlow extends AndroidBaseClass {
         }
     }
 
-    
+
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 7,dataProvider = "dataForSearchTerm")
     public void searchToObject(String searchTerm){
         search.searchBeforeClass();
@@ -220,7 +229,7 @@ public class SmokeFlow extends AndroidBaseClass {
             plp.productListingPageBeforeClass();
             plp.verifyApplyingSortOnPLP();
     }
-  
+
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 9)
     public void verifyApplyingFilterOnPLP() throws Exception
     {
@@ -257,7 +266,7 @@ public class SmokeFlow extends AndroidBaseClass {
     {
         myBag.verifyPlaceOrderInMyBag();
     }
-  
+
     @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
     public void verifyDeletingCodDisabledProductInAddress()
     {  //sleep(4000);

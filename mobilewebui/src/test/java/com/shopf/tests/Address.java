@@ -1,22 +1,14 @@
 package com.shopf.tests;
 
-import coreUtils.CoreConstants;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import coreUtils.*;
+import io.appium.java_client.android.*;
+import org.openqa.selenium.*;
+import org.testng.Assert;
+import org.testng.annotations.*;
 import pageObjects.*;
-import utils.MyActions;
+import utils.*;
 
-import java.awt.*;
-
-import static utils.WebAppBaseClass.getBaseDriver;
-import static utils.WebAppBaseClass.sleep;
-
-public class Address {
+public class Address extends WebAppBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
     private AddressPageObjects addresspageobject;
@@ -36,6 +28,9 @@ public class Address {
         bottomNavigationObjects = new BottomNavigationObjects(androidDriver);
         home = new HomePageObjects(androidDriver);
         myActions = new MyActions();
+        String currentPage = androidDriver.getCurrentUrl();
+        Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.CHECKOUT_ADDRESS));
+
     }
 
 
@@ -67,9 +62,10 @@ public class Address {
         System.out.println(orderno);
         sleep(1500);
         order.navigationToHome();
+        sleep(500);
         bottomNavigationObjects.clickOnBottomBarMyOrdersIcon();
         sleep(1500);
-        home.navigateToMyOrder();
+        //home.navigateToMyOrder();
         //String Orderno = order.getRecentOrderId();
         //System.out.println(Orderno);
         String Orderno = order.orderid(1);
@@ -80,7 +76,7 @@ public class Address {
 
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},dependsOnMethods = "verifyMyOrder")
-    public void verifySignOut(){
+    public void verifySignOut() throws Exception {
         System.out.println("Control came to verifySignout");
         home.SignOut();
         home.navigateToMyOrder();

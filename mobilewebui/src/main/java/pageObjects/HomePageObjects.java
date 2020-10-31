@@ -3,25 +3,21 @@ package pageObjects;
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
-import utils.MyActions;
-import utils.WebAppBaseClass;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.*;
+import utils.*;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class HomePageObjects extends WebAppBaseClass {
-    private AndroidDriver<WebElement> driver;
+    private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private Random random;
     private String app;
 
     public HomePageObjects(AndroidDriver<WebElement> androidDriver) throws Exception {
-        this.driver = androidDriver;
-        PageFactory.initElements(new AppiumFieldDecorator(driver), this);
+        this.androidDriver = androidDriver;
+        PageFactory.initElements(new AppiumFieldDecorator(this.androidDriver), this);
         myActions = new MyActions();
         random = new Random();
         app = getAppName();
@@ -48,7 +44,7 @@ public class HomePageObjects extends WebAppBaseClass {
     private WebElement CloseMenuButton;
 
     //ShopUp logo
-    @FindBy(xpath = "//a/img[@class = 'mainLogo___10PZp']")
+    @FindBy(xpath = "//a[@href='/r']/img")
     private WebElement ShopUpLogo;
 
     //searchiconforMokam
@@ -136,7 +132,7 @@ public class HomePageObjects extends WebAppBaseClass {
     private WebElement SignOut;
 
     //changeLanguage
-    @FindBy(xpath = "//span[contains(text(), 'Change Language (BN)')]")
+    @FindBy(xpath = "//span[contains(text(),'Change Language')]")
     private WebElement ChangeLanguage;
 
     //closeUserProfileIcon
@@ -157,8 +153,8 @@ public class HomePageObjects extends WebAppBaseClass {
 
     public void clickOnShopUpLogo(){myActions.action_click(ShopUpLogo);}
 
-    private void clickOnSearchButton(){
-        clickOnShopUpLogo();
+    public void clickOnSearchButton(){
+        //clickOnShopUpLogo();
         if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             myActions.action_click(SearchButton);
         }else if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
@@ -177,7 +173,7 @@ public class HomePageObjects extends WebAppBaseClass {
         }
     }
 
-    private void clickOnMyBag(){myActions.action_click(BagButton);}
+    public void clickOnMyBag(){myActions.action_click(BagButton);}
 
     private void clickOnEnterMobileNumber(String MobileNumber){myActions.action_sendKeys(EnterMobileNumber,MobileNumber);}
 
@@ -224,11 +220,11 @@ public class HomePageObjects extends WebAppBaseClass {
 
     public void login(String MobileNumber, String OTP){
         clickOnEnterMobileNumber(MobileNumber);
-        driver.hideKeyboard();
+        androidDriver.hideKeyboard();
         clickOnContinueButton();
         //sleep(3500);
         clickOnEnterOTP(OTP);
-        driver.hideKeyboard();
+        androidDriver.hideKeyboard();
         //myActions.swipe(200,20);
         clickOnSubmitButton();
     }
@@ -274,10 +270,43 @@ public class HomePageObjects extends WebAppBaseClass {
         clickOnFAQ();
     }
 
-    public void SignOut(){
+    public void SignOut() throws Exception {
         clickOnUserProfile();
-        clickOnSignOut();
+        try {
+            //SignOut.click();
+            androidDriver.findElement(By.xpath("//div[@class='drawerContainer___7enVI']/div/div[2]/div[3]/div[2]/p")).click();
+        } catch (ElementClickInterceptedException e){
+            JavascriptExecutor js = (JavascriptExecutor) androidDriver;
+            js.executeScript("arguments[0].scrollIntoView(true)",androidDriver.findElement(By.xpath("//div[@class='drawerContainer___7enVI']/div/div[2]/div[3]/div[2]/p")));
+            //myActions.scrollVerticallyToElement("//span[contains(text(),'Change Language')]");
+            //clickOnSignOut();
+            androidDriver.findElement(By.xpath("//div[@class='drawerContainer___7enVI']/div/div[2]/div[3]/div[2]/p")).click();
+        }
         sleep(2000);
+    }
+
+    public void clickSignIn(){
+        closePopup();
+        clickOnUserProfile();
+        WebElement signInElement = xpathSetter("//p[text()='Sign In']");
+        myActions.action_click(signInElement);
+    }
+
+    public void closePopup(){
+        androidDriver.context(CoreConstants.SHOP_UP_NATIVE_VIEW);
+        System.out.println("Context Switched From Web To Native");
+        WebElement popupCloseElement = xpathSetter("//android.widget.ImageButton[@index='2']");
+        myActions.action_click(popupCloseElement);
+        sleep(2000);
+        // Context Switching
+        Set<String> contextNames = androidDriver.getContextHandles();
+        int n = contextNames.size();
+        String[] contextData = new String[n];
+        contextData = contextNames.toArray(contextData);
+        for(int i=0;i<contextData.length;i++){
+            System.out.println(contextData[i]);
+        }
+        androidDriver.context("CHROMIUM");
     }
 
     /*--------dynamicfunctions-----------*/
@@ -285,7 +314,7 @@ public class HomePageObjects extends WebAppBaseClass {
     public String tabContainer(int tabid){
         String tab;
         String tabXpath = "//div[@class='flex___1bJDE middle___1jEMZ']//div";
-        List<WebElement> tablist = driver.findElements(By.xpath(tabXpath));
+        List<WebElement> tablist = androidDriver.findElements(By.xpath(tabXpath));
         if(tabid != 0){
             tab = tabXpath+"["+tabid+"]";
         } else {
@@ -293,8 +322,8 @@ public class HomePageObjects extends WebAppBaseClass {
             tab = tabXpath+"["+ ++id +"]";
         }
         String tabName = tab+"/p";
-        WebElement tabelement = driver.findElement(By.xpath(tab));
-        WebElement tabnameelement = driver.findElement(By.xpath(tabName));
+        WebElement tabelement = androidDriver.findElement(By.xpath(tab));
+        WebElement tabnameelement = androidDriver.findElement(By.xpath(tabName));
         String tabselected = myActions.action_getText(tabnameelement);
         myActions.action_click(tabelement);
         return tabselected;

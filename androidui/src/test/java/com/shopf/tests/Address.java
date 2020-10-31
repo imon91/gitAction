@@ -1,27 +1,15 @@
 package com.shopf.tests;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
-import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-import pageObjects.AddNewAddressPageObjects;
-import pageObjects.CheckoutAddressPageObjects;
-import pageObjects.MyBagPageObjects;
-import services.commerceMethods.GetMyBagApiResponse;
-import utils.AndroidAppConstants;
-import utils.AndroidBaseClass;
-import utils.MyActions;
-import utils.ServiceRequestLayer;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import coreUtils.*;
+import io.appium.java_client.android.*;
+import org.openqa.selenium.*;
+import org.testng.*;
+import org.testng.annotations.*;
+import org.testng.asserts.*;
+import pageObjects.*;
+import testData.*;
+import utils.*;
+import java.util.*;
 
 public class Address extends AndroidBaseClass {
 
@@ -39,6 +27,10 @@ public class Address extends AndroidBaseClass {
     private SoftAssert softAssert;
     private String suiteName;
     private String app;
+    private HomePageObjects homePageObjects;
+    private Random random;
+    private ReadJSONFile readJSONFile;
+    private ServiceRequestLayer serviceRequestLayer;
 
 
     @BeforeClass(alwaysRun = true)
@@ -54,6 +46,11 @@ public class Address extends AndroidBaseClass {
         estimatedDeliveryDates = checkoutAddressPageObjects.new EstimatedDeliveryDates(androidDriver);
         estimatedDeliveryDatesItems = estimatedDeliveryDates.new EstimatedDeliveryDatesItems(androidDriver);
         addNewAddressPageObjects = new AddNewAddressPageObjects(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
+        random = new Random();
+        serviceRequestLayer = new ServiceRequestLayer();
+        readJSONFile = serviceRequestLayer.getControlOverReadJSONFile();
+        homePageObjects = new HomePageObjects(androidDriver);
         myActions = new MyActions();
         softAssert = new SoftAssert();
         suiteName = "regression";
@@ -234,6 +231,34 @@ public class Address extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},enabled = false)
     public void verifyTextsInAddress(){
         //verifying the texts present in myCart
+    }
+
+    @Test(groups = {"Address.createAddressUsingGeoLocation",
+            CoreConstants.GROUP_SANITY})
+    public void createAddressUsingGeoLocation() throws Exception {
+        WebElement addNewAddressButton = homePageObjects.scrollOnAddressList("Add New Address");
+        myActions.action_click(addNewAddressButton);
+        sleep(1000);
+        homePageObjects.clickAllowButton();
+        sleep(1000);
+        try {
+            homePageObjects.clickOnOkButton();
+        } catch (Exception e) {
+            sleep(500);
+        }
+        int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
+        String locationName = (String) readJSONFile.getJSONFileData(app, "locationTerm").get(randomIndex);
+        homePageObjects.enterLocation(locationName);
+        sleep(2000);
+        homePageObjects.clickOnLocationNextButton();
+        homePageObjects.enterShopName(locationName);
+        homePageObjects.enterArea(locationName);
+        sleep(2000);
+        homePageObjects.clickOnMobileNumber();
+        homePageObjects.clickOnAddAddressButton();
+        WebElement addressName = homePageObjects.scrollOnAddressList("Smoke Flow shop " + locationName);
+        myActions.action_click(addressName);
+        sleep(3500);
     }
 
 
