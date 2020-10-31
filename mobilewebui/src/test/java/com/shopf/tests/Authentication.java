@@ -53,7 +53,7 @@ public class Authentication extends WebAppBaseClass {
         System.out.println("verifyAuthentication is called");
         sleep(1000);
         String currentPage = androidDriver.getCurrentUrl();
-        //Assert.assertTrue(currentPage.contains(WAPConstants.AUTHENTICATION));
+        Assert.assertTrue(currentPage.contains(WAPConstants.AUTHENTICATION));
         System.out.println("Control is in Authentication page");
     }
 
