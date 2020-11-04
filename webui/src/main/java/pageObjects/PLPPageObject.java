@@ -365,9 +365,9 @@ public class PLPPageObject extends WebBaseClass {
         System.out.println("Valid Product Size Index : "+sizeIndex);
         System.setProperty("validProductSizeIndex",""+sizeIndex+"");
         System.setProperty("minSalePrice",
-                Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+                Float.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
         System.setProperty("maxSalePrice",
-                Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+                Float.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
         // Scroll into View that product by its name and perform click on that
 //        System.out.println(androidDriver.findElementByAndroidUIAutomator(
 //                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_item\")).scrollIntoView("

@@ -462,7 +462,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
         @FindBy(xpath = "//p[contains(text(),'Shipping Charges')]")
         private WebElement shippingChargesLabel;
 
-        @FindBy(xpath = "//input[@id='deliveryCharge1']")
+        @FindBy(xpath = "//input[@id='deliveryCharge']")
         private WebElement deliveryChargesEditText;
 
         @FindBy(xpath = "//input[@name='delivery_charge']/following-sibling::button")

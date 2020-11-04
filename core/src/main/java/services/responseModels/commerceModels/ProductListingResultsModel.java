@@ -109,7 +109,7 @@ public class ProductListingResultsModel {
         private int category_id;
         private CouponOfferBean coupon_offer;
         private String description;
-        private int discount;
+        private float discount;
         private boolean has_multi_factor_sizes;
         private int id;
         private String image;
@@ -207,11 +207,11 @@ public class ProductListingResultsModel {
             this.description = description;
         }
 
-        public int getDiscount() {
+        public float getDiscount() {
             return discount;
         }
 
-        public void setDiscount(int discount) {
+        public void setDiscount(float discount) {
             this.discount = discount;
         }
 
@@ -606,14 +606,14 @@ public class ProductListingResultsModel {
             private int corrected_count_on_hand;
             private int count_on_hand;
             private int id;
-            private int max_selling_price;
+            private float max_selling_price;
             private int min_order_quantity;
-            private int min_selling_price;
+            private float min_selling_price;
             private String name;
             private String option_value_name;
-            private int original_price;
-            private int per_piece_price;
-            private int price;
+            private float original_price;
+            private float per_piece_price;
+            private float price;
             private int product_id;
             private int quantity_per_variant;
             private int size;
@@ -643,11 +643,11 @@ public class ProductListingResultsModel {
                 this.id = id;
             }
 
-            public int getMax_selling_price() {
+            public float getMax_selling_price() {
                 return max_selling_price;
             }
 
-            public void setMax_selling_price(int max_selling_price) {
+            public void setMax_selling_price(float max_selling_price) {
                 this.max_selling_price = max_selling_price;
             }
 
@@ -659,11 +659,11 @@ public class ProductListingResultsModel {
                 this.min_order_quantity = min_order_quantity;
             }
 
-            public int getMin_selling_price() {
+            public float getMin_selling_price() {
                 return min_selling_price;
             }
 
-            public void setMin_selling_price(int min_selling_price) {
+            public void setMin_selling_price(float min_selling_price) {
                 this.min_selling_price = min_selling_price;
             }
 
@@ -683,27 +683,27 @@ public class ProductListingResultsModel {
                 this.option_value_name = option_value_name;
             }
 
-            public int getOriginal_price() {
+            public float getOriginal_price() {
                 return original_price;
             }
 
-            public void setOriginal_price(int original_price) {
+            public void setOriginal_price(float original_price) {
                 this.original_price = original_price;
             }
 
-            public int getPer_piece_price() {
+            public float getPer_piece_price() {
                 return per_piece_price;
             }
 
-            public void setPer_piece_price(int per_piece_price) {
+            public void setPer_piece_price(float per_piece_price) {
                 this.per_piece_price = per_piece_price;
             }
 
-            public int getPrice() {
+            public float getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(float price) {
                 this.price = price;
             }
 

@@ -595,7 +595,9 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
         public void enterSalePriceEditText(String salePrice){
             priceChangeEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/price_change_edittext']");
             myActions.action_clearText(priceChangeEditText);
-            myActions.action_sendKeys(priceChangeEditText,salePrice);
+            // as SalePrice EditText doesn't accept floating point numbers, float is converted to integer
+            int salePriceAsInteger = (int) Float.parseFloat(salePrice);
+            myActions.action_sendKeys(priceChangeEditText,Integer.toString(salePriceAsInteger));
         }
 
         public void clickOnAddToBagButton(){

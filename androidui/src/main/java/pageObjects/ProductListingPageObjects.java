@@ -393,15 +393,15 @@ public class ProductListingPageObjects extends AndroidBaseClass {
             System.out.println("Valid Product Size Index : " + sizeIndex);
             System.setProperty("validProductSizeIndex", "" + sizeIndex + "");
             System.setProperty("minSalePrice",
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
             System.setProperty("maxSalePrice",
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
 
             // Update Min and Max sale price to Properties file
             PropertyReader.setValue(PropertyReader.Keys.PRODUCT_MIN_QUANTITY,
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
             PropertyReader.setValue(PropertyReader.Keys.PRODUCT_MAX_QUANTITY,
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
 
 
             // Scroll into View that product by its name and perform click on that
@@ -783,15 +783,15 @@ public class ProductListingPageObjects extends AndroidBaseClass {
             System.out.println("Valid Product Size Index : " + sizeIndex);
             System.setProperty("validProductSizeIndex", "" + sizeIndex + "");
             System.setProperty("minSalePrice",
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
             System.setProperty("maxSalePrice",
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
 
             // Update Min and Max sale price to Properties file
             PropertyReader.setValue(PropertyReader.Keys.PRODUCT_MIN_QUANTITY,
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMin_selling_price()));
             PropertyReader.setValue(PropertyReader.Keys.PRODUCT_MAX_QUANTITY,
-                    Integer.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
+                    Float.toString(productResult.getSizes().get(sizeIndex).getMax_selling_price()));
             clickOnProductItem(getItemImages().get(productIndex));
 
         } catch (Exception e) {

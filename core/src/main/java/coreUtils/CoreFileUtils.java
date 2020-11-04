@@ -2,15 +2,15 @@ package coreUtils;
 
 public class CoreFileUtils {
 
-    public static final String resellerStageApk = CoreFileRouters.apkPath+"app-universal-debug-updated.apk";
+    public static final String resellerStageApk = CoreFileRouters.apkPath+"app-reseller-for-automation.apk";
     public static final String resellerProdApk = "";
-    public static final String mokamStageApk = CoreFileRouters.apkPath+"app-unicorn-universal-debug_new.apk";
+    public static final String mokamStageApk = CoreFileRouters.apkPath+"app-unicorn-for-automation-new.apk";
     public static final String mokamProdApk = "";
     public static final String redXStageApk = CoreFileRouters.apkPath+"app-redx-debug.apk";
     public static final String redXProdApk = "";
     public static final String storesStageApk = CoreFileRouters.apkPath+"shopupstore.apk";
     public static final String storesProdApk = "";
-    public static final String chromeDriver = CoreFileRouters.chromeDriversFolderPath+"chromedriver83";
+    public static final String chromeDriver = CoreFileRouters.chromeDriversFolderPath+"chromedriver86";
     public static final String chromeDriversFolderPath = CoreFileRouters.chromeDriversFolderPath;
     public static final String commerceSendOtpJsonPath = CoreFileRouters.commerceAuthData+"send_otp.json";
     public static final String commerceSendOtpSRJsonPath = CoreFileRouters.commerceAuthData+"send_otp_SR.json";
