@@ -237,7 +237,12 @@ public class Address extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY})
     public void createAddressUsingGeoLocation() throws Exception {
         switchFromWebToNative();
-        WebElement addNewAddressButton = homePageObjects.scrollToAddNewAddressButton();
+        WebElement addNewAddressButton;
+        try {
+            addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
+        } catch (Exception e) {
+            addNewAddressButton = homePageObjects.scrollToAddNewAddressButton();
+        }
         myActions.action_click(addNewAddressButton);
         sleep(1000);
         homePageObjects.clickAllowButton();
@@ -257,6 +262,7 @@ public class Address extends AndroidBaseClass {
         homePageObjects.enterArea(locationName);
         sleep(2000);
         homePageObjects.enterAddress(""+random.nextInt(10)+",West Cross Street");
+        homePageObjects.enterMobileNumber("187774447"+random.nextInt(10));
         homePageObjects.clickOnAddAddressButton();
         sleep(2000);
         homePageObjects.selectAddress("Smoke Flow shop "+locationName);

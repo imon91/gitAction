@@ -104,6 +104,13 @@ public class HomePageObjects extends AndroidBaseClass {
         myActions.action_click(firstAddressElement);
     }
 
+    public void enterMobileNumber(String mobileNumber){
+        WebElement mobileNumberElement = idSetter(packageName+":id/add_address_phone");
+        if (mobileNumberElement.getText().equalsIgnoreCase("Mobile Number")){
+            myActions.action_sendKeys(mobileNumberElement,mobileNumber);
+        }
+    }
+
     public void enterArea(String areaName)
     {
         area = idSetter(packageName+":id/add_address_area");

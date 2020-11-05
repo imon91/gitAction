@@ -48,7 +48,7 @@ public class ActionBarObjects extends AndroidBaseClass {
     }
 
     public WebElement ownerNameTextAtTop()
-    { return ownerNameSRFeature = idSetter("com.mokam.app:id/retailer_name"); }
+    { return ownerNameSRFeature = idSetter("com.mokam.app:id/address_name"); }
 
     public void clickOnSearchImageButton(){
       

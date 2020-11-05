@@ -2,6 +2,7 @@ package com.shopf.tests.integrationTests;
 
 import com.shopf.tests.*;
 import coreUtils.*;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
@@ -40,6 +41,7 @@ public class SmokeFlow extends AndroidBaseClass {
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
     private Random random;
     private Address address;
+    private String packageName;
 
 
     @BeforeSuite(alwaysRun = true)
@@ -87,6 +89,7 @@ public class SmokeFlow extends AndroidBaseClass {
         random = new Random();
         address = new Address();
         setImplicitWait(15);
+        packageName = getAppPackage();
     }
 
 
@@ -136,20 +139,28 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},
-            priority = 2)
+            priority = 3)
     public void createAddressUsingGeoLocation() throws Exception {
-        address.addressBeforeClass();
-        address.createAddressUsingGeoLocation();
+        if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            address.addressBeforeClass();
+            address.createAddressUsingGeoLocation();
+        }
     }
 
-  @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 3)
+  @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 2)
     public void verifyAddingRetailer()
     {  if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
         try{
             if (mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)) {
-        salesRepFeature.salesRepPageBeforeClass();
-        salesRepFeature.verifyAddingRetailer();
-         sleep(4000);}
+                salesRepFeature.salesRepPageBeforeClass();
+                WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                        "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/list_retailers\")).scrollIntoView("
+                                + "new UiSelector().resourceId(\""+packageName+":id/action_add_retailer\"))"));
+                WebElement addNewRetailerButton = idSetter(packageName+":id/action_add_retailer");
+                myActions.action_click(addNewRetailerButton);
+                salesRepFeature.verifyAddingRetailer();
+                sleep(4000);
+        }
         }
         catch (NullPointerException e){
             sleep(500);
@@ -173,7 +184,7 @@ public class SmokeFlow extends AndroidBaseClass {
     {if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
         try {
             if (mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)) {
-                salesRepFeature.verifyAddedRetailer();
+//                salesRepFeature.verifyAddedRetailer();
             }
         }catch (NullPointerException e){
             sleep(500);
@@ -185,8 +196,8 @@ public class SmokeFlow extends AndroidBaseClass {
     {if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
         try {
             if (mokamUser.equalsIgnoreCase(CoreConstants.MOKAM_USER)) {
-                salesRepFeature.verifyRetailerSwitch();
-                sleep(3000);
+//                salesRepFeature.verifyRetailerSwitch();
+//                sleep(3000);
             }
         }catch (NullPointerException e){
             sleep(500);
