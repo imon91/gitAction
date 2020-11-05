@@ -401,6 +401,7 @@ public class MyBag extends AndroidBaseClass {
     public void verifyProceedToPaymentByCreatingNewAddress() {
         selectAddress.clickOnAddNewAddress();
         addNewAddressPageObjects.createNewAddress("SmokeFlow Testing", "Shopf Street", "1877655690");
+        sleep(4000);
     }
 
 

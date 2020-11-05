@@ -55,10 +55,10 @@ public class HomePageObjects extends AndroidBaseClass {
     //areaSuggestionList
     private List<WebElement> areaSuggestionList;
 
-    public WebElement scrollOnAddressList(String text)
+    public WebElement scrollToAddNewAddressButton()
     {      WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
             "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/address_list_recycler_view\")).scrollIntoView("
-                    + "new UiSelector().text(\""+text+"\"))"));
+                    + "new UiSelector().resourceId(\""+packageName+":id/action_add_address\"))"));
          return element;
     }
 
@@ -93,10 +93,46 @@ public class HomePageObjects extends AndroidBaseClass {
         myActions.action_sendKeys(shopName,"Smoke Flow shop "+ShopName);
     }
 
+    public void enterAddress(String address){
+        WebElement addressElement = idSetter(packageName+":id/add_address_address");
+        myActions.action_sendKeys(addressElement,address);
+
+    }
+
+    public void selectAddress(String addressName){
+        WebElement firstAddressElement = xpathSetter("//android.widget.TextView[@text='"+ addressName +"']");
+        myActions.action_click(firstAddressElement);
+    }
+
     public void enterArea(String areaName)
     {
         area = idSetter(packageName+":id/add_address_area");
-        myActions.action_sendKeys(area,areaName);
+        switch (areaName){
+            case "Dhaka" :
+                myActions.action_sendKeys(area,"Adabor, "+areaName);
+                break;
+            case "chittagong" :
+                myActions.action_sendKeys(area,"Anwara, "+areaName);
+                break;
+            case "mirpur" :
+                myActions.action_sendKeys(area,"Mirpur Cantonment, Dhaka");
+                break;
+            case "Khulna" :
+                myActions.action_sendKeys(area,"Dacope, "+areaName);
+                break;
+            case "Mymensingh" :
+                myActions.action_sendKeys(area,"Fulpur, "+areaName);
+                break;
+            case "Rangpur" :
+                myActions.action_sendKeys(area,"Kaunia, "+areaName);
+                break;
+            case "Rajshahi" :
+                myActions.action_sendKeys(area,"Bagha, "+areaName);
+                break;
+            case "Sylhet" :
+                myActions.action_sendKeys(area,"Balaganj, "+areaName);
+                break;
+        }
     }
 
     public List<WebElement> getAreaList()

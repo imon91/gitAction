@@ -50,7 +50,7 @@ public class Address extends AndroidBaseClass {
         random = new Random();
         serviceRequestLayer = new ServiceRequestLayer();
         readJSONFile = serviceRequestLayer.getControlOverReadJSONFile();
-        homePageObjects = new HomePageObjects(androidDriver);
+        //homePageObjects = new HomePageObjects(androidDriver);
         myActions = new MyActions();
         softAssert = new SoftAssert();
         suiteName = "regression";
@@ -236,28 +236,30 @@ public class Address extends AndroidBaseClass {
     @Test(groups = {"Address.createAddressUsingGeoLocation",
             CoreConstants.GROUP_SANITY})
     public void createAddressUsingGeoLocation() throws Exception {
-        WebElement addNewAddressButton = homePageObjects.scrollOnAddressList("Add New Address");
+        switchFromWebToNative();
+        WebElement addNewAddressButton = homePageObjects.scrollToAddNewAddressButton();
         myActions.action_click(addNewAddressButton);
         sleep(1000);
         homePageObjects.clickAllowButton();
         sleep(1000);
-        try {
-            homePageObjects.clickOnOkButton();
-        } catch (Exception e) {
-            sleep(500);
-        }
+//        try {
+//            homePageObjects.clickOnOkButton();
+//        } catch (Exception e) {
+//            sleep(500);
+//        }
         int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
-        String locationName = (String) readJSONFile.getJSONFileData(app, "locationTerm").get(randomIndex);
+        String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
         homePageObjects.enterLocation(locationName);
         sleep(2000);
         homePageObjects.clickOnLocationNextButton();
+        sleep(1000);
         homePageObjects.enterShopName(locationName);
         homePageObjects.enterArea(locationName);
         sleep(2000);
-        homePageObjects.clickOnMobileNumber();
+        homePageObjects.enterAddress(""+random.nextInt(10)+",West Cross Street");
         homePageObjects.clickOnAddAddressButton();
-        WebElement addressName = homePageObjects.scrollOnAddressList("Smoke Flow shop " + locationName);
-        myActions.action_click(addressName);
+        sleep(2000);
+        homePageObjects.selectAddress("Smoke Flow shop "+locationName);
         sleep(3500);
     }
 
