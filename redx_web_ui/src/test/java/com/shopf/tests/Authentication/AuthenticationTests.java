@@ -1,13 +1,15 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
+import coreUtils.*;
+import org.openqa.selenium.*;
 import org.testng.annotations.*;
-import utils.RedXWebBaseClass;
+import pageObjects.*;
+import utils.*;
 
 public class AuthenticationTests extends RedXWebBaseClass {
 
     private WebDriver driver;
+    private LoginPageObjects loginPageObjects;
 
     @BeforeSuite(alwaysRun = true)
     public void redxBeforeSuite() throws Exception{
@@ -19,12 +21,13 @@ public class AuthenticationTests extends RedXWebBaseClass {
 
     @BeforeClass(alwaysRun = true)
     public void authenticationTestsBeforeClass(){
-
+        loginPageObjects = new LoginPageObjects(driver);
     }
 
     @Test(groups = CoreConstants.GROUP_SMOKE)
-    public void verifyAuthenticationWithValidCredentials(){
-        System.out.println("Welcome to RedX Web Asoka");
+    public void verifyAuthenticationWithValidCredentials() throws InterruptedException{
+        System.out.println("Verify Authentication with valid credentials was called");
+        loginPageObjects.performAuthentication("0140112217","6666");
     }
 
     @Test
