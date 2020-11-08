@@ -582,20 +582,20 @@ public class Search extends AndroidBaseClass {
 //    softAssert.assertAll();
 //    }
 
-    @Test(  groups = {"Search.verifyControlWhenLaunchApp" ,
-            CoreConstants.GROUP_REGRESSION},
-            description = "Verifies Control When Launch App",
-            priority = 22)
-    public void verifyControlWhenLaunchAppAgain(){
-        System.out.println("verify control when launch app again was called");
-        searchPageObjects.enterProductName("shirt");
-        String currentActivity = androidDriver.currentActivity();
-        androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
-        sleep(1500);
-        androidDriver.launchApp();
-        sleep(2000);
-        System.out.println("When launch app again the control was on "+androidDriver.currentActivity()+" before closing it was "+currentActivity);
-    }
+//    @Test(  groups = {"Search.verifyControlWhenLaunchApp" ,
+//            CoreConstants.GROUP_REGRESSION},
+//            description = "Verifies Control When Launch App",
+//            priority = 22)
+//    public void verifyControlWhenLaunchAppAgain(){
+//        System.out.println("verify control when launch app again was called");
+//        searchPageObjects.enterProductName("shirt");
+//        String currentActivity = androidDriver.currentActivity();
+//        androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
+//        sleep(1500);
+//        androidDriver.launchApp();
+//        sleep(2000);
+//        System.out.println("When launch app again the control was on "+androidDriver.currentActivity()+" before closing it was "+currentActivity);
+//    }
 
     @Test(  groups = {"Search.verifySearchBarScrollable" ,
             CoreConstants.GROUP_REGRESSION},
@@ -750,51 +750,51 @@ public class Search extends AndroidBaseClass {
         softAssert.assertAll();
     }
 
-    @Test(  groups = {"Search.SearchRecentSuggestionOnClosingTheApp" ,
-            CoreConstants.GROUP_REGRESSION},
-            description = "Verifies Search Recent Suggestion On Closing The App",
-            priority = 30)
-    public void verifySearchRecentSuggestionOnClosingTheApp() {
-        System.out.println("Verification of Search Recent suggestion on closing the app was called");
-        androidDriver.closeApp();
-        sleep(1500);
-        androidDriver.launchApp();
-        sleep(1500);
-        actionBarObjects.clickOnSearchImageButton();
-        assertNotNull(searchPageObjects.searchSuggestionTitleListUI());
-        softAssert.assertAll();
-    }
+//    @Test(  groups = {"Search.SearchRecentSuggestionOnClosingTheApp" ,
+//            CoreConstants.GROUP_REGRESSION},
+//            description = "Verifies Search Recent Suggestion On Closing The App",
+//            priority = 30)
+//    public void verifySearchRecentSuggestionOnClosingTheApp() {
+//        System.out.println("Verification of Search Recent suggestion on closing the app was called");
+//        androidDriver.closeApp();
+//        sleep(1500);
+//        androidDriver.launchApp();
+//        sleep(1500);
+//        actionBarObjects.clickOnSearchImageButton();
+//        assertNotNull(searchPageObjects.searchSuggestionTitleListUI());
+//        softAssert.assertAll();
+//    }
 
-        @Test(  groups = {"Search.SearchRecentSuggestionDataOnRelaunchApp" ,
-                CoreConstants.GROUP_REGRESSION},
-                description = "Verifies Search Recent Suggestion Data On RelaunchApp",
-                priority = 31)
-        public void verifySearchRecentSuggestionDataOnRelaunchApp(){
-    System.out.println("Verification of search suggestion Data on relaunch the app was called");
-    List<String> titleArray = new ArrayList<>();
-    List<String> inLineLabelArray = new ArrayList<>();
-    //Storing title
-             for(int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++){
-    titleArray.add(myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(i)));
-            }
-             //Storing inLineLabel
-             for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelListUI().size();j++){
-                 inLineLabelArray.add(myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(j)));
-             }
-             androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
-             sleep(1000);
-             androidDriver.launchApp();
-             sleep(1500);
-             //Verification of title
-             for (int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++){
-                 assertEquals(titleArray.get(i),myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(i)));
-             }
-             //Verification of inLineLabel
-             for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelListUI().size();j++){
-                 assertEquals(inLineLabelArray.get(j),myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(j)));
-             }
-            softAssert.assertAll();
-        }
+//        @Test(  groups = {"Search.SearchRecentSuggestionDataOnRelaunchApp" ,
+//                CoreConstants.GROUP_REGRESSION},
+//                description = "Verifies Search Recent Suggestion Data On RelaunchApp",
+//                priority = 31)
+//        public void verifySearchRecentSuggestionDataOnRelaunchApp(){
+//    System.out.println("Verification of search suggestion Data on relaunch the app was called");
+//    List<String> titleArray = new ArrayList<>();
+//    List<String> inLineLabelArray = new ArrayList<>();
+//    //Storing title
+//             for(int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++){
+//    titleArray.add(myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(i)));
+//            }
+//             //Storing inLineLabel
+//             for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelListUI().size();j++){
+//                 inLineLabelArray.add(myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(j)));
+//             }
+//             androidDriver.pressKey(new KeyEvent(AndroidKey.HOME));
+//             sleep(1000);
+//             androidDriver.launchApp();
+//             sleep(1500);
+//             //Verification of title
+//             for (int i=0;i<searchPageObjects.searchSuggestionTitleListUI().size();i++){
+//                 assertEquals(titleArray.get(i),myActions.action_getText(searchPageObjects.searchSuggestionTitleListUI().get(i)));
+//             }
+//             //Verification of inLineLabel
+//             for(int j=0;j<searchPageObjects.searchSuggestionInLineLabelListUI().size();j++){
+//                 assertEquals(inLineLabelArray.get(j),myActions.action_getText(searchPageObjects.searchSuggestionInLineLabelListUI().get(j)));
+//             }
+//            softAssert.assertAll();
+//        }
 
     @Test(  groups = {"Search.SearchRecentSuggestionClickable" ,
             CoreConstants.GROUP_REGRESSION},
