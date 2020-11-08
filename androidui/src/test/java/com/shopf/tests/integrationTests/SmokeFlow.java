@@ -295,6 +295,7 @@ public class SmokeFlow extends AndroidBaseClass {
         }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
             myBag.verifySelectAddressInMyBag();
             myBag.verifyCheckoutProceedInMyBag();
+            sleep(2000);
         }
     }
 

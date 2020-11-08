@@ -239,9 +239,9 @@ public class Address extends AndroidBaseClass {
         switchFromWebToNative();
         WebElement addNewAddressButton;
         try {
-            addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
-        } catch (Exception e) {
             addNewAddressButton = homePageObjects.scrollToAddNewAddressButton();
+        } catch (NullPointerException e) {
+            addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
         }
         myActions.action_click(addNewAddressButton);
         sleep(1000);
