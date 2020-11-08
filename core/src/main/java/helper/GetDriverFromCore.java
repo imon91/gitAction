@@ -150,7 +150,7 @@ public class GetDriverFromCore {
                 chromeOptions.setAcceptInsecureCerts(true);
             chromeOptions.addArguments("'--disable-web-security");
             chromeOptions.addArguments("--no-sandbox");
-            chromeOptions.addArguments("--user-data-dir");
+            //chromeOptions.addArguments("--user-data-dir");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
             chromeOptions.setExperimentalOption("prefs",prefs);
@@ -159,6 +159,7 @@ public class GetDriverFromCore {
             DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
             desiredCapabilities.setCapability(ChromeOptions.CAPABILITY,chromeOptions);
             WebDriver driver = new ChromeDriver(desiredCapabilities);
+            System.out.println("Returned Driver");
             return driver;
         }else {
             setBrowserStackUrl();
@@ -180,6 +181,10 @@ public class GetDriverFromCore {
                     .equalsIgnoreCase(CoreConstants.APP_MOKAM)){
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Mokam-UI");
                 caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "MokamWebApplicationBuild");
+            }else if(System.getProperty(BuildParameterKeys.KEY_APP)
+                    .equalsIgnoreCase(CoreConstants.APP_RED_X)){
+                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "RedX-UI");
+                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "RedXWebApplicationBuild");
             }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "WebApplicationTest");
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);

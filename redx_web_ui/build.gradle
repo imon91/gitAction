@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+}
+
+group 'UiTests'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
+// https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-server', version: '3.141.59'
+    // https://mvnrepository.com/artifact/org.testng/testng
+    implementation group: 'org.testng', name: 'testng', version: '6.14.3'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+    // https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+    implementation group: 'io.rest-assured', name: 'rest-assured', version: '4.2.0'
+    // Including Core module as dependency
+    compile project(path: ':core')
+
+}
+
+
+test {
+    useTestNG() {
+        useDefaultListeners = true
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger"])
+    }
+//c4734975350b0ff11f37b39809ecbba51320e0d0
+}
+
+task redxWebUiTest(type: Test) {
+    useTestNG() {
+        useDefaultListeners = true
+        scanForTestClasses = false
+        //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+        testLogging.showStandardStreams = true
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger"])
+        def smoke = project.hasProperty("Smoke")
+        def sanity = project.hasProperty("Sanity")
+        def regression = project.hasProperty("Reg")
+        def deliveryChargeMismatchIssue = project.hasProperty("DCMI")
+
+        if (smoke) {
+            suites "src/test/resources/mySuites/smokeSuite.xml"
+        }
+        if (sanity) {
+            suites "src/test/resources/mySuites/sanitySuite.xml"
+        }
+        if (regression) {
+            suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+        if (deliveryChargeMismatchIssue) {
+            suites "src/test/resources/mySuites/DeliveryChargeMismatchIssueAutomation.xml"
+        }
+    }
+}
+
+
+task redxWebUiDebug(type: Test) {
+    useTestNG() {
+        useDefaultListeners = true
+        scanForTestClasses = false
+        //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
+        testLogging.showStandardStreams = true
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger"])
+        suites "src/test/resources/mySuites/debugSuite.xml"
+    }
+}

@@ -54,7 +54,9 @@ public class CoreConstants {
     public static final String APP_STORE = "Store";
     public static final String ENV_STAGE = "Stage";
     public static final String ENV_PROD = "Prod";
+    public static final String MOKAM_RETAILER = "Retailer";
     public static final String MOKAM_USER = "SR";
+    public static final String MOKAM_DSR_USER = "DSR";
     public static final String APP_STORES = "Stores";
 
 

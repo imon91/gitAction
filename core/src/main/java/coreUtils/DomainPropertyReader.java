@@ -35,5 +35,8 @@ public class DomainPropertyReader {
         public static final String OMS_WEB_STAGE_BASE_URL = "OMS_WEB_STAGE_BASE_URL";
         public static final String STORES_APP_STAGE_BASE_URL = "STORES_APP_STAGE_BASE_URL";
         public static final String STORES_APP_PROD_BASE_URL = "STORES_APP_PROD_BASE_URL";
+        public static final String REDX_WEB_STAGE_BASE_URL = "RED_X_WEB_STAGE_BASE_URL";
+        public static final String REDX_WEB_PROD_BASE_URL = "RED_X_WEB_PROD_BASE_URL";
+
     }
 }
