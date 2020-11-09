@@ -37,15 +37,19 @@ public class LoginPageObjects extends AndroidBaseClass{
 
     private WebElement otpLabelText;
 
+    private WebElement enterMobileNumberText;
+
+    private WebElement enterOTPText;
+
 
     /*--------------Actions-------------------*/
 
-    private void enterMobileNumber(String mobileNumber){
+    public void enterMobileNumber(String mobileNumber){
       enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
         myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
     }
 
-    private void clickOnVerifyOtpButton(){
+    public void clickOnVerifyOtpButton(){
        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
        } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
@@ -55,7 +59,7 @@ public class LoginPageObjects extends AndroidBaseClass{
     }
 
 
-    private void enterOtp(String otp){
+    public void enterOtp(String otp){
        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
@@ -64,7 +68,7 @@ public class LoginPageObjects extends AndroidBaseClass{
         myActions.action_sendKeys(enterOtpEditText,otp);
     }
 
-    private void clickOnProceedButton(){
+    public void clickOnProceedButton(){
        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            proceedButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName +":id/action_verify_otp']");
        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
@@ -73,7 +77,7 @@ public class LoginPageObjects extends AndroidBaseClass{
         myActions.action_click(proceedButton);
     }
 
-    private void clickOnEditMobileNumberButton(){
+    public void clickOnEditMobileNumberButton(){
        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName +":id/action_change_mobile']");
        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
@@ -82,7 +86,7 @@ public class LoginPageObjects extends AndroidBaseClass{
         myActions.action_click(editMobileNumberButton);
     }
 
-    private void clickOnResendOtpButton(){
+    public void clickOnResendOtpButton(){
        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_resend_otp']");
        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
@@ -97,9 +101,19 @@ public class LoginPageObjects extends AndroidBaseClass{
 
     }
 
-    private String getOTPLabelText(){
+    public String getEnterMobileNumberText(){
+        enterMobileNumberText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
+        return myActions.action_getText(enterMobileNumberText);
+    }
+
+    public String getOTPLabelText(){
         otpLabelText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_otp_label']");
         return myActions.action_getText(otpLabelText);
+    }
+
+    public String getEnterOTPText(){
+        enterOTPText = xpathSetter("");
+        return myActions.action_getText(enterOTPText);
     }
 
 

@@ -4,6 +4,7 @@ import io.appium.java_client.*;
 import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import services.commerceMethods.GetCommerceApiResponse;
 import utils.*;
 import io.appium.java_client.android.*;
 import java.util.*;
@@ -13,11 +14,15 @@ public class HomePageObjects extends AndroidBaseClass {
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
+    private GetCommerceApiResponse getCommerceApiResponse;
+    private ServiceRequestLayer serviceRequestLayer;
 
     public HomePageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         myActions = new MyActions();
         packageName = getAppPackage();
+        serviceRequestLayer = new ServiceRequestLayer();
+        getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
     }
 
     //--------------------Address/GeoLocation at homePage ------------------//
@@ -111,35 +116,36 @@ public class HomePageObjects extends AndroidBaseClass {
         }
     }
 
-    public void enterArea(String areaName)
+    public void enterArea()
     {
         area = idSetter(packageName+":id/add_address_area");
-        switch (areaName){
-            case "Dhaka" :
-                myActions.action_sendKeys(area,"Adabor, "+areaName);
-                break;
-            case "chittagong" :
-                myActions.action_sendKeys(area,"Anwara, "+areaName);
-                break;
-            case "mirpur" :
-                myActions.action_sendKeys(area,"Mirpur Cantonment, Dhaka");
-                break;
-            case "Khulna" :
-                myActions.action_sendKeys(area,"Dacope, "+areaName);
-                break;
-            case "Mymensingh" :
-                myActions.action_sendKeys(area,"Fulpur, "+areaName);
-                break;
-            case "Rangpur" :
-                myActions.action_sendKeys(area,"Kaunia, "+areaName);
-                break;
-            case "Rajshahi" :
-                myActions.action_sendKeys(area,"Bagha, "+areaName);
-                break;
-            case "Sylhet" :
-                myActions.action_sendKeys(area,"Balaganj, "+areaName);
-                break;
-        }
+        myActions.action_sendKeys(area, getCommerceApiResponse.getRandomArea());
+//        switch (areaName){
+//            case "Dhaka" :
+//                myActions.action_sendKeys(area,"Adabor, "+areaName);
+//                break;
+//            case "chittagong" :
+//                myActions.action_sendKeys(area,"Anwara, "+areaName);
+//                break;
+//            case "mirpur" :
+//                myActions.action_sendKeys(area,"Mirpur Cantonment, Dhaka");
+//                break;
+//            case "Khulna" :
+//                myActions.action_sendKeys(area,"Dacope, "+areaName);
+//                break;
+//            case "Mymensingh" :
+//                myActions.action_sendKeys(area,"Fulpur, "+areaName);
+//                break;
+//            case "Rangpur" :
+//                myActions.action_sendKeys(area,"Kaunia, "+areaName);
+//                break;
+//            case "Rajshahi" :
+//                myActions.action_sendKeys(area,"Bagha, "+areaName);
+//                break;
+//            case "Sylhet" :
+//                myActions.action_sendKeys(area,"Balaganj, "+areaName);
+//                break;
+//        }
     }
 
     public List<WebElement> getAreaList()

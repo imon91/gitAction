@@ -23,6 +23,7 @@ public class CoreConstants {
     public static final String ANDROID_DEVICE_NAME =  "ShopUpAndroidDevice";
     public static final String ANDROID_AUTOMATION_NAME = "UiAutomator2";
     public static final String ANDROID_MAIN_ACTIVITY = "com.shopup.reseller.MainActivity";
+    public static final String ANDROID_REGISTRATION_PAGE_ACTIVITY = "com.shopup.registration.RegistrationActivity";
     public static final String RED_X_SPLASH_ACTIVITY = "com.redx.delivery.SplashActivity";
     public static final int ABD_EXEC_TIME_OUT = 50000;
 
