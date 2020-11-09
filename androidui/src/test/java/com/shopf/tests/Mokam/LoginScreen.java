@@ -20,12 +20,12 @@ public class LoginScreen extends AndroidBaseClass {
     private Address address;
     private Logout logout;
     private SoftAssert softAssert;
-    private WebElement mobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/phone_edit']");
-    private WebElement verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
-    private WebElement otpEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/otp_edit']");
-    private WebElement submitButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
-    private WebElement resendOTPButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_resend_otp']");
-    private WebElement editMobileNumber = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_change_mobile']");
+    private WebElement mobileNumberEditText;
+    private WebElement verifyOtpButton;
+    private WebElement otpEditText;
+    private WebElement submitButton;
+    private WebElement resendOTPButton;
+    private WebElement editMobileNumber;
     String loginText_English = "LOGIN / SIGNUP USING MOBILE NUMBER";
     String enterMobileNumberText_English = "Enter your phone number";
     String otpText_English = "ONE TIME PASSWORD";
@@ -47,6 +47,7 @@ public class LoginScreen extends AndroidBaseClass {
         pageInitializer();
         softAssert = new SoftAssert();
         loginPageObjects.performAuthentication("1877755590","666666");
+        sleep(4000);
         xpathSetter("//android.view.ViewGroup[@index='0']").click();
 //        address.addressBeforeClass();
 //        address.createAddressUsingGeoLocation();
@@ -90,11 +91,15 @@ public class LoginScreen extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 4)
     public void verifyEnteringOtherThanNumberInMobileNumberEditText(){
+        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
         loginPageObjects.enterMobileNumber("@mobileNumber*");
+        Assert.assertFalse(verifyOtpButton.isEnabled());
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
     public void checkVerifyOtpButtonEnabledOrNot(){
+        mobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/phone_edit']");
+        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
         loginPageObjects.enterMobileNumber("880187775590");
         softAssert.assertFalse(verifyOtpButton.isEnabled());
         mobileNumberEditText.clear();
@@ -111,7 +116,9 @@ public class LoginScreen extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
     public void verifyOtpButtonClickableOrNot(){
+        verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
         softAssert.assertTrue(verifyOtpButton.isEnabled());
+        mobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/phone_edit']");
         mobileNumberEditText.clear();
         loginPageObjects.enterMobileNumber("1877755590");
         softAssert.assertTrue(verifyOtpButton.isEnabled());
@@ -133,27 +140,31 @@ public class LoginScreen extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void enteringOtherThanNumberInOTPEditText(){
+        submitButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
         loginPageObjects.enterOtp("&OTP#");
+        Assert.assertFalse(submitButton.isEnabled());
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
     public void checkSubmitButtonIsEnabledOrNot(){
+        otpEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/otp_edit']");
+        submitButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
         loginPageObjects.enterOtp("1234");
         Assert.assertFalse(submitButton.isEnabled());
+        otpEditText.clear();
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
     public void verifyClickingResendOtpButton(){
-        sleep(30000);
+        resendOTPButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_resend_otp']");
+        sleep(50000);
         Assert.assertTrue(resendOTPButton.isEnabled());
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13)
     public void verifyClickingEditMobileNumberButton(){
-        loginPageObjects.clickOnEditMobileNumberButton();
-        String loginText = loginPageObjects.getLoginLabelText();
-        Assert.assertEquals(loginText,loginText_English);
-        loginPageObjects.clickOnVerifyOtpButton();
+        editMobileNumber = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_change_mobile']");
+        Assert.assertTrue(editMobileNumber.isEnabled());
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 14)
@@ -163,6 +174,7 @@ public class LoginScreen extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 15)
     public void verifyOTPButtonClickableOrNot(){
+        submitButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_verify_otp']");
         Assert.assertTrue(submitButton.isEnabled());
     }
 

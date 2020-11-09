@@ -112,7 +112,7 @@ public class LoginPageObjects extends AndroidBaseClass{
     }
 
     public String getEnterOTPText(){
-        enterOTPText = xpathSetter("");
+        enterOTPText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
         return myActions.action_getText(enterOTPText);
     }
 
