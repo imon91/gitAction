@@ -1,7 +1,5 @@
 package services.serviceUtils;
 
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 public class EndPoints {
 
     public static final String CHECKOUT = "checkout/";
