@@ -80,6 +80,18 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
     //Phone number at RetailerList
     private WebElement mobileName;
 
+    private WebElement almostThereText;
+
+    private WebElement subText;
+
+    private WebElement businessTypeTitleText;
+
+    private WebElement businessTypeOptionText;
+
+    private WebElement nextButtonText;
+
+    private WebElement skipButtonText;
+
 
 
     public void clickOnAddNewShopIcon()
@@ -134,6 +146,36 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
     {
         skipButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_action_skip']");
         myActions.action_click(skipButton);
+    }
+
+    public String getAlmostThereText(){
+        almostThereText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_title']");
+        return myActions.action_getText(almostThereText);
+    }
+
+    public String getSubText(){
+        subText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_message']");
+        return myActions.action_getText(subText);
+    }
+
+    public String getBusinessTypeTitleText(){
+        businessTypeTitleText = xpathSetter("//android.view.ViewGroup[@resource-id='com.mokam.app:id/add_retailer_chipgroup']//android.widget.TextView");
+        return myActions.action_getText(businessTypeTitleText);
+    }
+
+    public String getTextInBusinessTypeOption(int optionNo){
+        businessTypeOptionText = xpathSetter("//android.widget.CompoundButton[@index='"+ optionNo +"']");
+        return myActions.action_getText(businessTypeOptionText);
+    }
+
+    public String getSkipButtonText(){
+        skipButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_action_skip']");
+        return myActions.action_getText(skipButtonText);
+    }
+
+    public String getNextButtonText(){
+        nextButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        return myActions.action_getText(nextButtonText);
     }
 
     public void sentMobileNumberText(String mobileNumber)
