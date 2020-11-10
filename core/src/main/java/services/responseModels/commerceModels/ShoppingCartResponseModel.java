@@ -88,7 +88,7 @@ public class ShoppingCartResponseModel {
     private boolean single_step_checkout;
     private SpecialInstructionsBean special_instructions;
     private PrepaidMessageConfigBean prepaid_message_config;
-    private int final_save;
+    private float final_save;
     private boolean show_pdp_link_in_address_page;
     private int grand_total_amount;
     private String total_str;
@@ -276,11 +276,11 @@ public class ShoppingCartResponseModel {
         this.prepaid_message_config = prepaid_message_config;
     }
 
-    public int getFinal_save() {
+    public float getFinal_save() {
         return final_save;
     }
 
-    public void setFinal_save(int final_save) {
+    public void setFinal_save(float final_save) {
         this.final_save = final_save;
     }
 
