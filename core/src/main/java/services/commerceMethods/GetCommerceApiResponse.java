@@ -354,6 +354,15 @@ public class GetCommerceApiResponse {
         return codNotAvailableItemIndices;
     }
 
+    public String getRandomArea(){
+        response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART+EndPoints.LOCALITY_DATA_JSON);
+        MokamLocalityListModel mokamLocalityListModel =
+                gson.fromJson(response.getBody().asString(),MokamLocalityListModel.class);
+        Random random = new Random();
+        int randomArea = random.nextInt(mokamLocalityListModel.getResults().size());
+        return mokamLocalityListModel.getResults().get(randomArea).getCity();
+    }
+
 
 
 }

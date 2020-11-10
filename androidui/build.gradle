@@ -96,6 +96,8 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         def pdp = project.hasProperty("PDP")
         def plp = project.hasProperty("PLP")
         def mybag = project.hasProperty("Bag")
+        def loginScreen = project.hasProperty("loginscreen")
+        def onBoardingScreen = project.hasProperty("onboardingscreen")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -118,6 +120,14 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         
         if (sanity){
             suites "src/test/resources/mySuites/sanitySuite.xml"
+        }
+
+        if (loginScreen){
+            suites "src/test/resources/mySuites/loginScreenSuite.xml"
+        }
+
+        if (onBoardingScreen){
+            suites "src/test/resources/mySuites/onBoardingScreenSuite.xml"
         }
     }
 }
