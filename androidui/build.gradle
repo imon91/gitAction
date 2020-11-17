@@ -98,6 +98,9 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         def mybag = project.hasProperty("Bag")
         def loginScreen = project.hasProperty("loginscreen")
         def onBoardingScreen = project.hasProperty("onboardingscreen")
+        def retailerListPage = project.hasProperty("retailerlist")
+        def profilePage = project.hasProperty("profilepage")
+        def editProfilePage = project.hasProperty("editprofilepage")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -128,6 +131,18 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
 
         if (onBoardingScreen){
             suites "src/test/resources/mySuites/onBoardingScreenSuite.xml"
+        }
+
+        if (retailerListPage){
+            suites "src/test/resources/mySuites/retailerListPageSuite.xml"
+        }
+
+        if (profilePage){
+            suites "src/test/resources/mySuites/profilePageSuite.xml"
+        }
+
+        if (editProfilePage){
+            suites "src/test/resources/mySuites/editProfilePageSuite.xml"
         }
     }
 }

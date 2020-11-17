@@ -202,6 +202,31 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
         myActions.action_click(continueButton);
     }
 
+    public String getSelectARetailerText(){
+        WebElement textElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/retailer_title']");
+        return myActions.action_getText(textElement);
+    }
+
+    public String getTextInSearchInputBox(){
+        WebElement textElement = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/retailer_search']");
+        return myActions.action_getText(textElement);
+    }
+
+    public void enterTextInSearchInputBox(String shopNameOrPhoneNumber){
+        WebElement inputBoxElement = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/retailer_search']");
+        myActions.action_sendKeys(inputBoxElement,shopNameOrPhoneNumber);
+    }
+
+    public String getAddNewRetailerButtonText(){
+        WebElement addNewRetailerButtonText = xpathSetter("");
+        return myActions.action_getText(addNewRetailerButtonText);
+    }
+
+    public String getNextButtonTextInRetailerListPage(){
+        WebElement nextButtonText = xpathSetter("");
+        return myActions.action_getText(nextButtonText);
+    }
+
     public WebElement scrollAtSalesRepList(String textToScroll)
     {
         WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
