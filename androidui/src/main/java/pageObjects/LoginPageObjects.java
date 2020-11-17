@@ -44,6 +44,13 @@ public class LoginPageObjects extends AndroidBaseClass{
 
     /*--------------Actions-------------------*/
 
+    public void closePopup(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            WebElement closeButtonElement = xpathSetter("//android.widget.ImageView[@index='1']");
+            myActions.action_click(closeButtonElement);
+        }
+    }
+
     public void enterMobileNumber(String mobileNumber){
       enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
         myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
