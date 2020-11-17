@@ -36,7 +36,7 @@ public class ProfilePage extends AndroidBaseClass {
         softAssert = new SoftAssert();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//android.view.ViewGroup[@index='0']").click();
+        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
