@@ -202,6 +202,11 @@ public class RightNavigationDrawer extends AndroidBaseClass{
         profileEditButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_edit']");
         myActions.action_click(profileEditButton);}
 
+        public String getEditProfilePageTitle(){
+        WebElement pageTitleElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/title_profile_activity']");
+        return myActions.action_getText(pageTitleElement);
+        }
+
         public WebElement shopNameEdit()
         {
           profileShopName = idSetter(packageName+":id/add_retailer_edit_shop_name");
@@ -217,6 +222,15 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     public WebElement businessTypeEdit(int index)
     {
         return profileBusinessType = classListSetter("android.widget.CompoundButton").get(index);
+    }
+
+    public String getBusinessTypeHeadingText(){
+        WebElement element = xpathSetter("//android.view.ViewGroup[@index='2']/android.widget.TextView");
+        return myActions.action_getText(element);
+    }
+
+    public WebElement getBusinessTypeElement(int index){
+        return xpathSetter("//android.view.ViewGroup[@index='2']/android.widget.CompoundButton[@index='"+ index +"']");
     }
 
         public void clickOnProfileSaveButton()
