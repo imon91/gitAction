@@ -334,10 +334,12 @@ public class MyBagPageObjects extends AndroidBaseClass {
             androidDriver.findElement(By.xpath(containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input")).clear();
         }
 
-        public void enterSalePriceOnContainer(int containerId,int Price){
-            String salepriceinput = containerParentPath+"["+containerId+"]//div[@class='salePriceIncomeBox___2wV0g']//div[2]//div//input";
-            String salePrice = ""+Price+"";
-            myActions.action_sendKeys(androidDriver.findElement(By.xpath(salepriceinput)),salePrice);
+        public int enterSalePriceOnContainer(int index,int price){
+            getListOfSalePriceEditTexts().get(index).clear();
+            getListOfSalePriceEditTexts().get(index).sendKeys(""+price);
+            sleep(3000);
+            getListOfSalePriceLabel().get(index).click();
+            return price;
         }
 
         public String getYourEarningsLabelOnContainer(int containerId){
@@ -462,7 +464,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
         @FindBy(xpath = "//p[contains(text(),'Shipping Charges')]")
         private WebElement shippingChargesLabel;
 
-        @FindBy(xpath = "//input[@id='deliveryCharge']")
+        @FindBy(xpath = "//input[@id='deliveryCharge1']")
         private WebElement deliveryChargesEditText;
 
         @FindBy(xpath = "//input[@name='delivery_charge']/following-sibling::button")

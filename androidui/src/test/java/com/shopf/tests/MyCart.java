@@ -21,6 +21,7 @@ public class MyCart extends AndroidBaseClass {
     private MyBagPageObjects.ItemContainer itemContainer;
     private MyBagPageObjects.CreditsAndCoupons creditsAndCoupons;
     private ActionBarObjects actionBarObjects;
+    private LoginPageObjects loginPageObjects;
     private MyActions myActions;
     private SoftAssert softAssert;
     private String suiteName;
@@ -39,6 +40,7 @@ public class MyCart extends AndroidBaseClass {
         itemContainer = myBagPageObjects.new ItemContainer(androidDriver);
         creditsAndCoupons = myBagPageObjects.new CreditsAndCoupons(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
+        loginPageObjects = new LoginPageObjects(androidDriver);
         myActions = new MyActions();
         serviceRequestLayer = new ServiceRequestLayer();
         getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
@@ -52,6 +54,8 @@ public class MyCart extends AndroidBaseClass {
         rightNavigationDrawer.clickOnItemChangeLanguage();
         rightNavigationDrawer.selectEnglish();
         rightNavigationDrawer.saveLanguage();
+        sleep(3000);
+        loginPageObjects.closePopup();
 
         actionBarObjects.clickOnBagImageButton();
         sleep(5000);
@@ -302,10 +306,14 @@ public class MyCart extends AndroidBaseClass {
                     if (i == 0 || i == containersSize - 1 || suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION)) {
                         if (itemContainer.getProductName(i).equalsIgnoreCase(productDetailsMap.get(j).get(1)) &&
                                 itemContainer.getSize(i).equalsIgnoreCase(productDetailsMap.get(j).get(9))) {
-                            int min = Integer.parseInt(productDetailsMap.get(j).get(6)), max = Integer.parseInt(productDetailsMap.get(j).get(7));
+                            int price, min = Integer.parseInt(productDetailsMap.get(j).get(6)), max = Integer.parseInt(productDetailsMap.get(j).get(7));
                             System.out.println(min + " " + max);
 
-                            int price = itemContainer.givingRandomSalePrice(i, min, max);
+                            if (min==max){
+                                price = itemContainer.enterSalePriceOnContainer(i,min);
+                            } else {
+                                price = itemContainer.givingRandomSalePrice(i, min, max);
+                            }
                             sleep(4000);
                             Map<Integer, List<String>> productDetailsMap_new = myBagPageObjects.getContainerData();
                             for (int k = 0; k < productDetailsMap.size(); k++) {

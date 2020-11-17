@@ -64,7 +64,7 @@ public class ActionBarObjects extends AndroidBaseClass {
     public void clickOnBagImageButton(){
       
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-            bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cartButton']");
+            bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cart_icon']");
         }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cartButton']");
         }
