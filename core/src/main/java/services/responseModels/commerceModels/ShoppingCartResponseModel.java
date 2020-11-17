@@ -88,14 +88,14 @@ public class ShoppingCartResponseModel {
     private boolean single_step_checkout;
     private SpecialInstructionsBean special_instructions;
     private PrepaidMessageConfigBean prepaid_message_config;
-    private float final_save;
+    private double final_save;
     private boolean show_pdp_link_in_address_page;
     private int grand_total_amount;
     private String total_str;
     private String prepaid_order_message;
     private boolean show_saved_cards;
     private String prepaid_preference_message;
-    private int total_amount;
+    private double total_amount;
     private int maximum_delivery_charge;
     private PrimoCartImagesBean primo_cart_images;
     private String formatted_total_save;
@@ -111,7 +111,7 @@ public class ShoppingCartResponseModel {
     @SerializedName("is_gamified_order?")
     private boolean _$Is_gamified_order63; // FIXME check this code
     private EnableMandatorySignInBean enable_mandatory_sign_in;
-    private int total_save;
+    private double total_save;
     private VcashDataBean vcash_data;
     private String prepaid_retry_message;
     private String retry_message_for_close_popup;
@@ -276,11 +276,11 @@ public class ShoppingCartResponseModel {
         this.prepaid_message_config = prepaid_message_config;
     }
 
-    public float getFinal_save() {
+    public double getFinal_save() {
         return final_save;
     }
 
-    public void setFinal_save(float final_save) {
+    public void setFinal_save(double final_save) {
         this.final_save = final_save;
     }
 
@@ -332,11 +332,11 @@ public class ShoppingCartResponseModel {
         this.prepaid_preference_message = prepaid_preference_message;
     }
 
-    public int getTotal_amount() {
+    public double getTotal_amount() {
         return total_amount;
     }
 
-    public void setTotal_amount(int total_amount) {
+    public void setTotal_amount(double total_amount) {
         this.total_amount = total_amount;
     }
 
@@ -452,11 +452,11 @@ public class ShoppingCartResponseModel {
         this.enable_mandatory_sign_in = enable_mandatory_sign_in;
     }
 
-    public int getTotal_save() {
+    public double getTotal_save() {
         return total_save;
     }
 
-    public void setTotal_save(int total_save) {
+    public void setTotal_save(double total_save) {
         this.total_save = total_save;
     }
 
