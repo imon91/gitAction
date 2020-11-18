@@ -116,10 +116,12 @@ public class HomePageObjects extends AndroidBaseClass {
         }
     }
 
-    public void enterArea()
+    public String enterArea()
     {
         area = idSetter(packageName+":id/add_address_area");
-        myActions.action_sendKeys(area, getCommerceApiResponse.getRandomArea());
+        String randomArea = getCommerceApiResponse.getRandomArea();
+        myActions.action_sendKeys(area, randomArea);
+        return randomArea;
 //        switch (areaName){
 //            case "Dhaka" :
 //                myActions.action_sendKeys(area,"Adabor, "+areaName);
