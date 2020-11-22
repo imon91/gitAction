@@ -3,7 +3,7 @@
 <suite name="LoginScreenSuite">
     <listeners>
     </listeners>
-    <test name="SmokeTests" preserve-order="true" parallel="false">
+    <test name="PageWiseTests" preserve-order="true" parallel="false">
         <groups>
             <run>
                 <include name="sanity"/>
