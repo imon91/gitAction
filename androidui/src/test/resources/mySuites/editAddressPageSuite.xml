@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="LoginScreenSuite">
+<suite name="EditAddressPageSuite">
     <listeners>
     </listeners>
     <test name="PageWiseTests" preserve-order="true" parallel="false">
@@ -11,7 +11,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.shopf.tests.Mokam.LoginScreen"></class>
+            <class name="com.shopf.tests.Mokam.EditAddressPage"></class>
         </classes>
     </test>
 </suite>
