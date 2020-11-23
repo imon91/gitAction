@@ -90,7 +90,7 @@ public class ProfilePage extends AndroidBaseClass {
         rightNavigationDrawer.shopNameEdit().sendKeys(shopName);
         rightNavigationDrawer.ownerNameEdit().clear();
         rightNavigationDrawer.ownerNameEdit().sendKeys(ownerName);
-        rightNavigationDrawer.businessTypeEdit(++randomBusinessType);
+        rightNavigationDrawer.businessTypeEdit(randomBusinessType);
         rightNavigationDrawer.clickOnProfileSaveButton();
         sleep(5000);
     }
