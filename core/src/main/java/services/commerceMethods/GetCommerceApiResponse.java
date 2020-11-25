@@ -363,6 +363,55 @@ public class GetCommerceApiResponse {
         return mokamLocalityListModel.getResults().get(randomArea).getCity();
     }
 
+    public int getIdOfAddress(int index){
+        response = shopUpPostMan.getCall("user/get_addresses.json");
+        MokamUserAddressesModel mokamUserAddressesModel =
+                gson.fromJson(response.getBody().asString(),MokamUserAddressesModel.class);
+        return mokamUserAddressesModel.getShipped_addresses().get(index).getId();
+    }
+
+    public List<String> getAddressDetails(int addressId){
+        List<String> addressDetailsList = new ArrayList<>();
+        Map object = new HashMap();
+        object.put("address_id",""+addressId);
+        response = shopUpPostMan.postCall("shopping_cart/associate_order_address.json",object);
+        MokamAssociateAddressModel mokamAssociateAddressModel =
+                gson.fromJson(response.getBody().asString(),MokamAssociateAddressModel.class);
+        addressDetailsList.add(0,mokamAssociateAddressModel.getOrder_address().getAddress().getFirstname());
+        addressDetailsList.add(1,mokamAssociateAddressModel.getOrder_address().getAddress().getAddress1());
+        return addressDetailsList;
+    }
+
+    public List<Double> getCreditAndDebitValue(){
+        List<Double> valueList = new ArrayList<>();
+        response = shopUpPostMan.getCall("index.json");
+        MokamHomePageModel mokamHomePageModel =
+                gson.fromJson(response.getBody().asString(),MokamHomePageModel.class);
+        valueList.add(0,mokamHomePageModel.getCollections().get(0).getItems().get(0).getConfig().getTotalCredit());
+        valueList.add(1,mokamHomePageModel.getCollections().get(0).getItems().get(0).getConfig().getTotalDebit());
+        return valueList;
+    }
+
+    public int getBakiAmount(){
+        int bakiAmount = 0;
+        response = shopUpPostMan.getCall("index.json");
+        MokamHomePageModel mokamHomePageModel =
+                gson.fromJson(response.getBody().asString(),MokamHomePageModel.class);
+        for (int i=0;i<mokamHomePageModel.getCollections().size();i++){
+            if (mokamHomePageModel.getCollections().get(i).getTitle().equalsIgnoreCase("Baki")){
+                bakiAmount = mokamHomePageModel.getCollections().get(i).getItems().get(0).getConfig().getAvailableCredit();
+            }
+        }
+        return bakiAmount;
+    }
+
+    public List<MokamHomePageModel.CollectionsBean> getCollections(){
+        response = shopUpPostMan.getCall("index.json");
+        MokamHomePageModel mokamHomePageModel =
+                gson.fromJson(response.getBody().asString(),MokamHomePageModel.class);
+        return mokamHomePageModel.getCollections();
+    }
+
 
 
 }

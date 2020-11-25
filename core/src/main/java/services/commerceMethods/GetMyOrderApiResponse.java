@@ -33,4 +33,10 @@ public class GetMyOrderApiResponse {
         return myOrderDetailsModel;
     }
 
+    public MyOrderDetailsNewModel getOrderDetailOfOrder(String orderId){
+        response = shopUpPostMan.getCall("orders/order_details.json?number="+orderId);
+        MyOrderDetailsNewModel myOrderDetailsNewModel = gson.fromJson(response.getBody().asString(),MyOrderDetailsNewModel.class);
+        return myOrderDetailsNewModel;
+    }
+
 }
