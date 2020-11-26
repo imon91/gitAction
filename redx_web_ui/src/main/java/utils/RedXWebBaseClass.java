@@ -1,11 +1,11 @@
 package utils;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
-import coreUtils.DomainPropertyReader;
-import helper.GetDriverFromCore;
-import org.openqa.selenium.WebDriver;
-import java.util.concurrent.TimeUnit;
+import coreUtils.*;
+import helper.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.*;
+import java.util.*;
+import java.util.concurrent.*;
 
 
 public class RedXWebBaseClass extends GetDriverFromCore {
@@ -88,6 +88,39 @@ public class RedXWebBaseClass extends GetDriverFromCore {
             Thread.sleep(milliseconds);
         } catch (Exception e) {
             System.out.println("Thread.sleep Exception");
+        }
+    }
+
+
+    public static WebElement xpathSetter(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),30)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    sleep(2000);
+                    xpathListSetter(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
+
+    public static List<WebElement> xpathListSetter(String xpath){
+        List<WebElement> elementList;
+        try {
+            elementList = getBaseDriver().findElements(By.xpath(xpath));
+            return elementList;
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
         }
     }
 

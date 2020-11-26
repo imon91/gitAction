@@ -1,0 +1,9 @@
+{"Dha" :  ["Dhaka","Gazipur","Narayanganj"],
+
+
+
+
+  "Dhaka" : ["Savar", "Savar Cantonment","Demra", "Ashulia", "Amin Bazar", "Kamrangichar", "Keranigonj", "Dhamrai","Kalatia", "Baipayl", "Birulia"],
+  "Gazipur" : ["Tongi","Gazipur Sadar", "Kaliakoir", "Kaliganj(Gazipur)", "Kapasia", "Sreepur(Gazipur)"],
+  "Narayanganj" : ["Araihazar", "Bandar", "Narayanganj Sadar", "Rupganj", "Sonargaon", "Siddhirganj", "Fatullah"]
+}

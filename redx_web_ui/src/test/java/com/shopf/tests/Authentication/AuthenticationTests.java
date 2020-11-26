@@ -27,7 +27,7 @@ public class AuthenticationTests extends RedXWebBaseClass {
     @Test(groups = CoreConstants.GROUP_SMOKE)
     public void verifyAuthenticationWithValidCredentials() throws InterruptedException{
         System.out.println("Verify Authentication with valid credentials was called");
-        loginPageObjects.performAuthentication("0140112217","6666");
+        loginPageObjects.performAuthentication("0140112217","6666","7");
     }
 
     @Test

@@ -7,13 +7,13 @@ import utils.*;
 import java.util.*;
 
 
-public class ParcelPageObjects extends RedXWebBaseClass{
+public class CreateParcelPageObjects extends RedXWebBaseClass{
 
     private WebDriver driver;
     private MyActions myActions;
     private HomePageObjects homePageObjects;
 
-    public ParcelPageObjects(WebDriver driver) {
+    public CreateParcelPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
