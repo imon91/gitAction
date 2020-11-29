@@ -1,5 +1,6 @@
 package pageObjects;
 
+import coreUtils.*;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
@@ -22,12 +23,14 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
     private String packageName;
     private int minSalePrice;
     private int maxSalePrice;
+    private String app;
 
     public ProductDescriptionPageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
         packageName = getAppPackage();
+        app = BuildParameterKeys.KEY_APP;
         serviceRequestLayer = new ServiceRequestLayer();
         getPLPModuleApiResponse = serviceRequestLayer.getControlOverPLPModuleApiResponse();
         try{minSalePrice = Integer.parseInt(System.getProperty("minSalePrice"));
@@ -129,9 +132,17 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
 
     public String getProductName(){
-        productName =
-                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_name']");
-        return myActions.action_getText(productName);
+        String name = null;
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            productName =
+                    xpathSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/product_name']");
+            name = myActions.action_getText(productName);
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            productName =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/details_product_title']");
+            name = myActions.action_getText(productName);
+        }
+        return name;
     }
 
     public void getPriceJazzContainer(){
@@ -165,9 +176,17 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
     }
 
     public String getDiscountPrice(){
-        discountPrice =
-                xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/discount']");
-        return myActions.action_getText(discountPrice);
+        String price = null;
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            discountPrice =
+                    xpathSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/price']");
+            price = myActions.action_getText(discountPrice).replaceAll("Tk. ","");
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            discountPrice =
+                    xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/details_product_price']");
+            price = myActions.action_getText(discountPrice).substring(1);
+        }
+        return price;
     }
 
     /*-----priceJazz Items Ends--------*/

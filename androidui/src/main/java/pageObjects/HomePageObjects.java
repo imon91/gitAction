@@ -62,8 +62,7 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public WebElement scrollToAddNewAddressButton()
     {      WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-            "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/address_list_recycler_view\")).scrollIntoView("
-                    + "new UiSelector().resourceId(\""+packageName+":id/action_add_address\"))"));
+            "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/address_list_recycler_view\")).scrollToEnd(100)"));
          return element;
     }
 
