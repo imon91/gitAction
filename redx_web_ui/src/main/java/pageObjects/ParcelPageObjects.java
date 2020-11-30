@@ -2,10 +2,8 @@ package pageObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.*;
 import utils.*;
 import java.util.*;
-
 
 public class ParcelPageObjects extends RedXWebBaseClass{
 
@@ -20,121 +18,117 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         homePageObjects = new HomePageObjects(driver);
     }
 
+    private WebElement trackingIDText;
+    private WebElement shopInvoiceIDText;
+    private WebElement phoneNumberText;
+    private WebElement dateFromText;
+    private WebElement dateToText;
+    private WebElement dateFilterDropDownIcon;
+    private List<WebElement> dateFilterDropDownOptions;
+    private WebElement searchIcon;
+    private WebElement statusFilterDropDownIcon;
+    private WebElement parcelSelectAllIcon;
+    private List<WebElement> parcelSelectIcons;
+    private WebElement previousPageIcon;
+    private WebElement nextPageIcon;
+    private WebElement downloadParcelHistory;
 
 
-    private WebElement editNameText;
-    private WebElement editAddressText;
-    private WebElement editMobileText;
-    private WebElement editAmount;
-    private WebElement editSellingPriceText;
-    private WebElement editAreaText;
-    private List<WebElement> areaDropDown;
-    private List<WebElement> acknowledgeBoxButton;
-    private WebElement newParcelSubmitButton;
-    private WebElement deliveryCharge;
-    private WebElement CODCharge;
-    private WebElement deliveryOnChargeParcelPage;
-    private WebElement parcelPopup;
-
-
-
-    /*********************Actions*********************/
-
-    public void enterCustomerName(String name)
+    public void enterTrackingIDText(String trackingID)
     {
-        editNameText = driver.findElement(By.xpath("//div[@class='left-form']/div[1]/input"));
-        myActions.action_sendKeys(editNameText,name);
-    }
-    public void enterMobileNoOnParcelPage(String mobileNo)
-    {
-        editMobileText = driver.findElement(By.xpath("//div[@class='left-form']/div[2]/input"));
-        myActions.action_sendKeys(editMobileText,mobileNo);
-    }
-    public void enterAddress(String address)
-    {
-        editAddressText = driver.findElement(By.xpath("//div[@class='left-form']/div[3]/*"));
-        myActions.action_sendKeys(editAddressText,address);
-    }
-    public void enterCashCollectionAmount(String amount)
-    {
-        editAmount = driver.findElement(By.xpath("//div[@class='right-form']/div[2]/*"));
-        myActions.action_sendKeys(editAmount,amount);
+        trackingIDText = driver.findElement(By.xpath("//div[@class='search_input_row']/input[1]"));
+        myActions.action_sendKeys(trackingIDText,trackingID);
     }
 
-    public void enterSellingPrice(String amount)
+    public void enterShopInvoiceIDText(String shopInvoice)
     {
-        editSellingPriceText = driver.findElement(By.xpath("//div[@class='right-form']/div[3]/*"));
-        myActions.action_sendKeys(editSellingPriceText,amount);
+        shopInvoiceIDText = driver.findElement(By.xpath("//div[@class='search_input_row']/input[2]"));
+        myActions.action_sendKeys(shopInvoiceIDText,shopInvoice);
     }
 
-    public void clickAcknowledgeButton()
+    public void enterPhoneNumberText(String phoneNumber)
     {
-        acknowledgeBoxButton = driver.findElements(By.xpath("//div[@class='right-form']//span[@class='ant-checkbox']/input"));
-        myActions.action_click(acknowledgeBoxButton.get(2));
+        phoneNumberText = driver.findElement(By.xpath("//div[@class='search_input_row']/input[3]"));
+        myActions.action_sendKeys(phoneNumberText,phoneNumber);
     }
 
-    public void enterAreaTerm(String location,String lastletter)
+    public void clickFromDate(String year,String month,String date)
     {
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='ant-select ant-select-enabled ant-select-no-arrow']/div/div/div[1]"))).click();
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='ant-select-search ant-select-search--inline']/div/input"))).sendKeys(location);
-        sleep(500);
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='ant-select-search ant-select-search--inline']/div/input"))).sendKeys(lastletter);
-        sleep(1000);
+        dateFromText = driver.findElement(By.xpath("//div[@class='search_input_row']/span[1]"));
+        myActions.action_click(dateFromText);
+
     }
 
-    public WebElement deliveryCharge()
+    public void clickToDate(String year,String month,String date)
     {
-        deliveryCharge = driver.findElement(By.xpath("//div[@class='delivery-charge']/div[@class='body']/div[2]/p[2]"));
-        return deliveryCharge;
-    }
-
-    public WebElement CODCharge()
-    {
-        CODCharge = driver.findElement(By.xpath("//div[@class='delivery-charge']/div[@class='body']/div[3]/p[2]"));
-        return CODCharge;
-    }
-    public void clickOnSubmitNewParcelButton()
-    {
-        newParcelSubmitButton = driver.findElement(By.xpath("//div[@class='btn-wrappper']/button"));
-        myActions.action_click(newParcelSubmitButton);
-    }
-
-    public void clickOnParcelPopupOkButton()
-    {
-        parcelPopup = driver.findElement(By.xpath("//div[@class='ant-modal-confirm-btns']/button"));
-        myActions.action_click(parcelPopup);
-    }
-
-    public List<WebElement> areaDropDown()
-    {
-        return areaDropDown = driver.findElements(By.xpath("//ul[@class='ant-select-dropdown-menu-item-group-list']/li"));
-    }
-
-    public WebElement deliveryChargeParcelPage()
-    {
-        deliveryOnChargeParcelPage = driver.findElement(By.xpath("//div[@tabindex='-1']/table[@class='ant-table-fixed']/tbody/tr[1]/td[7]"));
-        return deliveryOnChargeParcelPage;
-    }
+        dateToText = driver.findElement(By.xpath("//div[@class='search_input_row']/span[2]"));
+        myActions.action_click(dateToText);
+        WebElement yearIcon = xpathSetter("");
+        try{
+        myActions.action_click(yearIcon);
+        WebElement requiredYear = xpathSetter("");
+        myActions.action_click(requiredYear);}
+        catch (NullPointerException e){
+            WebElement previousButton = xpathSetter("");
+            myActions.action_click(previousButton);
+        WebElement requiredYear = xpathSetter("");
+        myActions.action_click(requiredYear);}
 
 
-    //**************************Functions************************//
 
-    public void createNewParcel(String addressFirstTerm,String lastLetter,int addressIndex)
-    {
-        homePageObjects.clickOnCreateParcelButton();
-        sleep(1000);
-        enterCustomerName("Customer Name Savar");
-        enterMobileNoOnParcelPage("01877755590");
-        enterAddress("Address");
-        enterCashCollectionAmount(System.getProperty("selling price"));
-        enterSellingPrice(System.getProperty("selling price"));
-        enterAreaTerm(addressFirstTerm,lastLetter);
-        sleep(1000);
-        areaDropDown();
-        myActions.action_click(areaDropDown().get(addressIndex));
-        sleep(1000);
-        clickAcknowledgeButton();
     }
+
+    public void clickOnDateFilter(int FilterIndex)
+    {
+        dateFilterDropDownIcon = driver.findElement(By.xpath("//div[@class='ant-select-selection__rendered']/div"));
+        myActions.action_click(dateFilterDropDownIcon);
+
+        dateFilterDropDownOptions = driver.findElements(By.xpath("//ul[@role='listbox']/li"));
+        myActions.action_click(dateFilterDropDownOptions.get(FilterIndex));
+    }
+
+    public void clickOnSearchIcon()
+    {
+        searchIcon = driver.findElement(By.xpath("//div[@class='search_input_row']/button"));
+        myActions.action_click(searchIcon);
+    }
+
+    public void clickStatusFilterDropDownIcon()
+    {
+        statusFilterDropDownIcon = driver.findElement(By.xpath("//th[@class='ant-table-column-has-actions ant-table-column-has-filters ant-table-row-cell-break-word']/i/*"));
+        myActions.action_click(statusFilterDropDownIcon);
+    }
+
+    public void selectAllParcelIcon()
+    {
+        parcelSelectAllIcon = driver.findElement(By.xpath("//th[@class='ant-table-selection-column']//input"));
+        myActions.action_click(parcelSelectAllIcon);
+    }
+
+    public void clickOnParcelSelectionIcon(int index)
+    {
+        parcelSelectIcons = xpathListSetter("//tbody[@class='ant-table-tbody']/tr//input");
+        myActions.action_click(parcelSelectIcons.get(index));
+    }
+
+    public void clickOnPreviousPageIcon()
+    {
+        previousPageIcon = xpathSetter("//ul[@class='ant-pagination parcel_tbl_pagination ant-table-pagination mini'][1]/li[1]");
+        myActions.action_click(previousPageIcon);
+    }
+
+    public void clickOnNextPageIcon()
+    {
+        nextPageIcon = xpathSetter("//ul[@class='ant-pagination parcel_tbl_pagination ant-table-pagination mini'][1]/li[9]");
+        myActions.action_click(nextPageIcon);
+    }
+
+    public void clickOnDownloadParcelHistory(int index)
+    {
+        downloadParcelHistory = xpathSetter("//div[@class='css-19f5lyp']/div[2]/button[2]");
+        myActions.action_click(downloadParcelHistory);
+    }
+
 
 
 }

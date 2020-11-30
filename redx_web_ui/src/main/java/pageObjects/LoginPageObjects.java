@@ -29,13 +29,13 @@ public class LoginPageObjects extends RedXWebBaseClass{
 
     public void clickOnMerchantLoginButton()
     {
-        merchantLoginButton = driver.findElement(By.xpath("//div[@class='nav-links flex-end display-on-desktop']/button"));
+        merchantLoginButton = xpathSetter("//div[@class='nav-links flex-end display-on-desktop']/button");
         myActions.action_click(merchantLoginButton);
     }
 
     public void enterMobileNo(String mobileNo)
     {
-        editMobileNoText = driver.findElement(By.xpath("//div[@class='signup-phone-field']/input"));
+        editMobileNoText = xpathSetter("//div[@class='signup-phone-field']/input");
         myActions.action_sendKeys(editMobileNoText,mobileNo);
     }
 
@@ -70,11 +70,10 @@ public class LoginPageObjects extends RedXWebBaseClass{
 
     /*****************Functions***************/
 
-    public void performAuthentication(String mobileNo,String otp) throws InterruptedException {
+    public void performAuthentication(String mobileNo,String otp,String lastMobileNo) throws InterruptedException {
         clickOnMerchantLoginButton();
         enterMobileNo(mobileNo);
-        enterMobileNo("7");
-        enterMobileNo("7");
+        enterMobileNo(lastMobileNo);
         Thread.sleep(1000);
         clickOnSendOTPButton();
         enterOTPButton(otp);

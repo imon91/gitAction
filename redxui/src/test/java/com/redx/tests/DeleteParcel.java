@@ -61,6 +61,7 @@ public class DeleteParcel extends RedXBaseClass {
         parcelsList = parcelsManifestList.setParcelsList();
         if (parcelsList.size() != 0) {
             index = random.nextInt(parcelsList.size());
+            sleep(1000);
             parcelsManifestList.clickParcelByIndex(index);
             try
             {
