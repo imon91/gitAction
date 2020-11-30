@@ -25,6 +25,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
     private String OLD_PLP = "Old";
     private GetMyBagApiResponse getMyBagApiResponse;
     private ServiceRequestLayer serviceRequestLayer;
+    private ItemContainer itemContainer;
 
     public MyBagPageObjects(AndroidDriver<WebElement> androidDriver) {
         this.androidDriver = androidDriver;
@@ -35,6 +36,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
         serviceRequestLayer = new ServiceRequestLayer();
         getMyBagApiResponse = serviceRequestLayer.getMyBagControl();
         plp_view = productListingPageObjects.plpView;
+        itemContainer = new ItemContainer(androidDriver);
         if (plp_view.equalsIgnoreCase(NEW_PLP)) {
 //        plp_view = productListingPageObjects.plpView;
             app = System.getProperty(BuildParameterKeys.KEY_APP);
@@ -671,6 +673,18 @@ public class MyBagPageObjects extends AndroidBaseClass {
     };
 
     public void createItemInMyBag(int productId){getMyBagApiResponse.addToCart(productId);}
+
+    public String getDiscountedPrice(String productName){
+        String discountedPrice=null;
+        List<WebElement> productNamesList = itemContainer.getListOfItemTitles();
+        int totalCartSize = itemContainer.getItemContainersSize();
+        for (int i=0;i<totalCartSize;i++){
+            if(productNamesList.get(i).getText().equalsIgnoreCase(productName)){
+                discountedPrice = itemContainer.getItemPriceText(i);
+            }
+        }
+        return discountedPrice;
+    }
 
 //    public String getPriceDetails(String price,String productName,String size) {
 //        List<String> productDetails = getProductDetails(productName,size);
