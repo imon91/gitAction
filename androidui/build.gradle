@@ -103,6 +103,8 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         def editProfilePage = project.hasProperty("editprofilepage")
         def addressSelectionPage = project.hasProperty("addressselectionpage")
         def addOrEditAddressPage = project.hasProperty("editaddresspage")
+        def homePage = project.hasProperty("homepage")
+        def myOrdersPage = project.hasProperty("myorderspage")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -153,6 +155,14 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
 
         if (addOrEditAddressPage){
             suites "src/test/resources/mySuites/editAddressPageSuite.xml"
+        }
+
+        if(homePage){
+            suites "src/test/resources/mySuites/homePageSuite.xml"
+        }
+
+        if (myOrdersPage){
+            suites "src/test/resources/mySuites/myOrdersPageSuite.xml"
         }
     }
 }

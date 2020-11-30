@@ -5,6 +5,8 @@ import org.openqa.selenium.*;
 import utils.*;
 import io.appium.java_client.android.*;
 
+import java.util.*;
+
 
 public class ActionBarObjects extends AndroidBaseClass {
 
@@ -89,5 +91,21 @@ public class ActionBarObjects extends AndroidBaseClass {
     public void clickOnBackButton() {
         WebElement backButton = idSetter(packageName+":id/back_button_feed");
         myActions.action_click(backButton);
+    }
+
+    public List<WebElement> getAddressNameAndAddressElement(){
+        List<WebElement> addressDetails = new ArrayList<>();
+        addressDetails.add(0,idSetter("com.mokam.app:id/address_name"));
+        addressDetails.add(1,idSetter("com.mokam.app:id/address_details"));
+        return addressDetails;
+    }
+
+    public List<WebElement> getActionBarButtonElements(){
+        List<WebElement> buttonList = new ArrayList<>();
+        buttonList.add(0,idSetter("com.mokam.app:id/side_menu_button")); //leftSideNav button
+        buttonList.add(1,idSetter("com.mokam.app:id/searchButton")); //search button
+        buttonList.add(2,idSetter("com.mokam.app:id/profile")); //profile button
+        buttonList.add(3,idSetter("com.mokam.app:id/cart_icon_container")); //myBag button
+        return buttonList;
     }
 }

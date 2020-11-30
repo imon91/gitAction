@@ -49,6 +49,27 @@ public class MyOrdersPageObjects extends AndroidBaseClass {
     }
 
 
+    public List<WebElement> getTabElementsList(){
+        return xpathListSetter("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout");
+    }
+
+    public WebElement getActiveTabTextElement(){
+        return xpathSetter("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout[@index='0']");
+    }
+
+    public WebElement getCompletedTabTextElement(){
+        return xpathSetter("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout[@index='1']");
+    }
+
+    public WebElement getCancelledTabTextElement(){
+        return xpathSetter("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout[@index='2']");
+    }
+
+    public void selectATab(int index){
+        WebElement element = xpathSetter("//android.widget.HorizontalScrollView/android.widget.LinearLayout/android.widget.LinearLayout[@index='"+index+"']");
+        myActions.action_click(element);
+    }
+
     public class MyOrderSearch{
 
         private AndroidDriver<WebElement> androidDriver;
@@ -101,7 +122,7 @@ public class MyOrdersPageObjects extends AndroidBaseClass {
         @FindBy(xpath = parentXpath+"div[1]/span[2]")
         private WebElement totalProductsDeliveredCount;
 
-        @FindBy(xpath = "//button")
+        @FindBy(xpath = "//button[@class='normal___3nyjx primary___OLr69 button___3btga ripple___1U_Uk contain___ux0BW']")
         private WebElement loadMoreButton;
 
 

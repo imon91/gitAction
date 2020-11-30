@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import utils.*;
 import io.appium.java_client.android.*;
 
+import java.util.*;
+
 public class BottomNavigationObjects extends AndroidBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
@@ -54,6 +56,14 @@ public class BottomNavigationObjects extends AndroidBaseClass {
     public void clickOnBottomBarPaymentsIcon(){
         bottomBarPaymentsIcon = idSetter(""+packageName+":id/myIncomeBottomBar");
         myActions.action_click(bottomBarPaymentsIcon);
+    }
+
+    public List<WebElement> getMokamBottomBarButtonElements(){
+        List<WebElement> bottomBarButtonElementList = new ArrayList<>();
+        bottomBarButtonElementList.add(0,idSetter(""+packageName+":id/homeBottomBar"));
+        bottomBarButtonElementList.add(1,idSetter(""+packageName+":id/myOrderBottomBar"));
+        bottomBarButtonElementList.add(2,idSetter(""+packageName+":id/ledger_bottom_bar"));
+        return bottomBarButtonElementList;
     }
 
 }
