@@ -2,6 +2,7 @@ package com.shopf.tests.Mokam;
 
 import coreUtils.CoreConstants;
 import io.appium.java_client.android.AndroidDriver;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -70,11 +71,12 @@ public class OnBoardingScreen extends AndroidBaseClass {
     }
 
     public String newRandomMobileNumberGeneration(){
-        List<Integer> listOfThreeDigitNumbers= new ArrayList<>();
-        for(int i=100;i<1000;i++)
-        {listOfThreeDigitNumbers.add(i);}
-        int threeNumber = listOfThreeDigitNumbers.get(random.nextInt(899));
-        return "01877755"+threeNumber;
+//        List<Integer> listOfThreeDigitNumbers= new ArrayList<>();
+//        for(int i=100;i<1000;i++)
+//        {listOfThreeDigitNumbers.add(i);}
+//        int threeNumber = listOfThreeDigitNumbers.get(random.nextInt(899));
+//        return "01877755"+threeNumber;
+        return "018"+RandomStringUtils.randomAlphanumeric(8);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
