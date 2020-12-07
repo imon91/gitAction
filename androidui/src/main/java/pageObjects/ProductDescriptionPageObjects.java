@@ -814,10 +814,18 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
         public void clickOnAddTOCartButton(int qty){
             addToCartButton =
-                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_to_cart']");
-            for(int i=0;i<qty;i++){
-                myActions.action_click(addToCartButton);
-            }
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_add_plus']");
+            myActions.action_click(addToCartButton);
+            scrollInQuantityList(qty);
+            WebElement quantityElement = xpathSetter("//android.view.ViewGroup[@index='"+(qty-1)+"']/android.widget.TextView");
+            myActions.action_click(quantityElement);
+        }
+
+        public WebElement scrollInQuantityList(int quantity){
+            WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                    "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/recycler_bottom_sheet\")).scrollIntoView("
+                            + "new UiSelector().text(\""+quantity+ "\"))"));
+            return element;
         }
 
 

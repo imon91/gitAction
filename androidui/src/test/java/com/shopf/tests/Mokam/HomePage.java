@@ -118,7 +118,7 @@ public class HomePage extends AndroidBaseClass {
         Assert.assertEquals(element.getAttribute("scrollable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6, enabled = false)
     public void verifyLedgerTexts(){
         WebElement giveTitleText = idSetter("com.mokam.app:id/ledger_widget_give_title");
         softAssert.assertEquals(giveTitleText.getText(),"You'll give");
@@ -129,7 +129,7 @@ public class HomePage extends AndroidBaseClass {
         softAssert.assertAll();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7, enabled = false)
     public void verifyLedgerValues(){
         WebElement giveMoney = idSetter("com.mokam.app:id/ledger_widget_give_money");
         softAssert.assertEquals(Double.parseDouble(giveMoney.getText().substring(1)),homePageObjects.getTotalCredit());
@@ -140,7 +140,7 @@ public class HomePage extends AndroidBaseClass {
         softAssert.assertAll();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8, enabled = false)
     public void verifyLedgerClickable(){
         WebElement ledgerElement = xpathSetter("//android.view.ViewGroup[@index='0']//androidx.cardview.widget.CardView[@index='0']");
         Assert.assertEquals(ledgerElement.getAttribute("clickable"),"true");
