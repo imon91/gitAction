@@ -30,5 +30,10 @@ public class EndPoints {
         public static final String LOGIN = "api/login.json";
     }
 
+    public class Sap{
+        public static final String LOGIN_WITH_CODE = "user/login-with-code";
+        public static final String REQUEST_LOGIN_CODE = "user/request-login-code";
+    }
+
 
 }
