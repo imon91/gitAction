@@ -23,6 +23,8 @@ public class CoreFileUtils {
     public static final String storeLoginJsonPath = CoreFileRouters.storeAuthData+"login.json";
     public static final String searchTermJsonPath = CoreFileRouters.testDataFolderPath+"searchTerm.json";
     public static final String locationTermJsonPath = CoreFileRouters.testDataFolderPath+"locationTerm.json";
+    public static final String sapSendCodeJsonPath = CoreFileRouters.sapAuthData+"request_login_code.json";
+    public static final String sapVerifyCodeJsonPath = CoreFileRouters.sapAuthData+"login_with_code.json";
 
 
     public static class Reports{
