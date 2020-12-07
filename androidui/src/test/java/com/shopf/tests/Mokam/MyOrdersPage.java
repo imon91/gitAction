@@ -208,7 +208,7 @@ public class MyOrdersPage extends AndroidBaseClass {
         String firstOrderID_Backend = myOrderDetailsModel.getCustomer_order().getNumber();
         String firstOrderCustomerName_Backend = myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname();
         softAssert.assertEquals(firstOrderId,firstOrderID_Backend);
-        softAssert.assertEquals(firstOrderCustomerName+" ",firstOrderCustomerName_Backend);
+        softAssert.assertEquals(firstOrderCustomerName,firstOrderCustomerName_Backend);
         softAssert.assertAll();
     }
 
