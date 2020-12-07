@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="IntegrationTestSuite">
     <listeners>
-        <listener class-name="listeners.WebUiTestNgListener"></listener>
+        <listener class-name="listeners.SapUiTestNgListener"></listener>
     </listeners>
     <test name="IntegrationTests">
         <classes>

@@ -370,15 +370,22 @@ public class GetCommerceApiResponse {
         return mokamUserAddressesModel.getShipped_addresses().get(index).getId();
     }
 
-    public List<String> getAddressDetails(int addressId){
+    public List<String> getAddressDetails(int addressId,int count){
         List<String> addressDetailsList = new ArrayList<>();
         Map object = new HashMap();
         object.put("address_id",""+addressId);
         response = shopUpPostMan.postCall("shopping_cart/associate_order_address.json",object);
-        MokamAssociateAddressModel mokamAssociateAddressModel =
-                gson.fromJson(response.getBody().asString(),MokamAssociateAddressModel.class);
-        addressDetailsList.add(0,mokamAssociateAddressModel.getOrder_address().getAddress().getFirstname());
-        addressDetailsList.add(1,mokamAssociateAddressModel.getOrder_address().getAddress().getAddress1());
+        if (count==0) {
+            MokamAssociateAddressModel mokamAssociateAddressModel =
+                    gson.fromJson(response.getBody().asString(), MokamAssociateAddressModel.class);
+            addressDetailsList.add(0,mokamAssociateAddressModel.getOrder_address().getAddress().getFirstname());
+            addressDetailsList.add(1,mokamAssociateAddressModel.getOrder_address().getAddress().getAddress1());
+        } else {
+            MokamAssociateAddressModel_ mokamAssociateAddressModel_ =
+                    gson.fromJson(response.getBody().asString(), MokamAssociateAddressModel_.class);
+            addressDetailsList.add(0,mokamAssociateAddressModel_.getOrder_address().getAddress().getFirstname());
+            addressDetailsList.add(1,mokamAssociateAddressModel_.getOrder_address().getAddress().getAddress1());
+        }
         return addressDetailsList;
     }
 

@@ -10,6 +10,7 @@ import pageObjects.*;
 import services.responseModels.commerceModels.MokamHomePageModel;
 import utils.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage extends AndroidBaseClass {
@@ -57,7 +58,13 @@ public class HomePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 1)
     public void verifySelectedAddress(){
-        List<String> selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0);
+        List<String> selectedAddressNameAndAddressList = new ArrayList<>();
+        int cart_Item_Count = homePageObjects.getCartItemCount();
+        if (cart_Item_Count==0) {
+            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
+        }else {
+            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
+        }
         WebElement nameOfSelectedAddress = idSetter("com.mokam.app:id/address_name");
         softAssert.assertEquals(nameOfSelectedAddress.getText(),selectedAddressNameAndAddressList.get(0));
 
