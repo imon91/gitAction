@@ -76,7 +76,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
 //        {listOfThreeDigitNumbers.add(i);}
 //        int threeNumber = listOfThreeDigitNumbers.get(random.nextInt(899));
 //        return "01877755"+threeNumber;
-        return "018"+RandomStringUtils.randomAlphanumeric(8);
+        return "018"+RandomStringUtils.randomNumeric(8);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
