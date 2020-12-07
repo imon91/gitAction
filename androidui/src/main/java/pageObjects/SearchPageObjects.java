@@ -74,6 +74,14 @@ public class SearchPageObjects extends AndroidBaseClass {
         myActions.action_click(searchBackButton);
     }
 
+    public WebElement getSearchBackButtonElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnBack']");
+    }
+
+    public WebElement getSearchButtonElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnSearch']");
+    }
+
     public WebElement searchBarEditText()
     {
         return searchBarEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/etSearch']");
@@ -140,6 +148,11 @@ public class SearchPageObjects extends AndroidBaseClass {
     public void getSuggestionsRecycler(){
         recentSuggestionsRecycler =
                 xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/suggestions_recycler_recent']");
+    }
+
+    public String getRecentlyViewedText(){
+        WebElement element = idSetter("com.mokam.app:id/title_widget");
+        return myActions.action_getText(element);
     }
 
     /*----Functions*/
