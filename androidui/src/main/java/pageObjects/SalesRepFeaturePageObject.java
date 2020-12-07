@@ -217,14 +217,26 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
         myActions.action_sendKeys(inputBoxElement,shopNameOrPhoneNumber);
     }
 
+    public WebElement getSearchInputBoxElement(){
+        return xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/retailer_search']");
+    }
+
     public String getAddNewRetailerButtonText(){
-        WebElement addNewRetailerButtonText = xpathSetter("");
+        WebElement addNewRetailerButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_add_retailer']");
         return myActions.action_getText(addNewRetailerButtonText);
     }
 
+    public WebElement getAddNewRetailerButtonElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_add_retailer']");
+    }
+
     public String getNextButtonTextInRetailerListPage(){
-        WebElement nextButtonText = xpathSetter("");
+        WebElement nextButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next']");
         return myActions.action_getText(nextButtonText);
+    }
+
+    public WebElement getNextButtonInRetailerListPageElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next']");
     }
 
     public WebElement scrollAtSalesRepList(String textToScroll)
@@ -232,6 +244,12 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
         WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/list_retailer_recycler\")).scrollIntoView("
                         + "new UiSelector().text(\""+textToScroll+ "\"))"));
+        return element;
+    }
+
+    public WebElement scrollToEndAtSalesRepList(){
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/list_retailer_recycler\")).scrollToEnd(500)"));
         return element;
     }
 
@@ -245,11 +263,20 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
     public List<String> getRetailerDataUI(int index)
     {
         List<String> container = new ArrayList<>();
-        String OwnerName=myActions.action_getText(xpathListSetter("com.mokam.app:id/retailer_name").get(index));
-        String MobileNumber = myActions.action_getText(xpathListSetter("com.mokam.app:id/retailer_phone").get(index));
+        String OwnerName=myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='com.mokam.app:id/retailer_name']"));
+        String MobileNumber = myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='com.mokam.app:id/retailer_phone']"));
         container.add(OwnerName);
         container.add(MobileNumber);
         return container;
+    }
+
+    public WebElement getARetailerElement(int index){
+        return xpathSetter("//android.view.ViewGroup[@resource-id='com.mokam.app:id/retailer_constraint_layout' and @index='"+index+"']");
+    }
+
+    public void clickARetailer(int index){
+        WebElement retailerElement = getARetailerElement(index);
+        myActions.action_click(retailerElement);
     }
 
 

@@ -48,6 +48,7 @@ public class MokamRetailerListModel {
         private int id;
         private String name;
         private String phone;
+        private String shop_name;
 
         public int getId() {
             return id;
@@ -71,6 +72,14 @@ public class MokamRetailerListModel {
 
         public void setPhone(String phone) {
             this.phone = phone;
+        }
+
+        public String getShop_name(){
+            return shop_name;
+        }
+
+        public void setShop_name(String shop_name){
+            this.shop_name = shop_name;
         }
     }
 }
