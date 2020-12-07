@@ -201,8 +201,13 @@ public class HomePageObjects extends AndroidBaseClass {
         return getCommerceApiResponse.getIdOfAddress(index);
     }
 
-    public List<String> getNameAndAddress_Backend(int index){
-        return getCommerceApiResponse.getAddressDetails(getAddressIdOfSelectedAddress(index));
+    public List<String> getNameAndAddress_Backend(int index, int count){
+        return getCommerceApiResponse.getAddressDetails(getAddressIdOfSelectedAddress(index),count);
+    }
+
+    public int getCartItemCount(){
+        WebElement cartItemCountElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/cart_item_count']");
+        return Integer.parseInt(myActions.action_getText(cartItemCountElement));
     }
 
     public double getTotalCredit(){
