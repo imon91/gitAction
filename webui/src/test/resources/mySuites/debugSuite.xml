@@ -2,7 +2,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="DebugTestSuite">
     <listeners>
-        <listener class-name="listeners.WebUiTestNgListener"></listener>
+        <listener class-name="listeners.SapUiTestNgListener"></listener>
     </listeners>
     <test name="DebugTests">
         <groups>

@@ -308,10 +308,11 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             myActions.action_click(submitOutScan);
         }
 
-        public void clickYes(){
+        public void clickYes() {
             WebElement yesButton =
                     xpathSetter("//body/div/div/div/div/div/div/div/button[2]");
             myActions.action_click(yesButton);
+        }
           
         public void clickQcPassCheckBox(){
             WebElement qcPassCheckBox =
@@ -331,9 +332,10 @@ public class PickOrdersPageObjects extends WmsBaseClass {
             myActions.action_click(resetButton);
         }
 
-        public void clickSubmitOutwardPickListButton(){
+        public void clickSubmitOutwardPickListButton() {
             WebElement submitOutScanButton =
                     xpathSetter("//div[@id='PackageOutScan']//div//div//div[1]//div[1]//button[1]");
+        }
 
         public void clickSubmitOutScanButton(){
             WebElement submitOutScanButton =
