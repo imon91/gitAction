@@ -31,10 +31,72 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
         actionBarObjects = new ActionBarObjects(androidDriver);
+        serviceRequestLayer = new ServiceRequestLayer();
         getMyOrderApiResponse = serviceRequestLayer.getControlOverMyOrderApiResponse();
         random = new Random();
     }
 
+
+    public void enterValueToSearch(String value){
+        WebElement searchInputBoxElement = xpathSetter("//android.widget.EditText[@index='0']");
+        myActions.action_sendKeys(searchInputBoxElement,value);
+    }
+
+    public WebElement getSearchInputBoxElement(){
+        return xpathSetter("//android.widget.EditText[@index='0']");
+    }
+
+    public WebElement getSearchIconElement(){
+        return xpathSetter("//android.widget.Image[@index='1']");
+    }
+
+    public WebElement getOrderIDTextElement(){
+        return xpathSetter("//android.view.View[@index='3']");
+    }
+
+    public WebElement getNameTextElement(){
+        return xpathSetter("//android.view.View[@index='4']");
+    }
+
+    public WebElement getFilterButtonElement(){
+        return xpathSetter("//android.view.View[@index='2']/android.widget.TextView");
+    }
+
+    public WebElement getSortButtonElement(){
+        return xpathSetter("//android.view.View[@index='1']/android.widget.TextView");
+    }
+
+    //1-Order ID, 2-Name
+    public List<WebElement> getOrderDetails(int index){
+        List<WebElement> elementList = new ArrayList<>();
+        switch (index){
+            case 1 :
+                elementList = listOfOrderId();
+                break;
+            case 2 :
+                elementList = listOfName();
+                break;
+        }
+        return elementList;
+    }
+
+    public WebElement getLoadMoreButtonElement(){
+        return xpathSetter("//android.widget.Button");
+    }
+
+    public String getFirstOrderID(){
+        WebElement orderIDElement = xpathSetter("//android.view.View[@index='5']/android.view.View[@index='0']");
+        return orderIDElement.getText();
+    }
+
+    public String getFirstOrderCustomerName(){
+        WebElement nameElement = xpathSetter("//android.view.View[@index='5']/android.view.View[@index='2']");
+        return nameElement.getText();
+    }
+
+    public MyOrderDetailsNewModel getMyOrderDetails(String orderId){
+        return getMyOrderApiResponse.getOrderDetailOfOrder(orderId);
+    }
 
     public void searchToOrderId(String orderId)
     {
@@ -114,7 +176,7 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
     public WebElement scrollToOrderID(String orderId)
     {
             WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().resourceId(\"com.shopup.reseller:id/pager\")).scrollIntoView("
+                    "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/pager_my_orders\")).scrollIntoView("
                             + "new UiSelector().text(\""+orderId+ "\"))"));
             return element;
     }

@@ -243,7 +243,8 @@ public class Address extends AndroidBaseClass {
         } catch (NullPointerException e) {
             addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
         }
-        myActions.action_click(addNewAddressButton);
+//        myActions.action_click(addNewAddressButton);
+        homePageObjects.clickOnAddNewAddressButton();
         sleep(1000);
         homePageObjects.clickAllowButton();
         sleep(1000);

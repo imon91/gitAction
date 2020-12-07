@@ -1,10 +1,8 @@
 package utils;
 
 import coreUtils.CoreConstants;
-import services.commerceInterfaces.CommerceServices;
-import services.commerceMethods.*;
 import services.redxInterfaces.RedXServices;
-import testData.ReadJSONFile;
+import testData.ReadJSONFileRedX;
 
 public class RedXServiceRequestLayer implements RedXServices {
 
@@ -14,5 +12,8 @@ public class RedXServiceRequestLayer implements RedXServices {
         this.module = CoreConstants.MODULE_WEB_UI;
     }
 
+    public ReadJSONFileRedX getControlOverReadJSONFileRedX(){
+        return new ReadJSONFileRedX(module);
+    }
 }
 

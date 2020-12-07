@@ -1,0 +1,29 @@
+{"Dha" :  ["Dhaka","Narayanganj"],
+
+
+
+
+
+
+  "Dhaka" : ["Mohammadpur(Dhaka)", "Dhanmondi", "Gulshan", "Kallyanpur", "Shyamoli", "Adabor", "Darussalam", "Gabtoli", "Pallabi", "Lalmatia", "Mirpur DOHS",
+    "Kochukhet", "Gudaraghat", "Agargaon", "Monipur", "Sher-E-Bangla Nagar", "Ibrahimpur", "Dhaka Cantonment", "Mirpur Cantonment", "Kafrul", "Vashantek",
+    "Manikdi", "Matikata", "M.E.S", "Rupnagar Residential Area", "Duaripara", "Rainkhola", "Mirpur Diabari", "Mazar Road", "Shagufta", "Bawnia", "Baigertek", "Madina nagar", "Dewanpara",
+    "Namapara", "Mastertek", "Balughat", "Barontek", "Goltek", "Kurmitola", "Shewra", "Uttara", "Uttarkhan", "Dakshinkhan", "Fayedabad", "Ashkona", "Kuril",
+    "Khilkhet", "Nikunja", "Azampur", "Hajipara", "Kawla", "Naddapara", "Bashundhara R/A", "Vatara", "Nadda", "Baridhara", "Baridhara DOHS", "Notun Bazar",
+    "Badda", "Shahjadpur", "Uttor Badda", "Middle Badda", "South Badda", "Merul Badda", "Niketon", "Banani", "Banani DOHS", "Mohakhali", "Mohakhali DOHS", "South Monipur",
+    "Shah Ali Bag", "Aziz Palli", "Bashtola", "South Baridhara", "DIT Project", "Aftabnagar", "Bijoy Shoroni", "Farmgate", "Indira Road", "Tejgaon", "Tejkunipara", "azabazar", "Sukrabad",
+    "Panthopath", "Kalabagan", "Green Road", "Manik Mia Avenue", "Asad Avenue", "West Dhanmondi", "Shankar", "Rayer Bazar", "Tallabag", "Hazaribag", "Pilkhana", "Nawabgonj Puran Dhaka",
+    "New Market", "Azimpur", "Nilkhet", "Lalbagh", "Chawkbazar (Dhaka)", "Naya Bazar", "Tatibazar", "Luxmi Bazar", "Puran Dhaka", "Siddique Bazar", "Tikatuly", "Motijheel",
+    "Nawabpur", "Kaptan Bazar", "Gulistan", "Bongo Bazar", "Chankarpul", "Palashi", "Dhakeshwari", "Kamalapur", "Wari", "Narinda", "Dainik Bangla Mor", "Fakirapul", "Kakrail", "Naya Paltan", "Bijoynagar",
+    "Press Club", "High Court", "Dhaka University", "Dhaka Medical", "Bongo Bondhu Avenue", "Kazi Nazrul Islam Avenue", "Kawran Bazar", "Ramna", "Shantinagar",
+    "Shantibag", "Baily Road", "Minto Road", "Old Elephant Road", "Eskaton Garden Road", "Eskaton", "Moghbazar", "Mouchak", "Malibag", "Rampura", "Shahbag",
+    "Katabon","Hatirpool", "Bashabo", "Khilgaon", "Middle Bashabo", "Goran", "Madartek", "Manik Nagar", "Shahjahanpur", "Banasree",
+    "Meradia", "Khilbari Tek", "Bawaliapara", "Mughdapara", "Golapbag", "Jatrabari", "Hatirjheel", "Banglamotor", "Paribag", "Bakshibazar", "Elephant Road",
+    "Kathalbagan", "Malibagh Taltola", "Central Road", "Sabujbag", "Shiddheswari", "Dolaikhal", "Shegunbagicha", "Rajarbag", "Babubazar", "Islampur(Dhaka)", "Imamgonj", "Nayabazar", "Zigatola",
+    "Kazipara", "Shewrapara", "Kalshi", "Sutrapur", "Purana Paltan", "Shyampur", "Dholaipar", "Monipuripara", "Bosila", "Shonir Akhra", "Mirpur(Dhaka)",
+    "Bongshal", "Siddweswari", "Nakhalpara", "okshingaon", "Joar Shahara", "Science Lab", "Sobhanbag", "ECB Chattar", "Arambag", "Armanitola", "Islambag"
+  , "Kamarpara", "Mitford", "Shakhari Bazar", "Katherpol", "Bangla Bazar", "Patuatuly", "Nandipara", "Nazira Bazar", "Gopibag", "Shwamibag", "Sayedabad",
+    "Sadarghat (Dhaka)", "Kaltabazar", "Jurain", "Gandaria", "RayerBag", "Faridabad", "Matuail", "Donia", "Postogola", "Konapara", "Dhaka Uddyan", "Shekhertek",
+    "CWH", "Mirpur Taltola", "Manda(Dhaka)", "Shahjahanpur (Dhaka)"],
+  "Narayanganj" : ["Chittagong Road"]
+}

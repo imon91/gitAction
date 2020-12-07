@@ -5,6 +5,7 @@ import io.appium.java_client.pagefactory.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import services.commerceMethods.GetCommerceApiResponse;
+import services.responseModels.commerceModels.MokamHomePageModel;
 import utils.*;
 import io.appium.java_client.android.*;
 import java.util.*;
@@ -62,8 +63,7 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public WebElement scrollToAddNewAddressButton()
     {      WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-            "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/address_list_recycler_view\")).scrollIntoView("
-                    + "new UiSelector().resourceId(\""+packageName+":id/action_add_address\"))"));
+            "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/address_list_recycler_view\")).scrollToEnd(100)"));
          return element;
     }
 
@@ -106,6 +106,11 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public void selectAddress(String addressName){
         WebElement firstAddressElement = xpathSetter("//android.widget.TextView[@text='"+ addressName +"']");
+        myActions.action_click(firstAddressElement);
+    }
+
+    public void selectAddress(int index){
+        WebElement firstAddressElement = xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']/android.view.ViewGroup[@index='0']");
         myActions.action_click(firstAddressElement);
     }
 
@@ -184,6 +189,36 @@ public class HomePageObjects extends AndroidBaseClass {
     {
         WebElement mobileNumber = idSetter("com.mokam.app:id/add_address_phone");
         myActions.action_click(mobileNumber);
+    }
+
+    public WebElement scrollToAElementWithIdInHomePage(String id){
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_home_fragment\")).scrollIntoView("
+                        + "new UiSelector().resourceId(\""+id+"\"))"));
+    }
+
+    public int getAddressIdOfSelectedAddress(int index){
+        return getCommerceApiResponse.getIdOfAddress(index);
+    }
+
+    public List<String> getNameAndAddress_Backend(int index){
+        return getCommerceApiResponse.getAddressDetails(getAddressIdOfSelectedAddress(index));
+    }
+
+    public double getTotalCredit(){
+        return getCommerceApiResponse.getCreditAndDebitValue().get(0);
+    }
+
+    public double getTotalDebit(){
+        return getCommerceApiResponse.getCreditAndDebitValue().get(1);
+    }
+
+    public int getBakiAmount(){
+        return getCommerceApiResponse.getBakiAmount();
+    }
+
+    public List<MokamHomePageModel.CollectionsBean> getCollections(){
+        return getCommerceApiResponse.getCollections();
     }
 
 

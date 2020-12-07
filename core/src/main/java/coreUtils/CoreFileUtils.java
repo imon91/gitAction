@@ -25,6 +25,11 @@ public class CoreFileUtils {
     public static final String locationTermJsonPath = CoreFileRouters.testDataFolderPath+"locationTerm.json";
     public static final String sapSendCodeJsonPath = CoreFileRouters.sapAuthData+"request_login_code.json";
     public static final String sapVerifyCodeJsonPath = CoreFileRouters.sapAuthData+"login_with_code.json";
+    public static final String zonesJsonPath = CoreFileRouters.testDataFolderPath+"deliveryLocationData/zones.json";
+    public static final String suburbsJsonPath = CoreFileRouters.testDataFolderPath+"deliveryLocationData/Suburbs.json";
+    public static final String OSDJsonPath = CoreFileRouters.testDataFolderPath+"deliveryLocationData/OutSideDhaka.json";
+    public static final String ISDJsonPath = CoreFileRouters.testDataFolderPath+"deliveryLocationData/InSideDhaka.json";
+    public static final String ParcelIDJsonPath = CoreFileRouters.testDataFolderPath+"SAPPanelData/sapPanelResellerParcelID.json";
 
 
     public static class Reports{

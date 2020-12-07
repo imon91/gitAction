@@ -5,6 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pageObjects.*;
 import services.responseModels.commerceModels.MokamRetailerListModel;
 import utils.*;
@@ -15,19 +16,18 @@ public class RetailerListPage extends AndroidBaseClass {
 
 
     private AndroidDriver<WebElement> androidDriver;
+    private HomePageObjects homePageObjects;
     private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
     private ServiceRequestLayer serviceRequestLayer;
     private Random random;
-    private WebElement addNewRetailerButtonElement;
-    private WebElement nextButtonElement;
-    private WebElement searchInputBoxElement;
+    private SoftAssert softAssert;
     String selectARetailerText_English = "Select a Retailer";
     String searchInputBoxText_English = "Enter shop name or phone number";
-    String addANewRetailerButtonText_English = "";
-    String nextButtonText_English = "";
+    String addANewRetailerButtonText_English = "Add a New Retailer";
+    String nextButtonText_English = "NEXT";
 
     @BeforeSuite(alwaysRun = true)
     public void retailerListPageBeforeSuite(){
@@ -36,9 +36,10 @@ public class RetailerListPage extends AndroidBaseClass {
         serviceRequestLayer = new ServiceRequestLayer();
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         random = new Random();
+        softAssert = new SoftAssert();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.selectAddress(0);
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -55,6 +56,7 @@ public class RetailerListPage extends AndroidBaseClass {
     }
 
     public void pageInitializer(){
+        homePageObjects = new HomePageObjects(androidDriver);
         loginPageObjects = new LoginPageObjects(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
@@ -81,7 +83,7 @@ public class RetailerListPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 3)
     public void verifyEnteringTextInSearchInputBox(){
-        searchInputBoxElement = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/retailer_search']");
+        WebElement searchInputBoxElement = salesRepFeaturePageObject.getSearchInputBoxElement();
         String searchValue = "ShopName";
         salesRepFeaturePageObject.enterTextInSearchInputBox(searchValue);
         Assert.assertEquals(searchValue,searchInputBoxElement.getText());
@@ -91,18 +93,89 @@ public class RetailerListPage extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 4)
     public void verifySearchingAShopWithName(){
         MokamRetailerListModel mokamRetailerListModel = salesRepFeaturePageObject.salesRepResultsApi();
-        System.out.println(mokamRetailerListModel.getUser_data());
         int totalRetailerSize = mokamRetailerListModel.getUser_data().size();
         System.out.println(totalRetailerSize);
         int randomNo = random.nextInt(totalRetailerSize);
-        String randomShopName = mokamRetailerListModel.getUser_data().get(randomNo).getName();
-        salesRepFeaturePageObject.enterTextInSearchInputBox(randomShopName);
-        List<String> retailerList = salesRepFeaturePageObject.getRetailerDataUI(randomNo);
-        Assert.assertEquals(randomShopName,retailerList.get(0));
+        String randomShopName = null;
+        if(mokamRetailerListModel.getUser_data().get(randomNo).getName()!=null ||
+                mokamRetailerListModel.getUser_data().get(randomNo).getShop_name()!=null) {
+            if (mokamRetailerListModel.getUser_data().get(randomNo).getShop_name()!=null) {
+                randomShopName = mokamRetailerListModel.getUser_data().get(randomNo).getShop_name();
+                salesRepFeaturePageObject.enterTextInSearchInputBox(randomShopName);
+                List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
+                Assert.assertEquals(randomShopName,retailerDataUIList.get(0));
+                salesRepFeaturePageObject.getSearchInputBoxElement().clear();
+            }else if (mokamRetailerListModel.getUser_data().get(randomNo).getName()!=null){
+                randomShopName = mokamRetailerListModel.getUser_data().get(randomNo).getName();
+                salesRepFeaturePageObject.enterTextInSearchInputBox(randomShopName);
+                List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
+                Assert.assertEquals(randomShopName,retailerDataUIList.get(0));
+                salesRepFeaturePageObject.getSearchInputBoxElement().clear();
+            }
+        }
     }
 
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
     public void verifySearchingAShopWithMobileNumber(){
+        MokamRetailerListModel mokamRetailerListModel = salesRepFeaturePageObject.salesRepResultsApi();
+        int totalRetailerSize = mokamRetailerListModel.getUser_data().size();
+        System.out.println(totalRetailerSize);
+        int randomNo = random.nextInt(totalRetailerSize);
+        String randomMobileNumber = mokamRetailerListModel.getUser_data().get(randomNo).getPhone();
+        salesRepFeaturePageObject.enterTextInSearchInputBox(randomMobileNumber);
+        List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
+        Assert.assertEquals(randomMobileNumber,retailerDataUIList.get(1));
+        salesRepFeaturePageObject.getSearchInputBoxElement().clear();
+    }
 
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
+    public void verifyFirstRetailerDetails(){
+        MokamRetailerListModel mokamRetailerListModel = salesRepFeaturePageObject.salesRepResultsApi();
+        List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
+        List<String> firstRetailerDetails_Backend = new ArrayList<>();
+        if(mokamRetailerListModel.getUser_data().get(0).getName()!=null ||
+                mokamRetailerListModel.getUser_data().get(0).getShop_name()!=null) {
+            if (mokamRetailerListModel.getUser_data().get(0).getShop_name()!=null) {
+                firstRetailerDetails_Backend.add(0,mokamRetailerListModel.getUser_data().get(0).getShop_name());
+                softAssert.assertEquals(retailerDataUIList.get(0),firstRetailerDetails_Backend.get(0));
+            }else if (mokamRetailerListModel.getUser_data().get(0).getName()!=null){
+                firstRetailerDetails_Backend.add(0,mokamRetailerListModel.getUser_data().get(0).getName());
+                softAssert.assertEquals(retailerDataUIList.get(0),firstRetailerDetails_Backend.get(0));
+            }
+        }
+        firstRetailerDetails_Backend.add(1,mokamRetailerListModel.getUser_data().get(0).getPhone());
+        softAssert.assertEquals(retailerDataUIList.get(1),firstRetailerDetails_Backend.get(1));
+
+        softAssert.assertAll();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
+    public void verifySelectingAShop(){
+        salesRepFeaturePageObject.clickARetailer(0);
+        Assert.assertEquals(salesRepFeaturePageObject.getARetailerElement(0).getAttribute("selected"),"true");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
+    public void verifyNextButtonClickable(){
+        Assert.assertEquals(salesRepFeaturePageObject.getNextButtonInRetailerListPageElement().getAttribute("clickable"),"true");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 9)
+    public void verifyNextButtonText(){
+        String nextButtonText = salesRepFeaturePageObject.getNextButtonTextInRetailerListPage();
+        Assert.assertEquals(nextButtonText,nextButtonText_English);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
+    public void verifyAddNewRetailerButtonText(){
+        salesRepFeaturePageObject.scrollToEndAtSalesRepList();
+        Assert.assertEquals(salesRepFeaturePageObject.getAddNewRetailerButtonElement().getAttribute("clickable"),"true");
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
+    public void verifyAddNewRetailerButtonClickable(){
+        String addNewRetailerButtonText = salesRepFeaturePageObject.getAddNewRetailerButtonText();
+        Assert.assertEquals(addNewRetailerButtonText,addANewRetailerButtonText_English);
     }
 
     @AfterSuite(alwaysRun = true)

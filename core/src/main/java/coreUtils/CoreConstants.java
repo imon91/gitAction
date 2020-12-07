@@ -25,6 +25,7 @@ public class CoreConstants {
     public static final String ANDROID_MAIN_ACTIVITY = "com.shopup.reseller.MainActivity";
     public static final String ANDROID_REGISTRATION_PAGE_ACTIVITY = "com.shopup.registration.RegistrationActivity";
     public static final String ANDROID_PROFILE_ACTIVITY = "com.shopup.profile.ProfileActivity";
+    public static final String ANDROID_HOME_ACTIVITY = "com.shopup.reseller.HomeActivity";
     public static final String ANDROID_SALES_REP_LIST_ACTIVITY = "com.shopup.salesrep.ListRetailersActivity";
     public static final String RED_X_SPLASH_ACTIVITY = "com.redx.delivery.SplashActivity";
     public static final int ABD_EXEC_TIME_OUT = 50000;
