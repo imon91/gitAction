@@ -216,10 +216,30 @@ public class SearchPageObjects extends AndroidBaseClass {
         return suggestionTitleList;
     }
 
+    public WebElement getSuggestionElementUI(int index){
+        return xpathSetter("//androidx.recyclerview.widget.RecyclerView[@index='1']//android.widget.LinearLayout[@index='"+index+"']");
+    }
+
+    public List<WebElement> getAutoSuggestButtonList(){
+        return idListSetter("com.mokam.app:id/auto_selection");
+    }
+
     public List<WebElement> searchRecentProductsNameListUI()
     {
         List<WebElement> nameList = androidDriver.findElements(By.id(packageName+":id/tvName"));
         return nameList;
+    }
+
+    public String getRecentProductName(int index){
+        return myActions.action_getText(searchRecentProductsNameListUI().get(index));
+    }
+
+    public WebElement getRecentlyViewedContainerElement(){
+        return idSetter("com.mokam.app:id/recycler_widget");
+    }
+
+    public WebElement getRecentlyViewedProductElement(int index){
+        return xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']");
     }
 
     public List<WebElement> getListOfRecentProductsPropertiesUI(String price_or_originalPrice_or_deliveryTag_or_discount)
