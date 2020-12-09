@@ -80,22 +80,42 @@ public class SearchPage extends AndroidBaseClass {
         Assert.assertEquals(recentlyViewedText,recentlyViewedText_English);
     }
 
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
     public void verifyRecentlyViewedFirstProductDetails(){
-        List<SearchRecentProductsModel.ResultsBean> recentlyViewedProductsResultsList_backend = searchPageObjects.getResultsOfRecentProductsFromApiList();
-        List<String> recentlyViewedProductsResultsList_UI = searchPageObjects.recentProductContainerDataFromUI(0);
+        String productName;
+        String productNameFromUI;
 
-        String firstRecentProductName = searchPageObjects.getRecentProductName(0);
-        String firstRecentProductName_Backend = recentlyViewedProductsResultsList_backend.get(0).getName();
-        softAssert.assertEquals(firstRecentProductName,firstRecentProductName_Backend);
+        List<SearchRecentProductsModel.ResultsBean> resultsBeansFromApi = searchPageObjects.getResultsOfRecentProductsFromApiList();
 
-        String firstRecentProductPrice = recentlyViewedProductsResultsList_UI.get(0);
-        String firstRecentProductPrice_Backend = recentlyViewedProductsResultsList_backend.get(0).getPrice();
-        softAssert.assertEquals(firstRecentProductPrice,firstRecentProductPrice_Backend);
+        productName = resultsBeansFromApi.get(0).getName();
+        softAssert.assertTrue(searchPageObjects.verifyScroll());
+        sleep(1000);
 
-
-        softAssert.assertEquals(recentlyViewedProductsResultsList_UI.get(1),recentlyViewedProductsResultsList_backend.get(0).getOriginal_price());
-
-
+        productNameFromUI = searchPageObjects.searchRecentProductsNameListUI().get(0).getText();
+        if (productName.equals(productNameFromUI)) {
+            //ui data
+            List<String> containerDataUI = searchPageObjects.recentProductContainerDataFromUI(0);
+            //api data
+            List<String> containerDataApi = new ArrayList<>();
+            containerDataApi.add(resultsBeansFromApi.get(0).getPrice());
+            containerDataApi.add(resultsBeansFromApi.get(0).getOriginal_price());
+            containerDataApi.add(resultsBeansFromApi.get(0).getProduct_stamp());
+            String discount = String.valueOf(resultsBeansFromApi.get(0).getDiscount());
+            containerDataApi.add(discount);
+            //verify price
+            softAssert.assertEquals(containerDataApi.get(0), containerDataUI.get(0));
+            //verify original price and discount
+            if (!resultsBeansFromApi.get(0).getOriginal_price().equals(resultsBeansFromApi.get(0).getPrice())) {
+                softAssert.assertEquals(containerDataApi.get(1), containerDataUI.get(1));
+                softAssert.assertEquals(containerDataApi.get(3),containerDataUI.get(3));
+            }
+            //verify DeliveryTag
+            if (containerDataApi.get(2) != null) {
+                softAssert.assertEquals(containerDataApi.get(2), containerDataUI.get(2));
+            }
+            softAssert.assertAll();
+            System.out.println("done");
+        }
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 4)
@@ -110,32 +130,32 @@ public class SearchPage extends AndroidBaseClass {
         Assert.assertEquals(recentlyViewedPanelElement.getAttribute("scrollable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
     public void verifyTextInSearchInputBox(){
         WebElement searchEditTextElement = searchPageObjects.searchBarEditText();
         Assert.assertEquals(searchEditTextElement.getText(),searchInputBoxText_English);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
     public void verifyEnteringTextInSearchInputBox(){
         searchPageObjects.enterProductName(productName);
         Assert.assertEquals(searchPageObjects.searchBarEditText().getText(),productName);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 9)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyFirstSuggestionClickable(){
         System.out.println(searchPageObjects.getSuggestionElementUI(0));
         WebElement firstSuggestionElement = searchPageObjects.getSuggestionElementUI(0);
         Assert.assertEquals(firstSuggestionElement.getAttribute("clickable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
     public void verifyFirstSuggestionAutoSuggestButtonClickable(){
         WebElement firstSuggestionAutoSuggestButtonElement = searchPageObjects.getAutoSuggestButtonList().get(0);
         Assert.assertEquals(firstSuggestionAutoSuggestButtonElement.getAttribute("clickable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 9)
     public void verifyFirstSuggestion(){
         List<SearchSuggestionsModel.ResultsBean.SuggestionsBean> suggestionsBeanList = searchPageObjects.searchSuggestionListFromApi(productName);
 

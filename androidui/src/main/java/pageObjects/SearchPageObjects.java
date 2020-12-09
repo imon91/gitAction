@@ -217,7 +217,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     }
 
     public WebElement getSuggestionElementUI(int index){
-        return xpathSetter("//androidx.recyclerview.widget.RecyclerView[@index='1']//android.widget.LinearLayout[@index='"+index+"']");
+        return xpathSetter("//androidx.recyclerview.widget.RecyclerView[@index='2']//android.widget.LinearLayout[@index='"+index+"']");
     }
 
     public List<WebElement> getAutoSuggestButtonList(){
