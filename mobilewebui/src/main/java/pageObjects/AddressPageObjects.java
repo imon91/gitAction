@@ -114,7 +114,7 @@ public class AddressPageObjects extends WebAppBaseClass {
     private WebElement CashOnDelivery;
 
     //makepayment
-    @FindBy(xpath = "//div[@class='summary-container']/following-sibling::div[1]/button")
+    @FindBy(xpath = "//div[@class='proceed-checkout text-center']/button")
     private WebElement MakePayment;
 
     //CODnotAvailable
