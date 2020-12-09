@@ -1266,7 +1266,7 @@ public class ShoppingCartResponseModel {
         private String formatted_total_income;
         private String payment_method;
         private boolean code_applied;
-        private LiBySellersBean li_by_sellers;
+//        private LiBySellersBean li_by_sellers;
         private List<AdjustmentsBean> adjustments;
         private List<?> messages;
         private List<?> lastmile_addresses;
@@ -1423,13 +1423,13 @@ public class ShoppingCartResponseModel {
             this.code_applied = code_applied;
         }
 
-        public LiBySellersBean getLi_by_sellers() {
-            return li_by_sellers;
-        }
+//        public LiBySellersBean getLi_by_sellers() {
+//            return li_by_sellers;
+//        }
 
-        public void setLi_by_sellers(LiBySellersBean li_by_sellers) {
-            this.li_by_sellers = li_by_sellers;
-        }
+//        public void setLi_by_sellers(LiBySellersBean li_by_sellers) {
+//            this.li_by_sellers = li_by_sellers;
+//        }
 
         public List<AdjustmentsBean> getAdjustments() {
             return adjustments;
@@ -1501,4726 +1501,4726 @@ public class ShoppingCartResponseModel {
             }
         }
 
-        public static class LiBySellersBean {
-            /**
-             * DVS : {"adjustments":[],"subtotal":1053,"item_total":1053,"items":[{"formatted_price":"Tk. 351","seller":"DVS","min_order_qty":1,"line_item_id":297817,"discount":0,"prepaid_availability":true,"seller_slug":"dvs","delivery_time":"Delivery in 4-6 working days.","title":"Men's Premium Full Sleeve - DS2012 - DVS","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":7,"option_value_name":"15 or M","size":25,"corrected_count_on_hand":3,"name":"15 or M","id":88533},{"count_on_hand":7,"option_value_name":"15.5 or L","size":25,"corrected_count_on_hand":3,"name":"15.5 or L","id":88534},{"count_on_hand":13,"option_value_name":"16 or XL","size":25,"corrected_count_on_hand":3,"name":"16 or XL","id":88536}],"max_item_quantity":50,"price":"351.0","product_id":68576,"sold_out":false,"variant":88533,"formatted_income":"Tk. 153","mrp_price_line":"Tk. 360 x 3 = Tk. 1,080","cod_availability":true,"formatted_per_item_total":"Tk. 1,053","per_item_total":1053,"sku":"268387","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P68576"}},"image":"https://shopimages.vstores.io/67586/1573394963295-19-small.jpg?1580195558","quantity":3,"max_selling_price":549,"original_amo":360,"variant_price":300,"final_discount":0,"formatted_variant_price":"Tk. 300","price_line":"Tk. 351 x 3 = Tk. 1,053","product_name":"Men\\'s Premium Full Sleeve - DS2012 - DVS","sale_price":"1053.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,053","size":"15 or M","line_item_adjustments":[],"master_product_id":68576,"messages":[],"min_selling_price":351,"category":"Men shirt","permalink":"men-s-premium-full-sleeve-ds2012-dvs-4e2825ff","cod_message":"Delivery in 4-6 working days."}]}
-             * WHA : {"adjustments":[],"subtotal":300,"item_total":300,"items":[{"formatted_price":"Tk. 300","seller":"WHA","min_order_qty":1,"line_item_id":297807,"discount":25,"prepaid_availability":true,"seller_slug":"wha","delivery_time":"Delivery in 4-6 working days.","title":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":1,"option_value_name":"S","size":25,"corrected_count_on_hand":1,"name":"S","id":83723}],"max_item_quantity":50,"price":"300.0","product_id":65947,"sold_out":false,"variant":83723,"formatted_income":"Tk. 49","mrp_price_line":"Tk. 399 x 1 = Tk. 399","cod_availability":true,"formatted_per_item_total":"Tk. 300","per_item_total":300,"sku":"264914","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65947"}},"image":"https://shopimages.vstores.io/74956/1570083577069-wha-check019-small.jpg?1580193382","quantity":1,"max_selling_price":459,"original_amo":399,"variant_price":251,"final_discount":25,"formatted_variant_price":"Tk. 251","price_line":"Tk. 300 x 1 = Tk. 300","product_name":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","sale_price":"300.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 300","size":"S","line_item_adjustments":[],"master_product_id":65947,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":294,"category":"Men shirt","permalink":"fashionable-full-sleeve-check-shirt-wha-check-19-wha-7acb9322","cod_message":"Delivery in 4-6 working days."}]}
-             * SGM : {"adjustments":[],"subtotal":825,"item_total":825,"items":[{"formatted_price":"Tk. 825","seller":"SGM","min_order_qty":1,"line_item_id":297818,"discount":8,"prepaid_availability":true,"seller_slug":"sgm","delivery_time":"Delivery in 4-6 working days.","title":"Indian Chundri Silk Saree - 102 - SGM","liked":false,"category_id":48,"variant_options":[{"count_on_hand":5,"option_value_name":"option","size":25,"corrected_count_on_hand":3,"name":"option","id":55190}],"max_item_quantity":50,"price":"825.0","product_id":46543,"sold_out":false,"variant":55190,"formatted_income":"Tk. 75","mrp_price_line":"Tk. 900 x 1 = Tk. 900","cod_availability":true,"formatted_per_item_total":"Tk. 825","per_item_total":825,"sku":"286699","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P46543"}},"image":"https://shopimages.vstores.io/34564/1573991787793-102-small.jpg?1580160568","quantity":1,"max_selling_price":1147,"original_amo":900,"variant_price":750,"final_discount":8,"formatted_variant_price":"Tk. 750","price_line":"Tk. 825 x 1 = Tk. 825","product_name":"Indian Chundri Silk Saree - 102 - SGM","sale_price":"825.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 825","size":"option","line_item_adjustments":[],"master_product_id":46543,"messages":[],"min_selling_price":825,"category":"Saree","permalink":"indian-chundri-silk-saree-102-sgm-18d1bc4e","cod_message":"Delivery in 4-6 working days."}]}
-             * RKT : {"adjustments":[],"subtotal":2408,"item_total":2408,"items":[{"formatted_price":"Tk. 2,408","seller":"RKT","min_order_qty":1,"line_item_id":297819,"discount":11,"prepaid_availability":true,"seller_slug":"rkt","delivery_time":"Delivery in 4-6 working days.","title":"Indian Julahaa Katan Saree - 12 - RKT","liked":false,"category_id":48,"variant_options":[{"count_on_hand":1,"option_value_name":"option","size":25,"corrected_count_on_hand":1,"name":"option","id":29584}],"max_item_quantity":50,"price":"2408.0","product_id":24709,"sold_out":false,"variant":29584,"formatted_income":"Tk. 158","mrp_price_line":"Tk. 2,720 x 1 = Tk. 2,720","cod_availability":true,"formatted_per_item_total":"Tk. 2,408","per_item_total":2408,"sku":"308465","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24709"}},"image":"https://shopimages.vstores.io/90742/1577091355687-whatsappimage2019-12-15at00.00.271-small.jpeg?1580126997","quantity":1,"max_selling_price":2992,"original_amo":2720,"variant_price":2250,"final_discount":11,"formatted_variant_price":"Tk. 2,250","price_line":"Tk. 2,408 x 1 = Tk. 2,408","product_name":"Indian Julahaa Katan Saree - 12 - RKT","sale_price":"2408.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 2,408","size":"option","line_item_adjustments":[],"master_product_id":24709,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":2408,"category":"Saree","permalink":"indian-julahaa-katan-saree-12-rkt-a2eeac01","cod_message":"Delivery in 4-6 working days."}]}
-             * UPF : {"adjustments":[],"subtotal":763,"item_total":763,"items":[{"formatted_price":"Tk. 423","seller":"UPF","min_order_qty":1,"line_item_id":297861,"discount":0,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Casual Shirt For Men Olive - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":19,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":93380},{"count_on_hand":14,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":93381},{"count_on_hand":29,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":93382}],"max_item_quantity":50,"price":"423.0","product_id":71943,"sold_out":false,"variant":93380,"formatted_income":"Tk. 68","mrp_price_line":"Tk. 384 x 1 = Tk. 384","cod_availability":true,"formatted_per_item_total":"Tk. 423","per_item_total":423,"sku":"264086","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P71943"}},"image":"https://shopimages.vstores.io/75917/1569929603861-32-small.jpg?1580465725","quantity":1,"max_selling_price":667,"original_amo":384,"variant_price":355,"final_discount":0,"formatted_variant_price":"Tk. 355","price_line":"Tk. 423 x 1 = Tk. 423","product_name":"Casual Shirt For Men Olive - UPF","sale_price":"423.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 423","size":"M","line_item_adjustments":[],"master_product_id":71943,"messages":[],"min_selling_price":423,"category":"Men shirt","permalink":"casual-shirt-for-men-olive-upf-9fad7110","cod_message":"Delivery in 4-6 working days."},{"formatted_price":"Tk. 340","seller":"UPF","min_order_qty":1,"line_item_id":297860,"discount":1,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Navy Blue Sleeve Casual Shirt for Men - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":27,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":82512},{"count_on_hand":22,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":82513},{"count_on_hand":30,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":82514}],"max_item_quantity":50,"price":"340.0","product_id":65251,"sold_out":false,"variant":82512,"formatted_income":"Tk. 50","mrp_price_line":"Tk. 345 x 1 = Tk. 345","cod_availability":true,"formatted_per_item_total":"Tk. 340","per_item_total":340,"sku":"264038","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65251"}},"image":"https://shopimages.vstores.io/15256/1569927970391-19-small.jpg?1580192775","quantity":1,"max_selling_price":530,"original_amo":345,"variant_price":290,"final_discount":1,"formatted_variant_price":"Tk. 290","price_line":"Tk. 340 x 1 = Tk. 340","product_name":"Navy Blue Sleeve Casual Shirt for Men - UPF","sale_price":"340.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 340","size":"M","line_item_adjustments":[],"master_product_id":65251,"messages":[],"min_selling_price":340,"category":"Men shirt","permalink":"navy-blue-sleeve-casual-shirt-for-men-upf-290decb7","cod_message":"Delivery in 4-6 working days."}]}
-             * 7MEC : {"adjustments":[],"subtotal":2361,"item_total":2361,"items":[{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297865,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94134,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339473","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"M","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297862,"discount":2,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC012 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":1,"option_value_name":"M-option","size":25,"corrected_count_on_hand":1,"name":"M-option","id":102854},{"count_on_hand":2,"option_value_name":"L-option","size":25,"corrected_count_on_hand":2,"name":"L-option","id":102879},{"count_on_hand":1,"option_value_name":"XL-option","size":25,"corrected_count_on_hand":1,"name":"XL-option","id":102885},{"count_on_hand":2,"option_value_name":"XXL-option","size":25,"corrected_count_on_hand":2,"name":"XXL-option","id":102890},{"count_on_hand":2,"option_value_name":"XXXL-option","size":25,"corrected_count_on_hand":2,"name":"XXXL-option","id":102895}],"max_item_quantity":50,"price":"787.0","product_id":79793,"sold_out":false,"variant":102879,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 800 x 1 = Tk. 800","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"343984","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P79793"}},"image":"https://shopimages.vstores.io/81897/1580542180270-polo-t-shirt-for-men---mec012---7mec-small.jpeg?1580897425","quantity":1,"max_selling_price":1093,"original_amo":800,"variant_price":715,"final_discount":2,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC012 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"L-option","line_item_adjustments":[],"master_product_id":79793,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec012-7mec-25c68795","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297816,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94136,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339475","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"XL","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."}]}
-             * TMW : {"adjustments":[],"subtotal":1000,"item_total":1000,"items":[{"formatted_price":"Tk. 500","seller":"TMW","min_order_qty":1,"line_item_id":297727,"discount":0,"prepaid_availability":true,"seller_slug":"tmw","delivery_time":"Delivery in 4-6 working days.","title":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":6,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":29245},{"count_on_hand":8,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":29247},{"count_on_hand":7,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":29248}],"max_item_quantity":50,"price":"500.0","product_id":24424,"sold_out":false,"variant":29245,"formatted_income":"Tk. 210","mrp_price_line":"Tk. 395 x 2 = Tk. 790","cod_availability":true,"formatted_per_item_total":"Tk. 1,000","per_item_total":1000,"sku":"305933","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24424"}},"image":"https://shopimages.vstores.io/42442/1576574650899-whatsappimage2019-12-14at5.26.18pm1-small.jpeg?1580126772","quantity":2,"max_selling_price":742,"original_amo":395,"variant_price":395,"final_discount":0,"formatted_variant_price":"Tk. 395","price_line":"Tk. 500 x 2 = Tk. 1,000","product_name":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","sale_price":"1000.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,000","size":"M","line_item_adjustments":[],"master_product_id":24424,"messages":[],"min_selling_price":471,"category":"Men shirt","permalink":"full-sleeve-casual-shirt-for-men-02-ash-tmw-fa8be538","cod_message":"Delivery in 4-6 working days."}]}
-             */
-
-            private DVSBean DVS;
-            private WHABean WHA;
-            private SGMBean SGM;
-            private RKTBean RKT;
-            private UPFBean UPF;
-            @SerializedName("7MEC")
-            private _$7MECBean _$7MEC;
-            private TMWBean TMW;
-
-            public DVSBean getDVS() {
-                return DVS;
-            }
-
-            public void setDVS(DVSBean DVS) {
-                this.DVS = DVS;
-            }
-
-            public WHABean getWHA() {
-                return WHA;
-            }
-
-            public void setWHA(WHABean WHA) {
-                this.WHA = WHA;
-            }
-
-            public SGMBean getSGM() {
-                return SGM;
-            }
-
-            public void setSGM(SGMBean SGM) {
-                this.SGM = SGM;
-            }
-
-            public RKTBean getRKT() {
-                return RKT;
-            }
-
-            public void setRKT(RKTBean RKT) {
-                this.RKT = RKT;
-            }
-
-            public UPFBean getUPF() {
-                return UPF;
-            }
-
-            public void setUPF(UPFBean UPF) {
-                this.UPF = UPF;
-            }
-
-            public _$7MECBean get_$7MEC() {
-                return _$7MEC;
-            }
-
-            public void set_$7MEC(_$7MECBean _$7MEC) {
-                this._$7MEC = _$7MEC;
-            }
-
-            public TMWBean getTMW() {
-                return TMW;
-            }
-
-            public void setTMW(TMWBean TMW) {
-                this.TMW = TMW;
-            }
-
-            public static class DVSBean {
-                /**
-                 * adjustments : []
-                 * subtotal : 1053
-                 * item_total : 1053
-                 * items : [{"formatted_price":"Tk. 351","seller":"DVS","min_order_qty":1,"line_item_id":297817,"discount":0,"prepaid_availability":true,"seller_slug":"dvs","delivery_time":"Delivery in 4-6 working days.","title":"Men's Premium Full Sleeve - DS2012 - DVS","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":7,"option_value_name":"15 or M","size":25,"corrected_count_on_hand":3,"name":"15 or M","id":88533},{"count_on_hand":7,"option_value_name":"15.5 or L","size":25,"corrected_count_on_hand":3,"name":"15.5 or L","id":88534},{"count_on_hand":13,"option_value_name":"16 or XL","size":25,"corrected_count_on_hand":3,"name":"16 or XL","id":88536}],"max_item_quantity":50,"price":"351.0","product_id":68576,"sold_out":false,"variant":88533,"formatted_income":"Tk. 153","mrp_price_line":"Tk. 360 x 3 = Tk. 1,080","cod_availability":true,"formatted_per_item_total":"Tk. 1,053","per_item_total":1053,"sku":"268387","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P68576"}},"image":"https://shopimages.vstores.io/67586/1573394963295-19-small.jpg?1580195558","quantity":3,"max_selling_price":549,"original_amo":360,"variant_price":300,"final_discount":0,"formatted_variant_price":"Tk. 300","price_line":"Tk. 351 x 3 = Tk. 1,053","product_name":"Men\\'s Premium Full Sleeve - DS2012 - DVS","sale_price":"1053.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,053","size":"15 or M","line_item_adjustments":[],"master_product_id":68576,"messages":[],"min_selling_price":351,"category":"Men shirt","permalink":"men-s-premium-full-sleeve-ds2012-dvs-4e2825ff","cod_message":"Delivery in 4-6 working days."}]
-                 */
-
-                private int subtotal;
-                private int item_total;
-                private List<?> adjustments;
-                private List<ItemsBean> items;
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBean> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBean> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBean {
-                    /**
-                     * formatted_price : Tk. 351
-                     * seller : DVS
-                     * min_order_qty : 1
-                     * line_item_id : 297817
-                     * discount : 0
-                     * prepaid_availability : true
-                     * seller_slug : dvs
-                     * delivery_time : Delivery in 4-6 working days.
-                     * title : Men's Premium Full Sleeve - DS2012 - DVS
-                     * liked : false
-                     * category_id : 1118
-                     * variant_options : [{"count_on_hand":7,"option_value_name":"15 or M","size":25,"corrected_count_on_hand":3,"name":"15 or M","id":88533},{"count_on_hand":7,"option_value_name":"15.5 or L","size":25,"corrected_count_on_hand":3,"name":"15.5 or L","id":88534},{"count_on_hand":13,"option_value_name":"16 or XL","size":25,"corrected_count_on_hand":3,"name":"16 or XL","id":88536}]
-                     * max_item_quantity : 50
-                     * price : 351.0
-                     * product_id : 68576
-                     * sold_out : false
-                     * variant : 88533
-                     * formatted_income : Tk. 153
-                     * mrp_price_line : Tk. 360 x 3 = Tk. 1,080
-                     * cod_availability : true
-                     * formatted_per_item_total : Tk. 1,053
-                     * per_item_total : 1053
-                     * sku : 268387
-                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
-                     * prepaid_message : Delivery in 4-6 working days.
-                     * activity_object : {"activity_object":{"id":"P68576"}}
-                     * image : https://shopimages.vstores.io/67586/1573394963295-19-small.jpg?1580195558
-                     * quantity : 3
-                     * max_selling_price : 549
-                     * original_amo : 360
-                     * variant_price : 300
-                     * final_discount : 0
-                     * formatted_variant_price : Tk. 300
-                     * price_line : Tk. 351 x 3 = Tk. 1,053
-                     * product_name : Men\'s Premium Full Sleeve - DS2012 - DVS
-                     * sale_price : 1053.0
-                     * product_stamp : null
-                     * zipcode : 7
-                     * formatted_seller_price : Tk. 0
-                     * formatted_sale_price : Tk. 1,053
-                     * size : 15 or M
-                     * line_item_adjustments : []
-                     * master_product_id : 68576
-                     * messages : []
-                     * min_selling_price : 351
-                     * category : Men shirt
-                     * permalink : men-s-premium-full-sleeve-ds2012-dvs-4e2825ff
-                     * cod_message : Delivery in 4-6 working days.
-                     */
-
-                    private String formatted_price;
-                    private String seller;
-                    private int min_order_qty;
-                    private int line_item_id;
-                    private int discount;
-                    private boolean prepaid_availability;
-                    private String seller_slug;
-                    private String delivery_time;
-                    private String title;
-                    private boolean liked;
-                    private int category_id;
-                    private int max_item_quantity;
-                    private String price;
-                    private int product_id;
-                    private boolean sold_out;
-                    private int variant;
-                    private String formatted_income;
-                    private String mrp_price_line;
-                    private boolean cod_availability;
-                    private String formatted_per_item_total;
-                    private int per_item_total;
-                    private String sku;
-                    private DeliveryTimeMessageBean delivery_time_message;
-                    private String prepaid_message;
-                    private ActivityObjectBeanX activity_object;
-                    private String image;
-                    private int quantity;
-                    private int max_selling_price;
-                    private int original_amo;
-                    private int variant_price;
-                    private int final_discount;
-                    private String formatted_variant_price;
-                    private String price_line;
-                    private String product_name;
-                    private String sale_price;
-                    private Object product_stamp;
-                    private String zipcode;
-                    private String formatted_seller_price;
-                    private String formatted_sale_price;
-                    private String size;
-                    private int master_product_id;
-                    private int min_selling_price;
-                    private String category;
-                    private String permalink;
-                    private String cod_message;
-                    private List<VariantOptionsBean> variant_options;
-                    private List<?> line_item_adjustments;
-                    private List<?> messages;
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(int discount) {
-                        this.discount = discount;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public String getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(String price) {
-                        this.price = price;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public DeliveryTimeMessageBean getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBean delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public ActivityObjectBeanX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public String getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(String sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public Object getProduct_stamp() {
-                        return product_stamp;
-                    }
-
-                    public void setProduct_stamp(Object product_stamp) {
-                        this.product_stamp = product_stamp;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public List<VariantOptionsBean> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBean> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<?> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<?> messages) {
-                        this.messages = messages;
-                    }
-
-                    public static class DeliveryTimeMessageBean {
-                        /**
-                         * message : Delivery in 4-6 working days.
-                         * type : 2
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class ActivityObjectBeanX {
-                        /**
-                         * activity_object : {"id":"P68576"}
-                         */
-
-                        private ActivityObjectBean activity_object;
-
-                        public ActivityObjectBean getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBean activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBean {
-                            /**
-                             * id : P68576
-                             */
-
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class VariantOptionsBean {
-                        /**
-                         * count_on_hand : 7
-                         * option_value_name : 15 or M
-                         * size : 25
-                         * corrected_count_on_hand : 3
-                         * name : 15 or M
-                         * id : 88533
-                         */
-
-                        private int count_on_hand;
-                        private String option_value_name;
-                        private int size;
-                        private int corrected_count_on_hand;
-                        private String name;
-                        private int id;
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-                    }
-                }
-            }
-
-            public static class WHABean {
-                /**
-                 * adjustments : []
-                 * subtotal : 300
-                 * item_total : 300
-                 * items : [{"formatted_price":"Tk. 300","seller":"WHA","min_order_qty":1,"line_item_id":297807,"discount":25,"prepaid_availability":true,"seller_slug":"wha","delivery_time":"Delivery in 4-6 working days.","title":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":1,"option_value_name":"S","size":25,"corrected_count_on_hand":1,"name":"S","id":83723}],"max_item_quantity":50,"price":"300.0","product_id":65947,"sold_out":false,"variant":83723,"formatted_income":"Tk. 49","mrp_price_line":"Tk. 399 x 1 = Tk. 399","cod_availability":true,"formatted_per_item_total":"Tk. 300","per_item_total":300,"sku":"264914","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65947"}},"image":"https://shopimages.vstores.io/74956/1570083577069-wha-check019-small.jpg?1580193382","quantity":1,"max_selling_price":459,"original_amo":399,"variant_price":251,"final_discount":25,"formatted_variant_price":"Tk. 251","price_line":"Tk. 300 x 1 = Tk. 300","product_name":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","sale_price":"300.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 300","size":"S","line_item_adjustments":[],"master_product_id":65947,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":294,"category":"Men shirt","permalink":"fashionable-full-sleeve-check-shirt-wha-check-19-wha-7acb9322","cod_message":"Delivery in 4-6 working days."}]
-                 */
-
-                private int subtotal;
-                private int item_total;
-                private List<?> adjustments;
-                private List<ItemsBeanX> items;
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBeanX> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBeanX> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBeanX {
-                    /**
-                     * formatted_price : Tk. 300
-                     * seller : WHA
-                     * min_order_qty : 1
-                     * line_item_id : 297807
-                     * discount : 25
-                     * prepaid_availability : true
-                     * seller_slug : wha
-                     * delivery_time : Delivery in 4-6 working days.
-                     * title : Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA
-                     * liked : false
-                     * category_id : 1118
-                     * variant_options : [{"count_on_hand":1,"option_value_name":"S","size":25,"corrected_count_on_hand":1,"name":"S","id":83723}]
-                     * max_item_quantity : 50
-                     * price : 300.0
-                     * product_id : 65947
-                     * sold_out : false
-                     * variant : 83723
-                     * formatted_income : Tk. 49
-                     * mrp_price_line : Tk. 399 x 1 = Tk. 399
-                     * cod_availability : true
-                     * formatted_per_item_total : Tk. 300
-                     * per_item_total : 300
-                     * sku : 264914
-                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
-                     * prepaid_message : Delivery in 4-6 working days.
-                     * activity_object : {"activity_object":{"id":"P65947"}}
-                     * image : https://shopimages.vstores.io/74956/1570083577069-wha-check019-small.jpg?1580193382
-                     * quantity : 1
-                     * max_selling_price : 459
-                     * original_amo : 399
-                     * variant_price : 251
-                     * final_discount : 25
-                     * formatted_variant_price : Tk. 251
-                     * price_line : Tk. 300 x 1 = Tk. 300
-                     * product_name : Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA
-                     * sale_price : 300.0
-                     * product_stamp : null
-                     * zipcode : 7
-                     * formatted_seller_price : Tk. 0
-                     * formatted_sale_price : Tk. 300
-                     * size : S
-                     * line_item_adjustments : []
-                     * master_product_id : 65947
-                     * messages : [{"message":"Last chance only 1 left!","type":1}]
-                     * min_selling_price : 294
-                     * category : Men shirt
-                     * permalink : fashionable-full-sleeve-check-shirt-wha-check-19-wha-7acb9322
-                     * cod_message : Delivery in 4-6 working days.
-                     */
-
-                    private String formatted_price;
-                    private String seller;
-                    private int min_order_qty;
-                    private int line_item_id;
-                    private int discount;
-                    private boolean prepaid_availability;
-                    private String seller_slug;
-                    private String delivery_time;
-                    private String title;
-                    private boolean liked;
-                    private int category_id;
-                    private int max_item_quantity;
-                    private String price;
-                    private int product_id;
-                    private boolean sold_out;
-                    private int variant;
-                    private String formatted_income;
-                    private String mrp_price_line;
-                    private boolean cod_availability;
-                    private String formatted_per_item_total;
-                    private int per_item_total;
-                    private String sku;
-                    private DeliveryTimeMessageBeanX delivery_time_message;
-                    private String prepaid_message;
-                    private ActivityObjectBeanXXX activity_object;
-                    private String image;
-                    private int quantity;
-                    private int max_selling_price;
-                    private int original_amo;
-                    private int variant_price;
-                    private int final_discount;
-                    private String formatted_variant_price;
-                    private String price_line;
-                    private String product_name;
-                    private String sale_price;
-                    private Object product_stamp;
-                    private String zipcode;
-                    private String formatted_seller_price;
-                    private String formatted_sale_price;
-                    private String size;
-                    private int master_product_id;
-                    private int min_selling_price;
-                    private String category;
-                    private String permalink;
-                    private String cod_message;
-                    private List<VariantOptionsBeanX> variant_options;
-                    private List<?> line_item_adjustments;
-                    private List<MessagesBean> messages;
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(int discount) {
-                        this.discount = discount;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public String getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(String price) {
-                        this.price = price;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public DeliveryTimeMessageBeanX getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBeanX delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public ActivityObjectBeanXXX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanXXX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public String getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(String sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public Object getProduct_stamp() {
-                        return product_stamp;
-                    }
-
-                    public void setProduct_stamp(Object product_stamp) {
-                        this.product_stamp = product_stamp;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public List<VariantOptionsBeanX> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBeanX> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<MessagesBean> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<MessagesBean> messages) {
-                        this.messages = messages;
-                    }
-
-                    public static class DeliveryTimeMessageBeanX {
-                        /**
-                         * message : Delivery in 4-6 working days.
-                         * type : 2
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class ActivityObjectBeanXXX {
-                        /**
-                         * activity_object : {"id":"P65947"}
-                         */
-
-                        private ActivityObjectBeanXX activity_object;
-
-                        public ActivityObjectBeanXX getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBeanXX activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBeanXX {
-                            /**
-                             * id : P65947
-                             */
-
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class VariantOptionsBeanX {
-                        /**
-                         * count_on_hand : 1
-                         * option_value_name : S
-                         * size : 25
-                         * corrected_count_on_hand : 1
-                         * name : S
-                         * id : 83723
-                         */
-
-                        private int count_on_hand;
-                        private String option_value_name;
-                        private int size;
-                        private int corrected_count_on_hand;
-                        private String name;
-                        private int id;
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-                    }
-
-                    public static class MessagesBean {
-                        /**
-                         * message : Last chance only 1 left!
-                         * type : 1
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-                }
-            }
-
-            public static class SGMBean {
-                /**
-                 * adjustments : []
-                 * subtotal : 825
-                 * item_total : 825
-                 * items : [{"formatted_price":"Tk. 825","seller":"SGM","min_order_qty":1,"line_item_id":297818,"discount":8,"prepaid_availability":true,"seller_slug":"sgm","delivery_time":"Delivery in 4-6 working days.","title":"Indian Chundri Silk Saree - 102 - SGM","liked":false,"category_id":48,"variant_options":[{"count_on_hand":5,"option_value_name":"option","size":25,"corrected_count_on_hand":3,"name":"option","id":55190}],"max_item_quantity":50,"price":"825.0","product_id":46543,"sold_out":false,"variant":55190,"formatted_income":"Tk. 75","mrp_price_line":"Tk. 900 x 1 = Tk. 900","cod_availability":true,"formatted_per_item_total":"Tk. 825","per_item_total":825,"sku":"286699","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P46543"}},"image":"https://shopimages.vstores.io/34564/1573991787793-102-small.jpg?1580160568","quantity":1,"max_selling_price":1147,"original_amo":900,"variant_price":750,"final_discount":8,"formatted_variant_price":"Tk. 750","price_line":"Tk. 825 x 1 = Tk. 825","product_name":"Indian Chundri Silk Saree - 102 - SGM","sale_price":"825.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 825","size":"option","line_item_adjustments":[],"master_product_id":46543,"messages":[],"min_selling_price":825,"category":"Saree","permalink":"indian-chundri-silk-saree-102-sgm-18d1bc4e","cod_message":"Delivery in 4-6 working days."}]
-                 */
-
-                private int subtotal;
-                private int item_total;
-                private List<?> adjustments;
-                private List<ItemsBeanXX> items;
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBeanXX> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBeanXX> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBeanXX {
-                    /**
-                     * formatted_price : Tk. 825
-                     * seller : SGM
-                     * min_order_qty : 1
-                     * line_item_id : 297818
-                     * discount : 8
-                     * prepaid_availability : true
-                     * seller_slug : sgm
-                     * delivery_time : Delivery in 4-6 working days.
-                     * title : Indian Chundri Silk Saree - 102 - SGM
-                     * liked : false
-                     * category_id : 48
-                     * variant_options : [{"count_on_hand":5,"option_value_name":"option","size":25,"corrected_count_on_hand":3,"name":"option","id":55190}]
-                     * max_item_quantity : 50
-                     * price : 825.0
-                     * product_id : 46543
-                     * sold_out : false
-                     * variant : 55190
-                     * formatted_income : Tk. 75
-                     * mrp_price_line : Tk. 900 x 1 = Tk. 900
-                     * cod_availability : true
-                     * formatted_per_item_total : Tk. 825
-                     * per_item_total : 825
-                     * sku : 286699
-                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
-                     * prepaid_message : Delivery in 4-6 working days.
-                     * activity_object : {"activity_object":{"id":"P46543"}}
-                     * image : https://shopimages.vstores.io/34564/1573991787793-102-small.jpg?1580160568
-                     * quantity : 1
-                     * max_selling_price : 1147
-                     * original_amo : 900
-                     * variant_price : 750
-                     * final_discount : 8
-                     * formatted_variant_price : Tk. 750
-                     * price_line : Tk. 825 x 1 = Tk. 825
-                     * product_name : Indian Chundri Silk Saree - 102 - SGM
-                     * sale_price : 825.0
-                     * product_stamp : null
-                     * zipcode : 7
-                     * formatted_seller_price : Tk. 0
-                     * formatted_sale_price : Tk. 825
-                     * size : option
-                     * line_item_adjustments : []
-                     * master_product_id : 46543
-                     * messages : []
-                     * min_selling_price : 825
-                     * category : Saree
-                     * permalink : indian-chundri-silk-saree-102-sgm-18d1bc4e
-                     * cod_message : Delivery in 4-6 working days.
-                     */
-
-                    private String formatted_price;
-                    private String seller;
-                    private int min_order_qty;
-                    private int line_item_id;
-                    private int discount;
-                    private boolean prepaid_availability;
-                    private String seller_slug;
-                    private String delivery_time;
-                    private String title;
-                    private boolean liked;
-                    private int category_id;
-                    private int max_item_quantity;
-                    private String price;
-                    private int product_id;
-                    private boolean sold_out;
-                    private int variant;
-                    private String formatted_income;
-                    private String mrp_price_line;
-                    private boolean cod_availability;
-                    private String formatted_per_item_total;
-                    private int per_item_total;
-                    private String sku;
-                    private DeliveryTimeMessageBeanXX delivery_time_message;
-                    private String prepaid_message;
-                    private ActivityObjectBeanXXXXX activity_object;
-                    private String image;
-                    private int quantity;
-                    private int max_selling_price;
-                    private int original_amo;
-                    private int variant_price;
-                    private int final_discount;
-                    private String formatted_variant_price;
-                    private String price_line;
-                    private String product_name;
-                    private String sale_price;
-                    private Object product_stamp;
-                    private String zipcode;
-                    private String formatted_seller_price;
-                    private String formatted_sale_price;
-                    private String size;
-                    private int master_product_id;
-                    private int min_selling_price;
-                    private String category;
-                    private String permalink;
-                    private String cod_message;
-                    private List<VariantOptionsBeanXX> variant_options;
-                    private List<?> line_item_adjustments;
-                    private List<?> messages;
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(int discount) {
-                        this.discount = discount;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public String getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(String price) {
-                        this.price = price;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public DeliveryTimeMessageBeanXX getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBeanXX delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public ActivityObjectBeanXXXXX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanXXXXX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public String getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(String sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public Object getProduct_stamp() {
-                        return product_stamp;
-                    }
-
-                    public void setProduct_stamp(Object product_stamp) {
-                        this.product_stamp = product_stamp;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public List<VariantOptionsBeanXX> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBeanXX> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<?> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<?> messages) {
-                        this.messages = messages;
-                    }
-
-                    public static class DeliveryTimeMessageBeanXX {
-                        /**
-                         * message : Delivery in 4-6 working days.
-                         * type : 2
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class ActivityObjectBeanXXXXX {
-                        /**
-                         * activity_object : {"id":"P46543"}
-                         */
-
-                        private ActivityObjectBeanXXXX activity_object;
-
-                        public ActivityObjectBeanXXXX getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBeanXXXX activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBeanXXXX {
-                            /**
-                             * id : P46543
-                             */
-
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class VariantOptionsBeanXX {
-                        /**
-                         * count_on_hand : 5
-                         * option_value_name : option
-                         * size : 25
-                         * corrected_count_on_hand : 3
-                         * name : option
-                         * id : 55190
-                         */
-
-                        private int count_on_hand;
-                        private String option_value_name;
-                        private int size;
-                        private int corrected_count_on_hand;
-                        private String name;
-                        private int id;
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-                    }
-                }
-            }
-
-            public static class RKTBean {
-                /**
-                 * adjustments : []
-                 * subtotal : 2408
-                 * item_total : 2408
-                 * items : [{"formatted_price":"Tk. 2,408","seller":"RKT","min_order_qty":1,"line_item_id":297819,"discount":11,"prepaid_availability":true,"seller_slug":"rkt","delivery_time":"Delivery in 4-6 working days.","title":"Indian Julahaa Katan Saree - 12 - RKT","liked":false,"category_id":48,"variant_options":[{"count_on_hand":1,"option_value_name":"option","size":25,"corrected_count_on_hand":1,"name":"option","id":29584}],"max_item_quantity":50,"price":"2408.0","product_id":24709,"sold_out":false,"variant":29584,"formatted_income":"Tk. 158","mrp_price_line":"Tk. 2,720 x 1 = Tk. 2,720","cod_availability":true,"formatted_per_item_total":"Tk. 2,408","per_item_total":2408,"sku":"308465","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24709"}},"image":"https://shopimages.vstores.io/90742/1577091355687-whatsappimage2019-12-15at00.00.271-small.jpeg?1580126997","quantity":1,"max_selling_price":2992,"original_amo":2720,"variant_price":2250,"final_discount":11,"formatted_variant_price":"Tk. 2,250","price_line":"Tk. 2,408 x 1 = Tk. 2,408","product_name":"Indian Julahaa Katan Saree - 12 - RKT","sale_price":"2408.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 2,408","size":"option","line_item_adjustments":[],"master_product_id":24709,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":2408,"category":"Saree","permalink":"indian-julahaa-katan-saree-12-rkt-a2eeac01","cod_message":"Delivery in 4-6 working days."}]
-                 */
-
-                private int subtotal;
-                private int item_total;
-                private List<?> adjustments;
-                private List<ItemsBeanXXX> items;
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBeanXXX> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBeanXXX> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBeanXXX {
-                    /**
-                     * formatted_price : Tk. 2,408
-                     * seller : RKT
-                     * min_order_qty : 1
-                     * line_item_id : 297819
-                     * discount : 11
-                     * prepaid_availability : true
-                     * seller_slug : rkt
-                     * delivery_time : Delivery in 4-6 working days.
-                     * title : Indian Julahaa Katan Saree - 12 - RKT
-                     * liked : false
-                     * category_id : 48
-                     * variant_options : [{"count_on_hand":1,"option_value_name":"option","size":25,"corrected_count_on_hand":1,"name":"option","id":29584}]
-                     * max_item_quantity : 50
-                     * price : 2408.0
-                     * product_id : 24709
-                     * sold_out : false
-                     * variant : 29584
-                     * formatted_income : Tk. 158
-                     * mrp_price_line : Tk. 2,720 x 1 = Tk. 2,720
-                     * cod_availability : true
-                     * formatted_per_item_total : Tk. 2,408
-                     * per_item_total : 2408
-                     * sku : 308465
-                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
-                     * prepaid_message : Delivery in 4-6 working days.
-                     * activity_object : {"activity_object":{"id":"P24709"}}
-                     * image : https://shopimages.vstores.io/90742/1577091355687-whatsappimage2019-12-15at00.00.271-small.jpeg?1580126997
-                     * quantity : 1
-                     * max_selling_price : 2992
-                     * original_amo : 2720
-                     * variant_price : 2250
-                     * final_discount : 11
-                     * formatted_variant_price : Tk. 2,250
-                     * price_line : Tk. 2,408 x 1 = Tk. 2,408
-                     * product_name : Indian Julahaa Katan Saree - 12 - RKT
-                     * sale_price : 2408.0
-                     * product_stamp : null
-                     * zipcode : 7
-                     * formatted_seller_price : Tk. 0
-                     * formatted_sale_price : Tk. 2,408
-                     * size : option
-                     * line_item_adjustments : []
-                     * master_product_id : 24709
-                     * messages : [{"message":"Last chance only 1 left!","type":1}]
-                     * min_selling_price : 2408
-                     * category : Saree
-                     * permalink : indian-julahaa-katan-saree-12-rkt-a2eeac01
-                     * cod_message : Delivery in 4-6 working days.
-                     */
-
-                    private String formatted_price;
-                    private String seller;
-                    private int min_order_qty;
-                    private int line_item_id;
-                    private int discount;
-                    private boolean prepaid_availability;
-                    private String seller_slug;
-                    private String delivery_time;
-                    private String title;
-                    private boolean liked;
-                    private int category_id;
-                    private int max_item_quantity;
-                    private String price;
-                    private int product_id;
-                    private boolean sold_out;
-                    private int variant;
-                    private String formatted_income;
-                    private String mrp_price_line;
-                    private boolean cod_availability;
-                    private String formatted_per_item_total;
-                    private int per_item_total;
-                    private String sku;
-                    private DeliveryTimeMessageBeanXXX delivery_time_message;
-                    private String prepaid_message;
-                    private ActivityObjectBeanXXXXXXX activity_object;
-                    private String image;
-                    private int quantity;
-                    private int max_selling_price;
-                    private int original_amo;
-                    private int variant_price;
-                    private int final_discount;
-                    private String formatted_variant_price;
-                    private String price_line;
-                    private String product_name;
-                    private String sale_price;
-                    private Object product_stamp;
-                    private String zipcode;
-                    private String formatted_seller_price;
-                    private String formatted_sale_price;
-                    private String size;
-                    private int master_product_id;
-                    private int min_selling_price;
-                    private String category;
-                    private String permalink;
-                    private String cod_message;
-                    private List<VariantOptionsBeanXXX> variant_options;
-                    private List<?> line_item_adjustments;
-                    private List<MessagesBeanX> messages;
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(int discount) {
-                        this.discount = discount;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public String getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(String price) {
-                        this.price = price;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public DeliveryTimeMessageBeanXXX getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXX delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public ActivityObjectBeanXXXXXXX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanXXXXXXX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public String getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(String sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public Object getProduct_stamp() {
-                        return product_stamp;
-                    }
-
-                    public void setProduct_stamp(Object product_stamp) {
-                        this.product_stamp = product_stamp;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public List<VariantOptionsBeanXXX> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBeanXXX> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<MessagesBeanX> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<MessagesBeanX> messages) {
-                        this.messages = messages;
-                    }
-
-                    public static class DeliveryTimeMessageBeanXXX {
-                        /**
-                         * message : Delivery in 4-6 working days.
-                         * type : 2
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class ActivityObjectBeanXXXXXXX {
-                        /**
-                         * activity_object : {"id":"P24709"}
-                         */
-
-                        private ActivityObjectBeanXXXXXX activity_object;
-
-                        public ActivityObjectBeanXXXXXX getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBeanXXXXXX activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBeanXXXXXX {
-                            /**
-                             * id : P24709
-                             */
-
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class VariantOptionsBeanXXX {
-                        /**
-                         * count_on_hand : 1
-                         * option_value_name : option
-                         * size : 25
-                         * corrected_count_on_hand : 1
-                         * name : option
-                         * id : 29584
-                         */
-
-                        private int count_on_hand;
-                        private String option_value_name;
-                        private int size;
-                        private int corrected_count_on_hand;
-                        private String name;
-                        private int id;
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-                    }
-
-                    public static class MessagesBeanX {
-                        /**
-                         * message : Last chance only 1 left!
-                         * type : 1
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-                }
-            }
-
-            public static class UPFBean {
-                /**
-                 * adjustments : []
-                 * subtotal : 763
-                 * item_total : 763
-                 * items : [{"formatted_price":"Tk. 423","seller":"UPF","min_order_qty":1,"line_item_id":297861,"discount":0,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Casual Shirt For Men Olive - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":19,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":93380},{"count_on_hand":14,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":93381},{"count_on_hand":29,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":93382}],"max_item_quantity":50,"price":"423.0","product_id":71943,"sold_out":false,"variant":93380,"formatted_income":"Tk. 68","mrp_price_line":"Tk. 384 x 1 = Tk. 384","cod_availability":true,"formatted_per_item_total":"Tk. 423","per_item_total":423,"sku":"264086","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P71943"}},"image":"https://shopimages.vstores.io/75917/1569929603861-32-small.jpg?1580465725","quantity":1,"max_selling_price":667,"original_amo":384,"variant_price":355,"final_discount":0,"formatted_variant_price":"Tk. 355","price_line":"Tk. 423 x 1 = Tk. 423","product_name":"Casual Shirt For Men Olive - UPF","sale_price":"423.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 423","size":"M","line_item_adjustments":[],"master_product_id":71943,"messages":[],"min_selling_price":423,"category":"Men shirt","permalink":"casual-shirt-for-men-olive-upf-9fad7110","cod_message":"Delivery in 4-6 working days."},{"formatted_price":"Tk. 340","seller":"UPF","min_order_qty":1,"line_item_id":297860,"discount":1,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Navy Blue Sleeve Casual Shirt for Men - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":27,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":82512},{"count_on_hand":22,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":82513},{"count_on_hand":30,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":82514}],"max_item_quantity":50,"price":"340.0","product_id":65251,"sold_out":false,"variant":82512,"formatted_income":"Tk. 50","mrp_price_line":"Tk. 345 x 1 = Tk. 345","cod_availability":true,"formatted_per_item_total":"Tk. 340","per_item_total":340,"sku":"264038","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65251"}},"image":"https://shopimages.vstores.io/15256/1569927970391-19-small.jpg?1580192775","quantity":1,"max_selling_price":530,"original_amo":345,"variant_price":290,"final_discount":1,"formatted_variant_price":"Tk. 290","price_line":"Tk. 340 x 1 = Tk. 340","product_name":"Navy Blue Sleeve Casual Shirt for Men - UPF","sale_price":"340.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 340","size":"M","line_item_adjustments":[],"master_product_id":65251,"messages":[],"min_selling_price":340,"category":"Men shirt","permalink":"navy-blue-sleeve-casual-shirt-for-men-upf-290decb7","cod_message":"Delivery in 4-6 working days."}]
-                 */
-
-                private int subtotal;
-                private int item_total;
-                private List<?> adjustments;
-                private List<ItemsBeanXXXX> items;
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBeanXXXX> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBeanXXXX> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBeanXXXX {
-                    /**
-                     * formatted_price : Tk. 423
-                     * seller : UPF
-                     * min_order_qty : 1
-                     * line_item_id : 297861
-                     * discount : 0
-                     * prepaid_availability : true
-                     * seller_slug : upf
-                     * delivery_time : Delivery in 4-6 working days.
-                     * title : Casual Shirt For Men Olive - UPF
-                     * liked : false
-                     * category_id : 1118
-                     * variant_options : [{"count_on_hand":19,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":93380},{"count_on_hand":14,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":93381},{"count_on_hand":29,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":93382}]
-                     * max_item_quantity : 50
-                     * price : 423.0
-                     * product_id : 71943
-                     * sold_out : false
-                     * variant : 93380
-                     * formatted_income : Tk. 68
-                     * mrp_price_line : Tk. 384 x 1 = Tk. 384
-                     * cod_availability : true
-                     * formatted_per_item_total : Tk. 423
-                     * per_item_total : 423
-                     * sku : 264086
-                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
-                     * prepaid_message : Delivery in 4-6 working days.
-                     * activity_object : {"activity_object":{"id":"P71943"}}
-                     * image : https://shopimages.vstores.io/75917/1569929603861-32-small.jpg?1580465725
-                     * quantity : 1
-                     * max_selling_price : 667
-                     * original_amo : 384
-                     * variant_price : 355
-                     * final_discount : 0
-                     * formatted_variant_price : Tk. 355
-                     * price_line : Tk. 423 x 1 = Tk. 423
-                     * product_name : Casual Shirt For Men Olive - UPF
-                     * sale_price : 423.0
-                     * product_stamp : null
-                     * zipcode : 7
-                     * formatted_seller_price : Tk. 0
-                     * formatted_sale_price : Tk. 423
-                     * size : M
-                     * line_item_adjustments : []
-                     * master_product_id : 71943
-                     * messages : []
-                     * min_selling_price : 423
-                     * category : Men shirt
-                     * permalink : casual-shirt-for-men-olive-upf-9fad7110
-                     * cod_message : Delivery in 4-6 working days.
-                     */
-
-                    private String formatted_price;
-                    private String seller;
-                    private int min_order_qty;
-                    private int line_item_id;
-                    private int discount;
-                    private boolean prepaid_availability;
-                    private String seller_slug;
-                    private String delivery_time;
-                    private String title;
-                    private boolean liked;
-                    private int category_id;
-                    private int max_item_quantity;
-                    private String price;
-                    private int product_id;
-                    private boolean sold_out;
-                    private int variant;
-                    private String formatted_income;
-                    private String mrp_price_line;
-                    private boolean cod_availability;
-                    private String formatted_per_item_total;
-                    private int per_item_total;
-                    private String sku;
-                    private DeliveryTimeMessageBeanXXXX delivery_time_message;
-                    private String prepaid_message;
-                    private ActivityObjectBeanXXXXXXXXX activity_object;
-                    private String image;
-                    private int quantity;
-                    private int max_selling_price;
-                    private int original_amo;
-                    private int variant_price;
-                    private int final_discount;
-                    private String formatted_variant_price;
-                    private String price_line;
-                    private String product_name;
-                    private String sale_price;
-                    private Object product_stamp;
-                    private String zipcode;
-                    private String formatted_seller_price;
-                    private String formatted_sale_price;
-                    private String size;
-                    private int master_product_id;
-                    private int min_selling_price;
-                    private String category;
-                    private String permalink;
-                    private String cod_message;
-                    private List<VariantOptionsBeanXXXX> variant_options;
-                    private List<?> line_item_adjustments;
-                    private List<?> messages;
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(int discount) {
-                        this.discount = discount;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public String getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(String price) {
-                        this.price = price;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public DeliveryTimeMessageBeanXXXX getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXXX delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public ActivityObjectBeanXXXXXXXXX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanXXXXXXXXX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public String getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(String sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public Object getProduct_stamp() {
-                        return product_stamp;
-                    }
-
-                    public void setProduct_stamp(Object product_stamp) {
-                        this.product_stamp = product_stamp;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public List<VariantOptionsBeanXXXX> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBeanXXXX> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<?> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<?> messages) {
-                        this.messages = messages;
-                    }
-
-                    public static class DeliveryTimeMessageBeanXXXX {
-                        /**
-                         * message : Delivery in 4-6 working days.
-                         * type : 2
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class ActivityObjectBeanXXXXXXXXX {
-                        /**
-                         * activity_object : {"id":"P71943"}
-                         */
-
-                        private ActivityObjectBeanXXXXXXXX activity_object;
-
-                        public ActivityObjectBeanXXXXXXXX getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBeanXXXXXXXX activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBeanXXXXXXXX {
-                            /**
-                             * id : P71943
-                             */
-
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class VariantOptionsBeanXXXX {
-                        /**
-                         * count_on_hand : 19
-                         * option_value_name : M
-                         * size : 25
-                         * corrected_count_on_hand : 3
-                         * name : M
-                         * id : 93380
-                         */
-
-                        private int count_on_hand;
-                        private String option_value_name;
-                        private int size;
-                        private int corrected_count_on_hand;
-                        private String name;
-                        private int id;
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-                    }
-                }
-            }
-
-            public static class _$7MECBean {
-                /**
-                 * adjustments : []
-                 * subtotal : 2361
-                 * item_total : 2361
-                 * items : [{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297865,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94134,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339473","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"M","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297862,"discount":2,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC012 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":1,"option_value_name":"M-option","size":25,"corrected_count_on_hand":1,"name":"M-option","id":102854},{"count_on_hand":2,"option_value_name":"L-option","size":25,"corrected_count_on_hand":2,"name":"L-option","id":102879},{"count_on_hand":1,"option_value_name":"XL-option","size":25,"corrected_count_on_hand":1,"name":"XL-option","id":102885},{"count_on_hand":2,"option_value_name":"XXL-option","size":25,"corrected_count_on_hand":2,"name":"XXL-option","id":102890},{"count_on_hand":2,"option_value_name":"XXXL-option","size":25,"corrected_count_on_hand":2,"name":"XXXL-option","id":102895}],"max_item_quantity":50,"price":"787.0","product_id":79793,"sold_out":false,"variant":102879,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 800 x 1 = Tk. 800","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"343984","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P79793"}},"image":"https://shopimages.vstores.io/81897/1580542180270-polo-t-shirt-for-men---mec012---7mec-small.jpeg?1580897425","quantity":1,"max_selling_price":1093,"original_amo":800,"variant_price":715,"final_discount":2,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC012 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"L-option","line_item_adjustments":[],"master_product_id":79793,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec012-7mec-25c68795","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297816,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94136,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339475","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"XL","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."}]
-                 */
-
-                private int subtotal;
-                private int item_total;
-                private List<?> adjustments;
-                private List<ItemsBeanXXXXX> items;
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBeanXXXXX> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBeanXXXXX> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBeanXXXXX {
-                    /**
-                     * formatted_price : Tk. 787
-                     * seller : 7MEC
-                     * min_order_qty : 1
-                     * line_item_id : 297865
-                     * discount : 0
-                     * prepaid_availability : true
-                     * seller_slug : 7MEC
-                     * delivery_time : COD is not available.
-                     * title : Casual T-shirt for Men - MEC003 - 7MEC
-                     * liked : false
-                     * category_id : 1117
-                     * variant_options : [{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}]
-                     * max_item_quantity : 50
-                     * price : 787.0
-                     * product_id : 72580
-                     * sold_out : false
-                     * variant : 94134
-                     * formatted_income : Tk. 72
-                     * mrp_price_line : Tk. 780 x 1 = Tk. 780
-                     * cod_availability : false
-                     * formatted_per_item_total : Tk. 787
-                     * per_item_total : 787
-                     * sku : 339473
-                     * delivery_time_message : {"message":"COD is not available.","type":0}
-                     * prepaid_message : Dispatched in - working days.
-                     * activity_object : {"activity_object":{"id":"P72580"}}
-                     * image : https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596
-                     * quantity : 1
-                     * max_selling_price : 1093
-                     * original_amo : 780
-                     * variant_price : 715
-                     * final_discount : 0
-                     * formatted_variant_price : Tk. 715
-                     * price_line : Tk. 787 x 1 = Tk. 787
-                     * product_name : Casual T-shirt for Men - MEC003 - 7MEC
-                     * sale_price : 787.0
-                     * product_stamp : null
-                     * zipcode : 7
-                     * formatted_seller_price : Tk. 0
-                     * formatted_sale_price : Tk. 787
-                     * size : M
-                     * line_item_adjustments : []
-                     * master_product_id : 72580
-                     * messages : []
-                     * min_selling_price : 787
-                     * category : Men t-shirt
-                     * permalink : casual-t-shirt-for-men-mec003-7mec-1f2e8e82
-                     * cod_message : COD is not available.
-                     */
-
-                    private String formatted_price;
-                    private String seller;
-                    private int min_order_qty;
-                    private int line_item_id;
-                    private int discount;
-                    private boolean prepaid_availability;
-                    private String seller_slug;
-                    private String delivery_time;
-                    private String title;
-                    private boolean liked;
-                    private int category_id;
-                    private int max_item_quantity;
-                    private String price;
-                    private int product_id;
-                    private boolean sold_out;
-                    private int variant;
-                    private String formatted_income;
-                    private String mrp_price_line;
-                    private boolean cod_availability;
-                    private String formatted_per_item_total;
-                    private int per_item_total;
-                    private String sku;
-                    private DeliveryTimeMessageBeanXXXXX delivery_time_message;
-                    private String prepaid_message;
-                    private ActivityObjectBeanXXXXXXXXXXX activity_object;
-                    private String image;
-                    private int quantity;
-                    private int max_selling_price;
-                    private int original_amo;
-                    private int variant_price;
-                    private int final_discount;
-                    private String formatted_variant_price;
-                    private String price_line;
-                    private String product_name;
-                    private String sale_price;
-                    private Object product_stamp;
-                    private String zipcode;
-                    private String formatted_seller_price;
-                    private String formatted_sale_price;
-                    private String size;
-                    private int master_product_id;
-                    private int min_selling_price;
-                    private String category;
-                    private String permalink;
-                    private String cod_message;
-                    private List<VariantOptionsBeanXXXXX> variant_options;
-                    private List<?> line_item_adjustments;
-                    private List<?> messages;
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(int discount) {
-                        this.discount = discount;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public String getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(String price) {
-                        this.price = price;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public DeliveryTimeMessageBeanXXXXX getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXXXX delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public ActivityObjectBeanXXXXXXXXXXX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanXXXXXXXXXXX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public String getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(String sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public Object getProduct_stamp() {
-                        return product_stamp;
-                    }
-
-                    public void setProduct_stamp(Object product_stamp) {
-                        this.product_stamp = product_stamp;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public List<VariantOptionsBeanXXXXX> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBeanXXXXX> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<?> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<?> messages) {
-                        this.messages = messages;
-                    }
-
-                    public static class DeliveryTimeMessageBeanXXXXX {
-                        /**
-                         * message : COD is not available.
-                         * type : 0
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class ActivityObjectBeanXXXXXXXXXXX {
-                        /**
-                         * activity_object : {"id":"P72580"}
-                         */
-
-                        private ActivityObjectBeanXXXXXXXXXX activity_object;
-
-                        public ActivityObjectBeanXXXXXXXXXX getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBeanXXXXXXXXXX activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBeanXXXXXXXXXX {
-                            /**
-                             * id : P72580
-                             */
-
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class VariantOptionsBeanXXXXX {
-                        /**
-                         * count_on_hand : 2
-                         * option_value_name : M
-                         * size : 25
-                         * corrected_count_on_hand : 2
-                         * name : M
-                         * id : 94134
-                         */
-
-                        private int count_on_hand;
-                        private String option_value_name;
-                        private int size;
-                        private int corrected_count_on_hand;
-                        private String name;
-                        private int id;
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-                    }
-                }
-            }
-
-            public static class TMWBean {
-                /**
-                 * adjustments : []
-                 * subtotal : 1000
-                 * item_total : 1000
-                 * items : [{"formatted_price":"Tk. 500","seller":"TMW","min_order_qty":1,"line_item_id":297727,"discount":0,"prepaid_availability":true,"seller_slug":"tmw","delivery_time":"Delivery in 4-6 working days.","title":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":6,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":29245},{"count_on_hand":8,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":29247},{"count_on_hand":7,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":29248}],"max_item_quantity":50,"price":"500.0","product_id":24424,"sold_out":false,"variant":29245,"formatted_income":"Tk. 210","mrp_price_line":"Tk. 395 x 2 = Tk. 790","cod_availability":true,"formatted_per_item_total":"Tk. 1,000","per_item_total":1000,"sku":"305933","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24424"}},"image":"https://shopimages.vstores.io/42442/1576574650899-whatsappimage2019-12-14at5.26.18pm1-small.jpeg?1580126772","quantity":2,"max_selling_price":742,"original_amo":395,"variant_price":395,"final_discount":0,"formatted_variant_price":"Tk. 395","price_line":"Tk. 500 x 2 = Tk. 1,000","product_name":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","sale_price":"1000.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,000","size":"M","line_item_adjustments":[],"master_product_id":24424,"messages":[],"min_selling_price":471,"category":"Men shirt","permalink":"full-sleeve-casual-shirt-for-men-02-ash-tmw-fa8be538","cod_message":"Delivery in 4-6 working days."}]
-                 */
-
-                private int subtotal;
-                private int item_total;
-                private List<?> adjustments;
-                private List<ItemsBeanXXXXXX> items;
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBeanXXXXXX> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBeanXXXXXX> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBeanXXXXXX {
-                    /**
-                     * formatted_price : Tk. 500
-                     * seller : TMW
-                     * min_order_qty : 1
-                     * line_item_id : 297727
-                     * discount : 0
-                     * prepaid_availability : true
-                     * seller_slug : tmw
-                     * delivery_time : Delivery in 4-6 working days.
-                     * title : Full Sleeve Casual Shirt for Men 02 - Ash - TMW
-                     * liked : false
-                     * category_id : 1118
-                     * variant_options : [{"count_on_hand":6,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":29245},{"count_on_hand":8,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":29247},{"count_on_hand":7,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":29248}]
-                     * max_item_quantity : 50
-                     * price : 500.0
-                     * product_id : 24424
-                     * sold_out : false
-                     * variant : 29245
-                     * formatted_income : Tk. 210
-                     * mrp_price_line : Tk. 395 x 2 = Tk. 790
-                     * cod_availability : true
-                     * formatted_per_item_total : Tk. 1,000
-                     * per_item_total : 1000
-                     * sku : 305933
-                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
-                     * prepaid_message : Delivery in 4-6 working days.
-                     * activity_object : {"activity_object":{"id":"P24424"}}
-                     * image : https://shopimages.vstores.io/42442/1576574650899-whatsappimage2019-12-14at5.26.18pm1-small.jpeg?1580126772
-                     * quantity : 2
-                     * max_selling_price : 742
-                     * original_amo : 395
-                     * variant_price : 395
-                     * final_discount : 0
-                     * formatted_variant_price : Tk. 395
-                     * price_line : Tk. 500 x 2 = Tk. 1,000
-                     * product_name : Full Sleeve Casual Shirt for Men 02 - Ash - TMW
-                     * sale_price : 1000.0
-                     * product_stamp : null
-                     * zipcode : 7
-                     * formatted_seller_price : Tk. 0
-                     * formatted_sale_price : Tk. 1,000
-                     * size : M
-                     * line_item_adjustments : []
-                     * master_product_id : 24424
-                     * messages : []
-                     * min_selling_price : 471
-                     * category : Men shirt
-                     * permalink : full-sleeve-casual-shirt-for-men-02-ash-tmw-fa8be538
-                     * cod_message : Delivery in 4-6 working days.
-                     */
-
-                    private String formatted_price;
-                    private String seller;
-                    private int min_order_qty;
-                    private int line_item_id;
-                    private int discount;
-                    private boolean prepaid_availability;
-                    private String seller_slug;
-                    private String delivery_time;
-                    private String title;
-                    private boolean liked;
-                    private int category_id;
-                    private int max_item_quantity;
-                    private String price;
-                    private int product_id;
-                    private boolean sold_out;
-                    private int variant;
-                    private String formatted_income;
-                    private String mrp_price_line;
-                    private boolean cod_availability;
-                    private String formatted_per_item_total;
-                    private int per_item_total;
-                    private String sku;
-                    private DeliveryTimeMessageBeanXXXXXX delivery_time_message;
-                    private String prepaid_message;
-                    private ActivityObjectBeanXXXXXXXXXXXXX activity_object;
-                    private String image;
-                    private int quantity;
-                    private int max_selling_price;
-                    private int original_amo;
-                    private int variant_price;
-                    private int final_discount;
-                    private String formatted_variant_price;
-                    private String price_line;
-                    private String product_name;
-                    private String sale_price;
-                    private Object product_stamp;
-                    private String zipcode;
-                    private String formatted_seller_price;
-                    private String formatted_sale_price;
-                    private String size;
-                    private int master_product_id;
-                    private int min_selling_price;
-                    private String category;
-                    private String permalink;
-                    private String cod_message;
-                    private List<VariantOptionsBeanXXXXXX> variant_options;
-                    private List<?> line_item_adjustments;
-                    private List<?> messages;
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(int discount) {
-                        this.discount = discount;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public String getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(String price) {
-                        this.price = price;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public DeliveryTimeMessageBeanXXXXXX getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXXXXX delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public ActivityObjectBeanXXXXXXXXXXXXX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanXXXXXXXXXXXXX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public String getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(String sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public Object getProduct_stamp() {
-                        return product_stamp;
-                    }
-
-                    public void setProduct_stamp(Object product_stamp) {
-                        this.product_stamp = product_stamp;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public List<VariantOptionsBeanXXXXXX> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBeanXXXXXX> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<?> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<?> messages) {
-                        this.messages = messages;
-                    }
-
-                    public static class DeliveryTimeMessageBeanXXXXXX {
-                        /**
-                         * message : Delivery in 4-6 working days.
-                         * type : 2
-                         */
-
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class ActivityObjectBeanXXXXXXXXXXXXX {
-                        /**
-                         * activity_object : {"id":"P24424"}
-                         */
-
-                        private ActivityObjectBeanXXXXXXXXXXXX activity_object;
-
-                        public ActivityObjectBeanXXXXXXXXXXXX getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBeanXXXXXXXXXXXX activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBeanXXXXXXXXXXXX {
-                            /**
-                             * id : P24424
-                             */
-
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class VariantOptionsBeanXXXXXX {
-                        /**
-                         * count_on_hand : 6
-                         * option_value_name : M
-                         * size : 25
-                         * corrected_count_on_hand : 3
-                         * name : M
-                         * id : 29245
-                         */
-
-                        private int count_on_hand;
-                        private String option_value_name;
-                        private int size;
-                        private int corrected_count_on_hand;
-                        private String name;
-                        private int id;
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-                    }
-                }
-            }
-        }
+//        public static class LiBySellersBean {
+//            /**
+//             * DVS : {"adjustments":[],"subtotal":1053,"item_total":1053,"items":[{"formatted_price":"Tk. 351","seller":"DVS","min_order_qty":1,"line_item_id":297817,"discount":0,"prepaid_availability":true,"seller_slug":"dvs","delivery_time":"Delivery in 4-6 working days.","title":"Men's Premium Full Sleeve - DS2012 - DVS","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":7,"option_value_name":"15 or M","size":25,"corrected_count_on_hand":3,"name":"15 or M","id":88533},{"count_on_hand":7,"option_value_name":"15.5 or L","size":25,"corrected_count_on_hand":3,"name":"15.5 or L","id":88534},{"count_on_hand":13,"option_value_name":"16 or XL","size":25,"corrected_count_on_hand":3,"name":"16 or XL","id":88536}],"max_item_quantity":50,"price":"351.0","product_id":68576,"sold_out":false,"variant":88533,"formatted_income":"Tk. 153","mrp_price_line":"Tk. 360 x 3 = Tk. 1,080","cod_availability":true,"formatted_per_item_total":"Tk. 1,053","per_item_total":1053,"sku":"268387","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P68576"}},"image":"https://shopimages.vstores.io/67586/1573394963295-19-small.jpg?1580195558","quantity":3,"max_selling_price":549,"original_amo":360,"variant_price":300,"final_discount":0,"formatted_variant_price":"Tk. 300","price_line":"Tk. 351 x 3 = Tk. 1,053","product_name":"Men\\'s Premium Full Sleeve - DS2012 - DVS","sale_price":"1053.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,053","size":"15 or M","line_item_adjustments":[],"master_product_id":68576,"messages":[],"min_selling_price":351,"category":"Men shirt","permalink":"men-s-premium-full-sleeve-ds2012-dvs-4e2825ff","cod_message":"Delivery in 4-6 working days."}]}
+//             * WHA : {"adjustments":[],"subtotal":300,"item_total":300,"items":[{"formatted_price":"Tk. 300","seller":"WHA","min_order_qty":1,"line_item_id":297807,"discount":25,"prepaid_availability":true,"seller_slug":"wha","delivery_time":"Delivery in 4-6 working days.","title":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":1,"option_value_name":"S","size":25,"corrected_count_on_hand":1,"name":"S","id":83723}],"max_item_quantity":50,"price":"300.0","product_id":65947,"sold_out":false,"variant":83723,"formatted_income":"Tk. 49","mrp_price_line":"Tk. 399 x 1 = Tk. 399","cod_availability":true,"formatted_per_item_total":"Tk. 300","per_item_total":300,"sku":"264914","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65947"}},"image":"https://shopimages.vstores.io/74956/1570083577069-wha-check019-small.jpg?1580193382","quantity":1,"max_selling_price":459,"original_amo":399,"variant_price":251,"final_discount":25,"formatted_variant_price":"Tk. 251","price_line":"Tk. 300 x 1 = Tk. 300","product_name":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","sale_price":"300.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 300","size":"S","line_item_adjustments":[],"master_product_id":65947,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":294,"category":"Men shirt","permalink":"fashionable-full-sleeve-check-shirt-wha-check-19-wha-7acb9322","cod_message":"Delivery in 4-6 working days."}]}
+//             * SGM : {"adjustments":[],"subtotal":825,"item_total":825,"items":[{"formatted_price":"Tk. 825","seller":"SGM","min_order_qty":1,"line_item_id":297818,"discount":8,"prepaid_availability":true,"seller_slug":"sgm","delivery_time":"Delivery in 4-6 working days.","title":"Indian Chundri Silk Saree - 102 - SGM","liked":false,"category_id":48,"variant_options":[{"count_on_hand":5,"option_value_name":"option","size":25,"corrected_count_on_hand":3,"name":"option","id":55190}],"max_item_quantity":50,"price":"825.0","product_id":46543,"sold_out":false,"variant":55190,"formatted_income":"Tk. 75","mrp_price_line":"Tk. 900 x 1 = Tk. 900","cod_availability":true,"formatted_per_item_total":"Tk. 825","per_item_total":825,"sku":"286699","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P46543"}},"image":"https://shopimages.vstores.io/34564/1573991787793-102-small.jpg?1580160568","quantity":1,"max_selling_price":1147,"original_amo":900,"variant_price":750,"final_discount":8,"formatted_variant_price":"Tk. 750","price_line":"Tk. 825 x 1 = Tk. 825","product_name":"Indian Chundri Silk Saree - 102 - SGM","sale_price":"825.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 825","size":"option","line_item_adjustments":[],"master_product_id":46543,"messages":[],"min_selling_price":825,"category":"Saree","permalink":"indian-chundri-silk-saree-102-sgm-18d1bc4e","cod_message":"Delivery in 4-6 working days."}]}
+//             * RKT : {"adjustments":[],"subtotal":2408,"item_total":2408,"items":[{"formatted_price":"Tk. 2,408","seller":"RKT","min_order_qty":1,"line_item_id":297819,"discount":11,"prepaid_availability":true,"seller_slug":"rkt","delivery_time":"Delivery in 4-6 working days.","title":"Indian Julahaa Katan Saree - 12 - RKT","liked":false,"category_id":48,"variant_options":[{"count_on_hand":1,"option_value_name":"option","size":25,"corrected_count_on_hand":1,"name":"option","id":29584}],"max_item_quantity":50,"price":"2408.0","product_id":24709,"sold_out":false,"variant":29584,"formatted_income":"Tk. 158","mrp_price_line":"Tk. 2,720 x 1 = Tk. 2,720","cod_availability":true,"formatted_per_item_total":"Tk. 2,408","per_item_total":2408,"sku":"308465","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24709"}},"image":"https://shopimages.vstores.io/90742/1577091355687-whatsappimage2019-12-15at00.00.271-small.jpeg?1580126997","quantity":1,"max_selling_price":2992,"original_amo":2720,"variant_price":2250,"final_discount":11,"formatted_variant_price":"Tk. 2,250","price_line":"Tk. 2,408 x 1 = Tk. 2,408","product_name":"Indian Julahaa Katan Saree - 12 - RKT","sale_price":"2408.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 2,408","size":"option","line_item_adjustments":[],"master_product_id":24709,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":2408,"category":"Saree","permalink":"indian-julahaa-katan-saree-12-rkt-a2eeac01","cod_message":"Delivery in 4-6 working days."}]}
+//             * UPF : {"adjustments":[],"subtotal":763,"item_total":763,"items":[{"formatted_price":"Tk. 423","seller":"UPF","min_order_qty":1,"line_item_id":297861,"discount":0,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Casual Shirt For Men Olive - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":19,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":93380},{"count_on_hand":14,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":93381},{"count_on_hand":29,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":93382}],"max_item_quantity":50,"price":"423.0","product_id":71943,"sold_out":false,"variant":93380,"formatted_income":"Tk. 68","mrp_price_line":"Tk. 384 x 1 = Tk. 384","cod_availability":true,"formatted_per_item_total":"Tk. 423","per_item_total":423,"sku":"264086","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P71943"}},"image":"https://shopimages.vstores.io/75917/1569929603861-32-small.jpg?1580465725","quantity":1,"max_selling_price":667,"original_amo":384,"variant_price":355,"final_discount":0,"formatted_variant_price":"Tk. 355","price_line":"Tk. 423 x 1 = Tk. 423","product_name":"Casual Shirt For Men Olive - UPF","sale_price":"423.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 423","size":"M","line_item_adjustments":[],"master_product_id":71943,"messages":[],"min_selling_price":423,"category":"Men shirt","permalink":"casual-shirt-for-men-olive-upf-9fad7110","cod_message":"Delivery in 4-6 working days."},{"formatted_price":"Tk. 340","seller":"UPF","min_order_qty":1,"line_item_id":297860,"discount":1,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Navy Blue Sleeve Casual Shirt for Men - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":27,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":82512},{"count_on_hand":22,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":82513},{"count_on_hand":30,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":82514}],"max_item_quantity":50,"price":"340.0","product_id":65251,"sold_out":false,"variant":82512,"formatted_income":"Tk. 50","mrp_price_line":"Tk. 345 x 1 = Tk. 345","cod_availability":true,"formatted_per_item_total":"Tk. 340","per_item_total":340,"sku":"264038","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65251"}},"image":"https://shopimages.vstores.io/15256/1569927970391-19-small.jpg?1580192775","quantity":1,"max_selling_price":530,"original_amo":345,"variant_price":290,"final_discount":1,"formatted_variant_price":"Tk. 290","price_line":"Tk. 340 x 1 = Tk. 340","product_name":"Navy Blue Sleeve Casual Shirt for Men - UPF","sale_price":"340.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 340","size":"M","line_item_adjustments":[],"master_product_id":65251,"messages":[],"min_selling_price":340,"category":"Men shirt","permalink":"navy-blue-sleeve-casual-shirt-for-men-upf-290decb7","cod_message":"Delivery in 4-6 working days."}]}
+//             * 7MEC : {"adjustments":[],"subtotal":2361,"item_total":2361,"items":[{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297865,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94134,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339473","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"M","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297862,"discount":2,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC012 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":1,"option_value_name":"M-option","size":25,"corrected_count_on_hand":1,"name":"M-option","id":102854},{"count_on_hand":2,"option_value_name":"L-option","size":25,"corrected_count_on_hand":2,"name":"L-option","id":102879},{"count_on_hand":1,"option_value_name":"XL-option","size":25,"corrected_count_on_hand":1,"name":"XL-option","id":102885},{"count_on_hand":2,"option_value_name":"XXL-option","size":25,"corrected_count_on_hand":2,"name":"XXL-option","id":102890},{"count_on_hand":2,"option_value_name":"XXXL-option","size":25,"corrected_count_on_hand":2,"name":"XXXL-option","id":102895}],"max_item_quantity":50,"price":"787.0","product_id":79793,"sold_out":false,"variant":102879,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 800 x 1 = Tk. 800","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"343984","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P79793"}},"image":"https://shopimages.vstores.io/81897/1580542180270-polo-t-shirt-for-men---mec012---7mec-small.jpeg?1580897425","quantity":1,"max_selling_price":1093,"original_amo":800,"variant_price":715,"final_discount":2,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC012 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"L-option","line_item_adjustments":[],"master_product_id":79793,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec012-7mec-25c68795","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297816,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94136,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339475","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"XL","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."}]}
+//             * TMW : {"adjustments":[],"subtotal":1000,"item_total":1000,"items":[{"formatted_price":"Tk. 500","seller":"TMW","min_order_qty":1,"line_item_id":297727,"discount":0,"prepaid_availability":true,"seller_slug":"tmw","delivery_time":"Delivery in 4-6 working days.","title":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":6,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":29245},{"count_on_hand":8,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":29247},{"count_on_hand":7,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":29248}],"max_item_quantity":50,"price":"500.0","product_id":24424,"sold_out":false,"variant":29245,"formatted_income":"Tk. 210","mrp_price_line":"Tk. 395 x 2 = Tk. 790","cod_availability":true,"formatted_per_item_total":"Tk. 1,000","per_item_total":1000,"sku":"305933","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24424"}},"image":"https://shopimages.vstores.io/42442/1576574650899-whatsappimage2019-12-14at5.26.18pm1-small.jpeg?1580126772","quantity":2,"max_selling_price":742,"original_amo":395,"variant_price":395,"final_discount":0,"formatted_variant_price":"Tk. 395","price_line":"Tk. 500 x 2 = Tk. 1,000","product_name":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","sale_price":"1000.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,000","size":"M","line_item_adjustments":[],"master_product_id":24424,"messages":[],"min_selling_price":471,"category":"Men shirt","permalink":"full-sleeve-casual-shirt-for-men-02-ash-tmw-fa8be538","cod_message":"Delivery in 4-6 working days."}]}
+//             */
+//
+//            private DVSBean DVS;
+//            private WHABean WHA;
+//            private SGMBean SGM;
+//            private RKTBean RKT;
+//            private UPFBean UPF;
+//            @SerializedName("7MEC")
+//            private _$7MECBean _$7MEC;
+//            private TMWBean TMW;
+//
+//            public DVSBean getDVS() {
+//                return DVS;
+//            }
+//
+//            public void setDVS(DVSBean DVS) {
+//                this.DVS = DVS;
+//            }
+//
+//            public WHABean getWHA() {
+//                return WHA;
+//            }
+//
+//            public void setWHA(WHABean WHA) {
+//                this.WHA = WHA;
+//            }
+//
+//            public SGMBean getSGM() {
+//                return SGM;
+//            }
+//
+//            public void setSGM(SGMBean SGM) {
+//                this.SGM = SGM;
+//            }
+//
+//            public RKTBean getRKT() {
+//                return RKT;
+//            }
+//
+//            public void setRKT(RKTBean RKT) {
+//                this.RKT = RKT;
+//            }
+//
+//            public UPFBean getUPF() {
+//                return UPF;
+//            }
+//
+//            public void setUPF(UPFBean UPF) {
+//                this.UPF = UPF;
+//            }
+//
+//            public _$7MECBean get_$7MEC() {
+//                return _$7MEC;
+//            }
+//
+//            public void set_$7MEC(_$7MECBean _$7MEC) {
+//                this._$7MEC = _$7MEC;
+//            }
+//
+//            public TMWBean getTMW() {
+//                return TMW;
+//            }
+//
+//            public void setTMW(TMWBean TMW) {
+//                this.TMW = TMW;
+//            }
+//
+//            public static class DVSBean {
+//                /**
+//                 * adjustments : []
+//                 * subtotal : 1053
+//                 * item_total : 1053
+//                 * items : [{"formatted_price":"Tk. 351","seller":"DVS","min_order_qty":1,"line_item_id":297817,"discount":0,"prepaid_availability":true,"seller_slug":"dvs","delivery_time":"Delivery in 4-6 working days.","title":"Men's Premium Full Sleeve - DS2012 - DVS","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":7,"option_value_name":"15 or M","size":25,"corrected_count_on_hand":3,"name":"15 or M","id":88533},{"count_on_hand":7,"option_value_name":"15.5 or L","size":25,"corrected_count_on_hand":3,"name":"15.5 or L","id":88534},{"count_on_hand":13,"option_value_name":"16 or XL","size":25,"corrected_count_on_hand":3,"name":"16 or XL","id":88536}],"max_item_quantity":50,"price":"351.0","product_id":68576,"sold_out":false,"variant":88533,"formatted_income":"Tk. 153","mrp_price_line":"Tk. 360 x 3 = Tk. 1,080","cod_availability":true,"formatted_per_item_total":"Tk. 1,053","per_item_total":1053,"sku":"268387","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P68576"}},"image":"https://shopimages.vstores.io/67586/1573394963295-19-small.jpg?1580195558","quantity":3,"max_selling_price":549,"original_amo":360,"variant_price":300,"final_discount":0,"formatted_variant_price":"Tk. 300","price_line":"Tk. 351 x 3 = Tk. 1,053","product_name":"Men\\'s Premium Full Sleeve - DS2012 - DVS","sale_price":"1053.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,053","size":"15 or M","line_item_adjustments":[],"master_product_id":68576,"messages":[],"min_selling_price":351,"category":"Men shirt","permalink":"men-s-premium-full-sleeve-ds2012-dvs-4e2825ff","cod_message":"Delivery in 4-6 working days."}]
+//                 */
+//
+//                private int subtotal;
+//                private int item_total;
+//                private List<?> adjustments;
+//                private List<ItemsBean> items;
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBean> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBean> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBean {
+//                    /**
+//                     * formatted_price : Tk. 351
+//                     * seller : DVS
+//                     * min_order_qty : 1
+//                     * line_item_id : 297817
+//                     * discount : 0
+//                     * prepaid_availability : true
+//                     * seller_slug : dvs
+//                     * delivery_time : Delivery in 4-6 working days.
+//                     * title : Men's Premium Full Sleeve - DS2012 - DVS
+//                     * liked : false
+//                     * category_id : 1118
+//                     * variant_options : [{"count_on_hand":7,"option_value_name":"15 or M","size":25,"corrected_count_on_hand":3,"name":"15 or M","id":88533},{"count_on_hand":7,"option_value_name":"15.5 or L","size":25,"corrected_count_on_hand":3,"name":"15.5 or L","id":88534},{"count_on_hand":13,"option_value_name":"16 or XL","size":25,"corrected_count_on_hand":3,"name":"16 or XL","id":88536}]
+//                     * max_item_quantity : 50
+//                     * price : 351.0
+//                     * product_id : 68576
+//                     * sold_out : false
+//                     * variant : 88533
+//                     * formatted_income : Tk. 153
+//                     * mrp_price_line : Tk. 360 x 3 = Tk. 1,080
+//                     * cod_availability : true
+//                     * formatted_per_item_total : Tk. 1,053
+//                     * per_item_total : 1053
+//                     * sku : 268387
+//                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
+//                     * prepaid_message : Delivery in 4-6 working days.
+//                     * activity_object : {"activity_object":{"id":"P68576"}}
+//                     * image : https://shopimages.vstores.io/67586/1573394963295-19-small.jpg?1580195558
+//                     * quantity : 3
+//                     * max_selling_price : 549
+//                     * original_amo : 360
+//                     * variant_price : 300
+//                     * final_discount : 0
+//                     * formatted_variant_price : Tk. 300
+//                     * price_line : Tk. 351 x 3 = Tk. 1,053
+//                     * product_name : Men\'s Premium Full Sleeve - DS2012 - DVS
+//                     * sale_price : 1053.0
+//                     * product_stamp : null
+//                     * zipcode : 7
+//                     * formatted_seller_price : Tk. 0
+//                     * formatted_sale_price : Tk. 1,053
+//                     * size : 15 or M
+//                     * line_item_adjustments : []
+//                     * master_product_id : 68576
+//                     * messages : []
+//                     * min_selling_price : 351
+//                     * category : Men shirt
+//                     * permalink : men-s-premium-full-sleeve-ds2012-dvs-4e2825ff
+//                     * cod_message : Delivery in 4-6 working days.
+//                     */
+//
+//                    private String formatted_price;
+//                    private String seller;
+//                    private int min_order_qty;
+//                    private int line_item_id;
+//                    private int discount;
+//                    private boolean prepaid_availability;
+//                    private String seller_slug;
+//                    private String delivery_time;
+//                    private String title;
+//                    private boolean liked;
+//                    private int category_id;
+//                    private int max_item_quantity;
+//                    private String price;
+//                    private int product_id;
+//                    private boolean sold_out;
+//                    private int variant;
+//                    private String formatted_income;
+//                    private String mrp_price_line;
+//                    private boolean cod_availability;
+//                    private String formatted_per_item_total;
+//                    private int per_item_total;
+//                    private String sku;
+//                    private DeliveryTimeMessageBean delivery_time_message;
+//                    private String prepaid_message;
+//                    private ActivityObjectBeanX activity_object;
+//                    private String image;
+//                    private int quantity;
+//                    private int max_selling_price;
+//                    private int original_amo;
+//                    private int variant_price;
+//                    private int final_discount;
+//                    private String formatted_variant_price;
+//                    private String price_line;
+//                    private String product_name;
+//                    private String sale_price;
+//                    private Object product_stamp;
+//                    private String zipcode;
+//                    private String formatted_seller_price;
+//                    private String formatted_sale_price;
+//                    private String size;
+//                    private int master_product_id;
+//                    private int min_selling_price;
+//                    private String category;
+//                    private String permalink;
+//                    private String cod_message;
+//                    private List<VariantOptionsBean> variant_options;
+//                    private List<?> line_item_adjustments;
+//                    private List<?> messages;
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public String getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(String price) {
+//                        this.price = price;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public DeliveryTimeMessageBean getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBean delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public ActivityObjectBeanX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public String getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(String sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public Object getProduct_stamp() {
+//                        return product_stamp;
+//                    }
+//
+//                    public void setProduct_stamp(Object product_stamp) {
+//                        this.product_stamp = product_stamp;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public List<VariantOptionsBean> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBean> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<?> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<?> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public static class DeliveryTimeMessageBean {
+//                        /**
+//                         * message : Delivery in 4-6 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class ActivityObjectBeanX {
+//                        /**
+//                         * activity_object : {"id":"P68576"}
+//                         */
+//
+//                        private ActivityObjectBean activity_object;
+//
+//                        public ActivityObjectBean getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBean activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBean {
+//                            /**
+//                             * id : P68576
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBean {
+//                        /**
+//                         * count_on_hand : 7
+//                         * option_value_name : 15 or M
+//                         * size : 25
+//                         * corrected_count_on_hand : 3
+//                         * name : 15 or M
+//                         * id : 88533
+//                         */
+//
+//                        private int count_on_hand;
+//                        private String option_value_name;
+//                        private int size;
+//                        private int corrected_count_on_hand;
+//                        private String name;
+//                        private int id;
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            public static class WHABean {
+//                /**
+//                 * adjustments : []
+//                 * subtotal : 300
+//                 * item_total : 300
+//                 * items : [{"formatted_price":"Tk. 300","seller":"WHA","min_order_qty":1,"line_item_id":297807,"discount":25,"prepaid_availability":true,"seller_slug":"wha","delivery_time":"Delivery in 4-6 working days.","title":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":1,"option_value_name":"S","size":25,"corrected_count_on_hand":1,"name":"S","id":83723}],"max_item_quantity":50,"price":"300.0","product_id":65947,"sold_out":false,"variant":83723,"formatted_income":"Tk. 49","mrp_price_line":"Tk. 399 x 1 = Tk. 399","cod_availability":true,"formatted_per_item_total":"Tk. 300","per_item_total":300,"sku":"264914","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65947"}},"image":"https://shopimages.vstores.io/74956/1570083577069-wha-check019-small.jpg?1580193382","quantity":1,"max_selling_price":459,"original_amo":399,"variant_price":251,"final_discount":25,"formatted_variant_price":"Tk. 251","price_line":"Tk. 300 x 1 = Tk. 300","product_name":"Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA","sale_price":"300.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 300","size":"S","line_item_adjustments":[],"master_product_id":65947,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":294,"category":"Men shirt","permalink":"fashionable-full-sleeve-check-shirt-wha-check-19-wha-7acb9322","cod_message":"Delivery in 4-6 working days."}]
+//                 */
+//
+//                private int subtotal;
+//                private int item_total;
+//                private List<?> adjustments;
+//                private List<ItemsBeanX> items;
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBeanX> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBeanX> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBeanX {
+//                    /**
+//                     * formatted_price : Tk. 300
+//                     * seller : WHA
+//                     * min_order_qty : 1
+//                     * line_item_id : 297807
+//                     * discount : 25
+//                     * prepaid_availability : true
+//                     * seller_slug : wha
+//                     * delivery_time : Delivery in 4-6 working days.
+//                     * title : Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA
+//                     * liked : false
+//                     * category_id : 1118
+//                     * variant_options : [{"count_on_hand":1,"option_value_name":"S","size":25,"corrected_count_on_hand":1,"name":"S","id":83723}]
+//                     * max_item_quantity : 50
+//                     * price : 300.0
+//                     * product_id : 65947
+//                     * sold_out : false
+//                     * variant : 83723
+//                     * formatted_income : Tk. 49
+//                     * mrp_price_line : Tk. 399 x 1 = Tk. 399
+//                     * cod_availability : true
+//                     * formatted_per_item_total : Tk. 300
+//                     * per_item_total : 300
+//                     * sku : 264914
+//                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
+//                     * prepaid_message : Delivery in 4-6 working days.
+//                     * activity_object : {"activity_object":{"id":"P65947"}}
+//                     * image : https://shopimages.vstores.io/74956/1570083577069-wha-check019-small.jpg?1580193382
+//                     * quantity : 1
+//                     * max_selling_price : 459
+//                     * original_amo : 399
+//                     * variant_price : 251
+//                     * final_discount : 25
+//                     * formatted_variant_price : Tk. 251
+//                     * price_line : Tk. 300 x 1 = Tk. 300
+//                     * product_name : Fashionable Full Sleeve Check Shirt - WHA-CHECK 19 - WHA
+//                     * sale_price : 300.0
+//                     * product_stamp : null
+//                     * zipcode : 7
+//                     * formatted_seller_price : Tk. 0
+//                     * formatted_sale_price : Tk. 300
+//                     * size : S
+//                     * line_item_adjustments : []
+//                     * master_product_id : 65947
+//                     * messages : [{"message":"Last chance only 1 left!","type":1}]
+//                     * min_selling_price : 294
+//                     * category : Men shirt
+//                     * permalink : fashionable-full-sleeve-check-shirt-wha-check-19-wha-7acb9322
+//                     * cod_message : Delivery in 4-6 working days.
+//                     */
+//
+//                    private String formatted_price;
+//                    private String seller;
+//                    private int min_order_qty;
+//                    private int line_item_id;
+//                    private int discount;
+//                    private boolean prepaid_availability;
+//                    private String seller_slug;
+//                    private String delivery_time;
+//                    private String title;
+//                    private boolean liked;
+//                    private int category_id;
+//                    private int max_item_quantity;
+//                    private String price;
+//                    private int product_id;
+//                    private boolean sold_out;
+//                    private int variant;
+//                    private String formatted_income;
+//                    private String mrp_price_line;
+//                    private boolean cod_availability;
+//                    private String formatted_per_item_total;
+//                    private int per_item_total;
+//                    private String sku;
+//                    private DeliveryTimeMessageBeanX delivery_time_message;
+//                    private String prepaid_message;
+//                    private ActivityObjectBeanXXX activity_object;
+//                    private String image;
+//                    private int quantity;
+//                    private int max_selling_price;
+//                    private int original_amo;
+//                    private int variant_price;
+//                    private int final_discount;
+//                    private String formatted_variant_price;
+//                    private String price_line;
+//                    private String product_name;
+//                    private String sale_price;
+//                    private Object product_stamp;
+//                    private String zipcode;
+//                    private String formatted_seller_price;
+//                    private String formatted_sale_price;
+//                    private String size;
+//                    private int master_product_id;
+//                    private int min_selling_price;
+//                    private String category;
+//                    private String permalink;
+//                    private String cod_message;
+//                    private List<VariantOptionsBeanX> variant_options;
+//                    private List<?> line_item_adjustments;
+//                    private List<MessagesBean> messages;
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public String getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(String price) {
+//                        this.price = price;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public DeliveryTimeMessageBeanX getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBeanX delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public ActivityObjectBeanXXX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanXXX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public String getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(String sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public Object getProduct_stamp() {
+//                        return product_stamp;
+//                    }
+//
+//                    public void setProduct_stamp(Object product_stamp) {
+//                        this.product_stamp = product_stamp;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public List<VariantOptionsBeanX> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBeanX> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<MessagesBean> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<MessagesBean> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public static class DeliveryTimeMessageBeanX {
+//                        /**
+//                         * message : Delivery in 4-6 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class ActivityObjectBeanXXX {
+//                        /**
+//                         * activity_object : {"id":"P65947"}
+//                         */
+//
+//                        private ActivityObjectBeanXX activity_object;
+//
+//                        public ActivityObjectBeanXX getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBeanXX activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBeanXX {
+//                            /**
+//                             * id : P65947
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBeanX {
+//                        /**
+//                         * count_on_hand : 1
+//                         * option_value_name : S
+//                         * size : 25
+//                         * corrected_count_on_hand : 1
+//                         * name : S
+//                         * id : 83723
+//                         */
+//
+//                        private int count_on_hand;
+//                        private String option_value_name;
+//                        private int size;
+//                        private int corrected_count_on_hand;
+//                        private String name;
+//                        private int id;
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//                    }
+//
+//                    public static class MessagesBean {
+//                        /**
+//                         * message : Last chance only 1 left!
+//                         * type : 1
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            public static class SGMBean {
+//                /**
+//                 * adjustments : []
+//                 * subtotal : 825
+//                 * item_total : 825
+//                 * items : [{"formatted_price":"Tk. 825","seller":"SGM","min_order_qty":1,"line_item_id":297818,"discount":8,"prepaid_availability":true,"seller_slug":"sgm","delivery_time":"Delivery in 4-6 working days.","title":"Indian Chundri Silk Saree - 102 - SGM","liked":false,"category_id":48,"variant_options":[{"count_on_hand":5,"option_value_name":"option","size":25,"corrected_count_on_hand":3,"name":"option","id":55190}],"max_item_quantity":50,"price":"825.0","product_id":46543,"sold_out":false,"variant":55190,"formatted_income":"Tk. 75","mrp_price_line":"Tk. 900 x 1 = Tk. 900","cod_availability":true,"formatted_per_item_total":"Tk. 825","per_item_total":825,"sku":"286699","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P46543"}},"image":"https://shopimages.vstores.io/34564/1573991787793-102-small.jpg?1580160568","quantity":1,"max_selling_price":1147,"original_amo":900,"variant_price":750,"final_discount":8,"formatted_variant_price":"Tk. 750","price_line":"Tk. 825 x 1 = Tk. 825","product_name":"Indian Chundri Silk Saree - 102 - SGM","sale_price":"825.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 825","size":"option","line_item_adjustments":[],"master_product_id":46543,"messages":[],"min_selling_price":825,"category":"Saree","permalink":"indian-chundri-silk-saree-102-sgm-18d1bc4e","cod_message":"Delivery in 4-6 working days."}]
+//                 */
+//
+//                private int subtotal;
+//                private int item_total;
+//                private List<?> adjustments;
+//                private List<ItemsBeanXX> items;
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBeanXX> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBeanXX> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBeanXX {
+//                    /**
+//                     * formatted_price : Tk. 825
+//                     * seller : SGM
+//                     * min_order_qty : 1
+//                     * line_item_id : 297818
+//                     * discount : 8
+//                     * prepaid_availability : true
+//                     * seller_slug : sgm
+//                     * delivery_time : Delivery in 4-6 working days.
+//                     * title : Indian Chundri Silk Saree - 102 - SGM
+//                     * liked : false
+//                     * category_id : 48
+//                     * variant_options : [{"count_on_hand":5,"option_value_name":"option","size":25,"corrected_count_on_hand":3,"name":"option","id":55190}]
+//                     * max_item_quantity : 50
+//                     * price : 825.0
+//                     * product_id : 46543
+//                     * sold_out : false
+//                     * variant : 55190
+//                     * formatted_income : Tk. 75
+//                     * mrp_price_line : Tk. 900 x 1 = Tk. 900
+//                     * cod_availability : true
+//                     * formatted_per_item_total : Tk. 825
+//                     * per_item_total : 825
+//                     * sku : 286699
+//                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
+//                     * prepaid_message : Delivery in 4-6 working days.
+//                     * activity_object : {"activity_object":{"id":"P46543"}}
+//                     * image : https://shopimages.vstores.io/34564/1573991787793-102-small.jpg?1580160568
+//                     * quantity : 1
+//                     * max_selling_price : 1147
+//                     * original_amo : 900
+//                     * variant_price : 750
+//                     * final_discount : 8
+//                     * formatted_variant_price : Tk. 750
+//                     * price_line : Tk. 825 x 1 = Tk. 825
+//                     * product_name : Indian Chundri Silk Saree - 102 - SGM
+//                     * sale_price : 825.0
+//                     * product_stamp : null
+//                     * zipcode : 7
+//                     * formatted_seller_price : Tk. 0
+//                     * formatted_sale_price : Tk. 825
+//                     * size : option
+//                     * line_item_adjustments : []
+//                     * master_product_id : 46543
+//                     * messages : []
+//                     * min_selling_price : 825
+//                     * category : Saree
+//                     * permalink : indian-chundri-silk-saree-102-sgm-18d1bc4e
+//                     * cod_message : Delivery in 4-6 working days.
+//                     */
+//
+//                    private String formatted_price;
+//                    private String seller;
+//                    private int min_order_qty;
+//                    private int line_item_id;
+//                    private int discount;
+//                    private boolean prepaid_availability;
+//                    private String seller_slug;
+//                    private String delivery_time;
+//                    private String title;
+//                    private boolean liked;
+//                    private int category_id;
+//                    private int max_item_quantity;
+//                    private String price;
+//                    private int product_id;
+//                    private boolean sold_out;
+//                    private int variant;
+//                    private String formatted_income;
+//                    private String mrp_price_line;
+//                    private boolean cod_availability;
+//                    private String formatted_per_item_total;
+//                    private int per_item_total;
+//                    private String sku;
+//                    private DeliveryTimeMessageBeanXX delivery_time_message;
+//                    private String prepaid_message;
+//                    private ActivityObjectBeanXXXXX activity_object;
+//                    private String image;
+//                    private int quantity;
+//                    private int max_selling_price;
+//                    private int original_amo;
+//                    private int variant_price;
+//                    private int final_discount;
+//                    private String formatted_variant_price;
+//                    private String price_line;
+//                    private String product_name;
+//                    private String sale_price;
+//                    private Object product_stamp;
+//                    private String zipcode;
+//                    private String formatted_seller_price;
+//                    private String formatted_sale_price;
+//                    private String size;
+//                    private int master_product_id;
+//                    private int min_selling_price;
+//                    private String category;
+//                    private String permalink;
+//                    private String cod_message;
+//                    private List<VariantOptionsBeanXX> variant_options;
+//                    private List<?> line_item_adjustments;
+//                    private List<?> messages;
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public String getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(String price) {
+//                        this.price = price;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public DeliveryTimeMessageBeanXX getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBeanXX delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public ActivityObjectBeanXXXXX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanXXXXX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public String getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(String sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public Object getProduct_stamp() {
+//                        return product_stamp;
+//                    }
+//
+//                    public void setProduct_stamp(Object product_stamp) {
+//                        this.product_stamp = product_stamp;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public List<VariantOptionsBeanXX> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBeanXX> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<?> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<?> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public static class DeliveryTimeMessageBeanXX {
+//                        /**
+//                         * message : Delivery in 4-6 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class ActivityObjectBeanXXXXX {
+//                        /**
+//                         * activity_object : {"id":"P46543"}
+//                         */
+//
+//                        private ActivityObjectBeanXXXX activity_object;
+//
+//                        public ActivityObjectBeanXXXX getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBeanXXXX activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBeanXXXX {
+//                            /**
+//                             * id : P46543
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBeanXX {
+//                        /**
+//                         * count_on_hand : 5
+//                         * option_value_name : option
+//                         * size : 25
+//                         * corrected_count_on_hand : 3
+//                         * name : option
+//                         * id : 55190
+//                         */
+//
+//                        private int count_on_hand;
+//                        private String option_value_name;
+//                        private int size;
+//                        private int corrected_count_on_hand;
+//                        private String name;
+//                        private int id;
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            public static class RKTBean {
+//                /**
+//                 * adjustments : []
+//                 * subtotal : 2408
+//                 * item_total : 2408
+//                 * items : [{"formatted_price":"Tk. 2,408","seller":"RKT","min_order_qty":1,"line_item_id":297819,"discount":11,"prepaid_availability":true,"seller_slug":"rkt","delivery_time":"Delivery in 4-6 working days.","title":"Indian Julahaa Katan Saree - 12 - RKT","liked":false,"category_id":48,"variant_options":[{"count_on_hand":1,"option_value_name":"option","size":25,"corrected_count_on_hand":1,"name":"option","id":29584}],"max_item_quantity":50,"price":"2408.0","product_id":24709,"sold_out":false,"variant":29584,"formatted_income":"Tk. 158","mrp_price_line":"Tk. 2,720 x 1 = Tk. 2,720","cod_availability":true,"formatted_per_item_total":"Tk. 2,408","per_item_total":2408,"sku":"308465","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24709"}},"image":"https://shopimages.vstores.io/90742/1577091355687-whatsappimage2019-12-15at00.00.271-small.jpeg?1580126997","quantity":1,"max_selling_price":2992,"original_amo":2720,"variant_price":2250,"final_discount":11,"formatted_variant_price":"Tk. 2,250","price_line":"Tk. 2,408 x 1 = Tk. 2,408","product_name":"Indian Julahaa Katan Saree - 12 - RKT","sale_price":"2408.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 2,408","size":"option","line_item_adjustments":[],"master_product_id":24709,"messages":[{"message":"Last chance only 1 left!","type":1}],"min_selling_price":2408,"category":"Saree","permalink":"indian-julahaa-katan-saree-12-rkt-a2eeac01","cod_message":"Delivery in 4-6 working days."}]
+//                 */
+//
+//                private int subtotal;
+//                private int item_total;
+//                private List<?> adjustments;
+//                private List<ItemsBeanXXX> items;
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBeanXXX> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBeanXXX> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBeanXXX {
+//                    /**
+//                     * formatted_price : Tk. 2,408
+//                     * seller : RKT
+//                     * min_order_qty : 1
+//                     * line_item_id : 297819
+//                     * discount : 11
+//                     * prepaid_availability : true
+//                     * seller_slug : rkt
+//                     * delivery_time : Delivery in 4-6 working days.
+//                     * title : Indian Julahaa Katan Saree - 12 - RKT
+//                     * liked : false
+//                     * category_id : 48
+//                     * variant_options : [{"count_on_hand":1,"option_value_name":"option","size":25,"corrected_count_on_hand":1,"name":"option","id":29584}]
+//                     * max_item_quantity : 50
+//                     * price : 2408.0
+//                     * product_id : 24709
+//                     * sold_out : false
+//                     * variant : 29584
+//                     * formatted_income : Tk. 158
+//                     * mrp_price_line : Tk. 2,720 x 1 = Tk. 2,720
+//                     * cod_availability : true
+//                     * formatted_per_item_total : Tk. 2,408
+//                     * per_item_total : 2408
+//                     * sku : 308465
+//                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
+//                     * prepaid_message : Delivery in 4-6 working days.
+//                     * activity_object : {"activity_object":{"id":"P24709"}}
+//                     * image : https://shopimages.vstores.io/90742/1577091355687-whatsappimage2019-12-15at00.00.271-small.jpeg?1580126997
+//                     * quantity : 1
+//                     * max_selling_price : 2992
+//                     * original_amo : 2720
+//                     * variant_price : 2250
+//                     * final_discount : 11
+//                     * formatted_variant_price : Tk. 2,250
+//                     * price_line : Tk. 2,408 x 1 = Tk. 2,408
+//                     * product_name : Indian Julahaa Katan Saree - 12 - RKT
+//                     * sale_price : 2408.0
+//                     * product_stamp : null
+//                     * zipcode : 7
+//                     * formatted_seller_price : Tk. 0
+//                     * formatted_sale_price : Tk. 2,408
+//                     * size : option
+//                     * line_item_adjustments : []
+//                     * master_product_id : 24709
+//                     * messages : [{"message":"Last chance only 1 left!","type":1}]
+//                     * min_selling_price : 2408
+//                     * category : Saree
+//                     * permalink : indian-julahaa-katan-saree-12-rkt-a2eeac01
+//                     * cod_message : Delivery in 4-6 working days.
+//                     */
+//
+//                    private String formatted_price;
+//                    private String seller;
+//                    private int min_order_qty;
+//                    private int line_item_id;
+//                    private int discount;
+//                    private boolean prepaid_availability;
+//                    private String seller_slug;
+//                    private String delivery_time;
+//                    private String title;
+//                    private boolean liked;
+//                    private int category_id;
+//                    private int max_item_quantity;
+//                    private String price;
+//                    private int product_id;
+//                    private boolean sold_out;
+//                    private int variant;
+//                    private String formatted_income;
+//                    private String mrp_price_line;
+//                    private boolean cod_availability;
+//                    private String formatted_per_item_total;
+//                    private int per_item_total;
+//                    private String sku;
+//                    private DeliveryTimeMessageBeanXXX delivery_time_message;
+//                    private String prepaid_message;
+//                    private ActivityObjectBeanXXXXXXX activity_object;
+//                    private String image;
+//                    private int quantity;
+//                    private int max_selling_price;
+//                    private int original_amo;
+//                    private int variant_price;
+//                    private int final_discount;
+//                    private String formatted_variant_price;
+//                    private String price_line;
+//                    private String product_name;
+//                    private String sale_price;
+//                    private Object product_stamp;
+//                    private String zipcode;
+//                    private String formatted_seller_price;
+//                    private String formatted_sale_price;
+//                    private String size;
+//                    private int master_product_id;
+//                    private int min_selling_price;
+//                    private String category;
+//                    private String permalink;
+//                    private String cod_message;
+//                    private List<VariantOptionsBeanXXX> variant_options;
+//                    private List<?> line_item_adjustments;
+//                    private List<MessagesBeanX> messages;
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public String getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(String price) {
+//                        this.price = price;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public DeliveryTimeMessageBeanXXX getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXX delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public ActivityObjectBeanXXXXXXX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanXXXXXXX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public String getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(String sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public Object getProduct_stamp() {
+//                        return product_stamp;
+//                    }
+//
+//                    public void setProduct_stamp(Object product_stamp) {
+//                        this.product_stamp = product_stamp;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public List<VariantOptionsBeanXXX> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBeanXXX> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<MessagesBeanX> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<MessagesBeanX> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public static class DeliveryTimeMessageBeanXXX {
+//                        /**
+//                         * message : Delivery in 4-6 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class ActivityObjectBeanXXXXXXX {
+//                        /**
+//                         * activity_object : {"id":"P24709"}
+//                         */
+//
+//                        private ActivityObjectBeanXXXXXX activity_object;
+//
+//                        public ActivityObjectBeanXXXXXX getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBeanXXXXXX activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBeanXXXXXX {
+//                            /**
+//                             * id : P24709
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBeanXXX {
+//                        /**
+//                         * count_on_hand : 1
+//                         * option_value_name : option
+//                         * size : 25
+//                         * corrected_count_on_hand : 1
+//                         * name : option
+//                         * id : 29584
+//                         */
+//
+//                        private int count_on_hand;
+//                        private String option_value_name;
+//                        private int size;
+//                        private int corrected_count_on_hand;
+//                        private String name;
+//                        private int id;
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//                    }
+//
+//                    public static class MessagesBeanX {
+//                        /**
+//                         * message : Last chance only 1 left!
+//                         * type : 1
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            public static class UPFBean {
+//                /**
+//                 * adjustments : []
+//                 * subtotal : 763
+//                 * item_total : 763
+//                 * items : [{"formatted_price":"Tk. 423","seller":"UPF","min_order_qty":1,"line_item_id":297861,"discount":0,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Casual Shirt For Men Olive - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":19,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":93380},{"count_on_hand":14,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":93381},{"count_on_hand":29,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":93382}],"max_item_quantity":50,"price":"423.0","product_id":71943,"sold_out":false,"variant":93380,"formatted_income":"Tk. 68","mrp_price_line":"Tk. 384 x 1 = Tk. 384","cod_availability":true,"formatted_per_item_total":"Tk. 423","per_item_total":423,"sku":"264086","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P71943"}},"image":"https://shopimages.vstores.io/75917/1569929603861-32-small.jpg?1580465725","quantity":1,"max_selling_price":667,"original_amo":384,"variant_price":355,"final_discount":0,"formatted_variant_price":"Tk. 355","price_line":"Tk. 423 x 1 = Tk. 423","product_name":"Casual Shirt For Men Olive - UPF","sale_price":"423.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 423","size":"M","line_item_adjustments":[],"master_product_id":71943,"messages":[],"min_selling_price":423,"category":"Men shirt","permalink":"casual-shirt-for-men-olive-upf-9fad7110","cod_message":"Delivery in 4-6 working days."},{"formatted_price":"Tk. 340","seller":"UPF","min_order_qty":1,"line_item_id":297860,"discount":1,"prepaid_availability":true,"seller_slug":"upf","delivery_time":"Delivery in 4-6 working days.","title":"Navy Blue Sleeve Casual Shirt for Men - UPF","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":27,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":82512},{"count_on_hand":22,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":82513},{"count_on_hand":30,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":82514}],"max_item_quantity":50,"price":"340.0","product_id":65251,"sold_out":false,"variant":82512,"formatted_income":"Tk. 50","mrp_price_line":"Tk. 345 x 1 = Tk. 345","cod_availability":true,"formatted_per_item_total":"Tk. 340","per_item_total":340,"sku":"264038","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P65251"}},"image":"https://shopimages.vstores.io/15256/1569927970391-19-small.jpg?1580192775","quantity":1,"max_selling_price":530,"original_amo":345,"variant_price":290,"final_discount":1,"formatted_variant_price":"Tk. 290","price_line":"Tk. 340 x 1 = Tk. 340","product_name":"Navy Blue Sleeve Casual Shirt for Men - UPF","sale_price":"340.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 340","size":"M","line_item_adjustments":[],"master_product_id":65251,"messages":[],"min_selling_price":340,"category":"Men shirt","permalink":"navy-blue-sleeve-casual-shirt-for-men-upf-290decb7","cod_message":"Delivery in 4-6 working days."}]
+//                 */
+//
+//                private int subtotal;
+//                private int item_total;
+//                private List<?> adjustments;
+//                private List<ItemsBeanXXXX> items;
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBeanXXXX> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBeanXXXX> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBeanXXXX {
+//                    /**
+//                     * formatted_price : Tk. 423
+//                     * seller : UPF
+//                     * min_order_qty : 1
+//                     * line_item_id : 297861
+//                     * discount : 0
+//                     * prepaid_availability : true
+//                     * seller_slug : upf
+//                     * delivery_time : Delivery in 4-6 working days.
+//                     * title : Casual Shirt For Men Olive - UPF
+//                     * liked : false
+//                     * category_id : 1118
+//                     * variant_options : [{"count_on_hand":19,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":93380},{"count_on_hand":14,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":93381},{"count_on_hand":29,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":93382}]
+//                     * max_item_quantity : 50
+//                     * price : 423.0
+//                     * product_id : 71943
+//                     * sold_out : false
+//                     * variant : 93380
+//                     * formatted_income : Tk. 68
+//                     * mrp_price_line : Tk. 384 x 1 = Tk. 384
+//                     * cod_availability : true
+//                     * formatted_per_item_total : Tk. 423
+//                     * per_item_total : 423
+//                     * sku : 264086
+//                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
+//                     * prepaid_message : Delivery in 4-6 working days.
+//                     * activity_object : {"activity_object":{"id":"P71943"}}
+//                     * image : https://shopimages.vstores.io/75917/1569929603861-32-small.jpg?1580465725
+//                     * quantity : 1
+//                     * max_selling_price : 667
+//                     * original_amo : 384
+//                     * variant_price : 355
+//                     * final_discount : 0
+//                     * formatted_variant_price : Tk. 355
+//                     * price_line : Tk. 423 x 1 = Tk. 423
+//                     * product_name : Casual Shirt For Men Olive - UPF
+//                     * sale_price : 423.0
+//                     * product_stamp : null
+//                     * zipcode : 7
+//                     * formatted_seller_price : Tk. 0
+//                     * formatted_sale_price : Tk. 423
+//                     * size : M
+//                     * line_item_adjustments : []
+//                     * master_product_id : 71943
+//                     * messages : []
+//                     * min_selling_price : 423
+//                     * category : Men shirt
+//                     * permalink : casual-shirt-for-men-olive-upf-9fad7110
+//                     * cod_message : Delivery in 4-6 working days.
+//                     */
+//
+//                    private String formatted_price;
+//                    private String seller;
+//                    private int min_order_qty;
+//                    private int line_item_id;
+//                    private int discount;
+//                    private boolean prepaid_availability;
+//                    private String seller_slug;
+//                    private String delivery_time;
+//                    private String title;
+//                    private boolean liked;
+//                    private int category_id;
+//                    private int max_item_quantity;
+//                    private String price;
+//                    private int product_id;
+//                    private boolean sold_out;
+//                    private int variant;
+//                    private String formatted_income;
+//                    private String mrp_price_line;
+//                    private boolean cod_availability;
+//                    private String formatted_per_item_total;
+//                    private int per_item_total;
+//                    private String sku;
+//                    private DeliveryTimeMessageBeanXXXX delivery_time_message;
+//                    private String prepaid_message;
+//                    private ActivityObjectBeanXXXXXXXXX activity_object;
+//                    private String image;
+//                    private int quantity;
+//                    private int max_selling_price;
+//                    private int original_amo;
+//                    private int variant_price;
+//                    private int final_discount;
+//                    private String formatted_variant_price;
+//                    private String price_line;
+//                    private String product_name;
+//                    private String sale_price;
+//                    private Object product_stamp;
+//                    private String zipcode;
+//                    private String formatted_seller_price;
+//                    private String formatted_sale_price;
+//                    private String size;
+//                    private int master_product_id;
+//                    private int min_selling_price;
+//                    private String category;
+//                    private String permalink;
+//                    private String cod_message;
+//                    private List<VariantOptionsBeanXXXX> variant_options;
+//                    private List<?> line_item_adjustments;
+//                    private List<?> messages;
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public String getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(String price) {
+//                        this.price = price;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public DeliveryTimeMessageBeanXXXX getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXXX delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public ActivityObjectBeanXXXXXXXXX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanXXXXXXXXX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public String getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(String sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public Object getProduct_stamp() {
+//                        return product_stamp;
+//                    }
+//
+//                    public void setProduct_stamp(Object product_stamp) {
+//                        this.product_stamp = product_stamp;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public List<VariantOptionsBeanXXXX> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBeanXXXX> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<?> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<?> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public static class DeliveryTimeMessageBeanXXXX {
+//                        /**
+//                         * message : Delivery in 4-6 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class ActivityObjectBeanXXXXXXXXX {
+//                        /**
+//                         * activity_object : {"id":"P71943"}
+//                         */
+//
+//                        private ActivityObjectBeanXXXXXXXX activity_object;
+//
+//                        public ActivityObjectBeanXXXXXXXX getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBeanXXXXXXXX activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBeanXXXXXXXX {
+//                            /**
+//                             * id : P71943
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBeanXXXX {
+//                        /**
+//                         * count_on_hand : 19
+//                         * option_value_name : M
+//                         * size : 25
+//                         * corrected_count_on_hand : 3
+//                         * name : M
+//                         * id : 93380
+//                         */
+//
+//                        private int count_on_hand;
+//                        private String option_value_name;
+//                        private int size;
+//                        private int corrected_count_on_hand;
+//                        private String name;
+//                        private int id;
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            public static class _$7MECBean {
+//                /**
+//                 * adjustments : []
+//                 * subtotal : 2361
+//                 * item_total : 2361
+//                 * items : [{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297865,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94134,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339473","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"M","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297862,"discount":2,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC012 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":1,"option_value_name":"M-option","size":25,"corrected_count_on_hand":1,"name":"M-option","id":102854},{"count_on_hand":2,"option_value_name":"L-option","size":25,"corrected_count_on_hand":2,"name":"L-option","id":102879},{"count_on_hand":1,"option_value_name":"XL-option","size":25,"corrected_count_on_hand":1,"name":"XL-option","id":102885},{"count_on_hand":2,"option_value_name":"XXL-option","size":25,"corrected_count_on_hand":2,"name":"XXL-option","id":102890},{"count_on_hand":2,"option_value_name":"XXXL-option","size":25,"corrected_count_on_hand":2,"name":"XXXL-option","id":102895}],"max_item_quantity":50,"price":"787.0","product_id":79793,"sold_out":false,"variant":102879,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 800 x 1 = Tk. 800","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"343984","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P79793"}},"image":"https://shopimages.vstores.io/81897/1580542180270-polo-t-shirt-for-men---mec012---7mec-small.jpeg?1580897425","quantity":1,"max_selling_price":1093,"original_amo":800,"variant_price":715,"final_discount":2,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC012 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"L-option","line_item_adjustments":[],"master_product_id":79793,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec012-7mec-25c68795","cod_message":"COD is not available."},{"formatted_price":"Tk. 787","seller":"7MEC","min_order_qty":1,"line_item_id":297816,"discount":0,"prepaid_availability":true,"seller_slug":"7MEC","delivery_time":"COD is not available.","title":"Casual T-shirt for Men - MEC003 - 7MEC","liked":false,"category_id":1117,"variant_options":[{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}],"max_item_quantity":50,"price":"787.0","product_id":72580,"sold_out":false,"variant":94136,"formatted_income":"Tk. 72","mrp_price_line":"Tk. 780 x 1 = Tk. 780","cod_availability":false,"formatted_per_item_total":"Tk. 787","per_item_total":787,"sku":"339475","delivery_time_message":{"message":"COD is not available.","type":0},"prepaid_message":"Dispatched in - working days.","activity_object":{"activity_object":{"id":"P72580"}},"image":"https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596","quantity":1,"max_selling_price":1093,"original_amo":780,"variant_price":715,"final_discount":0,"formatted_variant_price":"Tk. 715","price_line":"Tk. 787 x 1 = Tk. 787","product_name":"Casual T-shirt for Men - MEC003 - 7MEC","sale_price":"787.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 787","size":"XL","line_item_adjustments":[],"master_product_id":72580,"messages":[],"min_selling_price":787,"category":"Men t-shirt","permalink":"casual-t-shirt-for-men-mec003-7mec-1f2e8e82","cod_message":"COD is not available."}]
+//                 */
+//
+//                private int subtotal;
+//                private int item_total;
+//                private List<?> adjustments;
+//                private List<ItemsBeanXXXXX> items;
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBeanXXXXX> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBeanXXXXX> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBeanXXXXX {
+//                    /**
+//                     * formatted_price : Tk. 787
+//                     * seller : 7MEC
+//                     * min_order_qty : 1
+//                     * line_item_id : 297865
+//                     * discount : 0
+//                     * prepaid_availability : true
+//                     * seller_slug : 7MEC
+//                     * delivery_time : COD is not available.
+//                     * title : Casual T-shirt for Men - MEC003 - 7MEC
+//                     * liked : false
+//                     * category_id : 1117
+//                     * variant_options : [{"count_on_hand":2,"option_value_name":"M","size":25,"corrected_count_on_hand":2,"name":"M","id":94134},{"count_on_hand":2,"option_value_name":"L","size":25,"corrected_count_on_hand":2,"name":"L","id":94135},{"count_on_hand":2,"option_value_name":"XL","size":25,"corrected_count_on_hand":2,"name":"XL","id":94136},{"count_on_hand":1,"option_value_name":"XXL","size":25,"corrected_count_on_hand":1,"name":"XXL","id":94137},{"count_on_hand":2,"option_value_name":"XXXL","size":25,"corrected_count_on_hand":2,"name":"XXXL","id":94138}]
+//                     * max_item_quantity : 50
+//                     * price : 787.0
+//                     * product_id : 72580
+//                     * sold_out : false
+//                     * variant : 94134
+//                     * formatted_income : Tk. 72
+//                     * mrp_price_line : Tk. 780 x 1 = Tk. 780
+//                     * cod_availability : false
+//                     * formatted_per_item_total : Tk. 787
+//                     * per_item_total : 787
+//                     * sku : 339473
+//                     * delivery_time_message : {"message":"COD is not available.","type":0}
+//                     * prepaid_message : Dispatched in - working days.
+//                     * activity_object : {"activity_object":{"id":"P72580"}}
+//                     * image : https://shopimages.vstores.io/49527/Polo-T-shirt-for-Men---MEC003---7MEC-small.jpeg?1580468596
+//                     * quantity : 1
+//                     * max_selling_price : 1093
+//                     * original_amo : 780
+//                     * variant_price : 715
+//                     * final_discount : 0
+//                     * formatted_variant_price : Tk. 715
+//                     * price_line : Tk. 787 x 1 = Tk. 787
+//                     * product_name : Casual T-shirt for Men - MEC003 - 7MEC
+//                     * sale_price : 787.0
+//                     * product_stamp : null
+//                     * zipcode : 7
+//                     * formatted_seller_price : Tk. 0
+//                     * formatted_sale_price : Tk. 787
+//                     * size : M
+//                     * line_item_adjustments : []
+//                     * master_product_id : 72580
+//                     * messages : []
+//                     * min_selling_price : 787
+//                     * category : Men t-shirt
+//                     * permalink : casual-t-shirt-for-men-mec003-7mec-1f2e8e82
+//                     * cod_message : COD is not available.
+//                     */
+//
+//                    private String formatted_price;
+//                    private String seller;
+//                    private int min_order_qty;
+//                    private int line_item_id;
+//                    private int discount;
+//                    private boolean prepaid_availability;
+//                    private String seller_slug;
+//                    private String delivery_time;
+//                    private String title;
+//                    private boolean liked;
+//                    private int category_id;
+//                    private int max_item_quantity;
+//                    private String price;
+//                    private int product_id;
+//                    private boolean sold_out;
+//                    private int variant;
+//                    private String formatted_income;
+//                    private String mrp_price_line;
+//                    private boolean cod_availability;
+//                    private String formatted_per_item_total;
+//                    private int per_item_total;
+//                    private String sku;
+//                    private DeliveryTimeMessageBeanXXXXX delivery_time_message;
+//                    private String prepaid_message;
+//                    private ActivityObjectBeanXXXXXXXXXXX activity_object;
+//                    private String image;
+//                    private int quantity;
+//                    private int max_selling_price;
+//                    private int original_amo;
+//                    private int variant_price;
+//                    private int final_discount;
+//                    private String formatted_variant_price;
+//                    private String price_line;
+//                    private String product_name;
+//                    private String sale_price;
+//                    private Object product_stamp;
+//                    private String zipcode;
+//                    private String formatted_seller_price;
+//                    private String formatted_sale_price;
+//                    private String size;
+//                    private int master_product_id;
+//                    private int min_selling_price;
+//                    private String category;
+//                    private String permalink;
+//                    private String cod_message;
+//                    private List<VariantOptionsBeanXXXXX> variant_options;
+//                    private List<?> line_item_adjustments;
+//                    private List<?> messages;
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public String getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(String price) {
+//                        this.price = price;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public DeliveryTimeMessageBeanXXXXX getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXXXX delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public ActivityObjectBeanXXXXXXXXXXX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanXXXXXXXXXXX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public String getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(String sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public Object getProduct_stamp() {
+//                        return product_stamp;
+//                    }
+//
+//                    public void setProduct_stamp(Object product_stamp) {
+//                        this.product_stamp = product_stamp;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public List<VariantOptionsBeanXXXXX> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBeanXXXXX> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<?> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<?> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public static class DeliveryTimeMessageBeanXXXXX {
+//                        /**
+//                         * message : COD is not available.
+//                         * type : 0
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class ActivityObjectBeanXXXXXXXXXXX {
+//                        /**
+//                         * activity_object : {"id":"P72580"}
+//                         */
+//
+//                        private ActivityObjectBeanXXXXXXXXXX activity_object;
+//
+//                        public ActivityObjectBeanXXXXXXXXXX getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBeanXXXXXXXXXX activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBeanXXXXXXXXXX {
+//                            /**
+//                             * id : P72580
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBeanXXXXX {
+//                        /**
+//                         * count_on_hand : 2
+//                         * option_value_name : M
+//                         * size : 25
+//                         * corrected_count_on_hand : 2
+//                         * name : M
+//                         * id : 94134
+//                         */
+//
+//                        private int count_on_hand;
+//                        private String option_value_name;
+//                        private int size;
+//                        private int corrected_count_on_hand;
+//                        private String name;
+//                        private int id;
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            public static class TMWBean {
+//                /**
+//                 * adjustments : []
+//                 * subtotal : 1000
+//                 * item_total : 1000
+//                 * items : [{"formatted_price":"Tk. 500","seller":"TMW","min_order_qty":1,"line_item_id":297727,"discount":0,"prepaid_availability":true,"seller_slug":"tmw","delivery_time":"Delivery in 4-6 working days.","title":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","liked":false,"category_id":1118,"variant_options":[{"count_on_hand":6,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":29245},{"count_on_hand":8,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":29247},{"count_on_hand":7,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":29248}],"max_item_quantity":50,"price":"500.0","product_id":24424,"sold_out":false,"variant":29245,"formatted_income":"Tk. 210","mrp_price_line":"Tk. 395 x 2 = Tk. 790","cod_availability":true,"formatted_per_item_total":"Tk. 1,000","per_item_total":1000,"sku":"305933","delivery_time_message":{"message":"Delivery in 4-6 working days.","type":2},"prepaid_message":"Delivery in 4-6 working days.","activity_object":{"activity_object":{"id":"P24424"}},"image":"https://shopimages.vstores.io/42442/1576574650899-whatsappimage2019-12-14at5.26.18pm1-small.jpeg?1580126772","quantity":2,"max_selling_price":742,"original_amo":395,"variant_price":395,"final_discount":0,"formatted_variant_price":"Tk. 395","price_line":"Tk. 500 x 2 = Tk. 1,000","product_name":"Full Sleeve Casual Shirt for Men 02 - Ash - TMW","sale_price":"1000.0","product_stamp":null,"zipcode":"7","formatted_seller_price":"Tk. 0","formatted_sale_price":"Tk. 1,000","size":"M","line_item_adjustments":[],"master_product_id":24424,"messages":[],"min_selling_price":471,"category":"Men shirt","permalink":"full-sleeve-casual-shirt-for-men-02-ash-tmw-fa8be538","cod_message":"Delivery in 4-6 working days."}]
+//                 */
+//
+//                private int subtotal;
+//                private int item_total;
+//                private List<?> adjustments;
+//                private List<ItemsBeanXXXXXX> items;
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBeanXXXXXX> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBeanXXXXXX> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBeanXXXXXX {
+//                    /**
+//                     * formatted_price : Tk. 500
+//                     * seller : TMW
+//                     * min_order_qty : 1
+//                     * line_item_id : 297727
+//                     * discount : 0
+//                     * prepaid_availability : true
+//                     * seller_slug : tmw
+//                     * delivery_time : Delivery in 4-6 working days.
+//                     * title : Full Sleeve Casual Shirt for Men 02 - Ash - TMW
+//                     * liked : false
+//                     * category_id : 1118
+//                     * variant_options : [{"count_on_hand":6,"option_value_name":"M","size":25,"corrected_count_on_hand":3,"name":"M","id":29245},{"count_on_hand":8,"option_value_name":"L","size":25,"corrected_count_on_hand":3,"name":"L","id":29247},{"count_on_hand":7,"option_value_name":"XL","size":25,"corrected_count_on_hand":3,"name":"XL","id":29248}]
+//                     * max_item_quantity : 50
+//                     * price : 500.0
+//                     * product_id : 24424
+//                     * sold_out : false
+//                     * variant : 29245
+//                     * formatted_income : Tk. 210
+//                     * mrp_price_line : Tk. 395 x 2 = Tk. 790
+//                     * cod_availability : true
+//                     * formatted_per_item_total : Tk. 1,000
+//                     * per_item_total : 1000
+//                     * sku : 305933
+//                     * delivery_time_message : {"message":"Delivery in 4-6 working days.","type":2}
+//                     * prepaid_message : Delivery in 4-6 working days.
+//                     * activity_object : {"activity_object":{"id":"P24424"}}
+//                     * image : https://shopimages.vstores.io/42442/1576574650899-whatsappimage2019-12-14at5.26.18pm1-small.jpeg?1580126772
+//                     * quantity : 2
+//                     * max_selling_price : 742
+//                     * original_amo : 395
+//                     * variant_price : 395
+//                     * final_discount : 0
+//                     * formatted_variant_price : Tk. 395
+//                     * price_line : Tk. 500 x 2 = Tk. 1,000
+//                     * product_name : Full Sleeve Casual Shirt for Men 02 - Ash - TMW
+//                     * sale_price : 1000.0
+//                     * product_stamp : null
+//                     * zipcode : 7
+//                     * formatted_seller_price : Tk. 0
+//                     * formatted_sale_price : Tk. 1,000
+//                     * size : M
+//                     * line_item_adjustments : []
+//                     * master_product_id : 24424
+//                     * messages : []
+//                     * min_selling_price : 471
+//                     * category : Men shirt
+//                     * permalink : full-sleeve-casual-shirt-for-men-02-ash-tmw-fa8be538
+//                     * cod_message : Delivery in 4-6 working days.
+//                     */
+//
+//                    private String formatted_price;
+//                    private String seller;
+//                    private int min_order_qty;
+//                    private int line_item_id;
+//                    private int discount;
+//                    private boolean prepaid_availability;
+//                    private String seller_slug;
+//                    private String delivery_time;
+//                    private String title;
+//                    private boolean liked;
+//                    private int category_id;
+//                    private int max_item_quantity;
+//                    private String price;
+//                    private int product_id;
+//                    private boolean sold_out;
+//                    private int variant;
+//                    private String formatted_income;
+//                    private String mrp_price_line;
+//                    private boolean cod_availability;
+//                    private String formatted_per_item_total;
+//                    private int per_item_total;
+//                    private String sku;
+//                    private DeliveryTimeMessageBeanXXXXXX delivery_time_message;
+//                    private String prepaid_message;
+//                    private ActivityObjectBeanXXXXXXXXXXXXX activity_object;
+//                    private String image;
+//                    private int quantity;
+//                    private int max_selling_price;
+//                    private int original_amo;
+//                    private int variant_price;
+//                    private int final_discount;
+//                    private String formatted_variant_price;
+//                    private String price_line;
+//                    private String product_name;
+//                    private String sale_price;
+//                    private Object product_stamp;
+//                    private String zipcode;
+//                    private String formatted_seller_price;
+//                    private String formatted_sale_price;
+//                    private String size;
+//                    private int master_product_id;
+//                    private int min_selling_price;
+//                    private String category;
+//                    private String permalink;
+//                    private String cod_message;
+//                    private List<VariantOptionsBeanXXXXXX> variant_options;
+//                    private List<?> line_item_adjustments;
+//                    private List<?> messages;
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public String getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(String price) {
+//                        this.price = price;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public DeliveryTimeMessageBeanXXXXXX getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBeanXXXXXX delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public ActivityObjectBeanXXXXXXXXXXXXX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanXXXXXXXXXXXXX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public String getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(String sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public Object getProduct_stamp() {
+//                        return product_stamp;
+//                    }
+//
+//                    public void setProduct_stamp(Object product_stamp) {
+//                        this.product_stamp = product_stamp;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public List<VariantOptionsBeanXXXXXX> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBeanXXXXXX> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<?> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<?> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public static class DeliveryTimeMessageBeanXXXXXX {
+//                        /**
+//                         * message : Delivery in 4-6 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class ActivityObjectBeanXXXXXXXXXXXXX {
+//                        /**
+//                         * activity_object : {"id":"P24424"}
+//                         */
+//
+//                        private ActivityObjectBeanXXXXXXXXXXXX activity_object;
+//
+//                        public ActivityObjectBeanXXXXXXXXXXXX getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBeanXXXXXXXXXXXX activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBeanXXXXXXXXXXXX {
+//                            /**
+//                             * id : P24424
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBeanXXXXXX {
+//                        /**
+//                         * count_on_hand : 6
+//                         * option_value_name : M
+//                         * size : 25
+//                         * corrected_count_on_hand : 3
+//                         * name : M
+//                         * id : 29245
+//                         */
+//
+//                        private int count_on_hand;
+//                        private String option_value_name;
+//                        private int size;
+//                        private int corrected_count_on_hand;
+//                        private String name;
+//                        private int id;
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         public static class AdjustmentsBean {
             /**

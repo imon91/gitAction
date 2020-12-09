@@ -51,7 +51,7 @@ public class Checkout extends WebAppBaseClass {
     @Test(groups = {CoreConstants.GROUP_SMOKE})
     public void verifyCheckout() throws Exception {
         System.out.println("control came to verifyCheckout");
-        sleep(1000);
+        sleep(3000);
         String currentPage = androidDriver.getCurrentUrl();
         Assert.assertTrue(currentPage.equalsIgnoreCase(WAPConstants.MY_BAG));
         checkoutpageobject.confirmingOrder();

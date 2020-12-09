@@ -33,7 +33,7 @@ public class HomePage extends AndroidBaseClass {
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.selectAddress(0);
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -60,11 +60,7 @@ public class HomePage extends AndroidBaseClass {
     public void verifySelectedAddress(){
         List<String> selectedAddressNameAndAddressList = new ArrayList<>();
         int cart_Item_Count = homePageObjects.getCartItemCount();
-        if (cart_Item_Count==0) {
-            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
-        }else {
-            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
-        }
+        selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
         WebElement nameOfSelectedAddress = idSetter("com.mokam.app:id/address_name");
         softAssert.assertEquals(nameOfSelectedAddress.getText(),selectedAddressNameAndAddressList.get(0));
 
