@@ -133,7 +133,6 @@ public class HomePageObjects extends AndroidBaseClass {
         sleep(1000);
         clickAllowButton();
         sleep(1000);
-        System.out.println("app name is "+app);
         int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
         String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
         enterLocation(locationName);
