@@ -18,6 +18,7 @@ public class ProfilePage extends AndroidBaseClass {
     private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
+    private HomePageObjects homePageObjects;
     private YourAccountPageObjects yourAccountPageObjects;
     private ServiceRequestLayer serviceRequestLayer;
     private Random random;
@@ -27,7 +28,7 @@ public class ProfilePage extends AndroidBaseClass {
     int randomBusinessType;
 
     @BeforeSuite(alwaysRun = true)
-    public void profilePageBeforeSuite(){
+    public void profilePageBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         serviceRequestLayer = new ServiceRequestLayer();
@@ -36,7 +37,8 @@ public class ProfilePage extends AndroidBaseClass {
         softAssert = new SoftAssert();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -56,6 +58,7 @@ public class ProfilePage extends AndroidBaseClass {
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         yourAccountPageObjects = new YourAccountPageObjects(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
