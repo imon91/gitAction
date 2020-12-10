@@ -25,7 +25,7 @@ public class HomePage extends AndroidBaseClass {
     private SoftAssert softAssert;
 
     @BeforeSuite(alwaysRun = true)
-    public void homePageBeforeSuite(){
+    public void homePageBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         softAssert = new SoftAssert();
@@ -33,7 +33,8 @@ public class HomePage extends AndroidBaseClass {
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        homePageObjects.selectAddress(0);
+        //        homePageObjects.selectAddress(0);
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();

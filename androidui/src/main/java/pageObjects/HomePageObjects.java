@@ -1,11 +1,12 @@
 package pageObjects;
 
+import coreUtils.BuildParameterKeys;
 import io.appium.java_client.*;
-import io.appium.java_client.pagefactory.*;
+import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.*;
 import services.commerceMethods.GetCommerceApiResponse;
 import services.responseModels.commerceModels.MokamHomePageModel;
+import testData.ReadJSONFile;
 import utils.*;
 import io.appium.java_client.android.*;
 import java.util.*;
@@ -17,6 +18,9 @@ public class HomePageObjects extends AndroidBaseClass {
     private String packageName;
     private GetCommerceApiResponse getCommerceApiResponse;
     private ServiceRequestLayer serviceRequestLayer;
+    private String app;
+    private Random random;
+    private ReadJSONFile readJSONFile;
 
     public HomePageObjects(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
@@ -24,6 +28,9 @@ public class HomePageObjects extends AndroidBaseClass {
         packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
         getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
+        app = BuildParameterKeys.KEY_APP;
+        random = new Random();
+        readJSONFile = serviceRequestLayer.getControlOverReadJSONFile();
     }
 
     //--------------------Address/GeoLocation at homePage ------------------//
@@ -112,6 +119,35 @@ public class HomePageObjects extends AndroidBaseClass {
     public void selectAddress(int index){
         WebElement firstAddressElement = xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']/android.view.ViewGroup[@index='0']");
         myActions.action_click(firstAddressElement);
+    }
+
+    public void createNewAddress() throws Exception {
+        switchFromWebToNative();
+        WebElement addNewAddressButton;
+        try {
+            addNewAddressButton = scrollToAddNewAddressButton();
+        } catch (NullPointerException e) {
+            addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
+        }
+        clickOnAddNewAddressButton();
+        sleep(1000);
+        clickAllowButton();
+        sleep(1000);
+        int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
+        String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
+        enterLocation(locationName);
+        sleep(2000);
+        clickOnLocationNextButton();
+        sleep(1000);
+        enterShopName(locationName);
+        enterArea();
+        sleep(2000);
+        enterAddress(""+random.nextInt(10)+",West Cross Street");
+        enterMobileNumber("018"+ RandomStringUtils.randomNumeric(8));
+        clickOnAddAddressButton();
+        sleep(2000);
+        selectAddress("Smoke Flow shop "+locationName);
+        sleep(3500);
     }
 
     public void enterMobileNumber(String mobileNumber){

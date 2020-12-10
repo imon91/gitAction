@@ -58,6 +58,7 @@ public class Address extends WebAppBaseClass {
         addresspageobject.clickOnCashOnDelivery();
         sleep(1000);
         addresspageobject.clickOnMakePayment();
+        sleep(1000);
         String orderno = order.getOrderNo();
         System.out.println(orderno);
         sleep(1500);

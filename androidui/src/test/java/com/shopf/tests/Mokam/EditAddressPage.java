@@ -37,7 +37,7 @@ public class EditAddressPage extends AndroidBaseClass {
     private WebElement alternateMobileNumberEditText;
 
     @BeforeSuite(alwaysRun = true)
-    public void editAddressPageBeforeSuite(){
+    public void editAddressPageBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         softAssert = new SoftAssert();
@@ -48,7 +48,8 @@ public class EditAddressPage extends AndroidBaseClass {
         readJSONFile = serviceRequestLayer.getControlOverReadJSONFile();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();

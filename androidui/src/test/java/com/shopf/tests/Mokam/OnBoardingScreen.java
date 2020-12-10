@@ -19,6 +19,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
+    private HomePageObjects homePageObjects;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
     private WebElement shopNameText;
     private WebElement ownerNameText;
@@ -37,7 +38,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     String skipButtonText_English = "Skip";
 
     @BeforeSuite(alwaysRun = true)
-    public void onBoardingScreenBeforeSuite(){
+    public void onBoardingScreenBeforeSuite() throws Exception {
         System.out.println("onBoardingScreenBeforeSuite is called");
         androidDriver = getBaseDriver();
         random = new Random();
@@ -48,7 +49,8 @@ public class OnBoardingScreen extends AndroidBaseClass {
         businessTypeOptions.add(2,"Both");
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -68,6 +70,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         salesRepFeaturePageObject = new SalesRepFeaturePageObject(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
     }
 
     public String newRandomMobileNumberGeneration(){

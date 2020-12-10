@@ -20,17 +20,19 @@ public class AddressSelectionPage extends AndroidBaseClass {
     private YourAccountPageObjects yourAccountPageObjects;
     private RightNavigationDrawer rightNavigationDrawer;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
+    private HomePageObjects homePageObjects;
     private ServiceRequestLayer serviceRequestLayer;
 
     @BeforeSuite(alwaysRun = true)
-    public void addressSelectionPageBeforeSuite(){
+    public void addressSelectionPageBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         serviceRequestLayer = new ServiceRequestLayer();
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -50,6 +52,7 @@ public class AddressSelectionPage extends AndroidBaseClass {
         yourAccountPageObjects = new YourAccountPageObjects(androidDriver);
         salesRepFeaturePageObject = new SalesRepFeaturePageObject(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
