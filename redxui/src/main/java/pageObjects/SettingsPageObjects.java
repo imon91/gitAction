@@ -1,9 +1,9 @@
 package pageObjects;
 
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+import org.testng.*;
 import utils.*;
-
-import java.util.List;
+import java.util.*;
 
 public class SettingsPageObjects extends RedXBaseClass
 {
@@ -359,12 +359,16 @@ public class SettingsPageObjects extends RedXBaseClass
         {
             clickOtherSettingsModule();
             setEnglishLanguage();
+            String pageTitle = getPageTitle();
+            Assert.assertEquals(pageTitle,"Other Information");
         }
 
         public void changeToBangla()
         {
             clickOtherSettingsModule();
             setBanglaLanguage();
+            String pageTitle = getPageTitle();
+            Assert.assertNotEquals(pageTitle,"Other Information");
         }
     }
 }

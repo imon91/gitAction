@@ -1,9 +1,7 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import utils.*;
-
 import java.util.*;
 
 public class AddParcelPageObjects extends RedXBaseClass
@@ -201,6 +199,22 @@ public class AddParcelPageObjects extends RedXBaseClass
         enterInvoiceNumber(invoiceNumber);
         enterInstruction(instruction);
         clickConfirmButton();
+    }
+
+    public List<String> createParcelCautionMessages()
+    {
+        List<String> cautionMessages = new ArrayList<>();
+        WebElement nameCautionMessage = xpathSetter("//android.widget.TextView[@index='3']");
+        WebElement phoneCautionMessage = xpathSetter("//android.widget.TextView[@index='8']");
+        WebElement cashCautionMessage = xpathSetter("//android.widget.TextView[@index='9']");
+        WebElement sellingPriceCautionMessage = xpathSetter("//android.widget.TextView[@index='12']");
+        WebElement addressCautionMessage = xpathSetter("//android.widget.TextView[@index='16']");
+        cautionMessages.add(myActions.action_getText(nameCautionMessage));
+        cautionMessages.add(myActions.action_getText(phoneCautionMessage));
+        cautionMessages.add(myActions.action_getText(cashCautionMessage));
+        cautionMessages.add(myActions.action_getText(sellingPriceCautionMessage));
+        cautionMessages.add(myActions.action_getText(addressCautionMessage));
+        return cautionMessages;
     }
 
 
