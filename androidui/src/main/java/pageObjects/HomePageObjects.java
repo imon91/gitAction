@@ -1,12 +1,12 @@
 package pageObjects;
 
-import coreUtils.BuildParameterKeys;
+import coreUtils.*;
 import io.appium.java_client.*;
 import org.apache.commons.lang.RandomStringUtils;
 import org.openqa.selenium.*;
 import services.commerceMethods.GetCommerceApiResponse;
 import services.responseModels.commerceModels.MokamHomePageModel;
-import testData.ReadJSONFile;
+import testData.*;
 import utils.*;
 import io.appium.java_client.android.*;
 import java.util.*;
@@ -28,7 +28,7 @@ public class HomePageObjects extends AndroidBaseClass {
         packageName = getAppPackage();
         serviceRequestLayer = new ServiceRequestLayer();
         getCommerceApiResponse = serviceRequestLayer.getControlOverServices();
-        app = BuildParameterKeys.KEY_APP;
+        app = System.getProperty(BuildParameterKeys.KEY_APP);
         random = new Random();
         readJSONFile = serviceRequestLayer.getControlOverReadJSONFile();
     }
@@ -126,13 +126,14 @@ public class HomePageObjects extends AndroidBaseClass {
         WebElement addNewAddressButton;
         try {
             addNewAddressButton = scrollToAddNewAddressButton();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
         }
         clickOnAddNewAddressButton();
         sleep(1000);
         clickAllowButton();
         sleep(1000);
+        System.out.println("app name is "+app);
         int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
         String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
         enterLocation(locationName);
