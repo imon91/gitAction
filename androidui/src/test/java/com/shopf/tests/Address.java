@@ -240,7 +240,7 @@ public class Address extends AndroidBaseClass {
         WebElement addNewAddressButton;
         try {
             addNewAddressButton = homePageObjects.scrollToAddNewAddressButton();
-        } catch (NullPointerException e) {
+        } catch (Exception e) {
             addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
         }
 //        myActions.action_click(addNewAddressButton);
