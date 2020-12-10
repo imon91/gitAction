@@ -159,8 +159,8 @@ public class LoginScreen extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
     public void verifyClickingResendOtpButton(){
+        sleep(30000);
         resendOTPButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_resend_otp']");
-        sleep(50000);
         Assert.assertTrue(resendOTPButton.isEnabled());
     }
 
