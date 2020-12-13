@@ -43,9 +43,53 @@ task redxuiTest(type: Test) {// we define a task with name ‘androiduiTest’
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
         def regression = project.hasProperty("Reg")
+        def authentication = project.hasProperty("Authentication")
+        def changeLanguage = project.hasProperty("ChangeLanguage")
+        def createParcel = project.hasProperty("CreateParcel")
+        def deleteParcel = project.hasProperty("DeleteParcel")
+        def editParcel = project.hasProperty("EditParcel")
+        def logout = project.hasProperty("Logout")
+        def parcelDetails = project.hasProperty("ParcelDetails")
+        def paymentInvoice = project.hasProperty("PaymentInvoice")
+        def settings = project.hasProperty("Settings")
+        def shopName = project.hasProperty("ShopName")
+
+        def sanity = project.hasProperty("Sanity")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
+        }
+        if(sanity) {
+                if(authentication){
+                    suites  "src/test/resources/mySuites/authenticationSanitySuite.xml";
+                }
+                else if (changeLanguage){
+                    suites "src/test/resources/mySuites/changeLanguageSanitySuite.xml"
+                }
+                else if (createParcel){
+                    suites "src/test/resources/mySuites/createParcelSanitySuite.xml"
+                }
+                else if (deleteParcel){
+                    suites "src/test/resources/mySuites/deleteParcelSanitySuite.xml"
+                }
+                else if (editParcel){
+                    suites "src/test/resources/mySuites/editParcelSanitySuite.xml"
+                }
+                else if (logout){
+                    suites "src/test/resources/mySuites/logoutSanitySuite.xml"
+                }
+                else if (parcelDetails){
+                    suites "src/test/resources/mySuites/parcelDetailsSanitySuite.xml"
+                }
+                else if (paymentInvoice){
+                    suites "src/test/resources/mySuites/paymentInvoiceSanitySuite.xml"
+                }
+                else if (settings){
+                    suites "src/test/resources/mySuites/settingsSanitySuite.xml"
+                }
+                else if (shopName){
+                    suites "src/test/resources/mySuites/shopNameSanitySuite.xml"
+                }
         }
         if(integration) {
             suites "src/test/resources/mySuites/integrationSuite.xml"

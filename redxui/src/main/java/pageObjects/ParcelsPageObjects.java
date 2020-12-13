@@ -1,10 +1,8 @@
 package pageObjects;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import utils.*;
-
-import java.util.List;
+import java.util.*;
 
 public class ParcelsPageObjects extends RedXBaseClass
 {
@@ -23,6 +21,7 @@ public class ParcelsPageObjects extends RedXBaseClass
         private WebElement pageTitle;
         private WebElement searchButton;
         private WebElement parcelDetailsTitle;
+        private WebElement searchBar;
 
         /*----------Actions----------*/
 
@@ -48,6 +47,15 @@ public class ParcelsPageObjects extends RedXBaseClass
         {
             parcelDetailsTitle = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.view.ViewGroup[2]/android.widget.TextView[@index='0']");
             return myActions.action_getText(parcelDetailsTitle);
+        }
+
+        public void enterSearchTerm(String searchTerm)
+        {
+           WebElement searchIcon = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']/android.view.ViewGroup[@index='0']");
+           myActions.action_click(searchIcon);
+           sleep(500);
+            searchBar = xpathSetter("//android.view.ViewGroup[@index='0']/android.widget.EditText[@index='1']");
+            myActions.action_sendKeys(searchBar,searchTerm);
         }
     }
 

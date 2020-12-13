@@ -13,11 +13,28 @@ public class Settings extends RedXBaseClass
     private AndroidDriver<WebElement> androidDriver;
     private HomePageObjects homePageObjects;
     private SettingsPageObjects settingsPageObjects;
+    private LoginPageObjects loginPageObjects;
+    private SettingsPageObjects.OtherSettings otherSettings;
+    private Authentication authentication;
+    private ChangeLanguage changeLanguage;
 
     public void pageInitializer()
     {
         homePageObjects = new HomePageObjects();
         settingsPageObjects = new SettingsPageObjects();
+        loginPageObjects = new LoginPageObjects();
+        settingsPageObjects = new SettingsPageObjects();
+        otherSettings = settingsPageObjects.new OtherSettings();
+        authentication = new Authentication();
+        changeLanguage = new ChangeLanguage();
+
+    }
+
+    @BeforeSuite(alwaysRun = true)
+    public void redXAndroidBeforeSuite()
+    {
+        System.out.println("redXAndroidBeforeSuite is called");
+        androidDriver = getBaseDriver();
     }
 
     @BeforeClass(alwaysRun = true)
@@ -27,6 +44,33 @@ public class Settings extends RedXBaseClass
         androidDriver = getBaseDriver();
         pageInitializer();
         homePageObjects.clickSettingsButton();
+    }
+
+    @DataProvider(name = "getUserAuthenticationData")
+    public Object[][] getUserAuthenticationData(){
+        return new Object[][]{
+                {"01401122188","6666"}
+        };
+    }
+
+    @Test(  groups = {"Authentication.verifyAuthenticationWithWrongOTP",
+            CoreConstants.GROUP_SANITY},
+            description = "Verifies Authentication With Wrong OTP",
+            priority = 1,
+            dataProvider = "getUserAuthenticationData")
+    public void verifyAuthenticationWithWrongOTP(String mobileNumber,String otp) throws Exception {
+        System.out.println("Verify authentication with Wrong OTP was called");
+        authentication.authenticationSetUp();
+        authentication.verifyAuthenticationWithValidCredentials(mobileNumber,otp);}
+
+    @Test(  groups = {"Settings.verifyChangeLanguageToENGLISH",
+            CoreConstants.GROUP_SANITY},
+            description = "Change Language To English",
+            priority = 2)
+    public void changeToEnglishLanguage() throws Exception {
+        System.out.println("Changing to English Language");
+        changeLanguage.beforeChangeLanguageClass();
+        changeLanguage.changeToEnglishLanguage();
     }
 
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_REGRESSION},
@@ -88,5 +132,13 @@ public class Settings extends RedXBaseClass
     {
         settingsPageObjects.clickBackButton();
         System.out.println("After Settings Class");
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void redXAndroidAfterSuite(){
+
+        System.out.println("redXAndroidAfterSuite Is Called");
+        quitBaseDriver();
+
     }
 }
