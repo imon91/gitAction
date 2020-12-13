@@ -55,7 +55,7 @@ public class MyCart extends AndroidBaseClass {
         rightNavigationDrawer.selectEnglish();
         rightNavigationDrawer.saveLanguage();
         sleep(3000);
-        loginPageObjects.closePopup();
+//        loginPageObjects.closePopup();
 
         actionBarObjects.clickOnBagImageButton();
         sleep(5000);
@@ -185,6 +185,8 @@ public class MyCart extends AndroidBaseClass {
                 itemContainer.clickOnAddQuantityButton(itemContainer.getListOfAddQuantityButton().get(i));
                 sleep(5000);
 
+                androidDriver.navigate().refresh();
+                sleep(6000);
                 String quantity = itemContainer.getQuantity(i); //FrontEnd Quantity
                 Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();
                 for (int j = 0; j < productDetailsMap.size(); j++) {
@@ -211,6 +213,9 @@ public class MyCart extends AndroidBaseClass {
             if (suiteName.equalsIgnoreCase(CoreConstants.GROUP_REGRESSION) || i == 0 || i == containersSize - 1) {
                 itemContainer.clickOnSubQuantityButton(itemContainer.getListOfSubQuantityButton().get(i));
                 sleep(5000);
+
+                androidDriver.navigate().refresh();
+                sleep(6000);
 
                 String quantity = itemContainer.getQuantity(i); //FrontEnd Quantity
                 Map<Integer, List<String>> productDetailsMap = myBagPageObjects.getContainerData();

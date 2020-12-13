@@ -184,7 +184,7 @@ public class MyBagPageObjects extends AndroidBaseClass {
 
 
         public List<WebElement> getListOfItemQuantityValues(){
-            String itemQuantityXpath = itemContainerPath+"//input[@class='qtyMinus___2cf0a']/following-sibling::span";
+            String itemQuantityXpath = itemContainerPath+"/div[2]/div[2]/select/option[@selected]";
             List<WebElement> itemQuantityList = androidDriver.findElements(By.xpath(itemQuantityXpath));
             return itemQuantityList;
         }
