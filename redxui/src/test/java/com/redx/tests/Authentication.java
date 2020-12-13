@@ -36,6 +36,11 @@ public class Authentication extends RedXBaseClass
     {
         System.out.println("authenticationSetUp is called");
         pageInitializer();
+        switchFromWebToNative();
+        sleep(8000);
+        try{WebElement updateButton = idSetter("android:id/button1");
+            myActions.action_click(updateButton);}catch (Exception e){System.out.println("No update button");}
+        sleep(3000);
     }
 
 
@@ -57,13 +62,30 @@ public class Authentication extends RedXBaseClass
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp)
     {
         System.out.println("Verify Authentication is called");
-        switchFromWebToNative();
-        sleep(5000);
-        WebElement updateButton = idSetter("android:id/button1");
-        try{myActions.action_click(updateButton);}catch (Exception e){System.out.println("No update button");}
-        sleep(3000);
         loginPageObjects.performAuthentication(mobileNumber,otp);
         System.out.println(homePageObjects.getCurrentShopName());   }
+
+    @Test(  groups = {"Authentication.verifyAuthenticationWithEditMobileNo",
+            CoreConstants.GROUP_SANITY},
+            description = "Verifies Authentication With Edit MobileNo",
+            priority = 1,
+            dataProvider = "getUserAuthenticationData")
+    public void verifyAuthenticationByEditMobileNo(String mobileNumber,String otp)
+    {
+        System.out.println("Verify Authentication with Edit MobileNo was called");
+        loginPageObjects.performAuthenticationWithChangeNumber(mobileNumber,otp);
+    }
+
+    @Test(  groups = {"Authentication.verifyAuthenticationWithWrongOTP",
+            CoreConstants.GROUP_SANITY},
+            description = "Verifies Authentication With Wrong OTP",
+            priority = 2,
+            dataProvider = "getUserAuthenticationData")
+    public void verifyAuthenticationWithWrongOTP(String mobileNumber,String otp)
+    {
+        System.out.println("Verify authentication with Wrong OTP was called");
+        loginPageObjects.performAuthenticationWithWrongOTP(mobileNumber,otp);
+    }
 
 
 
