@@ -205,7 +205,7 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public void clickAllowButton()
     {
-        allowButton = idSetter("com.android.packageinstaller:id/permission_allow_button");
+        allowButton = idSetter("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
         myActions.action_click(allowButton);
     }
 
