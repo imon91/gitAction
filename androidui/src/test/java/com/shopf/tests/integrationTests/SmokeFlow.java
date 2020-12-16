@@ -256,12 +256,17 @@ public class SmokeFlow extends AndroidBaseClass {
         plp.verifyApplyingFilterOnPLP(null,null);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 11)
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 11,dataProvider = "dataForSearchTerm")
+    public void verifyPagination(String searchTerm) throws Exception {
+        productListingPageObjects.verifyScrollForPagination();
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 12)
     public void verifySelectingValidProduct(){
         plp.verifySelectingValidSizeItemOnPlpToPDP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 12)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
     public void verifyPlaceOrderThroughPDP(){
         pdp.productDescriptionPageBeforeClass();
         discountedPrice = productDescriptionPageObjects.getDiscountPrice();
@@ -269,34 +274,34 @@ public class SmokeFlow extends AndroidBaseClass {
         pdp.verifyPlaceOrderThroughPDP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
     public void verifyPriceMismatch(){
         sleep(1000);
         discountedPrice_myBag = myBagPageObjects.getDiscountedPrice(productName);
         Assert.assertEquals(discountedPrice,discountedPrice_myBag);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
     public void verifyProductIncrementInMyBag() throws Exception {
              myBag.myBagBeforeClass();
             myBag.verifyItemIncrementFunctionalityOnMyBag();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
     public void verifyApplyShippingChargeInMyBag()
     {
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
         { myBag.verifyApplyingShippingCharges();}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
     public void verifyPlaceOrderInMyBag()
     {
         myBag.verifyPlaceOrderInMyBag();
         sleep(2000);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
     public void verifyDeletingCodDisabledProductInAddress()
     {  //sleep(4000);
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
@@ -305,7 +310,7 @@ public class SmokeFlow extends AndroidBaseClass {
         }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 19)
     public void verifySelectAddress() {
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
             myBag.verifyProceedToPaymentByCreatingNewAddress();
@@ -316,7 +321,7 @@ public class SmokeFlow extends AndroidBaseClass {
         }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 19)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 20)
     public void verifyProceedToPaymentInAddress()
     {
 //        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
@@ -324,7 +329,7 @@ public class SmokeFlow extends AndroidBaseClass {
 //        sleep(3000);}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 20)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 21)
     public void verifyCheckoutWithCOD()
     {
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
@@ -341,14 +346,14 @@ public class SmokeFlow extends AndroidBaseClass {
     }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 21)
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 22)
     public void verifyOrderIdInOrderSuccessfulPage() {
         orderSuccessFulPageObjects.clickOnClickHereButton();
 
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 22)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 23)
     public void verifyOrderInMyOrders() throws Exception{
 //        //Assert That Control is in MyOrdersPage
 //        //Identify Order Number
@@ -364,7 +369,7 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 23)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 24)
     public void verifyLogout() throws Exception {
         if(host.equalsIgnoreCase("Local")){
             // Do nothing
