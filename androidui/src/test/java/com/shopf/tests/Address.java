@@ -257,6 +257,7 @@ public class Address extends AndroidBaseClass {
         String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
         homePageObjects.enterLocation(locationName);
         sleep(2000);
+        homePageObjects.clickFirstSuggestionInLocationList();
         homePageObjects.clickOnLocationNextButton();
         sleep(1000);
         homePageObjects.enterShopName(locationName);

@@ -716,6 +716,13 @@ public class ProductListingPageObjects extends AndroidBaseClass {
                 .perform().release();
     }
 
+    public void verifyScrollForPagination(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollToEnd(25)"));
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollToBeginning(25)"));
+    }
+
     public int totalNumberOfPages(String searchTerm,String null_or_filter_or_sort_or_filterSort) throws Exception {
         int productCount=0;
 

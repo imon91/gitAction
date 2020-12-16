@@ -17,8 +17,8 @@ public class CoreConstants {
 
     public static final String PLATFORM_ANDROID = "Android";
     public static final String ANDROID_PLATFORM_VERSION = "9";
-    public static final String RESELLER_APP_PACKAGE = "com.shopup.reseller";
-    public static final String MOKAM_APP_PACKAGE = "com.mokam.app";
+    public static final String RESELLER_APP_PACKAGE = "com.shopup.reseller.debug";
+    public static final String MOKAM_APP_PACKAGE = "com.mokam.app.debug";
     public static final String RED_X_APP_PACKAGE = "com.redx.delivery";
     public static final String ANDROID_DEVICE_NAME =  "ShopUpAndroidDevice";
     public static final String ANDROID_AUTOMATION_NAME = "UiAutomator2";
@@ -35,8 +35,8 @@ public class CoreConstants {
 
     public static final String SHOP_UP_NATIVE_VIEW = "NATIVE_APP";
     public static final String CHROME_WEB_VIEW = "WEBVIEW_chrome";
-    public static final String SHOP_UP_RESELLER_WEB_VIEW = "WEBVIEW_com.shopup.reseller";
-    public static final String SHOP_UP_MOKAM_WEB_VIEW = "WEBVIEW_com.mokam.app";
+    public static final String SHOP_UP_RESELLER_WEB_VIEW = "WEBVIEW_com.shopup.reseller.debug";
+    public static final String SHOP_UP_MOKAM_WEB_VIEW = "WEBVIEW_com.mokam.app.debug";
 
     /*------Driver Constants----*/
 

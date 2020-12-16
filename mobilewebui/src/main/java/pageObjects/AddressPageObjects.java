@@ -6,6 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.pagefactory.AppiumFieldDecorator;
 import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -300,15 +301,20 @@ public class AddressPageObjects extends WebAppBaseClass {
         List<Integer> codNotAvailable = getCommerceApiResponse.getCodNotAvailableItemsFromShoppingCart();
         int size = codNotAvailable.size();
         if (size != 0) {
-            for(int i = productsSize;i>0;i--) {
-                for (int j = size - 1; j >= 0; j--) {
-                    int productIndex = (codNotAvailable.get(j));
-                    productIndex++;
-                    if(i == productIndex) {
-                        deleteProduct(i);
-                        sleep(3500);
-                    }
-                }
+//            for(int i = productsSize;i>0;i--) {
+//                for (int j = size - 1; j >= 0; j--) {
+//                    int productIndex = (codNotAvailable.get(j));
+//                    productIndex++;
+//                    if(i == productIndex) {
+//                        deleteProduct(i);
+//                        sleep(3500);
+//                    }
+//                }
+//            }
+            for(int i=size-1;i>=0;i--)
+            {
+                int index =  codNotAvailable.get(i);
+                deleteProduct(index);
             }
         }
     }

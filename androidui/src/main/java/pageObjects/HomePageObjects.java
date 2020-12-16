@@ -87,6 +87,11 @@ public class HomePageObjects extends AndroidBaseClass {
 
     }
 
+    public void clickFirstSuggestionInLocationList(){
+        WebElement firstSuggestionElement = xpathSetter("//androidx.recyclerview.widget.RecyclerView[@resource-id='com.mokam.app:id/address_list_recycler_view']/android.view.ViewGroup[@index='0']");
+        myActions.action_click(firstSuggestionElement);
+    }
+
     public void clickOnLocationNextButton()
     {
         nextButton = idSetter(packageName+":id/action_next");
@@ -205,7 +210,11 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public void clickAllowButton()
     {
-        allowButton = idSetter("com.android.packageinstaller:id/permission_allow_button");
+        try {
+            allowButton = idSetter("com.android.packageinstaller:id/permission_allow_button");
+        } catch (Exception e) {
+            allowButton = idSetter("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
+        }
         myActions.action_click(allowButton);
     }
 
