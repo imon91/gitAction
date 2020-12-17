@@ -95,7 +95,7 @@ public class HomePageObjects extends AndroidBaseClass {
     }
 
     public WebElement getBakiTextElement(){
-        return idSetter(packageName+":id/credit_widget_amount");
+        return idSetter(packageName+":id/credit_widget_title");
     }
 
     public WebElement getBakiAmountElement(){
