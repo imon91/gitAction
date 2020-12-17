@@ -93,16 +93,39 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
     private WebElement skipButtonText;
 
 
+    public WebElement getShopNameEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_retailer_edit_shop_name']");
+    }
+
+    public WebElement getOwnerNameEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_retailer_owner_name']");
+    }
+
+    public List<WebElement> getIconsElementList(){
+        List<WebElement> iconList = new ArrayList<>();
+        iconList.add(0,idSetter(packageName+":id/chip_retailer"));
+        iconList.add(1,idSetter(packageName+":id/chip_wholesaler"));
+        iconList.add(2,idSetter(packageName+":id/chip_both"));
+        return iconList;
+    }
+
+    public WebElement getNextButtonAtOnBoardingScreenElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next_on_boarding']");
+    }
+
+    public WebElement getSkipButtonElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_retailer_action_skip']");
+    }
 
     public void clickOnAddNewShopIcon()
     {
-        addNewShopIcon = idSetter("com.mokam.app:id/action_add_retailer");
+        addNewShopIcon = idSetter(packageName+":id/action_add_retailer");
         myActions.action_click(addNewShopIcon);
     }
 
     public void clickOnNextButtonAtShopList()
     {
-        nextButtonAtShopList = idSetter("com.mokam.app:id/action_next");
+        nextButtonAtShopList = idSetter(packageName+":id/action_next");
         myActions.action_click(nextButtonAtShopList);
     }
 
@@ -114,52 +137,52 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
 
     public void enterOwnerNameText(String ownerName)
     {
-        ownerNameText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_retailer_owner_name']");
+        ownerNameText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_retailer_owner_name']");
         myActions.action_sendKeys(ownerNameText,ownerName);
     }
 
     public void clickOnRetailerIcon()
     {
-        retailerIcon = idSetter("com.mokam.app:id/chip_retailer");
+        retailerIcon = idSetter(packageName+":id/chip_retailer");
         myActions.action_click(retailerIcon);
     }
 
     public void clickOnWholeSaleIcon()
     {
-        wholeSaleIcon = idSetter("com.mokam.app:id/chip_wholesaler");
+        wholeSaleIcon = idSetter(packageName+":id/chip_wholesaler");
         myActions.action_click(wholeSaleIcon);
     }
 
     public void clickOnBothIconInBusinessType()
     {
-        bothIcon = idSetter("com.mokam.app:id/chip_both");
+        bothIcon = idSetter(packageName+":id/chip_both");
         myActions.action_click(bothIcon);
     }
 
     public void clickOnNextButtonAtOnboardingScreen()
     {
-        nextButtonAtOnboardingScreen = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        nextButtonAtOnboardingScreen = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next_on_boarding']");
         myActions.action_click(nextButtonAtOnboardingScreen);
     }
 
     public void clickOnSkipButton()
     {
-        skipButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_action_skip']");
+        skipButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_retailer_action_skip']");
         myActions.action_click(skipButton);
     }
 
     public String getAlmostThereText(){
-        almostThereText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_title']");
+        almostThereText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_retailer_title']");
         return myActions.action_getText(almostThereText);
     }
 
     public String getSubText(){
-        subText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_message']");
+        subText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_retailer_message']");
         return myActions.action_getText(subText);
     }
 
     public String getBusinessTypeTitleText(){
-        businessTypeTitleText = xpathSetter("//android.view.ViewGroup[@resource-id='com.mokam.app:id/add_retailer_chipgroup']//android.widget.TextView");
+        businessTypeTitleText = xpathSetter("//android.view.ViewGroup[@resource-id='"+packageName+":id/add_retailer_chipgroup']//android.widget.TextView");
         return myActions.action_getText(businessTypeTitleText);
     }
 
@@ -169,12 +192,12 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
     }
 
     public String getSkipButtonText(){
-        skipButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_action_skip']");
+        skipButtonText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/add_retailer_action_skip']");
         return myActions.action_getText(skipButtonText);
     }
 
     public String getNextButtonText(){
-        nextButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        nextButtonText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next_on_boarding']");
         return myActions.action_getText(nextButtonText);
     }
 
@@ -203,59 +226,59 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
     }
 
     public String getSelectARetailerText(){
-        WebElement textElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/retailer_title']");
+        WebElement textElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/retailer_title']");
         return myActions.action_getText(textElement);
     }
 
     public String getTextInSearchInputBox(){
-        WebElement textElement = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/retailer_search']");
+        WebElement textElement = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/retailer_search']");
         return myActions.action_getText(textElement);
     }
 
     public void enterTextInSearchInputBox(String shopNameOrPhoneNumber){
-        WebElement inputBoxElement = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/retailer_search']");
+        WebElement inputBoxElement = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/retailer_search']");
         myActions.action_sendKeys(inputBoxElement,shopNameOrPhoneNumber);
     }
 
     public WebElement getSearchInputBoxElement(){
-        return xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/retailer_search']");
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/retailer_search']");
     }
 
     public String getAddNewRetailerButtonText(){
-        WebElement addNewRetailerButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_add_retailer']");
+        WebElement addNewRetailerButtonText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_add_retailer']");
         return myActions.action_getText(addNewRetailerButtonText);
     }
 
     public WebElement getAddNewRetailerButtonElement(){
-        return xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_add_retailer']");
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_add_retailer']");
     }
 
     public String getNextButtonTextInRetailerListPage(){
-        WebElement nextButtonText = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next']");
+        WebElement nextButtonText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next']");
         return myActions.action_getText(nextButtonText);
     }
 
     public WebElement getNextButtonInRetailerListPageElement(){
-        return xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next']");
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next']");
     }
 
     public WebElement scrollAtSalesRepList(String textToScroll)
     {
         WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/list_retailer_recycler\")).scrollIntoView("
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/list_retailer_recycler\")).scrollIntoView("
                         + "new UiSelector().text(\""+textToScroll+ "\"))"));
         return element;
     }
 
     public WebElement scrollToEndAtSalesRepList(){
         WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/list_retailer_recycler\")).scrollToEnd(500)"));
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/list_retailer_recycler\")).scrollToEnd(500)"));
         return element;
     }
 
     public WebElement ownerNameText(int index)
     {
-        ownerName = idListSetter("com.mokam.app:id/retailer_name").get(index);
+        ownerName = idListSetter(packageName+":id/retailer_name").get(index);
         return ownerName;
     }
 
@@ -263,15 +286,15 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
     public List<String> getRetailerDataUI(int index)
     {
         List<String> container = new ArrayList<>();
-        String OwnerName=myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='com.mokam.app:id/retailer_name']"));
-        String MobileNumber = myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='com.mokam.app:id/retailer_phone']"));
+        String OwnerName=myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='"+packageName+":id/retailer_name']"));
+        String MobileNumber = myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='"+packageName+":id/retailer_phone']"));
         container.add(OwnerName);
         container.add(MobileNumber);
         return container;
     }
 
     public WebElement getARetailerElement(int index){
-        return xpathSetter("//android.view.ViewGroup[@resource-id='com.mokam.app:id/retailer_constraint_layout' and @index='"+index+"']");
+        return xpathSetter("//android.view.ViewGroup[@resource-id='"+packageName+":id/retailer_constraint_layout' and @index='"+index+"']");
     }
 
     public void clickARetailer(int index){

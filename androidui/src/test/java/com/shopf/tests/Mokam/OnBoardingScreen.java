@@ -108,7 +108,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
         System.out.println("verifyEnteringValueInShopNameEditText is called");
         String shopName = "Shop Name : "+random.nextInt(1000);
         salesRepFeaturePageObject.enterShopNameText(shopName);
-        shopNameText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_retailer_edit_shop_name']");
+        shopNameText = salesRepFeaturePageObject.getShopNameEditText();
         String shopNameInUI = shopNameText.getText();
         Assert.assertEquals(shopNameInUI,shopName);
     }
@@ -118,7 +118,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
         System.out.println("verifyEnteringValueInOwnerNameEditText is called");
         String ownerName = "Owner Name : "+random.nextInt(1000);
         salesRepFeaturePageObject.enterOwnerNameText(ownerName);
-        ownerNameText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_retailer_owner_name']");
+        ownerNameText = salesRepFeaturePageObject.getOwnerNameEditText();
         String ownerNameInUI = ownerNameText.getText();
         Assert.assertEquals(ownerNameInUI,ownerName);
     }
@@ -162,9 +162,9 @@ public class OnBoardingScreen extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
     public void verifyOtherTwoOptionsAreUnSelected(){
         System.out.println("verifyOtherTwoOptionsAreUnSelected is called");
-        retailerIcon = idSetter("com.mokam.app:id/chip_retailer");
-        wholeSaleIcon = idSetter("com.mokam.app:id/chip_wholesaler");
-        bothIcon = idSetter("com.mokam.app:id/chip_both");
+        retailerIcon = salesRepFeaturePageObject.getIconsElementList().get(0);
+        wholeSaleIcon = salesRepFeaturePageObject.getIconsElementList().get(1);
+        bothIcon = salesRepFeaturePageObject.getIconsElementList().get(2);
         int selectedOption = verifyRandomSelectionOfBusinessType();
         if (selectedOption==1){
             softAssert.assertEquals(wholeSaleIcon.getAttribute("checked"),"false");
@@ -191,7 +191,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyNextButtonIsClickable(){
         System.out.println("verifyNextButtonIsClickable is called");
-        nextButtonAtOnboardingScreen = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        nextButtonAtOnboardingScreen = salesRepFeaturePageObject.getNextButtonAtOnBoardingScreenElement();
         Assert.assertEquals(nextButtonAtOnboardingScreen.getAttribute("clickable"),"true");
     }
 
@@ -205,7 +205,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
     public void verifySkipButtonIsClickable(){
         System.out.println("verifySkipButtonIsClickable is called");
-        skipButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_action_skip']");
+        skipButton = salesRepFeaturePageObject.getSkipButtonElement();
         Assert.assertEquals(skipButton.getAttribute("clickable"),"true");
     }
 

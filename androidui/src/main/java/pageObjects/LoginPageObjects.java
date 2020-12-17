@@ -56,6 +56,10 @@ public class LoginPageObjects extends AndroidBaseClass{
         myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
     }
 
+    public WebElement getEnterMobileNumberEditText(){
+        return enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
+    }
+
     public void clickOnVerifyOtpButton(){
        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
@@ -63,6 +67,15 @@ public class LoginPageObjects extends AndroidBaseClass{
            verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
        }
         myActions.action_click(verifyOtpButton);
+    }
+
+    public WebElement getVerifyOtpButtonElement(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            return verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+        } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            return verifyOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+        }
+        return null;
     }
 
 
@@ -75,6 +88,15 @@ public class LoginPageObjects extends AndroidBaseClass{
         myActions.action_sendKeys(enterOtpEditText,otp);
     }
 
+    public WebElement getEnterOtpEditText(){
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            return enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
+        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            return enterOtpEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/otp_edit']");
+        }
+        return null;
+    }
+
     public void clickOnProceedButton(){
        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            proceedButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName +":id/action_verify_otp']");
@@ -82,6 +104,15 @@ public class LoginPageObjects extends AndroidBaseClass{
             proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
        }
         myActions.action_click(proceedButton);
+    }
+
+    public WebElement getProceedButtonElement(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            return proceedButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName +":id/action_verify_otp']");
+        }else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            return proceedButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_verify_otp']");
+        }
+        return null;
     }
 
     public void clickOnEditMobileNumberButton(){
@@ -93,6 +124,15 @@ public class LoginPageObjects extends AndroidBaseClass{
         myActions.action_click(editMobileNumberButton);
     }
 
+    public WebElement getEditMobileNumberButtonElement(){
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            return editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName +":id/action_change_mobile']");
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            return editMobileNumberButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_change_mobile']");
+        }
+        return null;
+    }
+
     public void clickOnResendOtpButton(){
        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
            resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_resend_otp']");
@@ -100,6 +140,15 @@ public class LoginPageObjects extends AndroidBaseClass{
            resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_resend_otp']");
        }
         myActions.action_click(resendOtpButton);
+    }
+
+    public WebElement getResendOtpButtonElement(){
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            return resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_resend_otp']");
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            return resendOtpButton = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/action_resend_otp']");
+        }
+        return null;
     }
 
     public String getLoginLabelText(){

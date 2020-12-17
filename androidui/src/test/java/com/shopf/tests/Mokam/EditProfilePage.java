@@ -67,7 +67,7 @@ public class EditProfilePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 1)
     public void verifyBackButtonClickable(){
-        WebElement backButtonElement = xpathSetter("//android.widget.ImageView[@resource-id='com.mokam.app:id/back_button_profile']");
+        WebElement backButtonElement = rightNavigationDrawer.getBackButtonElement();
         Assert.assertEquals(backButtonElement.getAttribute("clickable"),"true");
     }
 
@@ -130,14 +130,14 @@ public class EditProfilePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifySaveButtonText(){
-        saveButtonElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        saveButtonElement = rightNavigationDrawer.getProfileSaveButtonElement();
         String saveButtonText = saveButtonElement.getText();
         Assert.assertEquals(saveButtonText,"SAVE");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
     public void verifySaveButtonClickable(){
-        saveButtonElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        saveButtonElement = rightNavigationDrawer.getProfileSaveButtonElement();
         Assert.assertEquals(saveButtonElement.getAttribute("clickable"),"true");
     }
 

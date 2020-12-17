@@ -68,6 +68,108 @@ public class HomePageObjects extends AndroidBaseClass {
     //areaSuggestionList
     private List<WebElement> areaSuggestionList;
 
+    public WebElement getHomePageWebElement(){
+        return idSetter(packageName+":id/recycler_home_fragment");
+    }
+
+    public List<WebElement> getLedgerTextsListElement(){
+        List<WebElement> elementList = new ArrayList<>();
+        elementList.add(0,idSetter(packageName+":id/ledger_widget_give_title"));
+        elementList.add(1,idSetter(packageName+":id/ledger_widget_get_title"));
+        return elementList;
+    }
+
+    public List<WebElement> getLedgerValuesListElement(){
+        List<WebElement> elementList = new ArrayList<>();
+        elementList.add(0,idSetter(packageName+":id/ledger_widget_give_money"));
+        elementList.add(1,idSetter(packageName+":id/ledger_widget_get_money"));
+        return elementList;
+    }
+
+    public WebElement getLedgerElement(){
+        return xpathSetter("//android.view.ViewGroup[@index='0']//androidx.cardview.widget.CardView[@index='0']");
+    }
+
+    public WebElement getHorizontalBannerElement(){
+        return idSetter(packageName+":id/recycler_icon_widget");
+    }
+
+    public WebElement getBakiTextElement(){
+        return idSetter(packageName+":id/credit_widget_amount");
+    }
+
+    public WebElement getBakiAmountElement(){
+        return idSetter(packageName+":id/credit_widget_amount");
+    }
+
+    public WebElement getBakiSummaryButtonElement(){
+        return idSetter(packageName+":id/action_view_credits");
+    }
+
+    public WebElement editAddressBackButtonElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/back_button_profile']");
+    }
+
+    public WebElement editAddressPageTitleElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/title_profile_activity']");
+    }
+
+    public WebElement editAddressShopNameEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_address_name']");
+    }
+
+    public WebElement editAddressAddressEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_address_address']");
+    }
+
+    public WebElement editAddressAreaEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_address_area']");
+    }
+
+    public WebElement editAddressLocalityEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_address_locality']");
+    }
+
+    public WebElement editAddressMobileNumberEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_address_phone']");
+    }
+
+    public WebElement editAddressAlternateMobileNumberEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_address_alternate_phone']");
+    }
+
+    public WebElement editAddressSaveButtonElement(){
+        return xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_next_container']");
+    }
+
+    public WebElement getBackButtonInLocationPageElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/action_back_gmaps']");
+    }
+
+    public WebElement getLocationInputEditText(){
+        return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/location_input']");
+    }
+
+    public WebElement getLocateMeTextElement(){
+        return idSetter(packageName+":id/action_locate_me");
+    }
+
+    public WebElement getNextButtonInLocationPageElement(){
+        return idSetter(packageName+":id/action_next");
+    }
+
+    public WebElement getBackButtonInAddressSelectionPageElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/back_button_profile']");
+    }
+
+    public WebElement getPageTitleElementOfAddressSelection(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/title_profile_activity']");
+    }
+
+    public WebElement getNoAddressesFoundTextElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_no_address']");
+    }
+
     public WebElement scrollToAddNewAddressButton()
     {      WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
             "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/address_list_recycler_view\")).scrollToEnd(100)"));
@@ -88,7 +190,7 @@ public class HomePageObjects extends AndroidBaseClass {
     }
 
     public void clickFirstSuggestionInLocationList(){
-        WebElement firstSuggestionElement = xpathSetter("//androidx.recyclerview.widget.RecyclerView[@resource-id='com.mokam.app:id/address_list_recycler_view']/android.view.ViewGroup[@index='0']");
+        WebElement firstSuggestionElement = xpathSetter("//androidx.recyclerview.widget.RecyclerView[@resource-id='"+packageName+":id/address_list_recycler_view']/android.view.ViewGroup[@index='0']");
         myActions.action_click(firstSuggestionElement);
     }
 
@@ -132,7 +234,7 @@ public class HomePageObjects extends AndroidBaseClass {
         try {
             addNewAddressButton = scrollToAddNewAddressButton();
         } catch (Exception e) {
-            addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
+            addNewAddressButton = idSetter(packageName+":id/action_add_address");
         }
         clickOnAddNewAddressButton();
         sleep(1000);
@@ -210,11 +312,11 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public void clickAllowButton()
     {
-        try {
-            allowButton = idSetter("com.android.packageinstaller:id/permission_allow_button");
-        } catch (Exception e) {
-            allowButton = idSetter("com.android.permissioncontroller:id/permission_allow_foreground_only_button");
-        }
+//        try {
+//            allowButton = xpathSetter("//android.widget.Button[@resource-id='com.android.packageinstaller:id/permission_allow_button']");
+//        } catch (NoSuchElementException e) {
+            allowButton = xpathSetter("//android.widget.Button[@resource-id='com.android.permissioncontroller:id/permission_allow_foreground_only_button']");
+//        }
         myActions.action_click(allowButton);
     }
 
@@ -232,7 +334,7 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public void clickOnMobileNumber()
     {
-        WebElement mobileNumber = idSetter("com.mokam.app:id/add_address_phone");
+        WebElement mobileNumber = idSetter(packageName+":id/add_address_phone");
         myActions.action_click(mobileNumber);
     }
 
@@ -251,7 +353,7 @@ public class HomePageObjects extends AndroidBaseClass {
     }
 
     public int getCartItemCount(){
-        WebElement cartItemCountElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/cart_item_count']");
+        WebElement cartItemCountElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/cart_item_count']");
         return Integer.parseInt(myActions.action_getText(cartItemCountElement));
     }
 

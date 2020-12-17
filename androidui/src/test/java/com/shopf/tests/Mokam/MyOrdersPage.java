@@ -75,11 +75,7 @@ public class MyOrdersPage extends AndroidBaseClass {
     public void verifySelectedAddress(){
         List<String> selectedAddressNameAndAddressList = new ArrayList<>();
         int cart_Item_Count = homePageObjects.getCartItemCount();
-        if (cart_Item_Count==0) {
-            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
-        }else {
-            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
-        }
+        selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
         WebElement nameOfSelectedAddress = actionBarObjects.getAddressNameAndAddressElement().get(0);
         softAssert.assertEquals(nameOfSelectedAddress.getText(),selectedAddressNameAndAddressList.get(0));
 

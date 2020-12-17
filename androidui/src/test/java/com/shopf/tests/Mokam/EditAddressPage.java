@@ -62,14 +62,14 @@ public class EditAddressPage extends AndroidBaseClass {
         loginPageObjects.performAuthentication("1877755530","666666");
         sleep(4000);
         yourAccountPageObjects.clickAddressEditButton(0);
-        backButtonElement = xpathSetter("//android.widget.ImageView[@resource-id='com.mokam.app:id/back_button_profile']");
-        pageTitleElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/title_profile_activity']");
-        shopNameEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_address_name']");
-        addressEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_address_address']");
-        areaEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_address_area']");
-        localityEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_address_locality']");
-        mobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_address_phone']");
-        alternateMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_address_alternate_phone']");
+        backButtonElement = homePageObjects.editAddressBackButtonElement();
+        pageTitleElement = homePageObjects.editAddressPageTitleElement();
+        shopNameEditText = homePageObjects.editAddressShopNameEditText();
+        addressEditText = homePageObjects.editAddressAddressEditText();
+        areaEditText = homePageObjects.editAddressAreaEditText();
+        localityEditText = homePageObjects.editAddressLocalityEditText();
+        mobileNumberEditText = homePageObjects.editAddressMobileNumberEditText();
+        alternateMobileNumberEditText = homePageObjects.editAddressAlternateMobileNumberEditText();
     }
 
     public void pageInitializer(){
@@ -149,13 +149,13 @@ public class EditAddressPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
     public void verifySaveButtonText(){
-        WebElement saveButtonElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_add_address']");
+        WebElement saveButtonElement = homePageObjects.editAddressSaveButtonElement();
         Assert.assertEquals(saveButtonElement.getText(),"SAVE");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
     public void verifySaveButtonClickable(){
-        WebElement element = xpathSetter("//android.widget.FrameLayout[@resource-id='com.mokam.app:id/action_next_container']");
+        WebElement element = homePageObjects.editAddressSaveButtonElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
@@ -171,13 +171,13 @@ public class EditAddressPage extends AndroidBaseClass {
         sleep(1000);
         homePageObjects.clickAllowButton();
         sleep(1000);
-        WebElement element = xpathSetter("//android.widget.ImageView[@resource-id='com.mokam.app:id/action_back_gmaps']");
+        WebElement element = homePageObjects.getBackButtonInLocationPageElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
     public void verifyTextInLocationInputBox(){
-        WebElement element = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/location_input']");
+        WebElement element = homePageObjects.getLocationInputEditText();
         element.clear();
         Assert.assertEquals(element.getText(),"Enter Shop Location");
     }
@@ -188,31 +188,31 @@ public class EditAddressPage extends AndroidBaseClass {
         String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
         homePageObjects.enterLocation(locationName);
         sleep(2000);
-        WebElement element = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/location_input']");
+        WebElement element = homePageObjects.getLocationInputEditText();
         Assert.assertEquals(element.getText(),locationName);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
     public void verifyLocateMeText(){
-        WebElement element = idSetter("com.mokam.app:id/action_locate_me");
+        WebElement element = homePageObjects.getLocateMeTextElement();
         Assert.assertEquals(element.getText(),"Locate Me");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 9)
     public void verifyLocateMeButtonClickable(){
-        WebElement element = idSetter("com.mokam.app:id/action_locate_me");
+        WebElement element = homePageObjects.getLocateMeTextElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyTextOfNextButtonInLocationPage(){
-        WebElement element = idSetter("com.mokam.app:id/action_next");
+        WebElement element = homePageObjects.getNextButtonInLocationPageElement();
         Assert.assertEquals(element.getText(),"NEXT");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
     public void verifyNextButtonInLocationPageClickable(){
-        WebElement element = idSetter("com.mokam.app:id/action_next");
+        WebElement element = homePageObjects.getNextButtonInLocationPageElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 

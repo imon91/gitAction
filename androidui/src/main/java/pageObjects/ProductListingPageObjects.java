@@ -627,19 +627,19 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         List<WebElement> productProperties = null;
         switch (name_or_price_or_originalPrice_or_discount_or_deliveryTag) {
             case ("name"):
-                productProperties = idListSetter("com.shopup.reseller:id/brand");
+                productProperties = idListSetter(packageName+":id/brand");
                 break;
             case ("price"):
-                productProperties = idListSetter("com.shopup.reseller:id/price");
+                productProperties = idListSetter(packageName+":id/price");
                 break;
             case ("originalPrice"):
-                productProperties = idListSetter("com.shopup.reseller:id/original_price");
+                productProperties = idListSetter(packageName+":id/original_price");
                 break;
             case ("discount"):
-                productProperties = idListSetter("com.shopup.reseller:id/discount");
+                productProperties = idListSetter(packageName+":id/discount");
                 break;
             case ("deliveryTag"):
-                productProperties = idListSetter("com.shopup.reseller:id/tags_stock_out");
+                productProperties = idListSetter(packageName+":id/tags_stock_out");
                 break;
         }
         return productProperties;
@@ -704,8 +704,8 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
     public void verifyScroll() {
 
-        WebElement ele1 = xpathSetter("//android.widget.RelativeLayout[@resource-id='com.shopup.reseller:id/item_container']");
-        WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/filter_with_sort']");
+        WebElement ele1 = xpathSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/item_container']");
+        WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/filter_with_sort']");
         int startX = ele1.getLocation().getX() + (ele1.getSize().getWidth() / 2);
         int startY = ele1.getLocation().getY() + (ele1.getSize().getHeight());
         int endX = ele2.getLocation().getX() + (ele2.getSize().getWidth() / 2);
