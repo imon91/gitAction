@@ -823,7 +823,7 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
         public WebElement scrollInQuantityList(int quantity){
             WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/recycler_bottom_sheet\")).scrollIntoView("
+                    "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_bottom_sheet\")).scrollIntoView("
                             + "new UiSelector().text(\""+quantity+ "\"))"));
             return element;
         }
