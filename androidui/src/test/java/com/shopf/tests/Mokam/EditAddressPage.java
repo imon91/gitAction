@@ -149,7 +149,7 @@ public class EditAddressPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
     public void verifySaveButtonText(){
-        WebElement saveButtonElement = homePageObjects.editAddressSaveButtonElement();
+        WebElement saveButtonElement = homePageObjects.editAddressSaveButtonTextElement();
         Assert.assertEquals(saveButtonElement.getText(),"SAVE");
     }
 

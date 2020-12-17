@@ -138,8 +138,12 @@ public class HomePageObjects extends AndroidBaseClass {
         return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_address_alternate_phone']");
     }
 
-    public WebElement editAddressSaveButtonElement(){
+    public WebElement editAddressSaveButtonTextElement(){
         return xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_next_container']/android.widget.TextView");
+    }
+
+    public WebElement editAddressSaveButtonElement(){
+        return xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_next_container']");
     }
 
     public WebElement getBackButtonInLocationPageElement(){
