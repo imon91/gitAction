@@ -139,7 +139,7 @@ public class HomePageObjects extends AndroidBaseClass {
     }
 
     public WebElement editAddressSaveButtonElement(){
-        return xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_next_container']");
+        return xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_next_container']/android.widget.TextView");
     }
 
     public WebElement getBackButtonInLocationPageElement(){
