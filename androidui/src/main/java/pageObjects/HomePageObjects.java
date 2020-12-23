@@ -233,32 +233,34 @@ public class HomePageObjects extends AndroidBaseClass {
     }
 
     public void createNewAddress() throws Exception {
-        switchFromWebToNative();
-        WebElement addNewAddressButton;
-        try {
-            addNewAddressButton = scrollToAddNewAddressButton();
-        } catch (Exception e) {
-            addNewAddressButton = idSetter(packageName+":id/action_add_address");
+        if (idSetter(packageName + ":id/address_list_recycler_view").isDisplayed()) {
+            switchFromWebToNative();
+            WebElement addNewAddressButton;
+            try {
+                addNewAddressButton = scrollToAddNewAddressButton();
+            } catch (Exception e) {
+                addNewAddressButton = idSetter(packageName + ":id/action_add_address");
+            }
+            clickOnAddNewAddressButton();
+            sleep(1000);
+            clickAllowButton();
+            sleep(1000);
+            int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
+            String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
+            enterLocation(locationName);
+            sleep(2000);
+            clickOnLocationNextButton();
+            sleep(1000);
+            enterShopName(locationName);
+            enterArea();
+            sleep(2000);
+            enterAddress("" + random.nextInt(10) + ",West Cross Street");
+            enterMobileNumber("018" + RandomStringUtils.randomNumeric(8));
+            clickOnAddAddressButton();
+            sleep(2000);
+            selectAddress("Smoke Flow shop " + locationName);
+            sleep(3500);
         }
-        clickOnAddNewAddressButton();
-        sleep(1000);
-        clickAllowButton();
-        sleep(1000);
-        int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
-        String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
-        enterLocation(locationName);
-        sleep(2000);
-        clickOnLocationNextButton();
-        sleep(1000);
-        enterShopName(locationName);
-        enterArea();
-        sleep(2000);
-        enterAddress(""+random.nextInt(10)+",West Cross Street");
-        enterMobileNumber("018"+ RandomStringUtils.randomNumeric(8));
-        clickOnAddAddressButton();
-        sleep(2000);
-        selectAddress("Smoke Flow shop "+locationName);
-        sleep(3500);
     }
 
     public void enterMobileNumber(String mobileNumber){
