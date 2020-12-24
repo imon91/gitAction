@@ -814,7 +814,10 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
 
         public void clickOnAddTOCartButton(int qty){
             addToCartButton =
-                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_add_plus']");
+                    xpathSetter("//android.widget.TextView[@resource-id='"+packageName + ":id/button_add_plus']");
+            if (addToCartButton == null){
+                addToCartButton = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/item_count']");
+            }
             myActions.action_click(addToCartButton);
             scrollInQuantityList(qty);
             WebElement quantityElement = xpathSetter("//android.view.ViewGroup[@index='"+(qty-1)+"']/android.widget.TextView");

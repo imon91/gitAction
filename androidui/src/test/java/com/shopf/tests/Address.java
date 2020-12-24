@@ -27,6 +27,7 @@ public class Address extends AndroidBaseClass {
     private SoftAssert softAssert;
     private String suiteName;
     private String app;
+    private String packageName;
     private HomePageObjects homePageObjects;
     private Random random;
     private ReadJSONFile readJSONFile;
@@ -54,6 +55,7 @@ public class Address extends AndroidBaseClass {
         myActions = new MyActions();
         softAssert = new SoftAssert();
         suiteName = "regression";
+        packageName = getAppPackage();
         sleep(5000);
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
             switchFromNativeToWeb(CoreConstants.SHOP_UP_RESELLER_WEB_VIEW);
@@ -237,38 +239,40 @@ public class Address extends AndroidBaseClass {
             CoreConstants.GROUP_SANITY})
     public void createAddressUsingGeoLocation() throws Exception {
         switchFromWebToNative();
-        WebElement addNewAddressButton;
-        try {
-            addNewAddressButton = homePageObjects.scrollToAddNewAddressButton();
-        } catch (Exception e) {
-            addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
-        }
+        if (idSetter(packageName + ":id/address_list_recycler_view").isDisplayed()) {
+            WebElement addNewAddressButton;
+            try {
+                addNewAddressButton = homePageObjects.scrollToAddNewAddressButton();
+            } catch (Exception e) {
+                addNewAddressButton = idSetter("com.mokam.app:id/action_add_address");
+            }
 //        myActions.action_click(addNewAddressButton);
-        homePageObjects.clickOnAddNewAddressButton();
-        sleep(1000);
-        homePageObjects.clickAllowButton();
-        sleep(1000);
+            homePageObjects.clickOnAddNewAddressButton();
+            sleep(1000);
+            homePageObjects.clickAllowButton();
+            sleep(1000);
 //        try {
 //            homePageObjects.clickOnOkButton();
 //        } catch (Exception e) {
 //            sleep(500);
 //        }
-        int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
-        String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
-        homePageObjects.enterLocation(locationName);
-        sleep(2000);
-        homePageObjects.clickFirstSuggestionInLocationList();
-        homePageObjects.clickOnLocationNextButton();
-        sleep(1000);
-        homePageObjects.enterShopName(locationName);
-        homePageObjects.enterArea();
-        sleep(2000);
-        homePageObjects.enterAddress(""+random.nextInt(10)+",West Cross Street");
-        homePageObjects.enterMobileNumber("187774447"+random.nextInt(10));
-        homePageObjects.clickOnAddAddressButton();
-        sleep(2000);
-        homePageObjects.selectAddress("Smoke Flow shop "+locationName);
-        sleep(3500);
+            int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
+            String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
+            homePageObjects.enterLocation(locationName);
+            sleep(2000);
+            homePageObjects.clickFirstSuggestionInLocationList();
+            homePageObjects.clickOnLocationNextButton();
+            sleep(1000);
+            homePageObjects.enterShopName(locationName);
+            homePageObjects.enterArea();
+            sleep(2000);
+            homePageObjects.enterAddress("" + random.nextInt(10) + ",West Cross Street");
+            homePageObjects.enterMobileNumber("187774447" + random.nextInt(10));
+            homePageObjects.clickOnAddAddressButton();
+            sleep(2000);
+            homePageObjects.selectAddress("Smoke Flow shop " + locationName);
+            sleep(3500);
+        }
     }
 
 
