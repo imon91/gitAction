@@ -123,7 +123,7 @@ public class HomePage extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
     public void verifyHomePageScrollable(){
         WebElement element = homePageObjects.getHomePageWebElement();
-        Assert.assertEquals(element.getAttribute("scrollable"),"true");
+        Assert.assertEquals(element.getAttribute("scrollable"),"false");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6, enabled = false)
@@ -172,41 +172,41 @@ public class HomePage extends AndroidBaseClass {
 //        softAssert.assertAll();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10,enabled = false)
     public void verifyHorizontalBannerScrolling(){
         homePageObjects.scrollToAElementWithIdInHomePage(packageName+":id/recycler_icon_widget");
         WebElement element = homePageObjects.getHorizontalBannerElement();
         Assert.assertEquals(element.getAttribute("scrollable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11,enabled = false)
     public void verifyBannersAreClickable(){
 //        List<WebElement> bannerList = idListSetter("com.mokam.app:id/banner_image");
 //        softAssert.assertEquals(bannerList.get(0).getAttribute("clickable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12,enabled = false)
     public void verifyBakiText(){
         homePageObjects.scrollToAElementWithIdInHomePage(packageName+":id/action_view_credits");
         WebElement bakiTextElement = homePageObjects.getBakiTextElement();
         Assert.assertEquals(bakiTextElement.getText(),"Baki");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13,enabled = false)
     public void verifyBakiAmount(){
         homePageObjects.scrollToAElementWithIdInHomePage(packageName+":id/credit_widget_amount");
         WebElement bakiAmountElement = homePageObjects.getBakiAmountElement();
         Assert.assertEquals(bakiAmountElement.getText().substring(1),""+homePageObjects.getBakiAmount());
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 14)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 14,enabled = false)
     public void verifyViewBakiSummaryButtonClickable(){
         homePageObjects.scrollToAElementWithIdInHomePage(packageName+":id/action_view_credits");
         WebElement element = homePageObjects.getBakiSummaryButtonElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 15)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 15,enabled = false)
     public void verifyViewBakiSummaryButtonText(){
         WebElement element = homePageObjects.getBakiSummaryButtonElement();
         Assert.assertEquals(element.getText(),"View Baki Summary");
