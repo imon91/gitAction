@@ -18,6 +18,7 @@ public class ProfilePage extends AndroidBaseClass {
     private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
+    private HomePageObjects homePageObjects;
     private YourAccountPageObjects yourAccountPageObjects;
     private ServiceRequestLayer serviceRequestLayer;
     private Random random;
@@ -27,7 +28,7 @@ public class ProfilePage extends AndroidBaseClass {
     int randomBusinessType;
 
     @BeforeSuite(alwaysRun = true)
-    public void profilePageBeforeSuite(){
+    public void profilePageBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         serviceRequestLayer = new ServiceRequestLayer();
@@ -36,7 +37,8 @@ public class ProfilePage extends AndroidBaseClass {
         softAssert = new SoftAssert();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -56,6 +58,7 @@ public class ProfilePage extends AndroidBaseClass {
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         yourAccountPageObjects = new YourAccountPageObjects(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
@@ -72,19 +75,19 @@ public class ProfilePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 2)
     public void verifyBackButtonClickable(){
-        WebElement backButtonElement = xpathSetter("//android.widget.ImageView[@resource-id='com.mokam.app:id/back_button_profile']");
+        WebElement backButtonElement = yourAccountPageObjects.getBackButtonElement();
         Assert.assertEquals(backButtonElement.getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 3)
     public void verifyEditBusinessInfoButtonClickable(){
-        WebElement element = xpathSetter("//android.view.ViewGroup[@index='0']//android.widget.TextView[@resource-id='com.mokam.app:id/action_edit']");
+        WebElement element = yourAccountPageObjects.getEditBusinessInfoButtonElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 4)
     public void verifyEditBusinessInfo(){
-        WebElement element = xpathSetter("//android.view.ViewGroup[@index='0']//android.widget.TextView[@resource-id='com.mokam.app:id/action_edit']");
+        WebElement element = yourAccountPageObjects.getEditBusinessInfoButtonElement();
         element.click();
         rightNavigationDrawer.shopNameEdit().clear();
         rightNavigationDrawer.shopNameEdit().sendKeys(shopName);
@@ -141,13 +144,13 @@ public class ProfilePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyFirstAddressEditButtonClickable(){
-        List<WebElement> elementList = xpathListSetter("//androidx.recyclerview.widget.RecyclerView//android.widget.TextView[@resource-id='com.mokam.app:id/action_edit']");
+        List<WebElement> elementList = yourAccountPageObjects.getEditButtonsInAddressList();
         Assert.assertEquals(elementList.get(0).getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
     public void verifyFirstAddressDeleteButtonClickable(){
-        List<WebElement> elementList = xpathListSetter("//androidx.recyclerview.widget.RecyclerView//android.widget.ImageView[@resource-id='com.mokam.app:id/action_delete']");
+        List<WebElement> elementList = yourAccountPageObjects.getDeleteButtonsInAddressList();
         Assert.assertEquals(elementList.get(0).getAttribute("clickable"),"true");
     }
 
@@ -160,7 +163,7 @@ public class ProfilePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13)
     public void verifyAddNewAddressButtonClickable(){
-        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_add_address']");
+        WebElement element = yourAccountPageObjects.addNewAddressButtonElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 

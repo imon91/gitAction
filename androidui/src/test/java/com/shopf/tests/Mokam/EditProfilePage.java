@@ -18,6 +18,7 @@ public class EditProfilePage extends AndroidBaseClass {
     private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
+    private HomePageObjects homePageObjects;
     private ServiceRequestLayer serviceRequestLayer;
     private Random random;
     private SoftAssert softAssert;
@@ -26,7 +27,7 @@ public class EditProfilePage extends AndroidBaseClass {
     private WebElement saveButtonElement;
 
     @BeforeSuite(alwaysRun = true)
-    public void editProfileBeforeSuite(){
+    public void editProfileBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         serviceRequestLayer = new ServiceRequestLayer();
@@ -35,7 +36,8 @@ public class EditProfilePage extends AndroidBaseClass {
         softAssert = new SoftAssert();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -54,6 +56,7 @@ public class EditProfilePage extends AndroidBaseClass {
         loginPageObjects = new LoginPageObjects(androidDriver);
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
@@ -64,7 +67,7 @@ public class EditProfilePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 1)
     public void verifyBackButtonClickable(){
-        WebElement backButtonElement = xpathSetter("//android.widget.ImageView[@resource-id='com.mokam.app:id/back_button_profile']");
+        WebElement backButtonElement = rightNavigationDrawer.getBackButtonElement();
         Assert.assertEquals(backButtonElement.getAttribute("clickable"),"true");
     }
 
@@ -127,14 +130,14 @@ public class EditProfilePage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifySaveButtonText(){
-        saveButtonElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        saveButtonElement = rightNavigationDrawer.getProfileSaveButtonElement();
         String saveButtonText = saveButtonElement.getText();
         Assert.assertEquals(saveButtonText,"SAVE");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
     public void verifySaveButtonClickable(){
-        saveButtonElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        saveButtonElement = rightNavigationDrawer.getProfileSaveButtonElement();
         Assert.assertEquals(saveButtonElement.getAttribute("clickable"),"true");
     }
 

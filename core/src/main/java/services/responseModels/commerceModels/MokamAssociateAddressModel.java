@@ -606,15 +606,15 @@ public class MokamAssociateAddressModel {
     }
 
     public static class OrderDataBean {
-        private List<?> li_by_sellers;
-
-        public List<?> getLi_by_sellers() {
-            return li_by_sellers;
-        }
-
-        public void setLi_by_sellers(List<?> li_by_sellers) {
-            this.li_by_sellers = li_by_sellers;
-        }
+//        private List<?> li_by_sellers;
+//
+//        public List<?> getLi_by_sellers() {
+//            return li_by_sellers;
+//        }
+//
+//        public void setLi_by_sellers(List<?> li_by_sellers) {
+//            this.li_by_sellers = li_by_sellers;
+//        }
 
 
 //        private int cart_items_total;

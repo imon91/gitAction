@@ -19,6 +19,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private RightNavigationDrawer rightNavigationDrawer;
+    private HomePageObjects homePageObjects;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
     private WebElement shopNameText;
     private WebElement ownerNameText;
@@ -37,7 +38,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     String skipButtonText_English = "Skip";
 
     @BeforeSuite(alwaysRun = true)
-    public void onBoardingScreenBeforeSuite(){
+    public void onBoardingScreenBeforeSuite() throws Exception {
         System.out.println("onBoardingScreenBeforeSuite is called");
         androidDriver = getBaseDriver();
         random = new Random();
@@ -48,7 +49,8 @@ public class OnBoardingScreen extends AndroidBaseClass {
         businessTypeOptions.add(2,"Both");
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -68,6 +70,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
         actionBarObjects = new ActionBarObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
         salesRepFeaturePageObject = new SalesRepFeaturePageObject(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
     }
 
     public String newRandomMobileNumberGeneration(){
@@ -105,7 +108,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
         System.out.println("verifyEnteringValueInShopNameEditText is called");
         String shopName = "Shop Name : "+random.nextInt(1000);
         salesRepFeaturePageObject.enterShopNameText(shopName);
-        shopNameText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_retailer_edit_shop_name']");
+        shopNameText = salesRepFeaturePageObject.getShopNameEditText();
         String shopNameInUI = shopNameText.getText();
         Assert.assertEquals(shopNameInUI,shopName);
     }
@@ -115,7 +118,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
         System.out.println("verifyEnteringValueInOwnerNameEditText is called");
         String ownerName = "Owner Name : "+random.nextInt(1000);
         salesRepFeaturePageObject.enterOwnerNameText(ownerName);
-        ownerNameText = xpathSetter("//android.widget.EditText[@resource-id='com.mokam.app:id/add_retailer_owner_name']");
+        ownerNameText = salesRepFeaturePageObject.getOwnerNameEditText();
         String ownerNameInUI = ownerNameText.getText();
         Assert.assertEquals(ownerNameInUI,ownerName);
     }
@@ -159,9 +162,9 @@ public class OnBoardingScreen extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
     public void verifyOtherTwoOptionsAreUnSelected(){
         System.out.println("verifyOtherTwoOptionsAreUnSelected is called");
-        retailerIcon = idSetter("com.mokam.app:id/chip_retailer");
-        wholeSaleIcon = idSetter("com.mokam.app:id/chip_wholesaler");
-        bothIcon = idSetter("com.mokam.app:id/chip_both");
+        retailerIcon = salesRepFeaturePageObject.getIconsElementList().get(0);
+        wholeSaleIcon = salesRepFeaturePageObject.getIconsElementList().get(1);
+        bothIcon = salesRepFeaturePageObject.getIconsElementList().get(2);
         int selectedOption = verifyRandomSelectionOfBusinessType();
         if (selectedOption==1){
             softAssert.assertEquals(wholeSaleIcon.getAttribute("checked"),"false");
@@ -188,7 +191,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyNextButtonIsClickable(){
         System.out.println("verifyNextButtonIsClickable is called");
-        nextButtonAtOnboardingScreen = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_next_on_boarding']");
+        nextButtonAtOnboardingScreen = salesRepFeaturePageObject.getNextButtonAtOnBoardingScreenElement();
         Assert.assertEquals(nextButtonAtOnboardingScreen.getAttribute("clickable"),"true");
     }
 
@@ -202,7 +205,7 @@ public class OnBoardingScreen extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
     public void verifySkipButtonIsClickable(){
         System.out.println("verifySkipButtonIsClickable is called");
-        skipButton = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/add_retailer_action_skip']");
+        skipButton = salesRepFeaturePageObject.getSkipButtonElement();
         Assert.assertEquals(skipButton.getAttribute("clickable"),"true");
     }
 

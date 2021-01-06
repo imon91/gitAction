@@ -20,17 +20,19 @@ public class AddressSelectionPage extends AndroidBaseClass {
     private YourAccountPageObjects yourAccountPageObjects;
     private RightNavigationDrawer rightNavigationDrawer;
     private SalesRepFeaturePageObject salesRepFeaturePageObject;
+    private HomePageObjects homePageObjects;
     private ServiceRequestLayer serviceRequestLayer;
 
     @BeforeSuite(alwaysRun = true)
-    public void addressSelectionPageBeforeSuite(){
+    public void addressSelectionPageBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         serviceRequestLayer = new ServiceRequestLayer();
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+//        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -50,6 +52,7 @@ public class AddressSelectionPage extends AndroidBaseClass {
         yourAccountPageObjects = new YourAccountPageObjects(androidDriver);
         salesRepFeaturePageObject = new SalesRepFeaturePageObject(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
@@ -60,13 +63,13 @@ public class AddressSelectionPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 1)
     public void verifyBackButtonClickable(){
-        WebElement element = xpathSetter("//android.widget.ImageView[@resource-id='com.mokam.app:id/back_button_profile']");
+        WebElement element = homePageObjects.getBackButtonInAddressSelectionPageElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 2)
     public void verifyPageTitle(){
-        WebElement pageTitleElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/title_profile_activity']");
+        WebElement pageTitleElement = homePageObjects.getPageTitleElementOfAddressSelection();
         Assert.assertEquals(pageTitleElement.getText(),"Select an Address");
     }
 
@@ -77,13 +80,13 @@ public class AddressSelectionPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 4)
     public void verifyFirstAddressEditButtonClickable(){
-        List<WebElement> elementList = xpathListSetter("//androidx.recyclerview.widget.RecyclerView//android.widget.TextView[@resource-id='com.mokam.app:id/action_edit']");
+        List<WebElement> elementList = yourAccountPageObjects.getEditButtonsInAddressList();
         Assert.assertEquals(elementList.get(0).getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
     public void verifyFirstAddressDeleteButtonClickable(){
-        List<WebElement> elementList = xpathListSetter("//androidx.recyclerview.widget.RecyclerView//android.widget.ImageView[@resource-id='com.mokam.app:id/action_delete']");
+        List<WebElement> elementList = yourAccountPageObjects.getDeleteButtonsInAddressList();
         Assert.assertEquals(elementList.get(0).getAttribute("clickable"),"true");
     }
 
@@ -95,13 +98,13 @@ public class AddressSelectionPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
     public void verifyAddNewAddressButtonClickable(){
-        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/action_add_address']");
+        WebElement element = yourAccountPageObjects.addNewAddressButtonElement();
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
     public void verifyNoAddressesFoundTextForNewUser(){
-        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
+        homePageObjects.selectAddress(0);
         sleep(2000);
         actionBarObjects.clickOnUserProfileImageButton();
         rightNavigationDrawer.clickOnItemLogout();
@@ -112,7 +115,7 @@ public class AddressSelectionPage extends AndroidBaseClass {
         salesRepFeaturePageObject.clickOnRetailerIcon();
         salesRepFeaturePageObject.clickOnNextButtonAtOnboardingScreen();
         sleep(2000);
-        WebElement element1 = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/text_no_address']");
+        WebElement element1 = homePageObjects.getNoAddressesFoundTextElement();
         Assert.assertEquals(element1.getText(),"No addresses found");
     }
 

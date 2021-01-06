@@ -26,6 +26,13 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     // Email TextView
     private WebElement emailIdTextView;
 
+    public WebElement getBackButtonElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/back_button_profile']");
+    }
+
+    public WebElement getProfileSaveButtonElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_next_on_boarding']");
+    }
 
     public String getUserName(){
         userNameTextView =
@@ -203,7 +210,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
         myActions.action_click(profileEditButton);}
 
         public String getEditProfilePageTitle(){
-        WebElement pageTitleElement = xpathSetter("//android.widget.TextView[@resource-id='com.mokam.app:id/title_profile_activity']");
+        WebElement pageTitleElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/title_profile_activity']");
         return myActions.action_getText(pageTitleElement);
         }
 

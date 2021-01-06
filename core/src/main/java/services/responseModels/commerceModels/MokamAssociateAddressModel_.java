@@ -607,33 +607,57 @@ public class MokamAssociateAddressModel_ {
 
     public static class OrderDataBean {
 
-        private int cart_items_total;
+        /**
+         * adjustments : [{"amount":50,"is_seller_coupon":false,"is_vcash":false,"label":"Shipping Charges"}]
+         * cart_items_total : 8162.63
+         * cod_availability : true
+         * code_applied : false
+         * count : 5
+         * coupon_applied_message : The coupon code is applied
+         * error_message : 0
+         * formatted_total_income : Tk. 0.00
+         * item_total : 8162.63
+         * lastmile_addresses : []
+         * li_by_sellers : {"Unbranded":{"adjustments":[],"item_total":1541,"items":[{"activity_object":{"activity_object":{"id":"P413210"}},"category":"Rice","category_id":2186,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 1,541.00","formatted_price":"Tk. 1,541.00","formatted_sale_price":"Tk. 1,541.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 1,541.00","image":"https://shopimages.vstores.io/uc/832364/Lalon-Special-Miniket-Rice---25-kg-small.jpg?1591772277","is_free_item":false,"liked":false,"line_item_adjustments":[],"line_item_id":308990,"master_product_id":413210,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 1,541.00 x 1 = Tk. 1,541.00","original_amo":1541,"per_item_total":1541,"permalink":"lalon-special-miniket-rice-25-kg-8242dbfa","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":1541,"price_line":"Tk. 1,541.00 x 1 = Tk. 1,541.00","product_id":413210,"product_name":"Lalon Special Miniket Rice - 25 kg","quantity":1,"sale_price":1541,"seller":"Unbranded","seller_slug":"unbranded","size":"25 kg","sku":"Lalon-Special-Miniket-Rice---25-kg---a027b146","slug":"lalon-special-miniket-rice-25-kg-shopup-59a5de5e","sold_out":false,"title":"Lalon Special Miniket Rice - 25 kg","variant":523685,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":11109,"id":523685,"name":"25 kg","option_value_name":"25 kg","size":5}],"variant_price":1541,"zipcode":"934"}],"subtotal":1541},"Unicorn":{"adjustments":[{"amount":580,"is_seller_coupon":false,"is_vcash":false,"label":"Shipping Charges"}],"item_total":6621.63,"items":[{"activity_object":{"activity_object":{"id":"P414699"}},"category":"Personal care essential","category_id":2243,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 725.00","formatted_price":"Tk. 58.50","formatted_sale_price":"Tk. 585.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 58.50","image":"https://shopimages.vstores.io/uc/140564/Dettol-Handwash-170-ml-Refill-Poly-Re-energize_1-small.jpg?1591893674","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"140.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 140.00","id":10665,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308989,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308989,"master_product_id":414699,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 58.50 x 10 = Tk. 585.00","original_amo":58.5,"per_item_total":725,"permalink":"detol-hw-poly-170-ml-re-ener-new-rate-40bebb33","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":58.5,"price_line":"Tk. 58.50 x 10 = Tk. 585.00","product_id":414699,"product_name":"Dettol,Hw Poly 170 Ml Re-Ener- New Rate","quantity":10,"sale_price":585,"seller":"Unicorn","seller_slug":"unicorn","size":"170ml","sku":"Detol,Hw-Poly-170-Ml-Re-Ener--New-Rate---87bea10d","slug":"detol-hw-poly-170-ml-re-ener-new-rate-shopup-05bfce45","sold_out":false,"title":"Dettol,Hw Poly 170 Ml Re-Ener- New Rate","variant":526050,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":989,"id":526050,"name":"170ml","option_value_name":"170ml","size":5}],"variant_price":58.5,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414697"}},"category":"Floor cleaner","category_id":2160,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 6,134.00","formatted_price":"Tk. 210.50","formatted_sale_price":"Tk. 5,894.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 210.50","image":"https://shopimages.vstores.io/uc/930564/lizol_floor_cleaner_citrus_disinfectant_surface_cleaner_975ml_1-small.jpg?1591893670","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"240.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 240.00","id":10664,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308988,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308988,"master_product_id":414697,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 220.00 x 28 = Tk. 6,160.00","original_amo":220,"per_item_total":6134,"permalink":"lizol-975-ml-citrus-ih-new-rat-bb8d61c6","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":210.5,"price_line":"Tk. 210.50 x 28 = Tk. 5,894.00","product_id":414697,"product_name":"Lizol 975 Ml - Citrus - Ih - New Rat","quantity":28,"sale_price":5894,"seller":"Unicorn","seller_slug":"unicorn","size":"975ml","sku":"Lizol-975-Ml---Citrus---Ih---New-Rat---ca165571","slug":"lizol-975-ml-citrus-ih-new-rat-shopup-7805faf6","sold_out":false,"title":"Lizol 975 Ml - Citrus - Ih - New Rat","variant":526040,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":947,"id":526040,"name":"975ml","option_value_name":"975ml","size":5}],"variant_price":210.5,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414698"}},"category":"Personal care essential","category_id":2243,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 134.52","formatted_price":"Tk. 34.52","formatted_sale_price":"Tk. 34.52","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 34.52","image":"https://shopimages.vstores.io/uc/040564/Dettol-Liquid-50-Ml---New-Rate-small.jpg?1591893672","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"100.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 100.00","id":10663,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308987,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308987,"master_product_id":414698,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 34.52 x 1 = Tk. 34.52","original_amo":34.52,"per_item_total":134.52,"permalink":"dettol-liquid-50-ml-new-rate-6d8bfe5b","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":34.52,"price_line":"Tk. 34.52 x 1 = Tk. 34.52","product_id":414698,"product_name":"Dettol Liquid 50 Ml - New Rate","quantity":1,"sale_price":34.52,"seller":"Unicorn","seller_slug":"unicorn","size":"50ml","sku":"Dettol-Liquid-50-Ml---New-Rate---fb581683","slug":"dettol-liquid-50-ml-new-rate-shopup-b15c7686","sold_out":false,"title":"Dettol Liquid 50 Ml - New Rate","variant":526042,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":9971,"id":526042,"name":"50ml","option_value_name":"50ml","size":5}],"variant_price":34.52,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414700"}},"category":"Toilet cleaner","category_id":2167,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 208.11","formatted_price":"Tk. 108.11","formatted_sale_price":"Tk. 108.11","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 108.11","image":"https://shopimages.vstores.io/uc/240564/HarpcPkHbc-Floral-500Mlx12---New-Rate-small.jpg?1591893674","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"100.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 100.00","id":10662,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308986,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308986,"master_product_id":414700,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 108.11 x 1 = Tk. 108.11","original_amo":108.11,"per_item_total":208.11,"permalink":"harpc-pk-hbc-floral-500mlx12-new-rate-94540dc6","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":108.11,"price_line":"Tk. 108.11 x 1 = Tk. 108.11","product_id":414700,"product_name":"Harpc,Pk,Hbc Floral 500Mlx12 - New Rate","quantity":1,"sale_price":108.11,"seller":"Unicorn","seller_slug":"unicorn","size":"500ml","sku":"Harpc,Pk,Hbc-Floral-500Mlx12---New-Rate---90615d67","slug":"harpc-pk-hbc-floral-500mlx12-new-rate-shopup-cb43bcb0","sold_out":false,"title":"Harpc,Pk,Hbc Floral 500Mlx12 - New Rate","variant":526045,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":9941,"id":526045,"name":"500ml","option_value_name":"500ml","size":5}],"variant_price":108.11,"zipcode":"934"}],"subtotal":7201.63}}
+         * messages : []
+         * new_user_check_for_nps : false
+         * order_number : M6390946727
+         * payment_method : cod
+         * prepaid_availability : true
+         * remaining_vcash : 0
+         * subtotal : 8742.630000000001
+         * total : 8793
+         * total_income : 0
+         * vcash_data : {"approved_vcash":0,"available_vcash":0,"show_vcash_form":true,"vcash_already_applied_in_order":0}
+         */
+
+        private double cart_items_total;
         private boolean cod_availability;
         private boolean code_applied;
         private int count;
         private String coupon_applied_message;
         private int error_message;
         private String formatted_total_income;
-        private int item_total;
-        private LiBySellersBean li_by_sellers;
+        private double item_total;
+//        private LiBySellersBean li_by_sellers;
         private boolean new_user_check_for_nps;
         private String order_number;
         private String payment_method;
         private boolean prepaid_availability;
         private int remaining_vcash;
-        private int subtotal;
+        private double subtotal;
         private int total;
         private int total_income;
         private VcashDataBean vcash_data;
-        private List<AdjustmentsBean> adjustments;
+        private List<AdjustmentsBeanX> adjustments;
         private List<?> lastmile_addresses;
         private List<?> messages;
 
-        public int getCart_items_total() {
+        public double getCart_items_total() {
             return cart_items_total;
         }
 
-        public void setCart_items_total(int cart_items_total) {
+        public void setCart_items_total(double cart_items_total) {
             this.cart_items_total = cart_items_total;
         }
 
@@ -685,21 +709,21 @@ public class MokamAssociateAddressModel_ {
             this.formatted_total_income = formatted_total_income;
         }
 
-        public int getItem_total() {
+        public double getItem_total() {
             return item_total;
         }
 
-        public void setItem_total(int item_total) {
+        public void setItem_total(double item_total) {
             this.item_total = item_total;
         }
 
-        public LiBySellersBean getLi_by_sellers() {
-            return li_by_sellers;
-        }
-
-        public void setLi_by_sellers(LiBySellersBean li_by_sellers) {
-            this.li_by_sellers = li_by_sellers;
-        }
+//        public LiBySellersBean getLi_by_sellers() {
+//            return li_by_sellers;
+//        }
+//
+//        public void setLi_by_sellers(LiBySellersBean li_by_sellers) {
+//            this.li_by_sellers = li_by_sellers;
+//        }
 
         public boolean isNew_user_check_for_nps() {
             return new_user_check_for_nps;
@@ -741,11 +765,11 @@ public class MokamAssociateAddressModel_ {
             this.remaining_vcash = remaining_vcash;
         }
 
-        public int getSubtotal() {
+        public double getSubtotal() {
             return subtotal;
         }
 
-        public void setSubtotal(int subtotal) {
+        public void setSubtotal(double subtotal) {
             this.subtotal = subtotal;
         }
 
@@ -773,11 +797,11 @@ public class MokamAssociateAddressModel_ {
             this.vcash_data = vcash_data;
         }
 
-        public List<AdjustmentsBean> getAdjustments() {
+        public List<AdjustmentsBeanX> getAdjustments() {
             return adjustments;
         }
 
-        public void setAdjustments(List<AdjustmentsBean> adjustments) {
+        public void setAdjustments(List<AdjustmentsBeanX> adjustments) {
             this.adjustments = adjustments;
         }
 
@@ -797,604 +821,1594 @@ public class MokamAssociateAddressModel_ {
             this.messages = messages;
         }
 
-        public static class LiBySellersBean {
-            private UnbrandedBean Unbranded;
-
-            public UnbrandedBean getUnbranded() {
-                return Unbranded;
-            }
-
-            public void setUnbranded(UnbrandedBean Unbranded) {
-                this.Unbranded = Unbranded;
-            }
-
-            public static class UnbrandedBean {
-                private int item_total;
-                private int subtotal;
-                private List<?> adjustments;
-                private List<ItemsBean> items;
-
-                public int getItem_total() {
-                    return item_total;
-                }
-
-                public void setItem_total(int item_total) {
-                    this.item_total = item_total;
-                }
-
-                public int getSubtotal() {
-                    return subtotal;
-                }
-
-                public void setSubtotal(int subtotal) {
-                    this.subtotal = subtotal;
-                }
-
-                public List<?> getAdjustments() {
-                    return adjustments;
-                }
-
-                public void setAdjustments(List<?> adjustments) {
-                    this.adjustments = adjustments;
-                }
-
-                public List<ItemsBean> getItems() {
-                    return items;
-                }
-
-                public void setItems(List<ItemsBean> items) {
-                    this.items = items;
-                }
-
-                public static class ItemsBean {
-                    private ActivityObjectBeanX activity_object;
-                    private String category;
-                    private int category_id;
-                    private boolean cod_availability;
-                    private String cod_message;
-                    private String delivery_time;
-                    private DeliveryTimeMessageBean delivery_time_message;
-                    private double discount;
-                    private int final_discount;
-                    private String formatted_income;
-                    private String formatted_per_item_total;
-                    private String formatted_price;
-                    private String formatted_sale_price;
-                    private String formatted_seller_price;
-                    private String formatted_variant_price;
-                    private String image;
-                    private boolean is_free_item;
-                    private boolean liked;
-                    private int line_item_id;
-                    private int master_product_id;
-                    private int max_item_quantity;
-                    private int max_selling_price;
-                    private int min_order_qty;
-                    private int min_selling_price;
-                    private String mrp_price_line;
-                    private int original_amo;
-                    private int per_item_total;
-                    private String permalink;
-                    private boolean prepaid_availability;
-                    private String prepaid_message;
-                    private int price;
-                    private String price_line;
-                    private int product_id;
-                    private String product_name;
-                    private int quantity;
-                    private int sale_price;
-                    private String seller;
-                    private String seller_slug;
-                    private String size;
-                    private String sku;
-                    private String slug;
-                    private boolean sold_out;
-                    private String title;
-                    private int variant;
-                    private int variant_price;
-                    private String zipcode;
-                    private List<?> line_item_adjustments;
-                    private List<?> messages;
-                    private List<VariantOptionsBean> variant_options;
-
-                    public ActivityObjectBeanX getActivity_object() {
-                        return activity_object;
-                    }
-
-                    public void setActivity_object(ActivityObjectBeanX activity_object) {
-                        this.activity_object = activity_object;
-                    }
-
-                    public String getCategory() {
-                        return category;
-                    }
-
-                    public void setCategory(String category) {
-                        this.category = category;
-                    }
-
-                    public int getCategory_id() {
-                        return category_id;
-                    }
-
-                    public void setCategory_id(int category_id) {
-                        this.category_id = category_id;
-                    }
-
-                    public boolean isCod_availability() {
-                        return cod_availability;
-                    }
-
-                    public void setCod_availability(boolean cod_availability) {
-                        this.cod_availability = cod_availability;
-                    }
-
-                    public String getCod_message() {
-                        return cod_message;
-                    }
-
-                    public void setCod_message(String cod_message) {
-                        this.cod_message = cod_message;
-                    }
-
-                    public String getDelivery_time() {
-                        return delivery_time;
-                    }
-
-                    public void setDelivery_time(String delivery_time) {
-                        this.delivery_time = delivery_time;
-                    }
-
-                    public DeliveryTimeMessageBean getDelivery_time_message() {
-                        return delivery_time_message;
-                    }
-
-                    public void setDelivery_time_message(DeliveryTimeMessageBean delivery_time_message) {
-                        this.delivery_time_message = delivery_time_message;
-                    }
-
-                    public double getDiscount() {
-                        return discount;
-                    }
-
-                    public void setDiscount(double discount) {
-                        this.discount = discount;
-                    }
-
-                    public int getFinal_discount() {
-                        return final_discount;
-                    }
-
-                    public void setFinal_discount(int final_discount) {
-                        this.final_discount = final_discount;
-                    }
-
-                    public String getFormatted_income() {
-                        return formatted_income;
-                    }
-
-                    public void setFormatted_income(String formatted_income) {
-                        this.formatted_income = formatted_income;
-                    }
-
-                    public String getFormatted_per_item_total() {
-                        return formatted_per_item_total;
-                    }
-
-                    public void setFormatted_per_item_total(String formatted_per_item_total) {
-                        this.formatted_per_item_total = formatted_per_item_total;
-                    }
-
-                    public String getFormatted_price() {
-                        return formatted_price;
-                    }
-
-                    public void setFormatted_price(String formatted_price) {
-                        this.formatted_price = formatted_price;
-                    }
-
-                    public String getFormatted_sale_price() {
-                        return formatted_sale_price;
-                    }
-
-                    public void setFormatted_sale_price(String formatted_sale_price) {
-                        this.formatted_sale_price = formatted_sale_price;
-                    }
-
-                    public String getFormatted_seller_price() {
-                        return formatted_seller_price;
-                    }
-
-                    public void setFormatted_seller_price(String formatted_seller_price) {
-                        this.formatted_seller_price = formatted_seller_price;
-                    }
-
-                    public String getFormatted_variant_price() {
-                        return formatted_variant_price;
-                    }
-
-                    public void setFormatted_variant_price(String formatted_variant_price) {
-                        this.formatted_variant_price = formatted_variant_price;
-                    }
-
-                    public String getImage() {
-                        return image;
-                    }
-
-                    public void setImage(String image) {
-                        this.image = image;
-                    }
-
-                    public boolean isIs_free_item() {
-                        return is_free_item;
-                    }
-
-                    public void setIs_free_item(boolean is_free_item) {
-                        this.is_free_item = is_free_item;
-                    }
-
-                    public boolean isLiked() {
-                        return liked;
-                    }
-
-                    public void setLiked(boolean liked) {
-                        this.liked = liked;
-                    }
-
-                    public int getLine_item_id() {
-                        return line_item_id;
-                    }
-
-                    public void setLine_item_id(int line_item_id) {
-                        this.line_item_id = line_item_id;
-                    }
-
-                    public int getMaster_product_id() {
-                        return master_product_id;
-                    }
-
-                    public void setMaster_product_id(int master_product_id) {
-                        this.master_product_id = master_product_id;
-                    }
-
-                    public int getMax_item_quantity() {
-                        return max_item_quantity;
-                    }
-
-                    public void setMax_item_quantity(int max_item_quantity) {
-                        this.max_item_quantity = max_item_quantity;
-                    }
-
-                    public int getMax_selling_price() {
-                        return max_selling_price;
-                    }
-
-                    public void setMax_selling_price(int max_selling_price) {
-                        this.max_selling_price = max_selling_price;
-                    }
-
-                    public int getMin_order_qty() {
-                        return min_order_qty;
-                    }
-
-                    public void setMin_order_qty(int min_order_qty) {
-                        this.min_order_qty = min_order_qty;
-                    }
-
-                    public int getMin_selling_price() {
-                        return min_selling_price;
-                    }
-
-                    public void setMin_selling_price(int min_selling_price) {
-                        this.min_selling_price = min_selling_price;
-                    }
-
-                    public String getMrp_price_line() {
-                        return mrp_price_line;
-                    }
-
-                    public void setMrp_price_line(String mrp_price_line) {
-                        this.mrp_price_line = mrp_price_line;
-                    }
-
-                    public int getOriginal_amo() {
-                        return original_amo;
-                    }
-
-                    public void setOriginal_amo(int original_amo) {
-                        this.original_amo = original_amo;
-                    }
-
-                    public int getPer_item_total() {
-                        return per_item_total;
-                    }
-
-                    public void setPer_item_total(int per_item_total) {
-                        this.per_item_total = per_item_total;
-                    }
-
-                    public String getPermalink() {
-                        return permalink;
-                    }
-
-                    public void setPermalink(String permalink) {
-                        this.permalink = permalink;
-                    }
-
-                    public boolean isPrepaid_availability() {
-                        return prepaid_availability;
-                    }
-
-                    public void setPrepaid_availability(boolean prepaid_availability) {
-                        this.prepaid_availability = prepaid_availability;
-                    }
-
-                    public String getPrepaid_message() {
-                        return prepaid_message;
-                    }
-
-                    public void setPrepaid_message(String prepaid_message) {
-                        this.prepaid_message = prepaid_message;
-                    }
-
-                    public int getPrice() {
-                        return price;
-                    }
-
-                    public void setPrice(int price) {
-                        this.price = price;
-                    }
-
-                    public String getPrice_line() {
-                        return price_line;
-                    }
-
-                    public void setPrice_line(String price_line) {
-                        this.price_line = price_line;
-                    }
-
-                    public int getProduct_id() {
-                        return product_id;
-                    }
-
-                    public void setProduct_id(int product_id) {
-                        this.product_id = product_id;
-                    }
-
-                    public String getProduct_name() {
-                        return product_name;
-                    }
-
-                    public void setProduct_name(String product_name) {
-                        this.product_name = product_name;
-                    }
-
-                    public int getQuantity() {
-                        return quantity;
-                    }
-
-                    public void setQuantity(int quantity) {
-                        this.quantity = quantity;
-                    }
-
-                    public int getSale_price() {
-                        return sale_price;
-                    }
-
-                    public void setSale_price(int sale_price) {
-                        this.sale_price = sale_price;
-                    }
-
-                    public String getSeller() {
-                        return seller;
-                    }
-
-                    public void setSeller(String seller) {
-                        this.seller = seller;
-                    }
-
-                    public String getSeller_slug() {
-                        return seller_slug;
-                    }
-
-                    public void setSeller_slug(String seller_slug) {
-                        this.seller_slug = seller_slug;
-                    }
-
-                    public String getSize() {
-                        return size;
-                    }
-
-                    public void setSize(String size) {
-                        this.size = size;
-                    }
-
-                    public String getSku() {
-                        return sku;
-                    }
-
-                    public void setSku(String sku) {
-                        this.sku = sku;
-                    }
-
-                    public String getSlug() {
-                        return slug;
-                    }
-
-                    public void setSlug(String slug) {
-                        this.slug = slug;
-                    }
-
-                    public boolean isSold_out() {
-                        return sold_out;
-                    }
-
-                    public void setSold_out(boolean sold_out) {
-                        this.sold_out = sold_out;
-                    }
-
-                    public String getTitle() {
-                        return title;
-                    }
-
-                    public void setTitle(String title) {
-                        this.title = title;
-                    }
-
-                    public int getVariant() {
-                        return variant;
-                    }
-
-                    public void setVariant(int variant) {
-                        this.variant = variant;
-                    }
-
-                    public int getVariant_price() {
-                        return variant_price;
-                    }
-
-                    public void setVariant_price(int variant_price) {
-                        this.variant_price = variant_price;
-                    }
-
-                    public String getZipcode() {
-                        return zipcode;
-                    }
-
-                    public void setZipcode(String zipcode) {
-                        this.zipcode = zipcode;
-                    }
-
-                    public List<?> getLine_item_adjustments() {
-                        return line_item_adjustments;
-                    }
-
-                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
-                        this.line_item_adjustments = line_item_adjustments;
-                    }
-
-                    public List<?> getMessages() {
-                        return messages;
-                    }
-
-                    public void setMessages(List<?> messages) {
-                        this.messages = messages;
-                    }
-
-                    public List<VariantOptionsBean> getVariant_options() {
-                        return variant_options;
-                    }
-
-                    public void setVariant_options(List<VariantOptionsBean> variant_options) {
-                        this.variant_options = variant_options;
-                    }
-
-                    public static class ActivityObjectBeanX {
-                        private ActivityObjectBean activity_object;
-
-                        public ActivityObjectBean getActivity_object() {
-                            return activity_object;
-                        }
-
-                        public void setActivity_object(ActivityObjectBean activity_object) {
-                            this.activity_object = activity_object;
-                        }
-
-                        public static class ActivityObjectBean {
-                            private String id;
-
-                            public String getId() {
-                                return id;
-                            }
-
-                            public void setId(String id) {
-                                this.id = id;
-                            }
-                        }
-                    }
-
-                    public static class DeliveryTimeMessageBean {
-                        private String message;
-                        private int type;
-
-                        public String getMessage() {
-                            return message;
-                        }
-
-                        public void setMessage(String message) {
-                            this.message = message;
-                        }
-
-                        public int getType() {
-                            return type;
-                        }
-
-                        public void setType(int type) {
-                            this.type = type;
-                        }
-                    }
-
-                    public static class VariantOptionsBean {
-                        private int corrected_count_on_hand;
-                        private int count_on_hand;
-                        private int id;
-                        private String name;
-                        private String option_value_name;
-                        private int size;
-
-                        public int getCorrected_count_on_hand() {
-                            return corrected_count_on_hand;
-                        }
-
-                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
-                            this.corrected_count_on_hand = corrected_count_on_hand;
-                        }
-
-                        public int getCount_on_hand() {
-                            return count_on_hand;
-                        }
-
-                        public void setCount_on_hand(int count_on_hand) {
-                            this.count_on_hand = count_on_hand;
-                        }
-
-                        public int getId() {
-                            return id;
-                        }
-
-                        public void setId(int id) {
-                            this.id = id;
-                        }
-
-                        public String getName() {
-                            return name;
-                        }
-
-                        public void setName(String name) {
-                            this.name = name;
-                        }
-
-                        public String getOption_value_name() {
-                            return option_value_name;
-                        }
-
-                        public void setOption_value_name(String option_value_name) {
-                            this.option_value_name = option_value_name;
-                        }
-
-                        public int getSize() {
-                            return size;
-                        }
-
-                        public void setSize(int size) {
-                            this.size = size;
-                        }
-                    }
-                }
-            }
-        }
+//        public static class LiBySellersBean {
+//            /**
+//             * Unbranded : {"adjustments":[],"item_total":1541,"items":[{"activity_object":{"activity_object":{"id":"P413210"}},"category":"Rice","category_id":2186,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 1,541.00","formatted_price":"Tk. 1,541.00","formatted_sale_price":"Tk. 1,541.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 1,541.00","image":"https://shopimages.vstores.io/uc/832364/Lalon-Special-Miniket-Rice---25-kg-small.jpg?1591772277","is_free_item":false,"liked":false,"line_item_adjustments":[],"line_item_id":308990,"master_product_id":413210,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 1,541.00 x 1 = Tk. 1,541.00","original_amo":1541,"per_item_total":1541,"permalink":"lalon-special-miniket-rice-25-kg-8242dbfa","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":1541,"price_line":"Tk. 1,541.00 x 1 = Tk. 1,541.00","product_id":413210,"product_name":"Lalon Special Miniket Rice - 25 kg","quantity":1,"sale_price":1541,"seller":"Unbranded","seller_slug":"unbranded","size":"25 kg","sku":"Lalon-Special-Miniket-Rice---25-kg---a027b146","slug":"lalon-special-miniket-rice-25-kg-shopup-59a5de5e","sold_out":false,"title":"Lalon Special Miniket Rice - 25 kg","variant":523685,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":11109,"id":523685,"name":"25 kg","option_value_name":"25 kg","size":5}],"variant_price":1541,"zipcode":"934"}],"subtotal":1541}
+//             * Unicorn : {"adjustments":[{"amount":580,"is_seller_coupon":false,"is_vcash":false,"label":"Shipping Charges"}],"item_total":6621.63,"items":[{"activity_object":{"activity_object":{"id":"P414699"}},"category":"Personal care essential","category_id":2243,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 725.00","formatted_price":"Tk. 58.50","formatted_sale_price":"Tk. 585.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 58.50","image":"https://shopimages.vstores.io/uc/140564/Dettol-Handwash-170-ml-Refill-Poly-Re-energize_1-small.jpg?1591893674","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"140.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 140.00","id":10665,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308989,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308989,"master_product_id":414699,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 58.50 x 10 = Tk. 585.00","original_amo":58.5,"per_item_total":725,"permalink":"detol-hw-poly-170-ml-re-ener-new-rate-40bebb33","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":58.5,"price_line":"Tk. 58.50 x 10 = Tk. 585.00","product_id":414699,"product_name":"Dettol,Hw Poly 170 Ml Re-Ener- New Rate","quantity":10,"sale_price":585,"seller":"Unicorn","seller_slug":"unicorn","size":"170ml","sku":"Detol,Hw-Poly-170-Ml-Re-Ener--New-Rate---87bea10d","slug":"detol-hw-poly-170-ml-re-ener-new-rate-shopup-05bfce45","sold_out":false,"title":"Dettol,Hw Poly 170 Ml Re-Ener- New Rate","variant":526050,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":989,"id":526050,"name":"170ml","option_value_name":"170ml","size":5}],"variant_price":58.5,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414697"}},"category":"Floor cleaner","category_id":2160,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 6,134.00","formatted_price":"Tk. 210.50","formatted_sale_price":"Tk. 5,894.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 210.50","image":"https://shopimages.vstores.io/uc/930564/lizol_floor_cleaner_citrus_disinfectant_surface_cleaner_975ml_1-small.jpg?1591893670","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"240.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 240.00","id":10664,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308988,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308988,"master_product_id":414697,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 220.00 x 28 = Tk. 6,160.00","original_amo":220,"per_item_total":6134,"permalink":"lizol-975-ml-citrus-ih-new-rat-bb8d61c6","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":210.5,"price_line":"Tk. 210.50 x 28 = Tk. 5,894.00","product_id":414697,"product_name":"Lizol 975 Ml - Citrus - Ih - New Rat","quantity":28,"sale_price":5894,"seller":"Unicorn","seller_slug":"unicorn","size":"975ml","sku":"Lizol-975-Ml---Citrus---Ih---New-Rat---ca165571","slug":"lizol-975-ml-citrus-ih-new-rat-shopup-7805faf6","sold_out":false,"title":"Lizol 975 Ml - Citrus - Ih - New Rat","variant":526040,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":947,"id":526040,"name":"975ml","option_value_name":"975ml","size":5}],"variant_price":210.5,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414698"}},"category":"Personal care essential","category_id":2243,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 134.52","formatted_price":"Tk. 34.52","formatted_sale_price":"Tk. 34.52","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 34.52","image":"https://shopimages.vstores.io/uc/040564/Dettol-Liquid-50-Ml---New-Rate-small.jpg?1591893672","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"100.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 100.00","id":10663,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308987,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308987,"master_product_id":414698,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 34.52 x 1 = Tk. 34.52","original_amo":34.52,"per_item_total":134.52,"permalink":"dettol-liquid-50-ml-new-rate-6d8bfe5b","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":34.52,"price_line":"Tk. 34.52 x 1 = Tk. 34.52","product_id":414698,"product_name":"Dettol Liquid 50 Ml - New Rate","quantity":1,"sale_price":34.52,"seller":"Unicorn","seller_slug":"unicorn","size":"50ml","sku":"Dettol-Liquid-50-Ml---New-Rate---fb581683","slug":"dettol-liquid-50-ml-new-rate-shopup-b15c7686","sold_out":false,"title":"Dettol Liquid 50 Ml - New Rate","variant":526042,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":9971,"id":526042,"name":"50ml","option_value_name":"50ml","size":5}],"variant_price":34.52,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414700"}},"category":"Toilet cleaner","category_id":2167,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 208.11","formatted_price":"Tk. 108.11","formatted_sale_price":"Tk. 108.11","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 108.11","image":"https://shopimages.vstores.io/uc/240564/HarpcPkHbc-Floral-500Mlx12---New-Rate-small.jpg?1591893674","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"100.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 100.00","id":10662,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308986,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308986,"master_product_id":414700,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 108.11 x 1 = Tk. 108.11","original_amo":108.11,"per_item_total":208.11,"permalink":"harpc-pk-hbc-floral-500mlx12-new-rate-94540dc6","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":108.11,"price_line":"Tk. 108.11 x 1 = Tk. 108.11","product_id":414700,"product_name":"Harpc,Pk,Hbc Floral 500Mlx12 - New Rate","quantity":1,"sale_price":108.11,"seller":"Unicorn","seller_slug":"unicorn","size":"500ml","sku":"Harpc,Pk,Hbc-Floral-500Mlx12---New-Rate---90615d67","slug":"harpc-pk-hbc-floral-500mlx12-new-rate-shopup-cb43bcb0","sold_out":false,"title":"Harpc,Pk,Hbc Floral 500Mlx12 - New Rate","variant":526045,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":9941,"id":526045,"name":"500ml","option_value_name":"500ml","size":5}],"variant_price":108.11,"zipcode":"934"}],"subtotal":7201.63}
+//             */
+//
+//            private UnbrandedBean Unbranded;
+//            private UnicornBean Unicorn;
+//
+//            public UnbrandedBean getUnbranded() {
+//                return Unbranded;
+//            }
+//
+//            public void setUnbranded(UnbrandedBean Unbranded) {
+//                this.Unbranded = Unbranded;
+//            }
+//
+//            public UnicornBean getUnicorn() {
+//                return Unicorn;
+//            }
+//
+//            public void setUnicorn(UnicornBean Unicorn) {
+//                this.Unicorn = Unicorn;
+//            }
+//
+//            public static class UnbrandedBean {
+//                /**
+//                 * adjustments : []
+//                 * item_total : 1541
+//                 * items : [{"activity_object":{"activity_object":{"id":"P413210"}},"category":"Rice","category_id":2186,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 1,541.00","formatted_price":"Tk. 1,541.00","formatted_sale_price":"Tk. 1,541.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 1,541.00","image":"https://shopimages.vstores.io/uc/832364/Lalon-Special-Miniket-Rice---25-kg-small.jpg?1591772277","is_free_item":false,"liked":false,"line_item_adjustments":[],"line_item_id":308990,"master_product_id":413210,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 1,541.00 x 1 = Tk. 1,541.00","original_amo":1541,"per_item_total":1541,"permalink":"lalon-special-miniket-rice-25-kg-8242dbfa","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":1541,"price_line":"Tk. 1,541.00 x 1 = Tk. 1,541.00","product_id":413210,"product_name":"Lalon Special Miniket Rice - 25 kg","quantity":1,"sale_price":1541,"seller":"Unbranded","seller_slug":"unbranded","size":"25 kg","sku":"Lalon-Special-Miniket-Rice---25-kg---a027b146","slug":"lalon-special-miniket-rice-25-kg-shopup-59a5de5e","sold_out":false,"title":"Lalon Special Miniket Rice - 25 kg","variant":523685,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":11109,"id":523685,"name":"25 kg","option_value_name":"25 kg","size":5}],"variant_price":1541,"zipcode":"934"}]
+//                 * subtotal : 1541
+//                 */
+//
+//                private int item_total;
+//                private int subtotal;
+//                private List<?> adjustments;
+//                private List<ItemsBean> items;
+//
+//                public int getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(int item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public int getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(int subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public List<?> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<?> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBean> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBean> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class ItemsBean {
+//                    /**
+//                     * activity_object : {"activity_object":{"id":"P413210"}}
+//                     * category : Rice
+//                     * category_id : 2186
+//                     * cod_availability : true
+//                     * cod_message : Delivery in 5-15 working days.
+//                     * delivery_time : Delivery in 5-15 working days.
+//                     * delivery_time_message : {"message":"Delivery in 5-15 working days.","type":2}
+//                     * discount : 0
+//                     * final_discount : 0
+//                     * formatted_income : Tk. 0.00
+//                     * formatted_per_item_total : Tk. 1,541.00
+//                     * formatted_price : Tk. 1,541.00
+//                     * formatted_sale_price : Tk. 1,541.00
+//                     * formatted_seller_price : Tk. 0.00
+//                     * formatted_variant_price : Tk. 1,541.00
+//                     * image : https://shopimages.vstores.io/uc/832364/Lalon-Special-Miniket-Rice---25-kg-small.jpg?1591772277
+//                     * is_free_item : false
+//                     * liked : false
+//                     * line_item_adjustments : []
+//                     * line_item_id : 308990
+//                     * master_product_id : 413210
+//                     * max_item_quantity : 50
+//                     * max_selling_price : 0
+//                     * messages : []
+//                     * min_order_qty : 1
+//                     * min_selling_price : 0
+//                     * mrp_price_line : Tk. 1,541.00 x 1 = Tk. 1,541.00
+//                     * original_amo : 1541
+//                     * per_item_total : 1541
+//                     * permalink : lalon-special-miniket-rice-25-kg-8242dbfa
+//                     * prepaid_availability : true
+//                     * prepaid_message : Delivery in 5-15 working days.
+//                     * price : 1541
+//                     * price_line : Tk. 1,541.00 x 1 = Tk. 1,541.00
+//                     * product_id : 413210
+//                     * product_name : Lalon Special Miniket Rice - 25 kg
+//                     * quantity : 1
+//                     * sale_price : 1541
+//                     * seller : Unbranded
+//                     * seller_slug : unbranded
+//                     * size : 25 kg
+//                     * sku : Lalon-Special-Miniket-Rice---25-kg---a027b146
+//                     * slug : lalon-special-miniket-rice-25-kg-shopup-59a5de5e
+//                     * sold_out : false
+//                     * title : Lalon Special Miniket Rice - 25 kg
+//                     * variant : 523685
+//                     * variant_options : [{"corrected_count_on_hand":3,"count_on_hand":11109,"id":523685,"name":"25 kg","option_value_name":"25 kg","size":5}]
+//                     * variant_price : 1541
+//                     * zipcode : 934
+//                     */
+//
+//                    private ActivityObjectBeanX activity_object;
+//                    private String category;
+//                    private int category_id;
+//                    private boolean cod_availability;
+//                    private String cod_message;
+//                    private String delivery_time;
+//                    private DeliveryTimeMessageBean delivery_time_message;
+//                    private int discount;
+//                    private int final_discount;
+//                    private String formatted_income;
+//                    private String formatted_per_item_total;
+//                    private String formatted_price;
+//                    private String formatted_sale_price;
+//                    private String formatted_seller_price;
+//                    private String formatted_variant_price;
+//                    private String image;
+//                    private boolean is_free_item;
+//                    private boolean liked;
+//                    private int line_item_id;
+//                    private int master_product_id;
+//                    private int max_item_quantity;
+//                    private int max_selling_price;
+//                    private int min_order_qty;
+//                    private int min_selling_price;
+//                    private String mrp_price_line;
+//                    private int original_amo;
+//                    private int per_item_total;
+//                    private String permalink;
+//                    private boolean prepaid_availability;
+//                    private String prepaid_message;
+//                    private int price;
+//                    private String price_line;
+//                    private int product_id;
+//                    private String product_name;
+//                    private int quantity;
+//                    private int sale_price;
+//                    private String seller;
+//                    private String seller_slug;
+//                    private String size;
+//                    private String sku;
+//                    private String slug;
+//                    private boolean sold_out;
+//                    private String title;
+//                    private int variant;
+//                    private int variant_price;
+//                    private String zipcode;
+//                    private List<?> line_item_adjustments;
+//                    private List<?> messages;
+//                    private List<VariantOptionsBean> variant_options;
+//
+//                    public ActivityObjectBeanX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public DeliveryTimeMessageBean getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBean delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public boolean isIs_free_item() {
+//                        return is_free_item;
+//                    }
+//
+//                    public void setIs_free_item(boolean is_free_item) {
+//                        this.is_free_item = is_free_item;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public int getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(int original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public int getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(int price) {
+//                        this.price = price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(int sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public String getSlug() {
+//                        return slug;
+//                    }
+//
+//                    public void setSlug(String slug) {
+//                        this.slug = slug;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public int getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(int variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public List<?> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<?> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<?> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<?> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public List<VariantOptionsBean> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBean> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public static class ActivityObjectBeanX {
+//                        /**
+//                         * activity_object : {"id":"P413210"}
+//                         */
+//
+//                        private ActivityObjectBean activity_object;
+//
+//                        public ActivityObjectBean getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBean activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBean {
+//                            /**
+//                             * id : P413210
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class DeliveryTimeMessageBean {
+//                        /**
+//                         * message : Delivery in 5-15 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBean {
+//                        /**
+//                         * corrected_count_on_hand : 3
+//                         * count_on_hand : 11109
+//                         * id : 523685
+//                         * name : 25 kg
+//                         * option_value_name : 25 kg
+//                         * size : 5
+//                         */
+//
+//                        private int corrected_count_on_hand;
+//                        private int count_on_hand;
+//                        private int id;
+//                        private String name;
+//                        private String option_value_name;
+//                        private int size;
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//                    }
+//                }
+//            }
+//
+//            public static class UnicornBean {
+//                /**
+//                 * adjustments : [{"amount":580,"is_seller_coupon":false,"is_vcash":false,"label":"Shipping Charges"}]
+//                 * item_total : 6621.63
+//                 * items : [{"activity_object":{"activity_object":{"id":"P414699"}},"category":"Personal care essential","category_id":2243,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 725.00","formatted_price":"Tk. 58.50","formatted_sale_price":"Tk. 585.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 58.50","image":"https://shopimages.vstores.io/uc/140564/Dettol-Handwash-170-ml-Refill-Poly-Re-energize_1-small.jpg?1591893674","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"140.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 140.00","id":10665,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308989,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308989,"master_product_id":414699,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 58.50 x 10 = Tk. 585.00","original_amo":58.5,"per_item_total":725,"permalink":"detol-hw-poly-170-ml-re-ener-new-rate-40bebb33","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":58.5,"price_line":"Tk. 58.50 x 10 = Tk. 585.00","product_id":414699,"product_name":"Dettol,Hw Poly 170 Ml Re-Ener- New Rate","quantity":10,"sale_price":585,"seller":"Unicorn","seller_slug":"unicorn","size":"170ml","sku":"Detol,Hw-Poly-170-Ml-Re-Ener--New-Rate---87bea10d","slug":"detol-hw-poly-170-ml-re-ener-new-rate-shopup-05bfce45","sold_out":false,"title":"Dettol,Hw Poly 170 Ml Re-Ener- New Rate","variant":526050,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":989,"id":526050,"name":"170ml","option_value_name":"170ml","size":5}],"variant_price":58.5,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414697"}},"category":"Floor cleaner","category_id":2160,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 6,134.00","formatted_price":"Tk. 210.50","formatted_sale_price":"Tk. 5,894.00","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 210.50","image":"https://shopimages.vstores.io/uc/930564/lizol_floor_cleaner_citrus_disinfectant_surface_cleaner_975ml_1-small.jpg?1591893670","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"240.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 240.00","id":10664,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308988,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308988,"master_product_id":414697,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 220.00 x 28 = Tk. 6,160.00","original_amo":220,"per_item_total":6134,"permalink":"lizol-975-ml-citrus-ih-new-rat-bb8d61c6","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":210.5,"price_line":"Tk. 210.50 x 28 = Tk. 5,894.00","product_id":414697,"product_name":"Lizol 975 Ml - Citrus - Ih - New Rat","quantity":28,"sale_price":5894,"seller":"Unicorn","seller_slug":"unicorn","size":"975ml","sku":"Lizol-975-Ml---Citrus---Ih---New-Rat---ca165571","slug":"lizol-975-ml-citrus-ih-new-rat-shopup-7805faf6","sold_out":false,"title":"Lizol 975 Ml - Citrus - Ih - New Rat","variant":526040,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":947,"id":526040,"name":"975ml","option_value_name":"975ml","size":5}],"variant_price":210.5,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414698"}},"category":"Personal care essential","category_id":2243,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 134.52","formatted_price":"Tk. 34.52","formatted_sale_price":"Tk. 34.52","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 34.52","image":"https://shopimages.vstores.io/uc/040564/Dettol-Liquid-50-Ml---New-Rate-small.jpg?1591893672","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"100.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 100.00","id":10663,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308987,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308987,"master_product_id":414698,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 34.52 x 1 = Tk. 34.52","original_amo":34.52,"per_item_total":134.52,"permalink":"dettol-liquid-50-ml-new-rate-6d8bfe5b","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":34.52,"price_line":"Tk. 34.52 x 1 = Tk. 34.52","product_id":414698,"product_name":"Dettol Liquid 50 Ml - New Rate","quantity":1,"sale_price":34.52,"seller":"Unicorn","seller_slug":"unicorn","size":"50ml","sku":"Dettol-Liquid-50-Ml---New-Rate---fb581683","slug":"dettol-liquid-50-ml-new-rate-shopup-b15c7686","sold_out":false,"title":"Dettol Liquid 50 Ml - New Rate","variant":526042,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":9971,"id":526042,"name":"50ml","option_value_name":"50ml","size":5}],"variant_price":34.52,"zipcode":"934"},{"activity_object":{"activity_object":{"id":"P414700"}},"category":"Toilet cleaner","category_id":2167,"cod_availability":true,"cod_message":"Delivery in 5-15 working days.","delivery_time":"Delivery in 5-15 working days.","delivery_time_message":{"message":"Delivery in 5-15 working days.","type":2},"discount":0,"final_discount":0,"formatted_income":"Tk. 0.00","formatted_per_item_total":"Tk. 208.11","formatted_price":"Tk. 108.11","formatted_sale_price":"Tk. 108.11","formatted_seller_price":"Tk. 0.00","formatted_variant_price":"Tk. 108.11","image":"https://shopimages.vstores.io/uc/240564/HarpcPkHbc-Floral-500Mlx12---New-Rate-small.jpg?1591893674","is_free_item":false,"liked":false,"line_item_adjustments":[{"account_id":0,"adjustment_type":2,"amount":"100.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 100.00","id":10662,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308986,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}],"line_item_id":308986,"master_product_id":414700,"max_item_quantity":50,"max_selling_price":0,"messages":[],"min_order_qty":1,"min_selling_price":0,"mrp_price_line":"Tk. 108.11 x 1 = Tk. 108.11","original_amo":108.11,"per_item_total":208.11,"permalink":"harpc-pk-hbc-floral-500mlx12-new-rate-94540dc6","prepaid_availability":true,"prepaid_message":"Delivery in 5-15 working days.","price":108.11,"price_line":"Tk. 108.11 x 1 = Tk. 108.11","product_id":414700,"product_name":"Harpc,Pk,Hbc Floral 500Mlx12 - New Rate","quantity":1,"sale_price":108.11,"seller":"Unicorn","seller_slug":"unicorn","size":"500ml","sku":"Harpc,Pk,Hbc-Floral-500Mlx12---New-Rate---90615d67","slug":"harpc-pk-hbc-floral-500mlx12-new-rate-shopup-cb43bcb0","sold_out":false,"title":"Harpc,Pk,Hbc Floral 500Mlx12 - New Rate","variant":526045,"variant_options":[{"corrected_count_on_hand":3,"count_on_hand":9941,"id":526045,"name":"500ml","option_value_name":"500ml","size":5}],"variant_price":108.11,"zipcode":"934"}]
+//                 * subtotal : 7201.63
+//                 */
+//
+//                private double item_total;
+//                private double subtotal;
+//                private List<AdjustmentsBean> adjustments;
+//                private List<ItemsBeanX> items;
+//
+//                public double getItem_total() {
+//                    return item_total;
+//                }
+//
+//                public void setItem_total(double item_total) {
+//                    this.item_total = item_total;
+//                }
+//
+//                public double getSubtotal() {
+//                    return subtotal;
+//                }
+//
+//                public void setSubtotal(double subtotal) {
+//                    this.subtotal = subtotal;
+//                }
+//
+//                public List<AdjustmentsBean> getAdjustments() {
+//                    return adjustments;
+//                }
+//
+//                public void setAdjustments(List<AdjustmentsBean> adjustments) {
+//                    this.adjustments = adjustments;
+//                }
+//
+//                public List<ItemsBeanX> getItems() {
+//                    return items;
+//                }
+//
+//                public void setItems(List<ItemsBeanX> items) {
+//                    this.items = items;
+//                }
+//
+//                public static class AdjustmentsBean {
+//                    /**
+//                     * amount : 580
+//                     * is_seller_coupon : false
+//                     * is_vcash : false
+//                     * label : Shipping Charges
+//                     */
+//
+//                    private int amount;
+//                    private boolean is_seller_coupon;
+//                    private boolean is_vcash;
+//                    private String label;
+//
+//                    public int getAmount() {
+//                        return amount;
+//                    }
+//
+//                    public void setAmount(int amount) {
+//                        this.amount = amount;
+//                    }
+//
+//                    public boolean isIs_seller_coupon() {
+//                        return is_seller_coupon;
+//                    }
+//
+//                    public void setIs_seller_coupon(boolean is_seller_coupon) {
+//                        this.is_seller_coupon = is_seller_coupon;
+//                    }
+//
+//                    public boolean isIs_vcash() {
+//                        return is_vcash;
+//                    }
+//
+//                    public void setIs_vcash(boolean is_vcash) {
+//                        this.is_vcash = is_vcash;
+//                    }
+//
+//                    public String getLabel() {
+//                        return label;
+//                    }
+//
+//                    public void setLabel(String label) {
+//                        this.label = label;
+//                    }
+//                }
+//
+//                public static class ItemsBeanX {
+//                    /**
+//                     * activity_object : {"activity_object":{"id":"P414699"}}
+//                     * category : Personal care essential
+//                     * category_id : 2243
+//                     * cod_availability : true
+//                     * cod_message : Delivery in 5-15 working days.
+//                     * delivery_time : Delivery in 5-15 working days.
+//                     * delivery_time_message : {"message":"Delivery in 5-15 working days.","type":2}
+//                     * discount : 0
+//                     * final_discount : 0
+//                     * formatted_income : Tk. 0.00
+//                     * formatted_per_item_total : Tk. 725.00
+//                     * formatted_price : Tk. 58.50
+//                     * formatted_sale_price : Tk. 585.00
+//                     * formatted_seller_price : Tk. 0.00
+//                     * formatted_variant_price : Tk. 58.50
+//                     * image : https://shopimages.vstores.io/uc/140564/Dettol-Handwash-170-ml-Refill-Poly-Re-energize_1-small.jpg?1591893674
+//                     * is_free_item : false
+//                     * liked : false
+//                     * line_item_adjustments : [{"account_id":0,"adjustment_type":2,"amount":"140.0","created_at":"2020-12-08T14:21:35.000+06:00","eligible":true,"formatted_amount":"Tk. 140.00","id":10665,"income":0,"is_seller_coupon":false,"label":"Shipping Charges","line_item_id":308989,"order_id":148415,"result_2":0,"result_3":0,"seller_id":287000412,"updated_at":"2020-12-08T14:21:35.000+06:00","vaccount_id":2}]
+//                     * line_item_id : 308989
+//                     * master_product_id : 414699
+//                     * max_item_quantity : 50
+//                     * max_selling_price : 0
+//                     * messages : []
+//                     * min_order_qty : 1
+//                     * min_selling_price : 0
+//                     * mrp_price_line : Tk. 58.50 x 10 = Tk. 585.00
+//                     * original_amo : 58.5
+//                     * per_item_total : 725
+//                     * permalink : detol-hw-poly-170-ml-re-ener-new-rate-40bebb33
+//                     * prepaid_availability : true
+//                     * prepaid_message : Delivery in 5-15 working days.
+//                     * price : 58.5
+//                     * price_line : Tk. 58.50 x 10 = Tk. 585.00
+//                     * product_id : 414699
+//                     * product_name : Dettol,Hw Poly 170 Ml Re-Ener- New Rate
+//                     * quantity : 10
+//                     * sale_price : 585
+//                     * seller : Unicorn
+//                     * seller_slug : unicorn
+//                     * size : 170ml
+//                     * sku : Detol,Hw-Poly-170-Ml-Re-Ener--New-Rate---87bea10d
+//                     * slug : detol-hw-poly-170-ml-re-ener-new-rate-shopup-05bfce45
+//                     * sold_out : false
+//                     * title : Dettol,Hw Poly 170 Ml Re-Ener- New Rate
+//                     * variant : 526050
+//                     * variant_options : [{"corrected_count_on_hand":3,"count_on_hand":989,"id":526050,"name":"170ml","option_value_name":"170ml","size":5}]
+//                     * variant_price : 58.5
+//                     * zipcode : 934
+//                     */
+//
+//                    private ActivityObjectBeanXXX activity_object;
+//                    private String category;
+//                    private int category_id;
+//                    private boolean cod_availability;
+//                    private String cod_message;
+//                    private String delivery_time;
+//                    private DeliveryTimeMessageBeanX delivery_time_message;
+//                    private int discount;
+//                    private int final_discount;
+//                    private String formatted_income;
+//                    private String formatted_per_item_total;
+//                    private String formatted_price;
+//                    private String formatted_sale_price;
+//                    private String formatted_seller_price;
+//                    private String formatted_variant_price;
+//                    private String image;
+//                    private boolean is_free_item;
+//                    private boolean liked;
+//                    private int line_item_id;
+//                    private int master_product_id;
+//                    private int max_item_quantity;
+//                    private int max_selling_price;
+//                    private int min_order_qty;
+//                    private int min_selling_price;
+//                    private String mrp_price_line;
+//                    private double original_amo;
+//                    private int per_item_total;
+//                    private String permalink;
+//                    private boolean prepaid_availability;
+//                    private String prepaid_message;
+//                    private double price;
+//                    private String price_line;
+//                    private int product_id;
+//                    private String product_name;
+//                    private int quantity;
+//                    private int sale_price;
+//                    private String seller;
+//                    private String seller_slug;
+//                    private String size;
+//                    private String sku;
+//                    private String slug;
+//                    private boolean sold_out;
+//                    private String title;
+//                    private int variant;
+//                    private double variant_price;
+//                    private String zipcode;
+//                    private List<LineItemAdjustmentsBean> line_item_adjustments;
+//                    private List<?> messages;
+//                    private List<VariantOptionsBeanX> variant_options;
+//
+//                    public ActivityObjectBeanXXX getActivity_object() {
+//                        return activity_object;
+//                    }
+//
+//                    public void setActivity_object(ActivityObjectBeanXXX activity_object) {
+//                        this.activity_object = activity_object;
+//                    }
+//
+//                    public String getCategory() {
+//                        return category;
+//                    }
+//
+//                    public void setCategory(String category) {
+//                        this.category = category;
+//                    }
+//
+//                    public int getCategory_id() {
+//                        return category_id;
+//                    }
+//
+//                    public void setCategory_id(int category_id) {
+//                        this.category_id = category_id;
+//                    }
+//
+//                    public boolean isCod_availability() {
+//                        return cod_availability;
+//                    }
+//
+//                    public void setCod_availability(boolean cod_availability) {
+//                        this.cod_availability = cod_availability;
+//                    }
+//
+//                    public String getCod_message() {
+//                        return cod_message;
+//                    }
+//
+//                    public void setCod_message(String cod_message) {
+//                        this.cod_message = cod_message;
+//                    }
+//
+//                    public String getDelivery_time() {
+//                        return delivery_time;
+//                    }
+//
+//                    public void setDelivery_time(String delivery_time) {
+//                        this.delivery_time = delivery_time;
+//                    }
+//
+//                    public DeliveryTimeMessageBeanX getDelivery_time_message() {
+//                        return delivery_time_message;
+//                    }
+//
+//                    public void setDelivery_time_message(DeliveryTimeMessageBeanX delivery_time_message) {
+//                        this.delivery_time_message = delivery_time_message;
+//                    }
+//
+//                    public int getDiscount() {
+//                        return discount;
+//                    }
+//
+//                    public void setDiscount(int discount) {
+//                        this.discount = discount;
+//                    }
+//
+//                    public int getFinal_discount() {
+//                        return final_discount;
+//                    }
+//
+//                    public void setFinal_discount(int final_discount) {
+//                        this.final_discount = final_discount;
+//                    }
+//
+//                    public String getFormatted_income() {
+//                        return formatted_income;
+//                    }
+//
+//                    public void setFormatted_income(String formatted_income) {
+//                        this.formatted_income = formatted_income;
+//                    }
+//
+//                    public String getFormatted_per_item_total() {
+//                        return formatted_per_item_total;
+//                    }
+//
+//                    public void setFormatted_per_item_total(String formatted_per_item_total) {
+//                        this.formatted_per_item_total = formatted_per_item_total;
+//                    }
+//
+//                    public String getFormatted_price() {
+//                        return formatted_price;
+//                    }
+//
+//                    public void setFormatted_price(String formatted_price) {
+//                        this.formatted_price = formatted_price;
+//                    }
+//
+//                    public String getFormatted_sale_price() {
+//                        return formatted_sale_price;
+//                    }
+//
+//                    public void setFormatted_sale_price(String formatted_sale_price) {
+//                        this.formatted_sale_price = formatted_sale_price;
+//                    }
+//
+//                    public String getFormatted_seller_price() {
+//                        return formatted_seller_price;
+//                    }
+//
+//                    public void setFormatted_seller_price(String formatted_seller_price) {
+//                        this.formatted_seller_price = formatted_seller_price;
+//                    }
+//
+//                    public String getFormatted_variant_price() {
+//                        return formatted_variant_price;
+//                    }
+//
+//                    public void setFormatted_variant_price(String formatted_variant_price) {
+//                        this.formatted_variant_price = formatted_variant_price;
+//                    }
+//
+//                    public String getImage() {
+//                        return image;
+//                    }
+//
+//                    public void setImage(String image) {
+//                        this.image = image;
+//                    }
+//
+//                    public boolean isIs_free_item() {
+//                        return is_free_item;
+//                    }
+//
+//                    public void setIs_free_item(boolean is_free_item) {
+//                        this.is_free_item = is_free_item;
+//                    }
+//
+//                    public boolean isLiked() {
+//                        return liked;
+//                    }
+//
+//                    public void setLiked(boolean liked) {
+//                        this.liked = liked;
+//                    }
+//
+//                    public int getLine_item_id() {
+//                        return line_item_id;
+//                    }
+//
+//                    public void setLine_item_id(int line_item_id) {
+//                        this.line_item_id = line_item_id;
+//                    }
+//
+//                    public int getMaster_product_id() {
+//                        return master_product_id;
+//                    }
+//
+//                    public void setMaster_product_id(int master_product_id) {
+//                        this.master_product_id = master_product_id;
+//                    }
+//
+//                    public int getMax_item_quantity() {
+//                        return max_item_quantity;
+//                    }
+//
+//                    public void setMax_item_quantity(int max_item_quantity) {
+//                        this.max_item_quantity = max_item_quantity;
+//                    }
+//
+//                    public int getMax_selling_price() {
+//                        return max_selling_price;
+//                    }
+//
+//                    public void setMax_selling_price(int max_selling_price) {
+//                        this.max_selling_price = max_selling_price;
+//                    }
+//
+//                    public int getMin_order_qty() {
+//                        return min_order_qty;
+//                    }
+//
+//                    public void setMin_order_qty(int min_order_qty) {
+//                        this.min_order_qty = min_order_qty;
+//                    }
+//
+//                    public int getMin_selling_price() {
+//                        return min_selling_price;
+//                    }
+//
+//                    public void setMin_selling_price(int min_selling_price) {
+//                        this.min_selling_price = min_selling_price;
+//                    }
+//
+//                    public String getMrp_price_line() {
+//                        return mrp_price_line;
+//                    }
+//
+//                    public void setMrp_price_line(String mrp_price_line) {
+//                        this.mrp_price_line = mrp_price_line;
+//                    }
+//
+//                    public double getOriginal_amo() {
+//                        return original_amo;
+//                    }
+//
+//                    public void setOriginal_amo(double original_amo) {
+//                        this.original_amo = original_amo;
+//                    }
+//
+//                    public int getPer_item_total() {
+//                        return per_item_total;
+//                    }
+//
+//                    public void setPer_item_total(int per_item_total) {
+//                        this.per_item_total = per_item_total;
+//                    }
+//
+//                    public String getPermalink() {
+//                        return permalink;
+//                    }
+//
+//                    public void setPermalink(String permalink) {
+//                        this.permalink = permalink;
+//                    }
+//
+//                    public boolean isPrepaid_availability() {
+//                        return prepaid_availability;
+//                    }
+//
+//                    public void setPrepaid_availability(boolean prepaid_availability) {
+//                        this.prepaid_availability = prepaid_availability;
+//                    }
+//
+//                    public String getPrepaid_message() {
+//                        return prepaid_message;
+//                    }
+//
+//                    public void setPrepaid_message(String prepaid_message) {
+//                        this.prepaid_message = prepaid_message;
+//                    }
+//
+//                    public double getPrice() {
+//                        return price;
+//                    }
+//
+//                    public void setPrice(double price) {
+//                        this.price = price;
+//                    }
+//
+//                    public String getPrice_line() {
+//                        return price_line;
+//                    }
+//
+//                    public void setPrice_line(String price_line) {
+//                        this.price_line = price_line;
+//                    }
+//
+//                    public int getProduct_id() {
+//                        return product_id;
+//                    }
+//
+//                    public void setProduct_id(int product_id) {
+//                        this.product_id = product_id;
+//                    }
+//
+//                    public String getProduct_name() {
+//                        return product_name;
+//                    }
+//
+//                    public void setProduct_name(String product_name) {
+//                        this.product_name = product_name;
+//                    }
+//
+//                    public int getQuantity() {
+//                        return quantity;
+//                    }
+//
+//                    public void setQuantity(int quantity) {
+//                        this.quantity = quantity;
+//                    }
+//
+//                    public int getSale_price() {
+//                        return sale_price;
+//                    }
+//
+//                    public void setSale_price(int sale_price) {
+//                        this.sale_price = sale_price;
+//                    }
+//
+//                    public String getSeller() {
+//                        return seller;
+//                    }
+//
+//                    public void setSeller(String seller) {
+//                        this.seller = seller;
+//                    }
+//
+//                    public String getSeller_slug() {
+//                        return seller_slug;
+//                    }
+//
+//                    public void setSeller_slug(String seller_slug) {
+//                        this.seller_slug = seller_slug;
+//                    }
+//
+//                    public String getSize() {
+//                        return size;
+//                    }
+//
+//                    public void setSize(String size) {
+//                        this.size = size;
+//                    }
+//
+//                    public String getSku() {
+//                        return sku;
+//                    }
+//
+//                    public void setSku(String sku) {
+//                        this.sku = sku;
+//                    }
+//
+//                    public String getSlug() {
+//                        return slug;
+//                    }
+//
+//                    public void setSlug(String slug) {
+//                        this.slug = slug;
+//                    }
+//
+//                    public boolean isSold_out() {
+//                        return sold_out;
+//                    }
+//
+//                    public void setSold_out(boolean sold_out) {
+//                        this.sold_out = sold_out;
+//                    }
+//
+//                    public String getTitle() {
+//                        return title;
+//                    }
+//
+//                    public void setTitle(String title) {
+//                        this.title = title;
+//                    }
+//
+//                    public int getVariant() {
+//                        return variant;
+//                    }
+//
+//                    public void setVariant(int variant) {
+//                        this.variant = variant;
+//                    }
+//
+//                    public double getVariant_price() {
+//                        return variant_price;
+//                    }
+//
+//                    public void setVariant_price(double variant_price) {
+//                        this.variant_price = variant_price;
+//                    }
+//
+//                    public String getZipcode() {
+//                        return zipcode;
+//                    }
+//
+//                    public void setZipcode(String zipcode) {
+//                        this.zipcode = zipcode;
+//                    }
+//
+//                    public List<LineItemAdjustmentsBean> getLine_item_adjustments() {
+//                        return line_item_adjustments;
+//                    }
+//
+//                    public void setLine_item_adjustments(List<LineItemAdjustmentsBean> line_item_adjustments) {
+//                        this.line_item_adjustments = line_item_adjustments;
+//                    }
+//
+//                    public List<?> getMessages() {
+//                        return messages;
+//                    }
+//
+//                    public void setMessages(List<?> messages) {
+//                        this.messages = messages;
+//                    }
+//
+//                    public List<VariantOptionsBeanX> getVariant_options() {
+//                        return variant_options;
+//                    }
+//
+//                    public void setVariant_options(List<VariantOptionsBeanX> variant_options) {
+//                        this.variant_options = variant_options;
+//                    }
+//
+//                    public static class ActivityObjectBeanXXX {
+//                        /**
+//                         * activity_object : {"id":"P414699"}
+//                         */
+//
+//                        private ActivityObjectBeanXX activity_object;
+//
+//                        public ActivityObjectBeanXX getActivity_object() {
+//                            return activity_object;
+//                        }
+//
+//                        public void setActivity_object(ActivityObjectBeanXX activity_object) {
+//                            this.activity_object = activity_object;
+//                        }
+//
+//                        public static class ActivityObjectBeanXX {
+//                            /**
+//                             * id : P414699
+//                             */
+//
+//                            private String id;
+//
+//                            public String getId() {
+//                                return id;
+//                            }
+//
+//                            public void setId(String id) {
+//                                this.id = id;
+//                            }
+//                        }
+//                    }
+//
+//                    public static class DeliveryTimeMessageBeanX {
+//                        /**
+//                         * message : Delivery in 5-15 working days.
+//                         * type : 2
+//                         */
+//
+//                        private String message;
+//                        private int type;
+//
+//                        public String getMessage() {
+//                            return message;
+//                        }
+//
+//                        public void setMessage(String message) {
+//                            this.message = message;
+//                        }
+//
+//                        public int getType() {
+//                            return type;
+//                        }
+//
+//                        public void setType(int type) {
+//                            this.type = type;
+//                        }
+//                    }
+//
+//                    public static class LineItemAdjustmentsBean {
+//                        /**
+//                         * account_id : 0
+//                         * adjustment_type : 2
+//                         * amount : 140.0
+//                         * created_at : 2020-12-08T14:21:35.000+06:00
+//                         * eligible : true
+//                         * formatted_amount : Tk. 140.00
+//                         * id : 10665
+//                         * income : 0
+//                         * is_seller_coupon : false
+//                         * label : Shipping Charges
+//                         * line_item_id : 308989
+//                         * order_id : 148415
+//                         * result_2 : 0
+//                         * result_3 : 0
+//                         * seller_id : 287000412
+//                         * updated_at : 2020-12-08T14:21:35.000+06:00
+//                         * vaccount_id : 2
+//                         */
+//
+//                        private int account_id;
+//                        private int adjustment_type;
+//                        private String amount;
+//                        private String created_at;
+//                        private boolean eligible;
+//                        private String formatted_amount;
+//                        private int id;
+//                        private int income;
+//                        private boolean is_seller_coupon;
+//                        private String label;
+//                        private int line_item_id;
+//                        private int order_id;
+//                        private int result_2;
+//                        private int result_3;
+//                        private int seller_id;
+//                        private String updated_at;
+//                        private int vaccount_id;
+//
+//                        public int getAccount_id() {
+//                            return account_id;
+//                        }
+//
+//                        public void setAccount_id(int account_id) {
+//                            this.account_id = account_id;
+//                        }
+//
+//                        public int getAdjustment_type() {
+//                            return adjustment_type;
+//                        }
+//
+//                        public void setAdjustment_type(int adjustment_type) {
+//                            this.adjustment_type = adjustment_type;
+//                        }
+//
+//                        public String getAmount() {
+//                            return amount;
+//                        }
+//
+//                        public void setAmount(String amount) {
+//                            this.amount = amount;
+//                        }
+//
+//                        public String getCreated_at() {
+//                            return created_at;
+//                        }
+//
+//                        public void setCreated_at(String created_at) {
+//                            this.created_at = created_at;
+//                        }
+//
+//                        public boolean isEligible() {
+//                            return eligible;
+//                        }
+//
+//                        public void setEligible(boolean eligible) {
+//                            this.eligible = eligible;
+//                        }
+//
+//                        public String getFormatted_amount() {
+//                            return formatted_amount;
+//                        }
+//
+//                        public void setFormatted_amount(String formatted_amount) {
+//                            this.formatted_amount = formatted_amount;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//
+//                        public int getIncome() {
+//                            return income;
+//                        }
+//
+//                        public void setIncome(int income) {
+//                            this.income = income;
+//                        }
+//
+//                        public boolean isIs_seller_coupon() {
+//                            return is_seller_coupon;
+//                        }
+//
+//                        public void setIs_seller_coupon(boolean is_seller_coupon) {
+//                            this.is_seller_coupon = is_seller_coupon;
+//                        }
+//
+//                        public String getLabel() {
+//                            return label;
+//                        }
+//
+//                        public void setLabel(String label) {
+//                            this.label = label;
+//                        }
+//
+//                        public int getLine_item_id() {
+//                            return line_item_id;
+//                        }
+//
+//                        public void setLine_item_id(int line_item_id) {
+//                            this.line_item_id = line_item_id;
+//                        }
+//
+//                        public int getOrder_id() {
+//                            return order_id;
+//                        }
+//
+//                        public void setOrder_id(int order_id) {
+//                            this.order_id = order_id;
+//                        }
+//
+//                        public int getResult_2() {
+//                            return result_2;
+//                        }
+//
+//                        public void setResult_2(int result_2) {
+//                            this.result_2 = result_2;
+//                        }
+//
+//                        public int getResult_3() {
+//                            return result_3;
+//                        }
+//
+//                        public void setResult_3(int result_3) {
+//                            this.result_3 = result_3;
+//                        }
+//
+//                        public int getSeller_id() {
+//                            return seller_id;
+//                        }
+//
+//                        public void setSeller_id(int seller_id) {
+//                            this.seller_id = seller_id;
+//                        }
+//
+//                        public String getUpdated_at() {
+//                            return updated_at;
+//                        }
+//
+//                        public void setUpdated_at(String updated_at) {
+//                            this.updated_at = updated_at;
+//                        }
+//
+//                        public int getVaccount_id() {
+//                            return vaccount_id;
+//                        }
+//
+//                        public void setVaccount_id(int vaccount_id) {
+//                            this.vaccount_id = vaccount_id;
+//                        }
+//                    }
+//
+//                    public static class VariantOptionsBeanX {
+//                        /**
+//                         * corrected_count_on_hand : 3
+//                         * count_on_hand : 989
+//                         * id : 526050
+//                         * name : 170ml
+//                         * option_value_name : 170ml
+//                         * size : 5
+//                         */
+//
+//                        private int corrected_count_on_hand;
+//                        private int count_on_hand;
+//                        private int id;
+//                        private String name;
+//                        private String option_value_name;
+//                        private int size;
+//
+//                        public int getCorrected_count_on_hand() {
+//                            return corrected_count_on_hand;
+//                        }
+//
+//                        public void setCorrected_count_on_hand(int corrected_count_on_hand) {
+//                            this.corrected_count_on_hand = corrected_count_on_hand;
+//                        }
+//
+//                        public int getCount_on_hand() {
+//                            return count_on_hand;
+//                        }
+//
+//                        public void setCount_on_hand(int count_on_hand) {
+//                            this.count_on_hand = count_on_hand;
+//                        }
+//
+//                        public int getId() {
+//                            return id;
+//                        }
+//
+//                        public void setId(int id) {
+//                            this.id = id;
+//                        }
+//
+//                        public String getName() {
+//                            return name;
+//                        }
+//
+//                        public void setName(String name) {
+//                            this.name = name;
+//                        }
+//
+//                        public String getOption_value_name() {
+//                            return option_value_name;
+//                        }
+//
+//                        public void setOption_value_name(String option_value_name) {
+//                            this.option_value_name = option_value_name;
+//                        }
+//
+//                        public int getSize() {
+//                            return size;
+//                        }
+//
+//                        public void setSize(int size) {
+//                            this.size = size;
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
         public static class VcashDataBean {
+            /**
+             * approved_vcash : 0
+             * available_vcash : 0
+             * show_vcash_form : true
+             * vcash_already_applied_in_order : 0
+             */
+
             private int approved_vcash;
             private int available_vcash;
             private boolean show_vcash_form;
@@ -1433,7 +2447,14 @@ public class MokamAssociateAddressModel_ {
             }
         }
 
-        public static class AdjustmentsBean {
+        public static class AdjustmentsBeanX {
+            /**
+             * amount : 50
+             * is_seller_coupon : false
+             * is_vcash : false
+             * label : Shipping Charges
+             */
+
             private int amount;
             private boolean is_seller_coupon;
             private boolean is_vcash;
@@ -1469,562 +2490,6 @@ public class MokamAssociateAddressModel_ {
 
             public void setLabel(String label) {
                 this.label = label;
-            }
-        }
-
-
-        public static class PaymentPendingOrdersBean {
-            private boolean is_present;
-            private List<?> orders_list;
-
-            public boolean isIs_present() {
-                return is_present;
-            }
-
-            public void setIs_present(boolean is_present) {
-                this.is_present = is_present;
-            }
-
-            public List<?> getOrders_list() {
-                return orders_list;
-            }
-
-            public void setOrders_list(List<?> orders_list) {
-                this.orders_list = orders_list;
-            }
-        }
-
-        public static class PrepaidMessageConfigBean {
-            private String prepaid_order_message;
-            private String prepaid_retry_message;
-            private String retry_message_for_close_popup;
-
-            public String getPrepaid_order_message() {
-                return prepaid_order_message;
-            }
-
-            public void setPrepaid_order_message(String prepaid_order_message) {
-                this.prepaid_order_message = prepaid_order_message;
-            }
-
-            public String getPrepaid_retry_message() {
-                return prepaid_retry_message;
-            }
-
-            public void setPrepaid_retry_message(String prepaid_retry_message) {
-                this.prepaid_retry_message = prepaid_retry_message;
-            }
-
-            public String getRetry_message_for_close_popup() {
-                return retry_message_for_close_popup;
-            }
-
-            public void setRetry_message_for_close_popup(String retry_message_for_close_popup) {
-                this.retry_message_for_close_popup = retry_message_for_close_popup;
-            }
-        }
-
-        public static class PrimoCartImagesBean {
-            private String wap_signed;
-            private String wap_unsigned;
-            private String web_signed;
-            private String web_unsigned;
-
-            public String getWap_signed() {
-                return wap_signed;
-            }
-
-            public void setWap_signed(String wap_signed) {
-                this.wap_signed = wap_signed;
-            }
-
-            public String getWap_unsigned() {
-                return wap_unsigned;
-            }
-
-            public void setWap_unsigned(String wap_unsigned) {
-                this.wap_unsigned = wap_unsigned;
-            }
-
-            public String getWeb_signed() {
-                return web_signed;
-            }
-
-            public void setWeb_signed(String web_signed) {
-                this.web_signed = web_signed;
-            }
-
-            public String getWeb_unsigned() {
-                return web_unsigned;
-            }
-
-            public void setWeb_unsigned(String web_unsigned) {
-                this.web_unsigned = web_unsigned;
-            }
-        }
-
-        public static class ShipAddressBean {
-            private MokamAssociateAddressModel.ShipAddressBean.AddressBeanX address;
-
-            public MokamAssociateAddressModel.ShipAddressBean.AddressBeanX getAddress() {
-                return address;
-            }
-
-            public void setAddress(MokamAssociateAddressModel.ShipAddressBean.AddressBeanX address) {
-                this.address = address;
-            }
-
-            public static class AddressBeanX {
-                private int user_id;
-                private int id;
-                private String firstname;
-                private String lastname;
-                private String address1;
-                private String address2;
-                private String city;
-                private String phone;
-                private String landmark;
-                private String zipcode;
-                private String state;
-                private String country;
-                private int country_id;
-                private int state_id;
-                private String location;
-                private String zone;
-
-                public int getUser_id() {
-                    return user_id;
-                }
-
-                public void setUser_id(int user_id) {
-                    this.user_id = user_id;
-                }
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public String getFirstname() {
-                    return firstname;
-                }
-
-                public void setFirstname(String firstname) {
-                    this.firstname = firstname;
-                }
-
-                public String getLastname() {
-                    return lastname;
-                }
-
-                public void setLastname(String lastname) {
-                    this.lastname = lastname;
-                }
-
-                public String getAddress1() {
-                    return address1;
-                }
-
-                public void setAddress1(String address1) {
-                    this.address1 = address1;
-                }
-
-                public String getAddress2() {
-                    return address2;
-                }
-
-                public void setAddress2(String address2) {
-                    this.address2 = address2;
-                }
-
-                public String getCity() {
-                    return city;
-                }
-
-                public void setCity(String city) {
-                    this.city = city;
-                }
-
-                public String getPhone() {
-                    return phone;
-                }
-
-                public void setPhone(String phone) {
-                    this.phone = phone;
-                }
-
-                public String getLandmark() {
-                    return landmark;
-                }
-
-                public void setLandmark(String landmark) {
-                    this.landmark = landmark;
-                }
-
-                public String getZipcode() {
-                    return zipcode;
-                }
-
-                public void setZipcode(String zipcode) {
-                    this.zipcode = zipcode;
-                }
-
-                public String getState() {
-                    return state;
-                }
-
-                public void setState(String state) {
-                    this.state = state;
-                }
-
-                public String getCountry() {
-                    return country;
-                }
-
-                public void setCountry(String country) {
-                    this.country = country;
-                }
-
-                public int getCountry_id() {
-                    return country_id;
-                }
-
-                public void setCountry_id(int country_id) {
-                    this.country_id = country_id;
-                }
-
-                public int getState_id() {
-                    return state_id;
-                }
-
-                public void setState_id(int state_id) {
-                    this.state_id = state_id;
-                }
-
-                public String getLocation() {
-                    return location;
-                }
-
-                public void setLocation(String location) {
-                    this.location = location;
-                }
-
-                public String getZone() {
-                    return zone;
-                }
-
-                public void setZone(String zone) {
-                    this.zone = zone;
-                }
-            }
-        }
-
-        public static class SpecialInstructionsBean {
-            private String customer_preferred_delivery_date;
-            private String preferred_days;
-            private String preferred_slots;
-            private String text;
-
-            public String getCustomer_preferred_delivery_date() {
-                return customer_preferred_delivery_date;
-            }
-
-            public void setCustomer_preferred_delivery_date(String customer_preferred_delivery_date) {
-                this.customer_preferred_delivery_date = customer_preferred_delivery_date;
-            }
-
-            public String getPreferred_days() {
-                return preferred_days;
-            }
-
-            public void setPreferred_days(String preferred_days) {
-                this.preferred_days = preferred_days;
-            }
-
-            public String getPreferred_slots() {
-                return preferred_slots;
-            }
-
-            public void setPreferred_slots(String preferred_slots) {
-                this.preferred_slots = preferred_slots;
-            }
-
-            public String getText() {
-                return text;
-            }
-
-            public void setText(String text) {
-                this.text = text;
-            }
-        }
-
-        public static class CountryListBean {
-            private String code;
-            private double conversion_rate;
-            private String currency;
-            private String currency_code;
-            private String currency_unicode;
-            private String extra_data;
-            private String flag;
-            private int id;
-            private String name;
-            private String status;
-            private String updated_at;
-            private String created_at;
-
-            public String getCode() {
-                return code;
-            }
-
-            public void setCode(String code) {
-                this.code = code;
-            }
-
-            public double getConversion_rate() {
-                return conversion_rate;
-            }
-
-            public void setConversion_rate(double conversion_rate) {
-                this.conversion_rate = conversion_rate;
-            }
-
-            public String getCurrency() {
-                return currency;
-            }
-
-            public void setCurrency(String currency) {
-                this.currency = currency;
-            }
-
-            public String getCurrency_code() {
-                return currency_code;
-            }
-
-            public void setCurrency_code(String currency_code) {
-                this.currency_code = currency_code;
-            }
-
-            public String getCurrency_unicode() {
-                return currency_unicode;
-            }
-
-            public void setCurrency_unicode(String currency_unicode) {
-                this.currency_unicode = currency_unicode;
-            }
-
-            public String getExtra_data() {
-                return extra_data;
-            }
-
-            public void setExtra_data(String extra_data) {
-                this.extra_data = extra_data;
-            }
-
-            public String getFlag() {
-                return flag;
-            }
-
-            public void setFlag(String flag) {
-                this.flag = flag;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getName() {
-                return name;
-            }
-
-            public void setName(String name) {
-                this.name = name;
-            }
-
-            public String getStatus() {
-                return status;
-            }
-
-            public void setStatus(String status) {
-                this.status = status;
-            }
-
-            public String getUpdated_at() {
-                return updated_at;
-            }
-
-            public void setUpdated_at(String updated_at) {
-                this.updated_at = updated_at;
-            }
-
-            public String getCreated_at() {
-                return created_at;
-            }
-
-            public void setCreated_at(String created_at) {
-                this.created_at = created_at;
-            }
-        }
-
-        public static class ShippedAddressesBean {
-            private int user_id;
-            private int id;
-            private String firstname;
-            private String lastname;
-            private String address1;
-            private String city;
-            private String phone;
-            private String landmark;
-            private String zipcode;
-            private String state;
-            private String country;
-            private int country_id;
-            private int state_id;
-            private String location;
-            private String zone;
-            private String address2;
-            private String alternative_phone;
-
-            public int getUser_id() {
-                return user_id;
-            }
-
-            public void setUser_id(int user_id) {
-                this.user_id = user_id;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getFirstname() {
-                return firstname;
-            }
-
-            public void setFirstname(String firstname) {
-                this.firstname = firstname;
-            }
-
-            public String getLastname() {
-                return lastname;
-            }
-
-            public void setLastname(String lastname) {
-                this.lastname = lastname;
-            }
-
-            public String getAddress1() {
-                return address1;
-            }
-
-            public void setAddress1(String address1) {
-                this.address1 = address1;
-            }
-
-            public String getCity() {
-                return city;
-            }
-
-            public void setCity(String city) {
-                this.city = city;
-            }
-
-            public String getPhone() {
-                return phone;
-            }
-
-            public void setPhone(String phone) {
-                this.phone = phone;
-            }
-
-            public String getLandmark() {
-                return landmark;
-            }
-
-            public void setLandmark(String landmark) {
-                this.landmark = landmark;
-            }
-
-            public String getZipcode() {
-                return zipcode;
-            }
-
-            public void setZipcode(String zipcode) {
-                this.zipcode = zipcode;
-            }
-
-            public String getState() {
-                return state;
-            }
-
-            public void setState(String state) {
-                this.state = state;
-            }
-
-            public String getCountry() {
-                return country;
-            }
-
-            public void setCountry(String country) {
-                this.country = country;
-            }
-
-            public int getCountry_id() {
-                return country_id;
-            }
-
-            public void setCountry_id(int country_id) {
-                this.country_id = country_id;
-            }
-
-            public int getState_id() {
-                return state_id;
-            }
-
-            public void setState_id(int state_id) {
-                this.state_id = state_id;
-            }
-
-            public String getLocation() {
-                return location;
-            }
-
-            public void setLocation(String location) {
-                this.location = location;
-            }
-
-            public String getZone() {
-                return zone;
-            }
-
-            public void setZone(String zone) {
-                this.zone = zone;
-            }
-
-            public String getAddress2() {
-                return address2;
-            }
-
-            public void setAddress2(String address2) {
-                this.address2 = address2;
-            }
-
-            public String getAlternative_phone() {
-                return alternative_phone;
-            }
-
-            public void setAlternative_phone(String alternative_phone) {
-                this.alternative_phone = alternative_phone;
             }
         }
     }

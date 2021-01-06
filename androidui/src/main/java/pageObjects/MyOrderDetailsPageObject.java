@@ -176,7 +176,7 @@ public class MyOrderDetailsPageObject extends AndroidBaseClass {
     public WebElement scrollToOrderID(String orderId)
     {
             WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                    "new UiScrollable(new UiSelector().resourceId(\"com.mokam.app:id/pager_my_orders\")).scrollIntoView("
+                    "new UiScrollable(new UiSelector().resourceId(\""+getAppPackage()+":id/pager_my_orders\")).scrollIntoView("
                             + "new UiSelector().text(\""+orderId+ "\"))"));
             return element;
     }

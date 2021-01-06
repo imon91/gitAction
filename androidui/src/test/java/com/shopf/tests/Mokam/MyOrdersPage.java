@@ -41,7 +41,8 @@ public class MyOrdersPage extends AndroidBaseClass {
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        homePageObjects.selectAddress(0);
+//        homePageObjects.selectAddress(0);
+        homePageObjects.createNewAddress();
         sleep(4000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
@@ -74,11 +75,7 @@ public class MyOrdersPage extends AndroidBaseClass {
     public void verifySelectedAddress(){
         List<String> selectedAddressNameAndAddressList = new ArrayList<>();
         int cart_Item_Count = homePageObjects.getCartItemCount();
-        if (cart_Item_Count==0) {
-            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
-        }else {
-            selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
-        }
+        selectedAddressNameAndAddressList = homePageObjects.getNameAndAddress_Backend(0,cart_Item_Count);
         WebElement nameOfSelectedAddress = actionBarObjects.getAddressNameAndAddressElement().get(0);
         softAssert.assertEquals(nameOfSelectedAddress.getText(),selectedAddressNameAndAddressList.get(0));
 
@@ -194,11 +191,11 @@ public class MyOrdersPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 17)
     public void verifyFirstOrderInActiveTab(){
-        String firstOrderId = myOrderDetailsPageObject.getFirstOrderID();
-        String firstOrderCustomerName = myOrderDetailsPageObject.getFirstOrderCustomerName();
+        String firstOrderId = myOrderDetailsPageObject.getFirstOrderID().replaceAll(" ","");
+        String firstOrderCustomerName = myOrderDetailsPageObject.getFirstOrderCustomerName().replaceAll(" ","");
         MyOrderDetailsNewModel myOrderDetailsModel = myOrderDetailsPageObject.getMyOrderDetails(firstOrderId);
-        String firstOrderID_Backend = myOrderDetailsModel.getCustomer_order().getNumber();
-        String firstOrderCustomerName_Backend = myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname();
+        String firstOrderID_Backend = myOrderDetailsModel.getCustomer_order().getNumber().replaceAll(" ","");
+        String firstOrderCustomerName_Backend = myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname().replaceAll(" ","");
         softAssert.assertEquals(firstOrderId,firstOrderID_Backend);
         softAssert.assertEquals(firstOrderCustomerName,firstOrderCustomerName_Backend);
         softAssert.assertAll();
@@ -208,11 +205,11 @@ public class MyOrdersPage extends AndroidBaseClass {
     public void verifyFirstOrderInCompletedTab(){
         myOrdersPageObjects.selectATab(1);
         sleep(4000);
-        String firstOrderId = myOrderDetailsPageObject.getFirstOrderID();
-        String firstOrderCustomerName = myOrderDetailsPageObject.getFirstOrderCustomerName();
+        String firstOrderId = myOrderDetailsPageObject.getFirstOrderID().replaceAll(" ","");
+        String firstOrderCustomerName = myOrderDetailsPageObject.getFirstOrderCustomerName().replaceAll(" ","");
         MyOrderDetailsNewModel myOrderDetailsModel = myOrderDetailsPageObject.getMyOrderDetails(firstOrderId);
-        String firstOrderID_Backend = myOrderDetailsModel.getCustomer_order().getNumber();
-        String firstOrderCustomerName_Backend = myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname();
+        String firstOrderID_Backend = myOrderDetailsModel.getCustomer_order().getNumber().replaceAll(" ","");
+        String firstOrderCustomerName_Backend = myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname().replaceAll(" ","");
         softAssert.assertEquals(firstOrderId,firstOrderID_Backend);
         softAssert.assertEquals(firstOrderCustomerName,firstOrderCustomerName_Backend);
         softAssert.assertAll();
@@ -222,11 +219,11 @@ public class MyOrdersPage extends AndroidBaseClass {
     public void verifyFirstOrderInCancelledTab(){
         myOrdersPageObjects.selectATab(2);
         sleep(4000);
-        String firstOrderId = myOrderDetailsPageObject.getFirstOrderID();
-        String firstOrderCustomerName = myOrderDetailsPageObject.getFirstOrderCustomerName();
+        String firstOrderId = myOrderDetailsPageObject.getFirstOrderID().replaceAll(" ","");
+        String firstOrderCustomerName = myOrderDetailsPageObject.getFirstOrderCustomerName().replaceAll(" ","");
         MyOrderDetailsNewModel myOrderDetailsModel = myOrderDetailsPageObject.getMyOrderDetails(firstOrderId);
-        String firstOrderID_Backend = myOrderDetailsModel.getCustomer_order().getNumber();
-        String firstOrderCustomerName_Backend = myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname();
+        String firstOrderID_Backend = myOrderDetailsModel.getCustomer_order().getNumber().replaceAll(" ","");
+        String firstOrderCustomerName_Backend = myOrderDetailsModel.getCustomer_order().getShip_address().getFirstname().replaceAll(" ","");
         softAssert.assertEquals(firstOrderId,firstOrderID_Backend);
         softAssert.assertEquals(firstOrderCustomerName,firstOrderCustomerName_Backend);
         softAssert.assertAll();
