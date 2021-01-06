@@ -36,7 +36,7 @@ public class SearchPage extends AndroidBaseClass {
     }
 
     @BeforeSuite(alwaysRun = true)
-    public void searchPageBeforeSuite(){
+    public void searchPageBeforeSuite() throws Exception {
         androidDriver = getBaseDriver();
         pageInitializer();
         serviceRequestLayer = new ServiceRequestLayer();
@@ -45,7 +45,7 @@ public class SearchPage extends AndroidBaseClass {
         softAssert = new SoftAssert();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
-        homePageObjects.selectAddress(0);
+        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
