@@ -120,7 +120,7 @@ public class HomePage extends AndroidBaseClass {
         softAssert.assertAll();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5,enabled = false)
     public void verifyHomePageScrollable(){
         WebElement element = homePageObjects.getHomePageWebElement();
         Assert.assertEquals(element.getAttribute("scrollable"),"false");
