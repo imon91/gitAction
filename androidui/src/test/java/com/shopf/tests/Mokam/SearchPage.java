@@ -54,6 +54,7 @@ public class SearchPage extends AndroidBaseClass {
         rightNavigationDrawer.saveLanguage();
         sleep(5000);
         actionBarObjects.clickOnSearchImageButton();
+        androidDriver.hideKeyboard();
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 0)
@@ -80,7 +81,7 @@ public class SearchPage extends AndroidBaseClass {
         Assert.assertEquals(recentlyViewedText,recentlyViewedText_English);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6,enabled = false)
     public void verifyRecentlyViewedFirstProductDetails(){
         String productName;
         String productNameFromUI;
@@ -144,7 +145,6 @@ public class SearchPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyFirstSuggestionClickable(){
-        System.out.println(searchPageObjects.getSuggestionElementUI(0));
         WebElement firstSuggestionElement = searchPageObjects.getSuggestionElementUI(0);
         Assert.assertEquals(firstSuggestionElement.getAttribute("clickable"),"true");
     }

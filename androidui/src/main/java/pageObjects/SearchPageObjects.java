@@ -151,7 +151,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     }
 
     public String getRecentlyViewedText(){
-        WebElement element = idSetter("com.mokam.app:id/title_widget");
+        WebElement element = idSetter(packageName+":id/title_widget");
         return myActions.action_getText(element);
     }
 
@@ -221,7 +221,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     }
 
     public List<WebElement> getAutoSuggestButtonList(){
-        return idListSetter("com.mokam.app:id/auto_selection");
+        return idListSetter(packageName+":id/auto_selection");
     }
 
     public List<WebElement> searchRecentProductsNameListUI()
@@ -235,7 +235,7 @@ public class SearchPageObjects extends AndroidBaseClass {
     }
 
     public WebElement getRecentlyViewedContainerElement(){
-        return idSetter("com.mokam.app:id/recycler_widget");
+        return idSetter(packageName+":id/recycler_widget");
     }
 
     public WebElement getRecentlyViewedProductElement(int index){
@@ -334,8 +334,8 @@ public class SearchPageObjects extends AndroidBaseClass {
 
     public boolean verifyScroll() {
 
-            WebElement ele1 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/item']");
-            WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/search_recently_viewed_container']");
+            WebElement ele1 = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/item']");
+            WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/search_recently_viewed_container']");
             int startX = ele1.getLocation().getX() + (ele1.getSize().getWidth()/2);
             int startY = ele1.getLocation().getY() + (ele1.getSize().getHeight()/2);
             int endX = ele2.getLocation().getX();
