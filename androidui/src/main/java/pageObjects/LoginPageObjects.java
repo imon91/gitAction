@@ -1,7 +1,10 @@
 package pageObjects;
 
 import coreUtils.*;
+import io.appium.java_client.MobileBy;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 import io.appium.java_client.android.*;
 
@@ -41,6 +44,14 @@ public class LoginPageObjects extends AndroidBaseClass{
 
     private WebElement enterOTPText;
 
+    private WebElement unableToVerifyOTPText;
+
+    private WebElement wrongOTPEnteredText;
+
+    private WebElement otpErrorPopUpDismissButtonElement;
+
+    private WebElement otpErrorPopUpRetryButtonElement;
+
 
     /*--------------Actions-------------------*/
 
@@ -52,6 +63,7 @@ public class LoginPageObjects extends AndroidBaseClass{
     }
 
     public void enterMobileNumber(String mobileNumber){
+        System.out.println("Control in enterMobileNumber : "+mobileNumber);
       enterMobileNumberEditText = xpathSetter("//android.widget.EditText[@resource-id='"+ packageName +":id/phone_edit']");
         myActions.action_sendKeys(enterMobileNumberEditText,mobileNumber);
     }
@@ -172,12 +184,73 @@ public class LoginPageObjects extends AndroidBaseClass{
         return myActions.action_getText(enterOTPText);
     }
 
+    public String getUnableToVerifyOTPText(){
+        unableToVerifyOTPText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/title_custom_dialog']");
+        return myActions.action_getText(unableToVerifyOTPText);
+    }
 
+    public String getWrongOTPEnteredText(){
+        wrongOTPEnteredText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/description_custom_dialog']");
+        return myActions.action_getText(wrongOTPEnteredText);
+    }
+
+    public String getDismissButtonText(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            otpErrorPopUpDismissButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_negative_custom_dialog']");
+        } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            otpErrorPopUpDismissButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_negative_custom_dialog']");
+        }
+        return myActions.action_getText(otpErrorPopUpDismissButtonElement);
+    }
+
+    public String getRetryButtonText(){
+        otpErrorPopUpRetryButtonElement = xpathSetter("//android.widget.TextView[@index=1][@resource-id='"+packageName+":id/button_positive_custom_dialog']");
+        return myActions.action_getText(otpErrorPopUpRetryButtonElement);
+    }
+
+    public void clickOnOtpErrorPopupMessageRetryButton(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            otpErrorPopUpRetryButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_positive_custom_dialog']");
+        } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            otpErrorPopUpRetryButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_positive_custom_dialog']");
+        }
+        myActions.action_click(otpErrorPopUpRetryButtonElement);
+    }
+
+    public void clickOnOtpErrorPopupMessageDismissButton(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            otpErrorPopUpDismissButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_negative_custom_dialog']");
+        } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            otpErrorPopUpDismissButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_negative_custom_dialog']");
+        }
+        myActions.action_click(otpErrorPopUpDismissButtonElement);
+    }
+
+    public WebElement dismissButtonElement(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+            otpErrorPopUpDismissButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_negative_custom_dialog']");
+        } else if(app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            otpErrorPopUpDismissButtonElement = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_negative_custom_dialog']");
+        }
+        return dismissButtonElement();
+    }
+
+    /*public String getOtpStatusMessage() {
+        try {
+            WebDriverWait wait = new WebDriverWait(getBaseDriver(), 30);
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(MobileBy.ByAndroidUIAutomator.("Ui ")));
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+     */
 
     /*----Functions*/
 
     // 1 : Normal Authentication Function
     public void performAuthentication(String mobileNumber, String otp){
+        System.out.println("Control in performAuthentication : "+mobileNumber);
         enterMobileNumber(mobileNumber);
         clickOnVerifyOtpButton();
         enterOtp(otp);
