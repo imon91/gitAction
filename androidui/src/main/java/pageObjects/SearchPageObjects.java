@@ -74,6 +74,14 @@ public class SearchPageObjects extends AndroidBaseClass {
         myActions.action_click(searchBackButton);
     }
 
+    public WebElement getSearchBackButtonElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnBack']");
+    }
+
+    public WebElement getSearchButtonElement(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnSearch']");
+    }
+
     public WebElement searchBarEditText()
     {
         return searchBarEditText = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/etSearch']");
@@ -142,6 +150,11 @@ public class SearchPageObjects extends AndroidBaseClass {
                 xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/suggestions_recycler_recent']");
     }
 
+    public String getRecentlyViewedText(){
+        WebElement element = idSetter(packageName+":id/title_widget");
+        return myActions.action_getText(element);
+    }
+
     /*----Functions*/
 
 
@@ -203,10 +216,30 @@ public class SearchPageObjects extends AndroidBaseClass {
         return suggestionTitleList;
     }
 
+    public WebElement getSuggestionElementUI(int index){
+        return xpathSetter("//androidx.recyclerview.widget.RecyclerView[@index='2']//android.widget.LinearLayout[@index='"+index+"']");
+    }
+
+    public List<WebElement> getAutoSuggestButtonList(){
+        return idListSetter(packageName+":id/auto_selection");
+    }
+
     public List<WebElement> searchRecentProductsNameListUI()
     {
         List<WebElement> nameList = androidDriver.findElements(By.id(packageName+":id/tvName"));
         return nameList;
+    }
+
+    public String getRecentProductName(int index){
+        return myActions.action_getText(searchRecentProductsNameListUI().get(index));
+    }
+
+    public WebElement getRecentlyViewedContainerElement(){
+        return idSetter(packageName+":id/recycler_widget");
+    }
+
+    public WebElement getRecentlyViewedProductElement(int index){
+        return xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']");
     }
 
     public List<WebElement> getListOfRecentProductsPropertiesUI(String price_or_originalPrice_or_deliveryTag_or_discount)
@@ -301,8 +334,8 @@ public class SearchPageObjects extends AndroidBaseClass {
 
     public boolean verifyScroll() {
 
-            WebElement ele1 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/item']");
-            WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='com.shopup.reseller:id/search_recently_viewed_container']");
+            WebElement ele1 = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/item']");
+            WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/search_recently_viewed_container']");
             int startX = ele1.getLocation().getX() + (ele1.getSize().getWidth()/2);
             int startY = ele1.getLocation().getY() + (ele1.getSize().getHeight()/2);
             int endX = ele2.getLocation().getX();
