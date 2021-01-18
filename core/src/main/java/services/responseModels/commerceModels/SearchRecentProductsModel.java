@@ -114,7 +114,7 @@ public class SearchRecentProductsModel {
         private String permalink;
         private int plp_view_type;
         private String price;
-        private int price_es;
+        private double price_es;
         private String primo_price;
         private int product_id;
         private String product_stamp;
@@ -330,11 +330,11 @@ public class SearchRecentProductsModel {
             this.price = price;
         }
 
-        public int getPrice_es() {
+        public double getPrice_es() {
             return price_es;
         }
 
-        public void setPrice_es(int price_es) {
+        public void setPrice_es(double price_es) {
             this.price_es = price_es;
         }
 
@@ -601,14 +601,14 @@ public class SearchRecentProductsModel {
             private int corrected_count_on_hand;
             private int count_on_hand;
             private int id;
-            private int max_selling_price;
+            private double max_selling_price;
             private int min_order_quantity;
-            private int min_selling_price;
+            private double min_selling_price;
             private String name;
             private String option_value_name;
-            private int original_price;
-            private int per_piece_price;
-            private int price;
+            private double original_price;
+            private double per_piece_price;
+            private double price;
             private int product_id;
             private int quantity_per_variant;
             private int size;
@@ -638,11 +638,11 @@ public class SearchRecentProductsModel {
                 this.id = id;
             }
 
-            public int getMax_selling_price() {
+            public double getMax_selling_price() {
                 return max_selling_price;
             }
 
-            public void setMax_selling_price(int max_selling_price) {
+            public void setMax_selling_price(double max_selling_price) {
                 this.max_selling_price = max_selling_price;
             }
 
@@ -654,11 +654,11 @@ public class SearchRecentProductsModel {
                 this.min_order_quantity = min_order_quantity;
             }
 
-            public int getMin_selling_price() {
+            public double getMin_selling_price() {
                 return min_selling_price;
             }
 
-            public void setMin_selling_price(int min_selling_price) {
+            public void setMin_selling_price(double min_selling_price) {
                 this.min_selling_price = min_selling_price;
             }
 
@@ -678,27 +678,27 @@ public class SearchRecentProductsModel {
                 this.option_value_name = option_value_name;
             }
 
-            public int getOriginal_price() {
+            public double getOriginal_price() {
                 return original_price;
             }
 
-            public void setOriginal_price(int original_price) {
+            public void setOriginal_price(double original_price) {
                 this.original_price = original_price;
             }
 
-            public int getPer_piece_price() {
+            public double getPer_piece_price() {
                 return per_piece_price;
             }
 
-            public void setPer_piece_price(int per_piece_price) {
+            public void setPer_piece_price(double per_piece_price) {
                 this.per_piece_price = per_piece_price;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 

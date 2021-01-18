@@ -19,9 +19,9 @@ public class GetDriverFromCore {
     private static final String FIREFOX_DRIVER = "firefox";
     private static final String USERNAME = "techautomation1";
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
-    private static final String APP_RESELLER = "bs://00a5faba1caa7f14a0c64eb10c6b3721bbc0ed7e";
-    private static final String APP_MOKAM = "bs://06846f50c4b7523465c30ebaf429fbdef2041544";
     private static final String APP_RED_X = "bs://0203e60b0becb9f0da11e0310b368aadce90bca5";
+    private static final String APP_RESELLER = "bs://82258a4774c3f7d304cf834a045c5b9d96a8bea7";
+    private static final String APP_MOKAM = "bs://8d742ffba93851e0cc11ffbb17416f01f72f347a";
     private static final String APP_STORES = "bs://59f775697e32f859255074777f727a4fd73be12a";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";
