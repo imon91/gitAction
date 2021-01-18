@@ -92,7 +92,6 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
 
     private WebElement skipButtonText;
 
-
     public WebElement getShopNameEditText(){
         return xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/add_retailer_edit_shop_name']");
     }
@@ -316,5 +315,57 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
         sentOtp(otp);
         clickOnContinueButton();
     }
-    
+
+    public void clickOnAddANewRetailer(){
+        scrollToEndAtSalesRepList();
+        myActions.action_click(getAddNewRetailerButtonElement());
+    }
+
+    public String getRegisterRetailerPhoneText(){
+        WebElement xpath = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_login_label']");
+        return myActions.action_getText(xpath);
+    }
+
+    public String getAddRetailersPhoneNumberText(){
+        WebElement xpath = xpathSetter("//android.widget.EditText[@resource-id='"+packageName+":id/phone_edit']");
+        return myActions.action_getText(xpath);
+    }
+
+    public String getVerifyWithOtpText(){
+        WebElement xpath = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_verify_otp']");
+        return myActions.action_getText(xpath);
+    }
+
+    public void clickOnRetailerLoginPageBackButton(){
+        WebElement xpath = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/action_back_registration']");
+        myActions.action_click(xpath);
+    }
+
+    public String getPageTitleOfRetailerListPage(){
+        String text = myActions.action_getText(xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/retailer_title']"));
+        return text;
+    }
+
+    public String getOneTimePasswordText(){
+        String text = myActions.action_getText(xpathSetter("//"));
+        return text;
+    }
+
+    public String getEnterOTPText(){
+        String text = myActions.action_getText(xpathSetter("//"));
+        return text;
+    }
+
+    public String getResendOTPInText(){
+        String text = myActions.action_getText(xpathSetter("//"));
+        return text;
+    }
+
+    public String getProceedText(){
+        String text = myActions.action_getText(xpathSetter("//"));
+        return text;
+    }
+
+
+
 }
