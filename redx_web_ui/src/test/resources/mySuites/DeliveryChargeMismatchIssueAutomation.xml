@@ -7,7 +7,7 @@
     <test name="IssuesTests" preserve-order="true" parallel="false">
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="sanity"/>
             </run>
         </groups>
         <classes>
