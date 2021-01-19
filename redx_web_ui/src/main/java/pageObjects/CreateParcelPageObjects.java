@@ -140,7 +140,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass{
     }
 
     public void enterAndApplyAddress(String divisionTerm,String districtTerm,String location_or_AreaTerm,int addressIndex) {
-        enterSellingPrice(System.getProperty("selling price"));
+        enterCashCollectionAmount(System.getProperty("selling price"));
         enterAreaTerm(divisionTerm, "");
         sleep(500);
         areaDropDown();
