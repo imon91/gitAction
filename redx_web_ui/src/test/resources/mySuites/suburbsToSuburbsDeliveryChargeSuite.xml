@@ -11,7 +11,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.shopf.tests.IssuesAutomation.DeliveryChargeMismatchIssues"></class>
+            <class name="com.shopf.tests.IssuesAutomation.RedXWebDeliveryChargeAutomation.SuburbsToSuburbs"></class>
         </classes>
     </test>
 </suite>
