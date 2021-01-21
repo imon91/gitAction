@@ -45,6 +45,15 @@ task redxWebUiTest(type: Test) {
         def sanity = project.hasProperty("Sanity")
         def regression = project.hasProperty("Reg")
         def deliveryChargeMismatchIssue = project.hasProperty("DCMI")
+        def suburbsToSuburbs = project.hasProperty("STS")
+        def suburbsToOSD = project.hasProperty("STO")
+        def suburbsToISD = project.hasProperty("STI")
+        def OSDToSuburbs = project.hasProperty("OTS")
+        def OSDToISD = project.hasProperty("OTI")
+        def ISDToSuburbs = project.hasProperty("ITS")
+        def ISDToOSD = project.hasProperty("ITO")
+
+
 
         if (smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -57,6 +66,27 @@ task redxWebUiTest(type: Test) {
         }
         if (deliveryChargeMismatchIssue) {
             suites "src/test/resources/mySuites/DeliveryChargeMismatchIssueAutomation.xml"
+        }
+        if (suburbsToSuburbs) {
+            suites "src/test/resources/mySuites/suburbsToSuburbsDeliveryChargeSuite.xml"
+        }
+        if (suburbsToOSD) {
+            suites "src/test/resources/mySuites/suburbsToOSDDeliveryChargeSuite.xml"
+        }
+        if (suburbsToISD) {
+            suites "src/test/resources/mySuites/suburbsToISDDeliveryChargeSuite.xml"
+        }
+        if (OSDToSuburbs) {
+            suites "src/test/resources/mySuites/OSDToSuburbsDeliveryChargeSuite.xml"
+        }
+        if (OSDToISD) {
+            suites "src/test/resources/mySuites/OSDToISDDeliveryChargeSuite.xml"
+        }
+        if (ISDToSuburbs) {
+            suites "src/test/resources/mySuites/ISDToSuburbsDeliveryChargeSuite.xml"
+        }
+        if (ISDToOSD) {
+            suites "src/test/resources/mySuites/ISDToOSDDeliveryChargeSuite.xml"
         }
     }
 }

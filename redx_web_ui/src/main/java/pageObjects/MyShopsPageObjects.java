@@ -36,9 +36,10 @@ public class MyShopsPageObjects extends RedXWebBaseClass{
 
     public void clickOnEditShopIcon(int index)
     {
-        editShopIcon = driver.findElements(By.xpath("//div[@class='shoplist']//div[@class='ant-col ant-col-md-12 ant-col-lg-6 ant-col-xl-6']//div[@class='action-icon-wrapper']/img"));
+        editShopIcon = driver.findElements(By.xpath("//div[@class='shoplist']//div[@class='ant-col ant-col-md-12 ant-col-lg-6 ant-col-xl-6']//div[@class='action-icon-wrapper']/*"));
         //EditButton was less than shopList
         myActions.action_click(editShopIcon.get(index));
+        sleep(2000);
     }
 
     public void clickOnNewShopIcon()
@@ -47,25 +48,30 @@ public class MyShopsPageObjects extends RedXWebBaseClass{
         myActions.action_click(editShopIcon.get(0));
     }
 
-    public void enterAndApplyAreaOnEditShop(String areaTerm,int index)
+    public void enterAndApplyAreaOnEditShop(String division,String District,String areaTerm)
     {
 
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='ant-select ant-select-enabled ant-select-no-arrow']"))).click();
+        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//section[@class='shop-create-form']//div[@class='ant-row'][3]/div[2]/div/div"))).click();
         sleep(1500);
-        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='required css-37yrso']//input"))).sendKeys(areaTerm);
+        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//section[@class='shop-create-form']//div[@class='ant-row'][3]/div[2]/div/div[2]/input"))).sendKeys(division);
         sleep(500);
-        locationDropDownWhileEditShop = driver.findElements(By.xpath("//ul[@class='ant-select-dropdown-menu-item-group-list']/li"));
-        myActions.action_click(locationDropDownWhileEditShop.get(index));
+        locationDropDownWhileEditShop = driver.findElements(By.xpath("//section[@class='shop-create-form']//div[@class='ant-row'][3]/div[2]/div/div[2]/div/p"));
+        myActions.action_click(locationDropDownWhileEditShop.get(0));
+        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//section[@class='shop-create-form']//div[@class='ant-row'][3]/div[2]/div/div[2]/input"))).sendKeys(District);
+        sleep(500);
+        locationDropDownWhileEditShop = driver.findElements(By.xpath("//section[@class='shop-create-form']//div[@class='ant-row'][3]/div[2]/div/div[2]/div/p"));
+        myActions.action_click(locationDropDownWhileEditShop.get(0));
+        new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.xpath("//section[@class='shop-create-form']//div[@class='ant-row'][3]/div[2]/div/div[2]/input"))).sendKeys(areaTerm);
+        sleep(500);
+        locationDropDownWhileEditShop = driver.findElements(By.xpath("//section[@class='shop-create-form']//div[@class='ant-row'][3]/div[2]/div/div[2]/div/p"));
+        myActions.action_click(locationDropDownWhileEditShop.get(0));
 
     }
 
-    public void selectTheDeliveryZone(int ID_SU_OD)
+    public void enterFullName(String name)
     {
-        WebElement dropDownButton = driver.findElement(By.xpath("//div[@class='ant-select ant-select-enabled']/div"));
-        myActions.action_click(dropDownButton);
-        deliveryZoneDropDownWhileEditShop = driver.findElements(By.xpath("//div[@class='ant-select-dropdown ant-select-dropdown--single ant-select-dropdown-placement-bottomLeft']/div[1]/ul/li"));
-        sleep(500);
-        myActions.action_click(deliveryZoneDropDownWhileEditShop.get(ID_SU_OD));
+        WebElement fullName = xpathSetter("//input[@type='text'][@name='name']");
+        myActions.action_sendKeys(fullName,name);
     }
 
     public void clickOnSaveButtonWhileEditShop()
@@ -94,11 +100,11 @@ public class MyShopsPageObjects extends RedXWebBaseClass{
         myActions.action_click(shop3);
     }
 
-    public void editShopDetails(int shopIndex,String areaTerm,int areaIndex,int zoneIndex_ID_SU_OD)
+    public void editShopDetails(int shopIndex,String division,String district,String areaTerm,String name)
     {
         clickOnEditShopIcon(shopIndex);
-        enterAndApplyAreaOnEditShop(areaTerm,areaIndex);
-        selectTheDeliveryZone(zoneIndex_ID_SU_OD);
+        enterAndApplyAreaOnEditShop(division,district,areaTerm);
+        enterFullName(name);
         sleep(500);
         clickOnSaveButtonWhileEditShop();
         sleep(1000);

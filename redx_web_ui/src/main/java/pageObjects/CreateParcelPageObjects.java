@@ -63,6 +63,8 @@ public class CreateParcelPageObjects extends RedXWebBaseClass{
         editAmount = driver.findElement(By.xpath("//div[@class='right-form']/div[3]/*"));
         editAmount.clear();
         myActions.action_sendKeys(editAmount,amount);
+        sleep(200);
+        myActions.action_sendKeys(editAmount,"0");
     }
 
     public void enterSellingPrice(String amount)

@@ -4,11 +4,11 @@ import coreUtils.*;
 import org.openqa.selenium.*;
 import org.testng.*;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 import pageObjects.*;
 import testData.*;
 import utils.*;
 import videoRecorder.ScreenRecorder;
-
 import java.util.*;
 
 
@@ -41,6 +41,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
     private ReadJSONFileRedX readJSONFileRedX;
     private Random random;
     private RedXServiceRequestLayer redXServiceRequestLayer;
+    private SoftAssert softAssert;
 
 
 
@@ -53,7 +54,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
         browserMaximize();
         setImplicitWait(10);
         driver.get(getWebBaseUrl());
-        System.setProperty("selling price","4000");
+        System.setProperty("selling price","400");
         System.setProperty("sixty","60");
         System.setProperty("hundred","100");
         System.setProperty("oneThirty","130");
@@ -76,6 +77,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
         redXServiceRequestLayer = new RedXServiceRequestLayer();
         readJSONFileRedX = redXServiceRequestLayer.getControlOverReadJSONFileRedX();
         random = new Random();
+        softAssert = new SoftAssert();
     }
 
     @Test(groups = CoreConstants.GROUP_SMOKE,
@@ -486,60 +488,60 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //        Assert.assertEquals(totalDeliveryCharge,deliveryChargeParcelPage);
 //    }
 
-    @Test(groups = CoreConstants.GROUP_SANITY,
-            description = "Verifies Delivery charge of suburbs to suburbs(Same district)",
-            priority = 11)
-    public void verifySuburbsToSuburbsSameDistricts() throws Exception {
-        System.out.println("Verification of SUBURBS to SUBURBS(same district) was called");
-        sleep(3000);
-        actionBarObjects.clickOnDropDownButton();
-        sleep(500);
-        homePageObjects.clickOnDropDownMyShopButton();
-
-    //The location set as suburb was Narayanganj sadar
-    System.out.println("The Suburb shop location was Narayanganj district");
-        myShopsPageObjects.clickOnShop(0);
-        sleep(1000);
-        System.out.println("The size of the divisions in a Suburb zones " +readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").size());
-        //Select only Suburb division Dhaka
-        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").get(0);
-
-        for(int a=0 ;a<readJSONFileRedX.getSuburbs(division).size();a++) {
-            district = readJSONFileRedX.getSuburbs(division).get(a);
-
-            if(district.equals("Narayanganj")) {
-
-                for (int i = 0; i < readJSONFileRedX.getSuburbs(district).size(); i++) {
-                    area = String.valueOf(readJSONFileRedX.getSuburbs(district).get(i));
-                    //Enters All term only for firstTime
-                    if(i==0){System.out.println("Total size of area located in sameDistrict :" +readJSONFileRedX.getSuburbs(district).size());
-                    createParcelPageObjects.createNewParcel(division,district,area,0,"");}
-
-                    createParcelPageObjects.enterAndApplyAddress(division,district,area,0);
-
-                    //Get DeliveryCharge and convert to Integer
-                    DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
-                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
-                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
-                    try{
-                    Assert.assertEquals(deliveryCharge, Integer.parseInt(sixty));
-                    }catch (AssertionError e)
-                    {
-                        System.out.println("The DeliveryCharge issue occur while Suburb(SAVAR) to Suburb(Same district)");
-                        System.out.println("The delivery charge was mismatched From 'Narayanganj Sadar' to Area : '"+area+"'");
-                    }
-
-                    //Get COD charge and verify it
-                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
-                    codAmount = codChargeText.replaceAll("[^0-9]", "");
-                    codCharge = Integer.parseInt(codAmount) / 100;
-                    Assert.assertEquals(codCharge, 0);
-                    sleep(1000);
-                }
-            }
-        }
-    }
-
+//    @Test(groups = CoreConstants.GROUP_SANITY,
+//            description = "Verifies Delivery charge of suburbs to suburbs(Same district)",
+//            priority = 11)
+//    public void verifySuburbsToSuburbsSameDistricts() throws Exception {
+//        System.out.println("Verification of SUBURBS to SUBURBS(same district) was called");
+//        sleep(3000);
+//        actionBarObjects.clickOnDropDownButton();
+//        sleep(500);
+//        homePageObjects.clickOnDropDownMyShopButton();
+//
+//    //The location set as suburb was Narayanganj sadar
+//    System.out.println("The Suburb shop location was Narayanganj district");
+//        myShopsPageObjects.clickOnShop(0);
+//        sleep(1000);
+//        System.out.println("The size of the divisions in a Suburb zones " +readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").size());
+//        //Select only Suburb division Dhaka
+//        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").get(0);
+//
+//        for(int a=0 ;a<readJSONFileRedX.getSuburbs(division).size();a++) {
+//            district = readJSONFileRedX.getSuburbs(division).get(a);
+//
+//            if(district.equals("Narayanganj")) {
+//
+//                for (int i = 0; i < readJSONFileRedX.getSuburbs(district).size(); i++) {
+//                    area = String.valueOf(readJSONFileRedX.getSuburbs(district).get(i));
+//                    //Enters All term only for firstTime
+//                    if(i==0){System.out.println("Total size of area located in sameDistrict :" +readJSONFileRedX.getSuburbs(district).size());
+//                    createParcelPageObjects.createNewParcel(division,district,area,0,"");}
+//
+//                    createParcelPageObjects.enterAndApplyAddress(division,district,area,0);
+//
+//                    //Get DeliveryCharge and convert to Integer
+//                    DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
+//                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
+//                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
+//                    try{
+//                    Assert.assertEquals(deliveryCharge, Integer.parseInt(sixty));
+//                    }catch (AssertionError e)
+//                    {
+//                        System.out.println("The DeliveryCharge issue occur while Suburb(SAVAR) to Suburb(Same district)");
+//                        System.out.println("The delivery charge was mismatched From 'Narayanganj Sadar' to Area : '"+area+"'");
+//                    }
+//
+//                    //Get COD charge and verify it
+//                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
+//                    codAmount = codChargeText.replaceAll("[^0-9]", "");
+//                    codCharge = Integer.parseInt(codAmount) / 100;
+//                    softAssert.assertEquals(codCharge, 0);
+//                    sleep(1000);
+//                }
+//            }
+//        }
+//    }
+//
 //    @Test(groups = CoreConstants.GROUP_SANITY,
 //            description = "Verifies Delivery charge of Suburbs to suburbs(Different Districts)",
 //            priority = 12)
@@ -580,6 +582,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
 //                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
 //                    try{
+//                    softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
 //                    Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
 //                }catch (AssertionError e)
 //                {
@@ -591,13 +594,14 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
 //                    codAmount = codChargeText.replaceAll("[^0-9]", "");
 //                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertNotEquals(codCharge, 0);
+//                    System.out.println("Area Name is "+area);
+//                    softAssert.assertEquals(codCharge, 40);
 //                    sleep(1000);
 //                }
 //            }
-//        }
+//        }softAssert.assertAll();
 //    }
-//
+
 //    @Test(groups = CoreConstants.GROUP_SANITY,
 //            description = "Verifies Delivery charge of Suburbs to ISD(SameDistricts)",
 //            priority = 13)
@@ -640,6 +644,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
 //                    try {
 //                        Assert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
+//                        softAssert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
 //                    } catch (AssertionError e) {
 //                        System.out.println("The DeliveryCharge issue occur while Suburb(SAVAR) to ISD(Same district)");
 //                        System.out.println("The delivery charge was mismatched on Area : " + area);
@@ -650,14 +655,14 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
 //                    codAmount = codChargeText.replaceAll("[^0-9]", "");
 //                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertEquals(codCharge, 40);
+//                    softAssert.assertEquals(codCharge, 40);
 //                    sleep(1000);
 //                }
 //            }
-//        }
+//        }softAssert.assertAll();
 //    }
-//
-//
+
+
 //    @Test(groups = CoreConstants.GROUP_SANITY,
 //            description = "Verifies Delivery charge Suburbs to ISD(Different Districts)",
 //            priority = 14)
@@ -684,7 +689,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                homePageObjects.clickOnDropDownMyShopButton();
 //
 //                //Edit the shop with required location and deliveryZone
-//                myShopsPageObjects.editShopDetails(14, SuburbArea, 0, 0);
+//                myShopsPageObjects.editShopDetails(14, division,SuburbDistrict,SuburbArea,"customer Name" );
 //                myShopsPageObjects.clickOnShop(14);
 //                sleep(1000);
 //
@@ -692,6 +697,8 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                for (int ISDDivision = 0; ISDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size(); ISDDivision++) {
 //                    System.out.println("The size of the divisions in a zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
 //                    division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(ISDDivision);
+//
+//
 //
 //                    //Verification of area of different district
 //                    for (int b = 0; b < readJSONFileRedX.getISD(division).size(); b++) {
@@ -717,6 +724,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                                deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
 //                                try {
 //                                    Assert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
+//                                    softAssert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
 //                                } catch (AssertionError e) {
 //                                    System.out.println("The DeliveryCharge issue occur while Suburb(SAVAR) to ISD(Different district)");
 //                                    System.out.println("The delivery charge was mismatched while from:" + SuburbArea + " to " + area);
@@ -727,10 +735,10 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    }
 //                }
 //            }
-//        }
+//        }softAssert.assertAll();
 //    }
-//
-//
+
+
 //    @Test(groups = CoreConstants.GROUP_SANITY,
 //            description = "Verifies Delivery charge of Suburbs to OSD(Same district)",
 //            priority = 15)
@@ -773,6 +781,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
 //                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
 //                    try {
+//                        softAssert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
 //                        Assert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
 //                    } catch (AssertionError e) {
 //                        System.out.println("The DeliveryCharge issue occur while Suburb(SAVAR) to OSD(Same district)");
@@ -783,11 +792,11 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
 //                    codAmount = codChargeText.replaceAll("[^0-9]", "");
 //                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertEquals(codCharge, 40);
+//                    softAssert.assertEquals(codCharge, 40);
 //                    sleep(1000);
 //                }
 //            }
-//        }
+//        }softAssert.assertAll();
 //    }
 //
 //    @Test(groups = CoreConstants.GROUP_SANITY,
@@ -832,6 +841,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //
 //                    try {
 //                        Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+//                        softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
 //                    } catch (AssertionError e) {
 //                        System.out.println("The DeliveryCharge issue occur while Suburb(SAVAR) to OSD(Different district)");
 //                        System.out.println("The delivery charge was mismatched on Area : " + area);
@@ -841,11 +851,11 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
 //                    codAmount = codChargeText.replaceAll("[^0-9]", "");
 //                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertEquals(codCharge, 40);
+//                    softAssert.assertEquals(codCharge, 40);
 //                    sleep(1000);
 //                }
 //            }
-//        }
+//        }softAssert.assertAll();
 //    }
 //
 //    @Test(groups = CoreConstants.GROUP_SANITY,
@@ -860,7 +870,8 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //        homePageObjects.clickOnDropDownMyShopButton();
 //        System.out.println("The OSD shop location was set as Dohar which was in Dhaka district");
 //        //Choosing Dohar Shop
-//        myShopsPageObjects.editShopDetails(8, "Dohar", 0, 1);
+//        sleep(1000);
+////        myShopsPageObjects.editShopDetails(8, "dha","Dhaka","Dohar","customer Name" );
 //        myShopsPageObjects.clickOnShop(8);
 //        sleep(1000);
 //
@@ -894,6 +905,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
 //                    try {
 //                        Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+//                        softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
 //                    } catch (AssertionError e) {
 //                        System.out.println("The DeliveryCharge issue occur while OSD(Same district to Suburb)");
 //                        System.out.println("The delivery charge was mismatched on Area : " + area);
@@ -903,11 +915,11 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
 //                    codAmount = codChargeText.replaceAll("[^0-9]", "");
 //                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertEquals(codCharge, 0);
+//                    softAssert.assertEquals(codCharge, 40);//need clarification
 //                    sleep(1000);
 //                }
 //            }
-//        }
+//        }softAssert.assertAll();
 //    }
 //
 //    @Test(groups = CoreConstants.GROUP_SANITY,
@@ -922,7 +934,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //        homePageObjects.clickOnDropDownMyShopButton();
 //
 //        //Select shop which located in Dohar(OSD)
-//        myShopsPageObjects.editShopDetails(8, "Dohar", 0, 1);
+////        myShopsPageObjects.editShopDetails(8, "dha","Dhaka","Dohar","customer Name" );
 //        myShopsPageObjects.clickOnShop(8);
 //        sleep(1000);
 //
@@ -952,6 +964,7 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //
 //                    try {
 //                        Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+//                        softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
 //                    } catch (AssertionError e) {
 //                        System.out.println("The DeliveryCharge issue occur while OSD(Different district to Suburb)");
 //                        System.out.println("The delivery charge was mismatched on Area : " + area);
@@ -961,395 +974,401 @@ public class DeliveryChargeMismatchIssues extends RedXWebBaseClass {
 //                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
 //                    codAmount = codChargeText.replaceAll("[^0-9]", "");
 //                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertEquals(codCharge, 40);
+//                    softAssert.assertEquals(codCharge, 40);
 //                    sleep(1000);
 //                }
 //            }
-//        }
+//        }softAssert.assertAll();
 //    }
 //
 //
-//    @Test(groups = CoreConstants.GROUP_SANITY,
-//            description = "Verifies Delivery charge ISD to Suburb(Same District) ",
-//            priority = 19)
-//    public void verifyISDToSuburbsSameDistricts() throws Exception {
-//        System.out.println("Verification of ISD to SUBURBS same districts was called");
-//        sleep(3000);
-//
-//        actionBarObjects.clickOnDropDownButton();
-//        sleep(500);
-//        homePageObjects.clickOnDropDownMyShopButton();
-//        System.out.println("The ISD shop location was set as Dhanmondi which was in Dhaka district");
-//        //Choosing Dhanmondi(Dhaka) Shop
-//        myShopsPageObjects.editShopDetails(9, "Dhanmondi", 0, 1);
-//        myShopsPageObjects.clickOnShop(9);
-//        sleep(1000);
-//        System.out.println("The size of the divisions in a Suburb zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").size());
-//        //Select only division Dhaka
-//        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").get(0);
-//
-//        for (int a = 0; a < readJSONFileRedX.getSuburbs(division).size(); a++) {
-//
-//            district = readJSONFileRedX.getSuburbs(division).get(a);
-//
-//            //same district condition
-//            if (district.equals("Dhaka")) {
-//
-//                for (int i = 0; i < readJSONFileRedX.getSuburbs(district).size(); i++) {
-//                    area = String.valueOf(readJSONFileRedX.getSuburbs(district).get(i));
-//
-//                    if (i == 0) {
-//                        System.out.println("Total size of area located in same Dhaka District  :" + readJSONFileRedX.getSuburbs(district).size());
-//                        createParcelPageObjects.createNewParcel(division, district, area, 0, "");
-//                    }
-//                    //enter and apply address
-//                    createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
-//
-//                    //Get DeliveryCharge and convert to Integer
-//                    DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
-//                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
-//                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
-//                    try {
-//                        Assert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
-//                    } catch (AssertionError e) {
-//                        System.out.println("The DeliveryCharge issue occur while ISD(Same district) to Suburb");
-//                        System.out.println("The delivery charge was mismatched From Dhanmondi to Area : " + area);
-//                    }
-//
-//                    //Get COD charge and verify it
-//                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
-//                    codAmount = codChargeText.replaceAll("[^0-9]", "");
-//                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertEquals(codCharge, 0);
-//                    sleep(1000);
-//                }
-//            }
-//        }
-//    }
-//
-//
-//    @Test(groups = CoreConstants.GROUP_SANITY,
-//            description = "Verifies Delivery charge Of ISD to Suburb(Different District)",
-//            priority = 20)
-//    public void verifyISDToSuburbDifferentDistricts() throws Exception {
-//        System.out.println("Verification of ISD to SUBURBS Different District was called");
-//        sleep(3000);
-//
-//        actionBarObjects.clickOnDropDownButton();
-//        sleep(500);
-//        homePageObjects.clickOnDropDownMyShopButton();
-//        //Select shop which located in Chittagong road(Narayanganj)(ISD)
-//        myShopsPageObjects.editShopDetails(9, "Chittagong Road", 0, 1);
-//        myShopsPageObjects.clickOnShop(9);
-//        sleep(1000);
-//        System.out.println("The size of the divisions in a Suburb zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").size());
-//        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").get(0);
-//
-//        for (int a = 0; a < readJSONFileRedX.getSuburbs(division).size(); a++) {
-//
-//            district = readJSONFileRedX.getSuburbs(division).get(a);
-//
-//            //same district condition
-//            if (!district.equals("Narayanganj")) {
-//
-//                for (int i = 0; i < readJSONFileRedX.getSuburbs(district).size(); i++) {
-//                    area = String.valueOf(readJSONFileRedX.getSuburbs(district).get(i));
-//
-//                    if (i == 0) {
-//                        System.out.println("Total size of area located in different District :" + readJSONFileRedX.getSuburbs(district).size());
-//                        createParcelPageObjects.createNewParcel(division, district, area, 0, "");
-//                    }
-//                    //enter and apply address
-//                    createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
-//
-//                    //Get DeliveryCharge and convert to Integer
-//                    DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
-//                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
-//                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
-//
-//                    try {
-//                        Assert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
-//                    } catch (AssertionError e) {
-//                        System.out.println("The DeliveryCharge issue occur while ISD(Different district) to Suburb");
-//                        System.out.println("The delivery charge was mismatched from Chittagong road to Area : " + area);
-//                    }
-//
-//                    //Get COD charge and verify it
-//                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
-//                    codAmount = codChargeText.replaceAll("[^0-9]", "");
-//                    codCharge = Integer.parseInt(codAmount) / 100;
-//                    Assert.assertEquals(codCharge, 40);
-//                    sleep(1000);
-//
-//                }
-//            }
-//        }
-//    }
-//
-//    @Test(groups = CoreConstants.GROUP_SANITY,
-//            description = "Verifies Delivery charge ISD to OSD(SameDistrict)",
-//            priority = 21)
-//    public void verifyISDToOSDSameDistricts() throws Exception {
-//        System.out.println("Verification of ISD to OSD Same District was called");
-//
-//        //Verify Dhaka(ISD) with same district OSD
-//            System.out.println("The size of the divisions in a ISDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
-//            division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(0);
-//
-//            //Get Dhaka district of ISD divisions for change shopLocation
-//                String ISDDistrict = readJSONFileRedX.getISD(division).get(0);
-//                //Get random area from single district
-//                String ISDArea = String.valueOf(readJSONFileRedX.getISD(ISDDistrict).get(random.nextInt(readJSONFileRedX.getISD(ISDDistrict).size())));
-//
-//                //Navigate to myShop page
-//                sleep(3000);
-//                actionBarObjects.clickOnDropDownButton();
-//                sleep(500);
-//                homePageObjects.clickOnDropDownMyShopButton();
-//
-//                //Edit the shop with required location and deliveryZone
-//                myShopsPageObjects.editShopDetails(14, ISDArea, 0, 0);
-//                myShopsPageObjects.clickOnShop(14);
-//                sleep(1000);
-//
-//
-//                for (int OSDDivision = 0; OSDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size(); OSDDivision++) {
-//                    System.out.println("The size of the divisions in a OSD zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
-//                    division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(OSDDivision);
-//
-//                    //Verification of area of different district
-//                    for (int b = 0; b < readJSONFileRedX.getOSD(division).size(); b++) {
-//
-//                        district = readJSONFileRedX.getOSD(division).get(b);
-//
-//                        //same district condition
-//                        if (district.equals(ISDDistrict)) {
-//
-//                            for (int i = 0; i < readJSONFileRedX.getOSD(district).size(); i++) {
-//                                area = String.valueOf(readJSONFileRedX.getOSD(district).get(i));
-//
-//                                if (i == 0) {
-//                                    System.out.println("Total size of area located in sameDistrict :" + readJSONFileRedX.getOSD(district).size());
-//                                    createParcelPageObjects.createNewParcel(division, district, area, 0, "");
-//                                }
-//                                //enter and apply address
-//                                createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
-//
-//                                //Get DeliveryCharge and convert to Integer
-//                                DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
-//                                DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
-//                                deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
-//                                try {
-//                                    Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
-//                                } catch (AssertionError e) {
-//                                    System.out.println("The DeliveryCharge issue occur while ISD(same district) to OSD");
-//                                    System.out.println("The delivery charge was mismatched while from:" + ISDArea + " to " + area);
-//                                }
-//                                sleep(1000);
-//                            }
-//                        }
-//                    }
-//                }
-//        }
-//
-//    @Test(groups = CoreConstants.GROUP_SANITY,
-//            description = "Verifies Delivery charge ISD to OSD(DifferentDistrict)",
-//            priority = 22)
-//    public void verifyISDToOSDDifferentDistricts() throws Exception {
-//        System.out.println("Verification of ISD to OSD Different District was called");
-//
-//        //Verify Dhaka Districts(ISD) with same district OSD
-//        System.out.println("The size of the divisions in a ISDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
-//        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(0);
-//
-//        //Get Dhaka districts of ISD divisions for change shopLocation
-//            String ISDDistrict = readJSONFileRedX.getISD(division).get(0);
-//            //Get random area form single district
-//            String ISDArea = String.valueOf(readJSONFileRedX.getISD(ISDDistrict).get(random.nextInt(readJSONFileRedX.getISD(ISDDistrict).size())));
-//
-//            //Navigate to myShop page
-//            sleep(3000);
-//            actionBarObjects.clickOnDropDownButton();
-//            sleep(500);
-//            homePageObjects.clickOnDropDownMyShopButton();
-//
-//            //Edit the shop with required location and deliveryZone
-//            myShopsPageObjects.editShopDetails(14, ISDArea, 0, 0);
-//            myShopsPageObjects.clickOnShop(14);
-//            sleep(1000);
-//
-//
-//            for (int OSDDivision = 0; OSDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size(); OSDDivision++) {
-//                System.out.println("The size of the divisions in a zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
-//                division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(OSDDivision);
-//
-//                //Verification of area of different district
-//                for (int b = 0; b < readJSONFileRedX.getOSD(division).size(); b++) {
-//
-//                    district = readJSONFileRedX.getOSD(division).get(b);
-//
-//                    //different district condition
-//                    if (!district.equals(ISDDistrict)) {
-//
-//                        for (int i = 0; i < readJSONFileRedX.getOSD(district).size(); i++) {
-//                            area = String.valueOf(readJSONFileRedX.getOSD(district).get(i));
-//
-//                            if (i == 0) {
-//                                System.out.println("Total size of area located in differentDistrict :" + readJSONFileRedX.getOSD(district).size());
-//                                createParcelPageObjects.createNewParcel(division, district, area, 0, "");
-//                            }
-//                            //enter and apply address
-//                            createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
-//
-//                            //Get DeliveryCharge and convert to Integer
-//                            DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
-//                            DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
-//                            deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
-//                            try {
-//                                Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
-//                            } catch (AssertionError e) {
-//                                System.out.println("The DeliveryCharge issue occur while ISD(different district) to OSD");
-//                                System.out.println("The delivery charge was mismatched while from:" + ISDArea + " to " + area);
-//                            }
-//                            sleep(1000);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//
-//    @Test(groups = CoreConstants.GROUP_SANITY,
-//            description = "Verifies Delivery charge OSD to ISD(SameDistrict)",
-//            priority = 23)
-//    public void verifyOSDToISDSameDistricts() throws Exception {
-//        System.out.println("Verification of OSD to ISD Same District was called");
-//
-//        //Verify Dhaka District(OSD) with same district ISD
-//        System.out.println("The size of the divisions in a OSDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
-//        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(0);
-//
-//        //Get Dhaka districts of OSD divisions for change shopLocation
-//            String OSDDistrict = readJSONFileRedX.getOSD(division).get(0);
-//            //Get random area form single district
-//            String OSDArea = String.valueOf(readJSONFileRedX.getOSD(OSDDistrict).get(random.nextInt(readJSONFileRedX.getOSD(OSDDistrict).size())));
-//
-//            //Navigate to myShop page
-//            sleep(3000);
-//            actionBarObjects.clickOnDropDownButton();
-//            sleep(500);
-//            homePageObjects.clickOnDropDownMyShopButton();
-//
-//            //Edit the shop with required location and deliveryZone
-//            myShopsPageObjects.editShopDetails(14, OSDArea, 0, 0);
-//            myShopsPageObjects.clickOnShop(14);
-//            sleep(1000);
-//
-//
-//            for (int ISDDivision = 0; ISDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size(); ISDDivision++) {
-//                System.out.println("The size of the divisions in a zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
-//                division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(ISDDivision);
-//
-//                //Verification of area of different district
-//                for (int b = 0; b < readJSONFileRedX.getISD(division).size(); b++) {
-//
-//                    district = readJSONFileRedX.getISD(division).get(b);
-//
-//                    //same district condition
-//                    if (district.equals(OSDDistrict)) {
-//
-//                        for (int i = 0; i < readJSONFileRedX.getISD(district).size(); i++) {
-//                            area = String.valueOf(readJSONFileRedX.getISD(district).get(i));
-//
-//                            if (i == 0) {
-//                                System.out.println("Total size of area located in same Dhaka District :" + readJSONFileRedX.getISD(district).size());
-//                                createParcelPageObjects.createNewParcel(division, district, area, 0, "");
-//                            }
-//                            //enter and apply address
-//                            createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
-//
-//                            //Get DeliveryCharge and convert to Integer
-//                            DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
-//                            DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
-//                            deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
-//                            try {
-//                                Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
-//                            } catch (AssertionError e) {
-//                                System.out.println("The DeliveryCharge issue occur while OSD(same district) to ISD");
-//                                System.out.println("The delivery charge was mismatched while from:" + OSDArea + " to " + area);
-//                            }
-//                            sleep(1000);
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//    @Test(groups = CoreConstants.GROUP_SANITY,
-//            description = "Verifies Delivery charge OSD to ISD(DifferentDistrict)",
-//            priority = 24)
-//    public void verifyOSDToISDDifferentDistricts() throws Exception {
-//        System.out.println("Verification of OSD to ISD Different District was called");
-//
-//        //Verify Dhaka, Districts(OSD) with same district ISD
-//        System.out.println("The size of the divisions in a OSDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
-//        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(0);
-//
-//        //select Dhaka districts of OSD divisions for change shopLocation
-//        String OSDDistrict = readJSONFileRedX.getOSD(division).get(0);
-//        //Get random area form single district
-//        String OSDArea = String.valueOf(readJSONFileRedX.getOSD(OSDDistrict).get(random.nextInt(readJSONFileRedX.getOSD(OSDDistrict).size())));
-//
-//        //Navigate to myShop page
-//        sleep(3000);
-//        actionBarObjects.clickOnDropDownButton();
-//        sleep(500);
-//        homePageObjects.clickOnDropDownMyShopButton();
-//
-//        //Edit the shop with required location and deliveryZone
-//        myShopsPageObjects.editShopDetails(14, OSDArea, 0, 0);
-//        myShopsPageObjects.clickOnShop(14);
-//        sleep(1000);
-//
-//
-//        for (int ISDDivision = 0; ISDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size(); ISDDivision++) {
-//            System.out.println("The size of the divisions in a zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
-//            division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(ISDDivision);
-//
-//            //Verification of area of different district
-//            for (int b = 0; b < readJSONFileRedX.getISD(division).size(); b++) {
-//
-//                district = readJSONFileRedX.getISD(division).get(b);
-//
-//                //different district condition
-//                if (!district.equals(OSDDistrict)) {
-//
-//                    for (int i = 0; i < readJSONFileRedX.getISD(district).size(); i++) {
-//                        area = String.valueOf(readJSONFileRedX.getISD(district).get(i));
-//
-//                        if (i == 0) {
-//                            System.out.println("Total size of area located in different Dhaka District :" + readJSONFileRedX.getISD(district).size());
-//                            createParcelPageObjects.createNewParcel(division, district, area, 0, "");
-//                        }
-//                        //enter and apply address
-//                        createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
-//
-//                        //Get DeliveryCharge and convert to Integer
-//                        DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
-//                        DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
-//                        deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
-//                        try {
-//                            Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
-//                        } catch (AssertionError e) {
-//                            System.out.println("The DeliveryCharge issue occur while OSD(different district) to ISD");
-//                            System.out.println("The delivery charge was mismatched while from:" + OSDArea + " to " + area);
-//                        }
-//                        sleep(1000);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    @Test(groups = CoreConstants.GROUP_SANITY,
+            description = "Verifies Delivery charge ISD to Suburb(Same District) ",
+            priority = 19)
+    public void verifyISDToSuburbsSameDistricts() throws Exception {
+        System.out.println("Verification of ISD to SUBURBS same districts was called");
+        sleep(3000);
+
+        actionBarObjects.clickOnDropDownButton();
+        sleep(500);
+        homePageObjects.clickOnDropDownMyShopButton();
+        System.out.println("The ISD shop location was set as Dhanmondi which was in Dhaka district");
+        //Choosing Dhanmondi(Dhaka) Shop
+        myShopsPageObjects.editShopDetails(9, "dha","Dhaka","Dhanmondi","customer Name" );
+        myShopsPageObjects.clickOnShop(9);
+        sleep(1000);
+        System.out.println("The size of the divisions in a Suburb zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").size());
+        //Select only division Dhaka
+        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").get(0);
+
+        for (int a = 0; a < readJSONFileRedX.getSuburbs(division).size(); a++) {
+
+            district = readJSONFileRedX.getSuburbs(division).get(a);
+
+            //same district condition
+            if (district.equals("Dhaka")) {
+
+                for (int i = 0; i < readJSONFileRedX.getSuburbs(district).size(); i++) {
+                    area = String.valueOf(readJSONFileRedX.getSuburbs(district).get(i));
+
+                    if (i == 0) {
+                        System.out.println("Total size of area located in same Dhaka District  :" + readJSONFileRedX.getSuburbs(district).size());
+                        createParcelPageObjects.createNewParcel(division, district, area, 0, "");
+                    }
+                    //enter and apply address
+                    createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
+
+                    //Get DeliveryCharge and convert to Integer
+                    DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
+                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
+                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
+                    try {
+                        Assert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
+                        softAssert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
+                    } catch (AssertionError e) {
+                        System.out.println("The DeliveryCharge issue occur while ISD(Same district) to Suburb");
+                        System.out.println("The delivery charge was mismatched From Dhanmondi to Area : " + area);
+                    }
+
+                    //Get COD charge and verify it
+                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
+                    codAmount = codChargeText.replaceAll("[^0-9]", "");
+                    codCharge = Integer.parseInt(codAmount) / 100;
+                    softAssert.assertEquals(codCharge, 40);
+                    sleep(1000);
+                }
+            }
+        }softAssert.assertAll();
+    }
+
+//
+    @Test(groups = CoreConstants.GROUP_SANITY,
+            description = "Verifies Delivery charge Of ISD to Suburb(Different District)",
+            priority = 20)
+    public void verifyISDToSuburbDifferentDistricts() throws Exception {
+        System.out.println("Verification of ISD to SUBURBS Different District was called");
+        sleep(3000);
+
+        actionBarObjects.clickOnDropDownButton();
+        sleep(500);
+        homePageObjects.clickOnDropDownMyShopButton();
+        //Select shop which located in Chittagong road(Narayanganj)(ISD)
+        myShopsPageObjects.editShopDetails(9, "dha","Narayanganj","Chittagong road","customer Name" );
+        myShopsPageObjects.clickOnShop(9);
+        sleep(1000);
+        System.out.println("The size of the divisions in a Suburb zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").size());
+        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("Suburbs").get(0);
+
+        for (int a = 0; a < readJSONFileRedX.getSuburbs(division).size(); a++) {
+
+            district = readJSONFileRedX.getSuburbs(division).get(a);
+
+            //same district condition
+            if (!district.equals("Narayanganj")) {
+
+                for (int i = 0; i < readJSONFileRedX.getSuburbs(district).size(); i++) {
+                    area = String.valueOf(readJSONFileRedX.getSuburbs(district).get(i));
+
+                    if (i == 0) {
+                        System.out.println("Total size of area located in different District :" + readJSONFileRedX.getSuburbs(district).size());
+                        createParcelPageObjects.createNewParcel(division, district, area, 0, "");
+                    }
+                    //enter and apply address
+                    createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
+
+                    //Get DeliveryCharge and convert to Integer
+                    DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
+                    DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
+                    deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
+
+                    try {
+                        Assert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
+                        softAssert.assertEquals(deliveryCharge, Integer.parseInt(hundred));
+                    } catch (AssertionError e) {
+                        System.out.println("The DeliveryCharge issue occur while ISD(Different district) to Suburb");
+                        System.out.println("The delivery charge was mismatched from Chittagong road to Area : " + area);
+                    }
+
+                    //Get COD charge and verify it
+                    codChargeText = myActions.action_getText(createParcelPageObjects.CODCharge());
+                    codAmount = codChargeText.replaceAll("[^0-9]", "");
+                    codCharge = Integer.parseInt(codAmount) / 100;
+                    softAssert.assertEquals(codCharge, 40);
+                    sleep(1000);
+
+                }
+            }
+        }softAssert.assertAll();
+    }
+
+    @Test(groups = CoreConstants.GROUP_SANITY,
+            description = "Verifies Delivery charge ISD to OSD(SameDistrict)",
+            priority = 21)
+    public void verifyISDToOSDSameDistricts() throws Exception {
+        System.out.println("Verification of ISD to OSD Same District was called");
+
+        //Verify Dhaka(ISD) with same district OSD
+            System.out.println("The size of the divisions in a ISDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
+            division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(0);
+
+            //Get Dhaka district of ISD divisions for change shopLocation
+                String ISDDistrict = readJSONFileRedX.getISD(division).get(0);
+                //Get random area from single district
+                String ISDArea = String.valueOf(readJSONFileRedX.getISD(ISDDistrict).get(random.nextInt(readJSONFileRedX.getISD(ISDDistrict).size())));
+
+                //Navigate to myShop page
+                sleep(3000);
+                actionBarObjects.clickOnDropDownButton();
+                sleep(500);
+                homePageObjects.clickOnDropDownMyShopButton();
+
+                //Edit the shop with required location and deliveryZone
+        myShopsPageObjects.editShopDetails(14, division,ISDDistrict,ISDArea,"customer Name" );
+                myShopsPageObjects.clickOnShop(14);
+                sleep(1000);
+
+
+                for (int OSDDivision = 0; OSDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size(); OSDDivision++) {
+                    System.out.println("The size of the divisions in a OSD zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
+                    division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(OSDDivision);
+
+                    //Verification of area of different district
+                    for (int b = 0; b < readJSONFileRedX.getOSD(division).size(); b++) {
+
+                        district = readJSONFileRedX.getOSD(division).get(b);
+
+                        //same district condition
+                        if (district.equals(ISDDistrict)) {
+
+                            for (int i = 0; i < readJSONFileRedX.getOSD(district).size(); i++) {
+                                area = String.valueOf(readJSONFileRedX.getOSD(district).get(i));
+
+                                if (i == 0) {
+                                    System.out.println("Total size of area located in sameDistrict :" + readJSONFileRedX.getOSD(district).size());
+                                    createParcelPageObjects.createNewParcel(division, district, area, 0, "");
+                                }
+                                //enter and apply address
+                                createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
+
+                                //Get DeliveryCharge and convert to Integer
+                                DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
+                                DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
+                                deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
+                                try {
+                                    Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                                    softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                                } catch (AssertionError e) {
+                                    System.out.println("The DeliveryCharge issue occur while ISD(same district) to OSD");
+                                    System.out.println("The delivery charge was mismatched while from:" + ISDArea + " to " + area);
+                                }
+                                sleep(1000);
+                            }
+                        }
+                    }
+                }
+        softAssert.assertAll();}
+
+    @Test(groups = CoreConstants.GROUP_SANITY,
+            description = "Verifies Delivery charge ISD to OSD(DifferentDistrict)",
+            priority = 22)
+    public void verifyISDToOSDDifferentDistricts() throws Exception {
+        System.out.println("Verification of ISD to OSD Different District was called");
+
+        //Verify Dhaka Districts(ISD) with same district OSD
+        System.out.println("The size of the divisions in a ISDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
+        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(0);
+
+        //Get Dhaka districts of ISD divisions for change shopLocation
+            String ISDDistrict = readJSONFileRedX.getISD(division).get(0);
+            //Get random area form single district
+            String ISDArea = String.valueOf(readJSONFileRedX.getISD(ISDDistrict).get(random.nextInt(readJSONFileRedX.getISD(ISDDistrict).size())));
+
+            //Navigate to myShop page
+            sleep(3000);
+            actionBarObjects.clickOnDropDownButton();
+            sleep(500);
+            homePageObjects.clickOnDropDownMyShopButton();
+
+            //Edit the shop with required location and deliveryZone
+        myShopsPageObjects.editShopDetails(14, division,ISDDistrict,ISDArea,"customer Name" );
+            myShopsPageObjects.clickOnShop(14);
+            sleep(1000);
+
+
+            for (int OSDDivision = 0; OSDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size(); OSDDivision++) {
+                System.out.println("The size of the divisions in a zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
+                division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(OSDDivision);
+
+                //Verification of area of different district
+                for (int b = 0; b < readJSONFileRedX.getOSD(division).size(); b++) {
+
+                    district = readJSONFileRedX.getOSD(division).get(b);
+
+                    //different district condition
+                    if (!district.equals(ISDDistrict)) {
+
+                        for (int i = 0; i < readJSONFileRedX.getOSD(district).size(); i++) {
+                            area = String.valueOf(readJSONFileRedX.getOSD(district).get(i));
+
+                            if (i == 0) {
+                                System.out.println("Total size of area located in differentDistrict :" + readJSONFileRedX.getOSD(district).size());
+                                createParcelPageObjects.createNewParcel(division, district, area, 0, "");
+                            }
+                            //enter and apply address
+                            createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
+
+                            //Get DeliveryCharge and convert to Integer
+                            DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
+                            DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
+                            deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
+                            try {
+                                Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                                softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                            } catch (AssertionError e) {
+                                System.out.println("The DeliveryCharge issue occur while ISD(different district) to OSD");
+                                System.out.println("The delivery charge was mismatched while from:" + ISDArea + " to " + area);
+                            }
+                            sleep(1000);
+                        }
+                    }
+                }
+            }softAssert.assertAll();
+        }
+//
+//
+    @Test(groups = CoreConstants.GROUP_SANITY,
+            description = "Verifies Delivery charge OSD to ISD(SameDistrict)",
+            priority = 23)
+    public void verifyOSDToISDSameDistricts() throws Exception {
+        System.out.println("Verification of OSD to ISD Same District was called");
+
+        //Verify Dhaka District(OSD) with same district ISD
+        System.out.println("The size of the divisions in a OSDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
+        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(0);
+
+        //Get Dhaka districts of OSD divisions for change shopLocation
+            String OSDDistrict = readJSONFileRedX.getOSD(division).get(0);
+            //Get random area form single district
+            String OSDArea = String.valueOf(readJSONFileRedX.getOSD(OSDDistrict).get(random.nextInt(readJSONFileRedX.getOSD(OSDDistrict).size())));
+
+            //Navigate to myShop page
+            sleep(3000);
+            actionBarObjects.clickOnDropDownButton();
+            sleep(500);
+            homePageObjects.clickOnDropDownMyShopButton();
+
+            //Edit the shop with required location and deliveryZone
+        myShopsPageObjects.editShopDetails(14, division,OSDDistrict,OSDArea,"customer Name" );
+            myShopsPageObjects.clickOnShop(14);
+            sleep(1000);
+
+
+            for (int ISDDivision = 0; ISDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size(); ISDDivision++) {
+                System.out.println("The size of the divisions in a zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
+                division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(ISDDivision);
+
+                //Verification of area of different district
+                for (int b = 0; b < readJSONFileRedX.getISD(division).size(); b++) {
+
+                    district = readJSONFileRedX.getISD(division).get(b);
+
+                    //same district condition
+                    if (district.equals(OSDDistrict)) {
+
+                        for (int i = 0; i < readJSONFileRedX.getISD(district).size(); i++) {
+                            area = String.valueOf(readJSONFileRedX.getISD(district).get(i));
+
+                            if (i == 0) {
+                                System.out.println("Total size of area located in same Dhaka District :" + readJSONFileRedX.getISD(district).size());
+                                createParcelPageObjects.createNewParcel(division, district, area, 0, "");
+                            }
+                            //enter and apply address
+                            createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
+
+                            //Get DeliveryCharge and convert to Integer
+                            DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
+                            DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
+                            deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
+                            try {
+                                Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                                softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                            } catch (AssertionError e) {
+                                System.out.println("The DeliveryCharge issue occur while OSD(same district) to ISD");
+                                System.out.println("The delivery charge was mismatched while from:" + OSDArea + " to " + area);
+                            }
+                            sleep(1000);
+                        }
+                    }
+                }
+            }softAssert.assertAll();
+        }
+
+    @Test(groups = CoreConstants.GROUP_SANITY,
+            description = "Verifies Delivery charge OSD to ISD(DifferentDistrict)",
+            priority = 24)
+    public void verifyOSDToISDDifferentDistricts() throws Exception {
+        System.out.println("Verification of OSD to ISD Different District was called");
+
+        //Verify Dhaka, Districts(OSD) with same district ISD
+        System.out.println("The size of the divisions in a OSDZones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").size());
+        division = readJSONFileRedX.getDeliveryDivisionsUnderZones("OSD").get(0);
+
+        //select Dhaka districts of OSD divisions for change shopLocation
+        String OSDDistrict = readJSONFileRedX.getOSD(division).get(0);
+        //Get random area form single district
+        String OSDArea = String.valueOf(readJSONFileRedX.getOSD(OSDDistrict).get(random.nextInt(readJSONFileRedX.getOSD(OSDDistrict).size())));
+
+        //Navigate to myShop page
+        sleep(3000);
+        actionBarObjects.clickOnDropDownButton();
+        sleep(500);
+        homePageObjects.clickOnDropDownMyShopButton();
+
+        //Edit the shop with required location and deliveryZone
+        myShopsPageObjects.editShopDetails(14, division,OSDDistrict,OSDArea,"customer Name" );
+        myShopsPageObjects.clickOnShop(14);
+        sleep(1000);
+
+
+        for (int ISDDivision = 0; ISDDivision < readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size(); ISDDivision++) {
+            System.out.println("The size of the divisions in a zones " + readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").size());
+            division = readJSONFileRedX.getDeliveryDivisionsUnderZones("ISD").get(ISDDivision);
+
+            //Verification of area of different district
+            for (int b = 0; b < readJSONFileRedX.getISD(division).size(); b++) {
+
+                district = readJSONFileRedX.getISD(division).get(b);
+
+                //different district condition
+                if (!district.equals(OSDDistrict)) {
+
+                    for (int i = 0; i < readJSONFileRedX.getISD(district).size(); i++) {
+                        area = String.valueOf(readJSONFileRedX.getISD(district).get(i));
+
+                        if (i == 0) {
+                            System.out.println("Total size of area located in different Dhaka District :" + readJSONFileRedX.getISD(district).size());
+                            createParcelPageObjects.createNewParcel(division, district, area, 0, "");
+                        }
+                        //enter and apply address
+                        createParcelPageObjects.enterAndApplyAddress(division, district, area, 0);
+
+                        //Get DeliveryCharge and convert to Integer
+                        DeliveryText = myActions.action_getText(createParcelPageObjects.deliveryCharge());
+                        DeliveryAmount = DeliveryText.replaceAll("[^0-9]", "");
+                        deliveryCharge = Integer.parseInt(DeliveryAmount) / 100;
+                        try {
+                            Assert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                            softAssert.assertEquals(deliveryCharge, Integer.parseInt(oneThirty));
+                        } catch (AssertionError e) {
+                            System.out.println("The DeliveryCharge issue occur while OSD(different district) to ISD");
+                            System.out.println("The delivery charge was mismatched while from:" + OSDArea + " to " + area);
+                        }
+                        sleep(1000);
+                    }
+                }
+            }
+        }softAssert.assertAll();
+    }
 
 
     @AfterClass(alwaysRun = true)
