@@ -71,12 +71,12 @@ public class SuburbsToOSD extends RedXWebBaseClass {
         softAssert = new SoftAssert();
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE,
+    @Test(groups = CoreConstants.GROUP_SANITY,
             description = "Verifies Authentication With Valid Credentials",
             priority = 1)
     public void verifyAuthenticationWithValidCredentials() throws InterruptedException {
         System.out.println("Verify Authentication with valid credentials was called");
-        loginPageObjects.performAuthentication("0140112217","6666","7");
+        loginPageObjects.performAuthentication("0140112216","6666","6");
 
     }
 
