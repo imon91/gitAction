@@ -377,11 +377,12 @@ public class ProductListingPage  extends AndroidBaseClass{
 
     @AfterSuite(alwaysRun = true)
     public void loginScreenAfterSuite(){
-        //actionBarObjects.clickOnCartButton();
-        //sleep(3000);
-        //myBagPageObjects.clickOnPlaceOrderButton();
-        //sleep(3000);
-        //checkoutAddressPageObjects.clickOnConfirmButton();
+        actionBarObjects.clickOnCartButton();
+        sleep(3000);
+        switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
+        myBagPageObjects.clickOnPlaceOrderButton();
+        sleep(3000);
+        checkoutAddressPageObjects.clickOnConfirmButton();
         System.out.println("ProductListingPageAfterSuite is called");
         quitBaseDriver();
     }
