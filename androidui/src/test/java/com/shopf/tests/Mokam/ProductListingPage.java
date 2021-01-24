@@ -45,7 +45,7 @@ public class ProductListingPage  extends AndroidBaseClass{
     private List<String> productPriceOfItemsInCart;
     private int initialCartTotal;
     private int initialCartQuantity;
-    public String mobileNumber = "1877755599";
+    public String mobileNumber = "1877755590";
     public String otp = "666666";
     public String productName = "soap";
     public String sortText = "Sort";
@@ -74,7 +74,6 @@ public class ProductListingPage  extends AndroidBaseClass{
         pageInitializer();
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication(mobileNumber,otp);
-        sleep(4000);
         homePageObjects.selectAddress(0);
         sleep(4000);
         switchFromWebToNative();
@@ -228,6 +227,7 @@ public class ProductListingPage  extends AndroidBaseClass{
             if(count == indexOfItemsInPLPWhichIsInCart.size()){
                 productListingPageObjects.clickOnAddButton(i);
                 productQuantity = (Integer.parseInt(productQuantityOfItemsInPLPPage.get(i))/2) -1;
+                System.out.println(productQuantity);
                 productIndex = i;
                 newProductDescriptionObjects.scrollInQuantityList(productQuantity);
                 break;
