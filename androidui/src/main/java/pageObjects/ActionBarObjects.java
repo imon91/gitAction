@@ -108,4 +108,32 @@ public class ActionBarObjects extends AndroidBaseClass {
         buttonList.add(3,idSetter(packageName+":id/cart_icon_container")); //myBag button
         return buttonList;
     }
+
+    public String getNumberOfItemsInCart(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            cartCounterText = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/cart_item_count']");
+        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            cartCounterText = xpathSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/cart_item_count']");
+        }
+        return myActions.action_getText(cartCounterText);
+    }
+
+    public void clickOnCartButton(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cart_icon']");
+        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            bagImageButton = xpathSetter("//android.view.ViewGroup[@resource-id='" + packageName + ":id/cart_icon_container']");
+        }
+        myActions.action_click(bagImageButton);
+    }
+
+    public WebElement getProfileButtonElement(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            profileImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/profile']");
+        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            profileImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/profile']");
+        }
+        return profileImageButton;
+    }
+
 }

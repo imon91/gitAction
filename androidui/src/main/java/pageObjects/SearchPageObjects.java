@@ -329,5 +329,10 @@ public class SearchPageObjects extends AndroidBaseClass {
         }
     }
 
+    public void clickOnSearchButton(){
+        WebElement element = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/btnSearch']");
+        myActions.action_click(element);
+    }
+
 
 }

@@ -14,7 +14,6 @@ import utils.*;
 import java.util.*;
 
 
-
 public class ProductListingPageObjects extends AndroidBaseClass {
 
     private AndroidDriver<WebElement> androidDriver;
@@ -704,8 +703,8 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
     public void verifyScroll() {
 
-        WebElement ele1 = xpathSetter("//android.widget.RelativeLayout[@resource-id='"+packageName+":id/item_container']");
-        WebElement ele2 = xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/filter_with_sort']");
+        WebElement ele1 = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/goto_cart_text']");
+        WebElement ele2 = xpathSetter("//android.view.View[@resource-id='"+packageName+":id/feed_top_divider']");
         int startX = ele1.getLocation().getX() + (ele1.getSize().getWidth() / 2);
         int startY = ele1.getLocation().getY() + (ele1.getSize().getHeight());
         int endX = ele2.getLocation().getX() + (ele2.getSize().getWidth() / 2);
@@ -809,6 +808,203 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
     }
 
+    public WebElement getSortButtonElement(){
+        return sortText = xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_sort_feed']");
+    }
+
+    public WebElement getFilterButtonElement(){
+        return filterText = xpathSetter("//android.widget.FrameLayout[@resource-id='"+packageName+":id/action_filter_feed_container']");
+    }
+
+    public String getTextOnHeader(){
+        return myActions.action_getText(xpathSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/title_feed_activity']"));
+    }
+
+    public String getItemsAndTotalText(){
+        return myActions.action_getText(xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/goto_cart_text']")).replaceAll(",","");
+    }
+
+    public boolean verifyRemoveFromCartButtonVisibility(int index){
+        try{
+            WebElement addElement = androidDriver.findElement(By.xpath("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/remove_from_cart"));
+            return true;
+        }catch(Exception e){
+            return false;
+        }
+    }
+
+    public String getAddText(int index){
+        /*WebElement element1;
+        WebElement element2;
+        try{
+            element1 = androidDriver.findElement(By.xpath("//android.view.ViewGroup//android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@text='Add']"));
+            element2 = androidDriver.findElement(By.xpath("//android.view.ViewGroup//android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@text='+']"));
+        }catch(Exception e){
+            String addText = androidDriver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().resourceId("+packageName+":id/button_add_text'])).scrollIntoView("
+                    + "new UiSelector().text("+"Add"+"))")).getText();
+            String plusIcon = androidDriver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().resourceId("+packageName+":id/button_add_plus'])).scrollIntoView("
+                    + "new UiSelector().text("+"+"+ "))")).getText();
+            return addText+plusIcon;
+        }
+        //WebElement text1 = androidDriver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().className(//android.view.ViewGroup//android.view.ViewGroup[@index='"+index+"']//android.widget.TextView))" +
+        //       ".scrollIntoView("+"new UiSelector().text("+"Add"+"))"));
+        return myActions.action_getText(element1) + myActions.action_getText(element2);
+
+         */
+        scrollUp();
+        String text1= androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Add"+ "\"))")).getText();
+        String text2=  androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"+"+ "\"))")).getText();
+        return  text1+text2;
+    }
+
+    public String getRequestStockText(int index){
+        scrollUp();
+        String text = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Request Stock"+ "\"))")).getText();
+        return text;
+    }
+
+    public void clickRequestStockButton(int index){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"" + packageName + ":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\"" + "Request Stock" + "\"))")).click();
+
+    }
+
+
+    public WebElement getRemoveFromCartButtonElement(int index){
+        //WebElement button = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/remove_from_cart");
+        scrollUp();
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().resourceId(\""+packageName+":id/remove_from_cart"+ "\"))"));
+    }
+
+    public WebElement getAddToCartButtonElement(int index){
+        scrollUp();
+        WebElement button = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().resourceId(\""+packageName+":id/add_to_cart"+ "\"))"));
+        //WebElement button = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/add_to_cart");
+        return button;
+    }
+
+    public void clickOnAddButton(int index){
+        scrollUp();
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().resourceId(\""+packageName+":id/button_add"+ "\"))")).click() ;
+        //WebElement element = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.LinearLayout[@resource-id='"+packageName+":id/button_add']");
+        //myActions.action_click(element);//
+    }
+
+    public List<Integer> getProductCountOfAllProducts(String item){
+        return getPLPModuleApiResponse.getProductCountOnHand(item);
+    }
+
+    public List<String> getProductIdOfItemsInCart(Map<String ,List<Object>> productDetailsOfItemsInCart){
+        List<String > productIdOfItemsInCart = new ArrayList<>();
+        //Map<String ,List<Object>> productDetailsOfItemsInCart = getPLPModuleApiResponse.getProductID_Quantity_SellerPriceOFItemsInCart();
+        for(int i=0;i<productDetailsOfItemsInCart.get("ProductID").size();i++){
+            productIdOfItemsInCart.add(productDetailsOfItemsInCart.get("ProductID").get(i).toString());
+        }
+        //System.out.println(productIdOfItemsInCart);
+        return productIdOfItemsInCart;
+    }
+
+    public List<String> getProductQuantityOfItemsInCart(Map<String ,List<Object>> productDetailsOfItemsInCart){
+        List<String> productQuantityOfItemsInCart = new ArrayList<>();
+        //Map<String ,List<Object>> productDetailsOfItemsInCart = getPLPModuleApiResponse.getProductID_Quantity_SellerPriceOFItemsInCart();
+        //System.out.println("920-"+productDetailsOfItemsInCart);
+        for(int i=0;i<productDetailsOfItemsInCart.get("Quantity").size();i++){
+            System.out.println(i);
+            productQuantityOfItemsInCart.add(productDetailsOfItemsInCart.get("Quantity").get(i).toString());
+        }
+        //System.out.println("916 - "+productQuantityOfItemsInCart);
+        return productQuantityOfItemsInCart;
+    }
+
+    public List<String> getProductPriceOfItemsInCart(Map<String ,List<Object>> productDetailsOfItemsInCart){
+        List<String> productPriceOfItemsInCart = new ArrayList<>();
+        //Map<String ,List<Object>> productDetailsOfItemsInCart = getPLPModuleApiResponse.getProductID_Quantity_SellerPriceOFItemsInCart();
+        for(int i=0;i<productDetailsOfItemsInCart.get("Price").size();i++) {
+            productPriceOfItemsInCart.add(productDetailsOfItemsInCart.get("Price").get(i).toString());
+        }
+        //System.out.println(productPriceOfItemsInCart);
+        return productPriceOfItemsInCart;
+    }
+
+    public Map<String ,List<Object>> getProductDetailsOfItemsInCart(){
+        Map<String ,List<Object>> productDetailsOfItemsInCart = getPLPModuleApiResponse.getProductID_Quantity_SellerPriceOFItemsInCart();
+        return productDetailsOfItemsInCart;
+    }
+
+    public List<String> getProductIdOfItemsInPlPPage(Map<String,List<Object>> productDetailsOfItemsInPLPPage){
+        List<String > productIdOfItemsInPLPPAge = new ArrayList<>();
+        //Map<String ,List<Object>> productDetailsOfItemsInPLPPage = getPLPModuleApiResponse.getProductDetailsOfItemsInPLPPage(productName);
+        //System.out.println(productDetailsOfItemsInPLPPage);
+        for(int i=0;i<productDetailsOfItemsInPLPPage.get("ProductID").size();i++){
+            productIdOfItemsInPLPPAge.add(productDetailsOfItemsInPLPPage.get("ProductID").get(i).toString());
+        }
+        //System.out.println(productIdOfItemsInPLPPAge);
+        return productIdOfItemsInPLPPAge;
+    }
+
+    public List<String> getProductQuantityOfItemsInPlPPage(Map<String,List<Object>> productDetailsOfItemsInPLPPage){
+        List<String > productQuantityOfItemsInPLPPage = new ArrayList<>();
+        //Map<String ,List<Object>> productDetailsOfItemsInPLPPage = getPLPModuleApiResponse.getProductDetailsOfItemsInPLPPage(productName);
+        //System.out.println(productDetailsOfItemsInPLPPage);
+        for(int i=0;i<productDetailsOfItemsInPLPPage.get("Quantity").size();i++){
+            productQuantityOfItemsInPLPPage.add(productDetailsOfItemsInPLPPage.get("Quantity").get(i).toString());
+        }
+        //System.out.println(productQuantityOfItemsInPLPPage);
+        return productQuantityOfItemsInPLPPage;
+    }
+
+    public List<String> getProductPriceOfItemsInPlPPage(Map<String,List<Object>> productDetailsOfItemsInPLPPage){
+        List<String > productPriceOfItemsInPLPPage = new ArrayList<>();
+        //Map<String ,List<Object>> productDetailsOfItemsInPLPPage = getPLPModuleApiResponse.getProductDetailsOfItemsInPLPPage(productName);
+        //System.out.println(productPriceOfItemsInPLPPage);
+        for(int i=0;i<productDetailsOfItemsInPLPPage.get("Price").size();i++){
+            productPriceOfItemsInPLPPage.add(productDetailsOfItemsInPLPPage.get("Price").get(i).toString());
+        }
+        //System.out.println(productPriceOfItemsInPLPPage);
+        return productPriceOfItemsInPLPPage;
+    }
+
+    public Map<String,List<Object>> getProductDetailsOfItemsInPLPPage(String productName){
+        return getPLPModuleApiResponse.getProductDetailsOfItemsInPLPPage(productName);
+    }
+
+
+    //----------------------------------
+    public String getSelectQuantityText(){
+        WebElement text = xpathSetter("//android.widget.TextView[@text='Select Quantity']");
+        return myActions.action_getText(text);
+    }
+
+    public WebElement getCloseItemQuantityButton(){
+        WebElement button = xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/action_close']");
+        return button;
+    }
+
+    public WebElement getItemCount(int index){
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().resourceId(\""+packageName+":id/item_count"+ "\"))"));
+        //WebElement element = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/item_count']");
+        return element;
+    }
+
+    public void scrollUp(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollToBeginning(25)"));
+    }
 
 
 
