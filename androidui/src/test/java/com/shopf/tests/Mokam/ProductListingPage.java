@@ -45,7 +45,7 @@ public class ProductListingPage  extends AndroidBaseClass{
     private List<String> productPriceOfItemsInCart;
     private int initialCartTotal;
     private int initialCartQuantity;
-    public String mobileNumber = "1877755590";
+    public String mobileNumber = "1877755599";
     public String otp = "666666";
     public String productName = "soap";
     public String sortText = "Sort";
@@ -371,7 +371,7 @@ public class ProductListingPage  extends AndroidBaseClass{
         if(indexOfItemsInPLPWhichHasMoreThanMinQuantity.size()>0 ) {
             productListingPageObjects.clickOnAddButton(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0));
             newProductDescriptionObjects.scrollInQuantityList(51);
-            //Assert.assertEquals(productListingPageObjects.getItemCount(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0)).getText(),"50");
+            Assert.assertEquals(productListingPageObjects.getItemCount(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0)).getText(),"50");
         }
     }
 
