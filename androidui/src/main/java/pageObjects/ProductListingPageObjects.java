@@ -824,87 +824,81 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         return myActions.action_getText(xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/goto_cart_text']")).replaceAll(",","");
     }
 
-    public boolean verifyRemoveFromCartButtonVisibility(int index){
+    public boolean verifyRemoveFromCartButtonVisibility(String itemName){
+        scrollUp();
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\""+itemName+ "\"))"));
         try{
-            WebElement addElement = androidDriver.findElement(By.xpath("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/remove_from_cart"));
+            WebElement addElement = androidDriver.findElement(By.xpath("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.TextView[@resource-id='"+packageName+":id/remove_from_cart"));
             return true;
         }catch(Exception e){
             return false;
         }
     }
 
-    public String getAddText(int index){
-        /*WebElement element1;
-        WebElement element2;
-        try{
-            element1 = androidDriver.findElement(By.xpath("//android.view.ViewGroup//android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@text='Add']"));
-            element2 = androidDriver.findElement(By.xpath("//android.view.ViewGroup//android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@text='+']"));
-        }catch(Exception e){
-            String addText = androidDriver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().resourceId("+packageName+":id/button_add_text'])).scrollIntoView("
-                    + "new UiSelector().text("+"Add"+"))")).getText();
-            String plusIcon = androidDriver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().resourceId("+packageName+":id/button_add_plus'])).scrollIntoView("
-                    + "new UiSelector().text("+"+"+ "))")).getText();
-            return addText+plusIcon;
-        }
-        //WebElement text1 = androidDriver.findElement(MobileBy.AndroidUIAutomator("new UiScrollable(new UiSelector().className(//android.view.ViewGroup//android.view.ViewGroup[@index='"+index+"']//android.widget.TextView))" +
-        //       ".scrollIntoView("+"new UiSelector().text("+"Add"+"))"));
-        return myActions.action_getText(element1) + myActions.action_getText(element2);
-
-         */
+    public String getAddText(String itemName){
         scrollUp();
-        String text1= androidDriver.findElement(MobileBy.AndroidUIAutomator(
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().text(\""+"Add"+ "\"))")).getText();
-        String text2=  androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().text(\""+"+"+ "\"))")).getText();
+                        + "new UiSelector().text(\""+itemName+ "\"))"));
+        String text1 = myActions.action_getText(xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.TextView[@resource-id='"+packageName+":id/button_add_text']"));
+        String text2 = myActions.action_getText(xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.TextView[@resource-id='"+packageName+":id/button_add_plus']"));
+        System.out.println(getProductIndex(itemName)-1);
+        System.out.println(text1+text2);
         return  text1+text2;
     }
 
-    public String getRequestStockText(int index){
+    public String getRequestStockText(String itemName){
         scrollUp();
-        String text = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().text(\""+"Request Stock"+ "\"))")).getText();
+                        + "new UiSelector().text(\""+itemName+ "\"))"));
+        String text = myActions.action_getText(xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.TextView[@resource-id='"+packageName+":id/button_request_stock']"));
         return text;
     }
 
-    public void clickRequestStockButton(int index){
-        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+    public void clickRequestStockButton(String itemName){
+        scrollUp();
+        WebElement element=androidDriver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().resourceId(\"" + packageName + ":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().text(\"" + "Request Stock" + "\"))")).click();
-
+                        + "new UiSelector().text(\"" + itemName + "\"))"));
+        WebElement requestStockButton = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.TextView[@resource-id='"+packageName+":id/button_request_stock']");
+        myActions.action_click(requestStockButton);
     }
 
 
-    public WebElement getRemoveFromCartButtonElement(int index){
-        //WebElement button = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/remove_from_cart");
+    public WebElement getRemoveFromCartButtonElement(String itemName){
         scrollUp();
-        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().resourceId(\""+packageName+":id/remove_from_cart"+ "\"))"));
-    }
-
-    public WebElement getAddToCartButtonElement(int index){
-        scrollUp();
-        WebElement button = androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().resourceId(\""+packageName+":id/add_to_cart"+ "\"))"));
-        //WebElement button = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/add_to_cart");
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"" + packageName + ":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\"" + itemName + "\"))"));
+        WebElement button = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.TextView[@resource-id='"+packageName+":id/remove_from_cart']");
         return button;
     }
 
-    public void clickOnAddButton(int index){
+    public WebElement getAddToCartButtonElement(String itemName){
         scrollUp();
-        androidDriver.findElement(MobileBy.AndroidUIAutomator(
-                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().resourceId(\""+packageName+":id/button_add"+ "\"))")).click() ;
-        //WebElement element = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.LinearLayout[@resource-id='"+packageName+":id/button_add']");
-        //myActions.action_click(element);//
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\"" + packageName + ":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\"" + itemName + "\"))"));
+        WebElement button = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.TextView[@resource-id='"+packageName+":id/add_to_cart']");
+        return button;
     }
 
-    public List<Integer> getProductCountOfAllProducts(String item){
-        return getPLPModuleApiResponse.getProductCountOnHand(item);
+    public void clickOnAddButton(String itemName){
+        scrollUp();
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\""+itemName+ "\"))"));
+        WebElement addButton = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']//android.widget.LinearLayout[@resource-id='"+packageName+":id/button_add']");
+        myActions.action_click(addButton);
+    }
+
+
+    public Map<String ,List<Object>> getProductDetailsOfItemsInCart(){
+        Map<String ,List<Object>> productDetailsOfItemsInCart = getPLPModuleApiResponse.getProductID_Quantity_SellerPriceOFItemsInCart();
+        return productDetailsOfItemsInCart;
     }
 
     public List<String> getProductIdOfItemsInCart(Map<String ,List<Object>> productDetailsOfItemsInCart){
@@ -939,9 +933,19 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         return productPriceOfItemsInCart;
     }
 
-    public Map<String ,List<Object>> getProductDetailsOfItemsInCart(){
-        Map<String ,List<Object>> productDetailsOfItemsInCart = getPLPModuleApiResponse.getProductID_Quantity_SellerPriceOFItemsInCart();
-        return productDetailsOfItemsInCart;
+
+
+    public Map<String,List<Object>> getProductDetailsOfItemsInPLPPage(String productName){
+        return getPLPModuleApiResponse.getProductDetailsOfItemsInPLPPage(productName);
+    }
+
+    public List<String> getProductNameOfItemsInPlPPage(Map<String,List<Object>> productDetailsOfItemsInPLPPage){
+        List<String > productNameOfItemsInPLPPAge = new ArrayList<>();
+        for(int i=0;i<productDetailsOfItemsInPLPPage.get("Name").size();i++){
+            productNameOfItemsInPLPPAge.add(productDetailsOfItemsInPLPPage.get("Name").get(i).toString());
+        }
+        //System.out.println(productIdOfItemsInPLPPAge);
+        return productNameOfItemsInPLPPAge;
     }
 
     public List<String> getProductIdOfItemsInPlPPage(Map<String,List<Object>> productDetailsOfItemsInPLPPage){
@@ -977,9 +981,6 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         return productPriceOfItemsInPLPPage;
     }
 
-    public Map<String,List<Object>> getProductDetailsOfItemsInPLPPage(String productName){
-        return getPLPModuleApiResponse.getProductDetailsOfItemsInPLPPage(productName);
-    }
 
 
     //----------------------------------
@@ -993,11 +994,12 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         return button;
     }
 
-    public WebElement getItemCount(int index){
+    public WebElement getItemCount(String itemName){
+        scrollUp();
         WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
                 "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
-                        + "new UiSelector().resourceId(\""+packageName+":id/item_count"+ "\"))"));
-        //WebElement element = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/item_count']");
+                        + "new UiSelector().text(\""+itemName+ "\"))"));
+        WebElement itemCount = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']/android.widget.FrameLayout//android.widget.TextView[@resource-id='"+packageName+":id/item_count']");
         return element;
     }
 
@@ -1006,7 +1008,18 @@ public class ProductListingPageObjects extends AndroidBaseClass {
                 "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollToBeginning(25)"));
     }
 
-
+    public int getProductIndex(String itemName){
+        int index, requiredIndex = 1 ;
+        for(index=1;index<5;index++){
+            WebElement element = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='"+packageName+":id/list_product_title']");
+            if(itemName.equals(element.getText())){
+                requiredIndex = index;
+                break;
+            }
+        }
+        System.out.println(requiredIndex);
+        return requiredIndex;
+    }
 
 
 }

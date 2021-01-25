@@ -37,11 +37,11 @@ public class ProductListingPage  extends AndroidBaseClass{
     private int productQuantity;
     private float productAmount;
     private int productIndex;
-    private List<Integer> productCountOnHandOfAllProducts;
-    private List<String > productIdOfItemsInCart;
-    private List<String > productIdOfItemsInPLPPage;
+    private List<String> productIdOfItemsInCart;
+    private List<String> productIdOfItemsInPLPPage;
     private List<String> productQuantityOfItemsInCart;
     private List<String> productQuantityOfItemsInPLPPage;
+    private List<String> productNameOfItemsInPLPPage;
     private List<String> productPriceOfItemsInCart;
     private int initialCartTotal;
     private int initialCartQuantity;
@@ -114,20 +114,20 @@ public class ProductListingPage  extends AndroidBaseClass{
         actionBarObjects.clickOnSearchImageButton();
         searchPageObjects.enterProductName(productName);
         searchPageObjects.clickOnSearchButton();
-        //searchPageObjects.clickOnSearchSuggestion(0);
     }
 
     private void getApiData(){
         productDetailsOfItemsInCart = productListingPageObjects.getProductDetailsOfItemsInCart();
         productDetailsOfItemsInPLPPage = productListingPageObjects.getProductDetailsOfItemsInPLPPage(productName);
-        productCountOnHandOfAllProducts = productListingPageObjects.getProductCountOfAllProducts(productName);
-        i = productCountOnHandOfAllProducts.size();
         productIdOfItemsInCart = productListingPageObjects.getProductIdOfItemsInCart(productDetailsOfItemsInCart);
         productQuantityOfItemsInCart = productListingPageObjects.getProductQuantityOfItemsInCart(productDetailsOfItemsInCart);
-        System.out.println(productIdOfItemsInCart+"product quantity of items in cart");
+        System.out.println(productIdOfItemsInCart+"product ID of items in cart");
         productPriceOfItemsInCart = productListingPageObjects.getProductPriceOfItemsInCart(productDetailsOfItemsInCart);
         productIdOfItemsInPLPPage = productListingPageObjects.getProductIdOfItemsInPlPPage(productDetailsOfItemsInPLPPage);
         productQuantityOfItemsInPLPPage = productListingPageObjects.getProductQuantityOfItemsInPlPPage(productDetailsOfItemsInPLPPage);
+        productNameOfItemsInPLPPage = productListingPageObjects.getProductNameOfItemsInPlPPage(productDetailsOfItemsInPLPPage);
+        System.out.println(productNameOfItemsInPLPPage);
+        i = productQuantityOfItemsInPLPPage.size();
     }
 
     private void checkAddText(){
@@ -138,16 +138,12 @@ public class ProductListingPage  extends AndroidBaseClass{
                     count++; }
             }
             if(count == indexOfItemsInPLPWhichIsInCart.size()){
-                Assert.assertEquals(addText,productListingPageObjects.getAddText(indexOfItemsInPLPWhichHasMoreThan0quantity.get(i)));
+                System.out.println(i+"  "+indexOfItemsInPLPWhichHasMoreThan0quantity.get(i)+"  ") ;
+                Assert.assertEquals(addText,productListingPageObjects.getAddText(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasMoreThan0quantity.get(i)+1)));
                 break;
             }
             count =0 ;
         }
-    }
-
-    private void checkRequestStockText(){
-        if(indexOfItemsInPLPWhichHas0Quantity.size()>0){
-            Assert.assertEquals(requestStockText,productListingPageObjects.getRequestStockText(indexOfItemsInPLPWhichHas0Quantity.get(0)));}
     }
 
     private void getIndexOfItemsInAndNotInCart(){
@@ -182,7 +178,7 @@ public class ProductListingPage  extends AndroidBaseClass{
             }
         }
         //System.out.println("//==// quantity of items in plp page "+productQuantityOfItemsInPLPPage);
-        //System.out.println("//==// index of items - 0 quantity" + indexOfItemsInPLPWhichHas0Quantity);
+        System.out.println("//==// index of items - 0 quantity" + indexOfItemsInPLPWhichHas0Quantity);
         System.out.println(">0 "+ indexOfItemsInPLPWhichHasMoreThan0quantity);
         System.out.println("<=50"+indexOfItemsInPLPWhichHasLessThanMinQuantity);
         System.out.println(">50"+indexOfItemsInPLPWhichHasMoreThanMinQuantity);
@@ -200,11 +196,6 @@ public class ProductListingPage  extends AndroidBaseClass{
         System.out.println(itemsAndTotalText);
     }
 
-    private void removeFromCartButtonInvisibility(){
-        if(indexOfItemsInPLPWhichIsNotInCart.size()>0){
-        Assert.assertFalse(productListingPageObjects.verifyRemoveFromCartButtonVisibility(indexOfItemsInPLPWhichIsNotInCart.get(0)));}
-    }
-
     private void clickAddButton(){
         int count=0;
         for(int i=0;i<indexOfItemsInPLPWhichHasMoreThan0quantity.size();i++){
@@ -213,7 +204,7 @@ public class ProductListingPage  extends AndroidBaseClass{
                     count++; }
             }
             if(count == indexOfItemsInPLPWhichIsInCart.size()){
-                productListingPageObjects.clickOnAddButton(i);
+                productListingPageObjects.clickOnAddButton(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasMoreThan0quantity.get(i)+1));
                 break;
             }
             count =0 ;
@@ -228,8 +219,8 @@ public class ProductListingPage  extends AndroidBaseClass{
                     count++; }
             }
             if(count == indexOfItemsInPLPWhichIsInCart.size()){
-                productListingPageObjects.clickOnAddButton(i);
-                productQuantity = (Integer.parseInt(productQuantityOfItemsInPLPPage.get(i))/2) -1;
+                productListingPageObjects.clickOnAddButton(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasLessThanMinQuantity.get(i)+1));
+                productQuantity = (Integer.parseInt(productQuantityOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasLessThanMinQuantity.get(i)))/2) -1;
                 System.out.println(productQuantityOfItemsInPLPPage);
                 System.out.println(productQuantity);
                 productIndex = i;
@@ -297,24 +288,26 @@ public class ProductListingPage  extends AndroidBaseClass{
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyAddText(){
-         checkAddText();            //
+         checkAddText();
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
     public void verifyRequestStockText(){
-        checkRequestStockText();
+        if(indexOfItemsInPLPWhichHas0Quantity.size()>0){
+            Assert.assertEquals(requestStockText,productListingPageObjects.getRequestStockText(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHas0Quantity.get(0)+1)));}                //
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
     public void verifyRequestStockButtonFunctionality(){
         if(indexOfItemsInPLPWhichHas0Quantity.size()>0){
-            productListingPageObjects.clickRequestStockButton(0);
+            productListingPageObjects.clickRequestStockButton(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHas0Quantity.get(0)+1));
         }
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13)
     public void verifyRemoveFromCartButtonIsInvisible(){
-        removeFromCartButtonInvisibility();
+        if(indexOfItemsInPLPWhichIsNotInCart.size()>0){
+            Assert.assertFalse(productListingPageObjects.verifyRemoveFromCartButtonVisibility(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichIsNotInCart.get(0)+1)));}
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 14)
@@ -341,21 +334,21 @@ public class ProductListingPage  extends AndroidBaseClass{
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 18)
     public void verifyRemoveFromCartButtonFunctionality(){
         if(indexOfItemsInPLPWhichIsInCart.size()>0){
-            productListingPageObjects.getRemoveFromCartButtonElement(productIndex).click();
+            productListingPageObjects.getRemoveFromCartButtonElement(productNameOfItemsInPLPPage.get(productIndex+1)).click();
         }
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 19)
     public void verifyPlusButtonFunctionality(){
         if(indexOfItemsInPLPWhichIsInCart.size()>0){
-            productListingPageObjects.getAddToCartButtonElement(productIndex).click();
+            productListingPageObjects.getAddToCartButtonElement(productNameOfItemsInPLPPage.get(productIndex+1)).click();
         }
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 20)
     public void verifyCartTotalAndItemTotalAfterAddingProducts(){
         productAmount = Float.parseFloat(productListingPageObjects.getProductPriceOfItemsInPlPPage(productDetailsOfItemsInPLPPage).get(productIndex));
-        System.out.println(productAmount);
+        System.out.println((initialCartQuantity + productQuantity)+" item (s); Total: ৳"+(initialCartTotal + Math.round(productAmount)));
         //Assert.assertEquals((initialCartQuantity + productQuantity)+" item (s); Total: ৳"+(initialCartTotal + Math.round(productAmount)),productListingPageObjects.getItemsAndTotalText());
     }
 
@@ -366,20 +359,22 @@ public class ProductListingPage  extends AndroidBaseClass{
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 22)
     public void verifyQuantityContainerIsClickable(){
-        productListingPageObjects.getItemCount(productIndex).click();
-        productListingPageObjects.getCloseItemQuantityButton().click();
+        //Assert.assertEquals((productListingPageObjects.getItemCount(productNameOfItemsInPLPPage.get(productIndex+1))).getAttribute("clickable"),"true");
+        (productListingPageObjects.getItemCount(productNameOfItemsInPLPPage.get(productIndex+1))).click();
+        System.out.println(productIndex);
+        productListingPageObjects.getCloseItemQuantityButton();
     }
-/*
+
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 23)
     public void verifySelectMaxQuantity(){
-        if(indexOfItemsInPLPWhichHasMoreThanMinQuantity.size()>0 ) {
-            productListingPageObjects.clickOnAddButton(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0));
+        if(indexOfItemsInPLPWhichHasMoreThanMinQuantity.size()<0 ) {
+            productListingPageObjects.clickOnAddButton(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0)+1));
             newProductDescriptionObjects.scrollInQuantityList(51);
-            Assert.assertEquals(productListingPageObjects.getItemCount(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0)).getText(),"50");
+            System.out.println(productListingPageObjects.getItemCount(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0)+1)).getText());
+            Assert.assertEquals(productListingPageObjects.getItemCount(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0)+1)).getText(),"50");
         }
     }
 
- */
 
     @AfterSuite(alwaysRun = true)
     public void loginScreenAfterSuite(){

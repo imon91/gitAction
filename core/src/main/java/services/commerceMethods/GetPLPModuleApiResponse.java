@@ -199,16 +199,19 @@ public class GetPLPModuleApiResponse {
         List<Object> productId = new ArrayList<>();
         List<Object> price = new ArrayList<>();
         List<Object> quantity = new ArrayList<>();
+        List<Object> productName = new ArrayList<>();
         response = shopUpPostMan.getCall(EndPoints.SEARCH_FOR_USER+ "term="+item+"&page=1");
         ProductListingResultsModel productListingResultsModel = gson.fromJson(response.getBody().asString(),ProductListingResultsModel.class);
         for(int i=0;i<productListingResultsModel.getResults().size();i++){
             productId.add(productListingResultsModel.getResults().get(i).getProduct_id());
             price.add(productListingResultsModel.getResults().get(i).getSizes().get(0).getPrice());
             quantity.add(productListingResultsModel.getResults().get(i).getSizes().get(0).getCount_on_hand());
+            productName.add(productListingResultsModel.getResults().get(i).getTitle());
         }
         productDetails.put("ProductID",productId);
         productDetails.put("Price",price);
         productDetails.put("Quantity",quantity);
+        productDetails.put("Name",productName);
         return productDetails;
     }
 
