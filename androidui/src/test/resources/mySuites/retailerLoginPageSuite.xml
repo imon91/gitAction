@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="RetailerLoginPageSuite">
+    <listeners>
+    </listeners>
+    <test name="PageWiseTests" preserve-order="true" parallel="false">
+        <groups>
+            <run>
+                <include name="sanity"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.shopf.tests.Mokam.RetailerLoginPage"></class>
+        </classes>
+    </test>
+</suite>

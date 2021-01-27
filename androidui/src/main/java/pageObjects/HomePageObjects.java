@@ -379,6 +379,39 @@ public class HomePageObjects extends AndroidBaseClass {
         return getCommerceApiResponse.getCollections();
     }
 
+    public void deleteExistingAddress(int index){
+        WebElement path = xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']/android.view.ViewGroup/android.widget.ImageView[@index='4']");
+        myActions.action_click(path);
+    }
+
+    public String getShopNameAndAddress(int index){
+        WebElement shopNameXpath = xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/address_number']");
+        String shopName = myActions.action_getText(shopNameXpath);
+        WebElement shopAddressXpath = xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/address_body']");
+        String shopAddress = myActions.action_getText(shopAddressXpath);
+        return shopName+shopAddress ;
+    }
+
+    public String getAddNewAddressText(){
+        try{
+            addNewAddressButton = scrollToAddNewAddressButton();
+        }
+        catch(Exception e){
+            addNewAddressButton = idSetter(packageName+":id/action_add_address");
+        }
+        return myActions.action_getText(addNewAddressButton);
+    }
+
+    public void clickEditAddress(int index){
+        WebElement xpath = xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']//android.widget.TextView[@resource-id='"+packageName+":id/action_edit']");
+        myActions.action_click(xpath);
+    }
+
+    public void editMobileNumber(String number){
+        WebElement mobileNumberElement = idSetter(packageName+":id/add_address_phone");
+        myActions.action_sendKeys(mobileNumberElement,number);
+    }
+
 
 
     /*------------------- List of HomePage Items And Their Functions--------------------------*/
