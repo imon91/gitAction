@@ -820,15 +820,16 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
             }
             myActions.action_click(addToCartButton);
             scrollInQuantityList(qty);
-            WebElement quantityElement = xpathSetter("//android.view.ViewGroup[@index='"+(qty-1)+"']/android.widget.TextView");
-            myActions.action_click(quantityElement);
+            //WebElement quantityElement = xpathSetter("//android.view.ViewGroup[@index='"+(qty-1)+"']/android.widget.TextView");
+            //myActions.action_click(quantityElement);
+
         }
 
-        public WebElement scrollInQuantityList(int quantity){
+        public void scrollInQuantityList(int quantity){
             WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
                     "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_bottom_sheet\")).scrollIntoView("
                             + "new UiSelector().text(\""+quantity+ "\"))"));
-            return element;
+            element.click();
         }
 
 

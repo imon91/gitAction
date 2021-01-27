@@ -159,6 +159,62 @@ public class GetPLPModuleApiResponse {
         return null;
     }
 
+    public List<Integer> getProductCountOnHand(String item){
+        //System.out.println("productListingPageObjects.getNumberOFItemsDisplayedInPLPPage()");
+        List<Integer> countList= new ArrayList<>();
+        response = shopUpPostMan.getCall(EndPoints.SEARCH_FOR_USER+ "term="+item+"&page=1");
+        //System.out.println("after get call");
+        ProductListingResultsModel productListingResultsModel = gson.fromJson(response.getBody().asString(),ProductListingResultsModel.class);
+        //System.out.println(productListingResultsModel.getResults().size());
+        for(int i=0;i<productListingResultsModel.getResults().size();i++){
+            countList.add(productListingResultsModel.getResults().get(i).getSizes().get(0).getCount_on_hand());
+            //System.out.println(productListingResultsModel.getResults().get(i).getSizes().get(0).getCount_on_hand());
+        }
+        //System.out.println("Count List Is : "+countList);
+        return countList;
+    }
+
+    public Map<String , List<Object>> getProductID_Quantity_SellerPriceOFItemsInCart(){
+            Map<String , List<Object>> productDetails = new HashMap<>();
+            List<Object> productID = new ArrayList<>();
+            List<Object> price = new ArrayList<>();
+            List<Object> quantity = new ArrayList<>();
+            response = shopUpPostMan.getCall(EndPoints.SHOPPING_CART+"v3/get_cart_data.json");
+            GetCartDataModel getCartDataModel = gson.fromJson(response.getBody().asString(), GetCartDataModel.class);
+            for(int i = 0; i< getCartDataModel.getOrder().getLine_items().size(); i++){
+                //System.out.println(getCartDataModel.getOrder().getLine_items().size()+"items in cart");
+                productID.add( getCartDataModel.getOrder().getLine_items().get(i).getProduct_id());
+                price.add(getCartDataModel.getOrder().getLine_items().get(i).getLifting_price());
+                quantity.add(getCartDataModel.getOrder().getLine_items().get(i).getQuantity());
+            }
+            productDetails.put("ProductID",productID);
+            productDetails.put("Price", price);
+            productDetails.put("Quantity", quantity);
+            //System.out.println(productDetails);
+            return productDetails;
+    }
+
+    public Map<String , List<Object>> getProductDetailsOfItemsInPLPPage(String item){
+        Map<String , List<Object>> productDetails = new HashMap<>();
+        List<Object> productId = new ArrayList<>();
+        List<Object> price = new ArrayList<>();
+        List<Object> quantity = new ArrayList<>();
+        List<Object> productName = new ArrayList<>();
+        response = shopUpPostMan.getCall(EndPoints.SEARCH_FOR_USER+ "term="+item+"&page=1");
+        ProductListingResultsModel productListingResultsModel = gson.fromJson(response.getBody().asString(),ProductListingResultsModel.class);
+        for(int i=0;i<productListingResultsModel.getResults().size();i++){
+            productId.add(productListingResultsModel.getResults().get(i).getProduct_id());
+            price.add(productListingResultsModel.getResults().get(i).getSizes().get(0).getPrice());
+            quantity.add(productListingResultsModel.getResults().get(i).getSizes().get(0).getCount_on_hand());
+            productName.add(productListingResultsModel.getResults().get(i).getTitle());
+        }
+        productDetails.put("ProductID",productId);
+        productDetails.put("Price",price);
+        productDetails.put("Quantity",quantity);
+        productDetails.put("Name",productName);
+        return productDetails;
+    }
+
 }
 
 

@@ -47,6 +47,8 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     @FindBy(xpath = "//div[@class='proceed-checkout text-center']//button")
     private WebElement confirmButtonBottom;
 
+
+
     public String getCartValueLabelText(){
         return myActions.action_getText(cartValueLabelText);
     }
@@ -339,5 +341,11 @@ public class CheckoutAddressPageObjects extends AndroidBaseClass{
     public int getAddressListSizeData(){
         return getMyBagApiResponse.addressesBeanList().size();
     }
+
+    public void clickOnConfirmButton(){
+        WebElement confirmButton = androidDriver.findElement(By.xpath("//div[@class='summary_checkout text-center place-order ']/button"));
+        myActions.action_click(confirmButton);
+    }
+
 
 }
