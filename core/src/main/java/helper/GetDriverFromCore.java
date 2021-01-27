@@ -146,7 +146,7 @@ public class GetDriverFromCore {
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.addArguments("--disable-plugins", "--disable-extensions",
                     "--disable-popup-blocking","--disable-notifications");
-            if(module.equals(CoreConstants.APP_WMS)) {
+            if(module.equals(CoreConstants.APP_WMS)||module.equals(CoreConstants.APP_RED_X)) {
                 chromeOptions.setAcceptInsecureCerts(true);
             chromeOptions.addArguments("'--disable-web-security");
             chromeOptions.addArguments("--no-sandbox");

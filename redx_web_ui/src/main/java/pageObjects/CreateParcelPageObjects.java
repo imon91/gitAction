@@ -63,6 +63,8 @@ public class CreateParcelPageObjects extends RedXWebBaseClass{
         editAmount = driver.findElement(By.xpath("//div[@class='right-form']/div[3]/*"));
         editAmount.clear();
         myActions.action_sendKeys(editAmount,amount);
+        sleep(200);
+        myActions.action_sendKeys(editAmount,"0");
     }
 
     public void enterSellingPrice(String amount)
@@ -140,7 +142,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass{
     }
 
     public void enterAndApplyAddress(String divisionTerm,String districtTerm,String location_or_AreaTerm,int addressIndex) {
-        enterSellingPrice(System.getProperty("selling price"));
+        enterCashCollectionAmount(System.getProperty("selling price"));
         enterAreaTerm(divisionTerm, "");
         sleep(500);
         areaDropDown();

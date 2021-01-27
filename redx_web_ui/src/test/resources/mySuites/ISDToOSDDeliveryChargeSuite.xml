@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="AuthenticationSanityTestSuite">
+<suite name="ISDToOSDDeliveryChargeTestSuite">
+    <listeners>
+        <listener class-name="listeners.RedxWebUiTestNgListener"></listener>
+    </listeners>
     <test name="IssuesTests" preserve-order="true" parallel="false">
         <groups>
             <run>
@@ -8,7 +11,7 @@
             </run>
         </groups>
         <classes>
-            <class name="com.redx.tests.Authentication"></class>
+            <class name="com.shopf.tests.IssuesAutomation.RedXWebDeliveryChargeAutomation.ISDToOSD"></class>
         </classes>
     </test>
 </suite>

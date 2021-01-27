@@ -1,6 +1,6 @@
 {
   "Suburbs" : ["Dha"],
-  "OSD" : ["Dha",	"Mym",	"syl",	"Khu",	"Raj",	"Bar",	"Chi",	"Ran"],
+  "OSD" : ["Dha",	"mym",	"syl",	"Khu",	"Raj",	"Bar",	"Chi",	"Ran"],
   "ISD" : ["Dha"]
 
 }
