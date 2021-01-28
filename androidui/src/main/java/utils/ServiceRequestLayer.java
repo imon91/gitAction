@@ -73,5 +73,10 @@ public class ServiceRequestLayer implements CommerceServices {
     public ReadJSONFile getControlOverReadJSONFile(){
         return new ReadJSONFile(module);
     }
-  
+
+    @Override
+    public GetPDPModuleApiResponse getControlOverPDPModuleApiResponse() {
+        return new GetPDPModuleApiResponse(module);
+    }
+
 }

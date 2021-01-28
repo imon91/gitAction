@@ -29,4 +29,6 @@ public interface CommerceServices {
 
     public ReadJSONFile getControlOverReadJSONFile();
 
+    public GetPDPModuleApiResponse getControlOverPDPModuleApiResponse();
+
 }

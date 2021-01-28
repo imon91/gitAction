@@ -136,4 +136,23 @@ public class ActionBarObjects extends AndroidBaseClass {
         return profileImageButton;
     }
 
+    public WebElement getSearchIconElement(){
+
+        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            searchImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/searchButton']");
+        } else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            searchImageButton = xpathSetter("//android.widget.TextView[@resource-id='" + packageName + ":id/details_action_search']");
+        }
+        return searchImageButton;
+    }
+
+    public WebElement getCartIconElement(){
+        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            bagImageButton = xpathSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/cart_icon']");
+        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+            bagImageButton = xpathSetter("//android.view.ViewGroup[@resource-id='" + packageName + ":id/cart_icon_container']");
+        }
+        return bagImageButton;
+    }
+
 }
