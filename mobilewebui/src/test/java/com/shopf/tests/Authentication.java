@@ -20,7 +20,7 @@ public class Authentication extends WebAppBaseClass {
     public void resellerAndroidBeforeSuite() throws Exception{
         System.out.println("resellerAndroidBeforeSuite is called");
         androidDriver = getBaseDriver();
-        androidDriver.get(getWAPBaseUrl()+"r");
+        androidDriver.get(getWAPBaseUrl()+"reseller");
         setImplicitWait(30);
     }
 
