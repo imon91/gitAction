@@ -1,7 +1,6 @@
 package pageObjects;
 
 import coreUtils.*;
-import cucumber.api.java.it.Ma;
 import io.appium.java_client.*;
 import io.appium.java_client.android.*;
 import io.appium.java_client.pagefactory.*;
@@ -1045,6 +1044,61 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
     public String getPackSizesText(){
         WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/detail_title_variants']");
         return myActions.action_getText(element);
+    }
+
+    public WebElement getAddItemToCart(){
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"+"+ "\"))"));
+    }
+
+    public WebElement getRemoveItemFromCart(){
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"-"+ "\"))"));
+    }
+
+    public WebElement getAddButton(){
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Add"+ "\"))"));
+    }
+
+    public WebElement getItemCountContainer(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/item_count']");
+    }
+
+    public boolean checkIfItemIsInCart(List<String> productIdOfItemsInCart,String productId){
+        for(int i=0;i<productIdOfItemsInCart.size();i++){
+            if(productId.equals(productIdOfItemsInCart.get(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void clickOnCloseImageButton(){
+        WebElement element = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_close_zoom']");
+        myActions.action_click(element);
+    }
+
+
+    public WebElement getButtonLeftArrow(){
+        return xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_left_arrow']");
+    }
+
+
+    public WebElement getButtonRightArrow(){
+        return xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_right_arrow']");
+    }
+
+    public String getOutOfStockText(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/variant_tag_out_of_stock']");   //OUT OF STOCK
+        return myActions.action_getText(element);
+    }
+
+    public WebElement getRequestStockButtonElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_request_stock']");
     }
 
 

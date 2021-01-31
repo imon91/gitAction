@@ -237,6 +237,9 @@ public class ProductDescriptionModel {
     private java.util.List<VariantSizesBean> variant_sizes;
     private java.util.List<VariantsDataMainBean> variants_data_main;
     private java.util.List<?> video;
+
+    public String getBrand(){ return brand;}
+
     public String getProduct_stamp() {
         return product_stamp;
     }

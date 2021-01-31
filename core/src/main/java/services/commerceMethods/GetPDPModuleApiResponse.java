@@ -28,7 +28,7 @@ public class GetPDPModuleApiResponse {
             response = shopUpPostMan.getCall(EndPoints.RECOMMENDATIONS+slug+".json");
             ProductDescriptionModel productDescriptionModel =
                     gson.fromJson(response.getBody().asString(),ProductDescriptionModel.class);
-            productDetails.put("brand",productDescriptionModel.getNew_seo_data().getMarkup_data().getBrand());
+            productDetails.put("brand",productDescriptionModel.getBrand());
             productDetails.put("category",productDescriptionModel.getCategory());
             productDetails.put("code",productDescriptionModel.getCode());
             productDetails.put("price",productDescriptionModel.getPrice());
