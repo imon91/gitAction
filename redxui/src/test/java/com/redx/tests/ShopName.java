@@ -101,7 +101,6 @@ public class ShopName extends RedXBaseClass
         System.out.println("Verifying Shop Name");
         homePageObjects.clickChooseShopModule();
         System.out.println("the current activity :"+androidDriver.currentActivity());
-        homePageObjects.clickChooseShopModule();
         chooseShopModule.clickOnBackButton();
     }
 

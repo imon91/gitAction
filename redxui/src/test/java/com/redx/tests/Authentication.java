@@ -14,6 +14,7 @@ public class Authentication extends RedXBaseClass
     private LoginPageObjects loginPageObjects;
     private HomePageObjects homePageObjects;
     private MyActions myActions;
+    private SettingsPageObjects settingsPageObjects;
 
 
     @BeforeSuite(alwaysRun = true)
@@ -28,6 +29,7 @@ public class Authentication extends RedXBaseClass
         loginPageObjects = new LoginPageObjects();
         homePageObjects = new HomePageObjects();
         myActions = new MyActions();
+        settingsPageObjects = new SettingsPageObjects();
     }
 
 
@@ -87,6 +89,15 @@ public class Authentication extends RedXBaseClass
         loginPageObjects.performAuthenticationWithWrongOTP(mobileNumber,otp);
     }
 
+
+    @AfterMethod(  groups = {"Authentication.AfterMethod",
+            CoreConstants.GROUP_SANITY},
+            description = "Verifies Authentication With Wrong OTP")
+    public void authenticationAfterMethod()
+    {
+        homePageObjects.clickSettingsButton();
+        settingsPageObjects.performLogout();
+    }
 
 
     @AfterClass(alwaysRun = true)
