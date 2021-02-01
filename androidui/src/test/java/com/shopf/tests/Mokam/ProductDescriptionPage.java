@@ -7,7 +7,9 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 import pageObjects.*;
-import services.serviceUtils.EndPoints;
+import pageObjects.pdp.IPdpActions;
+import pageObjects.pdp.MokamPdpPageObjects;
+import pageObjects.pdp.ResellerPdpPageObjects;
 import utils.AndroidBaseClass;
 import utils.MyActions;
 import utils.ServiceRequestLayer;
@@ -27,12 +29,10 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
     private SearchPageObjects searchPageObjects;
     private ProductListingPageObjects productListingPageObjects;
     private ProductDescriptionPageObjects productDescriptionPageObjects;
-    private SoftAssert softAssert;
     private ProductDescriptionPageObjects.NewProductDescriptionObjects newProductDescriptionObjects;
     private Random random;
-    private StringBuilder stringBuilder;
 
-    public String validMobileNumber = "01877755509";
+    public String validMobileNumber = "01877755590";
     public String validOTP = "666666";
     public String productName = "Dettol";
     public String priceText = "Price";
@@ -52,9 +52,7 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
 
     private String itemName;
     private int cartQuantity;
-    private boolean isItemInCart;
     private int productIndexInPLP;
-    private String tempString;
 
     private Map<String, List<Object>> productDetailsOfItemsInCart = new HashMap<>();
     private Map<String ,List<Object>> productDetailsOfItemsInPLPPage = new HashMap<>();
@@ -77,6 +75,8 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication(validMobileNumber,validOTP);
         sleep(4000);
+        homePageObjects.selectAddress(0);
+        sleep(3000);
         actionBarObjects.clickOnUserProfileImageButton();
         rightNavigationDrawer.clickOnItemChangeLanguage();
         rightNavigationDrawer.selectEnglish();
@@ -87,12 +87,13 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
         productIndexInPLP = indexOfItemsInPLPWhichHasMoreThanMinQuantity.get(0);
         itemName = productNameOfItemsInPLPPage.get(productIndexInPLP);
         productListingPageObjects.selectAProductInPLPPage(itemName);
-        System.out.println(EndPoints.RECOMMENDATIONS+slug);
+        //System.out.println(EndPoints.RECOMMENDATIONS+slug);
         productDetailsOfProductInPDPPage = productDescriptionPageObjects.getProductDetailsOfProductInPDPPage(slug);
     }
 
     public void pageInitializer(){
         serviceRequestLayer = new ServiceRequestLayer();
+        //new MokamPdpPageObjects().clickOnContinueShoppingButton();
         myActions = new MyActions();
         loginPageObjects = new LoginPageObjects(androidDriver);
         homePageObjects = new HomePageObjects(androidDriver);
@@ -101,7 +102,6 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
         searchPageObjects = new SearchPageObjects(androidDriver);
         productListingPageObjects = new ProductListingPageObjects(androidDriver);
         productDescriptionPageObjects = new ProductDescriptionPageObjects(androidDriver);
-        SoftAssert softAssert = new SoftAssert();
         newProductDescriptionObjects = productDescriptionPageObjects.new NewProductDescriptionObjects(androidDriver);
         random = new Random();
     }
@@ -135,8 +135,8 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
                 indexOfItemsInPLPWhichHasMoreThanMinQuantity.add(i);
             }
         }
-        System.out.println(indexOfItemsInPLPWhichHas0Quantity);
-        System.out.println(indexOfItemsInPLPWhichHasMoreThanMinQuantity);
+        //System.out.println(indexOfItemsInPLPWhichHas0Quantity);
+        //System.out.println(indexOfItemsInPLPWhichHasMoreThanMinQuantity);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 1)
@@ -199,9 +199,9 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
     public void verifyPriceUnderProductName(){
-        System.out.println("Api : "+ productDescriptionPageObjects.getPriceApi(productDetailsOfProductInPDPPage) );
-        System.out.println("Tk. "+productDescriptionPageObjects.getPriceFromPDPPage());
-        //Assert.assertEquals("Tk. "+productDescriptionPageObjects.getPriceFromPDPPage(),productDescriptionPageObjects.getPriceApi(productDetailsOfProductInPDPPage));
+        //System.out.println("Api : "+ productDescriptionPageObjects.getPriceApi(productDetailsOfProductInPDPPage) );
+        //System.out.println("Tk."+(productDescriptionPageObjects.getPriceFromPDPPage().replace('৳',' ')));
+        Assert.assertEquals("Tk."+productDescriptionPageObjects.getPriceFromPDPPage().replace('৳',' '),productDescriptionPageObjects.getPriceApi(productDetailsOfProductInPDPPage));
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
@@ -211,9 +211,9 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
     public void verifyPriceUnderPackSizes(){
-        System.out.println(productDescriptionPageObjects.getPriceUnderPackSizeFromPDP());
-        System.out.println(productDescriptionPageObjects.getProductPriceUnderSizeApi(productDetailsOfProductInPDPPage));
-        //Assert.assertEquals(productDescriptionPageObjects.getPriceUnderPackSizeFromPDP(),"৳"+productDescriptionPageObjects.getProductPriceUnderSizeApi(productDetailsOfProductInPDPPage));
+        //System.out.println(productDescriptionPageObjects.getPriceUnderPackSizeFromPDP());
+        //System.out.println(productDescriptionPageObjects.getProductPriceUnderSizeApi(productDetailsOfProductInPDPPage));
+        Assert.assertEquals(productDescriptionPageObjects.getPriceUnderPackSizeFromPDP(),"৳"+productDescriptionPageObjects.getProductPriceUnderSizeApi(productDetailsOfProductInPDPPage));
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13)
@@ -247,16 +247,19 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 18)
     public void verifyCodeTextAndIdOfProduct(){
-        codeText = codeText+productDescriptionPageObjects.getProductCodeApi(productDetailsOfProductInPDPPage);
-        System.out.println(codeText + productDescriptionPageObjects.getCodeTextAndIDOfProduct());
-        //softAssert.assertEquals(codeText,productDescriptionPageObjects.getCodeTextAndIDOfProduct());
+        String [] codeTextArrayActual = productDescriptionPageObjects.getCodeTextAndIDOfProduct().split("\\s");
+        Assert.assertEquals(codeText,codeTextArrayActual[0]);
+        Assert.assertEquals(productDescriptionPageObjects.getProductCodeApi(productDetailsOfProductInPDPPage),codeTextArrayActual[1]);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority =19)
     public void verifyCategoryTextAndProductCategory(){
-        categoryText = categoryText+productDescriptionPageObjects.getProductCategoryApi(productDetailsOfProductInPDPPage);
-        System.out.println(categoryText+productDescriptionPageObjects.getCategoryTextAndCategoryOfProduct());
-        //softAssert.assertEquals(categoryText,productDescriptionPageObjects.getCategoryTextAndCategoryOfProduct());
+        String [] categoryArrayText = productDescriptionPageObjects.getCategoryTextAndCategoryOfProduct().split("\\s");
+        String [] expectedCategoryArrayText = productDescriptionPageObjects.getProductCategoryApi(productDetailsOfProductInPDPPage).split("\\s");
+        Assert.assertEquals(categoryText,categoryArrayText[0]);
+        for(int i=0;i<expectedCategoryArrayText.length;i++) {
+            Assert.assertEquals(expectedCategoryArrayText[i], categoryArrayText[i+1]);
+        }
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 20)
@@ -292,7 +295,7 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 26)
     public void verifyAddButtonText(){
         Assert.assertEquals(plusText,productDescriptionPageObjects.getAddItemToCart().getText());
-        System.out.println(productDescriptionPageObjects.checkIfItemIsInCart(productIdOfItemsInCart,productIdOfItemsInPLPPage.get(productIndexInPLP)));
+        //System.out.println(productDescriptionPageObjects.checkIfItemIsInCart(productIdOfItemsInCart,productIdOfItemsInPLPPage.get(productIndexInPLP)));
         if(productDescriptionPageObjects.checkIfItemIsInCart(productIdOfItemsInCart,productIdOfItemsInPLPPage.get(productIndexInPLP))){
             Assert.assertEquals(minusText,productDescriptionPageObjects.getRemoveItemFromCart().getText());
         }
@@ -358,7 +361,7 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
         System.out.println(indexOfItemsInPLPWhichHas0Quantity);
         if(indexOfItemsInPLPWhichHas0Quantity.size()>0){
             productListingPageObjects.selectAProductInPLPPage(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHas0Quantity.get(0)+1));
-            System.out.println(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHas0Quantity.get(0)));
+            //System.out.println(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHas0Quantity.get(0)));
             sleep(3000);
             Assert.assertEquals(outOfStockText,productDescriptionPageObjects.getOutOfStockText());
         }
