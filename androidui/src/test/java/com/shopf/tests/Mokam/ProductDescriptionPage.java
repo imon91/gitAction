@@ -5,11 +5,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.*;
-import org.testng.asserts.SoftAssert;
 import pageObjects.*;
-import pageObjects.pdp.IPdpActions;
-import pageObjects.pdp.MokamPdpPageObjects;
-import pageObjects.pdp.ResellerPdpPageObjects;
 import utils.AndroidBaseClass;
 import utils.MyActions;
 import utils.ServiceRequestLayer;
@@ -135,8 +131,6 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
                 indexOfItemsInPLPWhichHasMoreThanMinQuantity.add(i);
             }
         }
-        //System.out.println(indexOfItemsInPLPWhichHas0Quantity);
-        //System.out.println(indexOfItemsInPLPWhichHasMoreThanMinQuantity);
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 1)
