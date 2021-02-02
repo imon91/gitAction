@@ -40,9 +40,13 @@ public class MyOrdersPage extends AndroidBaseClass {
         serviceRequestLayer = new ServiceRequestLayer();
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication("1877755590","666666");
-        sleep(4000);
+        sleep(6000);
+        try {
+            homePageObjects.selectAddress(0);
+        } catch (Exception e){
+            homePageObjects.createNewAddress();
+        }
 //        homePageObjects.selectAddress(0);
-        homePageObjects.createNewAddress();
         sleep(4000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
