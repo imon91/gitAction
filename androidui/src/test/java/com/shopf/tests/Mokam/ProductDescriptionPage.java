@@ -380,7 +380,7 @@ public class ProductDescriptionPage  extends AndroidBaseClass {
     public void loginScreenAfterSuite(){
         //actionBarObjects.clickOnCartButton();
         //sleep(3000);
-        switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
+        //switchFromNativeToWeb(CoreConstants.SHOP_UP_MOKAM_WEB_VIEW);
         //myBagPageObjects.clickOnPlaceOrderButton();
         //sleep(3000);
         //checkoutAddressPageObjects.clickOnConfirmButton();
