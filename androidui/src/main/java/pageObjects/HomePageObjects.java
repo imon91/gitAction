@@ -249,6 +249,13 @@ public class HomePageObjects extends AndroidBaseClass {
             String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
             enterLocation(locationName);
             sleep(2000);
+            try {
+                clickFirstSuggestionInLocationList();
+                clickOnLocationNextButton();
+            }
+            catch (Exception e){
+                clickOnLocationNextButton();
+            }
             clickOnLocationNextButton();
             sleep(1000);
             enterShopName(locationName);
@@ -324,6 +331,11 @@ public class HomePageObjects extends AndroidBaseClass {
             allowButton = xpathSetter("//android.widget.Button[@resource-id='com.android.permissioncontroller:id/permission_allow_foreground_only_button']");
 //        }
         myActions.action_click(allowButton);
+        try {
+            clickOnOkButton();
+        }catch (Exception e){
+            // DO NOT DO ANYTHING
+        }
     }
 
     public void clickOnOkButton()

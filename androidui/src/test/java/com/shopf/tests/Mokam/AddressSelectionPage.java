@@ -31,8 +31,12 @@ public class AddressSelectionPage extends AndroidBaseClass {
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
+        try {
+            homePageObjects.selectAddress(0);
+        } catch (Exception e){
+            homePageObjects.createNewAddress();
+        }
 //        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
-        homePageObjects.createNewAddress();
         sleep(2000);
         switchFromWebToNative();
         actionBarObjects.clickOnUserProfileImageButton();
