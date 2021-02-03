@@ -249,6 +249,13 @@ public class HomePageObjects extends AndroidBaseClass {
             String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
             enterLocation(locationName);
             sleep(2000);
+            try {
+                clickFirstSuggestionInLocationList();
+                clickOnLocationNextButton();
+            }
+            catch (Exception e){
+                clickOnLocationNextButton();
+            }
             clickOnLocationNextButton();
             sleep(1000);
             enterShopName(locationName);
