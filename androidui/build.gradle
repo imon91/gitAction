@@ -108,6 +108,7 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
         def searchPage = project.hasProperty("searchpage")
         def productListingPage = project.hasProperty("productlistingpage")
         def retailerLoginScreen = project.hasProperty("retailerLoginScreen")
+        def productDescriptionPage = project.hasProperty("productDescriptionPage")
 
         if(smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -178,6 +179,10 @@ task androiduiTest(type: Test) {// we define a task with name â€˜androiduiTestâ€
 
         if(retailerLoginScreen){
             suites "src/test/resources/mySuites/retailerLoginPageSuite.xml"
+        }
+
+        if(productDescriptionPage){
+            suites "src/test/resources/mySuites/productDescriptionPageSuite.xml"
         }
 
     }

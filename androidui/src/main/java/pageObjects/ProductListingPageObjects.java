@@ -1010,17 +1010,33 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 
     public int getProductIndex(String itemName){
         int index, requiredIndex = 1 ;
-        for(index=1;index<5;index++){
+        for(index=1;index<4;index++){
             WebElement element = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='"+packageName+":id/list_product_title']");
             if(itemName.equals(element.getText())){
                 requiredIndex = index;
                 break;
             }
         }
-        System.out.println(requiredIndex);
+        //System.out.println(requiredIndex);
         return requiredIndex;
     }
 
+    //---------------------------------------------------------------------------------------------------//
+
+    public void selectAProductInPLPPage(String itemName){
+        scrollUp();
+        WebElement element = androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/recycler_feed_fragment\")).scrollIntoView("
+                        + "new UiSelector().text(\""+itemName+ "\"))"));
+        WebElement item = xpathSetter("//androidx.recyclerview.widget.RecyclerView/android.view.ViewGroup[@index='"+(getProductIndex(itemName)-1)+"']");
+        myActions.action_click(item);
+    }
+
+    public String getProductSlug(String productName, int index){
+        List<Object> slugOfProducts = getPLPModuleApiResponse.getSlugOfProducts(productName);
+        String productSlug= slugOfProducts.get(index).toString();
+        return productSlug;
+    }
 
 }
 

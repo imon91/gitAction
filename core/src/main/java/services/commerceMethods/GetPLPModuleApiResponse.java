@@ -215,6 +215,17 @@ public class GetPLPModuleApiResponse {
         return productDetails;
     }
 
+    public List<Object> getSlugOfProducts(String item) {
+        List<Object> slugOfProducts = new ArrayList<>();
+        response = shopUpPostMan.getCall(EndPoints.SEARCH_FOR_USER+ "term="+item+"&page=1")  ;
+        ProductListingResultsModel productListingResultsModel = gson.fromJson(response.getBody().asString(),ProductListingResultsModel.class);
+        for(int i=0;i<productListingResultsModel.getResults().size();i++){
+            slugOfProducts.add(productListingResultsModel.getResults().get(i).getSlug());
+        }
+        System.out.println(slugOfProducts);
+        return slugOfProducts;
+    }
+
 }
 
 

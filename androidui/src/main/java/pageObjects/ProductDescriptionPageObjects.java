@@ -20,6 +20,7 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
     private MyActions myActions;
     private ServiceRequestLayer serviceRequestLayer;
     private GetPLPModuleApiResponse getPLPModuleApiResponse;
+    private GetPDPModuleApiResponse getPDPModuleApiResponse;
     private String packageName;
     private int minSalePrice;
     private int maxSalePrice;
@@ -33,6 +34,7 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
         app = BuildParameterKeys.KEY_APP;
         serviceRequestLayer = new ServiceRequestLayer();
         getPLPModuleApiResponse = serviceRequestLayer.getControlOverPLPModuleApiResponse();
+        getPDPModuleApiResponse = serviceRequestLayer.getControlOverPDPModuleApiResponse();
         try{minSalePrice = Integer.parseInt(System.getProperty("minSalePrice"));
         maxSalePrice = Integer.parseInt(System.getProperty("maxSalePrice"));}catch(Exception e){System.out.println("min and max salePrice was null");}
         System.out.println(minSalePrice+" , "+maxSalePrice);
@@ -910,6 +912,194 @@ public class ProductDescriptionPageObjects extends AndroidBaseClass{
         return true;
     }
 
+    public String getTextOnHeader(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/title_feed_activity']");
+        return myActions.action_getText(element);
+    }
+
+    public String getNameOfProduct(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+ packageName +":id/details_product_title']");
+        return myActions.action_getText(element);
+    }
+
+    public String getPriceText(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/details_product_price_title']");
+        return myActions.action_getText(element);
+    }
+
+    public String getAboutThisProductText(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Recently viewed by you"+ "\"))"));
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/widget_details_description_title']");
+        return myActions.action_getText(element);
+    }
+
+    public String getCodeTextAndIDOfProduct(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Recently viewed by you"+ "\"))"));
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_sku_id']");
+        return myActions.action_getText(element);
+    }
+
+    public String getCategoryTextAndCategoryOfProduct(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Recently viewed by you"+ "\"))"));
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/product_category']");
+        return myActions.action_getText(element);
+    }
+
+    public String getProductNameUnderAboutThisProduct(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Recently viewed by you"+ "\"))"));
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/widget_details_description']");
+        return myActions.action_getText(element);
+    }
+
+    public String getRecentlyViewedByYouText(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Recently viewed by you"+ "\"))"));
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/title_widget']");
+        return myActions.action_getText(element);
+    }
+
+    public WebElement getGoToCartButtonElement(){
+        WebElement element = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/action_goto_cart_details']");
+        return element;
+    }
+
+    public WebElement getContinueShoppingButtonElement(){
+        WebElement element = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/action_continue_shopping_details']");
+        return element;
+    }
+
+    public Map<String ,Object> getProductDetailsOfProductInPDPPage(String slug){
+        return getPDPModuleApiResponse.getProductDetails_Code_Category_CountOnHand_price(slug);
+    }
+
+    public String getProductCategoryApi(Map<String ,Object> productDetails){
+        return productDetails.get("category").toString();
+    }
+
+    public String getProductCodeApi(Map<String ,Object> productDetails){
+        return productDetails.get("code").toString();
+    }
+
+    public String getBrandApi(Map<String ,Object> productDetails){
+        return productDetails.get("brand").toString();
+    }
+
+    public String getPriceApi(Map<String ,Object> productDetails){
+        return productDetails.get("price").toString();
+    }
+
+    public String getProductSizeApi(Map<String ,Object> productDetails){
+        return productDetails.get("size").toString();
+    }
+
+    public String getProductPriceUnderSizeApi(Map<String ,Object> productDetails){
+        return productDetails.get("sizePrice").toString();
+    }
+
+
+    public void scrollUp(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId("+packageName+":id/detail)).scrollToBeginning(25)"));
+    }
+
+    public String getBrandNameFromPDP(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/details_product_brand']");
+        return myActions.action_getText(element);
+    }
+
+    public String getPriceFromPDPPage(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/details_product_price']");//৳85.25
+        return myActions.action_getText(element);
+    }
+
+    public String getPackSizeFromPDP(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Pack Sizes"+ "\"))"));
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_variant_title']");
+        return myActions.action_getText(element);
+    }
+
+    public String getPriceUnderPackSizeFromPDP(){
+        androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Pack Sizes"+ "\"))"));
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/text_variant_price']");
+        return myActions.action_getText(element);
+    }
+
+    public WebElement getImageButton(){
+        return xpathSetter("//android.widget.ImageView[@resource-id='"+packageName+":id/pager_image']");
+    }
+
+    public String getPackSizesText(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/detail_title_variants']");
+        return myActions.action_getText(element);
+    }
+
+    public WebElement getAddItemToCart(){
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"+"+ "\"))"));
+    }
+
+    public WebElement getRemoveItemFromCart(){
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"-"+ "\"))"));
+    }
+
+    public WebElement getAddButton(){
+        return androidDriver.findElement(MobileBy.AndroidUIAutomator(
+                "new UiScrollable(new UiSelector().resourceId(\""+packageName+":id/detail\")).scrollIntoView("
+                        + "new UiSelector().text(\""+"Add"+ "\"))"));
+    }
+
+    public WebElement getItemCountContainer(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/item_count']");
+    }
+
+    public boolean checkIfItemIsInCart(List<String> productIdOfItemsInCart,String productId){
+        for(int i=0;i<productIdOfItemsInCart.size();i++){
+            if(productId.equals(productIdOfItemsInCart.get(i))){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void clickOnCloseImageButton(){
+        WebElement element = xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_close_zoom']");
+        myActions.action_click(element);
+    }
+
+
+    public WebElement getButtonLeftArrow(){
+        return xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_left_arrow']");
+    }
+
+
+    public WebElement getButtonRightArrow(){
+        return xpathSetter("//android.widget.ImageButton[@resource-id='"+packageName+":id/btn_right_arrow']");
+    }
+
+    public String getOutOfStockText(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/variant_tag_out_of_stock']");   //OUT OF STOCK
+        return myActions.action_getText(element);
+    }
+
+    public WebElement getRequestStockButtonElement(){
+        return xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/button_request_stock']");
+    }
 
 
 }

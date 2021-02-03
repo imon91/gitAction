@@ -74,5 +74,10 @@ public class ServiceRequestLayer implements CommerceServices {
         return null;
     }
 
+    @Override
+    public GetPDPModuleApiResponse getControlOverPDPModuleApiResponse() {
+        return null;
+    }
+
 
 }

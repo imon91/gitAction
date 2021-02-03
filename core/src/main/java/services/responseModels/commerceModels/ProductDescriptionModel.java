@@ -140,7 +140,7 @@ public class ProductDescriptionModel {
     private boolean PDP_add_to_cart;
     private ActivityObjectBean activity_object;
     private String activity_object_id;
-    private int amo;
+    //private int amo;
     private int ancestry;
     private String blurb;
     private String brand;
@@ -175,7 +175,7 @@ public class ProductDescriptionModel {
     private boolean more_by_seller;
     private String name;
     private NewSeoDataBean new_seo_data;
-    private int ori_amo;
+    //private int ori_amo;
     private String original_image;
     private String original_price;
     private PcCatBean pc_cat;
@@ -237,6 +237,9 @@ public class ProductDescriptionModel {
     private java.util.List<VariantSizesBean> variant_sizes;
     private java.util.List<VariantsDataMainBean> variants_data_main;
     private java.util.List<?> video;
+
+    public String getBrand(){ return brand;}
+
     public String getProduct_stamp() {
         return product_stamp;
     }
@@ -245,7 +248,7 @@ public class ProductDescriptionModel {
         this.product_stamp = product_stamp;
     }
 
-    public String getPrice() {
+    public String  getPrice() {
         return price;
     }
 
@@ -768,6 +771,14 @@ public class ProductDescriptionModel {
     public static class ExtraVariantOptionsBean {
     }
 
+    public NewSeoDataBean getNew_seo_data() {
+        return new_seo_data;
+    }
+
+    public void setNew_seo_data(NewSeoDataBean new_seo_data) {
+        this.new_seo_data = new_seo_data;
+    }
+
     public static class NewSeoDataBean {
         /**
          * breadcrumb : [{"label":"Home","url":"/"},{"label":"Men Clothing","url":"/latest/men-clothing"},{"label":"Men Shirts","url":"/men-clothing/men-shirts"},{"label":"Casual Shirt For Men Blue - UPF","url":"/recommendations/casual-shirt-for-men-blue-upf-shopup-bea40e57"}]
@@ -1034,7 +1045,7 @@ public class ProductDescriptionModel {
                 private String _$Type186; // FIXME check this code
                 private String availability;
                 private String itemCondition;
-                private int price;
+                private double price;
                 private String priceCurrency;
                 private String priceValidUntil;
                 private SellerBean seller;
@@ -1063,11 +1074,11 @@ public class ProductDescriptionModel {
                     this.itemCondition = itemCondition;
                 }
 
-                public int getPrice() {
+                public double getPrice() {
                     return price;
                 }
 
-                public void setPrice(int price) {
+                public void setPrice(double price) {
                     this.price = price;
                 }
 
@@ -1437,7 +1448,7 @@ public class ProductDescriptionModel {
 
         private String category;
         private int category_id;
-        private int dis_price;
+        private double dis_price;
         private String sub_category;
 
         public String getCategory() {
@@ -1456,11 +1467,11 @@ public class ProductDescriptionModel {
             this.category_id = category_id;
         }
 
-        public int getDis_price() {
+        public double getDis_price() {
             return dis_price;
         }
 
-        public void setDis_price(int dis_price) {
+        public void setDis_price(double dis_price) {
             this.dis_price = dis_price;
         }
 
@@ -1620,9 +1631,9 @@ public class ProductDescriptionModel {
         private int min_selling_price;
         private String name;
         private String option_value_name;
-        private int original_price;
-        private int per_piece_price;
-        private int price;
+        private double original_price;
+        private double per_piece_price;
+        private double price;
         private int product_id;
         private int quantity_per_variant;
         private int size;
@@ -1692,27 +1703,27 @@ public class ProductDescriptionModel {
             this.option_value_name = option_value_name;
         }
 
-        public int getOriginal_price() {
+        public double getOriginal_price() {
             return original_price;
         }
 
-        public void setOriginal_price(int original_price) {
+        public void setOriginal_price(double original_price) {
             this.original_price = original_price;
         }
 
-        public int getPer_piece_price() {
+        public double getPer_piece_price() {
             return per_piece_price;
         }
 
-        public void setPer_piece_price(int per_piece_price) {
+        public void setPer_piece_price(double per_piece_price) {
             this.per_piece_price = per_piece_price;
         }
 
-        public int getPrice() {
+        public double getPrice() {
             return price;
         }
 
-        public void setPrice(int price) {
+        public void setPrice(double price) {
             this.price = price;
         }
 
@@ -1786,7 +1797,7 @@ public class ProductDescriptionModel {
              */
 
             private int original_price;
-            private int price;
+            private double price;
             private PriceBreakupBean price_breakup;
             private int quantity;
             private boolean selected;
@@ -1801,11 +1812,11 @@ public class ProductDescriptionModel {
                 this.original_price = original_price;
             }
 
-            public int getPrice() {
+            public double getPrice() {
                 return price;
             }
 
-            public void setPrice(int price) {
+            public void setPrice(double price) {
                 this.price = price;
             }
 
@@ -1854,13 +1865,13 @@ public class ProductDescriptionModel {
                  * price : 355
                  */
 
-                private int price;
+                private double price;
 
-                public int getPrice() {
+                public double getPrice() {
                     return price;
                 }
 
-                public void setPrice(int price) {
+                public void setPrice(double price) {
                     this.price = price;
                 }
             }
