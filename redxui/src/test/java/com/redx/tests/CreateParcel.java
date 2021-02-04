@@ -17,6 +17,7 @@ public class CreateParcel extends RedXBaseClass
     private SettingsPageObjects settingsPageObjects;
     private Authentication authentication;
     private ChangeLanguage changeLanguage;
+    private HomePageObjects.ChooseShopModule chooseShopModule;
 
     public void pageInitializer()
     {
@@ -25,6 +26,7 @@ public class CreateParcel extends RedXBaseClass
         settingsPageObjects = new SettingsPageObjects();
         authentication = new Authentication();
         changeLanguage = new ChangeLanguage();
+        chooseShopModule = homePageObjects. new ChooseShopModule();
     }
 
     @BeforeSuite(alwaysRun = true)
@@ -74,6 +76,8 @@ public class CreateParcel extends RedXBaseClass
     public void createNewParcel()
     {
         System.out.println("Creating New Parcel");
+        homePageObjects.clickChooseShopModule();
+        chooseShopModule.selectShopByText("ashok shops");
         homePageObjects.clickDeliverYourParcelModule();
         Assert.assertEquals(addParcelPageObjects.getPageTitle(),"Add parcel");
         addParcelPageObjects.addParcel();
@@ -85,6 +89,8 @@ public class CreateParcel extends RedXBaseClass
             description = "Verification of mandatory filed popUp on create parcel page")
     public void verifyMandatoryFieldCautionMessagePopup()
     {System.out.println("verification of mandatory field caution message popUp was called");
+        homePageObjects.clickChooseShopModule();
+        chooseShopModule.selectShopByText("ashok shops");
     homePageObjects.clickDeliverYourParcelModule();
     addParcelPageObjects.clickConfirmButton();
         List<String> cautionMessages = new ArrayList<>();
