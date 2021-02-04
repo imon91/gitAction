@@ -22,6 +22,7 @@ public class ParcelDetails extends RedXBaseClass {
     private LoginPageObjects loginPageObjects;
     private Authentication authentication;
     private ChangeLanguage changeLanguage;
+    private HomePageObjects.ChooseShopModule chooseShopModule;
 
 
     public void pageInitializer() {
@@ -35,6 +36,7 @@ public class ParcelDetails extends RedXBaseClass {
         random = new Random();
         authentication = new Authentication();
         changeLanguage = new ChangeLanguage();
+        chooseShopModule = homePageObjects. new ChooseShopModule();
     }
 
     @BeforeSuite(alwaysRun = true)
@@ -142,6 +144,8 @@ public class ParcelDetails extends RedXBaseClass {
             description = "Verifies search functionality in view parcel module")
     public void verifyCallRedXOptionOnDetailsPage() {
         System.out.println("Verify 'Call RedX'Option on Details page");
+        homePageObjects.clickChooseShopModule();
+        chooseShopModule.selectShopByText("ashok shops");
         int index;
         String assertVariable = null;
         String parcelStatus = null;

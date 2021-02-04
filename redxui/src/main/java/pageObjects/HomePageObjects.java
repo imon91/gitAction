@@ -24,7 +24,7 @@ public class HomePageObjects extends RedXBaseClass
 
     public void clickChooseShopModule()
     {
-        chooseShopModule = xpathSetter("//android.view.ViewGroup[1]//android.widget.ImageView[@index='1']");
+        chooseShopModule = xpathSetter("//android.view.ViewGroup[@index=0]/android.widget.ImageView[@index=0]");
         myActions.action_click(chooseShopModule);
     }
 

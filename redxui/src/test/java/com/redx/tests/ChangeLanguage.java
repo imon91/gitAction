@@ -65,7 +65,7 @@ public class ChangeLanguage extends RedXBaseClass
         homePageObjects.clickSettingsButton();
         otherSettings.changeToEnglish();
         settingsPageObjects.clickBackButton();
-        sleep(1000);
+        sleep(2000);
         settingsPageObjects.clickBackButton();
     }
 
