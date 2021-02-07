@@ -22,6 +22,7 @@ public class DeleteParcel extends RedXBaseClass {
     private SettingsPageObjects settingsPageObjects;
     private Authentication authentication;
     private ChangeLanguage changeLanguage;
+    private HomePageObjects.ChooseShopModule chooseShopModule;
 
 
     public void pageInitializer() {
@@ -35,6 +36,7 @@ public class DeleteParcel extends RedXBaseClass {
         settingsPageObjects = new SettingsPageObjects();
         authentication = new Authentication();
         changeLanguage = new ChangeLanguage();
+        chooseShopModule = homePageObjects. new ChooseShopModule();
     }
 
     @BeforeSuite(alwaysRun = true)
@@ -76,6 +78,10 @@ public class DeleteParcel extends RedXBaseClass {
     public void changeToEnglishLanguage() throws Exception {
         changeLanguage.beforeChangeLanguageClass();
         changeLanguage.changeToEnglishLanguage();
+        sleep(1000);
+        homePageObjects.clickChooseShopModule();
+        chooseShopModule.selectShopByText("ashok shops");
+        sleep(2000);
     }
 
 
@@ -92,7 +98,7 @@ public class DeleteParcel extends RedXBaseClass {
         System.out.println("Delete a Parcel");
         homePageObjects.clickViewParcelUpdatesModule();
         Assert.assertEquals(actionBarPageObjects.getPageTitle(), "Parcels");
-        dateFilterPageObjects.chooseMonthByText("Aug, 2020");
+        dateFilterPageObjects.chooseMonthByText("Feb, 2021");
 
         orderStatusPageObjects.clickInProgressParcelsTab();
         parcelsList = parcelsManifestList.setParcelsList();

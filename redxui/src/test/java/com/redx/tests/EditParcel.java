@@ -24,6 +24,7 @@ public class EditParcel extends RedXBaseClass
     private SettingsPageObjects settingsPageObjects;
     private Authentication authentication;
     private ChangeLanguage changeLanguage;
+    private HomePageObjects.ChooseShopModule chooseShopModule;
 
 
     public void pageInitializer()
@@ -39,6 +40,7 @@ public class EditParcel extends RedXBaseClass
         settingsPageObjects = new SettingsPageObjects();
         authentication = new Authentication();
         changeLanguage= new ChangeLanguage();
+        chooseShopModule = homePageObjects. new ChooseShopModule();
     }
 
     @BeforeSuite(alwaysRun = true)
@@ -90,6 +92,10 @@ public class EditParcel extends RedXBaseClass
     public void changeToEnglishLanguage() throws Exception {
         changeLanguage.beforeChangeLanguageClass();
         changeLanguage.changeToEnglishLanguage();
+        sleep(1000);
+        homePageObjects.clickChooseShopModule();
+        chooseShopModule.selectShopByText("ashok shops");
+        sleep(2000);
     }
 
 
@@ -231,6 +237,7 @@ public class EditParcel extends RedXBaseClass
         orderStatusPageObjects.clickInProgressParcelsTab();
         actionBarPageObjects.clickSearchButton();
         actionBarPageObjects.enterSearchTerm("1401122188");
+        actionBarPageObjects.clickSearchButton();
         parcelsList = parcelsManifestList.setParcelsList();
         if (parcelsList.size() != 0) {
             index = random.nextInt(parcelsList.size());
