@@ -220,7 +220,7 @@ public class ProductListingPage  extends AndroidBaseClass{
             }
             if(count == indexOfItemsInPLPWhichIsInCart.size()){
                 productListingPageObjects.clickOnAddButton(productNameOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasLessThanMinQuantity.get(i)+1));
-                productQuantity = (Integer.parseInt(productQuantityOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasLessThanMinQuantity.get(i)))/2) -1;
+                productQuantity = (Integer.parseInt(productQuantityOfItemsInPLPPage.get(indexOfItemsInPLPWhichHasLessThanMinQuantity.get(i)))/2) ;
                 System.out.println(productQuantityOfItemsInPLPPage);
                 System.out.println(productQuantity);
                 productIndex = i;
