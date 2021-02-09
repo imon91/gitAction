@@ -3,6 +3,7 @@ package com.shopf.tests.authentication;
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.*;
+import pageObjects.SAPPanelPageObject;
 import services.commerceMethods.GetAuthenticationApiResponse;
 import utils.SapBaseClass;
 import videoRecorder.ScreenRecorder;
@@ -11,6 +12,7 @@ public class LoginTests extends SapBaseClass {
 
     private WebDriver driver;
     private GetAuthenticationApiResponse getAuthenticationApiResponse;
+    private SAPPanelPageObject sapPanelPageObject;
 
 
     @BeforeSuite(alwaysRun = true)
@@ -21,14 +23,19 @@ public class LoginTests extends SapBaseClass {
         driver = getBaseDriver();
         setImplicitWait(10000);
         driver.get(getSapBaseUrl());
-        ScreenRecorder.startRecording("");
+        setImplicitWait(10000);
+        System.out.println(driver.switchTo().alert().getText());
+        driver.switchTo().alert().accept();
+        driver.switchTo().alert().accept();
+        driver.manage().window().maximize();
+        //ScreenRecorder.startRecording("");
     }
 
 
     @BeforeClass(alwaysRun = true)
     public void loginBeforeClass() {
         System.out.println("Login Before Class is called");
-
+        sapPanelPageObject = new SAPPanelPageObject(driver);
     }
 
 
@@ -49,7 +56,9 @@ public class LoginTests extends SapBaseClass {
     )
     public void verifyAuthenticationWithValidCredentials(String email, String password) throws Exception {
         System.out.println("verifyAuthentication is called");
-
+        sleep(10000);
+        sapPanelPageObject.enterAndClickMobileNoText("01401122188");
+        sapPanelPageObject.enterAndClickOTPText("6666");
     }
 
     @AfterClass(alwaysRun = true)
@@ -61,7 +70,7 @@ public class LoginTests extends SapBaseClass {
     @AfterSuite(alwaysRun = true)
     public void wmsAfterSuite() throws Exception {
         System.out.println("SapAfterSuite Is Called");
-        ScreenRecorder.stopRecording();
+//        ScreenRecorder.stopRecording();
         quitBaseDriver();
     }
 }
