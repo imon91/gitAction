@@ -331,14 +331,14 @@ public class ProductListingPage  extends AndroidBaseClass{
         selectWithinMinQuantity();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 18)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 19)
     public void verifyRemoveFromCartButtonFunctionality(){
         if(indexOfItemsInPLPWhichIsInCart.size()>0){
             productListingPageObjects.getRemoveFromCartButtonElement(productNameOfItemsInPLPPage.get(productIndex+1)).click();
         }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 19)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 18)
     public void verifyPlusButtonFunctionality(){
         if(indexOfItemsInPLPWhichIsInCart.size()>0){
             productListingPageObjects.getAddToCartButtonElement(productNameOfItemsInPLPPage.get(productIndex+1)).click();
@@ -354,6 +354,7 @@ public class ProductListingPage  extends AndroidBaseClass{
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 21)
     public void verifyTotalItemsInActionBarCart(){
+        System.out.println(initialCartQuantity + productQuantity +" @here "+actionBarObjects.getNumberOfItemsInCart());
         Assert.assertEquals((initialCartQuantity + productQuantity)+"",actionBarObjects.getNumberOfItemsInCart());
     }
 
