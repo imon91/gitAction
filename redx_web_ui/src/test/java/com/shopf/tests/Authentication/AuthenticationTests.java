@@ -13,7 +13,7 @@ public class AuthenticationTests extends RedXWebBaseClass {
 
     @BeforeSuite(alwaysRun = true)
     public void redxBeforeSuite() throws Exception{
-        System.out.println("Stores BeforeSuite is called");
+        System.out.println("RedX Web Before Suite is called");
             driver = getBaseDriver();
             setImplicitWait(10000);
             driver.get(getWebBaseUrl());
@@ -24,7 +24,7 @@ public class AuthenticationTests extends RedXWebBaseClass {
         loginPageObjects = new LoginPageObjects(driver);
     }
 
-    @Test(groups = CoreConstants.GROUP_SMOKE)
+    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY})
     public void verifyAuthenticationWithValidCredentials() throws InterruptedException{
         System.out.println("Verify Authentication with valid credentials was called");
         loginPageObjects.performAuthentication("0140112217","6666","7");
@@ -42,7 +42,7 @@ public class AuthenticationTests extends RedXWebBaseClass {
 
     @AfterSuite(alwaysRun = true)
     public void redxAfterSuite(){
-        System.out.println("Stores AfterSuite is called");
+        System.out.println("RedX Web After Suite is called");
         quitBaseDriver();
     }
 }
