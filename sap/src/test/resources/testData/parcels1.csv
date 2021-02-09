@@ -1,0 +1,3 @@
+INVOICE_NUMBER,CUSTOMER_NAME,CUSTOMER_PHONE,DELIVERY_ADDRESS,POST_CODE,CASH,SELLER_INSTRUCTION,VALUE,WEIGHT,AREA_ID,AREA,SHOP_ID,SHOP_NAME,PICKUP_ADDRESS,PAYMENT_METHOD,SOURCE_PANEL,REMARKS
+123123,John Doe,8801873445555,"House name (Apt number), Road number ",1208,120,Comment regarding delivery,0,500,98,Tejgaon,648106,Bulk Issue Test Shop,CWH,cash on delivery,SAP bulk upload panel,
+123124,Jane Doe,8801873445555,50 Lake Circus (7th floor) Kalabagan,1208,0,Give cash amount zero if payment already done,0,500,98,Tejgaon,648106,Bulk Issue Test Shop,CWH,cash on delivery,SAP bulk upload panel,

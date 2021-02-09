@@ -1,5 +1,6 @@
 package pageObjects;
 
+import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.*;
@@ -11,6 +12,7 @@ public class LoginPageObjects extends RedXWebBaseClass{
 
     private WebDriver driver;
     private MyActions myActions;
+    private String ck;
 
     public LoginPageObjects(WebDriver driver) {
         this.driver = driver;
@@ -73,7 +75,7 @@ public class LoginPageObjects extends RedXWebBaseClass{
 
     /*****************Functions***************/
 
-    public void performAuthentication(String mobileNo,String otp,String lastMobileNo) throws InterruptedException {
+    public String performAuthentication(String mobileNo,String otp,String lastMobileNo) throws InterruptedException {
         clickOnMerchantLoginButton();
         enterMobileNo(mobileNo);
         enterMobileNo(lastMobileNo);
@@ -81,7 +83,23 @@ public class LoginPageObjects extends RedXWebBaseClass{
         clickOnContinueButton();
         enterOTPButton(otp);
         clickSubmitButton();
-
+        sleep(2000);
+        String ck = null;
+        for(Cookie cookie : driver.manage().getCookies()){
+            ck = cookie.getName();
+            if(ck.equalsIgnoreCase("__ti__"))
+            {
+                ck = cookie.getName() + "=" + cookie.getValue();
+                System.out.println("Cookie Value : " + ck);
+                try {
+                    CookieManager.setValue(CookieManager.Keys.RED_X_COOKIE,ck);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return ck;
+            }
+        }
+        return null;
     }
 
 

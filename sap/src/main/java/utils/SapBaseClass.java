@@ -4,8 +4,13 @@ import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import coreUtils.DomainPropertyReader;
 import helper.GetDriverFromCore;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -92,6 +97,87 @@ public class SapBaseClass extends GetDriverFromCore {
         }
     }
 
+    public static WebElement xpathSetter(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),30)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    sleep(2000);
+                    xpathListSetter(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public static WebElement xpathSetter(WebDriver webDriver,String xpath){
+        try {
+            new WebDriverWait(webDriver,30)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            return webDriver.findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    sleep(2000);
+                    xpathListSetter(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public static List<WebElement> xpathListSetter(WebDriver webDriver,String xpath){
+        List<WebElement> elementList;
+        try {
+            elementList = webDriver.findElements(By.xpath(xpath));
+            return elementList;
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    public static WebElement xpathPresenceSetter(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),5)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    xpathListSetter(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
+
+    public static List<WebElement> xpathListSetter(String xpath){
+        List<WebElement> elementList;
+        try {
+            elementList = getBaseDriver().findElements(By.xpath(xpath));
+            return elementList;
+        }catch (Exception e){
+            System.out.println(e);
+            return null;
+        }
+    }
 
     public static void quitBaseDriver() {
         driver.quit();
