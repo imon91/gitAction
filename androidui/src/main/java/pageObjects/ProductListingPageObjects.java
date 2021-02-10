@@ -128,7 +128,7 @@ public class ProductListingPageObjects extends AndroidBaseClass {
                     xpathListSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/ecommerce_image']");
         } else if (plpView.equalsIgnoreCase(NEW_PLP_VIEW)) {
             itemImages =
-                    xpathListSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/list_product_image']");
+                    xpathListSetter("//android.widget.ImageView[@resource-id='" + packageName + ":id/lifestyle_product_image']");
         }
         return itemImages;
     }
@@ -417,6 +417,9 @@ public class ProductListingPageObjects extends AndroidBaseClass {
             }
                 // Click on that Item
                 clickOnProductItem(getItemImages().get(productIndex));
+            if (plpView.equalsIgnoreCase(NEW_PLP_VIEW)){
+                clickViewDetailsButton();
+            }
 
         } catch (Exception e) {
             System.out.println("Exception At SelectValidProductToPDP : Updating ProductDetails to DynamicData");
@@ -452,6 +455,11 @@ public class ProductListingPageObjects extends AndroidBaseClass {
 //            // Click on that Item
 //            clickOnProductItem(getItemImages().get(productIndex));
 //        }
+    }
+
+    public void clickViewDetailsButton(){
+        WebElement element = xpathSetter("//android.widget.TextView[@resource-id='"+packageName+":id/action_details']");
+        myActions.action_click(element);
     }
 
     public void addItemToCartThroughAddQtyPLPMain(int index, int quantity) {

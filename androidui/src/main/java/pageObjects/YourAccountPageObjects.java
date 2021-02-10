@@ -106,7 +106,7 @@ public class YourAccountPageObjects extends AndroidBaseClass {
     }
 
     public String getBusinessType(){
-        WebElement businessTypeElement = xpathSetter("//android.widget.Button[@resource-id='"+packageName+":id/chip_business_type']");
+        WebElement businessTypeElement = xpathSetter("//android.widget.CompoundButton[@resource-id='"+packageName+":id/chip_business_type']");
         return myActions.action_getText(businessTypeElement);
     }
 
