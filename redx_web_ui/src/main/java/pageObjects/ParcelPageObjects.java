@@ -164,7 +164,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
     {
         searchButton = xpathSetter("//button[@class='ant-btn search-submit-button ant-btn-round ant-btn-lg']");
         myActions.action_click(searchButton);
-        setImplicitWait(1000);
+        sleep(2000);
     }
 
     public Boolean verifySearchButton()
@@ -177,7 +177,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
     public void clickClearSearchButton()
     {
-        sleep(2000);
+        sleep(1000);
         clearSearchButton = xpathSetter("//button/span[contains(text(),'Clear search')]");
         myActions.action_click(clearSearchButton);
     }

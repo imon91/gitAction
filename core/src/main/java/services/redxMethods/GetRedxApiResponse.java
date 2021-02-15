@@ -1,8 +1,10 @@
-package services;
+package services.redxMethods;
 
 import com.google.gson.Gson;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import services.responseModels.redxModels.OverviewModel;
+import services.responseModels.redxModels.ParcelsListModel;
 import services.serviceUtils.ShopUpPostMan;
 
 public class GetRedxApiResponse {
@@ -13,38 +15,32 @@ public class GetRedxApiResponse {
     public GetRedxApiResponse(String module)
     {
         this.module = module;
-//        shopUpPostMan = new ShopUpPostMan(module);
+        shopUpPostMan = new ShopUpPostMan(module);
         gson = new Gson();
     }
 
-    public OverviewModel overviewGetCall(String cookie,long since,long until)
+    public OverviewModel overviewGetCall(long since, long until)
     {
-        String overviewGetCall = "https://apiredx.shopups1.xyz/v1/admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until;
-//        Response getOverviewResponse = shopUpPostMan.getCall(overviewGetCall);
-        Response response = RestAssured.given()
-                .header("cookie",cookie).when().get(overviewGetCall);
-        OverviewModel overviewModel = gson.fromJson(response.getBody().asString(),OverviewModel.class);
+        String overviewGetCall = "admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until;
+        Response getOverviewResponse = shopUpPostMan.getCall(overviewGetCall);
+        OverviewModel overviewModel = gson.fromJson(getOverviewResponse.getBody().asString(),OverviewModel.class);
         return  overviewModel;
     }
 
-    public OverviewModel overviewGetCall(String cookie,long since,long until,long storeId)
+    public OverviewModel overviewGetCall(long since,long until,long storeId)
     {
-        String overviewGetCall = "https://apiredx.shopups1.xyz/v1/admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until + "&shopStoreId=" + storeId;
-//        Response getOverviewResponse = shopUpPostMan.getCall(overviewGetCall);
-        Response response = RestAssured.given()
-                .header("cookie",cookie).when().get(overviewGetCall);
-        OverviewModel overviewModel = gson.fromJson(response.getBody().asString(),OverviewModel.class);
+        String overviewGetCall = "admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until + "&shopStoreId=" + storeId;
+        Response getOverviewResponse = shopUpPostMan.getCall(overviewGetCall);
+        OverviewModel overviewModel = gson.fromJson(getOverviewResponse.getBody().asString(),OverviewModel.class);
         return  overviewModel;
     }
 
-    public ParcelsListModel parcelsListModel(String cookie, String url)
+    public ParcelsListModel parcelsListModel(String url)
     {
 
-        Response response = RestAssured.given()
-                .header("cookie",cookie).when().get(url);
-//        Response responseCall = shopUpPostMan.getCall(url);
-//        System.out.println(responseCall.getBody().asString());
-        ParcelsListModel parcelsListModel = gson.fromJson(response.getBody().asString(),ParcelsListModel.class);
+        Response getParcelsListResponse = shopUpPostMan.getCall(url);
+        System.out.println(getParcelsListResponse.getBody().asString());
+        ParcelsListModel parcelsListModel = gson.fromJson(getParcelsListResponse.getBody().asString(),ParcelsListModel.class);
         return parcelsListModel;
     }
 
@@ -55,7 +51,7 @@ public class GetRedxApiResponse {
     {
         /* Parameters Order : (long storeId,int page,int limit,int offset,int sort) */
         /* Default Values : (532439,1,20,0,0) */
-        String allParcelsListGetCallUrl = "https://apiredx.shopups1.xyz/v1/admin/shop/" + storeId + "/logistics/parcels?";
+        String allParcelsListGetCallUrl = "admin/shop/" + storeId + "/logistics/parcels?";
         int i;
         for(i=0;i<params.length;i++)
         {
@@ -118,3 +114,4 @@ public class GetRedxApiResponse {
         return parcelsListGetCallUrl;
     }
 }
+

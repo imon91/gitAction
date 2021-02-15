@@ -6,6 +6,8 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import services.*;
+import services.redxMethods.GetRedxApiResponse;
+import services.responseModels.redxModels.ParcelsListModel;
 import utils.RedXWebBaseClass;
 
 public class ParcelPageTests extends RedXWebBaseClass {
@@ -36,12 +38,12 @@ public class ParcelPageTests extends RedXWebBaseClass {
         loginPageObjects = new LoginPageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         parcelPageObjects = new ParcelPageObjects(driver);
-        getRedxApiResponse = new GetRedxApiResponse("redxWeb");
+        getRedxApiResponse = new GetRedxApiResponse("redxweb");
         System.out.println("Verify Authentication with valid credentials was called");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
         parcelsListGetCallUrl = getRedxApiResponse.allParcelsListGetCallUrl(532439,1,20,0,0);
-        allParcelsListModel = getRedxApiResponse.parcelsListModel(cookie,parcelsListGetCallUrl);
+        allParcelsListModel = getRedxApiResponse.parcelsListModel(parcelsListGetCallUrl);
         actionBarObjects.clickParcelsLink();
     }
 
@@ -76,7 +78,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         String trackingId = "21A211TH3K5MG";
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,trackingId);
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(cookie,url);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         System.out.println("Verifying Tracking Id Filter Functionality");
         System.out.println("Tracking Id : " + trackingId);
         parcelPageObjects.enterTrackingIdFilter(trackingId);
@@ -96,7 +98,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         String invoiceId = "123124";
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"",invoiceId);
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(cookie,url);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         System.out.println("Verifying Shop Invoice Id Filter Functionality");
         System.out.println("Invoice Id : " + invoiceId);
         parcelPageObjects.enterShopInvoiceIdFilter(invoiceId);
@@ -115,7 +117,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         String phoneNumber = "8801401122188";
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","",phoneNumber);
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(cookie,url);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         System.out.println("Verifying Phone Number Filter Functionality");
         System.out.println("Phone Number : " + phoneNumber);
         parcelPageObjects.enterPhoneNumberFilter(phoneNumber);
@@ -134,7 +136,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         String customerName = "Parcel Sanity Test";
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","",customerName);
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(cookie,url);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         System.out.println("Verifying Customer Name Filter Functionality");
         parcelPageObjects.enterCustomerNameFilter(customerName);
         int uiValue = Integer.parseInt(parcelPageObjects.getTotalParcelsCount());
@@ -155,7 +157,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         long since = parcelPageObjects.enterDateFromFilter(01,"Jan",2021);
         long until = parcelPageObjects.enterDateToFilter(01,"Feb",2021);
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","","",filterIndex,Long.toString(since),Long.toString(until));
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(cookie,url);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         parcelPageObjects.chooseDateFilterTypeDropDown(filterIndex);
         int uiValue = Integer.parseInt(parcelPageObjects.getTotalParcelsCount());
         int apiValue = parcelsListModel.getBody().getCount();
@@ -175,7 +177,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         long since = parcelPageObjects.enterDateFromFilter(01,"Jan",2021);
         long until = parcelPageObjects.enterDateToFilter(01,"Feb",2021);
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","","",filterIndex,Long.toString(since),Long.toString(until));
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(cookie,url);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         parcelPageObjects.chooseDateFilterTypeDropDown(filterIndex);
         int uiValue = Integer.parseInt(parcelPageObjects.getTotalParcelsCount());
         int apiValue = parcelsListModel.getBody().getCount();
@@ -203,10 +205,15 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     }
 
-    @AfterTest(alwaysRun = true)
-    public void parcelsPageTestsAfterClass()
-    {
+    @AfterClass(alwaysRun = true)
+    public void parcelsPageTestsAfterClass(){
         System.out.println("Parcels Page Tests After Class");
+    }
+
+    @AfterSuite(alwaysRun = true)
+    public void parcelsPageTestsAfterSuite()
+    {
+        System.out.println("Parcels Page Tests After Suite");
         driver.quit();
     }
 }

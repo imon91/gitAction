@@ -198,6 +198,22 @@ public class ShopUpPostMan {
                     }
                     break;
 
+                case CoreConstants.MODULE_REDX_WEB_UI :
+
+                    switch (env){
+                        case CoreConstants.ENV_STAGE : this.baseURL =
+                                DomainPropertyReader.
+                                        getValueOfKey(DomainPropertyReader.Keys.REDX_API_STAGE_BASE_URL);
+                            cookieKey = CookieManager.Keys.RED_X_COOKIE;
+                            break;
+                        case CoreConstants.ENV_PROD : this.baseURL =
+                                DomainPropertyReader.
+                                        getValueOfKey(DomainPropertyReader.Keys.REDX_WEB_PROD_BASE_URL);
+                            cookieKey = CookieManager.Keys.RED_X_COOKIE;
+                            break;
+                    }
+                    break;
+
             }
 
         }catch (Exception e){
@@ -330,6 +346,14 @@ public class ShopUpPostMan {
             filePath2 = CoreFileUtils.sapVerifyCodeJsonPath;
             System.out.println(filePath2);
         }
+  else if(module.equalsIgnoreCase(CoreConstants.MODULE_REDX_WEB_UI)){
+            patch = EndPoints.RedX.SEND_OTP;
+            System.out.println("Final URL : "+baseURL+patch);
+            filePath1 = CoreFileUtils.redxSendOtpJsonPath;
+            System.out.println(filePath1);
+            filePath2 = CoreFileUtils.redxVerifyOtpJsonPath;
+            System.out.println(filePath2);
+        }
 
         try{
             Object obj1 = new JSONParser().parse(new FileReader(filePath1));
@@ -363,6 +387,12 @@ public class ShopUpPostMan {
                 //System.out.println("Body is : "+jo2);
                 response = given().header("Content-Type","application/json")
                         .body(jo2).post(EndPoints.Sap.LOGIN_WITH_CODE);
+                response.then().log().all();
+            }if(module.equalsIgnoreCase(CoreConstants.MODULE_REDX_WEB_UI)){
+                Object obj2 = new JSONParser().parse(new FileReader(filePath2));
+                JSONObject jo2 = (JSONObject) obj2;
+                response = given().header("Content-Type","application/json")
+                        .body(jo2).post(EndPoints.RedX.LOGIN);
                 response.then().log().all();
             }
             // Update cookie.properties file

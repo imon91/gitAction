@@ -37,6 +37,7 @@ public class DomainPropertyReader {
         public static final String STORES_APP_PROD_BASE_URL = "STORES_APP_PROD_BASE_URL";
         public static final String REDX_WEB_STAGE_BASE_URL = "RED_X_WEB_STAGE_BASE_URL";
         public static final String REDX_WEB_PROD_BASE_URL = "RED_X_WEB_PROD_BASE_URL";
+        public static final String REDX_API_STAGE_BASE_URL = "REDX_API_STAGE_BASE_URL";
         public static final String SAP_WEB_STAGE_BASE_URL = "SAP_WEB_STAGE_BASE_URL";
         public static final String SAP_WEB_PROD_BASE_URL = "SAP_WEB_PROD_BASE_URL";
         public static final String SAP_API_STAGE_BASE_URL = "SAP_API_STAGE_BASE_URL";

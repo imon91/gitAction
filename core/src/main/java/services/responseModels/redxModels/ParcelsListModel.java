@@ -1,4 +1,4 @@
-package services;
+package services.responseModels.redxModels;
 
 import java.io.Serializable;
 import java.util.List;

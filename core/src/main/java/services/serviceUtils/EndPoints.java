@@ -35,5 +35,10 @@ public class EndPoints {
         public static final String REQUEST_LOGIN_CODE = "user/request-login-code";
     }
 
+    public class RedX{
+        public static final String SEND_OTP = "user/login-with-code";
+        public static final String LOGIN = "user/request-login-code";
+    }
+
 
 }
