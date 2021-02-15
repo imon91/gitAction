@@ -83,7 +83,7 @@ public class LoginPageObjects extends RedXWebBaseClass{
         clickOnContinueButton();
         enterOTPButton(otp);
         clickSubmitButton();
-        sleep(2000);
+        sleep(3000);
         String ck = null;
         for(Cookie cookie : driver.manage().getCookies()){
             ck = cookie.getName();
