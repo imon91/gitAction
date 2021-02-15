@@ -72,5 +72,6 @@ public class CoreConstants {
     public static final String MODULE_WMS_UI = "wms";
     public static final String MODULE_STORE_WAP = "store";
     public static final String MODULE_SAP_UI = "sap";
+    public static final String MODULE_REDX_WEB_UI = "redxweb";
 
 }

@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.GetRedxApiResponse;
-import services.OverviewModel;
+import services.redxMethods.GetRedxApiResponse;
+import services.responseModels.redxModels.OverviewModel;
 import utils.RedXWebBaseClass;
 
 import java.util.Date;
@@ -40,7 +40,7 @@ public class HomePageTests extends RedXWebBaseClass {
         loginPageObjects = new LoginPageObjects(driver);
         homePageObjects = new HomePageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
-        getRedxApiResponse = new GetRedxApiResponse("redx");
+        getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
         System.out.println("Verify Authentication with valid credentials was called");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
@@ -317,7 +317,7 @@ public class HomePageTests extends RedXWebBaseClass {
         long since = 1420136999999L;
         long until = new Date().getTime();
         long storeId = 15295;
-        OverviewModel modelPickUp = getRedxApiResponse.overviewGetCall(cookie,since,until,storeId);
+        OverviewModel modelPickUp = getRedxApiResponse.overviewGetCall(since,until,storeId);
         System.out.println("Value in HomePage : " + homePageObjects.getOrdersPlacedValue());
         System.out.println("Total Orders after Pickup Location Filter : " + modelPickUp.getBody().getTotalOrders());
         Assert.assertEquals(homePageObjects.getOrdersPlacedValue(),String.valueOf(modelPickUp.getBody().getTotalOrders()));
@@ -331,7 +331,7 @@ public class HomePageTests extends RedXWebBaseClass {
         System.out.println("Verifying Date Functionality");
         long since = homePageObjects.enterStartDate(1,"Jan",2015);
         long until = homePageObjects.enterEndDate(7,"Feb",2021);
-        overviewModel = getRedxApiResponse.overviewGetCall(cookie,since,until,15295);
+        overviewModel = getRedxApiResponse.overviewGetCall(since,until,15295);
         System.out.println("Value in HomePage : " + homePageObjects.getOrdersPlacedValue());
         System.out.println("Total Orders after Date Filter : " + overviewModel.getBody().getTotalOrders());
         Assert.assertEquals(homePageObjects.getOrdersPlacedValue(),String.valueOf(overviewModel.getBody().getTotalOrders()));

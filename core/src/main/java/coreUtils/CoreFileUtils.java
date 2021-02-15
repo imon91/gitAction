@@ -30,7 +30,8 @@ public class CoreFileUtils {
     public static final String OSDJsonPath = CoreFileRouters.testDataFolderPath+"deliveryLocationData/OutSideDhaka.json";
     public static final String ISDJsonPath = CoreFileRouters.testDataFolderPath+"deliveryLocationData/InSideDhaka.json";
     public static final String ParcelIDJsonPath = CoreFileRouters.testDataFolderPath+"SAPPanelData/sapPanelResellerParcelID.json";
-
+    public static final String redxSendOtpJsonPath = CoreFileRouters.redxAuthData+"";
+    public static final String redxVerifyOtpJsonPath = CoreFileRouters.redxAuthData+"";
 
     public static class Reports{
         public static final String resellerAppResultsFilePath =

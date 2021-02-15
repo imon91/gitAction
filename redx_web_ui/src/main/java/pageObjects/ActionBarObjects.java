@@ -97,7 +97,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     public void clickOnDashboardLink()
     {
-//        dashboardLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[1]");;
+//        dashboardLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[1]");
         dashboardLink = xpathSetter("//a[@href='/dashboard/']");
         myActions.action_click(dashboardLink);
         sleep(2000);
@@ -105,21 +105,21 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     public void clickParcelsLink()
     {
-        parcelsLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[2]");;
+        parcelsLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[2]");
         myActions.action_click(parcelsLink);
         sleep(2000);
     }
 
     public void clickPaymentsLink()
     {
-        paymentsLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[3]");;
+        paymentsLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[3]");
         myActions.action_click(paymentsLink);
         sleep(2000);
     }
 
     public void clickCouponLink()
     {
-        couponLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[4]");;
+        couponLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[4]");
         myActions.action_click(couponLink);
         sleep(2000);
     }
