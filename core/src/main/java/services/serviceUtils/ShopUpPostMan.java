@@ -230,7 +230,7 @@ public class ShopUpPostMan {
         String cookie = null;
         try{
             cookie = CookieManager.getValueOfKey(cookieKey);
-            sessionCookie = CookieManager.getValueOfKey(sessionCookieKey);
+//            sessionCookie = CookieManager.getValueOfKey(sessionCookieKey);
             //System.out.println("User Cookie is : "+cookie);
         }catch (Exception e){
             System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");

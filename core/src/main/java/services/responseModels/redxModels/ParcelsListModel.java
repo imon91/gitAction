@@ -319,7 +319,7 @@ public class ParcelsListModel {
                 this.SELLER_INSTRUCTION = SELLER_INSTRUCTION;
             }
 
-            public boolean isIS_SETTLED() {
+            public boolean getIS_SETTLED() {
                 return IS_SETTLED;
             }
 
