@@ -90,7 +90,7 @@ public class LoginPageObjects extends RedXWebBaseClass{
             if(ck.equalsIgnoreCase("__ti__"))
             {
                 ck = cookie.getName() + "=" + cookie.getValue();
-                System.out.println("Cookie Value : " + ck);
+//                System.out.println("Cookie Value : " + ck);
                 try {
                     CookieManager.setValue(CookieManager.Keys.RED_X_COOKIE,ck);
                 } catch (Exception e) {

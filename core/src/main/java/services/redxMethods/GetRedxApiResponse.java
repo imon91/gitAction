@@ -39,7 +39,7 @@ public class GetRedxApiResponse {
     {
 
         Response getParcelsListResponse = shopUpPostMan.getCall(url);
-        System.out.println(getParcelsListResponse.getBody().asString());
+//        System.out.println(getParcelsListResponse.getBody().asString());
         ParcelsListModel parcelsListModel = gson.fromJson(getParcelsListResponse.getBody().asString(),ParcelsListModel.class);
         return parcelsListModel;
     }
