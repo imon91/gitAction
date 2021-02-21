@@ -222,6 +222,7 @@ public class EditAddressPage extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 14)
     public void verifyAddNewAddressPageTitle(){
+        homePageObjects.clickFirstSuggestionInLocationList();
         homePageObjects.clickOnLocationNextButton();
         sleep(1000);
         Assert.assertEquals(pageTitleElement.getText(),"Add New Address");
