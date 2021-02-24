@@ -16,22 +16,28 @@ public class MyShopsPageObjects extends RedXWebBaseClass{
         myActions = new MyActions();
     }
 
+    private WebElement shop;
     private WebElement shop1;
     private WebElement shop2;
     private WebElement shop3;
-    private List<WebElement> shop;
+    private List<WebElement> shops;
     private List<WebElement> editShopIcon;
     private List<WebElement> deliveryZoneDropDownWhileEditShop;
     private List<WebElement> locationDropDownWhileEditShop;
     private WebElement saveButtonWhileEditShop;
 
-
+    public void clickShopByName(String name)
+    {
+        System.out.println("Changing Shop Name");
+        shop = xpathSetter("//div[@class='shoplist']/div/div//p[text()='" + name + "']/..");
+        myActions.action_click(shop);
+    }
 
     public void clickOnShop(int index)
     {
-        shop = driver.findElements(By.xpath("//div[@class='shoplist']//div[@class='ant-col ant-col-md-12 ant-col-lg-6 ant-col-xl-6']"));
+        shops = driver.findElements(By.xpath("//div[@class='shoplist']//div[@class='ant-col ant-col-md-12 ant-col-lg-6 ant-col-xl-6']"));
 
-        myActions.action_click(shop.get(++index));
+        myActions.action_click(shops.get(++index));
     }
 
     public void clickOnEditShopIcon(int index)
