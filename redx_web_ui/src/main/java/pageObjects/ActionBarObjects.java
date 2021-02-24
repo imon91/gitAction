@@ -35,6 +35,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
     private WebElement couponLink;
     private WebElement paymentsLink;
     private WebElement createParcelLink;
+    private WebElement shopName;
 
     private WebElement shopDropDownArrow;
     private WebElement myShopsDropDown;
@@ -129,6 +130,12 @@ public class ActionBarObjects extends RedXWebBaseClass{
         createParcelLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[5]");
         myActions.action_click(createParcelLink);
         sleep(2000);
+    }
+
+    public String getShopName()
+    {
+        shopName = xpathSetter("//div[@class='nav-links display-on-desktop']/a[6]/span");
+        return myActions.action_getText(shopName);
     }
 
     public void clickOnShopDropDownArrow()

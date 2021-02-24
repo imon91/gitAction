@@ -1,11 +1,11 @@
 package services.redxMethods;
 
 import com.google.gson.Gson;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import services.responseModels.redxModels.OverviewModel;
 import services.responseModels.redxModels.ParcelsListModel;
 import services.serviceUtils.ShopUpPostMan;
+
 
 public class GetRedxApiResponse {
     private ShopUpPostMan shopUpPostMan;
@@ -77,7 +77,7 @@ public class GetRedxApiResponse {
 
     public String parcelsListGetCallUrl(String ...params)
     {
-        /* Parameters Order : (String allParcelsListGetCall,String trackingId, String InvoiceId, String numberOrName, String dateFilterType, long since, long until) */
+        /* Parameters Order : (String allParcelsListGetCall,String trackingId, String InvoiceId, String numberOrName, String dateFilterType, long since, long until,long storeId) */
         int i;
         String parcelsListGetCallUrl = params[0];
         for(i=0;i<params.length;i++)
@@ -108,10 +108,31 @@ public class GetRedxApiResponse {
                     else
                         parcelsListGetCallUrl = parcelsListGetCallUrl.concat("&updatedUntil=" + params[i]);
                     break;
+                case 7:
+                    parcelsListGetCallUrl = parcelsListGetCallUrl.concat("&shopStoreId=" + params[i]);
             }
         }
         System.out.println("Parcels List Get Call URL : " + parcelsListGetCallUrl);
         return parcelsListGetCallUrl;
     }
+
+    public String parcelsListStatusFilterGetCallUrl(String url,String status)
+    {
+        String parcelsListGetCallUrl = url.concat("&status=");
+        String statusValue = status.toLowerCase();
+        statusValue = statusValue.replaceAll(" ","-");
+        parcelsListGetCallUrl = parcelsListGetCallUrl.concat(statusValue);
+        return parcelsListGetCallUrl;
+    }
+
+    public String parcelsListPaymentStatusFilterGetCallUrl(String url,String status)
+    {
+        String parcelsListGetCallUrl = url.concat("&paymentStatus=");
+        String statusValue = status.toLowerCase();
+        statusValue = statusValue.replaceAll(" ","-");
+        parcelsListGetCallUrl = parcelsListGetCallUrl.concat(statusValue);
+        return parcelsListGetCallUrl;
+    }
 }
+
 

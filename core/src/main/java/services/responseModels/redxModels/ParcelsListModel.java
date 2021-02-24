@@ -1,6 +1,9 @@
 package services.responseModels.redxModels;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ParcelsListModel {
@@ -127,6 +130,7 @@ public class ParcelsListModel {
              * meta : {"CUSTOMER_FLAGGED_TYPE":"normal"}
              * issues : []
              * AreaHub : {"ID":2,"AREA_ID":2,"HUB_ID":1,"Hub":{"ID":1,"HUB_NAME":"Kalabagan Hub"}}
+             * promoCodeDiscountAmount : 0
              * IS_BKASH_PREPAID : false
              * QR_CODE : data:image/gif;base64,R0lGODdhpACkAIAAAAAAAP///ywAAAAApACkAAAC/4yPqcvtD6OctNqLs968+w+G4kiW5omm6sq27gvH8kzX9o3n+s73/g8MCofEovGITCqXTAjgCY1Kp1QEVWqFUqLZ67QLAHvH2BH5XDacwVvtAe1WxwNwOKmOFlffc+ccz8aHN3Y3SCjoFSjBhbiGqGfIKCJZQelocaVIt+dA2fZUCHphSYaR+djYt+A5werhGkF6iMm5KSr39QDrdxuyq/tXOlorm9bw26n6GjxrG4aKa1yMfFyreekc+hx9Gn1NzGz8KQ7t3J1tFn5eDLmNzq0ca12OTW2qDt47Hd5+n6uw7987X/gEBnQHK5K7b70YJioH4iC7VPriKWQwEWBBaf/xOEjkRxGhxUgYQWqs2MzeMJQPvYXU1A6bw5Is13Xc8JGlx3wiBfrr2XJgxI0ZM9iseXMRUZMEkRpMKu+p04UrgR6lumxq0Z9Fz/2MyXRow1ZhQ8qkN1Iq1qhrd45VqnMVSblxT3J8y1bbV4hmhdmF+ZIv3LY4odIEehgQXcSLt5LF61bhXcYuKw/sylTyvKyaM3uue/mz1c7aOlMODRpz6qWGSpNGuzr2adWmCftIWBaencVNPuAGDbYZ4N57/wo2V+cw8Q6/TwcPOryH176QeVOfPI7XaOG+NyP3CUwrz+zht0PvDl43uWTi1ZJnb3465+byq7XH/tg26jzp0gv/Le8YfM/Rpl19kTU3ToD2xTfecc+5hpdK6kWn3HUEAujdgWnp14+D1ql3FYXXQRjUWXYpZpxlA+b23yTJjYjhbim2+F2JG6KAYo3UXPQhjTkieMKPfi2Y40yNDQmkDPVsSJuECdRXpIcmLBlhgxNWRd+QIk6JJJOiOdnhiVpKWQKVa4UYGC3+RalikDxdeKWa+LUpYJopXAVnjVyJ9p6eK+DJp50JBjpYmHe+SaifcuapnaFizWZlJZEaGON5LjTJYoFfGnYkd5duClx+mFYHn4ktjOqcqKBy2KmlNQDqqVGTZtgjmG6qZeqesjmpIAywuqorpP5VSGcMv1K66Kp9/9o6H1Q5nckij2KSuiCOtFpmqoLSPnlttbeux+19xPo417SszkhiozDOmKWM4YKrLpe7IjpvSpxi222uhdU7GapoFipoq8zmBZuN7lmYaa35jsmZQ7863CW1EFOrb7Ohmturwu5qu5G1B5caabw6zlrlVB7PSWTI5a0o27jIMqcyxgmz+yK+JZtHomks80fzzRW/e3JtrA3ispexjpvzayCWC/RxbHorr9BDP82xuyLr1WNkE5/7bpLkSrwvtGADbDO8lRZ988lIh711sGiLzXVxTTdc8MBQRntvU8KCe5DbBQc7sNx9a2w2yC1j2e2jbRNuN8lxr3sov283/jGNmv8Oy3bWlba7N+UGP043upsb3XneD5KJteiG8+245/+eeqOqa7ZuOuSB91e6yYhLXtWWkeeO8+7AC167i7zHKWnlL79NA6qOyj5876i/8PDfTjNtaNWg6z142dFtmz3eY5dJ797fY2+n9s2Xb2Sx4Kcv/vaXf/5s/TN3rbSi3EfcL/9mDqqZ51mMflMr4MVSFsCADbB6S8MV/wAoGQFKxzu8MiCwrKeEu43PfkfDYBI0yDUOXtB7SwDhsvLHvD9JDYLZil+ebpesBA6Gai5MFAyTVxsWMmw/ibFh8WQlNB3GSnsv/KHcTqi8jglvR7GLGvGSqLsYFu5r8svPE1HWPRz/vsxrqcNh+I6nxYWl7VunKxsDw8iv/6lQXHVjn/C2pkYVPAuOSpQiHe01Pq3ZbmgSnN8dP8eCOV6PYrQjpNXOhrsyUtGPbTQkz9hyw8nFzHLwiyICR4i/PFpxj2Nc3eJWtzwFwoyN7ktcq/54vgN2MY6Z3N7rWNm+3ymSc34z4yQzZjwGHTCU5kLlIFPlROmRcJitZOUZA/nDIu6SaVnkpd6uGEvOGdONn9IkMRmFMCj2z5qjzOEvd+a7aMYvaa35ZjaBCTUemjOXOlvnyConMmwWS0MyXOQ5w+lB9S1nn/zspz//CdCACnSgBC2oQQ+K0IQqdKEMbahDHwrRiEp0CKIUrahFQ1AAADs=
              */
@@ -171,6 +175,7 @@ public class ParcelsListModel {
             private boolean IS_REVERSE_DELIVERY;
             private MetaBean meta;
             private AreaHubBean AreaHub;
+            private int promoCodeDiscountAmount;
             private boolean IS_BKASH_PREPAID;
             private String QR_CODE;
             private List<?> issues;
@@ -328,6 +333,16 @@ public class ParcelsListModel {
             }
 
             public String getCREATED_AT() {
+                System.out.println("Value in API : " + CREATED_AT);
+                CREATED_AT = CREATED_AT.replace(".000Z"," +0000");
+                SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss Z");
+                SimpleDateFormat formatter2=new SimpleDateFormat("MMM dd, yyyy");
+                try {
+                    Date date = formatter1.parse(CREATED_AT);
+                    CREATED_AT = formatter2.format(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return CREATED_AT;
             }
 
@@ -336,6 +351,16 @@ public class ParcelsListModel {
             }
 
             public String getUPDATED_AT() {
+                System.out.println("Value in API : " + UPDATED_AT);
+                UPDATED_AT = UPDATED_AT.replace(".000Z"," +0000");
+                SimpleDateFormat formatter1=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss Z");
+                SimpleDateFormat formatter2=new SimpleDateFormat("MMM dd, yyyy");
+                try {
+                    Date date = formatter1.parse(UPDATED_AT);
+                    UPDATED_AT = formatter2.format(date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 return UPDATED_AT;
             }
 
@@ -493,6 +518,14 @@ public class ParcelsListModel {
 
             public void setAreaHub(AreaHubBean AreaHub) {
                 this.AreaHub = AreaHub;
+            }
+
+            public int getPromoCodeDiscountAmount() {
+                return promoCodeDiscountAmount;
+            }
+
+            public void setPromoCodeDiscountAmount(int promoCodeDiscountAmount) {
+                this.promoCodeDiscountAmount = promoCodeDiscountAmount;
             }
 
             public boolean isIS_BKASH_PREPAID() {

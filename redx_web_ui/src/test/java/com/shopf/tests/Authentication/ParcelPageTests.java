@@ -9,6 +9,7 @@ import services.redxMethods.GetRedxApiResponse;
 import services.responseModels.redxModels.ParcelsListModel;
 import utils.RedXWebBaseClass;
 
+import java.util.Random;
 import java.util.Set;
 
 public class ParcelPageTests extends RedXWebBaseClass {
@@ -33,6 +34,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     private String cookie;
     private String parentWindow;
     private String parcelsListGetCallUrl;
+    private Random random;
     private int index;
 
     @BeforeSuite(alwaysRun = true)
@@ -63,14 +65,17 @@ public class ParcelPageTests extends RedXWebBaseClass {
         exchangeParcelPageObjects = parcelPageObjects.new ExchangeParcelPageObjects();
         deleteParcelPageObjects = parcelPageObjects.new DeleteParcelPageObjects();
         raiseIssuePageObjects = parcelPageObjects.new RaiseIssuePageObjects();
-
+        random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
         System.out.println("Verify Authentication with valid credentials was called");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
 
-        parcelsListGetCallUrl = getRedxApiResponse.allParcelsListGetCallUrl(532439,1,20,0,0);
+        long shopId = 532439;
+        int page = 1 ,limit = 20 ,offset = 0 ,sort=0;
+
+        parcelsListGetCallUrl = getRedxApiResponse.allParcelsListGetCallUrl(shopId,page,limit,offset,sort);
         allParcelsListModel = getRedxApiResponse.parcelsListModel(parcelsListGetCallUrl);
         actionBarObjects.clickParcelsLink();
         index = parcelPageObjects.getRandomParcelIndex();
@@ -87,13 +92,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
             priority = 1 )
     public void verifyAllPickupLocationFilterFunctionality()
     {
-        String pickupLocation = "Dhanmondi";
         System.out.println("Verifying All Pickup Location Filter Functionality");
-        System.out.println("Pickup Location : " + pickupLocation);
-        searchByPageObjects.choosePickupLocation(pickupLocation);
+        String storeId = searchByPageObjects.choosePickupLocation();
+        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","","","","","",storeId);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
 
         int uiValue = parcelPageObjects.getTotalParcelsCount();
-        int apiValue = allParcelsListModel.getBody().getCount();
+        int apiValue = parcelsListModel.getBody().getCount();
         System.out.println("Parcels Count in UI : " + uiValue);
         System.out.println("Parcels Count in API : " + apiValue);
         searchByPageObjects.clickClearSearchButton();
@@ -106,10 +111,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyTrackingIdFilterFunctionality()
     {
         String trackingId = "21A211TH3K5MG";
-        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,trackingId);
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         System.out.println("Verifying Tracking Id Filter Functionality");
         System.out.println("Tracking Id : " + trackingId);
+
+        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,trackingId);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         searchByPageObjects.enterTrackingIdFilter(trackingId);
 
         int uiValue = parcelPageObjects.getTotalParcelsCount();
@@ -126,11 +132,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyShopInvoiceIdFilterFunctionality()
     {
         String invoiceId = "123124";
-        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"",invoiceId);
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         System.out.println("Verifying Shop Invoice Id Filter Functionality");
         System.out.println("Invoice Id : " + invoiceId);
+
+        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"",invoiceId);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         searchByPageObjects.enterShopInvoiceIdFilter(invoiceId);
+
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue = parcelsListModel.getBody().getCount();
         System.out.println("Parcels Count in UI : " + uiValue);
@@ -145,11 +153,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyPhoneNumberFilterFunctionality()
     {
         String phoneNumber = "8801401122188";
-        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","",phoneNumber);
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         System.out.println("Verifying Phone Number Filter Functionality");
         System.out.println("Phone Number : " + phoneNumber);
+
+        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","",phoneNumber);
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         searchByPageObjects.enterPhoneNumberFilter(phoneNumber);
+
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue = parcelsListModel.getBody().getCount();
         System.out.println("Parcels Count in UI : " + uiValue);
@@ -164,10 +174,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyCustomerNameFilterFunctionality()
     {
         String customerName = "Parcel Sanity Test";
+        System.out.println("Verifying Customer Name Filter Functionality");
+        System.out.println("Customer Name : " + customerName);
+
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","",customerName);
         ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
-        System.out.println("Verifying Customer Name Filter Functionality");
         searchByPageObjects.enterCustomerNameFilter(customerName);
+
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue = parcelsListModel.getBody().getCount();
         System.out.println("Parcels Count in UI : " + uiValue);
@@ -185,9 +198,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String filterIndex = "CREATED_AT";
         long since = searchByPageObjects.enterDateFromFilter(01,"Jan",2021);
         long until = searchByPageObjects.enterDateToFilter(01,"Feb",2021);
+
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","","",filterIndex,Long.toString(since),Long.toString(until));
         ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         searchByPageObjects.chooseDateFilterTypeDropDown(filterIndex);
+
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue = parcelsListModel.getBody().getCount();
         System.out.println("Parcels Count in UI : " + uiValue);
@@ -205,9 +220,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String filterIndex = "UPDATED_AT";
         long since = searchByPageObjects.enterDateFromFilter(01,"Jan",2021);
         long until = searchByPageObjects.enterDateToFilter(01,"Feb",2021);
+
         String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","","",filterIndex,Long.toString(since),Long.toString(until));
         ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
         searchByPageObjects.chooseDateFilterTypeDropDown(filterIndex);
+
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue = parcelsListModel.getBody().getCount();
         System.out.println("Parcels Count in UI : " + uiValue);
@@ -243,7 +260,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
             priority = 10 )
     public void verifyDownloadParcelHistoryCancelButtonFunctionality()
     {
-        System.out.println("Verifying Download Parcel History Button Functionality");
+        System.out.println("Verifying Download Parcel History Cancel Button Functionality");
         downloadParcelHistoryPageObjects.clickCancelButton();
         //Assert
     }
@@ -257,7 +274,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         driver.get("https://redx.shopups1.xyz/parcel-list/");
         setImplicitWait(10000);
         downloadParcelHistoryPageObjects.clickDownloadParcelHistory();
-        downloadParcelHistoryPageObjects.downloadParcelHistory(1,"Jan",2021,1,"Feb",2021,2,"Unsettled","Delivered");
+        downloadParcelHistoryPageObjects.downloadParcelHistory(1,"Jan",2021,1,"Feb",2021, random.nextInt(2)+1, random.nextInt(2),random.nextInt(10));
         //Assert
     }
 
@@ -302,14 +319,17 @@ public class ParcelPageTests extends RedXWebBaseClass {
         parcelPageObjects.clickPrintLabelsButton();
         sleep(2000);
         Set<String> handles = driver.getWindowHandles();
+        int size = handles.size();
+        System.out.println("Handles : " + size);
         for(String tab : handles)
         {
             if(!tab.equals(parentWindow))
             {
                 driver.switchTo().window(parentWindow);
+                parcelsListPageObjects.clickUnSelectParcelCheckbox( selectedParcels[0]);
             }
         }
-        parcelsListPageObjects.clickUnSelectParcelCheckbox( selectedParcels[0]);
+        Assert.assertEquals(size,2);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -318,8 +338,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyPaginationPagesFunctionality()
     {
         System.out.println("Verifying Pagination Pages Functionality");
-        int page[] = parcelPageObjects.clickPageIcon();
-        Assert.assertEquals(page[1],page[0]);
+        if(parcelPageObjects.getTotalParcelsCount()>20)
+        {
+            int page[] = parcelPageObjects.clickPageIcon();
+            Assert.assertEquals(page[1],page[0]);
+        } else System.out.println("Pagination Not Found");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -328,9 +351,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyPaginationNextPageFunctionality()
     {
         System.out.println("Verifying Pagination Next Page Functionality");
-        parcelPageObjects.clickNextPageIcon();
-        Assert.assertEquals(parcelPageObjects.getActivePage(),2);
-        sleep(2000);
+        if(parcelPageObjects.getTotalParcelsCount()>20)
+        {
+            System.out.println("Active Page : " + parcelPageObjects.getActivePage());
+            parcelPageObjects.clickNextPageIcon();
+            System.out.println("Current Active Page : " + parcelPageObjects.getActivePage());
+            Assert.assertEquals(parcelPageObjects.getActivePage(), 2);
+        } else System.out.println("Pagination Not Found");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -339,9 +366,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyPaginationPreviousPageFunctionality()
     {
         System.out.println("Verifying Pagination Previous Page Functionality");
-        parcelPageObjects.clickPreviousPageIcon();
-        Assert.assertEquals(parcelPageObjects.getActivePage(),1);
-        sleep(2000);
+        if(parcelPageObjects.getTotalParcelsCount()>20)
+        {
+            System.out.println("Active Page : " + parcelPageObjects.getActivePage());
+            parcelPageObjects.clickPreviousPageIcon();
+            System.out.println("Current Active Page : " + parcelPageObjects.getActivePage());
+            Assert.assertEquals(parcelPageObjects.getActivePage(),1);
+        } else System.out.println("Pagination Not Found");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -351,9 +382,10 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Creation Date Value");
         String uiValue = parcelsListPageObjects.getCreationDateValue(index);
-        String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getCREATED_AT();
+        String assertValue = allParcelsListModel.getBody().getParcels().get(index-1).getCREATED_AT();
         System.out.println("Value in UI : " + uiValue);
-        System.out.println("Value in API : " + apiValue);
+        System.out.println("Assert : " + assertValue);
+        Assert.assertEquals(uiValue,assertValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -363,9 +395,12 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Pickup Name Value");
         String uiValue = parcelsListPageObjects.getPickupNameValue(index);
-        String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getAREA();
+        String storeId = String.valueOf(parcelPageObjects.getStoreId(uiValue));
+        String apiValue = String.valueOf(allParcelsListModel.getBody().getParcels().get(index-1).getSHOP_STORE_ID());
         System.out.println("Value in UI : " + uiValue);
+        System.out.println("Store Id : " + storeId);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(storeId,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -381,7 +416,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
         actionBarObjects.clickParcelsLink();
-//        Assert.assertEquals(url,assertUrl);
+        Assert.assertEquals(url,assertUrl);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -394,6 +429,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getID();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -402,10 +438,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyInvoiceIdValue()
     {
         System.out.println("Verifying Invoice Id Value");
-        String uiValue = parcelsListPageObjects.getInvoiceId(index);
+        String uiValue = parcelsListPageObjects.getInvoiceId(index,2);
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getINVOICE_NUMBER();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -415,9 +452,10 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Shop Value");
         String uiValue = parcelsListPageObjects.getShopNameValue(index);
-        String apiValue = String.valueOf(allParcelsListModel.getBody().getParcels().get(index-1).getSHOP_STORE_ID());
+        String assertValue = actionBarObjects.getShopName();
         System.out.println("Value in UI : " + uiValue);
-        System.out.println("Value in API : " + apiValue);
+        System.out.println("Value in API : " + assertValue);
+        Assert.assertEquals(uiValue.toLowerCase(),assertValue.toLowerCase());
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -430,6 +468,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getCUSTOMER_NAME();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -442,6 +481,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getCUSTOMER_PHONE();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -454,6 +494,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getDELIVERY_ADDRESS();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -466,6 +507,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getAREA();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -474,10 +516,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyStatusValue()
     {
         System.out.println("Verifying Status Value");
-        String uiValue = parcelsListPageObjects.getStatusValue(index);
-        String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getSTATUS();
+        String uiValue = parcelsListPageObjects.getLowerCaseStatusValue(index);
+        String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getSELLER_STATUS();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(apiValue.contains(uiValue),true);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -490,6 +533,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = String.valueOf(allParcelsListModel.getBody().getParcels().get(index-1).getCASH());
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -502,6 +546,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = String.valueOf(allParcelsListModel.getBody().getParcels().get(index-1).getSHOPUP_CHARGE());
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -511,9 +556,12 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Payment Status Value");
         String uiValue = parcelsListPageObjects.getPaymentStatusValue(index);
-        String apiValue = String.valueOf(allParcelsListModel.getBody().getParcels().get(index-1).getIS_SETTLED());
+        Boolean apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getIS_SETTLED();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        if(apiValue)
+            Assert.assertEquals(uiValue,"Settled");
+        else Assert.assertEquals(uiValue,"Unsettled");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -523,9 +571,10 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Promocode Discount Value");
         String uiValue = parcelsListPageObjects.getPromoCodeDiscountValue(index);
-        String apiValue = null;
+        String apiValue = String.valueOf(allParcelsListModel.getBody().getParcels().get(index-1).getPromoCodeDiscountAmount());
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -534,10 +583,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyParcelDeliveryTypeValue()
     {
         System.out.println("Verifying Parcel Delivery Type Value");
-        String uiValue = parcelsListPageObjects.getMoreInfoValue(index);
+        String uiValue = parcelsListPageObjects.getParcelDeliveryTypeValue(index,1);
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getPARCEL_DELIVERY_TYPE();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -550,6 +600,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getPARCEL_TYPE();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -559,24 +610,26 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Last Updated Value");
         String uiValue = parcelsListPageObjects.getLastUpdatedValue(index);
-        String apiValue = allParcelsListModel.getBody().getParcels().get(index-1).getUPDATED_AT();
+        String assertValue = allParcelsListModel.getBody().getParcels().get(index-1).getUPDATED_AT();
         System.out.println("Value in UI : " + uiValue);
-        System.out.println("Value in API : " + apiValue);
+        System.out.println("Assert : " + assertValue);
+        Assert.assertEquals(uiValue,assertValue);
     }
-/*
+
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Status Filter Functionality",
             priority = 36)
     public void verifyStatusFilterFunctionality()
     {
         System.out.println("Verifying Status Filter Functionality");
-        String status = "Deleted";
+        String status = parcelPageObjects.getRandomValue("Parcel Status");
         statusFilterPageObjects.filterByStatus(status);
-        String uiValue = String.valueOf(parcelPageObjects.getTotalParcelsCount());
-        String apiValue = "";
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(getRedxApiResponse.parcelsListStatusFilterGetCallUrl(parcelsListGetCallUrl,status));
+        int uiValue = parcelPageObjects.getTotalParcelsCount();
+        int apiValue = parcelsListModel.getBody().getCount();
         System.out.println("Parcels with " + status + " status in UI : " + uiValue);
         System.out.println("Parcels with " + status + " status in API : " + apiValue);
-//        Assert.assertEquals(uiValue,apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -585,13 +638,15 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyStatusFilterResetFunctionality()
     {
         System.out.println("Verifying Status Filter Reset Functionality");
+        statusFilterPageObjects.clickStatusFilterDropDown();
         statusFilterPageObjects.clickResetButton();
-        String uiValue = String.valueOf(parcelPageObjects.getTotalParcelsCount());
-        String apiValue = "";
+        int uiValue = parcelPageObjects.getTotalParcelsCount();
+        int apiValue = getRedxApiResponse.parcelsListModel(parcelsListGetCallUrl).getBody().getCount();
         System.out.println("Parcels in UI : " + uiValue);
         System.out.println("Parcels in API : " + apiValue);
-//        Assert.assertEquals(uiValue,apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
+
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Status Filter Functionality",
@@ -599,13 +654,15 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyPaymentStatusFilterFunctionality()
     {
         System.out.println("Verifying Payment Status Filter Functionality");
-        String paymentStatus = "Settled";
+        paymentStatusFilterPageObjects.scrollRight();
+        String paymentStatus = parcelPageObjects.getRandomValue("Payment Status");
         paymentStatusFilterPageObjects.filterByStatus(paymentStatus);
-        String uiValue = String.valueOf(parcelPageObjects.getTotalParcelsCount());
-        String apiValue = "";
+        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(getRedxApiResponse.parcelsListPaymentStatusFilterGetCallUrl(parcelsListGetCallUrl,paymentStatus));;
+        int uiValue = parcelPageObjects.getTotalParcelsCount();
+        int apiValue =parcelsListModel.getBody().getCount();
         System.out.println("Parcels with " + paymentStatus + " status in UI : " + uiValue);
         System.out.println("Parcels with " + paymentStatus + " status in API : " + apiValue);
-//        Assert.assertEquals(uiValue,apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -614,128 +671,210 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyPaymentStatusFilterResetFunctionality()
     {
         System.out.println("Verifying Payment Status Filter Reset Functionality");
+        paymentStatusFilterPageObjects.scrollRight();
+        paymentStatusFilterPageObjects.clickPaymentStatusFilterDropDown();
         paymentStatusFilterPageObjects.clickResetButton();
-        String uiValue = String.valueOf(parcelPageObjects.getTotalParcelsCount());
-        String apiValue = "";
+        int uiValue = parcelPageObjects.getTotalParcelsCount();
+        int apiValue = getRedxApiResponse.parcelsListModel(parcelsListGetCallUrl).getBody().getCount();
         System.out.println("Parcels in UI : " + uiValue);
         System.out.println("Parcels in API : " + apiValue);
-//        Assert.assertEquals(uiValue,apiValue);
+        Assert.assertEquals(uiValue,apiValue);
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Edit Button Functionality",
-            priority = 40)
-    public void verifyEditButtonFunctionality()
-    {
-        System.out.println("Verifying Edit Button Functionality");
-        editParcelPageObjects.clickEditButton(parcelPageObjects.getRandomParcelIndex());
-        String modalTitle = editParcelPageObjects.getModalTitle();
-        System.out.println("Modal Title : " + modalTitle);
-        editParcelPageObjects.clickCloseButton();
-        Assert.assertEquals(modalTitle,"Edit Parcel");
-    }
+               description = "Verify Edit Button Functionality",
+               priority = 40)
+       public void verifyEditButtonFunctionality()
+       {
+           System.out.println("Verifying Edit Button Functionality");
+           sleep(10000);
+           statusFilterPageObjects.filterByStatus("Pickup Pending");
+           if(parcelPageObjects.getTotalParcelsCount()!=0)
+           {
+               editParcelPageObjects.clickEditButton(parcelPageObjects.getRandomParcelIndex());
+               String modalTitle = editParcelPageObjects.getModalTitle();
+               System.out.println("Modal Title : " + modalTitle);
+               editParcelPageObjects.clickCloseButton();
+               Assert.assertEquals(modalTitle,"Edit Parcel");
+           } else System.out.println("No Parcels Found to perform Action");
+       }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Edit Cancel Button in Edit Functionality",
-            priority = 41)
-    public void verifyCancelButtonEditFunctionality()
-    {
-        System.out.println("Verifying Cancel Button in Edit Functionality");
-        editParcelPageObjects.clickEditButton(parcelPageObjects.getRandomParcelIndex());
-        editParcelPageObjects.enterInstructions("Verifying Cancel Button");
-        editParcelPageObjects.clickCancelButton();
-    }
+               description = "Verify Edit Cancel Button in Edit Functionality",
+               priority = 41)
+       public void verifyCancelButtonEditFunctionality()
+       {
+           System.out.println("Verifying Cancel Button in Edit Functionality");
+           if(parcelPageObjects.getTotalParcelsCount()!=0)
+           {
+               editParcelPageObjects.clickEditButton(parcelPageObjects.getRandomParcelIndex());
+               editParcelPageObjects.enterInstructions("Verifying Cancel Button");
+               editParcelPageObjects.clickCancelButton();
+           } else System.out.println("No Parcels Found to perform Action");
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Edit Functionality",
-            priority = 42)
-    public void verifyEditFunctionality()
-    {
-        System.out.println("Verifying Edit Functionality");
-        int index = parcelPageObjects.getRandomParcelIndex();
-        System.out.println("Index : " + index);
-        editParcelPageObjects.clickEditButton(index);
-        editParcelPageObjects.editParcel("Edit Name");
-        Assert.assertEquals(editParcelPageObjects.getToastMsg(),"Parcel has been edited successfully");
-    }
+       }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Exchange Button Functionality",
-            priority = 43)
-    public void verifyExchangeButtonFunctionality()
-    {
-        System.out.println("Verifying Exchange Button Functionality");
-        exchangeParcelPageObjects.clickExchangeButton(parcelPageObjects.getRandomParcelIndex());
-        String modalTitle = exchangeParcelPageObjects.getModalTitle();
-        System.out.println("Modal Title : " + modalTitle);
-        exchangeParcelPageObjects.clickCloseButton();
-    }
-
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Exchange Functionality",
-            priority = 44)
-    public void verifyExchangeCancelButtonFunctionality()
-    {
-        System.out.println("Verifying Exchange Functionality");
-        exchangeParcelPageObjects.clickExchangeButton(parcelPageObjects.getRandomParcelIndex());
-        exchangeParcelPageObjects.enterAmount("5000");
-        exchangeParcelPageObjects.clickCancelButton();
-    }
-
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Exchange Functionality",
-            priority = 45)
-    public void verifyExchangeFunctionality()
-    {
-        System.out.println("Verifying Exchange Functionality");
-        int index = parcelPageObjects.getRandomParcelIndex();
-        String  amount = parcelsListPageObjects.getPaymentInfoValue(index,1);
-        System.out.println("Index : " + index);
-        System.out.println("Amount : " + amount);
-        exchangeParcelPageObjects.clickExchangeButton(index);
-        exchangeParcelPageObjects.exchangeParcel("5000");
-        System.out.println(parcelsListPageObjects.getMoreInfoValue(index));
-    }
+      @Test(  groups = {CoreConstants.GROUP_SANITY},
+               description = "Verify Edit Functionality",
+               priority = 42)
+       public void verifyEditFunctionality()
+       {
+           System.out.println("Verifying Edit Functionality");
+           if(parcelPageObjects.getTotalParcelsCount()!=0)
+           {
+               int index = parcelPageObjects.getRandomParcelIndex();
+               System.out.println("Index : " + index);
+               editParcelPageObjects.clickEditButton(index);
+               editParcelPageObjects.editParcel("Edit Name Test");
+               String toastMsg = editParcelPageObjects.getToastMsg();
+               parcelPageObjects.clickResetButton();
+               Assert.assertEquals(toastMsg,"Parcel has been edited successfully");
+           } else System.out.println("No Parcels Found to perform Action");
+       }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Delete Button Functionality",
-            priority = 46)
+            priority = 43)
     public void verifyDeleteButtonFunctionality()
     {
         System.out.println("Verifying Delete Button Functionality");
-        deleteParcelPageObjects.clickDeleteButton(parcelPageObjects.getRandomParcelIndex());
-        Assert.assertEquals(deleteParcelPageObjects.getPopoverMessageTitle(),"Are you sure?");
+        statusFilterPageObjects.filterByStatus("Pickup Pending");
+        if(parcelPageObjects.getTotalParcelsCount()!=0)
+        {
+            int index = parcelPageObjects.getRandomParcelIndex();
+            System.out.println("Index : " + index);
+            deleteParcelPageObjects.clickDeleteButton(index);
+            Assert.assertEquals(deleteParcelPageObjects.getPopoverMessageTitle(),"Are you sure?");
+        } else System.out.println("No Parcels Found to perform Action");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify No Delete Button Functionality",
-            priority = 47)
+            priority = 44)
     public void verifyNoDeleteFunctionality()
     {
         System.out.println("Verifying No Delete Button Functionality");
-        deleteParcelPageObjects.clickNoButton();
+        if(parcelPageObjects.getTotalParcelsCount()!=0)
+        {
+            deleteParcelPageObjects.clickNoButton();
+        } else System.out.println("No Parcels Found to perform Action");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Delete Functionality",
-            priority = 48)
+            priority = 45)
     public void verifyDeleteFunctionality()
     {
         System.out.println("Verifying Delete Functionality");
-        deleteParcelPageObjects.clickDeleteButton(parcelPageObjects.getRandomParcelIndex());
-        deleteParcelPageObjects.clickYesButton();
+        if(parcelPageObjects.getTotalParcelsCount()!=0)
+        {
+            int total = parcelPageObjects.getTotalParcelsCount();
+            int index = parcelPageObjects.getRandomParcelIndex();
+            System.out.println("Parcel Id : " + parcelsListPageObjects.getParcelIdButton(index));
+            deleteParcelPageObjects.clickDeleteButton(index);
+            deleteParcelPageObjects.clickYesButton();
+            parcelPageObjects.clickResetButton();
+            statusFilterPageObjects.filterByStatus("Pickup Pending");
+            int parcels = parcelPageObjects.getTotalParcelsCount();
+            parcelPageObjects.clickResetButton();
+            Assert.assertEquals(parcels,total-1);
+        } else System.out.println("No Parcels Found to perform Action");
+    }
+/*
+       @Test(  groups = {CoreConstants.GROUP_SANITY},
+               description = "Verify Exchange Button Functionality",
+               priority = 46)
+       public void verifyExchangeButtonFunctionality()
+       {
+           System.out.println("Verifying Exchange Button Functionality");
+           statusFilterPageObjects.filterByStatus("Delivered");
+           String parcels = exchangeParcelPageObjects.clickExchangeButton();
+           if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
+           {
+               String modalTitle = exchangeParcelPageObjects.getModalTitle();
+               System.out.println("Modal Title : " + modalTitle);
+               exchangeParcelPageObjects.clickCloseButton();
+               Assert.assertEquals(modalTitle,"Exchange Parcel");
+           }
+           System.out.println(parcels);
+       }
+
+       @Test(  groups = {CoreConstants.GROUP_SANITY},
+               description = "Verify Exchange Cancel Button Functionality",
+               priority = 47)
+       public void verifyExchangeCancelButtonFunctionality()
+       {
+           System.out.println("Verifying Exchange Cancel Button Functionality");
+           String parcels = exchangeParcelPageObjects.clickExchangeButton();
+           if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
+           {
+               exchangeParcelPageObjects.enterAmount("3000");
+               exchangeParcelPageObjects.clickCancelButton();
+           }
+           System.out.println(parcels);
+       }
+
+       @Test(  groups = {CoreConstants.GROUP_SANITY},
+               description = "Verify Exchange Functionality",
+               priority = 48)
+       public void verifyExchangeFunctionality()
+       {
+           System.out.println("Verifying Exchange Functionality");
+           String parcels = exchangeParcelPageObjects.clickExchangeButton();
+           if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
+           {
+               exchangeParcelPageObjects.exchangeParcel("5000");
+               System.out.println("Toast : " + exchangeParcelPageObjects.getToastMsg());
+               Assert.assertEquals(exchangeParcelPageObjects.getToastMsg(),"Exchange parcel created successfully");
+           }
+           System.out.println(parcels);
+       }
+
+       @Test(  groups = {CoreConstants.GROUP_SANITY},
+               description = "Verify Raise Issue Button Functionality",
+               priority = 49)
+       public void verifyRaiseIssueButtonFunctionality()
+       {
+           System.out.println("Verifying Raise Issue Button Functionality");
+           driver.get("https://redx.shopups1.xyz/parcel-list/");
+           raiseIssuePageObjects.clickRaiseIssueButton();
+           String modalTitle = raiseIssuePageObjects.getModalTitle();
+           String assertValue = "Issue creation for " + raiseIssuePageObjects.getParcelId();
+           System.out.println("Modal Title : " + modalTitle);
+           raiseIssuePageObjects.clickCloseIcon();
+           Assert.assertEquals(modalTitle,assertValue);
+       }
+
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Raise Issue Back Button Functionality",
+            priority = 50)
+    public void verifyRaiseIssueBackButtonFunctionality()
+    {
+        System.out.println("Verifying Raise Issue Back Button Functionality");
+        raiseIssuePageObjects.clickRaiseIssueButton();
+        raiseIssuePageObjects.clickIssueType();
+        raiseIssuePageObjects.clickBackButton();
+        String title = raiseIssuePageObjects.getTitleWrapper();
+        raiseIssuePageObjects.clickCloseIcon();
+        Assert.assertEquals(title,"Please select an issue type");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Raise Issue Functionality",
-            priority = 50)
+            priority = 51)
     public void verifyRaiseIssueFunctionality()
     {
         System.out.println("Verifying Raise Issue Functionality");
-        raiseIssuePageObjects.clickRaiseIssueButton(parcelPageObjects.getRandomParcelIndex());
+        raiseIssuePageObjects.clickRaiseIssueButton();
+        String assertValue = raiseIssuePageObjects.raiseIssue();
+        if(assertValue.equalsIgnoreCase("Issue created Successfully"))
+            {
+                Assert.assertEquals(assertValue,"Issue created Successfully");
+                raiseIssuePageObjects.clickCloseButton();
+            }
+            else raiseIssuePageObjects.clickCloseIcon();
     }
 */
-
     @AfterClass(alwaysRun = true)
     public void parcelsPageTestsAfterClass(){
         System.out.println("Parcels Page Tests After Class");
@@ -748,4 +887,6 @@ public class ParcelPageTests extends RedXWebBaseClass {
         driver.quit();
     }
 }
+
+
 
