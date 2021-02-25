@@ -11,12 +11,14 @@ public class ActionBarObjects extends RedXWebBaseClass{
     private WebDriver driver;
     private MyActions myActions;
     private HomePageObjects homePageObjects;
+    private MyShopsPageObjects myShopsPageObjects;
 
     public ActionBarObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
         homePageObjects = new HomePageObjects(driver);
+        myShopsPageObjects = new MyShopsPageObjects(driver);
     }
 
 
@@ -135,7 +137,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
     public String getShopName()
     {
         shopName = xpathSetter("//div[@class='nav-links display-on-desktop']/a[6]/span");
-        return myActions.action_getText(shopName);
+        return myActions.action_getText(shopName).toLowerCase();
     }
 
     public void clickOnShopDropDownArrow()
@@ -230,6 +232,20 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     /*----------Functions----------*/
 
+    public void changeShop(String name)
+    {
+        if(getShopName().equalsIgnoreCase(name))
+            System.out.println("Given shop is Current Shop");
+        else
+        {
+            clickOnDropDownMyShopButton();
+            myShopsPageObjects.clickShopByName(name);
+            sleep(2000);
+            driver.get("https://redx.shopups1.xyz/dashboard/");
+            setImplicitWait(10000);
+            System.out.println("Current Shop : " + getShopName());
+        }
+    }
 
     public void chooseSearchFilter(int index)
     {

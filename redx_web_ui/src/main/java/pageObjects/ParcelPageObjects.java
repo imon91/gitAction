@@ -104,8 +104,12 @@ public class ParcelPageObjects extends RedXWebBaseClass{
     public int[] clickPageIcon()
     {
         int page[] = new int[2];
-        int pages = getLastPage();
-        page[0] = random.nextInt(pages);
+        int pages;
+        if((getTotalParcelsCount()%20)==0)
+            pages = getTotalParcelsCount()/20;
+        else pages = getTotalParcelsCount()/20 + 1;
+        System.out.println("Total Pages : " + pages);
+        page[0] = random.nextInt(pages)+1;
         clickPageIcon(page[0],pages);
         page[1] = getActivePage();
         System.out.println("Active Page : " + page[1]);
@@ -285,7 +289,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         switch (shopName)
         {
             case "Dhanmondi":
-                return 15295;
+                return 64285;
             case "CWH":
                 return 64286;
             default: return 0;
@@ -874,7 +878,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
                 element.click();
             } catch (Exception e)
             {
-                System.out.println(e);
+                System.out.println("Exception");
             }
 //            JavascriptExecutor js = (JavascriptExecutor) driver;
 //            js.executeScript("arguments[0].scrollIntoView",element);
@@ -1066,28 +1070,15 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String clickExchangeButton()
         {
-            int size = 0;
-            try {
-                new WebDriverWait(getBaseDriver(),2)
-                        .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-table-fixed-right']//tbody/tr//button[not(@disabled)]//span[contains(text(),'Exchange')]/..")));
-                System.out.println("Try");
-                elements = getBaseDriver().findElements(By.xpath("//div[@class='ant-table-fixed-right']//tbody/tr//button[not(@disabled)]//span[contains(text(),'Exchange')]/.."));
-                size = elements.size();
-                System.out.println("Size : " + size);
+            elements = xpathListSetter("//div[@class='ant-table-fixed-right']//tbody/tr//button[not(@disabled)]//span[contains(text(),'Exchange')]/..");
+            int size = elements.size();
+            System.out.println("Size : " + size);
+            if(size!=0)
+            {
                 myActions.action_click(elements.get(random.nextInt(size)));
-            }catch (Exception e) {
-                System.out.println("Catch");
-                System.out.println("Size : " + size);
-                System.out.println(e);
+                return "Parcels Found : " + size;
             }
-            (new StatusFilterPageObjects()).clickResetButton();
-//            if(size!=0)
-//            {
-//                myActions.action_click(elements.get(random.nextInt(size)));
-//                return "Parcels Found : " + size;
-//            }
-//            else
-            return "No Parcels Found to perform Action";
+            else return "No Parcels Found to perform Action";
         }
 
         public void clickExchangeButton(int index)
@@ -1171,7 +1162,8 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             System.out.println("Customer Phone : " + getCustomerPhoneValue());
             System.out.println("Amount : " + amount);
             enterAmount(amount);
-            clickCreateParcelButton();
+//            clickCreateParcelButton();
+            clickCancelButton();
         }
     }
 
