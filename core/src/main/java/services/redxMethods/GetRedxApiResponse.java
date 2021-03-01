@@ -2,8 +2,7 @@ package services.redxMethods;
 
 import com.google.gson.Gson;
 import io.restassured.response.Response;
-import services.responseModels.redxModels.OverviewModel;
-import services.responseModels.redxModels.ParcelsListModel;
+import services.responseModels.redxModels.*;
 import services.serviceUtils.ShopUpPostMan;
 
 
@@ -17,6 +16,30 @@ public class GetRedxApiResponse {
         this.module = module;
         shopUpPostMan = new ShopUpPostMan(module);
         gson = new Gson();
+    }
+
+    public ShopListModel shopListGetCall()
+    {
+        String shopListGetCall = "shop?isRedX=true";
+        Response getShopListResponse = shopUpPostMan.getCall(shopListGetCall);
+        ShopListModel shopListModel = gson.fromJson(getShopListResponse.getBody().asString(),ShopListModel.class);
+        return shopListModel;
+    }
+
+    public ShopInfoModel shopInfoGetCall(int shopId)
+    {
+        String shopInfoGetCall = "logistics/shop-stores/" + shopId + "?status=active";
+        Response getShopInfoResponse = shopUpPostMan.getCall(shopInfoGetCall);
+        ShopInfoModel shopInfoModel = gson.fromJson(getShopInfoResponse.getBody().asString(),ShopInfoModel.class);
+        return shopInfoModel;
+    }
+
+    public AreaTreeModel areaTreeGetCall()
+    {
+        String areaTreeGetCall = "logistics/address-mapping/area-tree";
+        Response getAreaListResponse = shopUpPostMan.getCall(areaTreeGetCall);
+        AreaTreeModel areaTreeModel = gson.fromJson(getAreaListResponse.getBody().asString(),AreaTreeModel.class);
+        return areaTreeModel;
     }
 
     public OverviewModel overviewGetCall(long since, long until)
@@ -44,6 +67,13 @@ public class GetRedxApiResponse {
         return parcelsListModel;
     }
 
+    public DeliveryChargeModel deliveryChargeGetCall(int shopId, int areaId, int weight, int cash)
+    {
+        String deliveryChargeGetCall = "logistics/shop/" + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash;
+        Response deliveryChargeResponse = shopUpPostMan.getCall(deliveryChargeGetCall);
+        DeliveryChargeModel deliveryChargeModel = gson.fromJson(deliveryChargeResponse.getBody().asString(),DeliveryChargeModel.class);
+        return deliveryChargeModel;
+    }
 
     /*-----------Functions----------*/
 
@@ -133,6 +163,86 @@ public class GetRedxApiResponse {
         parcelsListGetCallUrl = parcelsListGetCallUrl.concat(statusValue);
         return parcelsListGetCallUrl;
     }
+
+    public int getShopId(String shopName)
+    {
+        ShopListModel shopListModel = shopListGetCall();
+        int shopSize = shopListModel.getBody().getShops().size();
+        System.out.println("Shop Size : " + shopSize);
+        int shopId = 0;
+        for(int i=0;i<shopSize;i++)
+        {
+            if(shopListModel.getBody().getShops().get(i).getSHOP_NAME().equalsIgnoreCase(shopName))
+            {
+                shopId = shopListModel.getBody().getShops().get(i).getID();
+                System.out.println("Shop Id : " + shopId);
+                break;
+            }
+        }
+        return shopId;
+    }
+
+    public int getStoreId(String shopName,String storeName)
+    {
+        ShopInfoModel shopInfoModel = shopInfoGetCall(getShopId(shopName));
+        int storeSize = shopInfoModel.getBody().size();
+        int storeId = 0;
+        for(int i=0;i<storeSize;i++)
+        {
+            if(shopInfoModel.getBody().get(i).getNAME().equalsIgnoreCase(storeName))
+            {
+                storeId = shopInfoModel.getBody().get(i).getID();
+                break;
+            }
+        }
+        return storeId;
+    }
+
+    public String getStoreAddress(String shopName,String storeName)
+    {
+        ShopInfoModel shopInfoModel = shopInfoGetCall(getShopId(shopName));
+        int storeSize = shopInfoModel.getBody().size();
+        System.out.println("Store Size : " + storeSize);
+        String storeAddress = new String();
+        for(int i=0;i<storeSize;i++)
+        {
+            if(shopInfoModel.getBody().get(i).getNAME().equalsIgnoreCase(storeName))
+            {
+                storeAddress = shopInfoModel.getBody().get(i).getADDRESS();
+                System.out.println("Store Address : " + storeAddress);
+                break;
+            }
+        }
+        return storeAddress;
+    }
+
+    public int getAreaId(String division, String district, String area)
+    {
+        AreaTreeModel areaTreeModel = areaTreeGetCall();
+        int divisionSize = areaTreeModel.getBody().getDivisions().size();
+        int i,j,k,areaId = 0;
+        for(i=0;i<divisionSize;i++)
+        {
+            if(areaTreeModel.getBody().getDivisions().get(i).getNAME().equalsIgnoreCase(division))
+            {
+                int districtSize = areaTreeModel.getBody().getDivisions().get(i).getDistricts().size();
+                for(j=0;j<districtSize;j++)
+                {
+                    if(areaTreeModel.getBody().getDivisions().get(i).getDistricts().get(j).getNAME().equalsIgnoreCase(district))
+                    {
+                        int areaSize = areaTreeModel.getBody().getDivisions().get(i).getDistricts().get(j).getAreas().size();
+                        for(k=0;k<areaSize;k++)
+                        {
+                            if(areaTreeModel.getBody().getDivisions().get(i).getDistricts().get(j).getAreas().get(k).getNAME().equalsIgnoreCase(area))
+                                areaId = areaTreeModel.getBody().getDivisions().get(i).getDistricts().get(j).getAreas().get(k).getID();
+                        }
+                    }
+                }
+            }
+        }
+        return areaId;
+    }
 }
+
 
 
