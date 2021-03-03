@@ -52,8 +52,8 @@ public class DeliveryChargeModel {
              */
 
             private String SHOPUP_CHARGE;
-            private int SHOPUP_COD_CHARGE;
-            private int DISCOUNT_AMOUNT;
+            private float SHOPUP_COD_CHARGE;
+            private float DISCOUNT_AMOUNT;
             private String PAYABLE_AMOUNT;
 
             public String getSHOPUP_CHARGE() {
@@ -64,19 +64,19 @@ public class DeliveryChargeModel {
                 this.SHOPUP_CHARGE = SHOPUP_CHARGE;
             }
 
-            public int getSHOPUP_COD_CHARGE() {
+            public float getSHOPUP_COD_CHARGE() {
                 return SHOPUP_COD_CHARGE;
             }
 
-            public void setSHOPUP_COD_CHARGE(int SHOPUP_COD_CHARGE) {
+            public void setSHOPUP_COD_CHARGE(float SHOPUP_COD_CHARGE) {
                 this.SHOPUP_COD_CHARGE = SHOPUP_COD_CHARGE;
             }
 
-            public int getDISCOUNT_AMOUNT() {
+            public float getDISCOUNT_AMOUNT() {
                 return DISCOUNT_AMOUNT;
             }
 
-            public void setDISCOUNT_AMOUNT(int DISCOUNT_AMOUNT) {
+            public void setDISCOUNT_AMOUNT(float DISCOUNT_AMOUNT) {
                 this.DISCOUNT_AMOUNT = DISCOUNT_AMOUNT;
             }
 

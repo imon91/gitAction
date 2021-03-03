@@ -591,7 +591,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         public String getPromoCodeDiscountValue(int index)
         {
             promoCodeDiscountValue = xpathSetter("//tbody/tr[" + index + "]/td[10]");
-            return myActions.action_getText(promoCodeDiscountValue).substring(4,5);
+            return myActions.action_getText(promoCodeDiscountValue).substring(4);
         }
 
         public String getParcelDeliveryTypeValue(int index,int line)

@@ -13,7 +13,9 @@
         <classes>
 <!--            <class name="com.shopf.tests.Authentication.HomePageTests"></class>-->
 <!--            <class name="com.shopf.tests.Authentication.ParcelPageTests"></class>-->
-            <class name ="com.shopf.tests.Authentication.CreateParcelPageTests"></class>
+<!--            <class name ="com.shopf.tests.Authentication.CreateParcelPageTests"></class>-->
+<!--            <class name="com.shopf.tests.Authentication.CreateBulkParcelPageTests"></class>-->
+            <class name="com.shopf.tests.Authentication.CouponsPageTests"></class>
         </classes>
     </test>
 </suite>
