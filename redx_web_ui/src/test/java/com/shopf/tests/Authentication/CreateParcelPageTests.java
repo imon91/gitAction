@@ -1,7 +1,6 @@
 package com.shopf.tests.Authentication;
 
 import coreUtils.CoreConstants;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -67,7 +66,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void homePageTestsBeforeMethod()
+    public void CreateParcelPageTestsBeforeMethod()
     {
         System.out.println("\n /****************************************************************************************************/ \n");
     }
@@ -92,7 +91,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
 
-        driver.get("https://redx.shopups1.xyz/create-parcel/");
+        actionBarObjects.clickOnCreateParcelButton();
         setImplicitWait(10000);
 
         Assert.assertEquals(url,"https://redx.shopups1.xyz/shop-list/");
@@ -125,7 +124,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         createParcelPageObjects.clickCreateBulkParcelButton();
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
-        driver.get("https://redx.shopups1.xyz/create-parcel/");
+        actionBarObjects.clickOnCreateParcelButton();
         setImplicitWait(10000);
 
         Assert.assertEquals(url,"https://redx.shopups1.xyz/parcel-import-bulk/");
@@ -168,8 +167,18 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify COD Charge Value Before Create Parcel",
+            description = "Verify Discount Amount Value Before Create Parcel",
             priority = 8 )
+    public void verifyDiscountAmountValueBeforeCreateParcel()
+    {
+        System.out.println("Verifying Discount Amount Value Before Create Parcel");
+        System.out.println("Discount Amount Value : " + deliveryChargeDetailsPageObjects.getDiscountAmountValue());
+        Assert.assertEquals(deliveryChargeDetailsPageObjects.getDiscountAmountValue(),"0");
+    }
+
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify COD Charge Value Before Create Parcel",
+            priority = 9 )
     public void verifyCodChargeValueBeforeCreateParcel()
     {
         System.out.println("Verifying COD Charge Value Before Create Parcel");
@@ -179,7 +188,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Total Payment Value Before Create Parcel",
-            priority = 9 )
+            priority = 10 )
     public void verifyTotalPaymentValueBeforeCreateParcel()
     {
         System.out.println("Verifying Total Payment Value Before Create Parcel");
@@ -189,84 +198,94 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Create Regular Parcel With No Inputs",
-            priority = 10 )
+            priority = 11 )
     public void verifyCreateRegularParcelWithNoInputs()
     {
         System.out.println("Verifying Create Regular Parcel With No Inputs");
-        driver.get("https://redx.shopups1.xyz/create-parcel/");
         setImplicitWait(10000);
         createParcelPageObjects.clickCreateParcelWithNoInputs("Regular");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Create Reverse Parcel With No Inputs",
-            priority = 11 )
+            priority = 12 )
     public void verifyCreateReverseParcelWithNoInputs()
     {
         System.out.println("Verifying Create Reverse Parcel With No Inputs");
-        driver.get("https://redx.shopups1.xyz/create-parcel/");
         setImplicitWait(10000);
         createParcelPageObjects.clickCreateParcelWithNoInputs("Reverse");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Create Regular Parcel Functionality",
-            priority = 12 )
+            priority = 13 )
     public void verifyCreateRegularParcelFunctionality()
     {
         System.out.println("Verifying Create Regular Parcel Functionality");
-        driver.get("https://redx.shopups1.xyz/create-parcel/");
-        setImplicitWait(10000);
-        createParcelPageObjects.getDataFromCsv("RGWAI");
+
+        String data[] = createParcelPageObjects.getDataFromCsv("RGWAI");
+        System.out.println("Data From CSV : " + Arrays.toString(data));
 
         int shopId = getRedxApiResponse.getShopId(shopInfoPageObjects.getShopName());
 
-        String pickupLocation = "random";
-        String name = "random";
-        String phone = "01401122188";
-        String address = "Area, District,Division, Code";
-        String invoice = String.valueOf(random.nextInt(999999));
-        String parcelWeight = String.valueOf(random.nextInt(1000)+1);
-        String division = "Dhaka";
-        String district = "Dhaka";
-        String area = "random";
-        String parcelType = createParcelPageObjects.getRandomValue("Parcel Type");
-        String cash = String.valueOf(random.nextInt(3000));
-        String sellingPrice = String.valueOf(random.nextInt(5000));
-        String instruction = "instructions";
+        List<String> deliveryCharges = createParcelPageObjects.createRegularParcel(data);
 
-        List<String> deliveryCharges = createParcelPageObjects.createRegularParcel(pickupLocation,name,phone,address,invoice,parcelWeight,division,district,area,parcelType,cash,sellingPrice,"yes",instruction);
         System.out.println("Delivery Charges in UI : " + deliveryCharges.toString());
 
         String areaValue = deliveryCharges.get(0);
-        int areaId = getRedxApiResponse.getAreaId(division,district,areaValue);
-        System.out.println("Delivery Charges in API : " + getRedxApiResponse.deliveryChargeGetCall(shopId,areaId,Integer.parseInt(parcelWeight),Integer.parseInt(cash)).getBody().getPricing().toString());
+        int areaId = getRedxApiResponse.getAreaId(data[6],data[7],areaValue);
+        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[5]),Integer.parseInt(data[10])).toString());
 
-//        xpathSetter("//span[text()='BKash']/..").click();
-//        xpathSetter("//button[@type='submit']").click();
-//        xpathSetter("//input[@placeholder='Enter OTP']").sendKeys("1234");
-//        xpathSetter("//span[text()='Authenticate']/..").click();
-//        parcelSuccessPageObjects.clickOkButton();
-//        Assert.assertEquals(parcelSuccessPageObjects.getAlertMessage(),"Your parcel request has been placed successfully");
-//        Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),address);
-
+        parcelSuccessPageObjects.clickOkButton();
+        Assert.assertEquals(parcelSuccessPageObjects.getAlertMessage(),"Your parcel request has been placed successfully");
+        Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),data[3]);
     }
-/*
+
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Create Reverse Parcel Functionality",
+            priority = 14 )
+    public void verifyCreateReverseParcelFunctionality()
+    {
+        System.out.println("Verifying Create Reverse Parcel Functionality");
+        String data[] = createParcelPageObjects.getDataFromCsv("RVWAI");
+        System.out.println("Data From CSV : " + Arrays.toString(data));
+
+        actionBarObjects.clickOnCreateParcelButton();
+        setImplicitWait(10000);
+
+        int shopId = getRedxApiResponse.getShopId(shopInfoPageObjects.getShopName());
+
+        List<String> deliveryCharges = createParcelPageObjects.createReverseParcel(data);
+
+        System.out.println("Delivery Charges in UI : " + deliveryCharges.toString());
+
+        String areaValue = deliveryCharges.get(0);
+        int areaId = getRedxApiResponse.getAreaId(data[5],data[6],areaValue);
+        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[4]),0).toString());
+        parcelSuccessPageObjects.clickOkButton();
+        Assert.assertEquals(parcelSuccessPageObjects.getAlertMessage(),"Your parcel request has been placed successfully");
+        Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),data[2]);
+    }
+
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Track Orders Button Functionality",
-            priority = 13 )
+            priority = 15 )
     public void verifyTrackOrdersButtonFunctionality()
     {
         System.out.println("Verifying Track Orders Button Functionality");
         parcelSuccessPageObjects.clickTrackOrdersButton();
+        sleep(2000);
         String url = driver.getCurrentUrl();
-        driver.navigate().back();
+        System.out.println("Current URL : " + url);//https://redx.shopups1.xyz/track-parcel/?parcelId=5981990&trackingId=21A3A3WE3K7QE&shopId=648299
+        if(url.contains("track-parcel"))
+            driver.navigate().back();
         parcelSuccessPageObjects.clickOkButton();
+        Assert.assertTrue(url.contains("track-parcel"));
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Print Labels Button Functionality",
-            priority = 14 )
+            priority = 16 )
     public void verifyPrintLabelsButtonFunctionality()
     {
         System.out.println("Verify Print Labels Button Functionality");
@@ -287,46 +306,15 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Request New Parcel Button Functionality",
-            priority = 15 )
+            priority = 17 )
     public void verifyRequestNewParcelButtonFunctionality()
     {
         System.out.println("Verifying Request New Parcel Button Functionality");
         parcelSuccessPageObjects.clickRequestNewParcelButton();
+        sleep(2000);
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
         Assert.assertEquals(url,"https://redx.shopups1.xyz/create-parcel/");
-    }
-*/
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Create Reverse Parcel Functionality",
-            priority = 16 )
-    public void verifyCreateReverseParcelFunctionality()
-    {
-        System.out.println("Verifying Create Reverse Parcel Functionality");
-        sleep(2000);
-        driver.get("https://redx.shopups1.xyz/create-parcel/");
-        setImplicitWait(10000);
-        int shopId = getRedxApiResponse.getShopId(shopInfoPageObjects.getShopName());
-        String name = "random";
-        String phone = "01401122188";
-        String address = "Area, District,Division, Code";
-        String invoice = String.valueOf(random.nextInt(999999));
-        String parcelWeight = String.valueOf(random.nextInt(1000)+1);
-        String division = "Dhaka";
-        String district = "Dhaka";
-        String area = "random";
-        String pickupStore = "random";
-        String parcelType = createParcelPageObjects.getRandomValue("Parcel Type");
-        String sellingPrice = String.valueOf(random.nextInt(5000));
-        String instruction = "instructions";
-
-        List<String> deliveryCharges = createParcelPageObjects.createReverseParcel(name,phone,address,invoice,parcelWeight,division,district,area,pickupStore,parcelType,sellingPrice,"yes",instruction);
-        System.out.println("Delivery Charges in UI : " + deliveryCharges.toString());
-
-        String areaValue = deliveryCharges.get(0);
-        int areaId = getRedxApiResponse.getAreaId(division,district,areaValue);
-        System.out.println("Delivery Charges in API : " + getRedxApiResponse.deliveryChargeGetCall(shopId,areaId,Integer.parseInt(parcelWeight),0).getBody().getPricing().toString());
-//        parcelSuccessPageObjects.clickOkButton();
     }
 
 

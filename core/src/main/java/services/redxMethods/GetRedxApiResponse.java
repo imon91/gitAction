@@ -5,6 +5,9 @@ import io.restassured.response.Response;
 import services.responseModels.redxModels.*;
 import services.serviceUtils.ShopUpPostMan;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class GetRedxApiResponse {
     private ShopUpPostMan shopUpPostMan;
@@ -42,6 +45,8 @@ public class GetRedxApiResponse {
         return areaTreeModel;
     }
 
+    /*--------------------Dashboard Page--------------------*/
+
     public OverviewModel overviewGetCall(long since, long until)
     {
         String overviewGetCall = "admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until;
@@ -58,6 +63,8 @@ public class GetRedxApiResponse {
         return  overviewModel;
     }
 
+    /*--------------------Parcels Page--------------------*/
+
     public ParcelsListModel parcelsListModel(String url)
     {
 
@@ -67,6 +74,8 @@ public class GetRedxApiResponse {
         return parcelsListModel;
     }
 
+    /*--------------------Create Parcel Page--------------------*/
+
     public DeliveryChargeModel deliveryChargeGetCall(int shopId, int areaId, int weight, int cash)
     {
         String deliveryChargeGetCall = "logistics/shop/" + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash;
@@ -75,7 +84,19 @@ public class GetRedxApiResponse {
         return deliveryChargeModel;
     }
 
-    /*-----------Functions----------*/
+    /*--------------------Coupons Page--------------------*/
+
+    public CouponsModel couponsListGetCall(String shopName)
+    {
+        int merchantId = getShopId(shopName);
+        String couponsListGetCall = "logistics/coupons/usage?merchantId=" + merchantId;
+        Response couponsListResponse = shopUpPostMan.getCall(couponsListGetCall);
+        CouponsModel couponsModel = gson.fromJson(couponsListResponse.getBody().asString(),CouponsModel.class);
+        return couponsModel;
+    }
+
+
+    /*--------------------Functions--------------------*/
 
     public String allParcelsListGetCallUrl(long storeId,int ...params)
     {
@@ -241,6 +262,17 @@ public class GetRedxApiResponse {
             }
         }
         return areaId;
+    }
+
+    public List<String> getDeliveryChargesInfo(int shopId, int areaId, int weight, int cash)
+    {
+        List<String> deliveryCharges = new ArrayList<>();
+        DeliveryChargeModel deliveryChargeModel = deliveryChargeGetCall(shopId,areaId,weight,cash);
+        deliveryCharges.add(deliveryChargeModel.getBody().getPricing().getSHOPUP_CHARGE());
+        deliveryCharges.add(String.valueOf(deliveryChargeModel.getBody().getPricing().getDISCOUNT_AMOUNT()));
+        deliveryCharges.add(String.valueOf(deliveryChargeModel.getBody().getPricing().getSHOPUP_COD_CHARGE()));
+        deliveryCharges.add(String.valueOf(deliveryChargeModel.getBody().getPricing().getPAYABLE_AMOUNT()));
+        return deliveryCharges;
     }
 }
 

@@ -3,7 +3,8 @@ package pageObjects;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import utils.*;
-import java.util.*;
+
+import java.util.List;
 
 public class CouponPageObjects extends RedXWebBaseClass{
 
@@ -16,27 +17,60 @@ public class CouponPageObjects extends RedXWebBaseClass{
         myActions = new MyActions();
     }
 
-    private List<WebElement> couponIDList;
-    private List<WebElement> couponStatusList;
-    private WebElement couponText;
+    /*----------Elements----------*/
+
+    private WebElement titleWrapper;
+    private List<WebElement> coupons;
+    private WebElement couponId;
+    private WebElement couponDescription;
+    private WebElement couponExpireDate;
+    private WebElement couponStatus;
+    private WebElement couponCodeInput;
     private WebElement applyButton;
+    private WebElement toastMsg;
+
+    /*----------Actions----------*/
+
+    public String getTitleWrapper()
+    {
+        titleWrapper = xpathSetter("//div[@class='padding-bottom-for-title']/p");
+        return myActions.action_getText(titleWrapper);
+    }
+
+    public int getCouponSize()
+    {
+        coupons = xpathListSetter("//tbody/tr");
+        return coupons.size();
+    }
 
     public String getCouponID(int index)
     {
-        couponIDList = xpathListSetter("//div[@class='ant-table-body']/table/tbody/tr/td[1]");
-        return myActions.action_getText(couponIDList.get(index));
+        couponId = xpathSetter("//tbody/tr[" + index + "]/td[1]/span");
+        return myActions.action_getText(couponId);
+    }
+
+    public String getCouponDescriptionValue(int index)
+    {
+        couponDescription = xpathSetter("//tbody/tr[" + index + "]//p[@class='coupon-details__title']");
+        return myActions.action_getText(couponDescription);
+    }
+
+    public String getCouponExpireDate(int index)
+    {
+        couponExpireDate = xpathSetter("//tbody/tr[" + index + "]/td[3]");
+        return myActions.action_getText(couponExpireDate);
     }
 
     public String getCouponStatus(int index)
     {
-        couponStatusList = xpathListSetter("//div[@class='ant-table-body']/table/tbody/tr/td[4]");
-        return myActions.action_getText(couponStatusList.get(index));
+        couponStatus = xpathSetter("//tbody/tr[" + index + "]/td[4]/span");
+        return myActions.action_getText(couponStatus);
     }
 
-    public void enterCouponText(String couponID)
+    public void enterCouponCodeInput(String couponID)
     {
-        couponText = xpathSetter("//div[@class='coupon-code__inpput']/input");
-        myActions.action_sendKeys(couponText,couponID);
+        couponCodeInput = xpathSetter("//div[@class='coupon-code__inpput']/input");
+        myActions.action_sendKeys(couponCodeInput,couponID);
     }
 
     public void clickOnApplyButton()
@@ -45,6 +79,10 @@ public class CouponPageObjects extends RedXWebBaseClass{
         myActions.action_click(applyButton);
     }
 
-
+    public String getToastMsg()
+    {
+        toastMsg = xpathSetter("//div[@class='ant-message-notice']//span");
+        return myActions.action_getText(toastMsg);
+    }
 
 }

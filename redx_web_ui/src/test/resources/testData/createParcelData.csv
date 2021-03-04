@@ -1,5 +1,5 @@
-Test_Case_ID,Test_Name,Delivery_Type,Pickup_Location,Customer_Name,Customer_Phone,Customer_Address,Invoice,Parcel_Weight,District,Division,Area,Pickup_Store,Parcel_Type,Cash_Collection,Selling_Price,Acknowledgement,Instructions
+Test_Case_ID,Test_Name,Delivery_Type,Pickup_Location,Customer_Name,Customer_Phone,Customer_Address,Invoice,Parcel_Weight,Division,District,Area,Pickup_Store,Parcel_Type,Cash_Collection,Selling_Price,Acknowledgement,Instructions
 CP01,RGWNI,Regular,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,0,N/A,N/A
 CP02,RVWNI,Reverse,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,N/A,0,N/A,N/A
-CP03,RGWAI,Regular,random,random,1401122188,"Area, District,Division, Code",random,random,Dhaka,Dhaka,random,N/A,random,random,random,yes,Create Parcel Pagewise Sanity Test Regular Parcel
-CP04,RVWAI,Reverse,N/A,random,1401122188,"Area, District,Division, Code",random,random,Dhaka,Dhaka,random,random,random,N/A,random,yes,Create Parcel Pagewise Sanity Test Reverse Parcel
+CP03,RGWAI,Regular,random,random,01401122188,"Area, District,Division, Code",random,random,Dhaka,Dhaka,random,N/A,random,random,random,yes,Create Parcel Pagewise Sanity Test Regular Parcel
+CP04,RVWAI,Reverse,N/A,random,01401122188,"Area, District,Division, Code",random,random,Dhaka,Dhaka,random,random,random,N/A,random,yes,Create Parcel Pagewise Sanity Test Reverse Parcel

@@ -175,7 +175,7 @@ public class ParcelsListModel {
             private boolean IS_REVERSE_DELIVERY;
             private MetaBean meta;
             private AreaHubBean AreaHub;
-            private int promoCodeDiscountAmount;
+            private float promoCodeDiscountAmount;
             private boolean IS_BKASH_PREPAID;
             private String QR_CODE;
             private List<?> issues;
@@ -520,11 +520,11 @@ public class ParcelsListModel {
                 this.AreaHub = AreaHub;
             }
 
-            public int getPromoCodeDiscountAmount() {
+            public float getPromoCodeDiscountAmount() {
                 return promoCodeDiscountAmount;
             }
 
-            public void setPromoCodeDiscountAmount(int promoCodeDiscountAmount) {
+            public void setPromoCodeDiscountAmount(float promoCodeDiscountAmount) {
                 this.promoCodeDiscountAmount = promoCodeDiscountAmount;
             }
 

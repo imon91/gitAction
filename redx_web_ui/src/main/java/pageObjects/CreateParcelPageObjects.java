@@ -92,6 +92,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         createBulkParcelButton = xpathSetter("//button[contains(text(),'Create Bulk Parcels')]");
         myActions.action_click(createBulkParcelButton);
         sleep(2000);
+        actions.sendKeys(Keys.ESCAPE).build().perform();
     }
 
     public void enterCustomerNameInput(String name)
@@ -429,6 +430,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         List<String> deliveryCharges = new ArrayList<>();
         deliveryCharges.add(deliveryChargeDetailsPageObjects.getCashCollectionValue());
         deliveryCharges.add(deliveryChargeDetailsPageObjects.getDeliveryChargeValue());
+        deliveryCharges.add(deliveryChargeDetailsPageObjects.getDiscountAmountValue());
         deliveryCharges.add(deliveryChargeDetailsPageObjects.getCodChargeValue());
         deliveryCharges.add(deliveryChargeDetailsPageObjects.getTotalPayableAmountValue());
         return deliveryCharges;
@@ -441,6 +443,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         {
             if(Integer.parseInt(weight)%500==0)
             {
+                clickParcelWeightInput();
                 while(!getParcelWeight().equalsIgnoreCase(weight))
                 {
                     clickIncreaseWeightButton();
@@ -479,18 +482,73 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         return areaInput[2];
     }
 
-    public void getDataFromCsv(String testName)
+    public String[] getDataFromCsv(String testName)
     {
         String dir = System.getProperty("user.dir");
         String filePath = dir + "/src/test/resources/testData/createParcelData.csv";
+        String[] data = new String[14];
         List<HashMap<String, Object>> createParcelData = CSVParser.getHashListForDataPath(filePath);
         for(int i=0;i<createParcelData.size();i++)
         {
             if(createParcelData.get(i).get("Test_Name").equals(testName))
             {
-                System.out.println(createParcelData.get(i).toString());
+                System.out.println(createParcelData.get(i).get("Delivery_Type").toString());
+                switch (createParcelData.get(i).get("Delivery_Type").toString())
+                {
+                    case "Regular":
+                        data[0]=createParcelData.get(i).get("Pickup_Location").toString();
+                        data[1]=createParcelData.get(i).get("Customer_Name").toString();
+                        data[2]=createParcelData.get(i).get("Customer_Phone").toString();
+                        data[3]=createParcelData.get(i).get("Customer_Address").toString();
+                        data[4]=createParcelData.get(i).get("Invoice").toString();
+                        if(data[4].equalsIgnoreCase("random"))
+                            data[4] = String.valueOf(random.nextInt(999999-100000)+100000);
+                        data[5]=createParcelData.get(i).get("Parcel_Weight").toString();
+                        if(data[5].equalsIgnoreCase("random"))
+                            data[5] = String.valueOf(random.nextInt(1000)+1);
+                        data[6]=createParcelData.get(i).get("District").toString();
+                        data[7]=createParcelData.get(i).get("Division").toString();
+                        data[8]=createParcelData.get(i).get("Area").toString();
+                        data[9]=createParcelData.get(i).get("Parcel_Type").toString();
+                        if(data[9].equalsIgnoreCase("random"))
+                            data[9] = getRandomValue("Parcel Type");
+                        data[10]=createParcelData.get(i).get("Cash_Collection").toString();
+                        if(data[10].equalsIgnoreCase("random"))
+                            data[10] = String.valueOf(random.nextInt(3000));
+                        data[11]=createParcelData.get(i).get("Selling_Price").toString();
+                        if(data[11].equalsIgnoreCase("random"))
+                            data[11] = String.valueOf(random.nextInt(2000));
+                        data[12]=createParcelData.get(i).get("Acknowledgement").toString();
+                        data[13]=createParcelData.get(i).get("Instructions").toString();
+                        break;
+                    case "Reverse":
+                        data[0]=createParcelData.get(i).get("Customer_Name").toString();
+                        data[1]=createParcelData.get(i).get("Customer_Phone").toString();
+                        data[2]=createParcelData.get(i).get("Customer_Address").toString();
+                        data[3]=createParcelData.get(i).get("Invoice").toString();
+                        if(data[3].equalsIgnoreCase("random"))
+                            data[3] = String.valueOf(random.nextInt(999999-100000)+100000);
+                        data[4]=createParcelData.get(i).get("Parcel_Weight").toString();
+                        if(data[4].equalsIgnoreCase("random"))
+                            data[4] = String.valueOf(random.nextInt(1000)+1);
+                        data[5]=createParcelData.get(i).get("Division").toString();
+                        data[6]=createParcelData.get(i).get("District").toString();
+                        data[7]=createParcelData.get(i).get("Area").toString();
+                        data[8]=createParcelData.get(i).get("Pickup_Store").toString();
+                        data[9]=createParcelData.get(i).get("Parcel_Type").toString();
+                        if(data[9].equalsIgnoreCase("random"))
+                            data[9] = getRandomValue("Parcel Type");
+                        data[10]=createParcelData.get(i).get("Selling_Price").toString();
+                        if(data[10].equalsIgnoreCase("random"))
+                            data[10] = String.valueOf(random.nextInt(2000));
+                        data[11]=createParcelData.get(i).get("Acknowledgement").toString();
+                        data[12]=createParcelData.get(i).get("Instructions").toString();
+                        data[13] = "";
+                        break;
+                }
             }
         }
+        return data;
     }
 
     public void clickCreateParcelWithNoInputs(String deliveryType)
@@ -788,6 +846,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
         private WebElement cashCollectionValue;
         private WebElement deliveryChargeValue;
+        private WebElement discountAmountValue;
         private WebElement codChargeValue;
         private WebElement totalPayableAmountValue;
 
@@ -805,14 +864,21 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
             return value.substring(4);
         }
 
+        public String getDiscountAmountValue()
+        {
+            discountAmountValue = xpathSetter("//div[@class='delivery-charge']//div[@class='amount-info'][3]/p[2]");
+            String value = myActions.action_getText(discountAmountValue);
+            return value.substring(4);
+        }
+
         public String getCodChargeValue() {
-            codChargeValue = xpathSetter("//div[@class='delivery-charge']//div[@class='amount-info'][3]/p[2]");
+            codChargeValue = xpathSetter("//p[text()='COD Charge']/../p[contains(text(),'Tk')]");
             String value = myActions.action_getText(codChargeValue);
             return value.substring(4);
         }
 
         public String getTotalPayableAmountValue() {
-            totalPayableAmountValue = xpathSetter("//div[@class='delivery-charge']//div[@class='amount-info'][4]/p[2]");
+            totalPayableAmountValue = xpathSetter("//p[text()='Total Payable Amount']/../p[contains(text(),'Tk')]");
             String value = myActions.action_getText(totalPayableAmountValue);
             return value.substring(4);
         }
