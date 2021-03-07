@@ -23,7 +23,7 @@ public class GetRedxApiResponse {
 
     public ShopListModel shopListGetCall()
     {
-        String shopListGetCall = "shop?isRedX=true";
+        String shopListGetCall = "v1/shop?isRedX=true";
         Response getShopListResponse = shopUpPostMan.getCall(shopListGetCall);
         ShopListModel shopListModel = gson.fromJson(getShopListResponse.getBody().asString(),ShopListModel.class);
         return shopListModel;
@@ -31,7 +31,7 @@ public class GetRedxApiResponse {
 
     public ShopInfoModel shopInfoGetCall(int shopId)
     {
-        String shopInfoGetCall = "logistics/shop-stores/" + shopId + "?status=active";
+        String shopInfoGetCall = "v1/logistics/shop-stores/" + shopId + "?status=active";
         Response getShopInfoResponse = shopUpPostMan.getCall(shopInfoGetCall);
         ShopInfoModel shopInfoModel = gson.fromJson(getShopInfoResponse.getBody().asString(),ShopInfoModel.class);
         return shopInfoModel;
@@ -39,7 +39,7 @@ public class GetRedxApiResponse {
 
     public AreaTreeModel areaTreeGetCall()
     {
-        String areaTreeGetCall = "logistics/address-mapping/area-tree";
+        String areaTreeGetCall = "v1/logistics/address-mapping/area-tree";
         Response getAreaListResponse = shopUpPostMan.getCall(areaTreeGetCall);
         AreaTreeModel areaTreeModel = gson.fromJson(getAreaListResponse.getBody().asString(),AreaTreeModel.class);
         return areaTreeModel;
@@ -49,7 +49,7 @@ public class GetRedxApiResponse {
 
     public OverviewModel overviewGetCall(long since, long until)
     {
-        String overviewGetCall = "admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until;
+        String overviewGetCall = "v1/admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until;
         Response getOverviewResponse = shopUpPostMan.getCall(overviewGetCall);
         OverviewModel overviewModel = gson.fromJson(getOverviewResponse.getBody().asString(),OverviewModel.class);
         return  overviewModel;
@@ -57,7 +57,7 @@ public class GetRedxApiResponse {
 
     public OverviewModel overviewGetCall(long since,long until,long storeId)
     {
-        String overviewGetCall = "admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until + "&shopStoreId=" + storeId;
+        String overviewGetCall = "v1/admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until + "&shopStoreId=" + storeId;
         Response getOverviewResponse = shopUpPostMan.getCall(overviewGetCall);
         OverviewModel overviewModel = gson.fromJson(getOverviewResponse.getBody().asString(),OverviewModel.class);
         return  overviewModel;
@@ -78,7 +78,7 @@ public class GetRedxApiResponse {
 
     public DeliveryChargeModel deliveryChargeGetCall(int shopId, int areaId, int weight, int cash)
     {
-        String deliveryChargeGetCall = "logistics/shop/" + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash;
+        String deliveryChargeGetCall = "v1/logistics/shop/" + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash;
         Response deliveryChargeResponse = shopUpPostMan.getCall(deliveryChargeGetCall);
         DeliveryChargeModel deliveryChargeModel = gson.fromJson(deliveryChargeResponse.getBody().asString(),DeliveryChargeModel.class);
         return deliveryChargeModel;
@@ -89,12 +89,29 @@ public class GetRedxApiResponse {
     public CouponsModel couponsListGetCall(String shopName)
     {
         int merchantId = getShopId(shopName);
-        String couponsListGetCall = "logistics/coupons/usage?merchantId=" + merchantId;
+        String couponsListGetCall = "v1/logistics/coupons/usage?merchantId=" + merchantId;
         Response couponsListResponse = shopUpPostMan.getCall(couponsListGetCall);
         CouponsModel couponsModel = gson.fromJson(couponsListResponse.getBody().asString(),CouponsModel.class);
         return couponsModel;
     }
 
+    /*--------------------Payments Page--------------------*/
+
+    public PaymentsModel paymentsListGetCall(String paymentsListGetCall)
+    {
+        Response paymentsListResponse = shopUpPostMan.getCall(paymentsListGetCall);
+        PaymentsModel paymentsModel = gson.fromJson(paymentsListResponse.getBody().asString(),PaymentsModel.class);
+        return paymentsModel;
+    }
+
+    public PaymentDetailsModel paymentDetailsListGetCall(String shopName,int invoiceId)
+    {
+        int shopId = getShopId(shopName);
+        String paymentDetailsListGetCall = "v2/logistics/shop/" + shopId + "/payments/" + invoiceId + "/parcels";
+        Response paymentDetailsListResponse = shopUpPostMan.getCall(paymentDetailsListGetCall);
+        PaymentDetailsModel paymentDetailsModel = gson.fromJson(paymentDetailsListResponse.getBody().asString(),PaymentDetailsModel.class);
+        return paymentDetailsModel;
+    }
 
     /*--------------------Functions--------------------*/
 
@@ -102,7 +119,7 @@ public class GetRedxApiResponse {
     {
         /* Parameters Order : (long storeId,int page,int limit,int offset,int sort) */
         /* Default Values : (532439,1,20,0,0) */
-        String allParcelsListGetCallUrl = "admin/shop/" + storeId + "/logistics/parcels?";
+        String allParcelsListGetCallUrl = "v1/admin/shop/" + storeId + "/logistics/parcels?";
         int i;
         for(i=0;i<params.length;i++)
         {
@@ -273,6 +290,39 @@ public class GetRedxApiResponse {
         deliveryCharges.add(String.valueOf(deliveryChargeModel.getBody().getPricing().getSHOPUP_COD_CHARGE()));
         deliveryCharges.add(String.valueOf(deliveryChargeModel.getBody().getPricing().getPAYABLE_AMOUNT()));
         return deliveryCharges;
+    }
+
+    public String allPaymentsListGetCallUrl(String shopName,int limit,int offset)
+    {
+        int shopId = getShopId(shopName);
+        String alLPaymentsListGetCall = "v2/logistics/shop/" + shopId + "/payments?limit=" + limit + "&offset=" + offset;
+        return alLPaymentsListGetCall;
+    }
+
+    public String paymentsListGetCallUrl(String url,long ...params)
+    {
+        /* Parameters Order : (long storeId,long since,long until) */
+        String paymentsListGetCall = url;
+        for(int i=0;i<params.length;i++)
+        {
+            if(params[i]!=0)
+            {
+                switch (i)
+                {
+                    case 0:
+                        paymentsListGetCall = paymentsListGetCall.concat("" + params[i]);
+                        break;
+                    case 1:
+                        paymentsListGetCall = paymentsListGetCall.concat("&since=" + params[i]);
+                        break;
+                    case 2:
+                        paymentsListGetCall = paymentsListGetCall.concat("&until=" + params[i]);
+                        break;
+                }
+            }
+        }
+        System.out.println("Payments List Get Call URL : " + paymentsListGetCall);
+        return paymentsListGetCall;
     }
 }
 
