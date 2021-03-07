@@ -91,22 +91,23 @@ public class PLP extends AndroidBaseClass {
         productListingPageObjects.clickOnSortButton();
         // Get the value from sort key
         System.out.println("Current Activity at PLP on Sort is : "+androidDriver.currentActivity());
-        Random random1 = new Random();
-        int randomSortIndex = random1.nextInt(sortPageObjects.getSortTexts().size());
-        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
-        {
-        if(sortPageObjects.getSortTexts()
-                .get(randomSortIndex).getText().equalsIgnoreCase("What's New") ||
-                sortPageObjects.getSortTexts()
-                        .get(randomSortIndex).getText().equalsIgnoreCase("SORT") ){
-            randomSortIndex = randomSortIndex+1;
-        }sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
-                .get(randomSortIndex).getText());
-        }
-        else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM))
-        { sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
+//        Random random1 = new Random();
+//        int randomSortIndex = random1.nextInt(sortPageObjects.getSortTexts().size());
+//        if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
+//        {
+//        if(sortPageObjects.getSortTexts()
+//                .get(randomSortIndex).getText().equalsIgnoreCase("What's New") ||
+//                sortPageObjects.getSortTexts()
+//                        .get(randomSortIndex).getText().equalsIgnoreCase("SORT") ){
+//            randomSortIndex = randomSortIndex+1;
+//        }sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
+//                .get(randomSortIndex).getText());
+//        }
+//        else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM))
+//        {
+            sortPageObjects.clickOnSortElement(sortPageObjects.getSortTexts()
                     .get(2).getText());
-        }
+//        }
         // Verify sorted products from their sort orders
     }
 
