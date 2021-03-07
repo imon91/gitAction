@@ -141,30 +141,30 @@ public class PLP extends AndroidBaseClass {
     public void verifyApplyingFilterOnPLP(String filterCategory,String filterItem) {
         System.out.println("Verify applying filter on plp was called");
         productListingPageObjects.clickOnFilterButton();
-        if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+//        if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             productFilterPageObjects.clickOnFilterName(productFilterPageObjects.getListOfFilterNames().get(0));
             productFilterPageObjects.clickOnFilterItemByIndex(productFilterPageObjects.getListOfFilterItemCheckBoxes().get(0));
             productFilterPageObjects.clickOnApplyFilter();
-        } else if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
-            Random random1 = new Random();
-            int randomCategory = random1.nextInt(productFilterPageObjects.getListOfFilterNames().size());
-            // Select Some Random Filter Parent
-            productFilterPageObjects.
-                    clickOnFilterName(productFilterPageObjects.
-                            getListOfFilterNames().get(randomCategory));
-            //productFilterPageObjects.clickOnFilterNameByValue(filterCategory);
-
-            // select Random Item
-            Random random2 = new Random();
-            int randomValue = random2.nextInt(productFilterPageObjects.getListOfFilterItemCheckBoxes().size());
+//        } else if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+//            Random random1 = new Random();
+//            int randomCategory = random1.nextInt(productFilterPageObjects.getListOfFilterNames().size());
+//            // Select Some Random Filter Parent
 //            productFilterPageObjects.
-//                    clickOnFilterItemByValue(filterItem);
-            productFilterPageObjects
-                    .clickOnFilterItemByIndex(productFilterPageObjects.
-                            getListOfFilterItemCheckBoxes().get(randomValue));
-            // Click on Apply Filter button
-            productFilterPageObjects.clickOnApplyFilter();
-        }
+//                    clickOnFilterName(productFilterPageObjects.
+//                            getListOfFilterNames().get(randomCategory));
+//            //productFilterPageObjects.clickOnFilterNameByValue(filterCategory);
+//
+//            // select Random Item
+//            Random random2 = new Random();
+//            int randomValue = random2.nextInt(productFilterPageObjects.getListOfFilterItemCheckBoxes().size());
+////            productFilterPageObjects.
+////                    clickOnFilterItemByValue(filterItem);
+//            productFilterPageObjects
+//                    .clickOnFilterItemByIndex(productFilterPageObjects.
+//                            getListOfFilterItemCheckBoxes().get(randomValue));
+//            // Click on Apply Filter button
+//            productFilterPageObjects.clickOnApplyFilter();
+//        }
     }
 
 

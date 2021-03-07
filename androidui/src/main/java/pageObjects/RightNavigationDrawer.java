@@ -157,7 +157,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     public void clickOnItemChangeLanguage(){
         if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
         {
-            navigationItemChangeLanguageReseller = xpathSetter("//android.widget.RelativeLayout[@index=6]");
+            navigationItemChangeLanguageReseller = xpathSetter("//android.widget.RelativeLayout[@index=7]");
             myActions.action_click(navigationItemChangeLanguageReseller);
 
         }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
