@@ -50,6 +50,8 @@ public class ActionBarObjects extends RedXWebBaseClass{
     private WebElement tutorialsDropDown;
     private WebElement logoutDropDown;
 
+    private WebElement modalCloseButton;
+
     private WebElement shopDropDownButton;
 
 
@@ -227,6 +229,12 @@ public class ActionBarObjects extends RedXWebBaseClass{
     {
         shopDropDownButton = driver.findElement(By.xpath("//a[@class='ant-dropdown-trigger dropdown']"));
         myActions.action_click(shopDropDownButton);
+    }
+
+    public void clickModalCloseButton()
+    {
+        modalCloseButton = xpathSetter("//div[@class='ant-modal-body']//span[text()='Close']/..");
+        myActions.action_click(modalCloseButton);
     }
 
 

@@ -7,18 +7,21 @@ import services.serviceUtils.ShopUpPostMan;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 public class GetRedxApiResponse {
     private ShopUpPostMan shopUpPostMan;
     private String module;
     private Gson gson;
+    private Random random;
 
     public GetRedxApiResponse(String module)
     {
         this.module = module;
         shopUpPostMan = new ShopUpPostMan(module);
         gson = new Gson();
+        random = new Random();
     }
 
     public ShopListModel shopListGetCall()
@@ -113,6 +116,16 @@ public class GetRedxApiResponse {
         return paymentDetailsModel;
     }
 
+    /*--------------------Track Parcel Page--------------------*/
+
+    public TrackParcelModel trackParcelGetCall(String trackingId)
+    {
+        String trackParcelGetCall = "v1/logistics/tracking/" + trackingId;
+        Response trackParcelResponse = shopUpPostMan.getCall(trackParcelGetCall);
+        TrackParcelModel trackParcelModel = gson.fromJson(trackParcelResponse.getBody().asString(),TrackParcelModel.class);
+        return trackParcelModel;
+    }
+
     /*--------------------Functions--------------------*/
 
     public String allParcelsListGetCallUrl(long storeId,int ...params)
@@ -193,6 +206,21 @@ public class GetRedxApiResponse {
         return parcelsListGetCallUrl;
     }
 
+    public String getRandomParcelId(String shopName)
+    {
+        System.out.println("Getting Random Parcel Id");
+        long storeId = getShopId(shopName);
+        int page = 1,limit=20,offset=0,sort=0;
+        ParcelsListModel parcelsListModel = parcelsListModel(allParcelsListGetCallUrl(storeId,page,limit,offset,sort));
+        int size = parcelsListModel.getBody().getParcels().size();
+        System.out.println("Size : " + size);
+        int index = random.nextInt(size);
+        System.out.println("Index : " + index);
+        String parcelId = parcelsListModel.getBody().getParcels().get(index).getID();
+        System.out.println("Parcel Id : " + parcelId);
+        return parcelId;
+    }
+
     public String parcelsListPaymentStatusFilterGetCallUrl(String url,String status)
     {
         String parcelsListGetCallUrl = url.concat("&paymentStatus=");
@@ -204,6 +232,7 @@ public class GetRedxApiResponse {
 
     public int getShopId(String shopName)
     {
+        System.out.println("Getting Shop Id of : " + shopName);
         ShopListModel shopListModel = shopListGetCall();
         int shopSize = shopListModel.getBody().getShops().size();
         System.out.println("Shop Size : " + shopSize);
@@ -323,6 +352,18 @@ public class GetRedxApiResponse {
         }
         System.out.println("Payments List Get Call URL : " + paymentsListGetCall);
         return paymentsListGetCall;
+    }
+
+    public List<String > getTrackingDateValues(TrackParcelModel trackParcelModel)
+    {
+        int size = trackParcelModel.getTracking().size();
+        List<String> dateValues = new ArrayList<>();
+        for(int i=0;i<size;i++)
+        {
+            dateValues.add(trackParcelModel.getTracking().get(i).getTime());
+        }
+        System.out.println(dateValues.toString());
+        return dateValues;
     }
 }
 
