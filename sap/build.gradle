@@ -52,6 +52,7 @@ task sapUiTest(type: Test) {
         def functional = project.hasProperty("Fun")
         def regression = project.hasProperty("Reg")
         def sameBulkIdIssueFixAutomation = project.hasProperty("SBIA")
+        def bulkParcelStatusUpdate = project.hasProperty("BPSU")
 
         if (smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -67,6 +68,9 @@ task sapUiTest(type: Test) {
         }
         if(sameBulkIdIssueFixAutomation){
             suites "src/test/resources/mySuites/sameBulkIdIssueApiAutomation.xml"
+        }
+        if(bulkParcelStatusUpdate){
+            suites "src/test/resources/mySuites/bulkParcelStatusUpdateAutomation.xml"
         }
     }
 }

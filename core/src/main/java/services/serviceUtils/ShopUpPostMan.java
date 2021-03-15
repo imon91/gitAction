@@ -272,7 +272,7 @@ public class ShopUpPostMan {
             cookie = CookieManager.getValueOfKey(cookieKey);
             //System.out.println("User Cookie is : "+cookie);
         }catch (Exception e){
-            System.out.println("Exception at reading : CookieValue : getCall : ShopUpPostMan");
+            System.out.println("Exception at reading : CookieValue : postCall : ShopUpPostMan");
         }
         System.out.println("Control in PostCall");
         System.out.println("Base-URL is : "+baseURL);
@@ -285,6 +285,34 @@ public class ShopUpPostMan {
                 .body(request.toJSONString())
                 .when()
                 .post(path);
+        if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
+            response.then().log().all();
+            // Exit Java Process
+            System.out.println("Service is temporarily unavailable : "+ response.getStatusCode());
+            System.exit(1);
+        }
+        return response;
+    }
+
+    public Response putCall(String path,Map object){
+        String cookie = null;
+        try{
+            cookie = CookieManager.getValueOfKey(cookieKey);
+            //System.out.println("User Cookie is : "+cookie);
+        }catch (Exception e){
+            System.out.println("Exception at reading : CookieValue : putCall : ShopUpPostMan");
+        }
+        System.out.println("Control in PutCall");
+        System.out.println("Base-URL is : "+baseURL);
+        RestAssured.baseURI = baseURL;
+        System.out.println("Final URL is : "+baseURL+path);
+        JSONObject request=new JSONObject(object);
+        System.out.println(request);
+        Response  response = given().header("Content-Type","application/json")
+                .header("cookie",cookie)
+                .body(request.toJSONString())
+                .when()
+                .put(path);
         if(response.getStatusCode() == 503 || response.getStatusCode() == 502){
             response.then().log().all();
             // Exit Java Process
