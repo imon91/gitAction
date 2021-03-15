@@ -9,8 +9,7 @@ import services.redxMethods.GetRedxApiResponse;
 import services.responseModels.redxModels.ShopListModel;
 import utils.RedXWebBaseClass;
 
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MyShopsPageTests extends RedXWebBaseClass {
 
@@ -55,7 +54,7 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
 
-        actionBarObjects.clickModalCloseButton();
+//        actionBarObjects.clickModalCloseButton();
         actionBarObjects.clickOnDropDownMyShopButton();
 
         shopListModel = getRedxApiResponse.shopListGetCall();
@@ -114,7 +113,7 @@ public class MyShopsPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verify Select Shop Functionality");
         myShopsPageObjects.clickShopByName("My Shops Sanity Test");
-        actionBarObjects.clickModalCloseButton();
+//        actionBarObjects.clickModalCloseButton();
         actionBarObjects.clickOnDropDownMyShopButton();
         Boolean isSelected = myShopsPageObjects.isShopSelected(80);
         System.out.println("Selected : " + isSelected);
@@ -130,21 +129,13 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         myShopsPageObjects.clickAddNewShopIcon();
         String title = addNewShopPageObjects.getTitle();
         System.out.println("Title : " + title);
-    }
-
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Add New Shop Close Icon Functionality",
-            priority = 6 )
-    public void verifyAddNewShopCloseIconFunctionality()
-    {
-        System.out.println("Verifying Add New Shop Close Icon Functionality");
-        myShopsPageObjects.clickAddNewShopIcon();
         addNewShopPageObjects.clickCloseIcon();
+        Assert.assertEquals(title,"Add New Shop");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Add New Shop Error Msg Value",
-            priority = 7 )
+            priority = 6 )
     public void verifyAddNewShopErrorMsgValues()
     {
         System.out.println("Verifying Add New Shop Error Msg Value");
@@ -153,6 +144,64 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         addNewShopPageObjects.addNewShop(data);
         List<String> errorMsg = addNewShopPageObjects.getAllErrorMessages();
         System.out.println(errorMsg.toString());
+        addNewShopPageObjects.clickCloseIcon();
+    }
+
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Add New Shop Functionality",
+            priority = 7 )
+    public void verifyAddNewShopFunctionality()
+    {
+        System.out.println("Verifying Add New Shop Functionality");
+        myShopsPageObjects.clickAddNewShopIcon();
+        String[] data = addNewShopPageObjects.getDataFromCsv("ANS01");
+        addNewShopPageObjects.addNewShop(data);
+        addNewShopPageObjects.clickAddShopButton();
+        String toastMsg = myShopsPageObjects.getToastMsg();
+        System.out.println("Toast Message : " + toastMsg);
+        Assert.assertEquals(toastMsg,"Shop Created");
+    }
+
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Edit Shop Icon Functionality",
+            priority = 8 )
+    public void verifyEditShopIconFunctionality()
+    {
+        System.out.println("Verifying Edit Shop Icon Functionality");
+        myShopsPageObjects.clickOnEditShopIcon(index);
+        String title = editShopPageObjects.getTitle();
+        System.out.println("Title : " + title);
+        editShopPageObjects.clickCloseIcon();
+        Assert.assertEquals(title,"Edit Shop");
+    }
+
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Edit Shop Error Msg Values",
+            priority = 9 )
+    public void verifyEditShopErrorMsgValues()
+    {
+        System.out.println("Verifying Edit Shop Error Msg Values");
+        myShopsPageObjects.clickOnEditShopIcon(index);
+        String[] data = editShopPageObjects.getDataFromCsv("ES02");
+        editShopPageObjects.editShop(data);
+        List<String> errorMsg = editShopPageObjects.getAllErrorMessages();
+        System.out.println(errorMsg.toString());
+        editShopPageObjects.clickCloseIcon();
+    }
+
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Edit Shop Functionality",
+            priority = 10 )
+    public void verifyEditShopFunctionality()
+    {
+        System.out.println("Verifying Edit Shop Functionality");
+        myShopsPageObjects.clickRandomEditShopButton();
+        String[] data = editShopPageObjects.getDataFromCsv("ES01");
+        editShopPageObjects.editShop(data);
+        editShopPageObjects.clickEditShopButton();
+        String toastMsg = myShopsPageObjects.getToastMsg();
+        System.out.println("Toast Message : " + toastMsg);
+        Assert.assertEquals(toastMsg,"Shop updated successfully");
     }
 
     @AfterClass(alwaysRun = true)
