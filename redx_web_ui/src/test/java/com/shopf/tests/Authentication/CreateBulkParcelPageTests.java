@@ -8,6 +8,7 @@ import org.testng.annotations.*;
 import pageObjects.*;
 import services.redxMethods.GetRedxApiResponse;
 import utils.RedXWebBaseClass;
+import utils.RedXWebFileUtils;
 
 import java.io.File;
 import java.util.Random;
@@ -106,9 +107,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
     public void verifyUploadFileButtonFunctionality() throws Exception
     {
         System.out.println("Verifying Upload File Button Functionality");
-        String dir = System.getProperty("user.dir");
-        String filePath = dir + "/src/test/resources/testData/createBulkParcelData.xlsx";
-        createBulkParcelPageObjects.uploadParcelViaRobotClassMac(filePath);
+        createBulkParcelPageObjects.uploadParcelViaRobotClassMac(RedXWebFileUtils.createBulkParcelDataCsvFilePath);
         Assert.assertEquals(bulkUploadPageObjects.getTitleWrapper(),"Bulk Upload");
     }
 
@@ -156,9 +155,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
     public void verifyUploadFileFunctionality() throws Exception
     {
         System.out.println("Verifying Upload File Functionality");
-        String dir = System.getProperty("user.dir");
-        String filePath = dir + "/src/test/resources/testData/createBulkParcelData.xlsx";
-        createBulkParcelPageObjects.performUploadFile(filePath);
+        createBulkParcelPageObjects.performUploadFile(RedXWebFileUtils.createBulkParcelDataCsvFilePath);
         String toastMsg = bulkUploadImportStatus.getToastMsg();
         System.out.println("Toast Message : " + toastMsg);
         Assert.assertEquals(toastMsg,"Parcels created sucessfully");

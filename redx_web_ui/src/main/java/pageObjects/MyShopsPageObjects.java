@@ -584,10 +584,8 @@ public class MyShopsPageObjects extends RedXWebBaseClass
 
         public String[] getDataFromCsv(String testId)
         {
-            String dir = System.getProperty("user.dir");
-            String filePath = dir + "/src/test/resources/testData/addNewShopData.csv";
             String[] data = new String[15];
-            List<HashMap<String, Object>> addNewShopData = CSVParser.getHashListForDataPath(filePath);
+            List<HashMap<String, Object>> addNewShopData = CSVParser.getHashListForDataPath(RedXWebFileUtils.addNewShopDataCsvFilePath);
             for (int i = 0; i < addNewShopData.size(); i++)
             {
                 if(addNewShopData.get(i).get("Test_Case_ID").equals(testId))
@@ -865,10 +863,8 @@ public class MyShopsPageObjects extends RedXWebBaseClass
 
         public String[] getDataFromCsv(String testId)
         {
-            String dir = System.getProperty("user.dir");
-            String filePath = dir + "/src/test/resources/testData/editShopData.csv";
             String[] data = new String[3];
-            List<HashMap<String, Object>> editShopData = CSVParser.getHashListForDataPath(filePath);
+            List<HashMap<String, Object>> editShopData = CSVParser.getHashListForDataPath(RedXWebFileUtils.editShopDataCsvFilePath);
             for (int i = 0; i < editShopData.size(); i++)
             {
                 if(editShopData.get(i).get("Test_Case_ID").equals(testId))
