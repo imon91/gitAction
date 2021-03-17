@@ -484,10 +484,8 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public String[] getDataFromCsv(String testName)
     {
-        String dir = System.getProperty("user.dir");
-        String filePath = dir + "/src/test/resources/testData/createParcelData.csv";
         String[] data = new String[14];
-        List<HashMap<String, Object>> createParcelData = CSVParser.getHashListForDataPath(filePath);
+        List<HashMap<String, Object>> createParcelData = CSVParser.getHashListForDataPath(RedXWebFileUtils.createParcelDataCsvFilePath);
         for(int i=0;i<createParcelData.size();i++)
         {
             if(createParcelData.get(i).get("Test_Name").equals(testName))

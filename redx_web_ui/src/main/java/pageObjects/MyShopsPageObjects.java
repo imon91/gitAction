@@ -24,6 +24,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
 
     private WebElement addNewShopIcon;
     private WebElement shopModule;
+    private List<WebElement> editShopButtons;
     private WebElement editShopButton;
     private WebElement shopName;
     private WebElement shopPickupLocation;
@@ -102,6 +103,14 @@ public class MyShopsPageObjects extends RedXWebBaseClass
     {
         editShopButton = xpathSetter("//p[text()='" + shopName + "']/../..//div[@class='footer']//img[@alt='edit']");
         myActions.action_click(editShopButton);
+    }
+
+    public void clickRandomEditShopButton()
+    {
+        editShopButtons = xpathListSetter("//p[contains(text(),'Sanity Test Shop ')]/../..//div[@class='footer']//img[@alt='edit']");
+        int size = editShopButtons.size();
+        int index = random.nextInt(size);
+        myActions.action_click(editShopButtons.get(index));
     }
 
     public String getToastMsg()
@@ -575,10 +584,8 @@ public class MyShopsPageObjects extends RedXWebBaseClass
 
         public String[] getDataFromCsv(String testId)
         {
-            String dir = System.getProperty("user.dir");
-            String filePath = dir + "/src/test/resources/testData/addNewShopData.csv";
             String[] data = new String[15];
-            List<HashMap<String, Object>> addNewShopData = CSVParser.getHashListForDataPath(filePath);
+            List<HashMap<String, Object>> addNewShopData = CSVParser.getHashListForDataPath(RedXWebFileUtils.addNewShopDataCsvFilePath);
             for (int i = 0; i < addNewShopData.size(); i++)
             {
                 if(addNewShopData.get(i).get("Test_Case_ID").equals(testId))
@@ -610,6 +617,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
                 String password, String confirmPassword, String referredBy, String referrerCode */
 
             clickAddNewShopIcon();
+            int num = random.nextInt(1000)+1;
 
             for(int i=0;i<input.length;i++)
             {
@@ -632,7 +640,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
                         switch (input[i])
                         {
                             case "random":
-                                input[i] = "Sanity Test Add New Shop " + (random.nextInt(1000)+1);
+                                input[i] = "Sanity Test Add New Shop " + num;
                                 System.out.println("Full Name : " + input[i]);
                                 enterFullNameInput(input[i]);
                                 break;
@@ -646,7 +654,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
                         switch (input[i])
                         {
                             case "random":
-                                input[i] = "Sanity Test Shop " + (random.nextInt(1000)+1);
+                                input[i] = "Sanity Test Shop " + num;
                                 System.out.println("Shop Name : " + input[i]);
                                 enterShopNameInput(input[i]);
                                 break;
@@ -713,7 +721,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
                         switch (input[i])
                         {
                             case "N/A":
-                                enterPasswordInput("");
+                                enterPasswordInput(input[i]);
                                 clearPasswordInput();
                                 break;
                             default : enterPasswordInput(input[i]);
@@ -723,7 +731,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
                         switch (input[i])
                         {
                             case "N/A":
-                                enterConfirmPasswordInput("");
+                                enterConfirmPasswordInput("N/");
                                 clearConfirmPasswordInput();
                                 break;
                             default : enterConfirmPasswordInput(input[i]);
@@ -803,6 +811,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
         public void enterShopEmailInput(String shopEmail)
         {
             shopEmailInput = xpathSetter("//input[@name='shopEmail']");
+            shopEmailInput.clear();
             myActions.action_sendKeys(shopEmailInput,shopEmail);
         }
 
@@ -821,6 +830,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
         public void enterShopAddressInput(String shopAddress)
         {
             shopAddressInput = xpathSetter("//input[@name='shopAddress']");
+            shopAddressInput.clear();
             myActions.action_sendKeys(shopAddressInput,shopAddress);
         }
 
@@ -839,6 +849,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
         public void enterShopNameInput(String shopName)
         {
             shopNameInput = xpathSetter("//input[@name='businessName']");
+            shopNameInput.clear();
             myActions.action_sendKeys(shopNameInput,shopName);
         }
 
@@ -849,5 +860,76 @@ public class MyShopsPageObjects extends RedXWebBaseClass
         }
 
         /*----------Functions----------*/
+
+        public String[] getDataFromCsv(String testId)
+        {
+            String[] data = new String[3];
+            List<HashMap<String, Object>> editShopData = CSVParser.getHashListForDataPath(RedXWebFileUtils.editShopDataCsvFilePath);
+            for (int i = 0; i < editShopData.size(); i++)
+            {
+                if(editShopData.get(i).get("Test_Case_ID").equals(testId))
+                {
+                    data[0]=editShopData.get(i).get("Shop_Email").toString();
+                    data[1]=editShopData.get(i).get("Shop_Address").toString();
+                    data[2]=editShopData.get(i).get("Shop_Name").toString();
+                }
+            }
+            return data;
+        }
+
+        public void editShop(String ...inputs)
+        {
+            for(int i = 0;i<inputs.length;i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        switch (inputs[i])
+                        {
+                            case "N/A":
+                                enterShopEmailInput("");
+                                break;
+                            default:
+                                System.out.println("Shop Email : " + inputs[i]);
+                                enterShopEmailInput(inputs[i]);
+                        }
+                        break;
+                    case 1:
+                        switch (inputs[i])
+                        {
+                            case "N/A":
+                                enterShopAddressInput("");
+                                break;
+                            default:
+                                System.out.println("Shop Address : " + inputs[i]);
+                                enterShopAddressInput(inputs[i]);
+                        }
+                        break;
+                    case 2:
+                        switch (inputs[i])
+                        {
+                            case "N/A":
+                                enterShopNameInput("");
+                                break;
+                            case "random":
+                                String name = "Edit Sanity Test Shop " + (random.nextInt(1000)+1);
+                                System.out.println("Shop Name : " + name);
+                                enterShopNameInput(name);
+                                break;
+                            default: enterShopNameInput(inputs[i]);
+                        }
+                        break;
+                }
+            }
+        }
+
+        public List<String> getAllErrorMessages()
+        {
+            List<String> errorMsgs = new ArrayList<>();
+            errorMsgs.add(getShopEmailErrorMessage());
+            errorMsgs.add(getShopAddressErrorMessage());
+            errorMsgs.add(getShopNameErrorMessage());
+            return errorMsgs;
+        }
     }
 }
