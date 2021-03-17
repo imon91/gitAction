@@ -36,7 +36,9 @@ public class GetRedxApiResponse {
     {
         String shopInfoGetCall = "v1/logistics/shop-stores/" + shopId + "?status=active";
         Response getShopInfoResponse = shopUpPostMan.getCall(shopInfoGetCall);
+        System.out.println(getShopInfoResponse.getBody().asString());
         ShopInfoModel shopInfoModel = gson.fromJson(getShopInfoResponse.getBody().asString(),ShopInfoModel.class);
+        System.out.println("Locations : " + shopInfoModel.getBody().size());
         return shopInfoModel;
     }
 
@@ -308,6 +310,31 @@ public class GetRedxApiResponse {
             }
         }
         return areaId;
+    }
+
+    public String[] getRandomArea()
+    {
+        System.out.println("Getting Random Area");
+        int size;
+        int divisionIndex,districtIndex,areaIndex;
+        String area[] = new String[3];
+        AreaTreeModel areaTreeModel = areaTreeGetCall();
+
+        size = areaTreeModel.getBody().getDivisions().size();
+        divisionIndex = random.nextInt(size);
+        area[0] = areaTreeModel.getBody().getDivisions().get(divisionIndex).getNAME();
+        System.out.println("Division : " + area[0]);
+
+        size = areaTreeModel.getBody().getDivisions().get(divisionIndex).getDistricts().size();
+        districtIndex = random.nextInt(size);
+        area[1] = areaTreeModel.getBody().getDivisions().get(divisionIndex).getDistricts().get(districtIndex).getNAME();
+        System.out.println("District : " + area[1]);
+
+        size = areaTreeModel.getBody().getDivisions().get(divisionIndex).getDistricts().get(districtIndex).getAreas().size();
+        areaIndex = random.nextInt(size);
+        area[2] = areaTreeModel.getBody().getDivisions().get(divisionIndex).getDistricts().get(districtIndex).getAreas().get(areaIndex).getNAME();
+        System.out.println("Area : " + area[2]);
+        return area;
     }
 
     public List<String> getDeliveryChargesInfo(int shopId, int areaId, int weight, int cash)

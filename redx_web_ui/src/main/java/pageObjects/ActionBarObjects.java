@@ -138,7 +138,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     public String getShopName()
     {
-        shopName = xpathSetter("//div[@class='nav-links display-on-desktop']/a[6]/span");
+        shopName = xpathSetter("//div[@class='nav-links display-on-desktop']/a[@class='ant-dropdown-trigger dropdown']/span");
         return myActions.action_getText(shopName).toLowerCase();
     }
 
