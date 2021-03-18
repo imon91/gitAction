@@ -50,6 +50,8 @@ public class ActionBarObjects extends RedXWebBaseClass{
     private WebElement tutorialsDropDown;
     private WebElement logoutDropDown;
 
+    private WebElement modalCloseButton;
+
     private WebElement shopDropDownButton;
 
 
@@ -136,7 +138,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     public String getShopName()
     {
-        shopName = xpathSetter("//div[@class='nav-links display-on-desktop']/a[6]/span");
+        shopName = xpathSetter("//div[@class='nav-links display-on-desktop']/a[@class='ant-dropdown-trigger dropdown']/span");
         return myActions.action_getText(shopName).toLowerCase();
     }
 
@@ -229,6 +231,12 @@ public class ActionBarObjects extends RedXWebBaseClass{
         myActions.action_click(shopDropDownButton);
     }
 
+    public void clickModalCloseButton()
+    {
+        modalCloseButton = xpathSetter("//div[@class='ant-modal-body']//span[text()='Close']/..");
+        myActions.action_click(modalCloseButton);
+    }
+
 
     /*----------Functions----------*/
 
@@ -240,9 +248,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         {
             clickOnDropDownMyShopButton();
             myShopsPageObjects.clickShopByName(name);
-            sleep(2000);
-            driver.get("https://redx.shopups1.xyz/dashboard/");
-            setImplicitWait(10000);
+            sleep(5000);
             System.out.println("Current Shop : " + getShopName());
         }
     }

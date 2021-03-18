@@ -790,6 +790,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
        public void verifyExchangeButtonFunctionality()
        {
            System.out.println("Verifying Exchange Button Functionality");
+           driver.get("https://redx.shopups1.xyz/parcel-list/");
            statusFilterPageObjects.filterByStatus("Delivered");
            String parcels = exchangeParcelPageObjects.clickExchangeButton();
            if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))

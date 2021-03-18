@@ -1,5 +1,6 @@
 package pageObjects;
 
+import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
@@ -111,11 +112,27 @@ public class SAPPanelPageObject extends SapBaseClass {
         }
     }
 
-    public void performAuthentication(String mobileNo, String otp)
+    public String performAuthentication(String mobileNo, String otp)
     {
         enterAndClickMobileNoText(mobileNo);
         enterAndClickOTPText(otp);
-        driver.manage().timeouts().implicitlyWait(5000, TimeUnit.SECONDS);
+        sleep(3000);
+        String ck = null;
+        for(Cookie cookie : driver.manage().getCookies()){
+            ck = cookie.getName();
+            if(ck.equalsIgnoreCase("__ti__"))
+            {
+                ck = cookie.getName() + "=" + cookie.getValue();
+//                System.out.println("Cookie Value : " + ck);
+                try {
+                    CookieManager.setValue(CookieManager.Keys.SAP_WEB_COOKIE,ck);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return ck;
+            }
+        }
+        return null;
     }
 
 
