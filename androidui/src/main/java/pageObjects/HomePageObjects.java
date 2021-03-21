@@ -335,6 +335,7 @@ public class HomePageObjects extends AndroidBaseClass {
             clickOnOkButton();
         }catch (Exception e){
             // DO NOT DO ANYTHING
+            System.out.println("Location permission allowing button didn't came");
         }
     }
 
