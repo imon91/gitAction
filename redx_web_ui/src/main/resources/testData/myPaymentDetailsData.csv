@@ -1,0 +1,4 @@
+Test_Case_ID,Test_Name,Bank_Name,Branch_Name,Account_Name,Account_Type,Account_Number,Bkash_Number,Confirm_Bkash_Number
+MPD01,bankDetails,"random","random","random","random","random","N/A","N/A"
+MPD02,bkashDetails,"N/A","N/A","N/A","N/A","N/A",01401122188,01401122188
+MPD03,errorMessages,"N/A","N/A","N/A","N/A","N/A","N/A","N/A"
