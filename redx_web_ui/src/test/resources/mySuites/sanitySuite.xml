@@ -11,6 +11,7 @@
             </run>
         </groups>
         <classes>
+<!--            <class name="com.shopf.tests.Authentication.AuthenticationTests"></class>-->
 <!--            <class name="com.shopf.tests.Authentication.HomePageTests"></class>-->
 <!--            <class name="com.shopf.tests.Authentication.ParcelPageTests"></class>-->
 <!--            <class name ="com.shopf.tests.Authentication.CreateParcelPageTests"></class>-->
@@ -19,7 +20,8 @@
 <!--            <class name="com.shopf.tests.Authentication.PaymentsPageTests"></class>-->
 <!--            <class name="com.shopf.tests.Authentication.TrackParcelPageTests"></class>-->
 <!--            <class name="com.shopf.tests.Authentication.MyShopsPageTests"></class>-->
-            <class name="com.shopf.tests.Authentication.PickupLocationPageTests"></class>
+<!--            <class name="com.shopf.tests.Authentication.PickupLocationPageTests"></class>-->
+            <class name="com.shopf.tests.Authentication.MyPaymentDetailsPageTests"></class>
         </classes>
     </test>
 </suite>

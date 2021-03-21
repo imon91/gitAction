@@ -78,7 +78,8 @@ public class ParcelPageObjects extends RedXWebBaseClass{
     {
         waitForLoading();
         activePage = xpathSetter("//ul[1]/li[contains(@class,'ant-pagination-item-active')]");
-        return Integer.parseInt(activePage.getAttribute("title"));
+        int page = Integer.parseInt(activePage.getAttribute("title"));
+        return page;
     }
 
     public int getLastPage()
@@ -91,7 +92,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
     {
         System.out.println("Page : " + page);
         int activePage = getActivePage();
-        while((page!=1)&&((page>activePage+3)||(page<activePage-3))&&(page!=pages))
+        while((page!=1)&&((page>activePage+2)||(page<activePage-2))&&(page!=pages))
         {
             clickNextFivePageIcon();
             activePage = getActivePage();
@@ -135,6 +136,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
     {
         alertCloseButton = xpathSetter("//button[@class='ant-alert-close-icon']/span[contains(text(),'Reset')]");
         myActions.action_click(alertCloseButton);
+        waitForLoading();
     }
 
     public void waitForLoading()
@@ -591,7 +593,8 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         public String getPromoCodeDiscountValue(int index)
         {
             promoCodeDiscountValue = xpathSetter("//tbody/tr[" + index + "]/td[10]");
-            return myActions.action_getText(promoCodeDiscountValue).substring(4);
+            String value = myActions.action_getText(promoCodeDiscountValue).substring(4);
+            return String.format("%.1f",Float.parseFloat(value));
         }
 
         public String getParcelDeliveryTypeValue(int index,int line)
@@ -1139,7 +1142,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String getToastMsg()
         {
-            toastMsg = xpathPresenceSetter("//div[@class='ant-message-notice']//span");
+            toastMsg = xpathPresenceSetter("//div[contains(@class,'ant-message-notice')]//span");
             return  myActions.action_getText(toastMsg);
         }
 
@@ -1162,8 +1165,8 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             System.out.println("Customer Phone : " + getCustomerPhoneValue());
             System.out.println("Amount : " + amount);
             enterAmount(amount);
-//            clickCreateParcelButton();
-            clickCancelButton();
+            clickCreateParcelButton();
+//            clickCancelButton();
         }
     }
 
@@ -1175,6 +1178,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         private WebElement popoverMessageTitle;
         private WebElement yesButton;
         private WebElement noButton;
+        private WebElement alertMessage;
 
         /*----------Actions----------*/
 
@@ -1201,6 +1205,12 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         {
             noButton = xpathSetter("//div[@class='ant-popover ant-popover-placement-top']//button/span[contains(text(),'No')]/..");
             myActions.action_click(noButton);
+        }
+
+        public String getAlertMessage()
+        {
+            alertMessage = xpathSetter("//span[@class='ant-alert-message']");
+            return myActions.action_getText(alertMessage);
         }
     }
 

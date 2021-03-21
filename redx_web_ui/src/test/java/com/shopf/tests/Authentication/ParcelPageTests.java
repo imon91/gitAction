@@ -1,6 +1,7 @@
 package com.shopf.tests.Authentication;
 
 import coreUtils.CoreConstants;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -85,7 +86,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void homePageTestsBeforeMethod()
+    public void parcelPageTestsBeforeMethod()
     {
         System.out.println("\n /****************************************************************************************************/ \n");
     }
@@ -274,7 +275,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyDownloadParcelHistoryFunctionality()
     {
         System.out.println("Verifying Download Parcel History Functionality");
-        driver.get("https://redx.shopups1.xyz/parcel-list/");
+        driver.navigate().refresh();
         setImplicitWait(10000);
         downloadParcelHistoryPageObjects.clickDownloadParcelHistory();
         downloadParcelHistoryPageObjects.downloadParcelHistory(1,"Jan",2021,1,"Feb",2021, random.nextInt(2)+1, random.nextInt(2),random.nextInt(10));
@@ -690,7 +691,6 @@ public class ParcelPageTests extends RedXWebBaseClass {
        public void verifyEditButtonFunctionality()
        {
            System.out.println("Verifying Edit Button Functionality");
-           sleep(10000);
            statusFilterPageObjects.filterByStatus("Pickup Pending");
            if(parcelPageObjects.getTotalParcelsCount()!=0)
            {
@@ -742,6 +742,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Delete Button Functionality");
         statusFilterPageObjects.filterByStatus("Pickup Pending");
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
         if(parcelPageObjects.getTotalParcelsCount()!=0)
         {
             int index = parcelPageObjects.getRandomParcelIndex();
@@ -769,6 +770,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     public void verifyDeleteFunctionality()
     {
         System.out.println("Verifying Delete Functionality");
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
         if(parcelPageObjects.getTotalParcelsCount()!=0)
         {
             int total = parcelPageObjects.getTotalParcelsCount();
@@ -780,7 +782,9 @@ public class ParcelPageTests extends RedXWebBaseClass {
             statusFilterPageObjects.filterByStatus("Pickup Pending");
             int parcels = parcelPageObjects.getTotalParcelsCount();
             parcelPageObjects.clickResetButton();
-            Assert.assertEquals(parcels,total-1);
+            if(parcels==total)
+                System.out.println(deleteParcelPageObjects.getAlertMessage());
+            else Assert.assertEquals(parcels,total-1);
         } else System.out.println("No Parcels Found to perform Action");
     }
 
@@ -790,7 +794,6 @@ public class ParcelPageTests extends RedXWebBaseClass {
        public void verifyExchangeButtonFunctionality()
        {
            System.out.println("Verifying Exchange Button Functionality");
-           driver.get("https://redx.shopups1.xyz/parcel-list/");
            statusFilterPageObjects.filterByStatus("Delivered");
            String parcels = exchangeParcelPageObjects.clickExchangeButton();
            if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
@@ -828,8 +831,8 @@ public class ParcelPageTests extends RedXWebBaseClass {
            if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
            {
                exchangeParcelPageObjects.exchangeParcel("5000");
-//               System.out.println("Toast : " + exchangeParcelPageObjects.getToastMsg());
-//               Assert.assertEquals(exchangeParcelPageObjects.getToastMsg(),"Exchange parcel created successfully");
+               System.out.println("Toast : " + exchangeParcelPageObjects.getToastMsg());
+               Assert.assertEquals(exchangeParcelPageObjects.getToastMsg(),"Exchange parcel created successfully");
            }
            System.out.println(parcels);
        }
@@ -840,7 +843,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
        public void verifyRaiseIssueButtonFunctionality()
        {
            System.out.println("Verifying Raise Issue Button Functionality");
-           driver.get("https://redx.shopups1.xyz/parcel-list/");
+           driver.navigate().refresh();
            raiseIssuePageObjects.clickRaiseIssueButton();
            String modalTitle = raiseIssuePageObjects.getModalTitle();
            String assertValue = "Issue creation for " + raiseIssuePageObjects.getParcelId();

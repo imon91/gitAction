@@ -231,21 +231,21 @@ public class HomePageObjects extends RedXWebBaseClass{
 
     public String getTotalDeliveryFeesPaidValue()
     {
-        totalDeliveryFeesPaidValue = xpathSetter("//div[@class='ant-col ant-col-xs-24 ant-col-lg-6'][2]//div[@class='bigger css-5fp2m6']/p[@class='value css-1y8lftn']");
+        totalDeliveryFeesPaidValue = xpathSetter("//div[@class='ant-row prison'][2]/div[2]//p[contains(@class,'value')]");
         String value = myActions.action_getText(totalDeliveryFeesPaidValue);
         return value.substring(4);
     }
 
     public String getTotalUnPaidAmountValue()
     {
-        totalUnpaidAmountValue = xpathSetter("//div[@class='ant-col ant-col-xs-24 ant-col-lg-6'][3]//div[@class='bigger css-5fp2m6']/p[@class='value css-1y8lftn']");
+        totalUnpaidAmountValue = xpathSetter("//div[@class='ant-row prison'][2]/div[3]//p[contains(@class,'value')]");
         String value = myActions.action_getText(totalUnpaidAmountValue);
         return value.substring(4);
     }
 
     public String getPaymentProcessingValue()
     {
-        paymentProcessingValue = xpathSetter("//div[@class='ant-col ant-col-xs-24 ant-col-lg-6'][4]//div[@class='bigger css-5fp2m6']/p[@class='value css-1y8lftn']");
+        paymentProcessingValue = xpathSetter("//div[@class='ant-row prison'][2]/div[4]//p[contains(@class,'value')]");
         String value = myActions.action_getText(paymentProcessingValue);
         return value.substring(4);
     }
