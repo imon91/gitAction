@@ -21,7 +21,6 @@
 <!--            <class name="com.shopf.tests.Authentication.TrackParcelPageTests"></class>-->
 <!--            <class name="com.shopf.tests.Authentication.MyShopsPageTests"></class>-->
 <!--            <class name="com.shopf.tests.Authentication.PickupLocationPageTests"></class>-->
-<!--            <class name="com.shopf.tests.Authentication.MyPaymentDetailsPageTests"></class>-->
             <class name="com.shopf.tests.Authentication.NotificationSettingsPageTests"></class>
         </classes>
     </test>
