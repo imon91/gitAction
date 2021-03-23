@@ -1,0 +1,4 @@
+Test_Case_ID,Test_Name,Phone_Number,Email_Address
+NSD01,noInputs,"",""
+NSD02,errorMessages,"0","invalidEmail"
+NSD03,notificationDetails,"01401122188","shopup@gmail.com"
