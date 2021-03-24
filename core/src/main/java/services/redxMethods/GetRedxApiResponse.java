@@ -155,6 +155,16 @@ public class GetRedxApiResponse {
         return branchesModel;
     }
 
+    /*--------------------Coverage Area Page--------------------*/
+
+    public PricingModel pricingListGetCall()
+    {
+        String pricingListGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.PRICING + "?isAreas=true";
+        Response pricingListResponse = shopUpPostMan.getCall(pricingListGetCall);
+        PricingModel pricingModel = gson.fromJson(pricingListResponse.getBody().asString(),PricingModel.class);
+        return pricingModel;
+    }
+
     /*--------------------Functions--------------------*/
 
     public String allParcelsListGetCallUrl(long storeId,int ...params)
@@ -449,6 +459,29 @@ public class GetRedxApiResponse {
                 bankId = banksModel.getBanks().get(i).getID();
         }
         return bankId;
+    }
+
+    public String getRandomArea(String zone)
+    {
+        int zoneIndex = getZoneIndex(zone);
+        PricingModel pricingModel = pricingListGetCall();
+        int areas = pricingModel.getZones().get(zoneIndex).getAREAS().size();
+        int areaIndex = random.nextInt(areas);
+        String area = pricingModel.getZones().get(zoneIndex).getAREAS().get(areaIndex).getNAME();
+        return area;
+    }
+
+    public int getZoneIndex(String zone)
+    {
+        PricingModel pricingModel = pricingListGetCall();
+        int zones = pricingModel.getZones().size();
+        int zoneIndex = 0;
+        for(int i=0;i<zones;i++)
+        {
+            if(pricingModel.getZones().get(i).getNAME().equalsIgnoreCase(zone))
+                zoneIndex = i;
+        }
+        return zoneIndex;
     }
 }
 

@@ -2,7 +2,6 @@ package pageObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 
 import java.text.ParseException;
@@ -39,7 +38,7 @@ public class HomePageObjects extends RedXWebBaseClass{
     private WebElement previousYearButton;
     private WebElement dateButton;
 
-    private WebElement redxCredit;
+    private WebElement redxCreditButton;
     private WebElement redxCreditValue;
     private WebElement ordersPlacedValue;
     private WebElement ordersDeliveredValue;
@@ -172,10 +171,10 @@ public class HomePageObjects extends RedXWebBaseClass{
         return number;
     }
 
-    public void clickRedxCredit()
+    public void clickRedxCreditButton()
     {
-        redxCredit = xpathSetter("//div[@class='ant-col ant-col-xs-12 ant-col-lg-8'][1]");
-        myActions.action_click(redxCredit);
+        redxCreditButton = xpathSetter("//a[@class='credit-link']//button");
+        myActions.action_click(redxCreditButton);
         sleep(2000);
     }
 

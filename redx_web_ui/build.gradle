@@ -67,7 +67,8 @@ task redxWebUiTest(type: Test) {
         def pickupLocationPageSanity = project.hasProperty("pickupLocationPage")
         def myPaymentDetailsPageSanity = project.hasProperty("myPaymentDetailsPage")
         def notificationSettingsPageSanity = project.hasProperty("notificationSettingsPage")
-
+        def coverageAreaPageSanity = project.hasProperty("coverageAreaPage")
+        def changePasswordPageSanity = project.hasProperty("changePasswordPage")
 
 
         if (smoke) {
@@ -135,6 +136,12 @@ task redxWebUiTest(type: Test) {
         }
         if (notificationSettingsPageSanity) {
             suites "src/test/resources/mySuites/notificationSettingsPageSanitySuite.xml"
+        }
+        if (coverageAreaPageSanity) {
+            suites "src/test/resources/mySuites/coverageAreaPageSanitySuite.xml"
+        }
+        if (changePasswordPageSanity) {
+            suites "src/test/resources/mySuites/changePasswordPageSanitySuite.xml"
         }
 
     }
