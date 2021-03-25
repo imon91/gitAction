@@ -150,6 +150,7 @@ public class GetDriverFromCore {
                 chromeOptions.setAcceptInsecureCerts(true);
             chromeOptions.addArguments("'--disable-web-security");
             chromeOptions.addArguments("--no-sandbox");
+            chromeOptions.addArguments("--headless");
             //chromeOptions.addArguments("--user-data-dir");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
@@ -191,7 +192,7 @@ public class GetDriverFromCore {
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_NETWORK_LOGS,CoreConstants.TRUE);
             ChromeOptions chOptions = new ChromeOptions();
             chOptions.addArguments("--disable-plugins", "--disable-extensions",
-                    "--disable-popup-blocking", "--disable-notifications", "--disable-web-security", "--user-data-dir", "--allow-running-insecure-content" );
+                    "--disable-popup-blocking", "--disable-notifications", "--disable-web-security", "--allow-running-insecure-content" );
             caps.setCapability(ChromeOptions.CAPABILITY,chOptions);
             return new RemoteWebDriver(url,caps);
         }

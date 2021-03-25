@@ -338,13 +338,13 @@ public class HomePageTests extends RedXWebBaseClass {
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify RedX Credit Functionality",
+            description = "Verify RedX Credit Button Functionality",
             priority = 20 )
-    public void verifyRedXCreditFunctionality()
+    public void verifyRedXCreditButtonFunctionality()
     {
-        System.out.println("Verifying RedX Credit Functionality");
+        System.out.println("Verifying RedX Credit Button Functionality");
         System.out.println("Current URL : " + driver.getCurrentUrl());
-        homePageObjects.clickRedxCredit();
+        homePageObjects.clickRedxCreditButton();
         System.out.println("URL after clicking RedX Credit : " + driver.getCurrentUrl());
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/credit-history/");
     }

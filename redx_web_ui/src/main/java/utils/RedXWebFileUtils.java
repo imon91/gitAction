@@ -10,4 +10,5 @@ public class RedXWebFileUtils {
     public static final String editLocationDataCsvFilePath = RedXWebFileRouters.testDataPath + "editLocationData.csv";
     public static final String myPaymentDetailsDataCsvFilePath = RedXWebFileRouters.testDataPath + "myPaymentDetailsData.csv";
     public static final String notificationSettingsDataCsvFilePath = RedXWebFileRouters.testDataPath + "notificationSettingsData.csv";
+    public static final String resetPasswordDataCsvFilePath = RedXWebFileRouters.testDataPath + "resetPasswordData.csv";
 }
