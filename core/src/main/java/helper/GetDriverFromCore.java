@@ -150,8 +150,8 @@ public class GetDriverFromCore {
                 chromeOptions.setAcceptInsecureCerts(true);
             chromeOptions.addArguments("'--disable-web-security");
             chromeOptions.addArguments("--no-sandbox");
-            chromeOptions.addArguments("--headless");
-            //chromeOptions.addArguments("--user-data-dir");
+//            chromeOptions.addArguments("--headless");
+//            chromeOptions.addArguments("--user-data-dir");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);
             chromeOptions.setExperimentalOption("prefs",prefs);
@@ -170,6 +170,7 @@ public class GetDriverFromCore {
             caps.setCapability(BrowserStackCapabilities.KEY_OS_VERSION, os_version);
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER, browser);
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_VERSION,browser_version);
+            caps.setCapability("resolution", "2048x1536");
             if(System.getProperty(BuildParameterKeys.KEY_APP)
                     .equalsIgnoreCase(CoreConstants.APP_WMS)){
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "WMS-UI");
