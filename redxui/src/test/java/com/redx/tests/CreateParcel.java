@@ -81,6 +81,7 @@ public class CreateParcel extends RedXBaseClass
         homePageObjects.clickDeliverYourParcelModule();
         Assert.assertEquals(addParcelPageObjects.getPageTitle(),"Add parcel");
         addParcelPageObjects.addParcel();
+        sleep(1000);
         Assert.assertEquals(homePageObjects.getToastMessage(),"1 parcels added");
     }
 

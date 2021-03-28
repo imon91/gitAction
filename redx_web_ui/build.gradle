@@ -56,7 +56,20 @@ task redxWebUiTest(type: Test) {
         def OSDToISD = project.hasProperty("OTI")
         def ISDToSuburbs = project.hasProperty("ITS")
         def ISDToOSD = project.hasProperty("ITO")
-
+        def homePageSanity = project.hasProperty("homePage")
+        def parcelPageSanity = project.hasProperty("parcelPage")
+        def createParcelPageSanity = project.hasProperty("createParcelPage")
+        def createBulkParcelPageSanity = project.hasProperty("createBulkParcelPage")
+        def couponsPageSanity = project.hasProperty("couponsPage")
+        def paymentsPageSanity = project.hasProperty("paymentsPage")
+        def trackParcelPageSanity = project.hasProperty("trackParcelPage")
+        def myShopsPageSanity = project.hasProperty("myShopsPage")
+        def pickupLocationPageSanity = project.hasProperty("pickupLocationPage")
+        def myPaymentDetailsPageSanity = project.hasProperty("myPaymentDetailsPage")
+        def notificationSettingsPageSanity = project.hasProperty("notificationSettingsPage")
+        def coverageAreaPageSanity = project.hasProperty("coverageAreaPage")
+        def changePasswordPageSanity = project.hasProperty("changePasswordPage")
+        def forgotPasswordPageSanity = project.hasProperty("forgotPasswordPage")
 
 
         if (smoke) {
@@ -92,6 +105,49 @@ task redxWebUiTest(type: Test) {
         if (ISDToOSD) {
             suites "src/test/resources/mySuites/ISDToOSDDeliveryChargeSuite.xml"
         }
+        if (homePageSanity) {
+            suites "src/test/resources/mySuites/homePageSanitySuite.xml"
+        }
+        if (parcelPageSanity) {
+            suites "src/test/resources/mySuites/parcelPageSanitySuite.xml"
+        }
+        if (createParcelPageSanity) {
+            suites "src/test/resources/mySuites/createParcelPageSanitySuite.xml"
+        }
+        if (createBulkParcelPageSanity) {
+            suites "src/test/resources/mySuites/createBulkParcelPageSanitySuite.xml"
+        }
+        if (couponsPageSanity) {
+            suites "src/test/resources/mySuites/couponsPageSanitySuite.xml"
+        }
+        if (paymentsPageSanity) {
+            suites "src/test/resources/mySuites/paymentsPageSanitySuite.xml"
+        }
+        if (trackParcelPageSanity) {
+            suites "src/test/resources/mySuites/trackParcelPageSanitySuite.xml"
+        }
+        if (myShopsPageSanity) {
+            suites "src/test/resources/mySuites/myShopsPageSanitySuite.xml"
+        }
+        if (pickupLocationPageSanity) {
+            suites "src/test/resources/mySuites/pickupLocationPageSanitySuite.xml"
+        }
+        if (myPaymentDetailsPageSanity) {
+            suites "src/test/resources/mySuites/myPaymentDetailsPageSanitySuite.xml"
+        }
+        if (notificationSettingsPageSanity) {
+            suites "src/test/resources/mySuites/notificationSettingsPageSanitySuite.xml"
+        }
+        if (coverageAreaPageSanity) {
+            suites "src/test/resources/mySuites/coverageAreaPageSanitySuite.xml"
+        }
+        if (changePasswordPageSanity) {
+            suites "src/test/resources/mySuites/changePasswordPageSanitySuite.xml"
+        }
+        if (forgotPasswordPageSanity) {
+            suites "src/test/resources/mySuites/forgotPasswordPageSanitySuite.xml"
+        }
+
     }
 }
 

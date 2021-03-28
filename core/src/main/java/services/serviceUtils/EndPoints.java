@@ -19,6 +19,16 @@ public class EndPoints {
     public static final String COMMERCE_SEND_USER_OTP = "users/send_user_otp.json";
     public static final String COMMERCE_VERIFY_OTP = "users/sign_up_user.json";
 
+    /*-RedX-*/
+    public static final String VERSION1 = "v1";
+    public static final String VERSION2 = "v2";
+    public static final String ADMIN = "/admin";
+    public static final String LOGISTICS = "/logistics";
+    public static final String SHOP = "/shop/";
+    public static final String PAYMENT = "/payment";
+    public static final String BANKS = "/banks/";
+    public static final String BRANCHES = "/branches";
+    public static final String PRICING = "/pricing";
 
     public class WMS{
         public static final String USER_SIGN_IN = "users/sign_in.json";

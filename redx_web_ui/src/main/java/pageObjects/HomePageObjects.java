@@ -2,7 +2,6 @@ package pageObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 
 import java.text.ParseException;
@@ -39,7 +38,7 @@ public class HomePageObjects extends RedXWebBaseClass{
     private WebElement previousYearButton;
     private WebElement dateButton;
 
-    private WebElement redxCredit;
+    private WebElement redxCreditButton;
     private WebElement redxCreditValue;
     private WebElement ordersPlacedValue;
     private WebElement ordersDeliveredValue;
@@ -172,10 +171,10 @@ public class HomePageObjects extends RedXWebBaseClass{
         return number;
     }
 
-    public void clickRedxCredit()
+    public void clickRedxCreditButton()
     {
-        redxCredit = xpathSetter("//div[@class='ant-col ant-col-xs-12 ant-col-lg-8'][1]");
-        myActions.action_click(redxCredit);
+        redxCreditButton = xpathSetter("//a[@class='credit-link']//button");
+        myActions.action_click(redxCreditButton);
         sleep(2000);
     }
 
@@ -231,21 +230,21 @@ public class HomePageObjects extends RedXWebBaseClass{
 
     public String getTotalDeliveryFeesPaidValue()
     {
-        totalDeliveryFeesPaidValue = xpathSetter("//div[@class='ant-col ant-col-xs-24 ant-col-lg-6'][2]//div[@class='bigger css-5fp2m6']/p[@class='value css-1y8lftn']");
+        totalDeliveryFeesPaidValue = xpathSetter("//div[@class='ant-row prison'][2]/div[2]//p[contains(@class,'value')]");
         String value = myActions.action_getText(totalDeliveryFeesPaidValue);
         return value.substring(4);
     }
 
     public String getTotalUnPaidAmountValue()
     {
-        totalUnpaidAmountValue = xpathSetter("//div[@class='ant-col ant-col-xs-24 ant-col-lg-6'][3]//div[@class='bigger css-5fp2m6']/p[@class='value css-1y8lftn']");
+        totalUnpaidAmountValue = xpathSetter("//div[@class='ant-row prison'][2]/div[3]//p[contains(@class,'value')]");
         String value = myActions.action_getText(totalUnpaidAmountValue);
         return value.substring(4);
     }
 
     public String getPaymentProcessingValue()
     {
-        paymentProcessingValue = xpathSetter("//div[@class='ant-col ant-col-xs-24 ant-col-lg-6'][4]//div[@class='bigger css-5fp2m6']/p[@class='value css-1y8lftn']");
+        paymentProcessingValue = xpathSetter("//div[@class='ant-row prison'][2]/div[4]//p[contains(@class,'value')]");
         String value = myActions.action_getText(paymentProcessingValue);
         return value.substring(4);
     }

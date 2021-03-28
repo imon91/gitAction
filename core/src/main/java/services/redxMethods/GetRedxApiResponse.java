@@ -3,6 +3,7 @@ package services.redxMethods;
 import com.google.gson.Gson;
 import io.restassured.response.Response;
 import services.responseModels.redxModels.*;
+import services.serviceUtils.EndPoints;
 import services.serviceUtils.ShopUpPostMan;
 
 import java.util.ArrayList;
@@ -126,6 +127,42 @@ public class GetRedxApiResponse {
         Response trackParcelResponse = shopUpPostMan.getCall(trackParcelGetCall);
         TrackParcelModel trackParcelModel = gson.fromJson(trackParcelResponse.getBody().asString(),TrackParcelModel.class);
         return trackParcelModel;
+    }
+
+    /*--------------------My Payment Details Page--------------------*/
+
+    public MyPaymentDetailsModel paymentDetailsGetCall(int shopId)
+    {
+        String paymentDetailsGetCall = EndPoints.VERSION1 + EndPoints.ADMIN + EndPoints.SHOP + shopId + EndPoints.PAYMENT;
+        Response myPaymentDetailsResponse = shopUpPostMan.getCall(paymentDetailsGetCall);
+        MyPaymentDetailsModel myPaymentDetailsModel = gson.fromJson(myPaymentDetailsResponse.getBody().asString(),MyPaymentDetailsModel.class);
+        return myPaymentDetailsModel;
+    }
+
+    public BanksModel bankListGetCall()
+    {
+        String bankListGetCall = EndPoints.VERSION1 + EndPoints.BANKS;
+        Response bankListResponse = shopUpPostMan.getCall(bankListGetCall);
+        BanksModel banksModel = gson.fromJson(bankListResponse.getBody().asString(),BanksModel.class);
+        return banksModel;
+    }
+
+    public BranchesModel branchListGetCall(int bankId)
+    {
+        String branchListGetCall = EndPoints.VERSION1 + EndPoints.BANKS + bankId + EndPoints.BRANCHES;
+        Response branchListResponse = shopUpPostMan.getCall(branchListGetCall);
+        BranchesModel branchesModel = gson.fromJson(branchListResponse.getBody().asString(),BranchesModel.class);
+        return branchesModel;
+    }
+
+    /*--------------------Coverage Area Page--------------------*/
+
+    public PricingModel pricingListGetCall()
+    {
+        String pricingListGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.PRICING + "?isAreas=true";
+        Response pricingListResponse = shopUpPostMan.getCall(pricingListGetCall);
+        PricingModel pricingModel = gson.fromJson(pricingListResponse.getBody().asString(),PricingModel.class);
+        return pricingModel;
     }
 
     /*--------------------Functions--------------------*/
@@ -391,6 +428,60 @@ public class GetRedxApiResponse {
         }
         System.out.println(dateValues.toString());
         return dateValues;
+    }
+
+    public List<String> getMyPaymentDetails(int shopId,String method)
+    {
+        List<String> details = new ArrayList<>();
+        MyPaymentDetailsModel myPaymentDetailsModel = paymentDetailsGetCall(shopId);
+        switch (method)
+        {
+            case "Bank":
+                details.add(myPaymentDetailsModel.getPayment().getBANK_NAME());
+                details.add(myPaymentDetailsModel.getPayment().getACCOUNT_NAME());
+                details.add(myPaymentDetailsModel.getPayment().getBRANCH_NAME());
+                details.add(myPaymentDetailsModel.getPayment().getACCOUNT_NUMBER());
+                break;
+            case "Bkash":
+                details.add(myPaymentDetailsModel.getPayment().getBKASH_NUMBER());
+                break;
+        }
+        return details;
+    }
+
+    public int getBankId(String bankName)
+    {
+        BanksModel banksModel = bankListGetCall();
+        int bankId = 0;
+        for(int i=0;i<banksModel.getBanks().size();i++)
+        {
+            if(banksModel.getBanks().get(i).getBANK_NAME().equalsIgnoreCase(bankName))
+                bankId = banksModel.getBanks().get(i).getID();
+        }
+        return bankId;
+    }
+
+    public String getRandomArea(String zone)
+    {
+        int zoneIndex = getZoneIndex(zone);
+        PricingModel pricingModel = pricingListGetCall();
+        int areas = pricingModel.getZones().get(zoneIndex).getAREAS().size();
+        int areaIndex = random.nextInt(areas);
+        String area = pricingModel.getZones().get(zoneIndex).getAREAS().get(areaIndex).getNAME();
+        return area;
+    }
+
+    public int getZoneIndex(String zone)
+    {
+        PricingModel pricingModel = pricingListGetCall();
+        int zones = pricingModel.getZones().size();
+        int zoneIndex = 0;
+        for(int i=0;i<zones;i++)
+        {
+            if(pricingModel.getZones().get(i).getNAME().equalsIgnoreCase(zone))
+                zoneIndex = i;
+        }
+        return zoneIndex;
     }
 }
 
