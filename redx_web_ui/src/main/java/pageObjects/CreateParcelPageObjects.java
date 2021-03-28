@@ -788,8 +788,9 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         public String getPickupLocationErrorMessage()
         {
             pickUpLocationErrorMessage = xpathPresenceSetter("//div[@class='ant-message-notice']//span[contains(text(),'pickup')]");
-            System.out.println(myActions.action_getText(pickUpLocationErrorMessage));
-            return myActions.action_getText(pickUpLocationErrorMessage);
+            String msg = myActions.action_getText(pickUpLocationErrorMessage);
+            System.out.println("Pickup Location Error Msg" + msg);
+            return msg;
         }
     }
 
@@ -945,9 +946,16 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
         public void clickPrintLabelButton()
         {
+            int loop = 0;
             printLabelButton = xpathSetter("//div[@class='print-label-button-wrapper']/button");
             myActions.action_click(printLabelButton);
-            sleep(2000);
+            while(driver.getWindowHandles().size()==1)
+            {
+                sleep(500);
+                loop++;
+                if(loop>10)
+                    break;
+            }
         }
 
         public void waitForLoading()
