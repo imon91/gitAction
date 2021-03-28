@@ -58,7 +58,7 @@ public class PickupLocationPageObjects extends RedXWebBaseClass
     {
         pickupLocations = xpathListSetter("//div[@class='pickup-points']/div/div");
         int size = pickupLocations.size();
-        int index = random.nextInt(size-2)+3;
+        int index = random.nextInt(size-3)+3;
         System.out.println("Size : " + (size-1));
         System.out.println("Index : " + index);
         return index;

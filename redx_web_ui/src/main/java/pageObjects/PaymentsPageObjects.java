@@ -49,8 +49,10 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
     private WebElement codCharge;
     private WebElement returnCharge;
     private WebElement advancePaymentRepayment;
+    private WebElement totalAdjustmentAmount;
     private WebElement amountPaidOut;
-    private WebElement downloadButton;
+    private WebElement downloadInvoiceButton;
+    private WebElement downloadMushokButton;
 
     /*----------Actions----------*/
 
@@ -148,6 +150,7 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
     {
         clearDateFilterIcon = xpathSetter("//i[@class='anticon anticon-close-circle ant-calendar-picker-clear']");
         myActions.action_click(clearDateFilterIcon);
+        clickSearchButton();
     }
 
     public void clickSearchButton()
@@ -218,16 +221,28 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
         return myActions.action_getText(advancePaymentRepayment);
     }
 
+    public String getTotalAdjustmentAmount(int index)
+    {
+        totalAdjustmentAmount = xpathSetter("//tbody/tr[" + index + "]/td[9]");
+        return myActions.action_getText(totalAdjustmentAmount);
+    }
+
     public String getAmountPaidOut(int index)
     {
-        amountPaidOut = xpathSetter("//tbody/tr[" + index + "]/td[9]/span");
+        amountPaidOut = xpathSetter("//tbody/tr[" + index + "]/td[10]/span");
         return myActions.action_getText(amountPaidOut);
     }
 
-    public void clickDownloadButton(int index)
+    public void clickDownloadInvoiceButton(int index)
     {
-        downloadButton = xpathSetter("//tbody/tr[" + index + "]/td[10]/i");
-        myActions.action_click(downloadButton);
+        downloadInvoiceButton = xpathSetter("//tbody/tr[" + index + "]/td[11]/i[1]");
+        myActions.action_click(downloadInvoiceButton);
+    }
+
+    public void clickDownloadMushokButton(int index)
+    {
+        downloadInvoiceButton = xpathSetter("//tbody/tr[" + index + "]/td[11]/i[2]");
+        myActions.action_click(downloadInvoiceButton);
     }
 
     /*----------Functions----------*/

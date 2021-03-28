@@ -91,7 +91,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     {
         createBulkParcelButton = xpathSetter("//button[contains(text(),'Create Bulk Parcels')]");
         myActions.action_click(createBulkParcelButton);
-        sleep(2000);
+        waitForLoading();
         actions.sendKeys(Keys.ESCAPE).build().perform();
     }
 
@@ -157,7 +157,8 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     {
         parcelWeightInput = xpathSetter("//div[@class='left-form']/div[5]//input");
         myActions.action_click(parcelWeightInput);
-        clickDecreaseWeightButton();
+        if(Integer.parseInt(getParcelWeight())>0)
+            clickDecreaseWeightButton();
         myActions.action_sendKeys(parcelWeightInput,weight);
     }
 
@@ -551,7 +552,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public void clickCreateParcelWithNoInputs(String deliveryType)
     {
-        chooseDeliveryType(deliveryType);
+//        chooseDeliveryType(deliveryType);
         clickParcelWeightInput();
         clickDecreaseWeightButton();
         enterSellingPrice("0");
@@ -567,7 +568,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
       String District, String Division, String area, String parcelType, String cashCollection, String sellingPrice, String acknowledgement, String instructions */
 
         List<String> deliveryChargeDetails = new ArrayList<>();
-        chooseDeliveryType("Regular");
+//        chooseDeliveryType("Regular");
         System.out.println("Creating Regular Parcel");
         for (int i = 0; i < input.length; i++)
         {
@@ -712,6 +713,12 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         return errorMsgs;
     }
 
+    public void waitForLoading()
+    {
+        while(driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/create-parcel/"))
+            sleep(100);
+    }
+
     /*---------------Classes---------------*/
 
     public class ShopInfoPageObjects
@@ -742,7 +749,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         {
             chooseShopButton = xpathSetter("//a[@href='/shop-list/']/..");
             myActions.action_click(chooseShopButton);
-            sleep(2000);
+            waitForLoading();
         }
 
         public void clickAllPickupLocationDropDown()
@@ -926,19 +933,27 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         {
             trackOrdersButton = xpathSetter("//div[@class='track-button-wrapper']/button");
             myActions.action_click(trackOrdersButton);
+            waitForLoading();
         }
 
         public void clickRequestNewParcelButton()
         {
             requestNewParcelButton = xpathSetter("//div[@class='parcel-create-button-wrapper']/button");
             myActions.action_click(requestNewParcelButton);
-            setImplicitWait(10000);
+            waitForLoading();
         }
 
         public void clickPrintLabelButton()
         {
             printLabelButton = xpathSetter("//div[@class='print-label-button-wrapper']/button");
             myActions.action_click(printLabelButton);
+            sleep(2000);
+        }
+
+        public void waitForLoading()
+        {
+            while(driver.getCurrentUrl().contains("https://redx.shopups1.xyz/parcel-success/"))
+                sleep(100);
         }
     }
 

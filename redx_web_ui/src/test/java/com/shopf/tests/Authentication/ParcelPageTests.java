@@ -37,7 +37,8 @@ public class ParcelPageTests extends RedXWebBaseClass {
     private String parcelsListGetCallUrl;
     private Random random;
     private int index;
-    private long shopId = 648299;
+    private String shopName = "RedX Web Sanity Test Shop";
+    private long shopId ;
 
     @BeforeSuite(alwaysRun = true)
     public void redXWebBeforeSuite() throws  Exception
@@ -70,12 +71,14 @@ public class ParcelPageTests extends RedXWebBaseClass {
         random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
-        System.out.println("Verify Authentication with valid credentials was called");
+        System.out.println("Performing Authentication");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
 
-        actionBarObjects.changeShop("RedX Web Sanity Test Shop");
+        actionBarObjects.changeShop(shopName);
         setImplicitWait(10000);
+
+        shopId = getRedxApiResponse.getShopId(shopName);
 
         int page = 1 ,limit = 20 ,offset = 0 ,sort=0;
 
@@ -93,7 +96,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify All Pickup Location Filter Functionality",
-            priority = 1 )
+            priority = 201 )
     public void verifyAllPickupLocationFilterFunctionality()
     {
         System.out.println("Verifying All Pickup Location Filter Functionality");
@@ -111,7 +114,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Tracking Id Filter Functionality",
-            priority = 2 )
+            priority = 202 )
     public void verifyTrackingIdFilterFunctionality()
     {
         String trackingId = "21A224WE3K6AU";
@@ -132,7 +135,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Invoice Id Filter Functionality",
-            priority = 3 )
+            priority = 203 )
     public void verifyShopInvoiceIdFilterFunctionality()
     {
         String invoiceId = "123124";
@@ -153,7 +156,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Phone Number Filter Functionality",
-            priority = 4 )
+            priority = 204 )
     public void verifyPhoneNumberFilterFunctionality()
     {
         String phoneNumber = "8801401122177";
@@ -174,7 +177,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Name Filter Functionality",
-            priority = 5 )
+            priority = 205 )
     public void verifyCustomerNameFilterFunctionality()
     {
         String customerName = "Parcel Sanity Test";
@@ -194,34 +197,12 @@ public class ParcelPageTests extends RedXWebBaseClass {
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Creation Date Filter Functionality",
-            priority = 6 )
-    public void verifyCreationDateFilterFunctionality()
+            description = "Verify Date Filter Functionality",
+            priority = 206 )
+    public void verifyDateFilterFunctionality()
     {
-        System.out.println("Verifying Creation Date Filter Functionality");
-        String filterIndex = "CREATED_AT";
-        long since = searchByPageObjects.enterDateFromFilter(01,"Jan",2021);
-        long until = searchByPageObjects.enterDateToFilter(23,"Feb",2021);
-
-        String url = getRedxApiResponse.parcelsListGetCallUrl(parcelsListGetCallUrl,"","","",filterIndex,Long.toString(since),Long.toString(until));
-        ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(url);
-        searchByPageObjects.chooseDateFilterTypeDropDown(filterIndex);
-
-        int uiValue = parcelPageObjects.getTotalParcelsCount();
-        int apiValue = parcelsListModel.getBody().getCount();
-        System.out.println("Parcels Count in UI : " + uiValue);
-        System.out.println("Parcels Count in API : " + apiValue);
-        searchByPageObjects.clickClearSearchButton();
-        Assert.assertEquals(uiValue,apiValue);
-    }
-
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Updated Date Filter Functionality",
-            priority = 7 )
-    public void verifyUpdatedDateFilterFunctionality()
-    {
-        System.out.println("Verifying Updated Date Filter Functionality");
-        String filterIndex = "UPDATED_AT";
+        System.out.println("Verifying Date Filter Functionality");
+        String filterIndex = parcelPageObjects.getRandomValue("Filter Index");
         long since = searchByPageObjects.enterDateFromFilter(01,"Jan",2021);
         long until = searchByPageObjects.enterDateToFilter(23,"Feb",2021);
 
@@ -239,7 +220,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Search Button Functionality",
-            priority = 8 )
+            priority = 208 )
     public void verifySearchButtonFunctionality()
     {
         System.out.println("Verifying Search Button Functionality");
@@ -249,7 +230,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Parcel History Button Functionality",
-            priority = 9 )
+            priority = 209 )
     public void verifyDownloadParcelHistoryButtonFunctionality()
     {
         System.out.println("Verifying Download Parcel History Button Functionality");
@@ -261,7 +242,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Parcel History Cancel Button Functionality",
-            priority = 10 )
+            priority = 210 )
     public void verifyDownloadParcelHistoryCancelButtonFunctionality()
     {
         System.out.println("Verifying Download Parcel History Cancel Button Functionality");
@@ -271,7 +252,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Parcel History Functionality",
-            priority = 11 )
+            priority = 211 )
     public void verifyDownloadParcelHistoryFunctionality()
     {
         System.out.println("Verifying Download Parcel History Functionality");
@@ -284,7 +265,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Select All Parcels Checkbox Functionality",
-            priority = 12 )
+            priority = 212 )
     public void verifySelectAllParcelsCheckboxFunctionality()
     {
         System.out.println("Verifying Select All Parcels Checkbox Functionality");
@@ -302,7 +283,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Select Parcel Functionality",
-            priority = 13)
+            priority = 213)
     public void verifySelectParcelFunctionality()
     {
         System.out.println("Verifying Select Parcels Checkbox Functionality");
@@ -314,7 +295,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Print Labels Functionality",
-            priority = 14)
+            priority = 214)
     public void verifyPrintLabelsFunctionality()
     {
         System.out.println("Verifying Print Labels Functionality");
@@ -338,7 +319,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Pages Functionality",
-            priority = 15)
+            priority = 215)
     public void verifyPaginationPagesFunctionality()
     {
         System.out.println("Verifying Pagination Pages Functionality");
@@ -351,7 +332,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Next Page Functionality",
-            priority = 16)
+            priority = 216)
     public void verifyPaginationNextPageFunctionality()
     {
         System.out.println("Verifying Pagination Next Page Functionality");
@@ -366,7 +347,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Functionality",
-            priority = 17)
+            priority = 217)
     public void verifyPaginationPreviousPageFunctionality()
     {
         System.out.println("Verifying Pagination Previous Page Functionality");
@@ -381,7 +362,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Creation Date Value",
-            priority = 18)
+            priority = 218)
     public void verifyCreationDateValue()
     {
         System.out.println("Verifying Creation Date Value");
@@ -394,7 +375,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pickup Name Value",
-            priority = 19)
+            priority = 219)
     public void verifyPickupNameValue()
     {
         System.out.println("Verifying Pickup Name Value");
@@ -409,7 +390,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Id Functionality",
-            priority = 20)
+            priority = 220)
     public void verifyParcelIdFunctionality()
     {
         System.out.println("Verifying Parcel Id Functionality");
@@ -417,6 +398,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         String assertUrl = "https://redx.shopups1.xyz/track-parcel/?trackingId=" + parcelId + "&shopId=" + shopId;
         System.out.println("Parcel Id : " + parcelId);
         parcelsListPageObjects.clickParcelIdButton(index);
+        parcelsListPageObjects.waitForLoading();
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
         actionBarObjects.clickParcelsLink();
@@ -425,7 +407,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Id Value",
-            priority = 21)
+            priority = 221)
     public void verifyParcelIdValue()
     {
         System.out.println("Verifying Parcel Id Value");
@@ -438,7 +420,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Invoice Id Value",
-            priority = 22)
+            priority = 222)
     public void verifyInvoiceIdValue()
     {
         System.out.println("Verifying Invoice Id Value");
@@ -451,7 +433,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Value",
-            priority = 23)
+            priority = 223)
     public void verifyShopValue()
     {
         System.out.println("Verifying Shop Value");
@@ -464,7 +446,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Name Value",
-            priority = 24)
+            priority = 224)
     public void verifyCustomerNameValue()
     {
         System.out.println("Verifying Customer Name Value");
@@ -477,7 +459,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Phone Value",
-            priority = 25)
+            priority = 225)
     public void verifyCustomerPhoneValue()
     {
         System.out.println("Verifying Customer Phone Value");
@@ -490,7 +472,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Address Value",
-            priority = 26)
+            priority = 226)
     public void verifyCustomerAddressValue()
     {
         System.out.println("Verifying Customer Address Value");
@@ -503,7 +485,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Area Value",
-            priority = 27)
+            priority = 227)
     public void verifyCustomerAreaValue()
     {
         System.out.println("Verifying Customer Area Value");
@@ -516,7 +498,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Stauts Value",
-            priority = 28)
+            priority = 228)
     public void verifyStatusValue()
     {
         System.out.println("Verifying Status Value");
@@ -529,7 +511,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Info Cash Value",
-            priority = 29)
+            priority = 229)
     public void verifyPaymentInfoCashValue()
     {
         System.out.println("Verifying Payment Info Cash Value");
@@ -542,7 +524,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Info Charge Value",
-            priority = 30)
+            priority = 230)
     public void verifyPaymentInfoChargeValue()
     {
         System.out.println("Verifying Payment Info Charge Value");
@@ -555,7 +537,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Status Value",
-            priority = 31)
+            priority = 231)
     public void verifyPaymentStatusValue()
     {
         System.out.println("Verifying Payment Status Value");
@@ -570,7 +552,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Promocode Discount Value",
-            priority = 32)
+            priority = 232)
     public void verifyPromocodeDiscountValue()
     {
         System.out.println("Verifying Promocode Discount Value");
@@ -583,7 +565,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Delivery Type Value",
-            priority = 33)
+            priority = 233)
     public void verifyParcelDeliveryTypeValue()
     {
         System.out.println("Verifying Parcel Delivery Type Value");
@@ -596,7 +578,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Type Value",
-            priority = 34)
+            priority = 234)
     public void verifyParcelTypeValue()
     {
         System.out.println("Verifying Parcel Type Value");
@@ -609,7 +591,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Last Updated Value",
-            priority = 35)
+            priority = 235)
     public void verifyLastUpdatedValue()
     {
         System.out.println("Verifying Last Updated Value");
@@ -622,12 +604,12 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Status Filter Functionality",
-            priority = 36)
+            priority = 236)
     public void verifyStatusFilterFunctionality()
     {
         System.out.println("Verifying Status Filter Functionality");
         String status = parcelPageObjects.getRandomValue("Parcel Status");
-        statusFilterPageObjects.filterByStatus(status);
+        statusFilterPageObjects.filterByStatus(status,1);
         ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(getRedxApiResponse.parcelsListStatusFilterGetCallUrl(parcelsListGetCallUrl,status));
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue = parcelsListModel.getBody().getCount();
@@ -638,7 +620,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Status Filter Reset Functionality",
-            priority = 37)
+            priority = 237)
     public void verifyStatusFilterResetFunctionality()
     {
         System.out.println("Verifying Status Filter Reset Functionality");
@@ -654,13 +636,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Status Filter Functionality",
-            priority = 38)
+            priority = 238)
     public void verifyPaymentStatusFilterFunctionality()
     {
         System.out.println("Verifying Payment Status Filter Functionality");
-        paymentStatusFilterPageObjects.scrollRight();
+//        paymentStatusFilterPageObjects.scrollRight();
         String paymentStatus = parcelPageObjects.getRandomValue("Payment Status");
-        paymentStatusFilterPageObjects.filterByStatus(paymentStatus);
+        statusFilterPageObjects.filterByStatus(paymentStatus,2);
         ParcelsListModel parcelsListModel = getRedxApiResponse.parcelsListModel(getRedxApiResponse.parcelsListPaymentStatusFilterGetCallUrl(parcelsListGetCallUrl,paymentStatus));;
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue =parcelsListModel.getBody().getCount();
@@ -671,13 +653,14 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Status Filter Reset Functionality",
-            priority = 39)
+            priority = 239)
     public void verifyPaymentStatusFilterResetFunctionality()
     {
         System.out.println("Verifying Payment Status Filter Reset Functionality");
-        paymentStatusFilterPageObjects.scrollRight();
-        paymentStatusFilterPageObjects.clickPaymentStatusFilterDropDown();
-        paymentStatusFilterPageObjects.clickResetButton();
+//        paymentStatusFilterPageObjects.scrollRight();
+//        paymentStatusFilterPageObjects.clickPaymentStatusFilterDropDown();
+        statusFilterPageObjects.clickStatusFilterDropDown();
+        statusFilterPageObjects.clickResetButton();
         int uiValue = parcelPageObjects.getTotalParcelsCount();
         int apiValue = getRedxApiResponse.parcelsListModel(parcelsListGetCallUrl).getBody().getCount();
         System.out.println("Parcels in UI : " + uiValue);
@@ -687,11 +670,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Edit Button Functionality",
-               priority = 40)
+               priority = 240)
        public void verifyEditButtonFunctionality()
        {
            System.out.println("Verifying Edit Button Functionality");
-           statusFilterPageObjects.filterByStatus("Pickup Pending");
+           statusFilterPageObjects.filterByStatus("Pickup Pending",1);
            if(parcelPageObjects.getTotalParcelsCount()!=0)
            {
                editParcelPageObjects.clickEditButton(parcelPageObjects.getRandomParcelIndex());
@@ -704,7 +687,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Edit Cancel Button in Edit Functionality",
-               priority = 41)
+               priority = 241)
        public void verifyCancelButtonEditFunctionality()
        {
            System.out.println("Verifying Cancel Button in Edit Functionality");
@@ -719,7 +702,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
       @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Edit Functionality",
-               priority = 42)
+               priority = 242)
        public void verifyEditFunctionality()
        {
            System.out.println("Verifying Edit Functionality");
@@ -737,11 +720,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Delete Button Functionality",
-            priority = 43)
+            priority = 243)
     public void verifyDeleteButtonFunctionality()
     {
         System.out.println("Verifying Delete Button Functionality");
-        statusFilterPageObjects.filterByStatus("Pickup Pending");
+        statusFilterPageObjects.filterByStatus("Pickup Pending",1);
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
         if(parcelPageObjects.getTotalParcelsCount()!=0)
         {
@@ -754,7 +737,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify No Delete Button Functionality",
-            priority = 44)
+            priority = 244)
     public void verifyNoDeleteFunctionality()
     {
         System.out.println("Verifying No Delete Button Functionality");
@@ -766,7 +749,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Delete Functionality",
-            priority = 45)
+            priority = 245)
     public void verifyDeleteFunctionality()
     {
         System.out.println("Verifying Delete Functionality");
@@ -779,7 +762,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
             deleteParcelPageObjects.clickDeleteButton(index);
             deleteParcelPageObjects.clickYesButton();
             parcelPageObjects.clickResetButton();
-            statusFilterPageObjects.filterByStatus("Pickup Pending");
+            statusFilterPageObjects.filterByStatus("Pickup Pending",1);
             int parcels = parcelPageObjects.getTotalParcelsCount();
             parcelPageObjects.clickResetButton();
             if(parcels==total)
@@ -790,11 +773,11 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
        @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Button Functionality",
-               priority = 46)
+               priority = 246)
        public void verifyExchangeButtonFunctionality()
        {
            System.out.println("Verifying Exchange Button Functionality");
-           statusFilterPageObjects.filterByStatus("Delivered");
+           statusFilterPageObjects.filterByStatus("Delivered",1);
            String parcels = exchangeParcelPageObjects.clickExchangeButton();
            if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
            {
@@ -808,7 +791,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
        @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Cancel Button Functionality",
-               priority = 47)
+               priority = 247)
        public void verifyExchangeCancelButtonFunctionality()
        {
            System.out.println("Verifying Exchange Cancel Button Functionality");
@@ -823,7 +806,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
        @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Functionality",
-               priority = 48)
+               priority = 248)
        public void verifyExchangeFunctionality()
        {
            System.out.println("Verifying Exchange Functionality");
@@ -839,7 +822,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
        @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Raise Issue Button Functionality",
-               priority = 49)
+               priority = 249)
        public void verifyRaiseIssueButtonFunctionality()
        {
            System.out.println("Verifying Raise Issue Button Functionality");
@@ -854,7 +837,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Raise Issue Back Button Functionality",
-            priority = 50)
+            priority = 250)
     public void verifyRaiseIssueBackButtonFunctionality()
     {
         System.out.println("Verifying Raise Issue Back Button Functionality");
@@ -868,7 +851,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Raise Issue Functionality",
-            priority = 51)
+            priority = 251)
     public void verifyRaiseIssueFunctionality()
     {
         System.out.println("Verifying Raise Issue Functionality");
@@ -880,11 +863,6 @@ public class ParcelPageTests extends RedXWebBaseClass {
                 raiseIssuePageObjects.clickCloseButton();
             }
             else raiseIssuePageObjects.clickCloseIcon();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void parcelsPageTestsAfterClass(){
-        System.out.println("Parcels Page Tests After Class");
     }
 
     @AfterSuite(alwaysRun = true)

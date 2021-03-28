@@ -46,6 +46,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
     private WebElement activePage;
 
     private String[] pickupLocations = {"Dhanmondi","CWH"};
+    private String[] filterIndex = {"CREATED_AT","UPDATED_AT"};
     private String[] dateFilterTypes = {"Creation Date","Last Updated"};
     private String[] paymentStatuses = {"Settled","Unsettled"};
     private String[] statuses = {"Delivered","Deleted","Returning","Damaged","Delivery in Progress","Returned","Rejected","Picked Up","Pickup Pending","Hold"};
@@ -281,6 +282,10 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             case "Payment Status":
                 index = random.nextInt(2);
                 value = paymentStatuses[index];
+                break;
+            case "Filter Index":
+                index = random.nextInt(2);
+                value = filterIndex[index];
                 break;
         }
         return value;
@@ -527,7 +532,6 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         {
             parcelIdButton = xpathSetter("//tbody/tr[" + index + "]/td[4]//button   ");
             myActions.action_click(parcelIdButton);
-            sleep(2000);
         }
 
         public String getInvoiceId(int index,int line)
@@ -586,36 +590,43 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String getPaymentStatusValue(int index)
         {
-            paymentStatusValue = xpathSetter("//tbody/tr[" + index + "]/td[9]/span");
+            paymentStatusValue = xpathSetter("//tbody/tr[" + index + "]/td[7]//div[2]//span");
             return myActions.action_getText(paymentStatusValue);
         }
 
         public String getPromoCodeDiscountValue(int index)
         {
-            promoCodeDiscountValue = xpathSetter("//tbody/tr[" + index + "]/td[10]");
+            promoCodeDiscountValue = xpathSetter("//tbody/tr[" + index + "]/td[9]");
             String value = myActions.action_getText(promoCodeDiscountValue).substring(4);
             return String.format("%.1f",Float.parseFloat(value));
         }
 
         public String getParcelDeliveryTypeValue(int index,int line)
         {
-            parcelDeliveryType = xpathSetter("//tbody/tr[" + index + "]/td[11]/div");
+            parcelDeliveryType = xpathSetter("//tbody/tr[" + index + "]/td[10]");
             List<String> info = Arrays.asList(myActions.action_getText(parcelDeliveryType).split("\n"));
             return info.get(line-1).substring(0,7).toLowerCase();
         }
 
         public String getParcelTypeValue(int index)
         {
-            parcelTypeValue = xpathSetter("//tbody/tr[" + index + "]/td[11]/span");
-            return myActions.action_getText(parcelTypeValue).substring(13).toLowerCase();
+            parcelTypeValue = xpathSetter("//tbody/tr[" + index + "]/td[10]");
+            List<String> info = Arrays.asList(myActions.action_getText(parcelTypeValue).split("\n"));
+            return info.get(0).substring(0,7).toLowerCase();
         }
 
         public String getLastUpdatedValue(int index)
         {
-            lastUpdatedValue = xpathSetter("//tbody/tr[" + index + "]/td[12]");
+            lastUpdatedValue = xpathSetter("//tbody/tr[" + index + "]/td[11]");
             return myActions.action_getText(lastUpdatedValue);
         }
+        public void waitForLoading()
+        {
+            while (driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/parcel-list/"))
+                sleep(100);
+        }
     }
+
     public class DownloadParcelHistoryPageObjects
     {
 
@@ -789,6 +800,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         private WebElement statusFilterDropDown;
         private WebElement statusFilterDropDownOption;
         private WebElement okButton;
+        private WebElement searchButton;
         private WebElement resetButton;
 
         /*----------Actions----------*/
@@ -800,10 +812,16 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 //            myActions.action_click(statusFilterDropDownOption);
         }
 
-        public void chooseStatusFilterDropDownOption(String status)
+        public void chooseStatusFilterDropDownOption(String status,int type)
         {
-            statusFilterDropDownOption = xpathSetter("//div[contains(@class,'ant-dropdown')][not(contains(@class,'hidden'))]//span[contains(text(),'" + status + "')]/..");
+            statusFilterDropDownOption = xpathSetter("//div[contains(@class,'ant-dropdown')][not(contains(@class,'hidden'))]//div[contains(@class,'ant-radio')][" + type + "]//span[contains(text(),'" + status + "')]/..");
             myActions.action_click(statusFilterDropDownOption);
+        }
+
+        public void clickSearchButton()
+        {
+            searchButton = xpathSetter("//div[contains(@class,'ant-dropdown')][not(contains(@class,'hidden'))]//span[text()='Search']/..");
+            myActions.action_click(searchButton);
         }
 
         public void clickOkButton()
@@ -814,18 +832,19 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public void clickResetButton()
         {
-            resetButton = xpathSetter("//div[contains(@class,'ant-dropdown')][not(contains(@class,'hidden'))]//a[contains(text(),'Reset')]");
+            resetButton = xpathSetter("//div[contains(@class,'ant-dropdown')][not(contains(@class,'hidden'))]//span[text()='Reset']/..");
             myActions.action_click(resetButton);
+            waitForLoading();
         }
 
         /*----------Functions----------*/
 
-        public void filterByStatus(String status)
+        public void filterByStatus(String status,int type)
         {
             System.out.println("Status : " + status);
             clickStatusFilterDropDown();
-            chooseStatusFilterDropDownOption(status);
-            clickOkButton();
+            chooseStatusFilterDropDownOption(status,type);
+            clickSearchButton();
             waitForLoading();
         }
 

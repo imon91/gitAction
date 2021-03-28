@@ -19,6 +19,19 @@ public class MyActions extends RedXWebBaseClass {
         }
     }
 
+    public void action_click(String xpath) {
+        WebElement element = xpathSetter(xpath);
+        try{
+            element.click();
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            action_click(element);
+        }catch (StaleElementReferenceException e){
+            sleep(500);
+            action_click(xpath);
+        }
+    }
+
     public void action_sendKeys(WebElement element, String data) {
         sleep(1000);
         element.sendKeys(data);

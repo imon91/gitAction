@@ -2,6 +2,8 @@ package pageObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 
 
@@ -102,38 +104,37 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     public void clickOnDashboardLink()
     {
-//        dashboardLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[1]");
         dashboardLink = xpathSetter("//a[@href='/dashboard/']");
-        myActions.action_click(dashboardLink);
-        sleep(2000);
+        myActions.action_click("//a[@href='/dashboard/']");
     }
 
     public void clickParcelsLink()
     {
         parcelsLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[2]");
-        myActions.action_click(parcelsLink);
-        sleep(2000);
+        myActions.action_click("//div[@class='nav-links display-on-desktop']/a[2]");
+        waitForLoading();
     }
 
     public void clickPaymentsLink()
     {
         paymentsLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[3]");
-        myActions.action_click(paymentsLink);
-        sleep(2000);
+        myActions.action_click("//div[@class='nav-links display-on-desktop']/a[3]");
+        waitForLoading();
     }
 
     public void clickCouponLink()
     {
         couponLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[4]");
-        myActions.action_click(couponLink);
-        sleep(2000);
+        myActions.action_click("//div[@class='nav-links display-on-desktop']/a[4]");
+        waitForLoading();
     }
 
     public void clickOnCreateParcelButton()
     {
         createParcelLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[5]");
-        myActions.action_click(createParcelLink);
-        sleep(2000);
+        myActions.action_click("//div[@class='nav-links display-on-desktop']/a[5]");
+        waitForLoading();
+        sleep(1000);
     }
 
     public String getShopName()
@@ -146,7 +147,6 @@ public class ActionBarObjects extends RedXWebBaseClass{
     {
         shopDropDownArrow = xpathSetter("//div[@class='nav-links display-on-desktop']//i[@class='anticon anticon-down']");
         myActions.action_click(shopDropDownArrow);
-        sleep(2000);
     }
 
     public void clickOnDropDownMyShopButton()
@@ -154,7 +154,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         myShopsDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[1]");
         myActions.action_click(myShopsDropDown);
-        sleep(2000);
+        waitForLoading();
     }
 
     public void clickOnPickupLocationDropDown()
@@ -162,7 +162,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         pickupLocationDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[2]");
         myActions.action_click(pickupLocationDropDown);
-        sleep(2000);
+        waitForLoading();
     }
 
     public void clickOnMyPaymentDetailsDropDown()
@@ -170,7 +170,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         myPaymentDetailsDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[3]");
         myActions.action_click(myPaymentDetailsDropDown);
-        sleep(2000);
+        waitForLoading();
     }
 
     public void clickOnNotificationSettingsDropDown()
@@ -178,7 +178,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         notificationSettingsDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[4]");
         myActions.action_click(notificationSettingsDropDown);
-        sleep(2000);
+        waitForLoading();
     }
 
     public void clickOnCoverageAreaDropDown()
@@ -186,7 +186,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         coverageAreaDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[5]");
         myActions.action_click(coverageAreaDropDown);
-        sleep(2000);
+        waitForLoading();
     }
 
 
@@ -195,7 +195,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         changePasswordDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[6]");
         myActions.action_click(changePasswordDropDown);
-        sleep(2000);
+        waitForLoading();
     }
 
 
@@ -204,7 +204,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         creditHistoryDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[7]");
         myActions.action_click(creditHistoryDropDown);
-        sleep(2000);
+        waitForLoading();
     }
 
 
@@ -213,7 +213,6 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         tutorialsDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[8]");
         myActions.action_click(tutorialsDropDown);
-        sleep(2000);
     }
 
     public void clickOnLogoutDropDown()
@@ -221,7 +220,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         clickOnShopDropDownArrow();
         logoutDropDown = xpathSetter("//ul[@class='ant-dropdown-menu ant-dropdown-menu-light ant-dropdown-menu-root ant-dropdown-menu-vertical']/li[9]");
         myActions.action_click(logoutDropDown);
-        sleep(3000);
+        waitForLoading();
     }
 
 
@@ -240,6 +239,12 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     /*----------Functions----------*/
 
+    public void waitForLoading()
+    {
+        while (driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/dashboard/"))
+            sleep(100);
+    }
+
     public void changeShop(String name)
     {
         if(getShopName().equalsIgnoreCase(name))
@@ -248,7 +253,6 @@ public class ActionBarObjects extends RedXWebBaseClass{
         {
             clickOnDropDownMyShopButton();
             myShopsPageObjects.clickShopByName(name);
-            sleep(5000);
             System.out.println("Current Shop : " + getShopName());
         }
     }
@@ -268,7 +272,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
     {
         enterSearchBar(ID);
         clickTrackParcelButton();
-        sleep(2000);
+        waitForLoading();
         return "";
 //        return homePageObjects.getToastMessage();
     }

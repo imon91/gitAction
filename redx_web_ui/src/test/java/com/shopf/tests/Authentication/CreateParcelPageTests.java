@@ -41,9 +41,9 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     }
 
     @BeforeClass(alwaysRun = true)
-    public void parcelPageObjectsBeforeClass() throws Exception
+    public void createParcelPageObjectsBeforeClass() throws Exception
     {
-        System.out.println("Parcel Page Tests Before Class");
+        System.out.println("Create Parcel Page Tests Before Class");
         loginPageObjects = new LoginPageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         createParcelPageObjects = new CreateParcelPageObjects(driver);
@@ -55,7 +55,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
-        System.out.println("Verify Authentication with valid credentials was called");
+        System.out.println("Performing Authentication");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
 
@@ -206,9 +206,9 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         createParcelPageObjects.clickCreateParcelWithNoInputs("Regular");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Create Reverse Parcel With No Inputs",
-            priority = 12 )
+//    @Test(  groups = {CoreConstants.GROUP_SANITY},
+//            description = "Verify Create Reverse Parcel With No Inputs",
+//            priority = 12 )
     public void verifyCreateReverseParcelWithNoInputs()
     {
         System.out.println("Verifying Create Reverse Parcel With No Inputs");
@@ -241,9 +241,9 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),data[3]);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Create Reverse Parcel Functionality",
-            priority = 14 )
+//    @Test(  groups = {CoreConstants.GROUP_SANITY},
+//            description = "Verify Create Reverse Parcel Functionality",
+//            priority = 14 )
     public void verifyCreateReverseParcelFunctionality()
     {
         System.out.println("Verifying Create Reverse Parcel Functionality");
@@ -274,9 +274,8 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Track Orders Button Functionality");
         parcelSuccessPageObjects.clickTrackOrdersButton();
-        sleep(2000);
         String url = driver.getCurrentUrl();
-        System.out.println("Current URL : " + url);//https://redx.shopups1.xyz/track-parcel/?parcelId=5981990&trackingId=21A3A3WE3K7QE&shopId=648299
+        System.out.println("Current URL : " + url);
         if(url.contains("track-parcel"))
             driver.navigate().back();
         parcelSuccessPageObjects.clickOkButton();
@@ -290,7 +289,6 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verify Print Labels Button Functionality");
         parcelSuccessPageObjects.clickPrintLabelButton();
-        sleep(2000);
         Set<String> handles = driver.getWindowHandles();
         int size = handles.size();
         System.out.println("Handles : " + size);
@@ -311,19 +309,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Request New Parcel Button Functionality");
         parcelSuccessPageObjects.clickRequestNewParcelButton();
-        sleep(2000);
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
         Assert.assertEquals(url,"https://redx.shopups1.xyz/create-parcel/");
     }
-
-
-  @AfterClass(alwaysRun = true)
-  public void createParcelsPageTestsAfterClass()
-  {
-      System.out.println("Create Parcels Page Tests After Class");
-  }
-
 
     @AfterSuite(alwaysRun = true)
     public void createParcelsPageTestsAfterSuite()
