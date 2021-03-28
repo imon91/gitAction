@@ -9,16 +9,19 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class HomePageObjects extends RedXWebBaseClass{
 
     private WebDriver driver;
     private MyActions myActions;
+    private Random random;
 
     public HomePageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
+        random = new Random();
     }
 
 
@@ -28,6 +31,7 @@ public class HomePageObjects extends RedXWebBaseClass{
 
     private WebElement allPickupLocationFilter;
     private WebElement pickUpLocations;
+    private List<WebElement> pickupLocationDropDownOptions;
     private WebElement startDateFilter;
     private WebElement endDateFilter;
     private WebElement nextMonthButton;
@@ -92,9 +96,22 @@ public class HomePageObjects extends RedXWebBaseClass{
 
     public void choosePickupLocation(String location)
     {
-
         pickUpLocations = xpathSetter("//ul[@class='ant-select-dropdown-menu  ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical']//li[text()='" + location + "']");
         myActions.action_click(pickUpLocations);
+    }
+
+    public String choosePickupLocation()
+    {
+        clickOnAllPickupLocation();
+        pickupLocationDropDownOptions = xpathListSetter("//ul[@class='ant-select-dropdown-menu  ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical']//li[text()]");
+        int size = pickupLocationDropDownOptions.size();
+        int index = random.nextInt(size);
+        String pickupLocation = myActions.action_getText(pickupLocationDropDownOptions.get(index));
+        System.out.println("Size : " + size);
+        System.out.println("Index : " + index);
+        System.out.println("Pickup Location : " + pickupLocation);
+        myActions.action_click(pickupLocationDropDownOptions.get(index));
+        return pickupLocation;
     }
 
     public long selectDate(int date, String month, int year)
@@ -175,7 +192,7 @@ public class HomePageObjects extends RedXWebBaseClass{
     {
         redxCreditButton = xpathSetter("//a[@class='credit-link']//button");
         myActions.action_click(redxCreditButton);
-        sleep(2000);
+        waitForLoading();
     }
 
     public String getRedxCreditValue()
@@ -247,6 +264,12 @@ public class HomePageObjects extends RedXWebBaseClass{
         paymentProcessingValue = xpathSetter("//div[@class='ant-row prison'][2]/div[4]//p[contains(@class,'value')]");
         String value = myActions.action_getText(paymentProcessingValue);
         return value.substring(4);
+    }
+
+    public void waitForLoading()
+    {
+        while (driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/dashboard/"))
+            sleep(100);
     }
 
 }

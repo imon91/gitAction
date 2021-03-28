@@ -56,7 +56,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         paymentsModel = new PaymentsModel();
         paymentDetailsModel = new PaymentDetailsModel();
 
-        System.out.println("Verify Authentication with valid credentials was called");
+        System.out.println("Performing Authentication");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
 
@@ -64,7 +64,6 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         setImplicitWait(10000);
 
         actionBarObjects.clickPaymentsLink();
-        sleep(2000);
 
         String shopName = actionBarObjects.getShopName();
         int limit =20, offset = 0;
@@ -264,7 +263,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         int files1 = dirContains.length;
         System.out.println("Current Files : " + files1);
 
-        paymentsPageObjects.clickDownloadButton(paymentsIndex);
+        paymentsPageObjects.clickDownloadInvoiceButton(paymentsIndex);
 
         sleep(3000);
         File[] dirContain = directory.listFiles();

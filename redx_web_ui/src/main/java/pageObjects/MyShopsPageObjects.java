@@ -48,7 +48,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
         System.out.println("Changing Shop Name");
         shopModule = xpathSetter("//div[@class='shoplist']/div/div//p[text()='" + name + "']/..");
         myActions.action_click(shopModule);
-        sleep(3000);
+        sleep(1000);
     }
 
     public void clickShopByIndex(int index)
@@ -132,7 +132,6 @@ public class MyShopsPageObjects extends RedXWebBaseClass
         editShopIcon = driver.findElements(By.xpath("//div[@class='shoplist']//div[@class='ant-col ant-col-md-12 ant-col-lg-6 ant-col-xl-6']//div[@class='action-icon-wrapper']/*"));
         //EditButton was less than shopList
         myActions.action_click(editShopIcon.get(index));
-        sleep(2000);
     }
 
     public void clickOnNewShopIcon()
