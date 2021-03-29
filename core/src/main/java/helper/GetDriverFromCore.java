@@ -170,6 +170,7 @@ public class GetDriverFromCore {
             caps.setCapability(BrowserStackCapabilities.KEY_OS_VERSION, os_version);
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER, browser);
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_VERSION,browser_version);
+            caps.setCapability("browserstack.timezone", "Kolkata");
             caps.setCapability("resolution", "2048x1536");
             if(System.getProperty(BuildParameterKeys.KEY_APP)
                     .equalsIgnoreCase(CoreConstants.APP_WMS)){

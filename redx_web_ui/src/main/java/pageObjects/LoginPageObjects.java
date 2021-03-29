@@ -39,7 +39,7 @@ public class LoginPageObjects extends RedXWebBaseClass {
 
     public void enterMobileNo(String mobileNo)
     {
-        editMobileNoText = xpathSetter("//div[@class='signup-phone-field']/input");
+        editMobileNoText = xpathSetter("//div[@class='login-form-wrapper']//input");
         myActions.action_sendKeys(editMobileNoText,mobileNo);
     }
 

@@ -11,7 +11,11 @@
             </run>
         </groups>
         <classes>
-            <class name ="com.shopf.tests.Authentication.CreateParcelPageTests"></class>
+            <class name ="com.shopf.tests.Authentication.CreateParcelPageTests">
+                <methods>
+<!--                    <include name="verifyCreateRegularParcelFunctionality"/>-->
+                </methods>
+            </class>
         </classes>
     </test>
 </suite>

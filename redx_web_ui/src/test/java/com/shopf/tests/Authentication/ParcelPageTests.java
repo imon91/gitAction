@@ -814,8 +814,9 @@ public class ParcelPageTests extends RedXWebBaseClass {
            if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
            {
                exchangeParcelPageObjects.exchangeParcel("5000");
-               System.out.println("Toast : " + exchangeParcelPageObjects.getToastMsg());
-               Assert.assertEquals(exchangeParcelPageObjects.getToastMsg(),"Exchange parcel created successfully");
+               String toastMsg = exchangeParcelPageObjects.getToastMsg();
+               System.out.println("Toast : " + toastMsg);
+               Assert.assertEquals(toastMsg,"Exchange parcel created successfully");
            }
            System.out.println(parcels);
        }
