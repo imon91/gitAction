@@ -165,6 +165,24 @@ public class GetRedxApiResponse {
         return pricingModel;
     }
 
+    /*--------------------Credit History Page--------------------*/
+
+    public CreditTransactionLogModel creditTransactionLogGetCall(int shopId)
+    {
+        String creditTransactionLogGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.CREDITS + shopId + EndPoints.TRANSACTION_LOG;
+        Response creditTransactionLogResponse = shopUpPostMan.getCall(creditTransactionLogGetCall);
+        CreditTransactionLogModel creditTransactionLogModel = gson.fromJson(creditTransactionLogResponse.getBody().asString(),CreditTransactionLogModel.class);
+        return creditTransactionLogModel;
+    }
+
+    public CreditTransactionLogModel creditTransactionLogGetCall(int shopId, long since, long until)
+    {
+        String creditTransactionLogGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.CREDITS + shopId + EndPoints.TRANSACTION_LOG + "/?since=" + since + "&until=" + until;
+        Response creditTransactionLogResponse = shopUpPostMan.getCall(creditTransactionLogGetCall);
+        CreditTransactionLogModel creditTransactionLogModel = gson.fromJson(creditTransactionLogResponse.getBody().asString(),CreditTransactionLogModel.class);
+        return creditTransactionLogModel;
+    }
+
     /*--------------------Functions--------------------*/
 
     public String allParcelsListGetCallUrl(long storeId,int ...params)

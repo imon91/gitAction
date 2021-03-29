@@ -29,6 +29,8 @@ public class EndPoints {
     public static final String TRACKING = "/tracking";
     public static final String SHOP = "/shop/";
     public static final String SHOP_STORES = "/shop-stores/";
+    public static final String CREDITS = "/credits/";
+    public static final String TRANSACTION_LOG = "/transaction-log";
     public static final String COUPONS = "/coupons";
     public static final String PAYMENT = "/payment";
     public static final String BANKS = "/banks/";
