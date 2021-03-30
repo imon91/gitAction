@@ -67,7 +67,7 @@ public class ChangePasswordPageTests extends RedXWebBaseClass {
         System.out.println("Error Messages" + errorMsgs);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Change Password Functionality",
             priority = 2 )
     public void verifyChangePasswordFunctionality()
@@ -89,13 +89,6 @@ public class ChangePasswordPageTests extends RedXWebBaseClass {
         String  currentUrl = driver.getCurrentUrl();
         System.out.println("Current URL : " + currentUrl);
         Assert.assertEquals(currentUrl,"https://redx.shopups1.xyz/forgot-password/");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void changePasswordPageTestsAfterClass()
-    {
-        System.out.println("Change Password Page Tests After Class");
-        actionBarObjects.clickOnDashboardLink();
     }
 
     @AfterSuite(alwaysRun = true)

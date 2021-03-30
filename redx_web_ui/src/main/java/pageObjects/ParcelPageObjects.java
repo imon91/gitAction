@@ -1092,6 +1092,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String clickExchangeButton()
         {
+            clickNextPageIcon();
             elements = xpathListSetter("//div[@class='ant-table-fixed-right']//tbody/tr//button[not(@disabled)]//span[contains(text(),'Exchange')]/..");
             int size = elements.size();
             System.out.println("Size : " + size);
@@ -1144,7 +1145,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         {
             createParcelButton = xpathSetter("//button/span[contains(text(),'Create Parcel')]/..");
             myActions.action_click(createParcelButton);
-            waitForLoading();
+//            waitForLoading();
         }
 
         public void clickCancelButton()
@@ -1161,7 +1162,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String getToastMsg()
         {
-            toastMsg = xpathPresenceSetter("//div[contains(@class,'ant-message-notice')]//span");
+            toastMsg = xpathSetter("//div[contains(@class,'ant-message-notice')]//span");
             return  myActions.action_getText(toastMsg);
         }
 

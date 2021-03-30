@@ -216,7 +216,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         createParcelPageObjects.clickCreateParcelWithNoInputs("Reverse");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Create Regular Parcel Functionality",
             priority = 13 )
     public void verifyCreateRegularParcelFunctionality()
