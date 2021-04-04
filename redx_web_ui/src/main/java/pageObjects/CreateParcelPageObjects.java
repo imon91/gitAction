@@ -195,7 +195,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public void searchArea(String area)
     {
-        searchArea = xpathSetter("//div[@class='right-form']/div[1]//input");
+        searchArea = xpathSetter("//input[@name='selectedArea']");
         myActions.action_sendKeys(searchArea,area);
     }
 
@@ -272,27 +272,27 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public void enterCashCollectionAmount(String amount)
     {
-        cashCollectionInput = xpathSetter("//div[@class='right-form']/div[3]/input");
+        cashCollectionInput = xpathSetter("//div[@class='right-form']/div[2]/input");
         cashCollectionInput.clear();
         myActions.action_sendKeys(cashCollectionInput,amount);
     }
 
     public String getAmountErrorMessage()
     {
-        amountErrorMessage = xpathSetter("//div[@class='right-form']/div[3]//div[@class='fieldError']");
+        amountErrorMessage = xpathSetter("//div[@class='right-form']/div[2]//div[@class='fieldError']");
         return myActions.action_getText(amountErrorMessage);
     }
 
     public void enterSellingPrice(String amount)
     {
-        sellingPriceInput = xpathSetter("//div[@class='right-form']/div[4]/input");
+        sellingPriceInput = xpathSetter("//div[@class='right-form']/div[3]/input");
         sellingPriceInput.clear();
         myActions.action_sendKeys(sellingPriceInput,amount);
     }
 
     public String getSellingPriceErrorMessage()
     {
-        sellingPriceErrorMessage = xpathSetter("//div[@class='right-form']/div[4]//div[@class='fieldError']");
+        sellingPriceErrorMessage = xpathSetter("//div[@class='right-form']/div[3]//div[@class='fieldError']");
         return myActions.action_getText(sellingPriceErrorMessage);
     }
 

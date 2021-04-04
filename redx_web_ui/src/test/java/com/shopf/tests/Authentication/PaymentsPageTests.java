@@ -1,5 +1,6 @@
 package com.shopf.tests.Authentication;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -31,6 +32,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     private int paymentsIndex;
     private int parcelsIndex;
     private int parcelsSize;
+    private String host;
 
     @BeforeSuite(alwaysRun = true)
     public void redXWebBeforeSuite() throws  Exception
@@ -46,6 +48,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     public void paymentsPageTestsBeforeClass() throws Exception
     {
         System.out.println("Payments Page Tests Before Class");
+        host = System.getProperty(BuildParameterKeys.KEY_HOST);
         loginPageObjects = new LoginPageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         paymentsPageObjects = new PaymentsPageObjects(driver);
@@ -265,11 +268,14 @@ public class PaymentsPageTests extends RedXWebBaseClass {
 
         paymentsPageObjects.clickDownloadInvoiceButton(paymentsIndex);
 
-        sleep(3000);
-        File[] dirContain = directory.listFiles();
-        int files2 = dirContain.length;
-        System.out.println("Files After Download : " + files2);
-        Assert.assertEquals(files2,files1+1);
+        if(host.equalsIgnoreCase("local"))
+        {
+            sleep(3000);
+            File[] dirContain = directory.listFiles();
+            int files2 = dirContain.length;
+            System.out.println("Files After Download : " + files2);
+            Assert.assertEquals(files2,files1+1);
+        }
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -324,11 +330,14 @@ public class PaymentsPageTests extends RedXWebBaseClass {
 
         paymentDetailsPageObjects.clickDownloadButton();
 
-        sleep(3000);
-        File[] dirContain = directory.listFiles();
-        int files2 = dirContain.length;
-        System.out.println("Files After Download : " + files2);
-        Assert.assertEquals(files2,files1+1);
+        if(host.equalsIgnoreCase("local"))
+        {
+            sleep(3000);
+            File[] dirContain = directory.listFiles();
+            int files2 = dirContain.length;
+            System.out.println("Files After Download : " + files2);
+            Assert.assertEquals(files2,files1+1);
+        }
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},

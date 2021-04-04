@@ -700,12 +700,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
        }
 
-      @Test(  groups = {CoreConstants.GROUP_SANITY},
+      @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                description = "Verify Edit Functionality",
                priority = 242)
        public void verifyEditFunctionality()
        {
            System.out.println("Verifying Edit Functionality");
+           statusFilterPageObjects.filterByStatus("Pickup Pending",1);
            if(parcelPageObjects.getTotalParcelsCount()!=0)
            {
                int index = parcelPageObjects.getRandomParcelIndex();
@@ -713,8 +714,10 @@ public class ParcelPageTests extends RedXWebBaseClass {
                editParcelPageObjects.clickEditButton(index);
                editParcelPageObjects.editParcel("Edit Name Test");
                String toastMsg = editParcelPageObjects.getToastMsg();
+               System.out.println("Toast Msg : " + toastMsg);
                parcelPageObjects.clickResetButton();
-               Assert.assertEquals(toastMsg,"Parcel has been edited successfully");
+               if(!toastMsg.equalsIgnoreCase("Failed to edit parcel"))
+                   Assert.assertEquals(toastMsg,"Parcel has been edited successfully");
            } else System.out.println("No Parcels Found to perform Action");
        }
 
@@ -747,12 +750,13 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("No Parcels Found to perform Action");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Delete Functionality",
             priority = 245)
     public void verifyDeleteFunctionality()
     {
         System.out.println("Verifying Delete Functionality");
+        statusFilterPageObjects.filterByStatus("Pickup Pending",1);
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
         if(parcelPageObjects.getTotalParcelsCount()!=0)
         {
@@ -804,20 +808,23 @@ public class ParcelPageTests extends RedXWebBaseClass {
            System.out.println(parcels);
        }
 
-       @Test(  groups = {CoreConstants.GROUP_SANITY},
+       @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Functionality",
                priority = 248)
        public void verifyExchangeFunctionality()
        {
            System.out.println("Verifying Exchange Functionality");
+           statusFilterPageObjects.filterByStatus("Delivered",1);
            String parcels = exchangeParcelPageObjects.clickExchangeButton();
            if(!parcels.equalsIgnoreCase("No Parcels Found to perform Action"))
            {
                exchangeParcelPageObjects.exchangeParcel("5000");
-               System.out.println("Toast : " + exchangeParcelPageObjects.getToastMsg());
-               Assert.assertEquals(exchangeParcelPageObjects.getToastMsg(),"Exchange parcel created successfully");
+               String toastMsg = exchangeParcelPageObjects.getToastMsg();
+               System.out.println("Toast : " + toastMsg);
+               Assert.assertEquals(toastMsg,"Exchange parcel created successfully");
            }
            System.out.println(parcels);
+           driver.navigate().refresh();
        }
 
        @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -826,7 +833,6 @@ public class ParcelPageTests extends RedXWebBaseClass {
        public void verifyRaiseIssueButtonFunctionality()
        {
            System.out.println("Verifying Raise Issue Button Functionality");
-           driver.navigate().refresh();
            raiseIssuePageObjects.clickRaiseIssueButton();
            String modalTitle = raiseIssuePageObjects.getModalTitle();
            String assertValue = "Issue creation for " + raiseIssuePageObjects.getParcelId();
@@ -849,7 +855,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Please select an issue type");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Raise Issue Functionality",
             priority = 251)
     public void verifyRaiseIssueFunctionality()

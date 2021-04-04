@@ -120,7 +120,7 @@ public class CouponsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue.toLowerCase(),apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Apply Coupon Functionality",
             priority = 5 )
     public void verifyApplyCouponFunctionality()

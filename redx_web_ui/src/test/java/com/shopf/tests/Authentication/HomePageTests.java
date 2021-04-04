@@ -81,7 +81,7 @@ public class HomePageTests extends RedXWebBaseClass {
 //        actionBarObjects.clickTrackParcelButton();
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Parcels Link Functionality",
             priority = 3 )
     public void verifyParcelsLinkFunctionality()
@@ -93,7 +93,7 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/parcel-list/");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Dashboard Link Functionality",
             priority = 4 )
     public void verifyDashboardLinkFunctionality()
@@ -105,7 +105,7 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/dashboard/");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Payments Link Functionality",
             priority = 5 )
     public void verifyPaymentsLinkFunctionality()
@@ -117,7 +117,7 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/payments/");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Logo Functionality",
             priority = 6 )
     public void verifyLogoFunctionality()
@@ -129,7 +129,7 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/dashboard/");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Coupon Link Functionality",
             priority = 10 )
     public void verifyCouponLinkFunctionality()
@@ -142,7 +142,7 @@ public class HomePageTests extends RedXWebBaseClass {
         switchToDashboard();
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Create Parcel Functionality",
             priority = 11 )
     public void verifyCreateParcelFunctionality()
@@ -155,7 +155,7 @@ public class HomePageTests extends RedXWebBaseClass {
         switchToDashboard();
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify My Shops DropDown Functionality",
             priority = 12 )
     public void verifyMyShopsDropDownFunctionality()
@@ -168,7 +168,7 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Pickup Location DropDown Functionality",
                 priority = 13 )
         public void verifyPickupLocationDropDownFunctionality()
@@ -181,7 +181,7 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify My Payment Details DropDown Functionality",
                 priority = 14 )
         public void verifyMyPaymentDetailsDropDownFunctionality()
@@ -194,7 +194,7 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Notification Settings DropDown Functionality",
                 priority = 15 )
         public void verifyNotificationSettingsDropDownFunctionality()
@@ -207,7 +207,7 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Coverage Area DropDown Functionality",
                 priority = 16 )
         public void verifyCoverageAreaDropDownFunctionality()
@@ -220,7 +220,7 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Change Password DropDown Functionality",
                 priority = 17 )
         public void verifyChangePasswordDropDownFunctionality()
@@ -233,7 +233,7 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Credit History DropDown Functionality",
                 priority = 18 )
         public void verifyCreditHistoryDropDownFunctionality()
@@ -269,7 +269,7 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(url,"https://www.youtube.com/channel/UCm8-BBWm89zLCqjFQgqJPwQ");
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Logout DropDown Functionality",
                 priority = 36 )
         public void verifyLogoutDropDownFunctionality()

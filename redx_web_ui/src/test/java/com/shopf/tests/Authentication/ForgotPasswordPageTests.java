@@ -128,7 +128,7 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Forgot password");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Password Eye Icon Functionality",
             priority = 6 )
     public void verifyPasswordEyeIconFunctionality()
@@ -157,7 +157,7 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         Assert.assertEquals(type,"text");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Verify Button Functionality",
             priority = 8 )
     public void verifyVerifyButtonFunctionality()

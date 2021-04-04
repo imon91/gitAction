@@ -70,6 +70,7 @@ task redxWebUiTest(type: Test) {
         def coverageAreaPageSanity = project.hasProperty("coverageAreaPage")
         def changePasswordPageSanity = project.hasProperty("changePasswordPage")
         def forgotPasswordPageSanity = project.hasProperty("forgotPasswordPage")
+        def creditHistoryPageSanity = project.hasProperty("creditHistoryPage")
 
 
         if (smoke) {
@@ -146,6 +147,9 @@ task redxWebUiTest(type: Test) {
         }
         if (forgotPasswordPageSanity) {
             suites "src/test/resources/mySuites/forgotPasswordPageSanitySuite.xml"
+        }
+        if (creditHistoryPageSanity) {
+            suites "src/test/resources/mySuites/creditHistoryPageSanitySuite.xml"
         }
 
     }

@@ -1,5 +1,6 @@
 package com.shopf.tests.Authentication;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import org.openqa.selenium.*;
 import org.testng.Assert;
@@ -26,6 +27,7 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
     private String zone;
     private int zoneIndex;
     private int areaIndex;
+    private String host;
 
     @BeforeSuite(alwaysRun = true)
     public void redXWebBeforeSuite() throws  Exception
@@ -41,6 +43,7 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
     public void coverageAreaPageTestsBeforeClass() throws Exception
     {
         System.out.println("Coverage Area Page Tests Before Class");
+        host = System.getProperty(BuildParameterKeys.KEY_HOST);
         loginPageObjects = new LoginPageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         coverageAreaPageObjects = new CoverageAreaPageObjects(driver);
@@ -113,11 +116,14 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
 
         coverageAreaPageObjects.clickDownloadButton();
 
-        sleep(3000);
-        File[] dirContain = directory.listFiles();
-        int files2 = dirContain.length;
-        System.out.println("Files After Download : " + files2);
-        Assert.assertEquals(files2,files1+1);
+        if(host.equalsIgnoreCase("local"))
+        {
+            sleep(3000);
+            File[] dirContain = directory.listFiles();
+            int files2 = dirContain.length;
+            System.out.println("Files After Download : " + files2);
+            Assert.assertEquals(files2,files1+1);
+        }
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},

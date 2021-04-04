@@ -150,7 +150,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Discarded.");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Upload File Functionality",
             priority = 7 )
     public void verifyUploadFileFunctionality() throws Exception
@@ -162,7 +162,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Parcels created sucessfully");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Bulk Upload Status Functionality",
             priority = 8 )
     public void verifyBulkUploadStatusFunctionality()
