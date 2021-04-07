@@ -41,7 +41,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
     @BeforeClass(alwaysRun = true)
     public void createBulkParcelPageTestsBeforeClass() throws Exception
     {
-        System.out.println("Parcel Page Tests Before Class");
+        System.out.println("Create Bulk Parcel Page Tests Before Class");
         loginPageObjects = new LoginPageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         createParcelPageObjects = new CreateParcelPageObjects(driver);
@@ -53,7 +53,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
-        System.out.println("Verify Authentication with valid credentials was called");
+        System.out.println("Performing Authentication");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
 
@@ -66,7 +66,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void homePageTestsBeforeMethod()
+    public void createBulkParcelPageTestsBeforeMethod()
     {
         System.out.println("\n /****************************************************************************************************/ \n");
     }
@@ -117,6 +117,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
     public void verifyRemoveButtonFunctionality()
     {
         System.out.println("Verifying Remove Button Functionality");
+        ((JavascriptExecutor) driver).executeScript("window.scrollTo(0, document.body.scrollHeight)");
         int p1 = bulkUploadPageObjects.getParcelsSize();
         System.out.println("Parcels Before Removing: " + p1);
         bulkUploadPageObjects.removeParcel();
@@ -149,7 +150,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Discarded.");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Upload File Functionality",
             priority = 7 )
     public void verifyUploadFileFunctionality() throws Exception
@@ -161,7 +162,7 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Parcels created sucessfully");
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Bulk Upload Status Functionality",
             priority = 8 )
     public void verifyBulkUploadStatusFunctionality()

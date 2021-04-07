@@ -8,7 +8,7 @@ import utils.*;
 import java.util.List;
 
 
-public class LoginPageObjects extends RedXWebBaseClass{
+public class LoginPageObjects extends RedXWebBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
@@ -39,7 +39,7 @@ public class LoginPageObjects extends RedXWebBaseClass{
 
     public void enterMobileNo(String mobileNo)
     {
-        editMobileNoText = xpathSetter("//div[@class='signup-phone-field']/input");
+        editMobileNoText = xpathSetter("//div[@class='login-form-wrapper']//input");
         myActions.action_sendKeys(editMobileNoText,mobileNo);
     }
 
@@ -49,12 +49,11 @@ public class LoginPageObjects extends RedXWebBaseClass{
         myActions.action_click(sendOTPButton);
     }
 
-    public void enterOTPButton(String mobileNo)
+    public void enterOTPButton(String otp)
     {
         editOTPText = xpathListSetter("//div[@class='login-form-wrapper']/div/input");
-        sleep(1000);
         for(int i=0;i<4;i++){
-        myActions.action_sendKeys(editOTPText.get(i),mobileNo);}
+        myActions.action_sendKeys(editOTPText.get(i),String.valueOf(otp.charAt(i)));}
     }
 
     public void clickOnLoginWithPasswordIcon(String mobileNo)
@@ -75,15 +74,15 @@ public class LoginPageObjects extends RedXWebBaseClass{
 
     /*****************Functions***************/
 
-    public String performAuthentication(String mobileNo,String otp,String lastMobileNo) throws InterruptedException {
+    public String performAuthentication(String mobileNo,String otp,String lastMobileNo)
+    {
         clickOnMerchantLoginButton();
         enterMobileNo(mobileNo);
         enterMobileNo(lastMobileNo);
-        Thread.sleep(1000);
         clickOnContinueButton();
         enterOTPButton(otp);
         clickSubmitButton();
-        sleep(3000);
+        sleep(2000);
         String ck = null;
         for(Cookie cookie : driver.manage().getCookies()){
             ck = cookie.getName();

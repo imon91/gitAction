@@ -27,7 +27,7 @@ public class GetRedxApiResponse {
 
     public ShopListModel shopListGetCall()
     {
-        String shopListGetCall = "v1/shop?isRedX=true";
+        String shopListGetCall = EndPoints.VERSION1 + EndPoints.SHOP + "?isRedX=true";
         Response getShopListResponse = shopUpPostMan.getCall(shopListGetCall);
         ShopListModel shopListModel = gson.fromJson(getShopListResponse.getBody().asString(),ShopListModel.class);
         return shopListModel;
@@ -35,7 +35,7 @@ public class GetRedxApiResponse {
 
     public ShopInfoModel shopInfoGetCall(int shopId)
     {
-        String shopInfoGetCall = "v1/logistics/shop-stores/" + shopId + "?status=active";
+        String shopInfoGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.SHOP_STORES + shopId;
         Response getShopInfoResponse = shopUpPostMan.getCall(shopInfoGetCall);
         System.out.println(getShopInfoResponse.getBody().asString());
         ShopInfoModel shopInfoModel = gson.fromJson(getShopInfoResponse.getBody().asString(),ShopInfoModel.class);
@@ -45,7 +45,7 @@ public class GetRedxApiResponse {
 
     public AreaTreeModel areaTreeGetCall()
     {
-        String areaTreeGetCall = "v1/logistics/address-mapping/area-tree";
+        String areaTreeGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.ADDRESS_MAPPING + EndPoints.AREA_TREE;
         Response getAreaListResponse = shopUpPostMan.getCall(areaTreeGetCall);
         AreaTreeModel areaTreeModel = gson.fromJson(getAreaListResponse.getBody().asString(),AreaTreeModel.class);
         return areaTreeModel;
@@ -61,9 +61,9 @@ public class GetRedxApiResponse {
         return  overviewModel;
     }
 
-    public OverviewModel overviewGetCall(long since,long until,long storeId)
+    public OverviewModel overviewGetCall(long since,long until,long shopId,long storeId)
     {
-        String overviewGetCall = "v1/admin/shop/532439/logistics/dashboard/overview?since=" + since + "&until=" + until + "&shopStoreId=" + storeId;
+        String overviewGetCall = EndPoints.VERSION1 + EndPoints.ADMIN + EndPoints.SHOP + shopId + EndPoints.LOGISTICS + EndPoints.DASHBOARD + EndPoints.OVERVIEW + "?since=" + since + "&until=" + until + "&shopStoreId=" + storeId;
         Response getOverviewResponse = shopUpPostMan.getCall(overviewGetCall);
         OverviewModel overviewModel = gson.fromJson(getOverviewResponse.getBody().asString(),OverviewModel.class);
         return  overviewModel;
@@ -84,7 +84,7 @@ public class GetRedxApiResponse {
 
     public DeliveryChargeModel deliveryChargeGetCall(int shopId, int areaId, int weight, int cash)
     {
-        String deliveryChargeGetCall = "v1/logistics/shop/" + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash;
+        String deliveryChargeGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.SHOP + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash;
         Response deliveryChargeResponse = shopUpPostMan.getCall(deliveryChargeGetCall);
         DeliveryChargeModel deliveryChargeModel = gson.fromJson(deliveryChargeResponse.getBody().asString(),DeliveryChargeModel.class);
         return deliveryChargeModel;
@@ -95,7 +95,7 @@ public class GetRedxApiResponse {
     public CouponsModel couponsListGetCall(String shopName)
     {
         int merchantId = getShopId(shopName);
-        String couponsListGetCall = "v1/logistics/coupons/usage?merchantId=" + merchantId;
+        String couponsListGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.COUPONS + "/usage?merchantId=" + merchantId;
         Response couponsListResponse = shopUpPostMan.getCall(couponsListGetCall);
         CouponsModel couponsModel = gson.fromJson(couponsListResponse.getBody().asString(),CouponsModel.class);
         return couponsModel;
@@ -113,7 +113,7 @@ public class GetRedxApiResponse {
     public PaymentDetailsModel paymentDetailsListGetCall(String shopName,int invoiceId)
     {
         int shopId = getShopId(shopName);
-        String paymentDetailsListGetCall = "v2/logistics/shop/" + shopId + "/payments/" + invoiceId + "/parcels";
+        String paymentDetailsListGetCall = EndPoints.VERSION2 + EndPoints.LOGISTICS + EndPoints.SHOP + shopId + "/payments/" + invoiceId + "/parcels";
         Response paymentDetailsListResponse = shopUpPostMan.getCall(paymentDetailsListGetCall);
         PaymentDetailsModel paymentDetailsModel = gson.fromJson(paymentDetailsListResponse.getBody().asString(),PaymentDetailsModel.class);
         return paymentDetailsModel;
@@ -123,7 +123,7 @@ public class GetRedxApiResponse {
 
     public TrackParcelModel trackParcelGetCall(String trackingId)
     {
-        String trackParcelGetCall = "v1/logistics/tracking/" + trackingId;
+        String trackParcelGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.TRACKING + trackingId;
         Response trackParcelResponse = shopUpPostMan.getCall(trackParcelGetCall);
         TrackParcelModel trackParcelModel = gson.fromJson(trackParcelResponse.getBody().asString(),TrackParcelModel.class);
         return trackParcelModel;
@@ -165,13 +165,31 @@ public class GetRedxApiResponse {
         return pricingModel;
     }
 
+    /*--------------------Credit History Page--------------------*/
+
+    public CreditTransactionLogModel creditTransactionLogGetCall(int shopId)
+    {
+        String creditTransactionLogGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.CREDITS + shopId + EndPoints.TRANSACTION_LOG;
+        Response creditTransactionLogResponse = shopUpPostMan.getCall(creditTransactionLogGetCall);
+        CreditTransactionLogModel creditTransactionLogModel = gson.fromJson(creditTransactionLogResponse.getBody().asString(),CreditTransactionLogModel.class);
+        return creditTransactionLogModel;
+    }
+
+    public CreditTransactionLogModel creditTransactionLogGetCall(int shopId, long since, long until)
+    {
+        String creditTransactionLogGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.CREDITS + shopId + EndPoints.TRANSACTION_LOG + "/?since=" + since + "&until=" + until;
+        Response creditTransactionLogResponse = shopUpPostMan.getCall(creditTransactionLogGetCall);
+        CreditTransactionLogModel creditTransactionLogModel = gson.fromJson(creditTransactionLogResponse.getBody().asString(),CreditTransactionLogModel.class);
+        return creditTransactionLogModel;
+    }
+
     /*--------------------Functions--------------------*/
 
     public String allParcelsListGetCallUrl(long storeId,int ...params)
     {
         /* Parameters Order : (long storeId,int page,int limit,int offset,int sort) */
         /* Default Values : (532439,1,20,0,0) */
-        String allParcelsListGetCallUrl = "v1/admin/shop/" + storeId + "/logistics/parcels?";
+        String allParcelsListGetCallUrl = EndPoints.VERSION1 + EndPoints.ADMIN + EndPoints.SHOP + storeId + EndPoints.LOGISTICS + "/parcels?";
         int i;
         for(i=0;i<params.length;i++)
         {
@@ -388,7 +406,7 @@ public class GetRedxApiResponse {
     public String allPaymentsListGetCallUrl(String shopName,int limit,int offset)
     {
         int shopId = getShopId(shopName);
-        String alLPaymentsListGetCall = "v2/logistics/shop/" + shopId + "/payments?limit=" + limit + "&offset=" + offset;
+        String alLPaymentsListGetCall = EndPoints.VERSION2 + EndPoints.LOGISTICS + EndPoints.SHOP + shopId + "/payments?limit=" + limit + "&offset=" + offset;
         return alLPaymentsListGetCall;
     }
 

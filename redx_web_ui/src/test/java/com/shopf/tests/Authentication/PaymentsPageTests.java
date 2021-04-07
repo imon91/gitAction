@@ -1,5 +1,6 @@
 package com.shopf.tests.Authentication;
 
+import coreUtils.BuildParameterKeys;
 import coreUtils.CoreConstants;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
@@ -31,6 +32,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     private int paymentsIndex;
     private int parcelsIndex;
     private int parcelsSize;
+    private String host;
 
     @BeforeSuite(alwaysRun = true)
     public void redXWebBeforeSuite() throws  Exception
@@ -46,6 +48,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     public void paymentsPageTestsBeforeClass() throws Exception
     {
         System.out.println("Payments Page Tests Before Class");
+        host = System.getProperty(BuildParameterKeys.KEY_HOST);
         loginPageObjects = new LoginPageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         paymentsPageObjects = new PaymentsPageObjects(driver);
@@ -56,7 +59,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         paymentsModel = new PaymentsModel();
         paymentDetailsModel = new PaymentDetailsModel();
 
-        System.out.println("Verify Authentication with valid credentials was called");
+        System.out.println("Performing Authentication");
         cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
         setImplicitWait(10000);
 
@@ -64,7 +67,6 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         setImplicitWait(10000);
 
         actionBarObjects.clickPaymentsLink();
-        sleep(2000);
 
         String shopName = actionBarObjects.getShopName();
         int limit =20, offset = 0;
@@ -264,13 +266,16 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         int files1 = dirContains.length;
         System.out.println("Current Files : " + files1);
 
-        paymentsPageObjects.clickDownloadButton(paymentsIndex);
+        paymentsPageObjects.clickDownloadInvoiceButton(paymentsIndex);
 
-        sleep(3000);
-        File[] dirContain = directory.listFiles();
-        int files2 = dirContain.length;
-        System.out.println("Files After Download : " + files2);
-        Assert.assertEquals(files2,files1+1);
+        if(host.equalsIgnoreCase("local"))
+        {
+            sleep(3000);
+            File[] dirContain = directory.listFiles();
+            int files2 = dirContain.length;
+            System.out.println("Files After Download : " + files2);
+            Assert.assertEquals(files2,files1+1);
+        }
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
@@ -325,11 +330,14 @@ public class PaymentsPageTests extends RedXWebBaseClass {
 
         paymentDetailsPageObjects.clickDownloadButton();
 
-        sleep(3000);
-        File[] dirContain = directory.listFiles();
-        int files2 = dirContain.length;
-        System.out.println("Files After Download : " + files2);
-        Assert.assertEquals(files2,files1+1);
+        if(host.equalsIgnoreCase("local"))
+        {
+            sleep(3000);
+            File[] dirContain = directory.listFiles();
+            int files2 = dirContain.length;
+            System.out.println("Files After Download : " + files2);
+            Assert.assertEquals(files2,files1+1);
+        }
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},
