@@ -1,0 +1,11 @@
+Test_Case_Name,Test_Case_Id,Account_Type,Full_Name*,Shop_Name*,Shop_Email*,Shop_Address*,Pickup_Address*,Pickup_Area,Pickup_Phone*,Product_Type,Password*,Confirm_Password*,Referred_By,Referrer_Code
+"Phone Number Validation","RFI1","N/A","N/A","N/A","N/A","N/A","N/A","N/A","Invalid String","N/A","N/A","N/A","N/A","N/A"
+"Phone Number Validation","RFE1","N/A","Name is required","Shop name is required","Shop email is required","Shop address is required","Pickup address is required","N/A","Invalid phone number format","N/A","Password is required","Confirm Password is required","N/A","N/A"
+"Required/Optional","RFI2","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"
+"Required/Optional","RFE2","N/A","Name is required","Shop name is required","Shop email is required","Shop address is required","Pickup address is required","N/A","Pickup phone number is required","N/A","Password is required","Confirm Password is required","N/A","N/A"
+"Invalid String Validation","RFI3","Valid String","Invalid String","Valid String","Invalid String","Valid String","Valid String","Valid String","Invalid String","Valid String","Short String","Invalid String","Invalid String","Invalid String"
+"Invalid String Validation","RFE3","N/A","Invalid name","N/A","Invalid email","N/A","N/A","N/A","Invalid phone number format","N/A","Password should be at least 8 characters","Password do not match","Invalid user id format","Invalid code"
+"Invalid Input Validation","RFI4","Valid String","Invalid input","Invalid input","Valid String","Invalid input","Invalid input","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String"
+"Invalid Input Validation","RFE4","N/A","Invalid input","Invalid input","N/A","Invalid input","Invalid input","N/A","N/A","N/A","N/A","N/A","N/A","N/A"
+"Valid String Validation","RFI5","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String","Valid String"
+"Valid String Validation","RFE5","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A","N/A"

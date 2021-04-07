@@ -3,6 +3,7 @@ package pageObjects;
 import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.*;
 import utils.*;
 
 import java.util.List;
@@ -28,6 +29,8 @@ public class LoginPageObjects extends RedXWebBaseClass {
     private WebElement submitOTPButton;
     private WebElement loginWithPasswordIcon;
 
+    private WebElement signUpPhoneNumber;
+    private WebElement joinAsMerchantButton;
 
     /*****************Actions***************/
 
@@ -45,13 +48,13 @@ public class LoginPageObjects extends RedXWebBaseClass {
 
     public void clickOnContinueButton()
     {
-        sendOTPButton = driver.findElement(By.xpath("//text()[.='Continue']/ancestor::button[1]"));
+        sendOTPButton = xpathSetter("//text()[.='Continue']/ancestor::button[1]");
         myActions.action_click(sendOTPButton);
     }
 
     public void enterOTPButton(String otp)
     {
-        editOTPText = xpathListSetter("//div[@class='login-form-wrapper']/div/input");
+        editOTPText = xpathListSetter("//div[@class='otp']/input");
         for(int i=0;i<4;i++){
         myActions.action_sendKeys(editOTPText.get(i),String.valueOf(otp.charAt(i)));}
     }
@@ -64,10 +67,21 @@ public class LoginPageObjects extends RedXWebBaseClass {
 
     public void clickSubmitButton()
     {
-        submitOTPButton = driver.findElement(By.xpath("//div[@class='login-form-wrapper']/button"));
+        submitOTPButton = xpathSetter("//button[@type='submit']");
         myActions.action_click(submitOTPButton);
     }
 
+    public void enterSignUpPhoneNumber(String phoneNumber)
+    {
+        signUpPhoneNumber = xpathSetter("//div[@class='signup-phone-field']//input");
+        myActions.action_sendKeys(signUpPhoneNumber,phoneNumber);
+    }
+
+    public void clickJoinAsMerchantButton()
+    {
+        joinAsMerchantButton = xpathSetter("//form/button");
+        myActions.action_click(joinAsMerchantButton);
+    }
 
 
 
@@ -83,7 +97,7 @@ public class LoginPageObjects extends RedXWebBaseClass {
         enterOTPButton(otp);
         clickSubmitButton();
         sleep(2000);
-        String ck = null;
+        ck = null;
         for(Cookie cookie : driver.manage().getCookies()){
             ck = cookie.getName();
             if(ck.equalsIgnoreCase("__ti__"))
@@ -99,6 +113,37 @@ public class LoginPageObjects extends RedXWebBaseClass {
             }
         }
         return null;
+    }
+
+    public String signUpMerchant(String phoneNumber,String otp)
+    {
+        enterSignUpPhoneNumber(phoneNumber);
+        clickJoinAsMerchantButton();
+//        waitForLoading();
+        enterOTPButton(otp);
+        clickSubmitButton();
+        sleep(2000);
+        ck = null;
+        for(Cookie cookie : driver.manage().getCookies()){
+            ck = cookie.getName();
+            if(ck.equalsIgnoreCase("__ti__"))
+            {
+                ck = cookie.getName() + "=" + cookie.getValue();
+//                System.out.println("Cookie Value : " + ck);
+                try {
+                    CookieManager.setValue(CookieManager.Keys.RED_X_COOKIE,ck);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return ck;
+            }
+        }
+        return null;
+    }
+
+    public void waitForLoading()
+    {
+        new WebDriverWait(driver,30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='login-form-wrapper']/button[text()='Verify']")));
     }
 
 
