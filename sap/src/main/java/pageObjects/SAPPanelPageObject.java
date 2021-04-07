@@ -7,7 +7,6 @@ import org.openqa.selenium.support.ui.*;
 import utils.*;
 import java.util.*;
 import java.util.NoSuchElementException;
-import java.util.concurrent.TimeUnit;
 
 public class SAPPanelPageObject extends SapBaseClass {
     private WebDriver driver;
@@ -19,9 +18,10 @@ public class SAPPanelPageObject extends SapBaseClass {
         myActions = new MyActions();
     }
 
-    private WebElement mobileNoText;
-    private List<WebElement> otpText;
+    private WebElement phoneNumberInput;
+    private List<WebElement> otpInputFields;
     private WebElement loginButton;
+    private WebElement loginErrorMsg;
     private WebElement logistics;
     private WebElement receive;
     private WebElement hubDropDown;
@@ -32,30 +32,37 @@ public class SAPPanelPageObject extends SapBaseClass {
     private WebElement reconcileLaterButton;
 
 
-    public void enterAndClickMobileNoText(String mobileNo)
+    public void enterPhoneNumberInput(String mobileNo)
     {
-//        mobileNoText = xpathSetter("//div[@class='form-group']/input");
-        mobileNoText = xpathSetter(driver,"//div[@class='form-group']/input");
-//        mobileNoText = driver.findElement(By.xpath("//div[@class='form-group']/input"));
-        myActions.action_sendKeys(mobileNoText,mobileNo);
+        phoneNumberInput = xpathSetter("//div[@class='form-group']/input");
+//        phoneNumberInput = xpathSetter(driver,"//div[@class='form-group']/input");
+        phoneNumberInput.clear();
+        myActions.action_sendKeys(phoneNumberInput,mobileNo);
         sleep(500);
-        mobileNoText.sendKeys(Keys.ENTER);
-        sleep(3000);
+        phoneNumberInput.sendKeys(Keys.ENTER);
     }
 
-    public void enterAndClickOTPText(String otp)
+    public void enterOtpInput(String otp)
     {
-//        otpText = xpathListSetter("//div[@class='verification-input']/input");
-        otpText = xpathListSetter(driver,"//div[@class='verification-input']/input");
-//        otpText = driver.findElements(By.xpath("//div[@class='verification-input']/input"));
+        otpInputFields = xpathListSetter("//div[@class='verification-input']/input");
+//        otpInputFields = xpathListSetter(driver,"//div[@class='verification-input']/input");
+//        otpInputFields = driver.findElements(By.xpath("//div[@class='verification-input']/input"));
         for (int i=0;i<4 ; i++){
-            myActions.action_sendKeys(otpText.get(i),otp);}
+            myActions.action_sendKeys(otpInputFields.get(i), String.valueOf(otp.charAt(i)));}
+    }
 
-        sleep(500);
-//        loginButton = xpathSetter("//div[@class='panel-body'][2]/button");
-        loginButton = xpathSetter(driver,"//div[@class='panel-body'][2]/button");
-//        loginButton = driver.findElement(By.xpath("//div[@class='panel-body'][2]/button"));
+    public void clickLoginButton()
+    {
+        loginButton = xpathSetter("//div[@class='panel-body'][2]/button");
+//      loginButton = xpathSetter(driver,"//div[@class='panel-body'][2]/button");
+//      loginButton = driver.findElement(By.xpath("//div[@class='panel-body'][2]/button"));
         myActions.action_click(loginButton);
+    }
+
+    public String getLoginErrorMsg()
+    {
+        loginErrorMsg = xpathSetter("//strong[text()='Login Error']/../small");
+        return myActions.action_getText(loginErrorMsg);
     }
 
     public void clickOnLogisticsModule()
@@ -114,8 +121,9 @@ public class SAPPanelPageObject extends SapBaseClass {
 
     public String performAuthentication(String mobileNo, String otp)
     {
-        enterAndClickMobileNoText(mobileNo);
-        enterAndClickOTPText(otp);
+        enterPhoneNumberInput(mobileNo);
+        enterOtpInput(otp);
+        clickLoginButton();
         sleep(3000);
         String ck = null;
         for(Cookie cookie : driver.manage().getCookies()){
