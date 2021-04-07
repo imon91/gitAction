@@ -218,7 +218,7 @@ public class GetCommerceApiResponse {
             for (int i = 0; i < productListingResultsModel.getResults().size(); i++) {
                 List<ProductListingResultsModel.ResultsBean.SizesBean> productSizes =
                         productListingResultsModel.getResults().get(i).getSizes();
-                if(productSizes.size()<6){
+//                if(productSizes.size()<6){
                     for (int j = 0; j < productSizes.size(); j++) {
                         if (productSizes.get(j).getCount_on_hand() > 0 &&
                                 productSizes.get(j).getCorrected_count_on_hand() > 0) {
@@ -230,7 +230,7 @@ public class GetCommerceApiResponse {
                             return productDetailsMap;
                         }
                     }
-                }
+//                }
             }
         }
         return null;

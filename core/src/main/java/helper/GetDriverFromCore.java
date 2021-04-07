@@ -21,7 +21,7 @@ public class GetDriverFromCore {
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
     private static final String APP_RED_X = "bs://bf8b0fae016d5b5b3d1f768018427bfff48b9b4f";
     private static final String APP_RESELLER = "bs://87ca54415a668486e25102a8bb05e3efa2366dda";
-    private static final String APP_MOKAM = "bs://abf41e27b361d505b7534cb204732d7a13aaed55";
+    private static final String APP_MOKAM = "bs://f117bf40f44c55da994abf32702117f39846846d";
     private static final String APP_STORES = "bs://59f775697e32f859255074777f727a4fd73be12a";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";

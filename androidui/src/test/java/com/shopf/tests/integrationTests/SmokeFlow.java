@@ -23,6 +23,7 @@ public class SmokeFlow extends AndroidBaseClass {
     private Logout logout;
     private MyOrders myOrders;
     private AndroidDriver<WebElement> androidDriver;
+    private LoginPageObjects loginPageObjects;
     private OrderSuccessFulPageObjects orderSuccessFulPageObjects;
     private ProductListingPageObjects productListingPageObjects;
     private ProductDescriptionPageObjects productDescriptionPageObjects;
@@ -78,6 +79,7 @@ public class SmokeFlow extends AndroidBaseClass {
         search = new Search();
         logout = new Logout();
         myOrders = new MyOrders();
+        loginPageObjects = new LoginPageObjects(androidDriver);
         myOrdersPageObjects = new MyOrdersPageObjects(androidDriver);
         orderDetails = myOrdersPageObjects.new OrderDetails(androidDriver);
         orderSuccessFulPageObjects = new OrderSuccessFulPageObjects(androidDriver);
@@ -184,6 +186,7 @@ public class SmokeFlow extends AndroidBaseClass {
             rightNavigationDrawer.selectEnglish();
             rightNavigationDrawer.saveLanguage();
             sleep(5000);
+            loginPageObjects.closePopup();
     }
 
 
