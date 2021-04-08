@@ -98,14 +98,14 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     public void enterCustomerNameInput(String name)
     {
         System.out.println("Customer Name : " + name);
-        customerNameInput = xpathSetter("//div[@class='left-form']/div[1]/input");
+        customerNameInput = xpathSetter("//input[@name='customerName']");
         customerNameInput.clear();
         myActions.action_sendKeys(customerNameInput,name);
     }
 
     public String getCustomerNameErrorMessage()
     {
-        customerNameErrorMessage = xpathSetter("//div[@class='left-form']/div[1]/div[@class='fieldError']");
+        customerNameErrorMessage = xpathSetter("//input[@name='customerName']/../div[@class='fieldError']");
         System.out.println(myActions.action_getText(customerNameErrorMessage));
         return myActions.action_getText(customerNameErrorMessage);
     }
@@ -113,14 +113,14 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     public void enterCustomerPhoneInput(String phone)
     {
         System.out.println("Customer Phone : " + phone);
-        customerPhoneNumberInput = xpathSetter("//div[@class='left-form']/div[2]/input");
+        customerPhoneNumberInput = xpathSetter("//input[@name='customerPhone']");
         customerPhoneNumberInput.clear();
         myActions.action_sendKeys(customerPhoneNumberInput,phone);
     }
 
     public String getCustomerPhoneErrorMessage()
     {
-        customerPhoneNumberErrorMessage = xpathSetter("//div[@class='left-form']/div[2]/div[@class='fieldError']");
+        customerPhoneNumberErrorMessage = xpathSetter("//input[@name='customerPhone']/../div[@class='fieldError']");
         System.out.println(myActions.action_getText(customerPhoneNumberErrorMessage));
         return myActions.action_getText(customerPhoneNumberErrorMessage);
     }
@@ -128,14 +128,14 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     public void enterAddressInput(String address)
     {
         System.out.println("Customer Address : " + address);
-        customerAddressInput = xpathSetter("//div[@class='left-form']/div[3]/textarea");
+        customerAddressInput = xpathSetter("//textarea[@name='customerAddress']");
         customerAddressInput.clear();
         myActions.action_sendKeys(customerAddressInput,address);
     }
 
     public String getCustomerAddressErrorMessage()
     {
-        customerAddressErrorMessage = xpathSetter("//div[@class='left-form']/div[3]/div[@class='fieldError']");
+        customerAddressErrorMessage = xpathSetter("//textarea[@name='customerAddress']/../div[@class='fieldError']");
         System.out.println(myActions.action_getText(customerAddressErrorMessage));
         return myActions.action_getText(customerAddressErrorMessage);
     }
@@ -143,19 +143,19 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     public void enterMerchantInvoiceIdInput(String invoice)
     {
         System.out.println("Merchant Invoice Id : " + invoice);
-        merchantInvoiceIdInput = xpathSetter("//div[@class='left-form']/div[4]/input");
+        merchantInvoiceIdInput = xpathSetter("//input[@name='invoiceNumber']");
         merchantInvoiceIdInput.clear();
         myActions.action_sendKeys(merchantInvoiceIdInput,invoice);
     }
 
     public void clickParcelWeightInput()
     {
-        parcelWeightInput = xpathSetter("//div[@class='left-form']/div[5]//input");
+        parcelWeightInput = xpathSetter("//input[@name='weight']");
         myActions.action_click(parcelWeightInput);
     }
     public void enterParcelWeightInput(String weight)
     {
-        parcelWeightInput = xpathSetter("//div[@class='left-form']/div[5]//input");
+        parcelWeightInput = xpathSetter("//input[@name='weight']");
         myActions.action_click(parcelWeightInput);
         if(Integer.parseInt(getParcelWeight())>0)
             clickDecreaseWeightButton();
@@ -164,14 +164,14 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public String getParcelWeightErrorMessage()
     {
-        parcelWeightErrorMessage = xpathSetter("//div[@class='left-form']/div[5]/div[@class='fieldError']");
+        parcelWeightErrorMessage = xpathSetter("//input[@name='weight']/../../../div[@class='fieldError']");
         System.out.println(myActions.action_getText(parcelWeightErrorMessage));
         return myActions.action_getText(parcelWeightErrorMessage);
     }
 
     public String getParcelWeight()
     {
-        parcelWeightInput = xpathSetter("//div[@class='left-form']/div[5]//input");
+        parcelWeightInput = xpathSetter("//input[@name='weight']");
         return parcelWeightInput.getAttribute("aria-valuenow");
     }
 
@@ -272,27 +272,27 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public void enterCashCollectionAmount(String amount)
     {
-        cashCollectionInput = xpathSetter("//div[@class='right-form']/div[2]/input");
+        cashCollectionInput = xpathSetter("//input[@name='amount']");
         cashCollectionInput.clear();
         myActions.action_sendKeys(cashCollectionInput,amount);
     }
 
     public String getAmountErrorMessage()
     {
-        amountErrorMessage = xpathSetter("//div[@class='right-form']/div[2]//div[@class='fieldError']");
+        amountErrorMessage = xpathSetter("//input[@name='amount']/../div[@class='fieldError']");
         return myActions.action_getText(amountErrorMessage);
     }
 
     public void enterSellingPrice(String amount)
     {
-        sellingPriceInput = xpathSetter("//div[@class='right-form']/div[3]/input");
+        sellingPriceInput = xpathSetter("//input[@name='sellingPrice']");
         sellingPriceInput.clear();
         myActions.action_sendKeys(sellingPriceInput,amount);
     }
 
     public String getSellingPriceErrorMessage()
     {
-        sellingPriceErrorMessage = xpathSetter("//div[@class='right-form']/div[3]//div[@class='fieldError']");
+        sellingPriceErrorMessage = xpathSetter("//input[@name='sellingPrice']/../div[@class='fieldError']");
         return myActions.action_getText(sellingPriceErrorMessage);
     }
 
@@ -311,7 +311,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public void enterInstructions(String instructions)
     {
-        instructionsTextArea = xpathSetter("//div[@class='right-form']//textarea");
+        instructionsTextArea = xpathSetter("//textarea[@name='instruction']");
         myActions.action_sendKeys(instructionsTextArea,instructions);
     }
 
@@ -789,7 +789,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
         {
             pickUpLocationErrorMessage = xpathPresenceSetter("//div[@class='ant-message-notice']//span[contains(text(),'pickup')]");
             String msg = myActions.action_getText(pickUpLocationErrorMessage);
-            System.out.println("Pickup Location Error Msg" + msg);
+            System.out.println("Pickup Location Error Msg : " + msg);
             return msg;
         }
     }

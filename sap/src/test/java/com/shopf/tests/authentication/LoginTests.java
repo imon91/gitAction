@@ -6,7 +6,6 @@ import org.testng.annotations.*;
 import pageObjects.SAPPanelPageObject;
 import services.commerceMethods.GetAuthenticationApiResponse;
 import utils.SapBaseClass;
-import videoRecorder.ScreenRecorder;
 
 public class LoginTests extends SapBaseClass {
 
@@ -57,8 +56,9 @@ public class LoginTests extends SapBaseClass {
     public void verifyAuthenticationWithValidCredentials(String email, String password) throws Exception {
         System.out.println("verifyAuthentication is called");
         sleep(10000);
-        sapPanelPageObject.enterAndClickMobileNoText("01401122188");
-        sapPanelPageObject.enterAndClickOTPText("6666");
+        sapPanelPageObject.enterPhoneNumberInput("01401122188");
+        sapPanelPageObject.enterOtpInput("6666");
+        sapPanelPageObject.clickLoginButton();
     }
 
     @AfterClass(alwaysRun = true)
