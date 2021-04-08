@@ -57,8 +57,12 @@ public class LoginPageObjects extends AndroidBaseClass{
 
     public void closePopup(){
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
-            WebElement closeButtonElement = xpathSetter("//android.widget.ImageView[@index='1']");
-            myActions.action_click(closeButtonElement);
+            try {
+                WebElement closeButtonElement = xpathSetter("//android.widget.ImageView[@index='0']");
+                myActions.action_click(closeButtonElement);
+            } catch (Exception e){
+                System.out.println("Popup is not closeable");
+            }
         }
     }
 

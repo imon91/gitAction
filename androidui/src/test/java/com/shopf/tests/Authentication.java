@@ -60,7 +60,7 @@ public class Authentication extends AndroidBaseClass {
             dataProvider = "getUserAuthenticationData")
     public void verifyAuthenticationWithValidCredentials(String mobileNumber,String otp){
         System.out.println("verifyAuthentication is called");
-        //loginPageObjects.closePopup();
+        loginPageObjects.closePopup();
         loginPageObjects.performAuthentication(mobileNumber,otp);
         // Verification Step Pending
     }
