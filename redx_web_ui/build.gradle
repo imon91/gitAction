@@ -33,7 +33,7 @@ dependencies {
 test {
     useTestNG() {
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger","Service","TestRail"])
     }
 //c4734975350b0ff11f37b39809ecbba51320e0d0
 }
@@ -44,7 +44,7 @@ task redxWebUiTest(type: Test) {
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger"])
+        systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger","Service","TestRail"])
         def smoke = project.hasProperty("Smoke")
         def sanity = project.hasProperty("Sanity")
         def regression = project.hasProperty("Reg")

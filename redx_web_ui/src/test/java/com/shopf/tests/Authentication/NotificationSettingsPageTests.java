@@ -1,58 +1,53 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
 
+import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class NotificationSettingsPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private NotificationSettingsPageObjects notificationSettingsPageObjects;
 
-    private String cookie;
-
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void notificationSettingsTestsBeforeClass() throws Exception
     {
         System.out.println("Notification Settings Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         notificationSettingsPageObjects = new NotificationSettingsPageObjects(driver);
 
-        System.out.println("Verify Authentication with valid credentials was called");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
-
-//        actionBarObjects.clickModalCloseButton();
         actionBarObjects.clickOnNotificationSettingsDropDown();
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void notificationSettingsPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
+        System.out.println("BeforeMethod is called");
         System.out.println("\n /****************************************************************************************************/ \n");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, NotificationSettingsPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "343")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Toast Msg Value",
-            priority = 1 )
+            priority = 1101 )
     public void verifyToastMsgValue()
     {
         System.out.println("Verifying Toast Msg Value");
@@ -63,9 +58,10 @@ public class NotificationSettingsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Nothing found to save.");
     }
 
+    @TestRails(caseId = "344")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Error Msg Value",
-            priority = 2 )
+            priority = 1102 )
     public void verifyErrorMsgValue()
     {
         System.out.println("Verifying Error Msg Value");
@@ -75,9 +71,10 @@ public class NotificationSettingsPageTests extends RedXWebBaseClass {
         System.out.println(errorMsg.toString());
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "345")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Notification Details Functionality",
-            priority = 3 )
+            priority = 1103 )
     public void verifyNotificationDetailsFunctionality()
     {
         System.out.println("Verifying Notification Details Functionality");
@@ -86,18 +83,5 @@ public class NotificationSettingsPageTests extends RedXWebBaseClass {
         String toastMsg = notificationSettingsPageObjects.getToastMsg();
         System.out.println("Toast Msg : " + toastMsg);
         Assert.assertEquals(toastMsg,"Saved successfully.");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void notificationSettingsPageTestsAfterClass()
-    {
-        System.out.println("Notification Settings Page Tests After Class");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void notificationSettingsPageTestsAfterSuite()
-    {
-        System.out.println("Notification Settings Page Tests After Suite");
-        driver.quit();
     }
 }
