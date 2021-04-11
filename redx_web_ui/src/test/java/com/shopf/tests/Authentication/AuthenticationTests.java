@@ -1,54 +1,51 @@
 package com.shopf.tests.Authentication;
 
+import com.gurock.testrail.*;
 import coreUtils.*;
 import org.openqa.selenium.*;
-import org.testng.Assert;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
+
+import java.io.*;
+import java.lang.reflect.Method;
 
 public class AuthenticationTests extends RedXWebBaseClass {
 
     private WebDriver driver;
     private LoginPageObjects loginPageObjects;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redxBeforeSuite() throws Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
-    public void authenticationTestsBeforeClass(){
+    public void authenticationTestsBeforeClass() throws Exception
+    {
+        driver = getBaseDriver();
         loginPageObjects = new LoginPageObjects(driver);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY})
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, AuthenticationTests.class);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "13")
+    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},priority = 2)
     public void verifyAuthenticationWithValidCredentials()
     {
         System.out.println("Verifying Authentication with valid credentials");
-        loginPageObjects.performAuthentication("0140112217","6666","7");
+        loginPageObjects.performAuthentication("0140112218","6666","8");
+//        System.out.println(driver.manage().getCookies().toString());
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
         Assert.assertEquals(url,"https://redx.shopups1.xyz/dashboard/");
-    }
-
-    @Test
-    public void verifyAuthenticationWithInvalidCredentials(){
-
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void authenticationTestsAfterClass(){
-
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void redxAfterSuite(){
-        System.out.println("RedX Web After Suite is called");
-        quitBaseDriver();
     }
 }

@@ -1,64 +1,68 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import services.responseModels.redxModels.OverviewModel;
-import utils.RedXWebBaseClass;
+import services.redxMethods.*;
+import services.responseModels.redxModels.*;
+import utils.*;
 
-import java.util.Date;
-import java.util.Set;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class HomePageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private HomePageObjects homePageObjects;
     private ActionBarObjects actionBarObjects;
     private OverviewModel overviewModel;
     private GetRedxApiResponse getRedxApiResponse;
     private String parentWindow;
-    private String cookie;
+
     private String shopName = "RedX Web Sanity Test Shop";
     private long shopId;
     private long storeId;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-        parentWindow = driver.getWindowHandle();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
-    public void homePageTestsBeforeClass() {
+    public void homePageTestsBeforeClass() throws Exception
+    {
         System.out.println("Home Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+
+        driver = getBaseDriver();
         homePageObjects = new HomePageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
-        System.out.println("Performing Authentication");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-
+        parentWindow = driver.getWindowHandle();
         actionBarObjects.changeShop(shopName);
         setImplicitWait(10000);
 
         shopId = getRedxApiResponse.getShopId(shopName);
     }
 
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
+        System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, HomePageTests.class);
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "23")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Search Bar Parcel ID Functionality",
-            priority = 1 )
+            priority = 101 )
     public void verifySearchBarParcelIdFunctionality()
     {
         String parcelId = "21A224WE3K6AU";
@@ -72,18 +76,20 @@ public class HomePageTests extends RedXWebBaseClass {
         switchToDashboard();
     }
 
+    @TestRails(caseId = "24")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Track Parcel Functionality",
-            priority = 2 )
+            priority = 102 )
     public void verifyTrackParcelFunctionality()
     {
         System.out.println("Verifying Track Parcel Functionality");
 //        actionBarObjects.clickTrackParcelButton();
     }
 
+    @TestRails(caseId = "26")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Parcels Link Functionality",
-            priority = 3 )
+            priority = 103 )
     public void verifyParcelsLinkFunctionality()
     {
         System.out.println("Verifying Parcels Link Functionality");
@@ -93,9 +99,10 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/parcel-list/");
     }
 
+    @TestRails(caseId = "25")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Dashboard Link Functionality",
-            priority = 4 )
+            priority = 104 )
     public void verifyDashboardLinkFunctionality()
     {
         System.out.println("Verifying Dashboard Link Functionality");
@@ -105,9 +112,10 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/dashboard/");
     }
 
+    @TestRails(caseId = "28")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Payments Link Functionality",
-            priority = 5 )
+            priority = 105 )
     public void verifyPaymentsLinkFunctionality()
     {
         System.out.println("Verifying Payments Link Functionality");
@@ -117,9 +125,10 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/payments/");
     }
 
+    @TestRails(caseId = "19")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Logo Functionality",
-            priority = 6 )
+            priority = 106 )
     public void verifyLogoFunctionality()
     {
         System.out.println("Verifying Logo Functionality");
@@ -129,9 +138,10 @@ public class HomePageTests extends RedXWebBaseClass {
         Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/dashboard/");
     }
 
+    @TestRails(caseId = "27")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Coupon Link Functionality",
-            priority = 10 )
+            priority = 107 )
     public void verifyCouponLinkFunctionality()
     {
         System.out.println("Verifying Coupon Link Functionality");
@@ -142,9 +152,10 @@ public class HomePageTests extends RedXWebBaseClass {
         switchToDashboard();
     }
 
+    @TestRails(caseId = "29")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Create Parcel Functionality",
-            priority = 11 )
+            priority = 108 )
     public void verifyCreateParcelFunctionality()
     {
         System.out.println("Verifying Create Parcel Functionality");
@@ -155,9 +166,10 @@ public class HomePageTests extends RedXWebBaseClass {
         switchToDashboard();
     }
 
+    @TestRails(caseId = "30")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify My Shops DropDown Functionality",
-            priority = 12 )
+            priority = 109 )
     public void verifyMyShopsDropDownFunctionality()
     {
         System.out.println("Verifying My Shops DropDown Functionality");
@@ -168,9 +180,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
+        @TestRails(caseId = "31")
         @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Pickup Location DropDown Functionality",
-                priority = 13 )
+                priority = 110 )
         public void verifyPickupLocationDropDownFunctionality()
         {
             System.out.println("Verifying Pickup Location DropDown Functionality");
@@ -181,9 +194,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
+        @TestRails(caseId = "32")
         @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify My Payment Details DropDown Functionality",
-                priority = 14 )
+                priority = 111 )
         public void verifyMyPaymentDetailsDropDownFunctionality()
         {
             System.out.println("Verifying My Payment Details DropDown Functionality");
@@ -194,9 +208,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
+        @TestRails(caseId = "33")
         @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Notification Settings DropDown Functionality",
-                priority = 15 )
+                priority = 112 )
         public void verifyNotificationSettingsDropDownFunctionality()
         {
             System.out.println("Verifying Notification Settings DropDown Functionality");
@@ -207,9 +222,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
+        @TestRails(caseId = "34")
         @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Coverage Area DropDown Functionality",
-                priority = 16 )
+                priority = 113 )
         public void verifyCoverageAreaDropDownFunctionality()
         {
             System.out.println("Verifying Coverage Area DropDown Functionality");
@@ -220,9 +236,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
+        @TestRails(caseId = "35")
         @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Change Password DropDown Functionality",
-                priority = 17 )
+                priority = 114 )
         public void verifyChangePasswordDropDownFunctionality()
         {
             System.out.println("Verifying Change Password DropDown Functionality");
@@ -233,9 +250,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
+        @TestRails(caseId = "36")
         @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                 description = "Verify Credit History DropDown Functionality",
-                priority = 18 )
+                priority = 115 )
         public void verifyCreditHistoryDropDownFunctionality()
         {
             System.out.println("Verifying Credit History DropDown Functionality");
@@ -246,9 +264,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
+        @TestRails(caseId = "37")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Tutorials DropDown Functionality",
-                priority = 19 )
+                priority = 116 )
         public void verifyTutorialsDropDownFunctionality()
         {
             System.out.println("Verifying Tutorials DropDown Functionality");
@@ -269,9 +288,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(url,"https://www.youtube.com/channel/UCm8-BBWm89zLCqjFQgqJPwQ");
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
+        @TestRails(caseId = "53")
+        @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Logout DropDown Functionality",
-                priority = 36 )
+                priority = 140 )
         public void verifyLogoutDropDownFunctionality()
         {
             System.out.println("Verifying Logout DropDown Functionality");
@@ -282,9 +302,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/");
         }
 
+        @TestRails(caseId = "39")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify All PickUp Location Functionality",
-                priority = 21 )
+                priority = 117 )
         public void verifyAllPickUpLocationFilterFunctionality()
         {
             System.out.println("Verifying All PickUp Location Functionality");
@@ -297,12 +318,13 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getOrdersPlacedValue(),String.valueOf(modelPickUp.getBody().getTotalOrders()));
         }
 
+        @TestRails(caseId = "40")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
-                description = "Verify Date Functionality",
-                priority = 22 )
-        public void verifyDateFunctionality()
+                description = "Verify Date Filter Functionality",
+                priority = 118 )
+        public void verifyDateFilterFunctionality()
         {
-            System.out.println("Verifying Date Functionality");
+            System.out.println("Verifying Date Filter Functionality");
             long since = homePageObjects.enterStartDate(1,"Feb",2021);
             long until = homePageObjects.enterEndDate(10,"Mar",2021);
             overviewModel = getRedxApiResponse.overviewGetCall(since,until,shopId,storeId);
@@ -311,9 +333,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getOrdersPlacedValue(),String.valueOf(overviewModel.getBody().getTotalOrders()));
         }
 
+        @TestRails(caseId = "38")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify RedX Credit Button Functionality",
-                priority = 20 )
+                priority = 119 )
         public void verifyRedXCreditButtonFunctionality()
         {
             System.out.println("Verifying RedX Credit Button Functionality");
@@ -324,18 +347,10 @@ public class HomePageTests extends RedXWebBaseClass {
             switchToDashboard();
         }
 
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
-                description = "Verify Chat Icon Functionality",
-                priority = 23 )
-        public void verifyChatIconFunctionality()
-        {
-
-            System.out.println("Verifying Chat Icon Functionality");
-        }
-
+        @TestRails(caseId = "42")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify RedX Credit Value",
-                priority = 24 )
+                priority = 121 )
         public void verifyRedXCreditValue()
         {
             System.out.println("Verifying RedX Credit Value");
@@ -344,9 +359,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getRedxCreditValue(),String.valueOf(overviewModel.getBody().getAvailableCredits()));
         }
 
+        @TestRails(caseId = "43")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Orders Placed Value",
-                priority = 25 )
+                priority = 122 )
         public void verifyOrdersPlacedValue()
         {
             System.out.println("Verifying Orders Placed Value");
@@ -355,9 +371,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getOrdersPlacedValue(),String.valueOf(overviewModel.getBody().getTotalOrders()));
         }
 
+        @TestRails(caseId = "44")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Orders Delivered Value",
-                priority = 26 )
+                priority = 123 )
         public void verifyOrdersDeliveredValue()
         {
             System.out.println("Verifying Orders Delivered Value");
@@ -366,9 +383,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getOrdersDeliveredValue(),String.valueOf(overviewModel.getBody().getTotalDelivered()));
         }
 
+        @TestRails(caseId = "45")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Orders In Transit Value",
-                priority = 27 )
+                priority = 124 )
         public void verifyOrdersInTransitValue()
         {
             System.out.println("Verifying Orders in Transit Value");
@@ -377,9 +395,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getOrdersInTransitValue(),String.valueOf(overviewModel.getBody().getTotalInTransit()));
         }
 
+        @TestRails(caseId = "46")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Orders Returned Value",
-                priority = 28 )
+                priority = 125 )
         public void verifyOrdersReturnedValue()
         {
             System.out.println("Verifying Orders Returned Value");
@@ -388,9 +407,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getOrdersReturnedValue(),String.valueOf(overviewModel.getBody().getTotalOrdersReturned()));
         }
 
+        @TestRails(caseId = "47")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Successful Deliveries Value",
-                priority = 29 )
+                priority = 126 )
         public void verifySuccessfulDeliveriesValue()
         {
             System.out.println("Verifying Successful Deliveries Value");
@@ -399,9 +419,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getSuccessfulDeliveriesValue(),String.valueOf(overviewModel.getBody().getSuccessfulDeliveryPercentage()));
         }
 
+        @TestRails(caseId = "48")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Orders To Be Returned Value",
-                priority = 30 )
+                priority = 127 )
         public void verifyOrdersToBeReturnedValue()
         {
             System.out.println("Verifying Orders To be Returned Value");
@@ -410,9 +431,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getOrdersToBeReturnedValue(),String.valueOf(overviewModel.getBody().getTotalOrdersToBeReturned()));
         }
 
+        @TestRails(caseId = "49")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Total Sales Value Value",
-                priority = 31 )
+                priority = 128 )
         public void verifyTotalSalesValue()
         {
             System.out.println("Verifying Total Sales Value");
@@ -422,9 +444,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getTotalSalesValue(),totalSales);
         }
 
+        @TestRails(caseId = "50")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Total Delivery Fee Paid Value",
-                priority = 32 )
+                priority = 129 )
         public void verifyTotalDeliveryFeePaidValue()
         {
             System.out.println("Verifying Total Delivery Fee Paid Value");
@@ -434,9 +457,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getTotalDeliveryFeesPaidValue(),deliveryFeePaid);
         }
 
+        @TestRails(caseId = "51")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Total Unpaid Amount Value",
-                priority = 33 )
+                priority = 130 )
         public void verifyTotalUnpaidAmountValue()
         {
             System.out.println("Verifying Total Unpaid Amount Value");
@@ -446,9 +470,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getTotalUnPaidAmountValue(),unpaidAmount);
         }
 
+        @TestRails(caseId = "52")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Payment Processing Value",
-                priority = 34 )
+                priority = 131 )
         public void verifyPaymentProcessingValue()
         {
             System.out.println("Verifying Payment Processing Value");
@@ -458,25 +483,8 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(homePageObjects.getPaymentProcessingValue(),paymentProcessingValue);
         }
 
-    @BeforeMethod(alwaysRun = true)
-    public void homePageTestsBeforeMethod()
-    {
-        System.out.println("\n /****************************************************************************************************/ \n");
-    }
-
     public void switchToDashboard(){
             actionBarObjects.clickOnDashboardLink();
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void homePageTestsAfterClass(){
-        System.out.println("Home Page Tests After Class");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void redxAfterSuite(){
-        System.out.println("RedX Web After Suite is called");
-        quitBaseDriver();
     }
 }
 

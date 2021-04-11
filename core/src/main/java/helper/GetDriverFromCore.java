@@ -140,7 +140,7 @@ public class GetDriverFromCore {
             String filePath = dir + "/Downloads";
             System.out.println(filePath);
 //             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
-            System.setProperty("webdriver.chrome.verboseLogging", "true");
+//            System.setProperty("webdriver.chrome.verboseLogging", "true");
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions chromeOptions = new ChromeOptions();

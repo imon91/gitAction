@@ -22,6 +22,9 @@ public class EndPoints {
     /*-RedX-*/
     public static final String VERSION1 = "v1";
     public static final String VERSION2 = "v2";
+    public static final String USER = "/user";
+    public static final String REQUEST_LOGIN_CODE = "/request-login-code";
+    public static final String LOGIN_WITH_CODE = "/login-with-code";
     public static final String ADMIN = "/admin";
     public static final String OVERVIEW = "/overview";
     public static final String LOGISTICS = "/logistics";

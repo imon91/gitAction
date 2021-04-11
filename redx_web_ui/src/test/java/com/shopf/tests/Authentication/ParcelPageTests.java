@@ -1,22 +1,22 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import services.responseModels.redxModels.ParcelsListModel;
-import utils.RedXWebBaseClass;
+import services.redxMethods.*;
+import services.responseModels.redxModels.*;
+import utils.*;
 
-import java.util.Random;
-import java.util.Set;
+import java.io.*;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class ParcelPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private ParcelPageObjects parcelPageObjects;
 
@@ -32,7 +32,6 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
     private GetRedxApiResponse getRedxApiResponse;
     private ParcelsListModel allParcelsListModel;
-    private String cookie;
     private String parentWindow;
     private String parcelsListGetCallUrl;
     private Random random;
@@ -40,22 +39,14 @@ public class ParcelPageTests extends RedXWebBaseClass {
     private String shopName = "RedX Web Sanity Test Shop";
     private long shopId ;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-        parentWindow = driver.getWindowHandle();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void parcelPageObjectsBeforeClass() throws Exception
     {
         System.out.println("Parcel Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
+
         actionBarObjects = new ActionBarObjects(driver);
         parcelPageObjects = new ParcelPageObjects(driver);
 
@@ -71,9 +62,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
-        System.out.println("Performing Authentication");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
+        parentWindow = driver.getWindowHandle();
 
         actionBarObjects.changeShop(shopName);
         setImplicitWait(10000);
@@ -89,11 +78,19 @@ public class ParcelPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void parcelPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, ParcelPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "54")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify All Pickup Location Filter Functionality",
             priority = 201 )
@@ -112,6 +109,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "55")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Tracking Id Filter Functionality",
             priority = 202 )
@@ -133,6 +131,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "56")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Invoice Id Filter Functionality",
             priority = 203 )
@@ -154,6 +153,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "57")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Phone Number Filter Functionality",
             priority = 204 )
@@ -175,6 +175,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "58")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Name Filter Functionality",
             priority = 205 )
@@ -196,6 +197,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "59")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Date Filter Functionality",
             priority = 206 )
@@ -218,6 +220,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "61")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Search Button Functionality",
             priority = 208 )
@@ -228,6 +231,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(isEnabled,Boolean.FALSE);
     }
 
+    @TestRails(caseId = "62")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Parcel History Button Functionality",
             priority = 209 )
@@ -240,6 +244,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(modalTitle,"Download Parcel History");
     }
 
+    @TestRails(caseId = "63")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Parcel History Cancel Button Functionality",
             priority = 210 )
@@ -250,6 +255,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         //Assert
     }
 
+    @TestRails(caseId = "64")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Parcel History Functionality",
             priority = 211 )
@@ -263,6 +269,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         //Assert
     }
 
+    @TestRails(caseId = "65")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Select All Parcels Checkbox Functionality",
             priority = 212 )
@@ -281,6 +288,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
             Assert.assertEquals(selectedParcels,20);
     }
 
+    @TestRails(caseId = "66")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Select Parcel Functionality",
             priority = 213)
@@ -293,6 +301,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(selectedParcels[1],1);
     }
 
+    @TestRails(caseId = "67")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Print Labels Functionality",
             priority = 214)
@@ -317,6 +326,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(size,2);
     }
 
+    @TestRails(caseId = "68")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Pages Functionality",
             priority = 215)
@@ -330,6 +340,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("Pagination Not Found");
     }
 
+    @TestRails(caseId = "69")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Next Page Functionality",
             priority = 216)
@@ -345,6 +356,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("Pagination Not Found");
     }
 
+    @TestRails(caseId = "70")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Functionality",
             priority = 217)
@@ -360,6 +372,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("Pagination Not Found");
     }
 
+    @TestRails(caseId = "71")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Creation Date Value",
             priority = 218)
@@ -373,6 +386,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,assertValue);
     }
 
+    @TestRails(caseId = "72")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pickup Name Value",
             priority = 219)
@@ -388,6 +402,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(storeId,apiValue);
     }
 
+    @TestRails(caseId = "73")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Id Functionality",
             priority = 220)
@@ -405,6 +420,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(url,assertUrl);
     }
 
+    @TestRails(caseId = "74")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Id Value",
             priority = 221)
@@ -418,6 +434,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "75")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Invoice Id Value",
             priority = 222)
@@ -431,6 +448,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "76")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Value",
             priority = 223)
@@ -444,6 +462,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue.toLowerCase(),assertValue.toLowerCase());
     }
 
+    @TestRails(caseId = "77")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Name Value",
             priority = 224)
@@ -457,6 +476,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "78")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Phone Value",
             priority = 225)
@@ -470,6 +490,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "79")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Address Value",
             priority = 226)
@@ -483,6 +504,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "80")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Area Value",
             priority = 227)
@@ -496,6 +518,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "81")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Stauts Value",
             priority = 228)
@@ -509,6 +532,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(apiValue.contains(uiValue),true);
     }
 
+    @TestRails(caseId = "82")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Info Cash Value",
             priority = 229)
@@ -522,6 +546,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "83")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Info Charge Value",
             priority = 230)
@@ -535,6 +560,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "84")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Status Value",
             priority = 231)
@@ -550,6 +576,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         else Assert.assertEquals(uiValue,"Unsettled");
     }
 
+    @TestRails(caseId = "85")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Promocode Discount Value",
             priority = 232)
@@ -563,6 +590,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "86")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Delivery Type Value",
             priority = 233)
@@ -576,6 +604,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "87")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Type Value",
             priority = 234)
@@ -589,6 +618,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "88")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Last Updated Value",
             priority = 235)
@@ -602,6 +632,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,assertValue);
     }
 
+    @TestRails(caseId = "89")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Status Filter Functionality",
             priority = 236)
@@ -618,6 +649,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "90")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Status Filter Reset Functionality",
             priority = 237)
@@ -634,6 +666,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     }
 
 
+    @TestRails(caseId = "91")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Status Filter Functionality",
             priority = 238)
@@ -651,6 +684,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "92")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Status Filter Reset Functionality",
             priority = 239)
@@ -668,6 +702,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "93")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Edit Button Functionality",
                priority = 240)
@@ -685,7 +720,8 @@ public class ParcelPageTests extends RedXWebBaseClass {
            } else System.out.println("No Parcels Found to perform Action");
        }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "94")
+       @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Edit Cancel Button in Edit Functionality",
                priority = 241)
        public void verifyCancelButtonEditFunctionality()
@@ -700,7 +736,8 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
        }
 
-      @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
+      @TestRails(caseId = "95")
+       @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                description = "Verify Edit Functionality",
                priority = 242)
        public void verifyEditFunctionality()
@@ -721,6 +758,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
            } else System.out.println("No Parcels Found to perform Action");
        }
 
+    @TestRails(caseId = "96")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Delete Button Functionality",
             priority = 243)
@@ -738,6 +776,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("No Parcels Found to perform Action");
     }
 
+    @TestRails(caseId = "98")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify No Delete Button Functionality",
             priority = 244)
@@ -750,6 +789,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("No Parcels Found to perform Action");
     }
 
+    @TestRails(caseId = "99")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Delete Functionality",
             priority = 245)
@@ -775,7 +815,8 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("No Parcels Found to perform Action");
     }
 
-       @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "101")
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Button Functionality",
                priority = 246)
        public void verifyExchangeButtonFunctionality()
@@ -793,6 +834,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
            System.out.println(parcels);
        }
 
+       @TestRails(caseId = "102")
        @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Cancel Button Functionality",
                priority = 247)
@@ -808,6 +850,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
            System.out.println(parcels);
        }
 
+       @TestRails(caseId = "103")
        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Functionality",
                priority = 248)
@@ -827,6 +870,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
            driver.navigate().refresh();
        }
 
+       @TestRails(caseId = "104")
        @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Raise Issue Button Functionality",
                priority = 249)
@@ -841,7 +885,8 @@ public class ParcelPageTests extends RedXWebBaseClass {
            Assert.assertEquals(modalTitle,assertValue);
        }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "105")
+       @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Raise Issue Back Button Functionality",
             priority = 250)
     public void verifyRaiseIssueBackButtonFunctionality()
@@ -855,6 +900,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Please select an issue type");
     }
 
+    @TestRails(caseId = "106")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Raise Issue Functionality",
             priority = 251)
@@ -869,13 +915,6 @@ public class ParcelPageTests extends RedXWebBaseClass {
                 raiseIssuePageObjects.clickCloseButton();
             }
             else raiseIssuePageObjects.clickCloseIcon();
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void parcelsPageTestsAfterSuite()
-    {
-        System.out.println("Parcels Page Tests After Suite");
-        driver.quit();
     }
 }
 

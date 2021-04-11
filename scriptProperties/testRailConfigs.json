@@ -1,0 +1,11 @@
+{
+  "baseUrl" : "https://shopup.testrail.io/",
+  "userName" : "tech-automation@shopf.co",
+  "password" : "www.testrail.com",
+  "suiteId": [
+    {"Redx-Web":7}
+  ],
+  "reportId": [
+    {"Redx-Web":7}
+  ]
+}

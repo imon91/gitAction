@@ -1,20 +1,22 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import services.responseModels.redxModels.ShopInfoModel;
-import utils.RedXWebBaseClass;
+import services.redxMethods.*;
+import services.responseModels.redxModels.*;
+import utils.*;
 
+import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class PickupLocationPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private PickupLocationPageObjects pickupLocationPageObjects;
     private PickupLocationPageObjects.AddNewPickupLocationPageObjects addNewPickupLocationPageObjects;
@@ -22,8 +24,8 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
 
     private GetRedxApiResponse getRedxApiResponse;
     private ShopInfoModel shopInfoModel;
-    private Random random;
-    private String cookie;
+
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     private String shopName = "Pickup Location Sanity Test Shop";
     private String searchLocation = "Search Test Pickup Location";
@@ -31,33 +33,18 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
     private int shopId;
     private int index;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
-
     @BeforeClass(alwaysRun = true)
     public void pickupLocationPageTestsBeforeClass() throws Exception
     {
         System.out.println("Pickup Location Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         pickupLocationPageObjects = new PickupLocationPageObjects(driver);
         addNewPickupLocationPageObjects = pickupLocationPageObjects.new AddNewPickupLocationPageObjects();
         editPickupLocationPageObjects = pickupLocationPageObjects.new EditPickupLocationPageObjects();
 
-        random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
         shopInfoModel = new ShopInfoModel();
-
-        System.out.println("Verify Authentication with valid credentials was called");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
 
         actionBarObjects.changeShop(shopName);
         setImplicitWait(10000);
@@ -72,14 +59,22 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void pickupLocationPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, PickupLocationPageTests.class);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "191")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Pickup Name Value",
-            priority = 1 )
+            priority = 901 )
     public void verifyPickupNameValue()
     {
         System.out.println("Verifying Pickup Name Value");
@@ -90,9 +85,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "192")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Pickup Address Value",
-            priority = 2 )
+            priority = 902 )
     public void verifyPickupAddressValue()
     {
         System.out.println("Verifying Pickup Address Value");
@@ -103,9 +99,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "193")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Search Bar Functionality",
-            priority = 3 )
+            priority = 903 )
     public void verifySearchBarFunctionality()
     {
         System.out.println("Verifying Search Bar Functionality");
@@ -116,9 +113,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(location,searchLocation);
     }
 
+    @TestRails(caseId = "194")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Add New Location Icon Functionality",
-            priority = 4 )
+            priority = 904 )
     public void verifyAddNewLocationIconFunctionality()
     {
         System.out.println("Verifying Add New Location Icon Functionality");
@@ -131,9 +129,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Add new pickup location");
     }
 
+    @TestRails(caseId = "195")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Add New Location Error Msg Value",
-            priority = 5 )
+            priority = 905 )
     public void verifyAddNewLocationErrorMsgValues()
     {
         System.out.println("Verifying Add New Location Error Msg Value");
@@ -144,9 +143,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         addNewPickupLocationPageObjects.clickBackButton();
     }
 
+    @TestRails(caseId = "196")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Add New Location Functionality",
-            priority = 6 )
+            priority = 906 )
     public void verifyAddNewLocationFunctionality()
     {
         System.out.println("Verifying Add New Location Functionality");
@@ -158,9 +158,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Pickup updated successfully");
     }
 
+    @TestRails(caseId = "197")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Icon Functionality",
-            priority = 7 )
+            priority = 907 )
     public void verifyEditShopIconFunctionality()
     {
         System.out.println("Verifying Edit Shop Icon Functionality");
@@ -171,9 +172,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Edit pickup location");
     }
 
+    @TestRails(caseId = "198")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Error Msg Values",
-            priority = 8 )
+            priority = 908 )
     public void verifyEditShopErrorMsgValues()
     {
         System.out.println("Verifying Edit Shop Error Msg Values");
@@ -185,9 +187,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         editPickupLocationPageObjects.clickCloseIcon();
     }
 
+    @TestRails(caseId = "199")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Confirm Button Functionality",
-            priority = 10 )
+            priority = 910 )
     public void verifyEditShopConfirmButtonFunctionality()
     {
         System.out.println("Verifying Edit Shop Confirm Button Functionality");
@@ -200,9 +203,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Update pickup location");
     }
 
+    @TestRails(caseId = "200")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Otp Error Msg Value",
-            priority = 11 )
+            priority = 911 )
     public void verifyEditShopOtpErrorMsgValue()
     {
         System.out.println("Verifying Edit Shop Otp Error Msg Value");
@@ -213,9 +217,10 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         Assert.assertEquals(errorMsg,"Otp is required");
     }
 
+    @TestRails(caseId = "201")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Functionality",
-            priority = 12 )
+            priority = 912 )
     public void verifyEditShopFunctionality()
     {
         System.out.println("Verifying Edit Shop Functionality");
@@ -223,18 +228,5 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         String toastMsg = pickupLocationPageObjects.getToastMsg();
         System.out.println("Toast Message : " + toastMsg);
         Assert.assertEquals(toastMsg,"Pickup updated successfully");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void myShopsPageTestsAfterClass()
-    {
-        System.out.println("Pickup Location Page Tests After Class");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void redXWebPageTestsAfterSuite()
-    {
-        System.out.println("RedX Web After Suite");
-        driver.quit();
     }
 }
