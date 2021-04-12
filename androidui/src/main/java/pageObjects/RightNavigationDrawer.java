@@ -106,7 +106,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     private WebElement navigationItemLogoutReseller;
 
     // NavigationItem Logout Mokam
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='8']")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='9']")
     private WebElement navigationItemLogoutMokam;
 
     private WebElement profileEditButton;

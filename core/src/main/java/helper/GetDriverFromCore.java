@@ -20,7 +20,7 @@ public class GetDriverFromCore {
     private static final String USERNAME = "techautomation1";
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
     private static final String APP_RED_X = "bs://bf8b0fae016d5b5b3d1f768018427bfff48b9b4f";
-    private static final String APP_RESELLER = "bs://87ca54415a668486e25102a8bb05e3efa2366dda";
+    private static final String APP_RESELLER = "bs://ec50dd89ca0142b3eacb90176a2d419a6f75ae6c";
     private static final String APP_MOKAM = "bs://458ca5fd57ba2eb7c1ff5a4dd93e13ac7b09d2a6";
     private static final String APP_STORES = "bs://59f775697e32f859255074777f727a4fd73be12a";
     private static final String KEY_DEVICE_NAME="deviceName";
