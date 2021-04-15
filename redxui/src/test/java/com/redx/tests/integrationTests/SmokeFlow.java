@@ -59,6 +59,12 @@ public class SmokeFlow extends RedXBaseClass {
         setImplicitWait(15);
     }
 
+    @BeforeMethod(alwaysRun = true)
+    public void beforeMethod()
+    {
+        System.out.println("/**************************************************/");
+    }
+
     @Test(groups = {"Authentication.verifyAuthenticationWithValidCredentials",
             CoreConstants.GROUP_SMOKE},
             description = "Verifies Authentication With Valid Credentials",

@@ -62,7 +62,7 @@ public class SettingsPageObjects extends RedXBaseClass
 
     public void clickLogoutButton()
     {
-        logoutButton = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[5]");
+        logoutButton = xpathSetter("//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup[6]");
         myActions.action_click(logoutButton);
     }
 

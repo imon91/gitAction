@@ -35,7 +35,7 @@ public class LoginPageObjects extends RedXBaseClass
 
     public void clickLoginButton()
     {
-        loginButton = xpathSetter("//android.widget.TextView[@text='LOGIN WITH PHONE NUMBER']");
+        loginButton = xpathSetter("//android.widget.TextView[@text='LOGIN WITH PHONE']");
         myActions.action_click(loginButton);
     }
 

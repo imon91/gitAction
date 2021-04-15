@@ -351,7 +351,7 @@ public class ManifestParcelDetails extends RedXBaseClass
 
         public String getParcelID()
         {
-            parcelID = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[2]/android.widget.TextView[starts-with(@text,'20A')]");
+            parcelID = xpathSetter("//android.view.ViewGroup[@index='0']/android.view.ViewGroup[2]/android.widget.TextView[starts-with(@text,'21A')]");
             return myActions.action_getText(parcelID);
         }
 

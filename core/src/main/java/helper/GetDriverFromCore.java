@@ -19,7 +19,8 @@ public class GetDriverFromCore {
     private static final String FIREFOX_DRIVER = "firefox";
     private static final String USERNAME = "techautomation1";
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
-    private static final String APP_RED_X = "bs://bf8b0fae016d5b5b3d1f768018427bfff48b9b4f";
+//    private static final String APP_RED_X = "bs://bf8b0fae016d5b5b3d1f768018427bfff48b9b4f";
+    private static final String APP_RED_X = "bs://9e27b0ca32c08bf27ee5d00d7c51d209a22f70c4";
     private static final String APP_RESELLER = "bs://87ca54415a668486e25102a8bb05e3efa2366dda";
     private static final String APP_MOKAM = "bs://458ca5fd57ba2eb7c1ff5a4dd93e13ac7b09d2a6";
     private static final String APP_STORES = "bs://59f775697e32f859255074777f727a4fd73be12a";
@@ -151,6 +152,7 @@ public class GetDriverFromCore {
             chromeOptions.addArguments("'--disable-web-security");
             chromeOptions.addArguments("--no-sandbox");
 //            chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("--window-size=1920,1080");
 //            chromeOptions.addArguments("--user-data-dir");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);

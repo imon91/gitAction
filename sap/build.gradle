@@ -53,6 +53,7 @@ task sapUiTest(type: Test) {
         def regression = project.hasProperty("Reg")
         def sameBulkIdIssueFixAutomation = project.hasProperty("SBIA")
         def bulkParcelStatusUpdate = project.hasProperty("BPSU")
+        def slackBug = project.hasProperty("SlackBug")
 
         if (smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -71,6 +72,9 @@ task sapUiTest(type: Test) {
         }
         if(bulkParcelStatusUpdate){
             suites "src/test/resources/mySuites/bulkParcelStatusUpdateAutomation.xml"
+        }
+        if(slackBug){
+            suites "src/test/resources/mySuites/slackBugSuite.xml"
         }
     }
 }
