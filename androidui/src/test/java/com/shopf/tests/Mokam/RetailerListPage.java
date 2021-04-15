@@ -86,7 +86,7 @@ public class RetailerListPage extends AndroidBaseClass {
         Assert.assertEquals(searchInputBoxText,searchInputBoxText_English);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 3)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 4)
     public void verifyEnteringTextInSearchInputBox(){
         WebElement searchInputBoxElement = salesRepFeaturePageObject.getSearchInputBoxElement();
         String searchValue = "ShopName";
@@ -95,7 +95,7 @@ public class RetailerListPage extends AndroidBaseClass {
         searchInputBoxElement.clear();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 4)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
     public void verifySearchingAShopWithName(){
         MokamRetailerListModel mokamRetailerListModel = salesRepFeaturePageObject.salesRepResultsApi();
         int totalRetailerSize = mokamRetailerListModel.getUser_data().size();
@@ -120,7 +120,7 @@ public class RetailerListPage extends AndroidBaseClass {
         }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 5)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
     public void verifySearchingAShopWithMobileNumber(){
         MokamRetailerListModel mokamRetailerListModel = salesRepFeaturePageObject.salesRepResultsApi();
         int totalRetailerSize = mokamRetailerListModel.getUser_data().size();
@@ -133,7 +133,7 @@ public class RetailerListPage extends AndroidBaseClass {
         salesRepFeaturePageObject.getSearchInputBoxElement().clear();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 6)
+    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 3)
     public void verifyFirstRetailerDetails(){
         MokamRetailerListModel mokamRetailerListModel = salesRepFeaturePageObject.salesRepResultsApi();
         List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
