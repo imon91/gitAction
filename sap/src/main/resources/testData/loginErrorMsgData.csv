@@ -1,0 +1,4 @@
+Test_Case_Id,Test_Case_Name,Phone_Number,Otp
+LEMD1,InValid User,01401122001,6666
+LEMD2,InValid Otp,01401122188,1234
+LEMD3,Valid Credential,01717001462,6666

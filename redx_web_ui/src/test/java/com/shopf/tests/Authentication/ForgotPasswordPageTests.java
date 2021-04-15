@@ -1,53 +1,42 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
 import utils.*;
 
+import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class ForgotPasswordPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private ChangePasswordPageObjects changePasswordPageObjects;
     private ForgotPasswordPageObjects forgotPasswordPageObjects;
     private ForgotPasswordPageObjects.ResetPasswordPageObjects resetPasswordPageObjects;
     private ForgotPasswordPageObjects.ResetPasswordSuccessPageObjects resetPasswordSuccessPageObjects;
 
-    private String cookie;
     private String shopName = "Password Page Sanity Test Shop";
     private String[] validInput;
     private String[] invalidInput;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void forgotPasswordPageTestsBeforeClass() throws Exception
     {
         System.out.println("Forgot Password Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         changePasswordPageObjects =  new ChangePasswordPageObjects(driver);
         forgotPasswordPageObjects = new ForgotPasswordPageObjects(driver);
         resetPasswordPageObjects = forgotPasswordPageObjects.new ResetPasswordPageObjects();
         resetPasswordSuccessPageObjects = forgotPasswordPageObjects.new ResetPasswordSuccessPageObjects();
-
-        System.out.println("Verify Authentication with valid credentials was called");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
 
         actionBarObjects.changeShop(shopName);
         setImplicitWait(10000);
@@ -62,14 +51,22 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void forgotPasswordPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, ForgotPasswordPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "369")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Phone Error Msg Value",
-            priority = 1 )
+            priority = 1401 )
     public void verifyPhoneErrorMsgValue()
     {
         System.out.println("Verifying Phone Error Msg Value");
@@ -78,9 +75,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         System.out.println("Error Messages" + errorMsg);
     }
 
+    @TestRails(caseId = "370")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify LoginWithOtp Button Functionality",
-            priority = 2 )
+            priority = 1402 )
     public void verifyLoginWithOtpButtonFunctionality()
     {
         System.out.println("Verifying LoginWithOtp Button Functionality");
@@ -91,9 +89,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         driver.navigate().back();
     }
 
+    @TestRails(caseId = "371")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Continue Button Functionality",
-            priority = 3 )
+            priority = 1403 )
     public void verifyContinueButtonFunctionality()
     {
         System.out.println("Verifying Continue Button Functionality");
@@ -104,9 +103,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Verify and reset password");
     }
 
+    @TestRails(caseId = "372")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Reset Password Error Msg Values",
-            priority = 4 )
+            priority = 1404 )
     public void verifyResetPasswordErrorMsgValues()
     {
         System.out.println("Verifying Reset Password Error Msg Values");
@@ -115,9 +115,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         System.out.println("Error Messages" + errorMsgs);
     }
 
+    @TestRails(caseId = "373")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Button Functionality",
-            priority = 5 )
+            priority = 1405 )
     public void verifyEditButtonFunctionality()
     {
         System.out.println("Verifying Edit Button Functionality");
@@ -128,9 +129,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Forgot password");
     }
 
+    @TestRails(caseId = "374")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Password Eye Icon Functionality",
-            priority = 6 )
+            priority = 1406 )
     public void verifyPasswordEyeIconFunctionality()
     {
         System.out.println("Verifying Password Eye Icon Functionality");
@@ -144,9 +146,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         Assert.assertEquals(type,"text");
     }
 
+    @TestRails(caseId = "375")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Confirm Password Eye Icon Functionality",
-            priority = 7 )
+            priority = 1407 )
     public void verifyConfirmPasswordEyeIconFunctionality()
     {
         System.out.println("Verifying Confirm Password Eye Icon Functionality");
@@ -157,9 +160,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         Assert.assertEquals(type,"text");
     }
 
+    @TestRails(caseId = "376")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Verify Button Functionality",
-            priority = 8 )
+            priority = 1408 )
     public void verifyVerifyButtonFunctionality()
     {
         System.out.println("Verifying Verify Button Functionality");
@@ -169,9 +173,10 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         Assert.assertEquals(header,"Password updated");
     }
 
+    @TestRails(caseId = "377")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify ReturnToLogin Button Functionality",
-            priority = 9 )
+            priority = 1409 )
     public void verifyReturnToLoginButtonFunctionality()
     {
         System.out.println("Verifying ReturnToLogin Button Functionality");
@@ -179,18 +184,5 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         String  currentUrl = driver.getCurrentUrl();
         System.out.println("Current URL : " + currentUrl);
         Assert.assertEquals(currentUrl,"https://redx.shopups1.xyz/login/?password=true");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void changePasswordPageTestsAfterClass()
-    {
-        System.out.println("Change Password Page Tests After Class");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void changePasswordPageTestsAfterSuite()
-    {
-        System.out.println("Change Password Page Tests After Suite");
-        driver.quit();
     }
 }

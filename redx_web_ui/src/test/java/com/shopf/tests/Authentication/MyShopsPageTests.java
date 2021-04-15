@@ -1,20 +1,22 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import services.responseModels.redxModels.ShopListModel;
-import utils.RedXWebBaseClass;
+import services.redxMethods.*;
+import services.responseModels.redxModels.*;
+import utils.*;
 
+import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class MyShopsPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private MyShopsPageObjects myShopsPageObjects;
     private MyShopsPageObjects.AddNewShopPageObjects addNewShopPageObjects;
@@ -22,39 +24,23 @@ public class MyShopsPageTests extends RedXWebBaseClass {
 
     private GetRedxApiResponse getRedxApiResponse;
     private ShopListModel shopListModel;
-    private Random random;
-    private String cookie;
     private int index;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void myShopsTestsBeforeClass() throws Exception
     {
         System.out.println("My Shops Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         myShopsPageObjects = new MyShopsPageObjects(driver);
         addNewShopPageObjects = myShopsPageObjects.new AddNewShopPageObjects();
         editShopPageObjects = myShopsPageObjects.new EditShopPageObjects();
 
-        random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
         shopListModel = new ShopListModel();
 
-        System.out.println("Verify Authentication with valid credentials was called");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
-
-//        actionBarObjects.clickModalCloseButton();
         actionBarObjects.clickOnDropDownMyShopButton();
 
         shopListModel = getRedxApiResponse.shopListGetCall();
@@ -62,14 +48,22 @@ public class MyShopsPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void myShopsPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, MyShopsPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "181")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Name Value",
-            priority = 1 )
+            priority = 801 )
     public void verifyShopNameValue()
     {
         System.out.println("Verifying Shop Name Value");
@@ -80,9 +74,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "182")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Pickup Location Value",
-            priority = 2 )
+            priority = 802 )
     public void verifyShopPickupLocationValue()
     {
         System.out.println("Verifying Shop Pickup Location Value");
@@ -93,9 +88,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "183")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Pickup Phone Value",
-            priority = 3 )
+            priority = 803 )
     public void verifyShopPickupPhoneValue()
     {
         System.out.println("Verifying Shop Pickup Phone Value");
@@ -106,9 +102,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "184")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE,CoreConstants.GROUP_SANITY},
             description = "Verify Select Shop Functionality",
-            priority = 4 )
+            priority = 804 )
     public void verifySelectShopFunctionality()
     {
         System.out.println("Verify Select Shop Functionality");
@@ -120,9 +117,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         Assert.assertTrue(isSelected);
     }
 
+    @TestRails(caseId = "185")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Add New Shop Icon Functionality",
-            priority = 5 )
+            priority = 805 )
     public void verifyAddNewShopIconFunctionality()
     {
         System.out.println("Verifying Add New Shop Icon Functionality");
@@ -133,9 +131,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Add New Shop");
     }
 
+    @TestRails(caseId = "186")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Add New Shop Error Msg Value",
-            priority = 6 )
+            priority = 806 )
     public void verifyAddNewShopErrorMsgValues()
     {
         System.out.println("Verifying Add New Shop Error Msg Value");
@@ -147,9 +146,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         addNewShopPageObjects.clickCloseIcon();
     }
 
+    @TestRails(caseId = "187")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Add New Shop Functionality",
-            priority = 7 )
+            priority = 807 )
     public void verifyAddNewShopFunctionality()
     {
         System.out.println("Verifying Add New Shop Functionality");
@@ -162,9 +162,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Shop Created");
     }
 
+    @TestRails(caseId = "188")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Icon Functionality",
-            priority = 8 )
+            priority = 808 )
     public void verifyEditShopIconFunctionality()
     {
         System.out.println("Verifying Edit Shop Icon Functionality");
@@ -175,9 +176,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Edit Shop");
     }
 
+    @TestRails(caseId = "189")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Error Msg Values",
-            priority = 9 )
+            priority = 809 )
     public void verifyEditShopErrorMsgValues()
     {
         System.out.println("Verifying Edit Shop Error Msg Values");
@@ -189,9 +191,10 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         editShopPageObjects.clickCloseIcon();
     }
 
+    @TestRails(caseId = "190")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Shop Functionality",
-            priority = 10 )
+            priority = 810 )
     public void verifyEditShopFunctionality()
     {
         System.out.println("Verifying Edit Shop Functionality");
@@ -202,18 +205,5 @@ public class MyShopsPageTests extends RedXWebBaseClass {
         String toastMsg = myShopsPageObjects.getToastMsg();
         System.out.println("Toast Message : " + toastMsg);
         Assert.assertEquals(toastMsg,"Shop updated successfully");
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void myShopsPageTestsAfterClass()
-    {
-        System.out.println("My Shops Page Tests After Class");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void myShopsPageTestsAfterSuite()
-    {
-        System.out.println("My Shops Page Tests After Suite");
-        driver.quit();
     }
 }

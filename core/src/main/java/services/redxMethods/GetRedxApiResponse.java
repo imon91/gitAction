@@ -1,14 +1,16 @@
 package services.redxMethods;
 
+import auth.CookieManager;
 import com.google.gson.Gson;
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.json.simple.JSONObject;
+import org.openqa.selenium.Cookie;
 import services.responseModels.redxModels.*;
 import services.serviceUtils.EndPoints;
 import services.serviceUtils.ShopUpPostMan;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 
 public class GetRedxApiResponse {
@@ -50,6 +52,35 @@ public class GetRedxApiResponse {
         AreaTreeModel areaTreeModel = gson.fromJson(getAreaListResponse.getBody().asString(),AreaTreeModel.class);
         return areaTreeModel;
     }
+
+    /*--------------------Authentication--------------------*/
+
+    public Response requestLoginCodePostCall(String phone)
+    {
+        String requestLoginCodeUrl = EndPoints.VERSION1 + EndPoints.USER + EndPoints.REQUEST_LOGIN_CODE;
+        Map requestLoginCodeBody = new HashMap();
+        requestLoginCodeBody.put("countryCode","BD");
+        requestLoginCodeBody.put("callingCode","+880");
+        requestLoginCodeBody.put("phoneNumber",phone);
+        requestLoginCodeBody.put("service","redx");
+
+        Response requestLoginCodeResponse = shopUpPostMan.postCall(requestLoginCodeUrl,requestLoginCodeBody);
+        return requestLoginCodeResponse;
+    }
+
+    public Response loginWithCodePostCall(String phone,String otp)
+    {
+        String loginWithCodeUrl = EndPoints.VERSION1 + EndPoints.USER + EndPoints.LOGIN_WITH_CODE;
+        Map loginWithCodeBody = new HashMap();
+        loginWithCodeBody.put("loginCode",otp);
+        loginWithCodeBody.put("phone",phone);
+
+        Response loginWithCodeResponse = shopUpPostMan.postCall(loginWithCodeUrl,loginWithCodeBody);
+        System.out.println("API cookies" + loginWithCodeResponse.getCookies().toString());
+
+        return loginWithCodeResponse;
+    }
+
 
     /*--------------------Dashboard Page--------------------*/
 
@@ -184,6 +215,14 @@ public class GetRedxApiResponse {
     }
 
     /*--------------------Functions--------------------*/
+
+    public String performAuthentication(String phone,String otp)
+    {
+        requestLoginCodePostCall(phone);
+        Response loginResponse = loginWithCodePostCall(phone,otp);
+        String ck = loginResponse.getCookie("__ti__");
+        return ck;
+    }
 
     public String allParcelsListGetCallUrl(long storeId,int ...params)
     {

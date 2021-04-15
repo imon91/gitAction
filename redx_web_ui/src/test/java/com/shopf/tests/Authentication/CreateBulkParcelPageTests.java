@@ -1,48 +1,36 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
+import com.gurock.testrail.*;
+import coreUtils.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import utils.RedXWebBaseClass;
-import utils.RedXWebFileUtils;
+import utils.*;
 
-import java.io.File;
-import java.util.Random;
+import java.io.*;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class CreateBulkParcelPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private CreateParcelPageObjects createParcelPageObjects;
     private CreateBulkParcelPageObjects createBulkParcelPageObjects;
     private CreateBulkParcelPageObjects.BulkUploadPageObjects bulkUploadPageObjects;
     private CreateBulkParcelPageObjects.BulkUploadImportStatus bulkUploadImportStatus;
 
-    private GetRedxApiResponse getRedxApiResponse;
     private Actions actions;
-    private Random random;
-    private String cookie;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void createBulkParcelPageTestsBeforeClass() throws Exception
     {
         System.out.println("Create Bulk Parcel Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         createParcelPageObjects = new CreateParcelPageObjects(driver);
         createBulkParcelPageObjects = new CreateBulkParcelPageObjects(driver);
@@ -50,12 +38,6 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         bulkUploadImportStatus = createBulkParcelPageObjects.new BulkUploadImportStatus();
 
         actions = new Actions(driver);
-        random = new Random();
-        getRedxApiResponse = new GetRedxApiResponse("redxweb");
-
-        System.out.println("Performing Authentication");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
 
         actionBarObjects.changeShop("RedX Web Sanity Test Shop");
         setImplicitWait(10000);
@@ -66,14 +48,22 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void createBulkParcelPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, CreateBulkParcelPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "128")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Sample File Button Functionality",
-            priority = 1 )
+            priority = 601 )
     public void verifyDownloadSampleFileButtonFunctionality()
     {
         System.out.println("Verifying Download Sample File Button Functionality");
@@ -92,18 +82,20 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(files2,files1+1);
     }
 
+    @TestRails(caseId = "129")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify All Pickup Location Drop Down Functionality",
-            priority = 2 )
+            priority = 602 )
     public void verifyAllPickupLocationDropDownFunctionality()
     {
         System.out.println("Verifying All Pickup Location Drop Down Functionality");
         String pickupLocation = createBulkParcelPageObjects.choosePickupLocation();
     }
 
+    @TestRails(caseId = "130")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Upload File Button Functionality",
-            priority = 3 )
+            priority = 603 )
     public void verifyUploadFileButtonFunctionality() throws Exception
     {
         System.out.println("Verifying Upload File Button Functionality");
@@ -111,9 +103,10 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(bulkUploadPageObjects.getTitleWrapper(),"Bulk Upload");
     }
 
+    @TestRails(caseId = "131")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Remove Button Functionality",
-            priority = 4 )
+            priority = 604 )
     public void verifyRemoveButtonFunctionality()
     {
         System.out.println("Verifying Remove Button Functionality");
@@ -126,9 +119,10 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(p2,p1-1);
     }
 
+    @TestRails(caseId = "132")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Confirmation Error Message Value",
-            priority = 5 )
+            priority = 605 )
     public void verifyConfirmationErrorMessageValue()
     {
         System.out.println("Verifying Confirmation Error Message Value");
@@ -137,9 +131,10 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(errorMsg,"Parcel value confirmation is required");
     }
 
+    @TestRails(caseId = "133")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Reset Button Functionality",
-            priority = 6 )
+            priority = 606 )
     public void verifyResetButtonFunctionality()
     {
         System.out.println("Verifying Reset Button Functionality");
@@ -150,9 +145,10 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Discarded.");
     }
 
+    @TestRails(caseId = "134")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Upload File Functionality",
-            priority = 7 )
+            priority = 607 )
     public void verifyUploadFileFunctionality() throws Exception
     {
         System.out.println("Verifying Upload File Functionality");
@@ -162,9 +158,10 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(toastMsg,"Parcels created sucessfully");
     }
 
+    @TestRails(caseId = "135")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Bulk Upload Status Functionality",
-            priority = 8 )
+            priority = 608 )
     public void verifyBulkUploadStatusFunctionality()
     {
         System.out.println("Verifying Bulk Upload Status Functionality");
@@ -178,9 +175,10 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals((success+failed),parcels);
     }
 
+    @TestRails(caseId = "136")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Filter By Status Functionality",
-            priority = 9 )
+            priority = 609 )
     public void verifyFilterByStatusFunctionality()
     {
         System.out.println("Verifying Filter By Status Functionality");
@@ -200,11 +198,5 @@ public class CreateBulkParcelPageTests extends RedXWebBaseClass {
             status = bulkUploadImportStatus.clickStatusFilterDropDownOption();
             System.out.println("Status : " + status);
         }
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void createBulkParcelPageTestsAfterClass() {
-        System.out.println("Create Bulk Parcel Page Tests After Class Is Called");
-        driver.quit();
     }
 }

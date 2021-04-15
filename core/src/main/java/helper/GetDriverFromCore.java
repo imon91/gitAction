@@ -140,7 +140,7 @@ public class GetDriverFromCore {
             String filePath = dir + "/Downloads";
             System.out.println(filePath);
 //             System.setProperty("webdriver.chrome.driver",CoreFileUtils.chromeDriver);
-            System.setProperty("webdriver.chrome.verboseLogging", "true");
+//            System.setProperty("webdriver.chrome.verboseLogging", "true");
             WebDriverManager.chromedriver().setup();
 
             ChromeOptions chromeOptions = new ChromeOptions();
@@ -151,6 +151,7 @@ public class GetDriverFromCore {
             chromeOptions.addArguments("'--disable-web-security");
             chromeOptions.addArguments("--no-sandbox");
 //            chromeOptions.addArguments("--headless");
+            chromeOptions.addArguments("--window-size=1920,1080");
 //            chromeOptions.addArguments("--user-data-dir");
             Map<String,Object> prefs = new HashMap<>();
             prefs.put("download.default_directory",filePath);

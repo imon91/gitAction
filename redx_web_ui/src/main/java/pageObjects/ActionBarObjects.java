@@ -86,6 +86,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
     public void enterSearchBar(String ID)
     {
         searchBarEntry = xpathSetter("//div[@class='input-group']//input");
+        searchBarEntry.clear();
         myActions.action_sendKeys(searchBarEntry,ID);
     }
 

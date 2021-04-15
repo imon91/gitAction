@@ -98,11 +98,19 @@ public class AddParcelPageObjects extends RedXBaseClass
         myActions.action_click(areaDropDown);
     }
 
+    public List<WebElement> districtList()
+    {
+        String areaXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup";
+        List<WebElement> listOfAreas = xpathListSetter(areaXpath);
+//        listOfAreas.remove(0);
+        return listOfAreas;
+    }
+
     public List<WebElement> areaList()
     {
         String areaXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup";
         List<WebElement> listOfAreas = xpathListSetter(areaXpath);
-        listOfAreas.remove(0);
+//        listOfAreas.remove(0);
         return listOfAreas;
     }
 
@@ -178,8 +186,11 @@ public class AddParcelPageObjects extends RedXBaseClass
         enterAddress("Test Address");
         enterArea();
         sleep(1000);
-        System.out.println("Area List Size: " + areaList().size());
+        System.out.println("District List Size: " + districtList().size());
         int index = random.nextInt(areaList().size());
+        selectAreaById(areaList(),index);
+        System.out.println("Area List Size: " + areaList().size());
+        index = random.nextInt(areaList().size());
         selectAreaById(areaList(),index);
         enterInvoiceNumber("Test Invoice " + n);
         enterInstruction("Test Instruction");

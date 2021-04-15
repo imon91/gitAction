@@ -30,6 +30,7 @@ public class SAPPanelPageObject extends SapBaseClass {
     private WebElement parcelIDText;
     private WebElement popupCloseButton;
     private WebElement reconcileLaterButton;
+    private WebElement closeButton;
 
 
     public void enterPhoneNumberInput(String mobileNo)
@@ -48,6 +49,7 @@ public class SAPPanelPageObject extends SapBaseClass {
 //        otpInputFields = xpathListSetter(driver,"//div[@class='verification-input']/input");
 //        otpInputFields = driver.findElements(By.xpath("//div[@class='verification-input']/input"));
         for (int i=0;i<4 ; i++){
+            otpInputFields.get(i).clear();
             myActions.action_sendKeys(otpInputFields.get(i), String.valueOf(otp.charAt(i)));}
     }
 
@@ -63,6 +65,12 @@ public class SAPPanelPageObject extends SapBaseClass {
     {
         loginErrorMsg = xpathSetter("//strong[text()='Login Error']/../small");
         return myActions.action_getText(loginErrorMsg);
+    }
+
+    public void clickCloseButton()
+    {
+        closeButton = xpathSetter("//button[@ng-click='cancel()']");
+        myActions.action_click(closeButton);
     }
 
     public void clickOnLogisticsModule()

@@ -1,55 +1,44 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import services.responseModels.redxModels.CouponsModel;
-import utils.RedXWebBaseClass;
+import services.redxMethods.*;
+import services.responseModels.redxModels.*;
+import utils.*;
 
-import java.util.Random;
+import java.io.*;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class CouponsPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private CouponPageObjects couponPageObjects;
 
     private GetRedxApiResponse getRedxApiResponse;
     private CouponsModel couponsModel;
     private Random random;
-    private String cookie;
     private int size;
     private int index;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void couponsPageTestsBeforeClass() throws Exception
     {
         System.out.println("Coupons Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         couponPageObjects = new CouponPageObjects(driver);
 
         random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
         couponsModel = new CouponsModel();
-
-        System.out.println("Verify Authentication with valid credentials was called");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
 
         actionBarObjects.changeShop("RedX Web Sanity Test Shop");
         setImplicitWait(10000);
@@ -63,14 +52,22 @@ public class CouponsPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void homePageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, CouponsPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "137")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Coupon Id Value",
-            priority = 1 )
+            priority = 401 )
     public void verifyCouponIdValue()
     {
         System.out.println("Verifying Coupon Id Value");
@@ -81,9 +78,10 @@ public class CouponsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "138")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Coupon Description Value",
-            priority = 2 )
+            priority = 402 )
     public void verifyCouponDescriptionValue()
     {
         System.out.println("Verifying Coupon Description Value");
@@ -94,9 +92,10 @@ public class CouponsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "139")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Expire Date Value",
-            priority = 3 )
+            priority = 403 )
     public void verifyExpireDateValue()
     {
         System.out.println("Verifying Expire Date Value");
@@ -107,9 +106,10 @@ public class CouponsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "140")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Coupon Status Value",
-            priority = 4 )
+            priority = 404 )
     public void verifyCouponStatusValue()
     {
         System.out.println("Verifying Coupon Status Value");
@@ -120,9 +120,10 @@ public class CouponsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue.toLowerCase(),apiValue);
     }
 
+    @TestRails(caseId = "141")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Apply Coupon Functionality",
-            priority = 5 )
+            priority = 405 )
     public void verifyApplyCouponFunctionality()
     {
         String couponCode = couponsModel.getBody().getCoupons().get(0).getCode();
@@ -146,18 +147,5 @@ public class CouponsPageTests extends RedXWebBaseClass {
                 Assert.assertEquals(toastMsg,"Coupon code applied successfully");
                 break;
         }
-    }
-
-    @AfterClass(alwaysRun = true)
-    public void couponsPageTestsAfterClass()
-    {
-        System.out.println("Coupons Page Tests After Class");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void couponsPageTestsAfterSuite()
-    {
-        System.out.println("Coupons Page Tests After Suite");
-        driver.quit();
     }
 }
