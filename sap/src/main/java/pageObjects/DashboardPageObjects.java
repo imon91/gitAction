@@ -45,7 +45,7 @@ public class DashboardPageObjects extends  SapBaseClass{
     public void clickLogisticsModule()
     {
 //        logisticsModule = xpathSetter("//ul/li[10]//a[contains(text(),'Logistics')]");
-        logisticsModule = xpathSetter(driver,"//ul/li[10]//a[contains(text(),'Logistics')]");
+        logisticsModule = xpathSetter(driver,"//ul/li[9]//a[contains(text(),'Logistics')]");
 //        logisticsModule = driver.findElement(By.xpath("//ul/li[10]//a[contains(text(),'Logistics')]"));
         myActions.action_click(logisticsModule);
     }

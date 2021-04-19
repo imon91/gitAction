@@ -50,6 +50,8 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
     private WebElement parcelReceivedButton;
     private WebElement yesButton;
 
+    private WebElement name;
+
     /*----------Actions----------*/
 
     public void chooseHubInput(String hubName)
@@ -414,6 +416,74 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
 //                System.out.println("Catch");
 //                System.out.println("Exception : " + e);
 //            }
+        }
+    }
+
+    public class ExchangeModalPageObjects
+    {
+        private WebElement exchangeWithoutDeliveredInput;
+        private WebElement trackingIdValue;
+        private WebElement submitButton;
+
+        public void clickExchangeWithoutDeliveredInput()
+        {
+            exchangeWithoutDeliveredInput = xpathSetter("//div[@class='modal-body']//div[@class='radio radio-warning'][2]");
+            myActions.action_click(exchangeWithoutDeliveredInput);
+        }
+
+        public String getTrackingIdValue()
+        {
+            trackingIdValue = xpathSetter("//input[@placeholder='New Parcel ID']");
+            return trackingIdValue.getAttribute("value");
+        }
+
+        public void clickSubmitButton()
+        {
+            submitButton = xpathSetter("//div[@class='modal-body']//button[@type='submit']");
+            myActions.action_click(submitButton);
+        }
+    }
+
+    public class UnScannedSectionPageObjects
+    {
+        private WebElement trackingId;
+        private WebElement name;
+
+        public String getTrackingIdValue(int index)
+        {
+            trackingId = xpathSetter("//div[2]//section[@class='unscanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//small");
+            return myActions.action_getText(trackingId);
+        }
+
+        public String getNameValue(int index)
+        {
+            name = xpathSetter("//div[2]//section[@class='unscanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(@class,'name')]");
+            return myActions.action_getText(name);
+        }
+    }
+
+    public class ScannedSectionPageObjects
+    {
+        private WebElement trackingId;
+        private WebElement name;
+        private WebElement status;
+
+        public String getTrackingIdValue(int index)
+        {
+            trackingId = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//small");
+            return myActions.action_getText(trackingId);
+        }
+
+        public String getNameValue(int index)
+        {
+            name = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(@class,'name')]");
+            return myActions.action_getText(name);
+        }
+
+        public String getStatusValue(int index)
+        {
+            status = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(@class,'status')]");
+            return myActions.action_getText(status);
         }
     }
 }

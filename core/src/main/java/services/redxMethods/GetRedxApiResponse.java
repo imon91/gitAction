@@ -2,6 +2,7 @@ package services.redxMethods;
 
 import auth.CookieManager;
 import com.google.gson.Gson;
+import dataParcer.CSVParser;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
@@ -119,6 +120,16 @@ public class GetRedxApiResponse {
         Response deliveryChargeResponse = shopUpPostMan.getCall(deliveryChargeGetCall);
         DeliveryChargeModel deliveryChargeModel = gson.fromJson(deliveryChargeResponse.getBody().asString(),DeliveryChargeModel.class);
         return deliveryChargeModel;
+    }
+
+    public CreateParcelModel createParcelPostCall(String shopName,Map createParcelBody)
+    {
+        int shopId = getShopId(shopName);
+        System.out.println("\nCreating Parcel\n");
+        String createParcelPostCall = EndPoints.VERSION1 + EndPoints.ADMIN + EndPoints.SHOP + shopId + EndPoints.LOGISTICS + EndPoints.PARCELS;
+        Response createParcelResponse = shopUpPostMan.postCall(createParcelPostCall,createParcelBody);
+        CreateParcelModel createParcelModel = gson.fromJson(createParcelResponse.getBody().asString(),CreateParcelModel.class);
+        return createParcelModel;
     }
 
     /*--------------------Coupons Page--------------------*/
@@ -298,6 +309,8 @@ public class GetRedxApiResponse {
         String parcelsListGetCallUrl = url.concat("&status=");
         String statusValue = status.toLowerCase();
         statusValue = statusValue.replaceAll(" ","-");
+        if(statusValue.equalsIgnoreCase("hold"))
+            statusValue = "on-hold";
         parcelsListGetCallUrl = parcelsListGetCallUrl.concat(statusValue);
         return parcelsListGetCallUrl;
     }
