@@ -43,7 +43,6 @@ public class Settings extends RedXBaseClass
         System.out.println("Before Settings Class");
         androidDriver = getBaseDriver();
         pageInitializer();
-        homePageObjects.clickSettingsButton();
     }
 
     @DataProvider(name = "getUserAuthenticationData")
@@ -79,6 +78,7 @@ public class Settings extends RedXBaseClass
     public void verifyPaymentDetails()
     {
         System.out.println("Verifying Payment Details");
+        homePageObjects.clickSettingsButton();
         settingsPageObjects.clickPaymentDetailsModule();
         Assert.assertEquals(settingsPageObjects.getPageTitle(),"Payment Details");
         settingsPageObjects.clickBackButton();
@@ -120,14 +120,14 @@ public class Settings extends RedXBaseClass
     }
 
 
-    @AfterMethod(alwaysRun = true)
+//    @AfterMethod(alwaysRun = true)
     public void settingsAfterTest()
     {
         settingsPageObjects.clickBackButton();
         System.out.println("After Settings Test");
     }
 
-    @AfterClass(alwaysRun = true)
+//    @AfterClass(alwaysRun = true)
     public void afterChangeLanguageClass()
     {
         settingsPageObjects.clickBackButton();
