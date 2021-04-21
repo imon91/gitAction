@@ -304,6 +304,9 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         {
             if(!tab.equals(parentWindow))
             {
+                driver.switchTo().window(tab);
+                System.out.println(driver.getCurrentUrl());
+                driver.close();
                 driver.switchTo().window(parentWindow);
             }
         }

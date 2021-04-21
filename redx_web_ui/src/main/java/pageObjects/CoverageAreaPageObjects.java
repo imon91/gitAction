@@ -92,6 +92,7 @@ public class CoverageAreaPageObjects extends RedXWebBaseClass {
     {
         areaInput = xpathSetter("//div[@class='zone']/input");
         areaInput.clear();
+        myActions.action_sendKeys(areaInput,"");
     }
 
     public void clickDownloadButton()
