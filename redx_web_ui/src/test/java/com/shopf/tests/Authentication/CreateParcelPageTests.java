@@ -209,10 +209,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         createParcelPageObjects.clickCreateParcelWithNoInputs("Regular");
     }
 
-//    @TestRails(caseId = "122")
-//    @Test(  groups = {CoreConstants.GROUP_SANITY},
-//            description = "Verify Create Reverse Parcel With No Inputs",
-//            priority = 512 )
+    @TestRails(caseId = "122")
+    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+            description = "Verify Create Reverse Parcel With No Inputs",
+            priority = 512 )
     public void verifyCreateReverseParcelWithNoInputs()
     {
         System.out.println("Verifying Create Reverse Parcel With No Inputs");
@@ -246,10 +246,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),data[3]);
     }
 
-//    @TestRails(caseId = "124")
-//    @Test(  groups = {CoreConstants.GROUP_SANITY},
-//            description = "Verify Create Reverse Parcel Functionality",
-//            priority = 514 )
+    @TestRails(caseId = "124")
+    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+            description = "Verify Create Reverse Parcel Functionality",
+            priority = 514 )
     public void verifyCreateReverseParcelFunctionality()
     {
         System.out.println("Verifying Create Reverse Parcel Functionality");

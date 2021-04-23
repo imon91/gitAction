@@ -818,10 +818,10 @@ public class ParcelPageTests extends RedXWebBaseClass {
         } else System.out.println("No Parcels Found to perform Action");
     }
 
-//    @TestRails(caseId = "101")
-//    @Test(  groups = {CoreConstants.GROUP_SANITY},
-//               description = "Verify Exchange Button Functionality",
-//               priority = 246)
+    @TestRails(caseId = "101")
+    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+               description = "Verify Exchange Button Functionality",
+               priority = 246)
        public void verifyExchangeButtonFunctionality()
        {
            System.out.println("Verifying Exchange Button Functionality");
@@ -837,10 +837,10 @@ public class ParcelPageTests extends RedXWebBaseClass {
            System.out.println(parcels);
        }
 
-//       @TestRails(caseId = "102")
-//       @Test(  groups = {CoreConstants.GROUP_SANITY},
-//               description = "Verify Exchange Cancel Button Functionality",
-//               priority = 247)
+       @TestRails(caseId = "102")
+       @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+               description = "Verify Exchange Cancel Button Functionality",
+               priority = 247)
        public void verifyExchangeCancelButtonFunctionality()
        {
            System.out.println("Verifying Exchange Cancel Button Functionality");

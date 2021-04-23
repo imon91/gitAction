@@ -487,10 +487,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-//    @TestRails(caseId = "168")
-//    @Test(  groups = {CoreConstants.GROUP_SANITY},
-//            description = "Verify Total Paid Value In Details Page",
-//            priority = 327 )
+    @TestRails(caseId = "168")
+    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+            description = "Verify Total Paid Value In Details Page",
+            priority = 327 )
     public void verifyTotalPaidValueInDetailsPage()
     {
         System.out.println("Verifying Total Paid Value In Details Page");

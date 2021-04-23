@@ -1,12 +1,7 @@
 package services.redxMethods;
 
-import auth.CookieManager;
 import com.google.gson.Gson;
-import dataParcer.CSVParser;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.json.simple.JSONObject;
-import org.openqa.selenium.Cookie;
 import services.responseModels.redxModels.*;
 import services.serviceUtils.EndPoints;
 import services.serviceUtils.ShopUpPostMan;
