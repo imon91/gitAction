@@ -5,9 +5,7 @@ import dataParcer.CSVParser;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
-import services.responseModels.sapModels.ParcelReasonsModel;
-import services.responseModels.sapModels.ReceiveParcelsListModel;
-import services.responseModels.sapModels.ReconciliationParcelListModel;
+import services.responseModels.sapModels.*;
 import services.serviceUtils.ShopUpPostMan;
 
 import java.util.*;
@@ -246,6 +244,38 @@ public class GetSapApiResponses {
         return reconciliationParcelListModel;
     }
 
+    /*--------------------Pickup--------------------*/
+
+    public Response pickupAgentPutCall(int agentId, int shopId, int storeId)
+    {
+        String pickupAgentPutCall = "https://shopups1.xyz/v1/admin/shop/" + shopId + "/pickup/agent";
+        Map pickupAgentBody = new HashMap();
+        pickupAgentBody.put("agentId",agentId);
+        pickupAgentBody.put("shopId",shopId);
+        pickupAgentBody.put("shopStoreId",storeId);
+        Response pickupAgentResponse = shopUpPostMan.putCall(pickupAgentPutCall,pickupAgentBody);
+        return pickupAgentResponse;
+    }
+
+    /*--------------------Hubs--------------------*/
+
+    public HubListModel hubListGetCall()
+    {
+        String hubListGetCall = "https://sap.shopups1.xyz/api/hubs";
+        Response hubListResponse = shopUpPostMan.getCall(hubListGetCall);
+        HubListModel hubListModel = gson.fromJson(hubListResponse.getBody().asString(),HubListModel.class);
+        return hubListModel;
+    }
+
+    /*--------------------Agents--------------------*/
+
+    public AgentsListModel agentListGetCall(int hubId,String agentName)
+    {
+        String agentListGetCall = "https://sap.shopups1.xyz/api/logistics/agent?hubId=" + hubId;
+        Response agentListResponse = shopUpPostMan.getCall(agentListGetCall);
+        AgentsListModel agentsListModel = gson.fromJson(agentListResponse.getBody().asString(),AgentsListModel.class);
+        return agentsListModel;
+    }
     /*----------Functions----------*/
 
     public String performAuthentication()
@@ -358,5 +388,41 @@ public class GetSapApiResponses {
         }
 
         return parcelActions;
+    }
+
+    public int getHubId(String hubName)
+    {
+        System.out.println("Hub Name : " + hubName);
+        HubListModel hubListModel = hubListGetCall();
+        int i,size,hubId=0;
+        size = hubListModel.getHubs().size();
+        for(i=0;i<size;i++)
+        {
+            if(hubListModel.getHubs().get(i).getHubName().equalsIgnoreCase(hubName))
+            {
+                hubId = hubListModel.getHubs().get(i).getId();
+            }
+
+        }
+        System.out.println("Hub Id : " + hubId);
+        return hubId;
+    }
+
+    public int getAgentId(String hubName, String agentName)
+    {
+        int hubId = getHubId(hubName);
+        AgentsListModel agentsListModel = agentListGetCall(hubId,agentName);
+        int i,size,agentId=0;
+        size = agentsListModel.getAgents().size();
+        for(i=0;i<size;i++)
+        {
+            if(agentsListModel.getAgents().get(i).getName().equalsIgnoreCase(agentName))
+            {
+                agentId = agentsListModel.getAgents().get(i).getId();
+            }
+
+        }
+        System.out.println("Agent Id : " + agentId);
+        return agentId;
     }
 }

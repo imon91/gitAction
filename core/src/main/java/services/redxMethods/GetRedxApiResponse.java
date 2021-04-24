@@ -109,9 +109,9 @@ public class GetRedxApiResponse {
 
     /*--------------------Create Parcel Page--------------------*/
 
-    public DeliveryChargeModel deliveryChargeGetCall(int shopId, int areaId, int weight, int cash)
+    public DeliveryChargeModel deliveryChargeGetCall(int shopId, int areaId, int weight, int cash,int pickupAreaId)
     {
-        String deliveryChargeGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.SHOP + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash;
+        String deliveryChargeGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.SHOP + shopId + "/charge-calculation?deliveryAreaId=" + areaId + "&weight=" + weight + "&cash=" + cash + "&pickupAreaId=" + pickupAreaId;
         Response deliveryChargeResponse = shopUpPostMan.getCall(deliveryChargeGetCall);
         DeliveryChargeModel deliveryChargeModel = gson.fromJson(deliveryChargeResponse.getBody().asString(),DeliveryChargeModel.class);
         return deliveryChargeModel;
@@ -164,6 +164,16 @@ public class GetRedxApiResponse {
         Response trackParcelResponse = shopUpPostMan.getCall(trackParcelGetCall);
         TrackParcelModel trackParcelModel = gson.fromJson(trackParcelResponse.getBody().asString(),TrackParcelModel.class);
         return trackParcelModel;
+    }
+
+    /*--------------------Pickup Location Page--------------------*/
+
+    public PickupListModel pickupListGetCall(int shopId)
+    {
+        String pickupListGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.SHOP_STORES + shopId;
+        Response pickupListResponse = shopUpPostMan.getCall(pickupListGetCall);
+        PickupListModel pickupListModel = gson.fromJson(pickupListResponse.getBody().asString(),PickupListModel.class);
+        return pickupListModel;
     }
 
     /*--------------------My Payment Details Page--------------------*/
@@ -439,10 +449,10 @@ public class GetRedxApiResponse {
         return area;
     }
 
-    public List<String> getDeliveryChargesInfo(int shopId, int areaId, int weight, int cash)
+    public List<String> getDeliveryChargesInfo(int shopId, int areaId, int weight, int cash, int pickupAreaId)
     {
         List<String> deliveryCharges = new ArrayList<>();
-        DeliveryChargeModel deliveryChargeModel = deliveryChargeGetCall(shopId,areaId,weight,cash);
+        DeliveryChargeModel deliveryChargeModel = deliveryChargeGetCall(shopId,areaId,weight,cash,pickupAreaId);
         deliveryCharges.add(deliveryChargeModel.getBody().getPricing().getSHOPUP_CHARGE());
         deliveryCharges.add(String.valueOf(deliveryChargeModel.getBody().getPricing().getDISCOUNT_AMOUNT()));
         deliveryCharges.add(String.valueOf(deliveryChargeModel.getBody().getPricing().getSHOPUP_COD_CHARGE()));
@@ -547,6 +557,22 @@ public class GetRedxApiResponse {
                 zoneIndex = i;
         }
         return zoneIndex;
+    }
+
+    public int getPickupAreaId(String shopName,String pickupAreaName)
+    {
+        int shopId = getShopId(shopName);
+        PickupListModel pickupListModel = pickupListGetCall(shopId);
+        int i,size,pickupAreaId=0;
+        size = pickupListModel.getBody().size();
+        System.out.println("Pickup Area Name : " + pickupAreaName);
+        for (i=0;i<size;i++)
+        {
+            if(pickupListModel.getBody().get(i).getAREA_NAME().equalsIgnoreCase(pickupAreaName))
+                pickupAreaId = pickupListModel.getBody().get(i).getAREA_ID();
+        }
+        System.out.println("Pickup Area Id : " + pickupAreaId);
+        return pickupAreaId;
     }
 }
 
