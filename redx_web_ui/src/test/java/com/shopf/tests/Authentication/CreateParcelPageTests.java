@@ -231,15 +231,18 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         String data[] = createParcelPageObjects.getDataFromCsv("RGWAI");
         System.out.println("Data From CSV : " + Arrays.toString(data));
 
-        int shopId = getRedxApiResponse.getShopId(shopInfoPageObjects.getShopName());
+        String shopName = shopInfoPageObjects.getShopName();
+        int shopId = getRedxApiResponse.getShopId(shopName);
 
         List<String> deliveryCharges = createParcelPageObjects.createRegularParcel(data);
 
         System.out.println("Delivery Charges in UI : " + deliveryCharges.toString());
 
+        int pickupAreaId = getRedxApiResponse.getPickupAreaId(shopName,deliveryCharges.get(1));
+
         String areaValue = deliveryCharges.get(0);
         int areaId = getRedxApiResponse.getAreaId(data[6],data[7],areaValue);
-        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[5]),Integer.parseInt(data[10])).toString());
+        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[5]),Integer.parseInt(data[10]),pickupAreaId).toString());
 
         parcelSuccessPageObjects.clickOkButton();
         Assert.assertEquals(parcelSuccessPageObjects.getAlertMessage(),"Your parcel request has been placed successfully");
@@ -259,15 +262,18 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         actionBarObjects.clickOnCreateParcelButton();
         setImplicitWait(10000);
 
-        int shopId = getRedxApiResponse.getShopId(shopInfoPageObjects.getShopName());
+        String shopName = shopInfoPageObjects.getShopName();
+        int shopId = getRedxApiResponse.getShopId(shopName);
 
         List<String> deliveryCharges = createParcelPageObjects.createReverseParcel(data);
 
         System.out.println("Delivery Charges in UI : " + deliveryCharges.toString());
 
+        int pickupAreaId = getRedxApiResponse.getPickupAreaId(shopName,deliveryCharges.get(1));
+
         String areaValue = deliveryCharges.get(0);
         int areaId = getRedxApiResponse.getAreaId(data[5],data[6],areaValue);
-        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[4]),0).toString());
+        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[4]),0,pickupAreaId).toString());
         parcelSuccessPageObjects.clickOkButton();
         Assert.assertEquals(parcelSuccessPageObjects.getAlertMessage(),"Your parcel request has been placed successfully");
         Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),data[2]);

@@ -39,7 +39,37 @@ public class MyActions extends RedXWebBaseClass {
 
     public String action_getText(WebElement element) {
         sleep(1000);
-        return element.getText();
+        String text;
+        try{
+            text = element.getText();
+            return text;
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            System.out.println("ElementClickInterceptedException");
+            return action_getText(element);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            System.out.println("StaleElementReferenceException");
+            return action_getText(element);
+        }
+    }
+
+    public String action_getText(String xpath) {
+        sleep(1000);
+        String text;
+        WebElement element = xpathSetter(xpath);
+        try{
+            text = element.getText();
+            return text;
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            System.out.println("ElementClickInterceptedException");
+            return action_getText(element);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            System.out.println("StaleElementReferenceException");
+            return action_getText(element);
+        }
     }
 
     public String action_getTagName(WebElement element) {
