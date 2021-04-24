@@ -63,6 +63,7 @@ public class CoreConstants {
     public static final String MOKAM_DSR_USER = "DSR";
     public static final String APP_STORES = "Stores";
     public static final String APP_SAP = "Sap";
+    public static final String APP_DELIVERY_AGENTS = "DeliveryAgents";
 
 
     /*----- Modules -------*/
