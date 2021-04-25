@@ -102,11 +102,11 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     private WebElement navigationItemContactUs;
 
     // NavigationItem Logout for reseller
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='13']")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='15']")
     private WebElement navigationItemLogoutReseller;
 
     // NavigationItem Logout Mokam
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='9']")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='10']")
     private WebElement navigationItemLogoutMokam;
 
     private WebElement profileEditButton;
@@ -157,7 +157,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     public void clickOnItemChangeLanguage(){
         if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_RESELLER))
         {
-            navigationItemChangeLanguageReseller = xpathSetter("//android.widget.RelativeLayout[@index=7]");
+            navigationItemChangeLanguageReseller = xpathSetter("//android.widget.RelativeLayout[@index=6]");
             myActions.action_click(navigationItemChangeLanguageReseller);
 
         }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){

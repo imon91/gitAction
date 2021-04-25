@@ -66,7 +66,19 @@ public class EditAddressPage extends AndroidBaseClass {
         loginPageObjects.performAuthentication("1877755530","666666");
         sleep(4000);
         yourAccountPageObjects.clickAddressEditButton(0);
-        backButtonElement = homePageObjects.editAddressBackButtonElement();
+        try {
+            backButtonElement = homePageObjects.editAddressBackButtonElement();
+        } catch (Exception e){
+            homePageObjects.clickAllowButton();
+            sleep(1000);
+            int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
+            String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
+            homePageObjects.enterLocation(locationName);
+            sleep(2000);
+            homePageObjects.clickFirstSuggestionInLocationList();
+            homePageObjects.clickOnLocationNextButton();
+            sleep(1000);
+        }
         pageTitleElement = homePageObjects.editAddressPageTitleElement();
         shopNameEditText = homePageObjects.editAddressShopNameEditText();
         addressEditText = homePageObjects.editAddressAddressEditText();
