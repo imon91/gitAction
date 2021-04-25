@@ -3,7 +3,6 @@ package pageObjects;
 import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.*;
 import utils.*;
 
 import java.util.List;
@@ -21,7 +20,6 @@ public class LoginPageObjects extends RedXWebBaseClass {
         myActions = new MyActions();
     }
 
-    private WebElement loginWithMobileNoButton;
     private WebElement merchantLoginButton;
     private WebElement editMobileNoText;
     private WebElement sendOTPButton;
@@ -97,6 +95,7 @@ public class LoginPageObjects extends RedXWebBaseClass {
         enterOTPButton(otp);
         clickSubmitButton();
         sleep(2000);
+        waitForLoading();
         ck = null;
         for(Cookie cookie : driver.manage().getCookies()){
             ck = cookie.getName();
@@ -119,7 +118,6 @@ public class LoginPageObjects extends RedXWebBaseClass {
     {
         enterSignUpPhoneNumber(phoneNumber);
         clickJoinAsMerchantButton();
-//        waitForLoading();
         enterOTPButton(otp);
         clickSubmitButton();
         sleep(2000);
@@ -143,8 +141,16 @@ public class LoginPageObjects extends RedXWebBaseClass {
 
     public void waitForLoading()
     {
-        new WebDriverWait(driver,30).until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//div[@class='login-form-wrapper']/button[text()='Verify']")));
+        int count =0;
+        while(!driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/dashboard/"))
+        {
+            sleep(100);
+            count++;
+            if(count>100)
+            {
+                System.out.println("Waited For 10 Seconds");
+                break;
+            }
+        }
     }
-
-
 }

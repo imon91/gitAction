@@ -1,53 +1,41 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import utils.RedXWebBaseClass;
+import services.redxMethods.*;
+import utils.*;
 
+import java.io.*;
+import java.lang.reflect.Method;
 import java.util.*;
 
 public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private MyPaymentDetailsPageObjects myPaymentDetailsPageObjects;
     private MyPaymentDetailsPageObjects.UpdatePaymentDetailsPageObjects updatePaymentDetailsPageObjects;
 
     private GetRedxApiResponse getRedxApiResponse;
-    private String cookie;
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
     private String shopName = "Ram Shops";
     private String otp = "1234";
     int shopId;
-
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
 
     @BeforeClass(alwaysRun = true)
     public void myPaymentDetailsTestsBeforeClass() throws Exception
     {
         System.out.println("My Payment Details Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         myPaymentDetailsPageObjects = new MyPaymentDetailsPageObjects(driver);
         updatePaymentDetailsPageObjects = myPaymentDetailsPageObjects.new UpdatePaymentDetailsPageObjects();
 
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
-
-        System.out.println("Verify Authentication with valid credentials was called");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
 
         shopId = getRedxApiResponse.getShopId(shopName);
 
@@ -58,14 +46,22 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void myPaymentDetailsPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, MyPaymentDetailsPageTests.class);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "335")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Payment Method Value",
-            priority = 1 )
+            priority = 1001 )
     public void verifyPaymentMethodValue()
     {
         System.out.println("Verifying Payment Method Value");
@@ -83,9 +79,10 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         }
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "336")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Payment Details Value",
-            priority = 2 )
+            priority = 1002 )
     public void verifyPaymentDetailsValue()
     {
         System.out.println("Verifying Payment Details Value");
@@ -97,9 +94,10 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(detailsUiValue,detailsApiValue);
     }
 
+    @TestRails(caseId = "337")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Change Payment Method Link",
-            priority = 3 )
+            priority = 1003 )
     public void verifyChangePaymentMethodLink()
     {
         System.out.println("Verifying Change Payment Method Link");
@@ -109,9 +107,10 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(currentUrl,"https://redx.shopups1.xyz/update-shop-payment/");
     }
 
+    @TestRails(caseId = "338")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Method Input Functionality",
-            priority = 4 )
+            priority = 1004 )
     public void verifyPaymentMethodInputFunctionality()
     {
         System.out.println("Verifying Payment Method Input Functionality");
@@ -121,9 +120,10 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(checkedPaymentMethod,method);
     }
 
+    @TestRails(caseId = "339")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Details Error Msg Values",
-            priority = 5 )
+            priority = 1005 )
     public void verifyPaymentDetailsErrorMsgValues()
     {
         System.out.println("Verifying Payment Details Error Msg Values");
@@ -133,9 +133,10 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         System.out.println("Error Msgs : " + errorMsgs.toString());
     }
 
+    @TestRails(caseId = "340")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Details Error Msg Values",
-            priority = 6 )
+            priority = 1006 )
     public void verifyConfirmButtonFunctionality()
     {
         System.out.println("Verifying Change Payment Method Functionality");
@@ -161,9 +162,10 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Authenticate with OTP");
     }
 
+    @TestRails(caseId = "341")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Details Error Msg Values",
-            priority = 7 )
+            priority = 1007 )
     public void verifyResendOtpButtonFunctionality()
     {
         System.out.println("Verifying Resend Otp Button Functionality");
@@ -173,9 +175,10 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         updatePaymentDetailsPageObjects.clickResendOtpButton();
     }
 
+    @TestRails(caseId = "342")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Payment Details Error Msg Values",
-            priority = 8 )
+            priority = 1008 )
     public void verifyAuthenticateFunctionality()
     {
         System.out.println("Verifying Resend Otp Button Functionality");
@@ -186,18 +189,4 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         System.out.println("Toast Msg : " + toastMsg);
         Assert.assertEquals(toastMsg,"Saved!");
     }
-
-    @AfterClass(alwaysRun = true)
-    public void myPaymentDetailsPageTestsAfterClass()
-    {
-        System.out.println("My Payment Details Page Tests After Class");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void myPaymentDetailsPageTestsAfterSuite()
-    {
-        System.out.println("My Payment Details Page Tests After Suite");
-        driver.quit();
-    }
-
 }

@@ -1093,6 +1093,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         public String clickExchangeButton()
         {
             clickNextPageIcon();
+            clickNextPageIcon();
             elements = xpathListSetter("//div[@class='ant-table-fixed-right']//tbody/tr//button[not(@disabled)]//span[contains(text(),'Exchange')]/..");
             int size = elements.size();
             System.out.println("Size : " + size);

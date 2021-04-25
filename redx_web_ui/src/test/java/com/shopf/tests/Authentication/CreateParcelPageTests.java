@@ -1,22 +1,21 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import utils.RedXWebBaseClass;
+import services.redxMethods.*;
+import utils.*;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.io.*;
+import java.lang.reflect.Method;
+import java.util.*;
 
 public class CreateParcelPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private CreateParcelPageObjects createParcelPageObjects;
     private CreateParcelPageObjects.ShopInfoPageObjects shopInfoPageObjects;
@@ -25,26 +24,15 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     private CreateParcelPageObjects.ParcelSuccessPageObjects parcelSuccessPageObjects;
 
     private GetRedxApiResponse getRedxApiResponse;
-    private Random random;
     private String parentWindow;
-    private String cookie;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-        parentWindow = driver.getWindowHandle();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void createParcelPageObjectsBeforeClass() throws Exception
     {
         System.out.println("Create Parcel Page Tests Before Class");
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         createParcelPageObjects = new CreateParcelPageObjects(driver);
         shopInfoPageObjects = createParcelPageObjects.new ShopInfoPageObjects();
@@ -52,12 +40,9 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         deliveryChargeDetailsPageObjects = createParcelPageObjects.new DeliveryChargeDetailsPageObjects();
         parcelSuccessPageObjects = createParcelPageObjects. new ParcelSuccessPageObjects();
 
-        random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
-        System.out.println("Performing Authentication");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
+        parentWindow = driver.getWindowHandle();
 
         actionBarObjects.changeShop("RedX Web Sanity Test Shop");
         setImplicitWait(10000);
@@ -66,23 +51,32 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void CreateParcelPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, CreateParcelPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "111")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Shop Name Value",
-            priority = 1 )
+            priority = 501 )
     public void verifyShopNameValue()
     {
         System.out.println("Verifying Shop Name Value");
         Assert.assertEquals(shopInfoPageObjects.getShopName(),actionBarObjects.getShopName());
     }
 
+    @TestRails(caseId = "112")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Choose Different Shop Functionality",
-            priority = 2 )
+            priority = 502 )
     public void verifyChooseDifferentShopFunctionality()
     {
         System.out.println("Verifying Choose Different Shop Button Functionality");
@@ -97,9 +91,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(url,"https://redx.shopups1.xyz/shop-list/");
     }
 
+    @TestRails(caseId = "113")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pickup Location DropDown Functionality",
-            priority = 3 )
+            priority = 503 )
     public void verifyPickupLocationDropDownFunctionality()
     {
         System.out.println("Verifying Pickup Location DropDown Functionality");
@@ -114,9 +109,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(addressUiValue,addressApiValue);
     }
 
+    @TestRails(caseId = "114")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Create Bulk Parcel Button Functionality",
-            priority = 4 )
+            priority = 504 )
     public void verifyCreateBulkParcelButtonFunctionality()
     {
         System.out.println("Verifying Create Bulk Parcel Button Functionality");
@@ -130,9 +126,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(url,"https://redx.shopups1.xyz/parcel-import-bulk/");
     }
 
+    @TestRails(caseId = "115")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Import From ShopUp Button Functionality",
-            priority = 5 )
+            priority = 505 )
     public void verifyImportFromShopUpButtonFunctionality()
     {
         System.out.println("Verifying Import From ShopUp Button Functionality");
@@ -146,9 +143,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Select Order From ShopUp");
     }
 
+    @TestRails(caseId = "116")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Cash Collection Value Before Create Parcel",
-            priority = 6 )
+            priority = 506 )
     public void verifyCashCollectionValueBeforeCreateParcel()
     {
         System.out.println("Verifying Cash Collection Value Before Create Parcel");
@@ -156,9 +154,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(deliveryChargeDetailsPageObjects.getCashCollectionValue(),"0");
     }
 
+    @TestRails(caseId = "117")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Delivery Charge Value Before Create Parcel",
-            priority = 7 )
+            priority = 507 )
     public void verifyDeliveryChargeValueBeforeCreateParcel()
     {
         System.out.println("Verifying Delivery Charge Value Before Create Parcel");
@@ -166,9 +165,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(deliveryChargeDetailsPageObjects.getDeliveryChargeValue(),"0");
     }
 
+    @TestRails(caseId = "118")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Discount Amount Value Before Create Parcel",
-            priority = 8 )
+            priority = 508 )
     public void verifyDiscountAmountValueBeforeCreateParcel()
     {
         System.out.println("Verifying Discount Amount Value Before Create Parcel");
@@ -176,9 +176,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(deliveryChargeDetailsPageObjects.getDiscountAmountValue(),"0");
     }
 
+    @TestRails(caseId = "119")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify COD Charge Value Before Create Parcel",
-            priority = 9 )
+            priority = 509 )
     public void verifyCodChargeValueBeforeCreateParcel()
     {
         System.out.println("Verifying COD Charge Value Before Create Parcel");
@@ -186,9 +187,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(deliveryChargeDetailsPageObjects.getCodChargeValue(),"0.00");
     }
 
+    @TestRails(caseId = "120")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Total Payment Value Before Create Parcel",
-            priority = 10 )
+            priority = 510 )
     public void verifyTotalPaymentValueBeforeCreateParcel()
     {
         System.out.println("Verifying Total Payment Value Before Create Parcel");
@@ -196,9 +198,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(deliveryChargeDetailsPageObjects.getTotalPayableAmountValue(),"0");
     }
 
+    @TestRails(caseId = "121")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Create Regular Parcel With No Inputs",
-            priority = 11 )
+            priority = 511 )
     public void verifyCreateRegularParcelWithNoInputs()
     {
         System.out.println("Verifying Create Regular Parcel With No Inputs");
@@ -206,9 +209,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         createParcelPageObjects.clickCreateParcelWithNoInputs("Regular");
     }
 
+//    @TestRails(caseId = "122")
 //    @Test(  groups = {CoreConstants.GROUP_SANITY},
 //            description = "Verify Create Reverse Parcel With No Inputs",
-//            priority = 12 )
+//            priority = 512 )
     public void verifyCreateReverseParcelWithNoInputs()
     {
         System.out.println("Verifying Create Reverse Parcel With No Inputs");
@@ -216,9 +220,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         createParcelPageObjects.clickCreateParcelWithNoInputs("Reverse");
     }
 
+    @TestRails(caseId = "123")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Create Regular Parcel Functionality",
-            priority = 13 )
+            priority = 513 )
     public void verifyCreateRegularParcelFunctionality()
     {
         System.out.println("Verifying Create Regular Parcel Functionality");
@@ -241,9 +246,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),data[3]);
     }
 
+//    @TestRails(caseId = "124")
 //    @Test(  groups = {CoreConstants.GROUP_SANITY},
 //            description = "Verify Create Reverse Parcel Functionality",
-//            priority = 14 )
+//            priority = 514 )
     public void verifyCreateReverseParcelFunctionality()
     {
         System.out.println("Verifying Create Reverse Parcel Functionality");
@@ -267,9 +273,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(parcelSuccessPageObjects.getCustomerAddress(),data[2]);
     }
 
+    @TestRails(caseId = "125")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Track Orders Button Functionality",
-            priority = 15 )
+            priority = 515 )
     public void verifyTrackOrdersButtonFunctionality()
     {
         System.out.println("Verifying Track Orders Button Functionality");
@@ -282,9 +289,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertTrue(url.contains("track-parcel"));
     }
 
+    @TestRails(caseId = "126")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Print Labels Button Functionality",
-            priority = 16 )
+            priority = 516 )
     public void verifyPrintLabelsButtonFunctionality()
     {
         System.out.println("Verify Print Labels Button Functionality");
@@ -302,9 +310,10 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         Assert.assertEquals(size,2);
     }
 
+    @TestRails(caseId = "127")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Request New Parcel Button Functionality",
-            priority = 17 )
+            priority = 517 )
     public void verifyRequestNewParcelButtonFunctionality()
     {
         System.out.println("Verifying Request New Parcel Button Functionality");
@@ -312,13 +321,6 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
         Assert.assertEquals(url,"https://redx.shopups1.xyz/create-parcel/");
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void createParcelsPageTestsAfterSuite()
-    {
-        System.out.println("Create Parcels Page Tests After Suite");
-        driver.quit();
     }
 }
 

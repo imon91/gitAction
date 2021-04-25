@@ -1,22 +1,21 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
-import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
+import com.gurock.testrail.*;
+import coreUtils.*;
+import org.openqa.selenium.*;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
+import services.redxMethods.*;
 import services.responseModels.redxModels.*;
-import utils.RedXWebBaseClass;
+import utils.*;
 
-import java.io.File;
-import java.util.Random;
+import java.io.*;
+import java.lang.reflect.Method;
 
 public class PaymentsPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private PaymentsPageObjects paymentsPageObjects;
     private PaymentsPageObjects.PaymentDetailsPageObjects paymentDetailsPageObjects;
@@ -24,8 +23,6 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     private GetRedxApiResponse getRedxApiResponse;
     private PaymentsModel paymentsModel;
     private PaymentDetailsModel paymentDetailsModel;
-    private Random random;
-    private String cookie;
     private String allPaymentsListGetCallUrl;
     private int invoiceId;
     private int paymentsSize;
@@ -34,34 +31,21 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     private int parcelsSize;
     private String host;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void paymentsPageTestsBeforeClass() throws Exception
     {
         System.out.println("Payments Page Tests Before Class");
+        driver = getBaseDriver();
         host = System.getProperty(BuildParameterKeys.KEY_HOST);
-        loginPageObjects = new LoginPageObjects(driver);
         actionBarObjects = new ActionBarObjects(driver);
         paymentsPageObjects = new PaymentsPageObjects(driver);
         paymentDetailsPageObjects = paymentsPageObjects.new PaymentDetailsPageObjects();
 
-        random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
         paymentsModel = new PaymentsModel();
         paymentDetailsModel = new PaymentDetailsModel();
-
-        System.out.println("Performing Authentication");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
 
         actionBarObjects.changeShop("RedX Web Sanity Test Shop");
         setImplicitWait(10000);
@@ -90,22 +74,31 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void paymentsPageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, PaymentsPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "142")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify All Pickup Location Filter Functionality",
-            priority = 1 )
+            priority = 301 )
     public void verifyAllPickupLocationFilterFunctionality()
     {
         System.out.println("Verifying All Pickup Location Filter Functionality");
     }
 
+    @TestRails(caseId = "143")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Date Range Filter Functionality",
-            priority = 2 )
+            priority = 302 )
     public void verifyDateRangeFilterFunctionality()
     {
         System.out.println("Verifying Date Range Filter Functionality");
@@ -135,9 +128,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "144")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Invoice Id Value",
-            priority = 3 )
+            priority = 303 )
     public void verifyInvoiceIdValue()
     {
         System.out.println("Verifying Invoice Id Value");
@@ -148,9 +142,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "145")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Invoice Date Value",
-            priority = 4 )
+            priority = 304 )
     public void verifyInvoiceDateValue()
     {
         System.out.println("Verifying Invoice Date Value");
@@ -161,9 +156,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,assertValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "146")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Cash Collection Value",
-            priority = 5 )
+            priority = 305 )
     public void verifyCashCollectionValue()
     {
         System.out.println("Verifying Cash Collection Value");
@@ -174,9 +170,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "147")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Delivery Charge Value",
-                priority = 6 )
+                priority = 306 )
     public void verifyDeliveryChargeValue()
     {
         System.out.println("Verifying Delivery Charge Value");
@@ -187,9 +184,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "148")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify RedX Credits Value",
-            priority = 7 )
+            priority = 307 )
     public void verifyRedxCreditsValue()
     {
         System.out.println("Verifying RedX Credits Value");
@@ -200,9 +198,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "149")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify COD Charge Value",
-            priority = 8 )
+            priority = 308 )
     public void verifyCodChargeValue()
     {
         System.out.println("Verifying COD Charge Value");
@@ -213,9 +212,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "150")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Return Charge Value",
-            priority = 9 )
+            priority = 309 )
     public void verifyReturnChargeValue()
     {
         System.out.println("Verifying Return Charge Value");
@@ -226,9 +226,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "151")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Advance Payment Repayment Value",
-            priority = 10 )
+            priority = 310 )
     public void verifyAdvancePaymentRepaymentValue()
     {
         System.out.println("Verifying Advance Payment Repayment Value");
@@ -240,9 +241,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "152")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Amount Paid Value",
-            priority = 11 )
+            priority = 311 )
     public void verifyAmountPaidValue()
     {
         System.out.println("Verifying Amount Paid Value");
@@ -253,9 +255,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "153")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Button Functionality",
-            priority = 12 )
+            priority = 312 )
     public void verifyDownloadButtonFunctionality()
     {
         System.out.println("Verifying Download Button Functionality");
@@ -278,9 +281,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         }
     }
 
+    @TestRails(caseId = "154")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Invoice Id Functionality",
-            priority = 13 )
+            priority = 313 )
     public void verifyInvoiceIdFunctionality()
     {
         System.out.println("Verifying Invoice Id Functionality");
@@ -290,9 +294,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(title,"Payment Details");
     }
 
+    @TestRails(caseId = "155")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Invoice Id Value In Details Page",
-            priority = 14 )
+            priority = 314 )
     public void verifyInvoiceIdValueInDetailsPage()
     {
         System.out.println("Verifying Invoice Id Value In Details Page");
@@ -302,9 +307,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,String.valueOf(invoiceId));
     }
 
+    @TestRails(caseId = "156")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Invoice Date Value In Details Page",
-            priority = 15 )
+            priority = 315 )
     public void verifyInvoiceDateValueInDetailsPage()
     {
         System.out.println("Verifying Invoice Date Value In Details Page");
@@ -315,9 +321,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,date);
     }
 
+    @TestRails(caseId = "157")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Button Functionality In Details Page",
-            priority = 16 )
+            priority = 316 )
     public void verifyDownloadButtonFunctionalityInDetailsPage()
     {
         System.out.println("Verifying Download Button Functionality In Details Page");
@@ -340,9 +347,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         }
     }
 
+    @TestRails(caseId = "158")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Parcel Id Value",
-            priority = 17 )
+            priority = 317 )
     public void verifyParcelIdValue()
     {
         System.out.println("Verifying Parcel Id Value");
@@ -353,9 +361,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "159")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Date Value",
-            priority = 18 )
+            priority = 318 )
     public void verifyDateValue()
     {
         System.out.println("Verifying Date Value");
@@ -366,9 +375,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,assertValue);
     }
 
+    @TestRails(caseId = "160")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Customer Name Value",
-            priority = 19 )
+            priority = 319 )
     public void verifyCustomerNameValue()
     {
         System.out.println("Verifying Customer Name Value");
@@ -379,9 +389,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "161")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Value",
-            priority = 20 )
+            priority = 320 )
     public void verifyPhoneValue()
     {
         System.out.println("Verifying Phone Value");
@@ -392,9 +403,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "162")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Value",
-            priority = 21 )
+            description = "Verify Status Value",
+            priority = 321 )
     public void verifyStatusValue()
     {
         System.out.println("Verifying Status Value");
@@ -405,9 +417,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue.toLowerCase(),apiValue);
     }
 
+    @TestRails(caseId = "163")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Value",
-            priority = 22 )
+            description = "Verify Cash Collection Value In Details Page",
+            priority = 322 )
     public void verifyCashCollectionValueInDetailsPage()
     {
         System.out.println("Verifying Cash Collection Value In Details Page");
@@ -418,9 +431,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "164")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Value",
-            priority = 23 )
+            description = "Verify Delivery Charge Value In Details Page",
+            priority = 323 )
     public void verifyDeliveryChargeValueInDetailsPage()
     {
         System.out.println("Verifying Delivery Charge Value In Details Page");
@@ -431,9 +445,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "165")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Value",
-            priority = 24 )
+            description = "Verify Cod Charge Value In Details Page",
+            priority = 324 )
     public void verifyCodChargeValueInDetailsPage()
     {
         System.out.println("Verifying COD Charge Value In Details Page");
@@ -444,9 +459,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "166")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Value",
-            priority = 25 )
+            description = "Verify Return Charge Value In Details Page",
+            priority = 325 )
     public void verifyReturnChargeValueInDetailsPage()
     {
         System.out.println("Verifying Return Charge Value In Details Page");
@@ -457,9 +473,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "167")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Value",
-            priority = 26 )
+            description = "Verify Amount Paid Value In Details Page",
+            priority = 326 )
     public void verifyAmountPaidValueInDetailsPage()
     {
         System.out.println("Verifying Amount Paid Value In Details Page");
@@ -470,9 +487,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "168")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify Value",
-            priority = 27 )
+            description = "Verify Total Paid Value In Details Page",
+            priority = 327 )
     public void verifyTotalPaidValueInDetailsPage()
     {
         System.out.println("Verifying Total Paid Value In Details Page");
@@ -483,9 +501,10 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "169")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Back Button Functionality",
-            priority = 28 )
+            priority = 328 )
     public void verifyBackButtonFunctionality()
     {
         System.out.println("Verifying Back Button Functionality");
@@ -493,13 +512,5 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         String url = driver.getCurrentUrl();
         System.out.println("URL : " + url);
         Assert.assertEquals(url,"https://redx.shopups1.xyz/payments/");
-    }
-
-
-    @AfterSuite(alwaysRun = true)
-    public void paymentsPageTestsAfterSuite()
-    {
-        System.out.println("Payments Page Tests After Suite");
-        driver.quit();
     }
 }

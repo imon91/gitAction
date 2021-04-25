@@ -1,60 +1,48 @@
 package com.shopf.tests.Authentication;
 
-import coreUtils.BuildParameterKeys;
-import coreUtils.CoreConstants;
+import com.gurock.testrail.*;
+import coreUtils.*;
 import org.openqa.selenium.*;
-import org.testng.Assert;
+import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
-import services.redxMethods.GetRedxApiResponse;
-import services.responseModels.redxModels.PricingModel;
+import services.redxMethods.*;
+import services.responseModels.redxModels.*;
 import utils.*;
 
-import java.io.File;
-import java.util.Random;
+import java.io.*;
+import java.lang.reflect.Method;
+import java.util.*;
+
 
 public class CoverageAreaPageTests extends RedXWebBaseClass {
 
     private WebDriver driver;
-    private LoginPageObjects loginPageObjects;
     private ActionBarObjects actionBarObjects;
     private CoverageAreaPageObjects coverageAreaPageObjects;
 
     private GetRedxApiResponse getRedxApiResponse;
     private PricingModel pricingModel;
     private Random random;
-    private String cookie;
     private String zone;
     private int zoneIndex;
     private int areaIndex;
     private String host;
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
+    private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
     @BeforeClass(alwaysRun = true)
     public void coverageAreaPageTestsBeforeClass() throws Exception
     {
         System.out.println("Coverage Area Page Tests Before Class");
         host = System.getProperty(BuildParameterKeys.KEY_HOST);
-        loginPageObjects = new LoginPageObjects(driver);
+        driver = getBaseDriver();
         actionBarObjects = new ActionBarObjects(driver);
         coverageAreaPageObjects = new CoverageAreaPageObjects(driver);
 
         random = new Random();
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
         pricingModel = getRedxApiResponse.pricingListGetCall();
-
-        System.out.println("Verify Authentication with valid credentials was called");
-        cookie = loginPageObjects.performAuthentication("0140112218","6666","8");
-        setImplicitWait(10000);
 
         actionBarObjects.changeShop("RedX Web Sanity Test Shop");
         setImplicitWait(10000);
@@ -66,14 +54,22 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
     }
 
     @BeforeMethod(alwaysRun = true)
-    public void homePageTestsBeforeMethod()
-    {
+    public void beforeMethod(ITestContext iTestContext, Method method) throws NoSuchMethodException {
         System.out.println("\n /****************************************************************************************************/ \n");
+        System.out.println("BeforeMethod is called");
+        testRailDataBuilder.beforeMethodForTestRail(iTestContext,method, CoverageAreaPageTests.class);
     }
 
+    @AfterMethod(alwaysRun = true)
+    public void afterMethod(ITestResult result, ITestContext ctx) throws IOException, APIException {
+        System.out.println("AfterMethod is called");
+        testRailDataBuilder.afterMethodForTestRail(result,ctx);
+    }
+
+    @TestRails(caseId = "346")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Zone DropDown Functionality",
-            priority = 1 )
+            priority = 1201 )
     public void verifyZoneDropDownFunctionality()
     {
         System.out.println("Verifying Zone DropDown Functionality");
@@ -85,9 +81,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(zoneTitle,zone);
     }
 
+    @TestRails(caseId = "347")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Search Bar Functionality",
-            priority = 2 )
+            priority = 1202 )
     public void verifySearchBarFunctionality()
     {
         System.out.println("Verifying Search Bar Functionality");
@@ -100,9 +97,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertTrue(areaValue.contains(area));
     }
 
+    @TestRails(caseId = "348")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Download Button Functionality",
-            priority = 3 )
+            priority = 1203 )
     public void verifyDownloadButtonFunctionality()
     {
         System.out.println("Verifying Download Button Functionality");
@@ -126,9 +124,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         }
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "349")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify District Value Functionality",
-            priority = 4 )
+            priority = 1204 )
     public void verifyDistrictValue()
     {
         System.out.println("Verifying District Value Functionality");
@@ -139,9 +138,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "350")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Area Value Functionality",
-            priority = 5 )
+            priority = 1205 )
     public void verifyAreaValue()
     {
         System.out.println("Verifying Area Value Functionality");
@@ -152,9 +152,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "351")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Post Code Value Functionality",
-            priority = 6 )
+            priority = 1206 )
     public void verifyPostCodeValue()
     {
         System.out.println("Verifying Post Code Value Functionality");
@@ -165,9 +166,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "352")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Home Delivery Value Functionality",
-            priority = 7 )
+            priority = 1207 )
     public void verifyHomeDeliveryValue()
     {
         System.out.println("Verifying Home Delivery Value Functionality");
@@ -182,9 +184,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,assertValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "353")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Lockdown Value Functionality",
-            priority = 8 )
+            priority = 1208 )
     public void verifyLockdownValue()
     {
         System.out.println("Verifying Lockdown Value Functionality");
@@ -199,9 +202,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,assertValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "354")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Charge One Kg Value Functionality",
-            priority = 9 )
+            priority = 1209 )
     public void verifyChargeOneKgValue()
     {
         System.out.println("Verifying Charge One Kg Value Functionality");
@@ -212,9 +216,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "355")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Charge Two Kg Value Functionality",
-            priority = 10 )
+            priority = 1210 )
     public void verifyChargeTwoKgValue()
     {
         System.out.println("Verifying Charge Two Kg Value Functionality");
@@ -225,9 +230,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "356")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Charge Three Kg Value Functionality",
-            priority = 11 )
+            priority = 1211 )
     public void verifyChargeThreeKgValue()
     {
         System.out.println("Verifying Charge Three Kg Value Functionality");
@@ -238,9 +244,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @TestRails(caseId = "357")
+    @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Cod Charge Value Functionality",
-            priority = 12 )
+            priority = 1212 )
     public void verifyCodChargeValue()
     {
         System.out.println("Verifying Cod Charge Value Functionality");
@@ -251,9 +258,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(uiValue,apiValue);
     }
 
+    @TestRails(caseId = "358")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Pages Functionality",
-            priority = 13)
+            priority = 1213)
     public void verifyPaginationPagesFunctionality()
     {
         System.out.println("Verifying Pagination Pages Functionality");
@@ -261,9 +269,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(page[1],page[0]);
     }
 
+    @TestRails(caseId = "359")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Next Page Functionality",
-            priority = 14)
+            priority = 1214)
     public void verifyPaginationNextPageFunctionality()
     {
         System.out.println("Verifying Pagination Next Page Functionality");
@@ -273,9 +282,10 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         Assert.assertEquals(coverageAreaPageObjects.getActivePage(), 2);
     }
 
+    @TestRails(caseId = "360")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Pagination Functionality",
-            priority = 15)
+            priority = 1215)
     public void verifyPaginationPreviousPageFunctionality()
     {
         System.out.println("Verifying Pagination Previous Page Functionality");
@@ -283,12 +293,5 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         coverageAreaPageObjects.clickPreviousPageIcon();
         System.out.println("Current Active Page : " + coverageAreaPageObjects.getActivePage());
         Assert.assertEquals(coverageAreaPageObjects.getActivePage(),1);
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void coverageAreaPageTestsAfterSuite()
-    {
-        System.out.println("Coverage Area Page Tests After Suite");
-        driver.quit();
     }
 }
