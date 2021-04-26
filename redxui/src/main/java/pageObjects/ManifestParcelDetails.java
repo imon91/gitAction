@@ -228,6 +228,14 @@ public class ManifestParcelDetails extends RedXBaseClass
             return listOfAreas;
         }
 
+        public List<WebElement> districtList()
+        {
+            String areaXpath = "//android.widget.ScrollView/android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup";
+            List<WebElement> listOfAreas = xpathListSetter(areaXpath);
+//        listOfAreas.remove(0);
+            return listOfAreas;
+        }
+
         public void selectAreaById(List<WebElement> list,int index)
         {
             System.out.println("Index: " + index);
@@ -266,7 +274,7 @@ public class ManifestParcelDetails extends RedXBaseClass
 
         public void enterInstruction(String instruction)
         {
-            String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.widget.EditText\").index(" + 17 + "))";
+            String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.widget.EditText\").index(" + 20 + "))";
             instructionEntry = uiAutomatorSetter(instructionSelector);
             myActions.action_sendKeys(instructionEntry,instruction);
             try {
@@ -294,7 +302,11 @@ public class ManifestParcelDetails extends RedXBaseClass
             enterAddress(address);
             enterArea();
             sleep(1000);
-            int index = random.nextInt(areaList().size());
+            System.out.println("District List Size: " + districtList().size());
+            int index = random.nextInt(districtList().size());
+            selectAreaById(districtList(),index);
+            System.out.println("Area List Size: " + areaList().size());
+            index = random.nextInt(areaList().size());
             selectAreaById(areaList(),index);
             sleep(1000);
             enterInvoiceNumber(invoiceNumber);
@@ -311,7 +323,7 @@ public class ManifestParcelDetails extends RedXBaseClass
             sellingPriceEntry = xpathSetter("//android.widget.EditText[@index='7']");
             addressEntry = xpathSetter("//android.widget.EditText[@index='10']");
             invoiceNumberEntry = xpathSetter("//android.widget.EditText[@index='17']");
-            String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.widget.EditText\").index(" + 19 + "))";
+            String instructionSelector = "new UiScrollable(new UiSelector().className(\"android.widget.ScrollView\")).scrollIntoView(new UiSelector().className(\"android.widget.EditText\").index(" + 20 + "))";
             instructionEntry = uiAutomatorSetter(instructionSelector);
             array.add(myActions.action_getText(nameEntry));
             array.add(myActions.action_getText(phoneEntry));

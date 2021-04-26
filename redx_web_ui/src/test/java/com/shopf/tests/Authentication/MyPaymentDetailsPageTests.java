@@ -22,7 +22,7 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
 
     private GetRedxApiResponse getRedxApiResponse;
     private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
-    private String shopName = "Ram Shops";
+    private String shopName = "RedX Web Sanity Test Shop";
     private String otp = "1234";
     int shopId;
 

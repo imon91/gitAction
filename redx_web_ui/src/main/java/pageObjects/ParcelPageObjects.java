@@ -65,6 +65,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         waitForLoading();
         totalParcelsValue = xpathSetter("//p[contains(text(),'Total')]");
         getText = myActions.action_getText(totalParcelsValue);
+        System.out.println(getText);
         return Integer.parseInt(getText.substring(7));
     }
 
@@ -1028,7 +1029,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String getToastMsg()
         {
-            toastMsg = xpathPresenceSetter("//div[@class='ant-message-notice']//span");
+            toastMsg = xpathSetter("//div[@class='ant-message-notice']//span");
             return  myActions.action_getText(toastMsg);
         }
 
@@ -1092,8 +1093,6 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String clickExchangeButton()
         {
-            clickNextPageIcon();
-            clickNextPageIcon();
             elements = xpathListSetter("//div[@class='ant-table-fixed-right']//tbody/tr//button[not(@disabled)]//span[contains(text(),'Exchange')]/..");
             int size = elements.size();
             System.out.println("Size : " + size);
@@ -1359,7 +1358,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public String getToastMsg()
         {
-            toastMsg = xpathPresenceSetter("//div[@class='ant-notification-notice-message']");
+            toastMsg = xpathSetter("//div[@class='ant-notification-notice-message']");
             return  myActions.action_getText(toastMsg);
         }
 

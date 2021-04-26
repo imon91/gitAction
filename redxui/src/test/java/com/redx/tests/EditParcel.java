@@ -220,6 +220,7 @@ public class EditParcel extends RedXBaseClass
                 sleep(2000);
                 dataFromUI = editPackageModule.editedParcelData();
                 System.out.println(dataFromUI+","+editingData);
+                actionBarPageObjects.clickBackButton();
                 Assert.assertEquals(dataFromUI, editingData);
             }actionBarPageObjects.clickBackButton();
         }actionBarPageObjects.clickBackButton();

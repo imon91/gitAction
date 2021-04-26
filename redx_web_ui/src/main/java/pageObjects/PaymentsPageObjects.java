@@ -148,7 +148,7 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
 
     public void clickClearDateFilterIcon()
     {
-        clearDateFilterIcon = xpathSetter("//i[@class='anticon anticon-close-circle ant-calendar-picker-clear']");
+        clearDateFilterIcon = xpathSetter("//div[@class='filters-wrapper']//i[contains(@class,'calendar')][2]");
         myActions.action_click(clearDateFilterIcon);
         clickSearchButton();
     }
@@ -401,11 +401,11 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
 
         /*----------Functions----------*/
 
-        public int getRandomParcelIndex()
+        public int getRandomParcelIndex(int size)
         {
             int bound = 20;
-            if(getParcelsSize()<20)
-                bound = getParcelsSize();
+            if(size<20)
+                bound = size;
             int index = random.nextInt(bound)+1;
             System.out.println("Random Index : " + index);
             return index;

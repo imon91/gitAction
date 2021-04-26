@@ -568,6 +568,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
       String District, String Division, String area, String parcelType, String cashCollection, String sellingPrice, String acknowledgement, String instructions */
 
         List<String> deliveryChargeDetails = new ArrayList<>();
+        String pickupArea = new String();
 //        chooseDeliveryType("Regular");
         System.out.println("Creating Regular Parcel");
         for (int i = 0; i < input.length; i++)
@@ -577,8 +578,9 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                 {
                     case 0:
                         if(input[i].equalsIgnoreCase("random"))
-                            shopInfoPageObjects.choosePickupLocation();
-                        else shopInfoPageObjects.choosePickupLocation(input[i]);
+                            pickupArea = shopInfoPageObjects.choosePickupLocation();
+                        else {shopInfoPageObjects.choosePickupLocation(input[i]);
+                        pickupArea=input[i];}
                         System.out.println("Pickup Address : " + shopInfoPageObjects.getPickupAddressValue());
                         break;
                     case 1:
@@ -621,6 +623,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                 }
         }
         deliveryChargeDetails.addAll(1,getDeliveryChargeInfo());
+        deliveryChargeDetails.add(pickupArea);
         clickCreateParcelButton();
         return deliveryChargeDetails;
     }

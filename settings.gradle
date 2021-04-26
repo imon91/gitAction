@@ -12,4 +12,5 @@ include 'misc'
 include 'stores_app'
 include 'redx_web_ui'
 include 'sap'
+include 'delivery_agents_app'
 

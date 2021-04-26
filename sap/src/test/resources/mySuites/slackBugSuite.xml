@@ -7,7 +7,8 @@
     <test name="SlackBugTests">
         <classes>
             <class name="SetUpTests"></class>
-            <class name="slackBugAutomation.downloadOptionOrderTests"></class>
+<!--            <class name="slackBugAutomation.downloadOptionOrderTests"></class>-->
+            <class name="slackBugAutomation.ExchangeReturnTests"></class>
         </classes>
     </test>
 </suite>

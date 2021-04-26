@@ -39,7 +39,7 @@ public class ParcelsPageObjects extends RedXBaseClass
 
         public String getPageTitle()
         {
-            pageTitle = xpathSetter("//android.view.ViewGroup/android.view.ViewGroup/android.view.ViewGroup[@index='0']/android.view.ViewGroup[1]/android.view.ViewGroup[1]/android.widget.TextView[@index='1']");
+            pageTitle = xpathSetter("//android.view.ViewGroup[@index='0']/android.widget.TextView[@index='1']");
             return myActions.action_getText(pageTitle);
         }
 
