@@ -12,18 +12,17 @@ import utils.MyActions;
 import utils.SapBaseClass;
 
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecieveModulePageObjects  extends SapBaseClass {
+public class ReceiveModulePageObjects extends SapBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
     private DashboardPageObjects dashboardPageObjects;
     private Actions actions;
 
-    public RecieveModulePageObjects (WebDriver driver) {
+    public ReceiveModulePageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         myActions = new MyActions();
@@ -33,18 +32,22 @@ public class RecieveModulePageObjects  extends SapBaseClass {
 
     /*----------Elements----------*/
 
+    private WebElement hubInput;
     private WebElement hubOption;
     private WebElement setHubOption;
     private WebElement notifyCancelClickButton;
     private WebElement shopNameInput;
     private WebElement selectShopParcels;
-    private WebElement scanInvoiceNumber;
+    private WebElement titleValue;
+    private WebElement scanCodeInput;
     private WebElement errorMessageCloseButton;
     private WebElement sendToSortingButton;
     private WebElement viewParcelsButton;
     private List<WebElement> parcelIdList;
     private WebElement hubName;
     private WebElement isBusy;
+
+    private WebElement scannedParcelId;
 
 
     /*----------Actions----------*/
@@ -55,28 +58,31 @@ public class RecieveModulePageObjects  extends SapBaseClass {
         myActions.action_click(notifyCancelClickButton);
     }
 
+    public void enterHubInput(String hubName)
+    {
+        hubInput = xpathSetter("//input[@placeholder='Search hub']");
+        hubInput.clear();
+        myActions.action_sendKeys(hubInput,hubName);
+        sleep(1000);
+        hubInput.sendKeys(Keys.ENTER);
+    }
+
     public void clickHubOption()
     {
-//        hubOption = xpathSetter("//select[@ng-model='ownHubId']");
-        hubOption = xpathSetter(driver,"//select[@ng-model='ownHubId']");
-//        hubOption = driver.findElement(By.xpath("//select[@ng-model='ownHubId']"));
+        hubOption = xpathSetter("//input[@ng-model='ownHubId']");
         myActions.action_click(hubOption);
     }
 
     public void selectHubOption(String hubName)
     {
         clickHubOption();
-//        setHubOption = xpathSetter("//option[@label='"+ hubName +"']");
-        setHubOption = xpathSetter(driver,"//option[@label='"+ hubName +"']");
-//        setHubOption = driver.findElement(By.xpath("//option[@label='" + hubName + "']"));
+        setHubOption = xpathSetter("//option[@label='"+ hubName +"']");
         myActions.action_click(setHubOption);
     }
 
     public void selectShop(String shopName)
     {
-//        shopNameInput = xpathSetter("//input[@placeholder='Select shop']");
-        shopNameInput = xpathSetter(driver,"//input[@placeholder='Select shop']");
-//        shopNameInput = driver.findElement(By.xpath("//input[@placeholder='Select shop']"));
+        shopNameInput = xpathSetter("//input[@placeholder='Select shop']");
         myActions.action_click(shopNameInput);
         myActions.action_sendKeys(shopNameInput,shopName);
         sleep(3000);
@@ -85,59 +91,58 @@ public class RecieveModulePageObjects  extends SapBaseClass {
 
     public void chooseSelectShopParcels()
     {
-//        selectShopParcels = xpathSetter("//div[@ng-show='ownHubId'][1]/div[1]//button[text()='Parcels']");
-        selectShopParcels = xpathSetter(driver,"//div[@ng-show='ownHubId'][1]/div[1]//button[text()='Parcels']");
-//        selectShopParcels = driver.findElement(By.xpath("//div[@ng-show='ownHubId'][1]/div[1]//button[text()='Parcels']"));
+        selectShopParcels = xpathSetter("//div[@ng-show='ownHubId'][1]/div[1]//button[text()='Parcels']");
         myActions.action_click(selectShopParcels);
     }
 
-    public void enterScanInvoiceNumber(String invoiceNumber)
+    public String getTitleValue()
     {
-//        scanInvoiceNumber = xpathSetter("//input[@placeholder='Scan Invoice Number']");
-        scanInvoiceNumber = xpathSetter(driver,"//input[@placeholder='Scan Invoice Number']");
-//        scanInvoiceNumber = driver.findElement(By.xpath("//input[@placeholder='Scan Invoice Number']"));
-        myActions.action_sendKeys(scanInvoiceNumber,invoiceNumber);
-        scanInvoiceNumber.sendKeys(Keys.ENTER);
+        titleValue = xpathSetter("//h3[@class='ng-binding']");
+        return myActions.action_getText(titleValue);
+    }
+
+    public void enterScanCodeInput(String trackingId)
+    {
+        scanCodeInput = xpathSetter("//input[@placeholder='Scanned code']");
+        myActions.action_sendKeys(scanCodeInput,trackingId);
+        scanCodeInput.sendKeys(Keys.ENTER);
     }
 
     public void closeErrorMessage()
     {
-//        errorMessageCloseButton = xpathSetter("//button[@class='close']");
-        errorMessageCloseButton = xpathSetter(driver,"//button[@class='close']");
-//        errorMessageCloseButton = driver.findElement(By.xpath("//button[@class='close']"));
+
+        errorMessageCloseButton = xpathSetter("//button[@class='close']");
         myActions.action_click(errorMessageCloseButton);
     }
 
     public void clickSendToSorting()
     {
-//        sendToSortingButton = xpathSetter("//div[@class='fresh-parcel'][1]//button[contains(text(),'Send to sorting')]");
-        sendToSortingButton = xpathSetter(driver,"//div[@class='fresh-parcel'][1]//button[contains(text(),'Send to sorting')]");
-//        sendToSortingButton = driver.findElement(By.xpath("//div[@class='fresh-parcel'][1]//button[contains(text(),'Send to sorting')]"));
+        sendToSortingButton = xpathSetter("//button[contains(text(),'SEND TO SORTING')]");
         myActions.action_click(sendToSortingButton);
     }
 
     public void clickViewParcels()
     {
-//        viewParcelsButton = xpathSetter("//div[@class='fresh-parcel'][1]//button[contains(text(),'View parcels')]");
-        viewParcelsButton = xpathSetter(driver,"//div[@class='fresh-parcel'][1]//button[contains(text(),'View parcels')]");
-//        viewParcelsButton = driver.findElement(By.xpath("//div[@class='fresh-parcel'][1]//button[contains(text(),'View parcels')]"));
+        viewParcelsButton = xpathSetter("//div[@class='fresh-parcel'][1]//button[contains(text(),'View parcels')]");
         myActions.action_click(viewParcelsButton);
     }
 
     public List<WebElement> setParcelIdList()
     {
-//            parcelIdList = xpathListSetter("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']");
         parcelIdList = xpathListSetter(driver,"//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']");
-//        parcelIdList = driver.findElements(By.xpath("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']"));
         return parcelIdList;
     }
 
     public WebElement setHubName()
     {
-//        hubName = xpathSetter("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']//h5[contains(text(),'Hub')]");
-        hubName = xpathSetter(driver,"//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']//h5[contains(text(),'Hub')]");
-//        hubName = driver.findElement(By.xpath("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']//h5[contains(text(),'Hub')]"));
+        hubName = xpathSetter("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']//h5[contains(text(),'Hub')]");
         return  hubName;
+    }
+
+    public String getScannedParcelIdValue()
+    {
+        scannedParcelId = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][1]//h4/small");
+        return myActions.action_getText(scannedParcelId);
     }
 
     /*----------Functions----------*/
@@ -165,9 +170,7 @@ public class RecieveModulePageObjects  extends SapBaseClass {
         for(i=1;i<=listSize;i++)
         {
             System.out.println("i : " + i);
-//            parcelIdList = xpathSetter("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']["+ i +"]//small[@class='ng-binding']").getText();
-            parcelIdList = xpathSetter(driver,"//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']["+ i +"]//small[@class='ng-binding']").getText();
-//            parcelIdList = driver.findElement(By.xpath("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']["+ i +"]//small[@class='ng-binding']")).getText();
+            parcelIdList = xpathSetter("//div[@class='modal-content']//div[@class='fresh-parcel ng-scope']["+ i +"]//small[@class='ng-binding']").getText();
             System.out.println("Parcel Id of Parcel " + (i) + " is " + parcelIdList);
             parcelId.add(parcelIdList);
         }
@@ -190,7 +193,7 @@ public class RecieveModulePageObjects  extends SapBaseClass {
 //        robot.keyRelease(KeyEvent.VK_ESCAPE);
     }
 
-    public void checkLoading()
+    public void waitForLoading()
     {
         Boolean check = true;
         while (check)
@@ -214,15 +217,15 @@ public class RecieveModulePageObjects  extends SapBaseClass {
         List<String> parcelIds;
         listSize = invoiceNumber.size();
 
-        dashboardPageObjects.clickRecieveModule();
+        dashboardPageObjects.clickReceiveModule();
 
         chooseHub(hubName);
         receiveSellerParcels(shopName);
         sleep(5000);
-        checkLoading();
+        waitForLoading();
         for(i=0;i<listSize;i++)
         {
-            enterScanInvoiceNumber(invoiceNumber.get(i));
+            enterScanCodeInput(invoiceNumber.get(i));
             closeErrorMessage();
         }
         clickViewParcels();

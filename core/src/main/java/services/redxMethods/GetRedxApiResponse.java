@@ -1,6 +1,7 @@
 package services.redxMethods;
 
 import com.google.gson.Gson;
+import dataParcer.CSVParser;
 import io.restassured.response.Response;
 import services.responseModels.redxModels.*;
 import services.serviceUtils.EndPoints;
@@ -122,6 +123,21 @@ public class GetRedxApiResponse {
         int shopId = getShopId(shopName);
         System.out.println("\nCreating Parcel\n");
         String createParcelPostCall = EndPoints.VERSION1 + EndPoints.ADMIN + EndPoints.SHOP + shopId + EndPoints.LOGISTICS + EndPoints.PARCELS;
+        Response createParcelResponse = shopUpPostMan.postCall(createParcelPostCall,createParcelBody);
+        CreateParcelModel createParcelModel = gson.fromJson(createParcelResponse.getBody().asString(),CreateParcelModel.class);
+        return createParcelModel;
+    }
+
+    public CreateParcelModel createParcelPostCall(String shopName,String path)
+    {
+        System.out.println("\nCreating Parcel\n");
+        int shopId = getShopId(shopName);
+        Map createParcelBody = new HashMap();
+        String createParcelPostCall = EndPoints.VERSION1 + EndPoints.ADMIN + EndPoints.SHOP + shopId + EndPoints.LOGISTICS + EndPoints.PARCELS;
+
+        List<HashMap<String, Object>> list = CSVParser.getHashListForDataPath(path);
+        createParcelBody.put("parcels",list);
+
         Response createParcelResponse = shopUpPostMan.postCall(createParcelPostCall,createParcelBody);
         CreateParcelModel createParcelModel = gson.fromJson(createParcelResponse.getBody().asString(),CreateParcelModel.class);
         return createParcelModel;

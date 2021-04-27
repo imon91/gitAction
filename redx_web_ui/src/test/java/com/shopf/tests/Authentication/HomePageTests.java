@@ -83,7 +83,11 @@ public class HomePageTests extends RedXWebBaseClass {
     public void verifyTrackParcelFunctionality()
     {
         System.out.println("Verifying Track Parcel Functionality");
-//        actionBarObjects.clickTrackParcelButton();
+        String assertUrl = "https://redx.shopups1.xyz/track-parcel/?trackingId=&shopId=" + shopId;
+        actionBarObjects.clickTrackParcelButton();
+        String url = driver.getCurrentUrl();
+        System.out.println("Current Url : " + url);
+        Assert.assertEquals(url,assertUrl);
     }
 
     @TestRails(caseId = "26")
@@ -289,10 +293,10 @@ public class HomePageTests extends RedXWebBaseClass {
             Assert.assertEquals(url,"https://www.youtube.com/channel/UCm8-BBWm89zLCqjFQgqJPwQ");
         }
 
-//        @TestRails(caseId = "53")
-//        @Test(  groups = {CoreConstants.GROUP_SANITY},
-//                description = "Verify Logout DropDown Functionality",
-//                priority = 140 )
+        @TestRails(caseId = "53")
+        @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+                description = "Verify Logout DropDown Functionality",
+                priority = 140 )
         public void verifyLogoutDropDownFunctionality()
         {
             System.out.println("Verifying Logout DropDown Functionality");

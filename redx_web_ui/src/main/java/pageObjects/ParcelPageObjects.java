@@ -468,6 +468,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         private WebElement paymentStatusValue;
         private WebElement promoCodeDiscountValue;
         private WebElement parcelDeliveryType;
+        private WebElement moreInfoValue;
         private WebElement parcelTypeValue;
         private WebElement lastUpdatedValue;
 
@@ -522,7 +523,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             return myActions.action_getText(pickupNameValue);
         }
 
-        public String getParcelIdButton(int index)
+        public String getParcelIdValue(int index)
         {
             parcelIdButton = xpathSetter("//tbody/tr[" + index + "]/td[4]//button/span");
             String parcelId = myActions.action_getText(parcelIdButton);
@@ -589,6 +590,24 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             }
         }
 
+        public String getPaymentInfoValue(String trackingId,int line)
+        {
+            paymentInfoValue = xpathSetter("//tbody/tr[@data-row-key='" + trackingId + "']/td[8]");
+            List<String> info = Arrays.asList(myActions.action_getText(paymentInfoValue).split("\n"));
+            switch (line)
+            {
+                case 1:
+                    if(info.get(line-1).length()>20)
+                        return info.get(line-1).substring(4,info.get(line-1).length()-16);
+                    else return null;
+                case 2:
+                    if(info.get(line-1).length()>10)
+                        return info.get(line-1).substring(4,info.get(line-1).length()-7);
+                    else return null;
+                default: return null;
+            }
+        }
+
         public String getPaymentStatusValue(int index)
         {
             paymentStatusValue = xpathSetter("//tbody/tr[" + index + "]/td[7]//div[2]//span");
@@ -614,6 +633,13 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             parcelTypeValue = xpathSetter("//tbody/tr[" + index + "]/td[10]");
             List<String> info = Arrays.asList(myActions.action_getText(parcelTypeValue).split("\n"));
             return info.get(0).substring(0,7).toLowerCase();
+        }
+
+        public String getMoreInfoValue(int index,int line)
+        {
+            moreInfoValue = xpathSetter("//tbody/tr[" + index + "]/td[10]");
+            List<String> info = Arrays.asList(myActions.action_getText(moreInfoValue).split("\n"));
+            return info.get(line-1);
         }
 
         public String getLastUpdatedValue(int index)
@@ -1091,17 +1117,20 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         /*----------Actions----------*/
 
-        public String clickExchangeButton()
+        public int clickExchangeButton()
         {
             elements = xpathListSetter("//div[@class='ant-table-fixed-right']//tbody/tr//button[not(@disabled)]//span[contains(text(),'Exchange')]/..");
             int size = elements.size();
+            int index = random.nextInt(size)+1;
             System.out.println("Size : " + size);
+            System.out.println("Index : " + index);
             if(size!=0)
             {
                 myActions.action_click(elements.get(random.nextInt(size)));
-                return "Parcels Found : " + size;
+                String trackingId = getParcelIdValue();
+                return Integer.parseInt(new ParcelsListPageObjects().getPaymentInfoValue(trackingId,1));
             }
-            else return "No Parcels Found to perform Action";
+            else return -1;
         }
 
         public void clickExchangeButton(int index)
@@ -1135,10 +1164,10 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             return myActions.action_getText(customerPhoneValue);
         }
 
-        public void enterAmount(String amount)
+        public void enterAmount(int amount)
         {
             amountInput = xpathSetter("//div[@class='input-row']//input[@placeholder='Amount']");
-            myActions.action_sendKeys(amountInput,amount);
+            myActions.action_sendKeys(amountInput,String.valueOf(amount));
         }
 
         public void clickCreateParcelButton()
@@ -1178,15 +1207,18 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             }
         }
 
-        public void exchangeParcel(String amount)
+        public List<String> exchangeParcel(int amount)
         {
-            System.out.println("Parcel Id : " + getParcelIdValue());
-            System.out.println("Customer Name : " + getCustomerNameValue());
-            System.out.println("Customer Phone : " + getCustomerPhoneValue());
-            System.out.println("Amount : " + amount);
+            List<String> parcelInfo = new ArrayList<>();
+            parcelInfo.add(getParcelIdValue());
+            parcelInfo.add(getCustomerNameValue());
+            parcelInfo.add(getCustomerPhoneValue());
+            parcelInfo.add(String.valueOf(amount));
+
             enterAmount(amount);
             clickCreateParcelButton();
 //            clickCancelButton();
+            return parcelInfo;
         }
     }
 

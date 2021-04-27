@@ -49,6 +49,7 @@ public class CoreConstants {
     public static final String GROUP_FUNCTIONAL = "functional";
     public static final String GROUP_INTEGRATION = "integration";
     public static final String GROUP_REGRESSION = "regression";
+    public static final String GROUP_SLACK_BUG = "slackBug";
 
     /*----------- Environments---------------*/
     public static final String APP_RESELLER = "Reseller";

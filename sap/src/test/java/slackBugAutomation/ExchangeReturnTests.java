@@ -16,7 +16,6 @@ import java.util.*;
 public class ExchangeReturnTests extends SapBaseClass {
 
     private WebDriver driver;
-    private Actions actions;
     private DashboardPageObjects dashboardPageObjects;
     private ReceiveFromDeliveryAgentsPageObjects receiveFromDeliveryAgentsPageObjects;
     private ReceiveFromDeliveryAgentsPageObjects.ExchangeModalPageObjects exchangeModalPageObjects;
@@ -37,7 +36,6 @@ public class ExchangeReturnTests extends SapBaseClass {
     {
         System.out.println("Exchange Return Tests Before Class");
         driver = getBaseDriver();
-        actions = new Actions(driver);
         dashboardPageObjects = new DashboardPageObjects(driver);
         receiveFromDeliveryAgentsPageObjects = new ReceiveFromDeliveryAgentsPageObjects(driver);
         exchangeModalPageObjects = receiveFromDeliveryAgentsPageObjects.new ExchangeModalPageObjects();
@@ -49,12 +47,7 @@ public class ExchangeReturnTests extends SapBaseClass {
         createParcelModel = new CreateParcelModel();
 
         dashboardPageObjects.clickLogisticsModule();
-        dashboardPageObjects.clickRecieveModule();
-
-        sleep(2000);
-        actions.sendKeys(Keys.ESCAPE).build().perform();
-        sleep(1000);
-        actions.sendKeys(Keys.ESCAPE).build().perform();
+        dashboardPageObjects.clickReceiveModule();
     }
 
     @BeforeMethod(alwaysRun = true)

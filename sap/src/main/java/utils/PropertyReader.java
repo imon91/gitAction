@@ -29,5 +29,10 @@ public class PropertyReader {
     public class Keys
     {
         public static final String CUSTOMER_NAME = "CUSTOMER_NAME";
+        public static final String DELIVERY_FLOW_SHOP_NAME = "DELIVERY_FLOW_SHOP_NAME";
+        public static final String DELIVERY_FLOW_TRACKING_ID = "DELIVERY_FLOW_TRACKING_ID";
+        public static final String DELIVERY_FLOW_HUB_NAME = "DELIVERY_FLOW_HUB_NAME";
+        public static final String DELIVERY_FLOW_AGENT_NAME = "DELIVERY_FLOW_AGENT_NAME";
+        public static final String DELIVERY_FLOW_CASH = "DELIVERY_FLOW_CASH";
     }
 }

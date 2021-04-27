@@ -86,12 +86,7 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
         reason = new HashMap();
 
         dashboardPageObjects.clickLogisticsModule();
-        dashboardPageObjects.clickRecieveModule();
-
-        sleep(2000);
-        actions.sendKeys(Keys.ESCAPE).build().perform();
-        sleep(1000);
-        actions.sendKeys(Keys.ESCAPE).build().perform();
+        dashboardPageObjects.clickReceiveModule();
     }
 
     @BeforeMethod(alwaysRun = true)

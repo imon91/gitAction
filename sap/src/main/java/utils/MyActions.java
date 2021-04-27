@@ -29,6 +29,22 @@ public class MyActions extends SapBaseClass {
         return element.getText();
     }
 
+    public String action_getText(String xpath) {
+        WebElement element = xpathSetter(xpath);
+        String text;
+        sleep(1000);
+        try{
+            text = element.getText();
+            return text;
+        }catch (ElementClickInterceptedException e){
+            sleep(2000);
+            return action_getText(xpath);
+        }catch (StaleElementReferenceException e){
+            sleep(2000);
+            return action_getText(xpath);
+        }
+    }
+
     public String action_getTagName(WebElement element) {
         sleep(1000);
         return element.getTagName();

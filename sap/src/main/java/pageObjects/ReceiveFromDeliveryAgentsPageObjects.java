@@ -33,7 +33,11 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
     private WebElement agentInput;
     private WebElement parcelsButton;
 
+    private WebElement titleValue;
     private WebElement searchBarInput;
+
+    private WebElement cashValue;
+
     private WebElement holdButton;
     private WebElement areaChangeButton;
     private WebElement returnedButton;
@@ -82,11 +86,25 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
         waitForLoading();
     }
 
+    public String getTitleValue()
+    {
+        titleValue = xpathSetter("//h3[@class='ng-binding']");
+        return myActions.action_getText(titleValue);
+    }
+
     public void enterSearchBar(String searchTerm)
     {
         searchBarInput = xpathSetter("//section[@class='unscanned-section']//input");
         searchBarInput.clear();
         myActions.action_sendKeys(searchBarInput,searchTerm);
+    }
+
+
+    public String getCashValue(String trackingId)
+    {
+        cashValue = xpathSetter("//small[text()='" + trackingId + "']/ancestor::div[@class='fresh-parcel ng-scope']//p[contains(text(),'Cash')]");
+        String value = myActions.action_getText(cashValue);
+        return value.substring(7);
     }
 
     public void clickHoldButton(String trackingId)
@@ -143,12 +161,14 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
     {
         cashReceivedButton = xpathSetter("//button[contains(text(),'Cash Received')]");
         myActions.action_click(cashReceivedButton);
+        clickYesButton();
     }
 
     public void clickParcelReceivedButton()
     {
         parcelReceivedButton = xpathSetter("//button[contains(text(),'Parcel Received')]");
         myActions.action_click(parcelReceivedButton);
+        clickYesButton();
     }
 
     public void clickYesButton()
@@ -444,10 +464,50 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
         }
     }
 
+    public class PartialModulePageObjects
+    {
+        /*----------Elements----------*/
+
+        private WebElement partialButton;
+        private WebElement modalTitle;
+        private WebElement amountInput;
+        private WebElement saveButton;
+
+        /*----------Actions----------*/
+
+        public void clickPartialButton(String trackingId)
+        {
+            partialButton = xpathSetter("//small[text()='" + trackingId + "']/ancestor::div[@class='fresh-parcel ng-scope']//div[not(contains(@class,'hide'))]/button[contains(text(),'Partial')]");
+            myActions.action_click(partialButton);
+        }
+
+        public String getModalTitleValue()
+        {
+            modalTitle = xpathSetter("//div[@class='modal-content']//span");
+            return myActions.action_getText(modalTitle);
+        }
+
+        public void enterAmountInput(String amount)
+        {
+            amountInput = xpathSetter("//div[@class='modal-content']//input");
+            myActions.action_sendKeys(amountInput,amount);
+        }
+
+        public void clickSaveButton()
+        {
+            saveButton = xpathSetter("//div[@class='modal-content']//button[contains(text(),'Save')]");
+            myActions.action_click(saveButton);
+            sleep(2000);
+        }
+
+        /*----------Functions----------*/
+    }
+
     public class UnScannedSectionPageObjects
     {
         private WebElement trackingId;
         private WebElement name;
+        private WebElement cash;
 
         public String getTrackingIdValue(int index)
         {
@@ -460,6 +520,13 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
             name = xpathSetter("//div[2]//section[@class='unscanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(@class,'name')]");
             return myActions.action_getText(name);
         }
+
+        public String getCashValue(int index)
+        {
+            cash = xpathSetter("//section[@class='unscanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(text(),'Cash')]");
+            String value = myActions.action_getText(cash);
+            return value.substring(7);
+        }
     }
 
     public class ScannedSectionPageObjects
@@ -467,6 +534,7 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
         private WebElement trackingId;
         private WebElement name;
         private WebElement status;
+        private WebElement cash;
 
         public String getTrackingIdValue(int index)
         {
@@ -484,6 +552,14 @@ public class ReceiveFromDeliveryAgentsPageObjects extends SapBaseClass {
         {
             status = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(@class,'status')]");
             return myActions.action_getText(status);
+        }
+
+        public String getCashValue(int index)
+        {
+            cash = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(text(),'Cash')]");
+            String value = myActions.action_getText(cash);
+            System.out.println("Cash Value : " + value);
+            return value.substring(7);
         }
     }
 }

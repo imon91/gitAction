@@ -38,7 +38,7 @@ public class AuthenticationTests extends RedXWebBaseClass {
     }
 
     @TestRails(caseId = "13")
-    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},priority = 2)
+    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY,CoreConstants.GROUP_SLACK_BUG},priority = 2)
     public void verifyAuthenticationWithValidCredentials()
     {
         System.out.println("Verifying Authentication with valid credentials");
