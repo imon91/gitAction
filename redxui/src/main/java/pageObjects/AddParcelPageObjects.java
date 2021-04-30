@@ -15,7 +15,7 @@ public class AddParcelPageObjects extends RedXBaseClass
         random = new Random();
     }
 
-    /*----------ELements----------*/
+    /*----------Elements----------*/
 
     private WebElement pageTitle;
     private WebElement nameEntry;
@@ -24,6 +24,9 @@ public class AddParcelPageObjects extends RedXBaseClass
     private WebElement sellingPriceEntry;
     private WebElement addressEntry;
     private WebElement areaDropDown;
+    private WebElement productCategoryDropDown;
+    private List<WebElement> productCategoryDropDownOptions;
+    private WebElement productCategoryDropDownOption;
     private WebElement invoiceNumberEntry;
     private WebElement instructionEntry;
     private WebElement confirmButton;
@@ -139,6 +142,32 @@ public class AddParcelPageObjects extends RedXBaseClass
         }
     }
 
+    public void clickProductCategoryDropDown()
+    {
+        productCategoryDropDown = xpathSetter("//android.widget.EditText[@text='Select Product Category']");
+        myActions.action_click(productCategoryDropDown);
+    }
+
+    public void chooseProductCategory()
+    {
+        clickProductCategoryDropDown();
+        productCategoryDropDownOptions = xpathListSetter("//android.widget.ScrollView//android.widget.TextView");
+        int size = productCategoryDropDownOptions.size();
+        int index = random.nextInt(size);
+        System.out.println("Size : " + size);
+        System.out.println("Index : " + index);
+        System.out.println("Selected Category : " + myActions.action_getText(productCategoryDropDownOptions.get(index)));
+        myActions.action_click(productCategoryDropDownOptions.get(index));
+    }
+
+    public void chooseProductCategory(String category)
+    {
+        clickProductCategoryDropDown();
+        productCategoryDropDownOption = xpathSetter("//android.widget.ScrollView//android.widget.TextView[contains(@text,'" + category + "')]");
+        System.out.println("Selected Category : " + myActions.action_getText(productCategoryDropDownOption));
+        myActions.action_click(productCategoryDropDownOption);
+    }
+
     public void enterInvoiceNumber(String invoiceNumber)
     {
         invoiceNumberEntry = xpathSetter("//android.widget.EditText[@text='Own Invoice Number']");
@@ -192,13 +221,14 @@ public class AddParcelPageObjects extends RedXBaseClass
         System.out.println("Area List Size: " + areaList().size());
         index = random.nextInt(areaList().size());
         selectAreaById(areaList(),index);
+        chooseProductCategory();
         enterInvoiceNumber("Test Invoice " + n);
         enterInstruction("Test Instruction");
         clickConfirmButton();
     }
 
     public void addParcel(String name, String phone, String cash, String sellingPrice, String address, String area,
-                          String invoiceNumber, String instruction)
+                          String category, String invoiceNumber, String instruction)
     {
         enterName(name);
         enterPhone(phone);
@@ -207,6 +237,7 @@ public class AddParcelPageObjects extends RedXBaseClass
         enterAddress(address);
         enterArea();
         selectAreaByText(area);
+        chooseProductCategory(category);
         enterInvoiceNumber(invoiceNumber);
         enterInstruction(instruction);
         clickConfirmButton();
