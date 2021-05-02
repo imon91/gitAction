@@ -43,6 +43,7 @@ task redxuiTest(type: Test) {// we define a task with name ‘androiduiTest’
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
         def regression = project.hasProperty("Reg")
+        def slackBug = project.hasProperty("SlackBug")
         def authentication = project.hasProperty("Authentication")
         def changeLanguage = project.hasProperty("ChangeLanguage")
         def createParcel = project.hasProperty("CreateParcel")
@@ -99,6 +100,9 @@ task redxuiTest(type: Test) {// we define a task with name ‘androiduiTest’
         }
         if(regression){
             suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+        if(slackBug){
+            suites "src/test/resources/mySuites/slackBugSuite.xml"
         }
     }
 }

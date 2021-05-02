@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="SmokeTestSuite">
+    <listeners>
+        <listener class-name="listeners.RedXUiTestNgListener"></listener>
+    </listeners>
+    <test name="SmokeTests" preserve-order="true" parallel="false">
+        <groups>
+            <run>
+                <include name="slackBug"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.redx.tests.SetUpTests"></class>
+            <class name="com.redx.tests.PaymentInvoice"></class>
+        </classes>
+    </test>
+</suite>
