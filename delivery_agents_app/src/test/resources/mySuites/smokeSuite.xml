@@ -13,6 +13,7 @@
         <classes>
            <class name="com.SetUpTests"></class>
             <class name="com.AuthenticationTests"></class>
+            <class name="com.ProfilePageTests"></class>
         </classes>
     </test>
 </suite>

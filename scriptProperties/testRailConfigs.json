@@ -3,9 +3,9 @@
   "userName" : "tech-automation@shopf.co",
   "password" : "www.testrail.com",
   "suiteId": [
-    {"Redx-Web":7}
+    {"Redx-Web":7},{"Delivery-Agents-App": 34}
   ],
   "reportId": [
-    {"Redx-Web":7}
+    {"Redx-Web":7},{"Delivery-Agents-App": 10}
   ]
 }

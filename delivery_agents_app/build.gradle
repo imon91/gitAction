@@ -40,7 +40,7 @@ dependencies {
 test{
     useTestNG(){
         useDefaultListeners = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger","Service","TestRail"])
     }
 }
 
@@ -51,7 +51,7 @@ task deliveryAgentsAppTest(type: Test) {// we define a task with name ‘android
         scanForTestClasses = false
         //jvmArgs(["-Ddataproviderthreadcount=${threads}"])
         testLogging.showStandardStreams = true
-        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger"])
+        systemProperties project.properties.subMap(["Host","Device","Version","App","Env","Trigger","Service","TestRail"])
         def smoke = project.hasProperty("Smoke")
         def regression = project.hasProperty("Reg")
         def sanity = project.hasProperty("Sanity")
