@@ -1046,6 +1046,10 @@ public class ProductListingPageObjects extends AndroidBaseClass {
         return productSlug;
     }
 
+    public List<Integer> getZoneIdsOfProducts(String searchTerm){
+        return getPLPModuleApiResponse.getZoneIdsOfProducts(searchTerm);
+    }
+
 }
 
 

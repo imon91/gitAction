@@ -2,13 +2,18 @@ package com.shopf.tests.integrationTests;
 
 import com.shopf.tests.*;
 import coreUtils.*;
+import dataBase.DataBaseCore;
+import gherkin.lexer.Da;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import testData.ReadJSONFile;
 import utils.*;
+
+import java.sql.SQLException;
 import java.util.*;
 
 
@@ -49,6 +54,7 @@ public class SmokeFlow extends AndroidBaseClass {
     private String discountedPrice;
     private String productName;
     private String discountedPrice_myBag;
+    private String areaChosen;
 
 
     @BeforeSuite(alwaysRun = true)
@@ -65,7 +71,7 @@ public class SmokeFlow extends AndroidBaseClass {
 
 
     @BeforeClass(alwaysRun = true)
-    public void smokeTestBeforeClass(){
+    public void smokeTestBeforeClass() throws SQLException {
         System.out.println("Smoke Test Started");
         app = System.getProperty(BuildParameterKeys.KEY_APP);
         host = System.getProperty(BuildParameterKeys.KEY_HOST);
@@ -100,6 +106,7 @@ public class SmokeFlow extends AndroidBaseClass {
         address = new Address();
         setImplicitWait(15);
         packageName = getAppPackage();
+        areaChosen = null;
     }
 
 
@@ -153,7 +160,8 @@ public class SmokeFlow extends AndroidBaseClass {
     public void createAddressUsingGeoLocation() throws Exception {
         if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
             address.addressBeforeClass();
-            address.createAddressUsingGeoLocation();
+            areaChosen = address.createAddressUsingGeoLocation();
+            System.out.println(areaChosen);
         }
     }
 
@@ -246,30 +254,37 @@ public class SmokeFlow extends AndroidBaseClass {
         search.verifySearchFunctionalityWithoutSelectingSuggestions(searchTerm);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 9)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 9,dataProvider = "dataForSearchTerm")
+    public void verifyOnlyTheProductsOfThatZoneIsComing(String searchTerm) throws Exception {
+        plp.productListingPageBeforeClass();
+        System.out.println(areaChosen);
+        plp.verifyProductsZoneDataInPLP(searchTerm,areaChosen);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 10)
     public void verifyApplyingSortOnPLP() throws Exception {
             plp.productListingPageBeforeClass();
             plp.verifyApplyingSortOnPLP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 10)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 11)
     public void verifyApplyingFilterOnPLP() throws Exception
     {
         plp.productListingPageBeforeClass();
         plp.verifyApplyingFilterOnPLP(null,null);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 11,dataProvider = "dataForSearchTerm")
-    public void verifyPagination(String searchTerm) throws Exception {
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 12)
+    public void verifyPagination() throws Exception {
         productListingPageObjects.verifyScrollForPagination();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 12)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
     public void verifySelectingValidProduct(){
         plp.verifySelectingValidSizeItemOnPlpToPDP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 13)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
     public void verifyPlaceOrderThroughPDP(){
         pdp.productDescriptionPageBeforeClass();
         discountedPrice = productDescriptionPageObjects.getDiscountPrice();
@@ -277,34 +292,34 @@ public class SmokeFlow extends AndroidBaseClass {
         pdp.verifyPlaceOrderThroughPDP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 14)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
     public void verifyPriceMismatch(){
         sleep(1000);
         discountedPrice_myBag = myBagPageObjects.getDiscountedPrice(productName);
         Assert.assertEquals(discountedPrice,discountedPrice_myBag);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
     public void verifyProductIncrementInMyBag() throws Exception {
              myBag.myBagBeforeClass();
             myBag.verifyItemIncrementFunctionalityOnMyBag();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
     public void verifyApplyShippingChargeInMyBag()
     {
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
         { myBag.verifyApplyingShippingCharges();}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
     public void verifyPlaceOrderInMyBag()
     {
         myBag.verifyPlaceOrderInMyBag();
         sleep(2000);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 19)
     public void verifyDeletingCodDisabledProductInAddress()
     {  //sleep(4000);
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
@@ -313,7 +328,7 @@ public class SmokeFlow extends AndroidBaseClass {
         }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 19)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 20)
     public void verifySelectAddress() {
         if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
             myBag.verifyProceedToPaymentByCreatingNewAddress();
@@ -324,7 +339,7 @@ public class SmokeFlow extends AndroidBaseClass {
         }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 20)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 21)
     public void verifyProceedToPaymentInAddress()
     {
 //        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
@@ -332,7 +347,7 @@ public class SmokeFlow extends AndroidBaseClass {
 //        sleep(3000);}
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 21)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 22)
     public void verifyCheckoutWithCOD()
     {
         if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
@@ -349,14 +364,14 @@ public class SmokeFlow extends AndroidBaseClass {
     }
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 22)
+    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 23)
     public void verifyOrderIdInOrderSuccessfulPage() {
         orderSuccessFulPageObjects.clickOnClickHereButton();
 
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 23)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 24)
     public void verifyOrderInMyOrders() throws Exception{
 //        //Assert That Control is in MyOrdersPage
 //        //Identify Order Number
@@ -372,7 +387,7 @@ public class SmokeFlow extends AndroidBaseClass {
     }
 
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 24)
+    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 25)
     public void verifyLogout() throws Exception {
         if(host.equalsIgnoreCase("Local")){
             // Do nothing

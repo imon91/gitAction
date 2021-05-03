@@ -618,6 +618,8 @@ public class ProductListingResultsModel {
             private int quantity_per_variant;
             private int size;
             private String size_description;
+            private int zone_id;
+            private String zone_name;
 
             public int getCorrected_count_on_hand() {
                 return corrected_count_on_hand;
@@ -738,6 +740,23 @@ public class ProductListingResultsModel {
             public void setSize_description(String size_description) {
                 this.size_description = size_description;
             }
+
+            public int getZone_id() {
+                return zone_id;
+            }
+
+            public void setZone_id(int zone_id) {
+                this.zone_id = zone_id;
+            }
+
+            public String getZone_name() {
+                return zone_name;
+            }
+
+            public void setZone_name(String zone_name) {
+                this.zone_name = zone_name;
+            }
+
         }
     }
 }

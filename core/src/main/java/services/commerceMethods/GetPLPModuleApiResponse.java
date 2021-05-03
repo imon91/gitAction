@@ -226,6 +226,19 @@ public class GetPLPModuleApiResponse {
         return slugOfProducts;
     }
 
+    public List<Integer> getZoneIdsOfProducts(String searchTerm){
+            List<Integer> zoneIdsOfProducts = new ArrayList<>();
+            response = shopUpPostMan.getCall(EndPoints.SEARCH_FOR_USER+"term="+searchTerm+"&page=1");
+            ProductListingResultsModel productListingResultsModel = gson.fromJson(response.getBody().asString(),ProductListingResultsModel.class);
+            for (int i=0;i<productListingResultsModel.getResults().size();i++){
+                if(productListingResultsModel.getResults().get(i).getSizes().get(0).getZone_id() != 0) {
+                    zoneIdsOfProducts.add(productListingResultsModel.getResults().get(i).getSizes().get(0).getZone_id());
+                }
+            }
+            System.out.println(zoneIdsOfProducts);
+            return zoneIdsOfProducts;
+    }
+
 }
 
 
