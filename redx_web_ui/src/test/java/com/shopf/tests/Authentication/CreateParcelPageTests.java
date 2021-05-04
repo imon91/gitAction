@@ -210,7 +210,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     }
 
     @TestRails(caseId = "122")
-    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Create Reverse Parcel With No Inputs",
             priority = 512 )
     public void verifyCreateReverseParcelWithNoInputs()
@@ -241,8 +241,8 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         int pickupAreaId = getRedxApiResponse.getPickupAreaId(shopName,deliveryCharges.get(1));
 
         String areaValue = deliveryCharges.get(0);
-        int areaId = getRedxApiResponse.getAreaId(data[6],data[7],areaValue);
-        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[5]),Integer.parseInt(data[10]),pickupAreaId).toString());
+        int areaId = getRedxApiResponse.getAreaId(data[7],data[8],areaValue);
+        System.out.println("Delivery Charges in API : " + getRedxApiResponse.getDeliveryChargesInfo(shopId,areaId,Integer.parseInt(data[5]),Integer.parseInt(data[11]),pickupAreaId).toString());
 
         parcelSuccessPageObjects.clickOkButton();
         Assert.assertEquals(parcelSuccessPageObjects.getAlertMessage(),"Your parcel request has been placed successfully");
@@ -250,7 +250,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
     }
 
     @TestRails(caseId = "124")
-    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Create Reverse Parcel Functionality",
             priority = 514 )
     public void verifyCreateReverseParcelFunctionality()

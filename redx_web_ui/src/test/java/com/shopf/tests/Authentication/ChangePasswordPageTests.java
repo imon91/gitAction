@@ -26,6 +26,7 @@ public class ChangePasswordPageTests extends RedXWebBaseClass {
     private String currentPwd = "passwordSanityTest";
     private String newPwd = "passwordSanityTest";
     private String confirmPwd = "passwordSanityTest";
+    private String wrongPwd = "passwordSanity";
 
     @BeforeClass(alwaysRun = true)
     public void changePasswordPageTestsBeforeClass() throws Exception
@@ -66,10 +67,24 @@ public class ChangePasswordPageTests extends RedXWebBaseClass {
         System.out.println("Error Messages" + errorMsgs);
     }
 
+    @TestRails(caseId = "928")
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Change Password Functionality With Wrong Password",
+            priority = 1302 )
+    public void verifyChangePasswordFunctionalityWithWrongPassword()
+    {
+        System.out.println("Verifying Change Password Functionality With Wrong Password");
+        changePasswordPageObjects.performChangePassword(wrongPwd,newPwd,confirmPwd);
+        String toastMsg = changePasswordPageObjects.getToastMsg();
+        System.out.println("Toast Msg : " + toastMsg);
+        setImplicitWait(10000);
+        Assert.assertEquals(toastMsg,"Current Password dont match");
+    }
+
     @TestRails(caseId = "367")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Change Password Functionality",
-            priority = 1302 )
+            priority = 1303 )
     public void verifyChangePasswordFunctionality()
     {
         System.out.println("Verifying Change Password Functionality");
@@ -82,7 +97,7 @@ public class ChangePasswordPageTests extends RedXWebBaseClass {
     @TestRails(caseId = "368")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Reset Button Functionality",
-            priority = 1303 )
+            priority = 1304 )
     public void verifyResetButtonFunctionality()
     {
         System.out.println("Verifying Reset Button Functionality");

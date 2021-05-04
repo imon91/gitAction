@@ -115,10 +115,24 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         System.out.println("Error Messages" + errorMsgs);
     }
 
+    @TestRails(caseId = "929")
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
+            description = "Verify Resend Otp Button Functionality",
+            priority = 1405 )
+    public void verifyResendOtpButtonFunctionality()
+    {
+        System.out.println("Verifying Resend Otp Button Functionality");
+        resetPasswordPageObjects.clickResendOtpIcon();
+        String toastMsg = resetPasswordPageObjects.getToastMsg();
+        System.out.println("Toast Msg : " + toastMsg);
+        Assert.assertEquals(toastMsg,"Otp is sent successfully");
+    }
+
+
     @TestRails(caseId = "373")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Edit Button Functionality",
-            priority = 1405 )
+            priority = 1406 )
     public void verifyEditButtonFunctionality()
     {
         System.out.println("Verifying Edit Button Functionality");
@@ -132,7 +146,7 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
     @TestRails(caseId = "374")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Password Eye Icon Functionality",
-            priority = 1406 )
+            priority = 1407 )
     public void verifyPasswordEyeIconFunctionality()
     {
         System.out.println("Verifying Password Eye Icon Functionality");
@@ -149,7 +163,7 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
     @TestRails(caseId = "375")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify Confirm Password Eye Icon Functionality",
-            priority = 1407 )
+            priority = 1408 )
     public void verifyConfirmPasswordEyeIconFunctionality()
     {
         System.out.println("Verifying Confirm Password Eye Icon Functionality");
@@ -163,7 +177,7 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
     @TestRails(caseId = "376")
     @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
             description = "Verify Verify Button Functionality",
-            priority = 1408 )
+            priority = 1409 )
     public void verifyVerifyButtonFunctionality()
     {
         System.out.println("Verifying Verify Button Functionality");
@@ -176,7 +190,7 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
     @TestRails(caseId = "377")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
             description = "Verify ReturnToLogin Button Functionality",
-            priority = 1409 )
+            priority = 1410 )
     public void verifyReturnToLoginButtonFunctionality()
     {
         System.out.println("Verifying ReturnToLogin Button Functionality");

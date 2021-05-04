@@ -23,9 +23,7 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
 
     /*----------Elements----------*/
 
-    private WebElement allPickupLocationDropDown;
-    private WebElement allPickupLocationDropDownOption;
-    private List<WebElement> allPickupLocationDropDownOptions;
+    private WebElement invoiceFilterInput;
 
     private WebElement dateRangeInput;
     private WebElement nextMonthButton;
@@ -55,6 +53,20 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
     private WebElement downloadMushokButton;
 
     /*----------Actions----------*/
+
+    public void enterInvoiceFilterInput(int invoice)
+    {
+        invoiceFilterInput = xpathSetter("//input[@placeholder='Invoice No.']");
+        myActions.action_sendKeys(invoiceFilterInput,String.valueOf(invoice));
+        clickSearchButton();
+    }
+
+    public void clearInvoiceFilter()
+    {
+        invoiceFilterInput = xpathSetter("//input[@placeholder='Invoice No.']");
+        invoiceFilterInput.clear();
+        clickSearchButton();
+    }
 
     public void clickDateRangeInput()
     {

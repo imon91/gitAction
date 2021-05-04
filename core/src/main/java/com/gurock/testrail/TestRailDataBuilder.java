@@ -90,6 +90,9 @@ public class TestRailDataBuilder {
                 case "redx-web":
                     suiteId = JsonPath.with(configData).getInt("suiteId[0].Redx-Web");
                     break;
+                case "delivery-agents-app":
+                    suiteId = JsonPath.with(configData).getInt("suiteId[1].Delivery-Agents-App");
+                    break;
                 case "cmt":
                     suiteId = JsonPath.with(configData).getInt("suiteId[3].CMT-API");
                     break;
@@ -131,6 +134,9 @@ public class TestRailDataBuilder {
                     break;
                 case "redx-web" :
                     reportId = JsonPath.with(configData).getInt("reportId[0].Redx-Web");
+                    break;
+                case "delivery-agents-app" :
+                    reportId = JsonPath.with(configData).getInt("reportId[1].Delivery-Agents-App");
                     break;
                 case "cmt" :
                     reportId = JsonPath.with(configData).getInt("reportId[3].CMT-API");

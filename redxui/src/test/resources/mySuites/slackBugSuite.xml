@@ -2,18 +2,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="SmokeTestSuite">
     <listeners>
-        <listener class-name="listeners.DeliveryAgentsTestNgListener"></listener>
+        <listener class-name="listeners.RedXUiTestNgListener"></listener>
     </listeners>
     <test name="SmokeTests" preserve-order="true" parallel="false">
         <groups>
             <run>
-                <include name="smoke"/>
+                <include name="slackBug"/>
             </run>
         </groups>
         <classes>
-           <class name="com.SetUpTests"></class>
-            <class name="com.AuthenticationTests"></class>
-            <class name="com.ProfilePageTests"></class>
+            <class name="com.redx.tests.SetUpTests"></class>
+            <class name="com.redx.tests.PaymentInvoice"></class>
         </classes>
     </test>
 </suite>

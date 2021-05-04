@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import pageObjects.ManifestParcelDetails.PackageDetailsModule;
 import utils.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PaymentUpdatesPageObjects extends RedXBaseClass
@@ -18,6 +19,9 @@ public class PaymentUpdatesPageObjects extends RedXBaseClass
     private WebElement paidAmountTab;
     private WebElement processingTab;
     private WebElement unpaidAmountTab;
+    private WebElement paidAmountValue;
+    private WebElement processingAmountValue;
+    private WebElement unpaidAmountValue;
     private List<WebElement> parcelsList;
 
     /*----------Actions----------*/
@@ -26,18 +30,41 @@ public class PaymentUpdatesPageObjects extends RedXBaseClass
     {
         paidAmountTab = xpathSetter("//android.widget.TextView[@text='PAID AMOUNT']");
         myActions.action_click(paidAmountTab);
+        sleep(1000);
     }
 
     public void clickProcessingTab()
     {
         processingTab = xpathSetter("//android.widget.TextView[@text='PROCESSING']");
         myActions.action_click(processingTab);
+        sleep(1000);
     }
 
     public void clickUnpaidAmount()
     {
         unpaidAmountTab = xpathSetter("//android.widget.TextView[@text='UNPAID AMOUNT']");
         myActions.action_click(unpaidAmountTab);
+    }
+
+    public String getPaidAmountValue()
+    {
+        paidAmountValue = xpathSetter("//android.widget.TextView[@text='PAID AMOUNT']/../android.widget.TextView[@index='0']");
+        String amount = myActions.action_getText(paidAmountValue);
+        return amount.substring(1);
+    }
+
+    public String getProcessingAmountValue()
+    {
+        processingAmountValue = xpathSetter("//android.widget.TextView[@text='PROCESSING']/../android.widget.TextView[@index='0']");
+        String amount = myActions.action_getText(processingAmountValue);
+        return amount.substring(1);
+    }
+
+    public String getUnpaidAmountValue()
+    {
+        unpaidAmountValue = xpathSetter("//android.widget.TextView[@text='UNPAID AMOUNT']/../android.widget.TextView[@index='0']");
+        String amount = myActions.action_getText(unpaidAmountValue);
+        return amount.substring(1);
     }
 
     public List<WebElement> setParcelsList()
@@ -62,6 +89,17 @@ public class PaymentUpdatesPageObjects extends RedXBaseClass
         }
         WebElement selectedPackage = parcelsList.get(index).findElement(By.xpath("//android.widget.TextView[@text='VIEW INVOICE']"));
         myActions.action_click(selectedPackage);
+    }
+
+    /*----------Functions----------*/
+
+    public List<String> getPaymentValue()
+    {
+        List<String> paymentValue = new ArrayList<>();
+        paymentValue.add(getPaidAmountValue());
+        paymentValue.add(getProcessingAmountValue());
+        paymentValue.add(getUnpaidAmountValue());
+        return paymentValue;
     }
 
 

@@ -104,6 +104,7 @@ public class ForgotPasswordPageObjects extends RedXWebBaseClass {
         private WebElement confirmPasswordErrorMessage;
 
         private WebElement verifyButton;
+        private WebElement toastMsg;
 
         /*----------Actions----------*/
 
@@ -210,6 +211,12 @@ public class ForgotPasswordPageObjects extends RedXWebBaseClass {
         {
             verifyButton = xpathSetter("//form//button[@type='submit']");
             myActions.action_click(verifyButton);
+        }
+
+        public String getToastMsg()
+        {
+            toastMsg = xpathSetter("//div[@class='ant-message-notice']//span");
+            return myActions.action_getText(toastMsg);
         }
 
         /*----------Functions----------*/

@@ -30,8 +30,15 @@ public class LoginPageObjects extends RedXBaseClass
     private  WebElement popUpMessage;
     private WebElement popUpButton;
     private WebElement popUpTitle;
+    private WebElement updateButton;
 
     /*----------Actions----------*/
+
+    public void clickUpdateButton()
+    {
+        updateButton = idSetter("android:id/button1");
+        myActions.action_click(updateButton);
+    }
 
     public void clickLoginButton()
     {
@@ -190,6 +197,13 @@ public class LoginPageObjects extends RedXBaseClass
             System.out.println("PopUp Message :" + getPopUpMessage());
             clickPopUpButton();
         }
+    }
+
+    public void verifyUpdate()
+    {
+        try {clickUpdateButton();}
+        catch (Exception e){System.out.println("No update button");}
+
     }
 
 }
