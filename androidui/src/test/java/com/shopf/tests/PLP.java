@@ -1,6 +1,7 @@
 package com.shopf.tests;
 
 import coreUtils.*;
+import dataBase.DataBaseCore;
 import io.appium.java_client.android.*;
 import org.openqa.selenium.*;
 import org.testng.annotations.*;
@@ -9,6 +10,8 @@ import static org.testng.Assert.*;
 import pageObjects.*;
 import services.responseModels.commerceModels.*;
 import utils.*;
+
+import java.sql.SQLException;
 import java.util.*;
 
 
@@ -25,6 +28,7 @@ public class PLP extends AndroidBaseClass {
     private String suiteName;
     private AndroidScriptRouter androidScriptRouter;
     private String app;
+    private DataBaseCore dataBaseCore;
 
 
 
@@ -44,7 +48,7 @@ public class PLP extends AndroidBaseClass {
 //        androidScriptRouter.getTheControlHere(activityName,null);
         productFilterPageObjects = new ProductFilterPageObjects(androidDriver);
         app=System.getProperty(BuildParameterKeys.KEY_APP);
-
+        dataBaseCore = new DataBaseCore();
     }
 
 
@@ -608,6 +612,28 @@ public class PLP extends AndroidBaseClass {
         }
     }
 
+
+    public void verifyProductsZoneDataInPLP(String searchTerm, String locationName) throws SQLException {
+        System.out.println("verify Product's Zone Data In PLP");
+        String app = System.getProperty(BuildParameterKeys.KEY_APP);
+
+        Integer zoneId = dataBaseCore.getZoneIdByLocationName(locationName);
+        System.out.println(zoneId + "from db" + " "+app);
+
+        if (zoneId == 0 && app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+            zoneId = 483;
+        } else if(zoneId == 0 && app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+            zoneId = 484;
+        }
+
+        //Get Zone Ids from search term API
+        List<Integer> getZoneIdsOfProducts = productListingPageObjects.getZoneIdsOfProducts(searchTerm);
+        for (int i=0;i< getZoneIdsOfProducts.size();i++){
+            softAssert.assertEquals(getZoneIdsOfProducts.get(i),zoneId);
+        }
+
+        softAssert.assertAll();
+    }
 
 
 
