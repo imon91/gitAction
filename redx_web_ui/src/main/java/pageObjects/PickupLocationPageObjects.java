@@ -39,11 +39,14 @@ public class PickupLocationPageObjects extends RedXWebBaseClass
 
     /*----------Actions----------*/
 
-    public void enterSearchBar(String searchTerm)
-    {
+    public void enterSearchBar(String searchTerm) {
         searchBar = xpathSetter("//input[@placeholder='Search pickup location']");
-        myActions.action_sendKeys(searchBar,searchTerm);
+        myActions.action_sendKeys(searchBar, searchTerm);
         sleep(1000);
+        try {
+            searchBar = xpathPresenceSetter("//span[@class='ant-alert-message']");
+            System.out.println(myActions.action_getText(searchBar));
+        } catch (Exception e) {}
     }
 
     public void clearSearchBar()

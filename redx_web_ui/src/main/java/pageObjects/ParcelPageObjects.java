@@ -32,6 +32,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
     private WebElement currentYearValue;
     private WebElement previousMonthButton;
     private WebElement previousYearButton;
+    private WebElement selectedDate;
     private WebElement dateButton;
 
     private WebElement totalParcelsValue;
@@ -151,6 +152,13 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         }
     }
 
+    public int getSelectedDate()
+    {
+        selectedDate = xpathSetter("//td[@class='ant-calendar-cell ant-calendar-selected-day']/div");
+        String date = myActions.action_getText(selectedDate);
+        return Integer.parseInt(date);
+    }
+
     /*----------Functions----------*/
 
     public long selectDate(int date, String month, int year)
@@ -189,13 +197,16 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             }
         }
 
-        dateButton = xpathSetter("//td[@class='ant-calendar-cell']/div[text()='" + date + "']");
+        if(getSelectedDate()!=date)
+            dateButton = xpathSetter("//td[@class='ant-calendar-cell']/div[text()='" + date + "']");
+        else dateButton = xpathSetter("//td[@class='ant-calendar-cell ant-calendar-selected-day']/div");
+
         myActions.action_click(dateButton);
         long number = convertDateToNumber(date,index,year);
         return number;
     }
 
-    public long selectEndDateRange(int date, String month, int year)
+    public long selectDateRange(int date, String month, int year)
     {
         previousYearButton = xpathSetter("//a[@class='ant-calendar-prev-year-btn']");
         previousMonthButton = xpathSetter("//a[@class='ant-calendar-prev-month-btn']");
@@ -231,7 +242,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
             }
         }
 
-        dateButton = xpathSetter("//td[@class='ant-calendar-cell ant-calendar-in-range-cell']/div[text()='" + date + "']");
+        dateButton = xpathSetter("//td[contains(@class,'ant-calendar-cell')][not(contains(@class,'month'))]/div[text()='" + date + "']");
         myActions.action_click(dateButton);
         long number = convertDateToNumber(date,index,year);
         return number;
@@ -739,12 +750,12 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         public void chooseStartDate(int date, String month, int year)
         {
             clickDateRangeInput();
-            selectDate(date,month,year);
+            selectDateRange(date,month,year);
         }
 
         public void chooseEndDate(int date, String month, int year)
         {
-            selectEndDateRange(date,month,year);
+            selectDateRange(date,month,year);
         }
 
         public void chooseDateFilterType(int filterIndex)
@@ -1030,7 +1041,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
 
         public void enterInstructions(String instruction)
         {
-            instructionsInput = xpathSetter("//div[@class='input-row'][8]//textArea");
+            instructionsInput = xpathSetter("//div[@class='input-row'][9]//textArea");
             instructionsInput.clear();
             myActions.action_sendKeys(instructionsInput,instruction);
         }
@@ -1091,6 +1102,9 @@ public class ParcelPageObjects extends RedXWebBaseClass{
                         enterWeight(Integer.parseInt(inputs[i]));
                         break;
                     case 7:
+                        //ProductCategory
+                        break;
+                    case 8:
                         enterInstructions(inputs[i]);
                         break;
                 }

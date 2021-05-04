@@ -88,11 +88,16 @@ public class PaymentsPageTests extends RedXWebBaseClass {
 
     @TestRails(caseId = "142")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify All Pickup Location Filter Functionality",
+            description = "Verify Invoice Filter Functionality",
             priority = 301 )
-    public void verifyAllPickupLocationFilterFunctionality()
+    public void verifyInvoiceFilterFunctionality()
     {
-        System.out.println("Verifying All Pickup Location Filter Functionality");
+        System.out.println("Verifying Invoice Filter Functionality");
+        paymentsPageObjects.enterInvoiceFilterInput(invoiceId);
+        int invoice = Integer.parseInt(paymentsPageObjects.getInvoiceIdValue(1));
+//        paymentsPageObjects.clearInvoiceFilter();
+        driver.navigate().refresh();
+        Assert.assertEquals(invoice,invoiceId);
     }
 
     @TestRails(caseId = "143")
@@ -139,7 +144,6 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
         Assert.assertEquals(uiValue,apiValue);
-
     }
 
     @TestRails(caseId = "145")

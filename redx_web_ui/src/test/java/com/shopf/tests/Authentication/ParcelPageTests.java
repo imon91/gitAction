@@ -36,7 +36,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     private String parcelsListGetCallUrl;
     private Random random;
     private int index;
-    private String shopName = "Bulk Issue Test Shop";
+    private String shopName = "RedX Web Sanity Test Shop";
     private long shopId ;
 
     private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
@@ -706,7 +706,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     }
 
     @TestRails(caseId = "93")
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
                description = "Verify Edit Button Functionality",
                priority = 240)
        public void verifyEditButtonFunctionality()
@@ -724,7 +724,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
        }
 
     @TestRails(caseId = "94")
-       @Test(  groups = {CoreConstants.GROUP_SANITY},
+       @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
                description = "Verify Edit Cancel Button in Edit Functionality",
                priority = 241)
        public void verifyCancelButtonEditFunctionality()
@@ -741,7 +741,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
 
       @TestRails(caseId = "95")
        @Test(  groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},
-               description = "Verify Edit Functionality",
+               description = "Verify Edit Functionality",enabled = false,
                priority = 242)
        public void verifyEditFunctionality()
        {
@@ -819,7 +819,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     }
 
     @TestRails(caseId = "101")
-    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+    @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Button Functionality",
                priority = 246)
        public void verifyExchangeButtonFunctionality()
@@ -838,7 +838,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
        }
 
        @TestRails(caseId = "102")
-       @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
+       @Test(  groups = {CoreConstants.GROUP_SANITY},
                description = "Verify Exchange Cancel Button Functionality",
                priority = 247)
        public void verifyExchangeCancelButtonFunctionality()
@@ -859,7 +859,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
                priority = 248)
        public void verifyExchangeFunctionality()
        {
-           System.out.println("Verifying Exchange Functionality");//*
+           System.out.println("Verifying Exchange Functionality");/*
            statusFilterPageObjects.filterByStatus("Delivered",1);
            int cash = exchangeParcelPageObjects.clickExchangeButton();
            List<String> exchangeParcel,returnParcel,deliveryParcel;
