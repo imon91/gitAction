@@ -69,7 +69,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         paymentDetailsModel = getRedxApiResponse.paymentDetailsListGetCall(shopName,invoiceId);
         parcelsSize = paymentDetailsModel.getParcels().size();
         System.out.println("Parcels Size : " + parcelsSize);
-        parcelsIndex = paymentDetailsPageObjects.getRandomParcelIndex();
+        parcelsIndex = paymentDetailsPageObjects.getRandomParcelIndex(parcelsSize);
         System.out.println("Parcels Index : " + parcelsIndex);
     }
 
@@ -88,11 +88,16 @@ public class PaymentsPageTests extends RedXWebBaseClass {
 
     @TestRails(caseId = "142")
     @Test(  groups = {CoreConstants.GROUP_SANITY},
-            description = "Verify All Pickup Location Filter Functionality",
+            description = "Verify Invoice Filter Functionality",
             priority = 301 )
-    public void verifyAllPickupLocationFilterFunctionality()
+    public void verifyInvoiceFilterFunctionality()
     {
-        System.out.println("Verifying All Pickup Location Filter Functionality");
+        System.out.println("Verifying Invoice Filter Functionality");
+        paymentsPageObjects.enterInvoiceFilterInput(invoiceId);
+        int invoice = Integer.parseInt(paymentsPageObjects.getInvoiceIdValue(1));
+//        paymentsPageObjects.clearInvoiceFilter();
+        driver.navigate().refresh();
+        Assert.assertEquals(invoice,invoiceId);
     }
 
     @TestRails(caseId = "143")
@@ -122,9 +127,8 @@ public class PaymentsPageTests extends RedXWebBaseClass {
 
         System.out.println("Payments After Filter : " + uiValue);
         System.out.println("Payments After Filter API : " + apiValue);
-        driver.navigate().refresh();
-        setImplicitWait(10000);
 
+        paymentsPageObjects.clickClearDateFilterIcon();
         Assert.assertEquals(uiValue,apiValue);
     }
 
@@ -488,7 +492,7 @@ public class PaymentsPageTests extends RedXWebBaseClass {
     }
 
     @TestRails(caseId = "168")
-    @Test(  groups = {CoreConstants.GROUP_SANITY},
+    @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
             description = "Verify Total Paid Value In Details Page",
             priority = 327 )
     public void verifyTotalPaidValueInDetailsPage()

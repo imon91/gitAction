@@ -35,6 +35,7 @@ public class ChangePasswordPageObjects extends RedXWebBaseClass {
     public void enterCurrentPasswordInput(String password)
     {
         currentPasswordInput = xpathSetter("//input[@name='currentPassword']");
+        currentPasswordInput.clear();
         myActions.action_sendKeys(currentPasswordInput,password);
     }
 
@@ -47,6 +48,7 @@ public class ChangePasswordPageObjects extends RedXWebBaseClass {
     public void enterNewPasswordInput(String password)
     {
         newPasswordInput = xpathSetter("//input[@name='password']");
+        newPasswordInput.clear();
         myActions.action_sendKeys(newPasswordInput,password);
     }
 
@@ -59,6 +61,7 @@ public class ChangePasswordPageObjects extends RedXWebBaseClass {
     public void enterConfirmPasswordInput(String password)
     {
         confirmPasswordInput = xpathSetter("//input[@name='confirmPassword']");
+        confirmPasswordInput.clear();
         myActions.action_sendKeys(confirmPasswordInput,password);
     }
 

@@ -83,7 +83,11 @@ public class HomePageTests extends RedXWebBaseClass {
     public void verifyTrackParcelFunctionality()
     {
         System.out.println("Verifying Track Parcel Functionality");
-//        actionBarObjects.clickTrackParcelButton();
+        String assertUrl = "https://redx.shopups1.xyz/track-parcel/?trackingId=&shopId=" + shopId;
+        actionBarObjects.clickTrackParcelButton();
+        String url = driver.getCurrentUrl();
+        System.out.println("Current Url : " + url);
+        Assert.assertEquals(url,assertUrl);
     }
 
     @TestRails(caseId = "26")
@@ -284,12 +288,13 @@ public class HomePageTests extends RedXWebBaseClass {
             actionBarObjects.waitForLoading();
             String url = driver.getCurrentUrl();
             System.out.println("URL after clicking Tutorials DropDown : " + url);
+            driver.close();
             driver.switchTo().window(parentWindow);
             Assert.assertEquals(url,"https://www.youtube.com/channel/UCm8-BBWm89zLCqjFQgqJPwQ");
         }
 
         @TestRails(caseId = "53")
-        @Test(  groups = {CoreConstants.GROUP_SANITY},
+        @Test(  groups = {CoreConstants.GROUP_SANITY},enabled = false,
                 description = "Verify Logout DropDown Functionality",
                 priority = 140 )
         public void verifyLogoutDropDownFunctionality()
@@ -305,7 +310,7 @@ public class HomePageTests extends RedXWebBaseClass {
         @TestRails(caseId = "39")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify All PickUp Location Functionality",
-                priority = 117 )
+                priority = 118 )
         public void verifyAllPickUpLocationFilterFunctionality()
         {
             System.out.println("Verifying All PickUp Location Functionality");
@@ -321,7 +326,7 @@ public class HomePageTests extends RedXWebBaseClass {
         @TestRails(caseId = "40")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify Date Filter Functionality",
-                priority = 118 )
+                priority = 119 )
         public void verifyDateFilterFunctionality()
         {
             System.out.println("Verifying Date Filter Functionality");
@@ -336,7 +341,7 @@ public class HomePageTests extends RedXWebBaseClass {
         @TestRails(caseId = "38")
         @Test(  groups = {CoreConstants.GROUP_SANITY},
                 description = "Verify RedX Credit Button Functionality",
-                priority = 119 )
+                priority = 117 )
         public void verifyRedXCreditButtonFunctionality()
         {
             System.out.println("Verifying RedX Credit Button Functionality");

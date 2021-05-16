@@ -44,6 +44,8 @@ public class CouponsPageTests extends RedXWebBaseClass {
         setImplicitWait(10000);
 
         actionBarObjects.clickCouponLink();
+        setImplicitWait(10000);
+
         couponsModel = getRedxApiResponse.couponsListGetCall(actionBarObjects.getShopName());
         size = couponsModel.getBody().getCoupons().size();
         index = random.nextInt(size);

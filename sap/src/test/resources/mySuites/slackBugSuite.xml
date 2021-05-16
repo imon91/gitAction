@@ -5,9 +5,19 @@
         <listener class-name="listeners.SapUiTestNgListener"></listener>
     </listeners>
     <test name="SlackBugTests">
+        <groups>
+            <run>
+                <include name="slackBug"/>
+            </run>
+        </groups>
         <classes>
             <class name="SetUpTests"></class>
-            <class name="slackBugAutomation.downloadOptionOrderTests"></class>
+            <class name="com.shopf.tests.authentication.LoginTests"></class>
+<!--            <class name="slackBugAutomation.downloadOptionOrderTests"></class>-->
+<!--            <class name="slackBugAutomation.ExchangeReturnTests"></class>-->
+            <class name="slackBugAutomation.ReceiveParcelPageTests"></class>
+            <class name="slackBugAutomation.DispatchParcelPageTests"></class>
+            <class name="slackBugAutomation.ReceiveProblematicParcelPageTests"></class>
         </classes>
     </test>
 </suite>

@@ -20,20 +20,11 @@ public class RegistrationFlowTests extends RedXWebBaseClass {
     private String phoneNumber;
     private String otp = "6666";
 
-    @BeforeSuite(alwaysRun = true)
-    public void redXWebBeforeSuite() throws  Exception
-    {
-        System.out.println("RedX Web Before Suite");
-        driver = getBaseDriver();
-        setImplicitWait(10000);
-        driver.get(getWebBaseUrl());
-        driver.manage().window().maximize();
-    }
-
     @BeforeClass(alwaysRun = true)
     public void registrationFlowTestsBeforeClass() throws Exception
     {
         System.out.println("Registration Flow Tests Before Class");
+        driver = getBaseDriver();
         loginPageObjects = new LoginPageObjects(driver);
         termsAndConditionsPageObjects = new TermsAndConditionsPageObjects(driver);
         createShopPageObjects = new CreateShopPageObjects(driver);
@@ -55,7 +46,7 @@ public class RegistrationFlowTests extends RedXWebBaseClass {
     }
 
     @Test(  description = "Verify Phone Number Validation",
-            priority = 1 )
+            priority = 5 )
     public void verifyPhoneNumberValidation() throws Exception
     {
         System.out.println("Verifying Phone Number Validation");
@@ -67,7 +58,7 @@ public class RegistrationFlowTests extends RedXWebBaseClass {
     }
 
     @Test(  description = "Verify Required Or Optional Field Validation",
-            priority = 2 )
+            priority = 6 )
     public void verifyRequiredOrOptionalFieldValidation() throws Exception
     {
         System.out.println("Verifying Required Or Optional Field Validation");
@@ -88,7 +79,7 @@ public class RegistrationFlowTests extends RedXWebBaseClass {
     }
 
     @Test(  description = "Verify Invalid String Validation",
-            priority = 3 )
+            priority = 7 )
     public void verifyInvalidStringValidation() throws Exception
     {
         System.out.println("Verifying Invalid String Validation");
@@ -107,8 +98,8 @@ public class RegistrationFlowTests extends RedXWebBaseClass {
         Assert.assertEquals(errorMsg.get(6),createShopPageObjects.getReferrerCodeErrorMessage());
     }
 
-//    @Test(  description = "Verify Invalid Input Validation",
-//            priority = 4 )
+    @Test(  description = "Verify Invalid Input Validation",enabled = false,
+            priority = 8 )
     public void verifyInvalidInputValidation() throws Exception
     {
         System.out.println("Verifying Invalid Input Validation");
@@ -125,7 +116,7 @@ public class RegistrationFlowTests extends RedXWebBaseClass {
     }
 
     @Test(  description = "Verify Valid String Validation",
-            priority = 5 )
+            priority = 9 )
     public void verifyValidStringValidation() throws Exception
     {
         System.out.println("Verifying Valid String Validation");
@@ -135,11 +126,5 @@ public class RegistrationFlowTests extends RedXWebBaseClass {
         createShopPageObjects.createShop(data);
         errorMsg = data.subList(13,data.size());
         System.out.println("Error Messages : " + errorMsg.toString());
-    }
-
-    @AfterSuite(alwaysRun = true)
-    public void registrationFlowAfterSuite()
-    {
-        driver.quit();
     }
 }

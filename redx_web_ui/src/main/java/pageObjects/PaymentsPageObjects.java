@@ -23,9 +23,7 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
 
     /*----------Elements----------*/
 
-    private WebElement allPickupLocationDropDown;
-    private WebElement allPickupLocationDropDownOption;
-    private List<WebElement> allPickupLocationDropDownOptions;
+    private WebElement invoiceFilterInput;
 
     private WebElement dateRangeInput;
     private WebElement nextMonthButton;
@@ -55,6 +53,20 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
     private WebElement downloadMushokButton;
 
     /*----------Actions----------*/
+
+    public void enterInvoiceFilterInput(int invoice)
+    {
+        invoiceFilterInput = xpathSetter("//input[@placeholder='Invoice No.']");
+        myActions.action_sendKeys(invoiceFilterInput,String.valueOf(invoice));
+        clickSearchButton();
+    }
+
+    public void clearInvoiceFilter()
+    {
+        invoiceFilterInput = xpathSetter("//input[@placeholder='Invoice No.']");
+        invoiceFilterInput.clear();
+        clickSearchButton();
+    }
 
     public void clickDateRangeInput()
     {
@@ -148,7 +160,7 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
 
     public void clickClearDateFilterIcon()
     {
-        clearDateFilterIcon = xpathSetter("//i[@class='anticon anticon-close-circle ant-calendar-picker-clear']");
+        clearDateFilterIcon = xpathSetter("//div[@class='filters-wrapper']//i[contains(@class,'calendar')][2]");
         myActions.action_click(clearDateFilterIcon);
         clickSearchButton();
     }
@@ -401,11 +413,11 @@ public class PaymentsPageObjects extends RedXWebBaseClass{
 
         /*----------Functions----------*/
 
-        public int getRandomParcelIndex()
+        public int getRandomParcelIndex(int size)
         {
             int bound = 20;
-            if(getParcelsSize()<20)
-                bound = getParcelsSize();
+            if(size<20)
+                bound = size;
             int index = random.nextInt(bound)+1;
             System.out.println("Random Index : " + index);
             return index;

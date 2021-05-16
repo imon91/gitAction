@@ -48,6 +48,7 @@ task redxWebUiTest(type: Test) {
         def smoke = project.hasProperty("Smoke")
         def sanity = project.hasProperty("Sanity")
         def regression = project.hasProperty("Reg")
+        def slackBug = project.hasProperty("SlackBug")
         def deliveryChargeMismatchIssue = project.hasProperty("DCMI")
         def suburbsToSuburbs = project.hasProperty("STS")
         def suburbsToOSD = project.hasProperty("STO")
@@ -81,6 +82,9 @@ task redxWebUiTest(type: Test) {
         }
         if (regression) {
             suites "src/test/resources/mySuites/regressionSuite.xml"
+        }
+        if (slackBug) {
+            suites "src/test/resources/mySuites/slackBugSuite.xml"
         }
         if (deliveryChargeMismatchIssue) {
             suites "src/test/resources/mySuites/DeliveryChargeMismatchIssueAutomation.xml"

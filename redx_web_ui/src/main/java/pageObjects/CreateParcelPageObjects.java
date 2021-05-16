@@ -53,6 +53,10 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     private WebElement increaseWeightButton;
     private WebElement decreaseWeightButton;
 
+    private WebElement productCategoryDropDown;
+    private WebElement productCategoryDropDownOption;
+    private List<WebElement> productCategoryDropDownOptions;
+
     private WebElement areaInput;
     private WebElement pickupAreaErrorMessage;
     private WebElement searchArea;
@@ -185,6 +189,45 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     {
         decreaseWeightButton = xpathSetter("//span[@aria-label='Decrease Value']/i");
         myActions.action_click(decreaseWeightButton);
+    }
+
+    public void clickProductCategoryDropDown()
+    {
+        productCategoryDropDown = xpathSetter("//div[@class='selectInput']");
+        myActions.action_click(productCategoryDropDown);
+    }
+
+    public void chooseProductCategory(String category)
+    {
+        clickProductCategoryDropDown();
+        System.out.println("Category : " + category);
+        productCategoryDropDownOption = xpathSetter("//ul[@class='ant-select-dropdown-menu  ant-select-dropdown-menu-root ant-select-dropdown-menu-vertical']/li[contains(text(),'" + category + "')]");
+        myActions.action_click(productCategoryDropDownOption);
+        if(category.equalsIgnoreCase("Others"))
+            enterOtherCategoryInput("Other");
+    }
+
+    public String chooseProductCategory()
+    {
+        clickProductCategoryDropDown();
+        productCategoryDropDownOptions = xpathListSetter("//*[text()='Apparels']/../li");
+        System.out.println(productCategoryDropDownOptions.get(0).getTagName());
+        int size = productCategoryDropDownOptions.size();
+        int index = random.nextInt(size);
+        String category = productCategoryDropDownOptions.get(index).getText();
+        System.out.println("Size : " + size);
+        System.out.println("Index : " + index);
+        System.out.println("Category : " + category);
+        myActions.action_click(productCategoryDropDownOptions.get(index));
+        if(category.equalsIgnoreCase("Others"))
+            enterOtherCategoryInput("Other");
+        return category;
+    }
+
+    public void enterOtherCategoryInput(String category)
+    {
+        productCategoryDropDownOption = xpathSetter("//input[@name='otherProductCategoryType']");
+        myActions.action_sendKeys(productCategoryDropDownOption,category);
     }
 
     public void clickAreaInput()
@@ -485,7 +528,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public String[] getDataFromCsv(String testName)
     {
-        String[] data = new String[14];
+        String[] data = new String[15];
         List<HashMap<String, Object>> createParcelData = CSVParser.getHashListForDataPath(RedXWebFileUtils.createParcelDataCsvFilePath);
         for(int i=0;i<createParcelData.size();i++)
         {
@@ -505,20 +548,21 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                         data[5]=createParcelData.get(i).get("Parcel_Weight").toString();
                         if(data[5].equalsIgnoreCase("random"))
                             data[5] = String.valueOf(random.nextInt(1000)+1);
-                        data[6]=createParcelData.get(i).get("District").toString();
-                        data[7]=createParcelData.get(i).get("Division").toString();
-                        data[8]=createParcelData.get(i).get("Area").toString();
-                        data[9]=createParcelData.get(i).get("Parcel_Type").toString();
-                        if(data[9].equalsIgnoreCase("random"))
-                            data[9] = getRandomValue("Parcel Type");
-                        data[10]=createParcelData.get(i).get("Cash_Collection").toString();
+                        data[6]=createParcelData.get(i).get("Product_Category").toString();
+                        data[7]=createParcelData.get(i).get("District").toString();
+                        data[8]=createParcelData.get(i).get("Division").toString();
+                        data[9]=createParcelData.get(i).get("Area").toString();
+                        data[10]=createParcelData.get(i).get("Parcel_Type").toString();
                         if(data[10].equalsIgnoreCase("random"))
-                            data[10] = String.valueOf(random.nextInt(3000));
-                        data[11]=createParcelData.get(i).get("Selling_Price").toString();
+                            data[10] = getRandomValue("Parcel Type");
+                        data[11]=createParcelData.get(i).get("Cash_Collection").toString();
                         if(data[11].equalsIgnoreCase("random"))
-                            data[11] = String.valueOf(random.nextInt(2000));
-                        data[12]=createParcelData.get(i).get("Acknowledgement").toString();
-                        data[13]=createParcelData.get(i).get("Instructions").toString();
+                            data[11] = String.valueOf(random.nextInt(3000));
+                        data[12]=createParcelData.get(i).get("Selling_Price").toString();
+                        if(data[12].equalsIgnoreCase("random"))
+                            data[12] = String.valueOf(random.nextInt(2000));
+                        data[13]=createParcelData.get(i).get("Acknowledgement").toString();
+                        data[14]=createParcelData.get(i).get("Instructions").toString();
                         break;
                     case "Reverse":
                         data[0]=createParcelData.get(i).get("Customer_Name").toString();
@@ -542,7 +586,8 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                             data[10] = String.valueOf(random.nextInt(2000));
                         data[11]=createParcelData.get(i).get("Acknowledgement").toString();
                         data[12]=createParcelData.get(i).get("Instructions").toString();
-                        data[13] = "";
+                        data[13]="";
+                        data[14]="";
                         break;
                 }
             }
@@ -552,7 +597,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public void clickCreateParcelWithNoInputs(String deliveryType)
     {
-//        chooseDeliveryType(deliveryType);
+        chooseDeliveryType(deliveryType);
         clickParcelWeightInput();
         clickDecreaseWeightButton();
         enterSellingPrice("0");
@@ -565,10 +610,12 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
     public List<String> createRegularParcel(String ...input)
     {
       /* String pickupLocation, String name, String phoneNumber, String address, String merchantId, String parcelWeight,
-      String District, String Division, String area, String parcelType, String cashCollection, String sellingPrice, String acknowledgement, String instructions */
+      String productCategory, String district, String division, String area, String parcelType, String cashCollection,
+      String sellingPrice, String acknowledgement, String instructions */
 
         List<String> deliveryChargeDetails = new ArrayList<>();
-//        chooseDeliveryType("Regular");
+        String pickupArea = new String();
+        chooseDeliveryType("Regular");
         System.out.println("Creating Regular Parcel");
         for (int i = 0; i < input.length; i++)
         {
@@ -577,8 +624,9 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                 {
                     case 0:
                         if(input[i].equalsIgnoreCase("random"))
-                            shopInfoPageObjects.choosePickupLocation();
-                        else shopInfoPageObjects.choosePickupLocation(input[i]);
+                            pickupArea = shopInfoPageObjects.choosePickupLocation();
+                        else {shopInfoPageObjects.choosePickupLocation(input[i]);
+                        pickupArea=input[i];}
                         System.out.println("Pickup Address : " + shopInfoPageObjects.getPickupAddressValue());
                         break;
                     case 1:
@@ -599,28 +647,34 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                         setParcelWeightInput(input[i]);
                         break;
                     case 6:
+                        if(input[i].equalsIgnoreCase("random"))
+                            input[i] = chooseProductCategory();
+                        else chooseProductCategory(input[i]);
+                        break;
+                    case 7:
                         deliveryChargeDetails.add(setAreaInput(input[i], input[i+1], input[i+2]));
                         break;
-                    case 9:
+                    case 10:
                         clickParcelType(input[i]);
                         break;
-                    case 10:
+                    case 11:
                         System.out.println("Cash Collection : " + input[i]);
                         enterCashCollectionAmount(input[i]);
                         break;
-                    case 11:
+                    case 12:
                         System.out.println("Selling Price : " + input[i]);
                         enterSellingPrice(input[i]);
                         break;
-                    case 12:
+                    case 13:
                         clickAcknowledgementButton();
                         break;
-                    case 13:
+                    case 14:
                         enterInstructions(input[i]);
                         break;
                 }
         }
         deliveryChargeDetails.addAll(1,getDeliveryChargeInfo());
+        deliveryChargeDetails.add(pickupArea);
         clickCreateParcelButton();
         return deliveryChargeDetails;
     }
@@ -658,9 +712,9 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                         deliveryChargeDetails.add(setAreaInput(input[5], input[6], input[7]));
                         break;
                     case 8:
-                        if(input[i].equalsIgnoreCase("random"))
-                            choosePickupStore();
-                        else choosePickupStore(input[i]);
+//                        if(input[i].equalsIgnoreCase("random"))
+//                            choosePickupStore();
+//                        else choosePickupStore(input[i]);
                         break;
                     case 9:
                         clickParcelType(input[i]);
@@ -705,7 +759,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
                 errorMsgs.add(getCustomerNameErrorMessage());
                 errorMsgs.add(getParcelWeightErrorMessage());
                 errorMsgs.add(getPickupAreaErrorMessage());
-                errorMsgs.add(getPickupStoreErrorMessage());
+//                errorMsgs.add(getPickupStoreErrorMessage());
                 errorMsgs.add(getSellingPriceErrorMessage());
                 errorMsgs.add(getAcknowledgementErrorMessage());
                 break;

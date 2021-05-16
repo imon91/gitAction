@@ -21,6 +21,7 @@ public class PaymentInvoice extends RedXBaseClass
     private Authentication authentication;
     private ChangeLanguage changeLanguage;
 
+    private List<String> paymentValue;
 
     public void pageInitializer()
     {
@@ -140,20 +141,37 @@ public class PaymentInvoice extends RedXBaseClass
         }
     }
 
-
-
-    @AfterClass(alwaysRun = true)
-    public void parcelInvoiceAfterClass()
+    @Test(groups = {CoreConstants.GROUP_SLACK_BUG},priority = 4)
+    public void verifyPaymentValue()
     {
-        System.out.println("After Parcel Invoice Class");
-        //closeApp();
+        System.out.println("Verifying Payment Value");
+        homePageObjects.clickViewPaymentUpdatesModule();
+        sleep(1000);
+        paymentValue = paymentUpdatesPageObjects.getPaymentValue();
+        System.out.println("Payment Value : " + paymentValue.toString());
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SLACK_BUG},priority = 5)
+    public void verifyPaidAmountTabFunctionality()
+    {
+        System.out.println("Verifying Paid Amount Tab Functionality");
+        paymentUpdatesPageObjects.clickPaidAmountTab();
+        System.out.println("Payment Value : " + paymentUpdatesPageObjects.getPaymentValue());
+        Assert.assertEquals(paymentUpdatesPageObjects.getPaymentValue(),paymentValue);
+    }
+
+    @Test(groups = {CoreConstants.GROUP_SLACK_BUG},priority = 6)
+    public void verifyProcessingAmountTabFunctionality()
+    {
+        System.out.println("Verifying Processing Amount Tab Functionality");
+        paymentUpdatesPageObjects.clickProcessingTab();
+        System.out.println("Payment Value : " + paymentUpdatesPageObjects.getPaymentValue());
+        Assert.assertEquals(paymentUpdatesPageObjects.getPaymentValue(),paymentValue);
     }
 
     @AfterSuite(alwaysRun = true)
     public void redXAndroidAfterSuite(){
-
         System.out.println("redXAndroidAfterSuite Is Called");
         quitBaseDriver();
-
     }
 }

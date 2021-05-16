@@ -26,11 +26,11 @@ public class SetUpTests extends SapBaseClass {
         sapPanelPageObject = new SAPPanelPageObject(driver);
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY},priority = 1)
+    @Test(groups = {CoreConstants.GROUP_SMOKE, CoreConstants.GROUP_SANITY,CoreConstants.GROUP_SLACK_BUG},priority = 1)
     public void setUpTest()
     {
         System.out.println("Setting Up Tests");
-        sapPanelPageObject.performAuthentication("01401122188","6666");
+//        sapPanelPageObject.performAuthentication("01401122188","6666");
     }
 
     @AfterSuite(alwaysRun = true)

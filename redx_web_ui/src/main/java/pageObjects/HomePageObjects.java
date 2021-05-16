@@ -40,6 +40,7 @@ public class HomePageObjects extends RedXWebBaseClass{
     private WebElement currentYearValue;
     private WebElement previousMonthButton;
     private WebElement previousYearButton;
+    private WebElement selectedDate;
     private WebElement dateButton;
 
     private WebElement redxCreditButton;
@@ -114,6 +115,13 @@ public class HomePageObjects extends RedXWebBaseClass{
         return pickupLocation;
     }
 
+    public int getSelectedDate()
+    {
+        selectedDate = xpathSetter("//td[@class='ant-calendar-cell ant-calendar-selected-day']/div");
+        String date = myActions.action_getText(selectedDate);
+        return Integer.parseInt(date);
+    }
+
     public long selectDate(int date, String month, int year)
     {
         previousYearButton = xpathSetter("//a[@class='ant-calendar-prev-year-btn']");
@@ -149,7 +157,10 @@ public class HomePageObjects extends RedXWebBaseClass{
             }
         }
 
-        dateButton = xpathSetter("//td[@class='ant-calendar-cell']/div[text()='" + date + "']");
+        if(getSelectedDate()!=date)
+            dateButton = xpathSetter("//td[@class='ant-calendar-cell']/div[text()='" + date + "']");
+        else dateButton = xpathSetter("//td[@class='ant-calendar-cell ant-calendar-selected-day']/div");
+
         myActions.action_click(dateButton);
         long number = convertDateToNumber(date,index,year);
         return number;

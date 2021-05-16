@@ -49,7 +49,7 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
 
         actionBarObjects.clickOnCoverageAreaDropDown();
 
-        areaIndex = random.nextInt(20);
+        areaIndex = random.nextInt(20) + 1;
         System.out.println("Index : " + areaIndex);
     }
 
@@ -91,7 +91,7 @@ public class CoverageAreaPageTests extends RedXWebBaseClass {
         String area = getRedxApiResponse.getRandomArea(zone);
         coverageAreaPageObjects.enterAreaInput(area);
         String areaValue = coverageAreaPageObjects.getAreaValue(1);
-        driver.navigate().refresh();
+        coverageAreaPageObjects.clearAreaInput();
         System.out.println("Area Search Term : " + area);
         System.out.println("Area Result : " + areaValue);
         Assert.assertTrue(areaValue.contains(area));

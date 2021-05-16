@@ -26,7 +26,7 @@ public class sameBulkIdIssueFix extends SapBaseClass {
     SAPPanelPageObject sapPanelPageObject;
     DashboardPageObjects dashboardPageObjects;
     ImportParcelPageObjects importParcelPageObjects;
-    RecieveModulePageObjects recieveModulePageObjects;
+    ReceiveModulePageObjects recieveModulePageObjects;
     DispatchModulePageObjects dispatchModulePageObjects;
     DownloadModulePageObjects downloadModulePageObjects;
     GetSapApiResponse getSapApiResponse;
@@ -116,7 +116,7 @@ public class sameBulkIdIssueFix extends SapBaseClass {
         sapPanelPageObject = new SAPPanelPageObject(driver1);
         dashboardPageObjects = new DashboardPageObjects(driver1);
         importParcelPageObjects = new ImportParcelPageObjects(driver1);
-        recieveModulePageObjects = new RecieveModulePageObjects(driver1);
+        recieveModulePageObjects = new ReceiveModulePageObjects(driver1);
         dispatchModulePageObjects = new DispatchModulePageObjects(driver1);
         downloadModulePageObjects = new DownloadModulePageObjects(driver1);
         getSapApiResponse = new GetSapApiResponse(CoreConstants.MODULE_SAP_UI);
@@ -186,7 +186,7 @@ public class sameBulkIdIssueFix extends SapBaseClass {
         sapPanelPageObject = new SAPPanelPageObject(driver2);
         dashboardPageObjects = new DashboardPageObjects(driver2);
         importParcelPageObjects = new ImportParcelPageObjects(driver2);
-        recieveModulePageObjects = new RecieveModulePageObjects(driver2);
+        recieveModulePageObjects = new ReceiveModulePageObjects(driver2);
         dispatchModulePageObjects = new DispatchModulePageObjects(driver2);
         downloadModulePageObjects = new DownloadModulePageObjects(driver2);
         getSapApiResponse = new GetSapApiResponse(CoreConstants.MODULE_SAP_UI);

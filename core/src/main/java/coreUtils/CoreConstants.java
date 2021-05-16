@@ -49,6 +49,7 @@ public class CoreConstants {
     public static final String GROUP_FUNCTIONAL = "functional";
     public static final String GROUP_INTEGRATION = "integration";
     public static final String GROUP_REGRESSION = "regression";
+    public static final String GROUP_SLACK_BUG = "slackBug";
 
     /*----------- Environments---------------*/
     public static final String APP_RESELLER = "Reseller";
@@ -63,6 +64,7 @@ public class CoreConstants {
     public static final String MOKAM_DSR_USER = "DSR";
     public static final String APP_STORES = "Stores";
     public static final String APP_SAP = "Sap";
+    public static final String APP_DELIVERY_AGENTS = "DeliveryAgents";
 
 
     /*----- Modules -------*/
