@@ -287,8 +287,8 @@ public class SalesRepFeaturePageObject extends AndroidBaseClass{
         List<String> container = new ArrayList<>();
         String OwnerName=myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='"+packageName+":id/retailer_name']"));
         String MobileNumber = myActions.action_getText(xpathSetter("//android.view.ViewGroup[@index='"+index+"']/android.widget.TextView[@resource-id='"+packageName+":id/retailer_phone']"));
-        container.add(OwnerName);
         container.add(MobileNumber);
+        container.add(OwnerName);
         return container;
     }
 

@@ -458,6 +458,7 @@ public class MokamAssociateAddressModel {
             private int user_address_id;
             private int vaccount_id;
             private String zipcode;
+            private String zone;
 
             public String getAddress1() {
                 return address1;
@@ -601,6 +602,14 @@ public class MokamAssociateAddressModel {
 
             public void setZipcode(String zipcode) {
                 this.zipcode = zipcode;
+            }
+
+            public String getZone() {
+                return zone;
+            }
+
+            public void setZone(String zone) {
+                this.zone = zone;
             }
         }
     }

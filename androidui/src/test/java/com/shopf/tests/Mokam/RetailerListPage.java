@@ -108,13 +108,13 @@ public class RetailerListPage extends AndroidBaseClass {
                 randomShopName = mokamRetailerListModel.getUser_data().get(randomNo).getShop_name();
                 salesRepFeaturePageObject.enterTextInSearchInputBox(randomShopName);
                 List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
-                Assert.assertEquals(randomShopName,retailerDataUIList.get(0));
+                Assert.assertEquals(randomShopName,retailerDataUIList.get(1));
                 salesRepFeaturePageObject.getSearchInputBoxElement().clear();
             }else if (mokamRetailerListModel.getUser_data().get(randomNo).getName()!=null){
                 randomShopName = mokamRetailerListModel.getUser_data().get(randomNo).getName();
                 salesRepFeaturePageObject.enterTextInSearchInputBox(randomShopName);
                 List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
-                Assert.assertEquals(randomShopName,retailerDataUIList.get(0));
+                Assert.assertEquals(randomShopName,retailerDataUIList.get(1));
                 salesRepFeaturePageObject.getSearchInputBoxElement().clear();
             }
         }
@@ -129,27 +129,28 @@ public class RetailerListPage extends AndroidBaseClass {
         String randomMobileNumber = mokamRetailerListModel.getUser_data().get(randomNo).getPhone();
         salesRepFeaturePageObject.enterTextInSearchInputBox(randomMobileNumber);
         List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
-        Assert.assertEquals(randomMobileNumber,retailerDataUIList.get(1));
+        Assert.assertEquals(randomMobileNumber,retailerDataUIList.get(0));
         salesRepFeaturePageObject.getSearchInputBoxElement().clear();
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 3)
     public void verifyFirstRetailerDetails(){
         MokamRetailerListModel mokamRetailerListModel = salesRepFeaturePageObject.salesRepResultsApi();
+        System.out.println(mokamRetailerListModel.getUser_data().size());
         List<String> retailerDataUIList = salesRepFeaturePageObject.getRetailerDataUI(0);
         List<String> firstRetailerDetails_Backend = new ArrayList<>();
+        firstRetailerDetails_Backend.add(0,mokamRetailerListModel.getUser_data().get(0).getPhone());
+        softAssert.assertEquals(retailerDataUIList.get(0),firstRetailerDetails_Backend.get(0));
         if(mokamRetailerListModel.getUser_data().get(0).getName()!=null ||
                 mokamRetailerListModel.getUser_data().get(0).getShop_name()!=null) {
             if (mokamRetailerListModel.getUser_data().get(0).getShop_name()!=null) {
-                firstRetailerDetails_Backend.add(0,mokamRetailerListModel.getUser_data().get(0).getShop_name());
-                softAssert.assertEquals(retailerDataUIList.get(0),firstRetailerDetails_Backend.get(0));
+                firstRetailerDetails_Backend.add(1,mokamRetailerListModel.getUser_data().get(0).getShop_name());
+                softAssert.assertEquals(retailerDataUIList.get(1),firstRetailerDetails_Backend.get(1));
             }else if (mokamRetailerListModel.getUser_data().get(0).getName()!=null){
-                firstRetailerDetails_Backend.add(0,mokamRetailerListModel.getUser_data().get(0).getName());
-                softAssert.assertEquals(retailerDataUIList.get(0),firstRetailerDetails_Backend.get(0));
+                firstRetailerDetails_Backend.add(1,mokamRetailerListModel.getUser_data().get(0).getName());
+                softAssert.assertEquals(retailerDataUIList.get(1),firstRetailerDetails_Backend.get(1));
             }
         }
-        firstRetailerDetails_Backend.add(1,mokamRetailerListModel.getUser_data().get(0).getPhone());
-        softAssert.assertEquals(retailerDataUIList.get(1),firstRetailerDetails_Backend.get(1));
 
         softAssert.assertAll();
     }
