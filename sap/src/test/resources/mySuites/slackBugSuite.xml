@@ -18,6 +18,7 @@
             <class name="slackBugAutomation.ReceiveParcelPageTests"></class>
             <class name="slackBugAutomation.DispatchParcelPageTests"></class>
             <class name="slackBugAutomation.ReceiveProblematicParcelPageTests"></class>
+            <class name="slackBugAutomation.DeliveryPageTests"></class>
         </classes>
     </test>
 </suite>

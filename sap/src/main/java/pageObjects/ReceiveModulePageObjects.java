@@ -91,7 +91,7 @@ public class ReceiveModulePageObjects extends SapBaseClass {
 
     public void chooseSelectShopParcels()
     {
-        selectShopParcels = xpathSetter("//div[@ng-show='ownHubId'][1]/div[1]//button[text()='Parcels']");
+        selectShopParcels = xpathSetter("//div[@ng-show='ownHubId'][1]/div[1]//button[text()='View Parcels']");
         myActions.action_click(selectShopParcels);
     }
 
