@@ -238,7 +238,7 @@ public class Address extends AndroidBaseClass {
     @Test(groups = {"Address.createAddressUsingGeoLocation",
             CoreConstants.GROUP_SANITY})
     public String createAddressUsingGeoLocation() throws Exception {
-        String areaChoosen = null;
+        String areaChosen = null;
         switchFromWebToNative();
         if (idSetter(packageName + ":id/address_list_recycler_view").isDisplayed()) {
             WebElement addNewAddressButton;
@@ -265,7 +265,7 @@ public class Address extends AndroidBaseClass {
             homePageObjects.clickOnLocationNextButton();
             sleep(1000);
             homePageObjects.enterShopName(locationName);
-            areaChoosen = homePageObjects.enterArea();
+            areaChosen = homePageObjects.enterArea();
             sleep(2000);
             homePageObjects.enterAddress("" + random.nextInt(10) + ",West Cross Street");
             homePageObjects.enterMobileNumber("187774447" + random.nextInt(10));
@@ -273,7 +273,7 @@ public class Address extends AndroidBaseClass {
             sleep(2000);
             homePageObjects.selectAddress("Smoke Flow shop " + locationName);
             sleep(3500);
-            return areaChoosen;
+            return areaChosen;
         }
         return null;
     }

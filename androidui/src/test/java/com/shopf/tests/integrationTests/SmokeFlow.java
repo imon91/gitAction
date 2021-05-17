@@ -38,6 +38,7 @@ public class SmokeFlow extends AndroidBaseClass {
     private MyOrdersPageObjects.OrderDetails orderDetails;
     private PaymentModePageObjects paymentModePageObjects;
     private RightNavigationDrawer rightNavigationDrawer;
+    private HomePageObjects homePageObjects;
     private MyActions myActions;
     private String app;
     private String host;
@@ -95,6 +96,7 @@ public class SmokeFlow extends AndroidBaseClass {
         myBagPageObjects = new MyBagPageObjects(androidDriver);
         paymentModePageObjects = new PaymentModePageObjects(androidDriver);
         rightNavigationDrawer = new RightNavigationDrawer(androidDriver);
+        homePageObjects = new HomePageObjects(androidDriver);
         myActions = new MyActions();
         plp_view = productListingPageObjects.plpView;
         salesRepFeaturePageObject = new SalesRepFeaturePageObject(androidDriver);
@@ -157,11 +159,13 @@ public class SmokeFlow extends AndroidBaseClass {
 
     @Test(groups = {CoreConstants.GROUP_SMOKE},
             priority = 3)
-    public void createAddressUsingGeoLocation() throws Exception {
+    public void selectAddress() throws Exception {
         if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
-            address.addressBeforeClass();
-            areaChosen = address.createAddressUsingGeoLocation();
-            System.out.println(areaChosen);
+//            address.addressBeforeClass();
+//            areaChosen = address.createAddressUsingGeoLocation();
+//            System.out.println(areaChosen);
+            homePageObjects.selectAddress(0);
+            areaChosen = homePageObjects.getZoneNameFromAPI(0);
         }
     }
 

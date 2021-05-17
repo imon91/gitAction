@@ -230,6 +230,17 @@ public class HomePageObjects extends AndroidBaseClass {
     public void selectAddress(int index){
         WebElement firstAddressElement = xpathSetter("//androidx.cardview.widget.CardView[@index='"+index+"']/android.view.ViewGroup[@index='0']");
         myActions.action_click(firstAddressElement);
+        clickChooseAddressInAddressWarning();
+    }
+
+    public void clickChooseAddressInAddressWarning(){
+        WebElement element = xpathSetter("//android.widget.TextView[@index='3']");
+        myActions.action_click(element);
+    }
+
+    public void clickGoBackInAddressWarning(){
+        WebElement element = xpathSetter("//android.widget.TextView[@index='4']");
+        myActions.action_click(element);
     }
 
     public void createNewAddress() throws Exception {
@@ -369,6 +380,10 @@ public class HomePageObjects extends AndroidBaseClass {
 
     public List<String> getNameAndAddress_Backend(int index, int count){
         return getCommerceApiResponse.getAddressDetails(getAddressIdOfSelectedAddress(index),count);
+    }
+
+    public String getZoneNameFromAPI(int index){
+        return getCommerceApiResponse.getZoneNameOfAnAddress(getAddressIdOfSelectedAddress(index));
     }
 
     public int getCartItemCount(){

@@ -389,6 +389,15 @@ public class GetCommerceApiResponse {
         return addressDetailsList;
     }
 
+    public String getZoneNameOfAnAddress(int addressId){
+        Map object = new HashMap();
+        object.put("address_id",""+addressId);
+        response = shopUpPostMan.postCall("shopping_cart/associate_order_address.json",object);
+        MokamAssociateAddressModel mokamAssociateAddressModel =
+                gson.fromJson(response.getBody().asString(), MokamAssociateAddressModel.class);
+        return mokamAssociateAddressModel.getOrder_address().getAddress().getZone();
+    }
+
     public List<Double> getCreditAndDebitValue(){
         List<Double> valueList = new ArrayList<>();
         response = shopUpPostMan.getCall("index.json");

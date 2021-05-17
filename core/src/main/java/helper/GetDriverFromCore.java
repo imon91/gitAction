@@ -21,8 +21,8 @@ public class GetDriverFromCore {
     private static final String AUTOMATE_KEY="xT8eHXvfHfkJsCN2ZDqs";
     private static final String APP_RED_X = "bs://24cf101a631c7dae43ba1a71855a773782259474";
     private static final String APP_DELIVERY_AGENTS = "bs://a2a333b9c7af9f1b80dfa79dcfea79b1b566de70";
-    private static final String APP_RESELLER = "bs://ec50dd89ca0142b3eacb90176a2d419a6f75ae6c";
-    private static final String APP_MOKAM = "bs://458ca5fd57ba2eb7c1ff5a4dd93e13ac7b09d2a6";
+    private static final String APP_RESELLER = "bs://6dd111e361c9a96c94d1627963efc8e09ed49628";
+    private static final String APP_MOKAM = "bs://fc439a95478d2a7f900e16d8ccbedfc40c3a0003";
     private static final String APP_STORES = "bs://59f775697e32f859255074777f727a4fd73be12a";
     private static final String KEY_DEVICE_NAME="deviceName";
     private static final String KEY_PLATFORM_NAME="platformName";
@@ -247,10 +247,6 @@ public class GetDriverFromCore {
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Stores-Android-UI");
                 caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "StoresAndroidBuild");
                 caps.setCapability(BrowserStackCapabilities.KEY_APP, APP_STORES);
-            } if(app.equalsIgnoreCase(CoreConstants.APP_DELIVERY_AGENTS)) {
-                caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Delivery-Agents-Android-UI");
-                caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "DeliveryAgentsAndroidBuild");
-                caps.setCapability(BrowserStackCapabilities.KEY_APP,APP_DELIVERY_AGENTS);
             }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "AndroidAppTest");
 //            if(System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
