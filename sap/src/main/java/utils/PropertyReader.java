@@ -34,5 +34,6 @@ public class PropertyReader {
         public static final String DELIVERY_FLOW_HUB_NAME = "DELIVERY_FLOW_HUB_NAME";
         public static final String DELIVERY_FLOW_AGENT_NAME = "DELIVERY_FLOW_AGENT_NAME";
         public static final String DELIVERY_FLOW_CASH = "DELIVERY_FLOW_CASH";
+        public static final String PARTIAL_DELIVERY_AMOUNT = "PARTIAL_DELIVERY_AMOUNT";
     }
 }

@@ -31,6 +31,7 @@ public class DashboardPageObjects extends  SapBaseClass{
     private WebElement receiveModule;
     private WebElement dispatchModule;
     private WebElement downloadModule;
+    private WebElement deliveryModule;
 
     /*----------Actions----------*/
 
@@ -78,6 +79,12 @@ public class DashboardPageObjects extends  SapBaseClass{
     {
         downloadModule = xpathSetter("//a[@href='/logistics/download']");
         myActions.action_click(downloadModule);
+    }
+
+    public void clickDeliveryModule()
+    {
+        deliveryModule = xpathSetter("//a[@href='/logistics/delivery']");
+        myActions.action_click(deliveryModule);
     }
 }
 
