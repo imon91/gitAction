@@ -69,7 +69,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     private WebElement navigationItemMyShop;
 
     // NavigationItem Change Language Mokam
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=5]")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index=4]")
     private WebElement navigationItemChangeLanguageMokam;
 
     // NavigationItem Change Language Reseller
@@ -161,7 +161,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
             myActions.action_click(navigationItemChangeLanguageReseller);
 
         }else if (System.getProperty(BuildParameterKeys.KEY_APP).equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            navigationItemChangeLanguageMokam = xpathSetter("//android.widget.RelativeLayout[@index=5]");
+            navigationItemChangeLanguageMokam = xpathSetter("//android.widget.RelativeLayout[@index=4]");
             myActions.action_click(navigationItemChangeLanguageMokam); 
         }
     }
