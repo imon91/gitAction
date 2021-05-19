@@ -12,12 +12,14 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     private AndroidDriver<WebElement> androidDriver;
     private MyActions myActions;
     private String packageName;
+    private String user;
 
     public RightNavigationDrawer(AndroidDriver<WebElement> androidDriver){
         this.androidDriver = androidDriver;
         PageFactory.initElements(new AppiumFieldDecorator(androidDriver),this);
         myActions = new MyActions();
         packageName = getAppPackage();
+        user = System.getProperty(BuildParameterKeys.KEY_USER);
     }
 
     // Name TextView
@@ -106,7 +108,7 @@ public class RightNavigationDrawer extends AndroidBaseClass{
     private WebElement navigationItemLogoutReseller;
 
     // NavigationItem Logout Mokam
-    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='11']")
+    @AndroidFindBy(xpath = "//android.widget.RelativeLayout[@index='10']")
     private WebElement navigationItemLogoutMokam;
 
     private WebElement profileEditButton;
