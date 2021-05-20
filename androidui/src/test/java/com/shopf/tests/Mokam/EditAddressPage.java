@@ -175,70 +175,70 @@ public class EditAddressPage extends AndroidBaseClass {
         Assert.assertEquals(element.getAttribute("clickable"),"true");
     }
 
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
-    public void verifyBackButtonClickableInLocationPage(){
-        backButtonElement.click();
-        try {
-            homePageObjects.scrollToAddNewAddressButton();
-        } catch (Exception e){
-            System.out.println("No addresses found");
-        }
-        homePageObjects.clickOnAddNewAddressButton();
-        sleep(1000);
-        homePageObjects.clickAllowButton();
-        sleep(1000);
-        WebElement element = homePageObjects.getBackButtonInLocationPageElement();
-        Assert.assertEquals(element.getAttribute("clickable"),"true");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
-    public void verifyTextInLocationInputBox(){
-        WebElement element = homePageObjects.getLocationInputEditText();
-        element.clear();
-        Assert.assertEquals(element.getText(),"Enter Shop Location");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13)
-    public void verifyEnteringTextInLocationInputBox() throws Exception {
-        int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
-        String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
-        homePageObjects.enterLocation(locationName);
-        sleep(2000);
-        WebElement element = homePageObjects.getLocationInputEditText();
-        Assert.assertEquals(element.getText(),locationName);
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
-    public void verifyLocateMeText(){
-        WebElement element = homePageObjects.getLocateMeTextElement();
-        Assert.assertEquals(element.getText(),"Locate Me");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 9)
-    public void verifyLocateMeButtonClickable(){
-        WebElement element = homePageObjects.getLocateMeTextElement();
-        Assert.assertEquals(element.getAttribute("clickable"),"true");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
-    public void verifyTextOfNextButtonInLocationPage(){
-        WebElement element = homePageObjects.getNextButtonInLocationPageElement();
-        Assert.assertEquals(element.getText(),"NEXT");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
-    public void verifyNextButtonInLocationPageClickable(){
-        WebElement element = homePageObjects.getNextButtonInLocationPageElement();
-        Assert.assertEquals(element.getAttribute("clickable"),"true");
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 14)
-    public void verifyAddNewAddressPageTitle(){
-        homePageObjects.clickFirstSuggestionInLocationList();
-        homePageObjects.clickOnLocationNextButton();
-        sleep(1000);
-        Assert.assertEquals(pageTitleElement.getText(),"Add New Address");
-    }
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 7)
+//    public void verifyBackButtonClickableInLocationPage(){
+//        backButtonElement.click();
+//        try {
+//            homePageObjects.scrollToAddNewAddressButton();
+//        } catch (Exception e){
+//            System.out.println("No addresses found");
+//        }
+//        homePageObjects.clickOnAddNewAddressButton();
+//        sleep(1000);
+//        homePageObjects.clickAllowButton();
+//        sleep(1000);
+//        WebElement element = homePageObjects.getBackButtonInLocationPageElement();
+//        Assert.assertEquals(element.getAttribute("clickable"),"true");
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 12)
+//    public void verifyTextInLocationInputBox(){
+//        WebElement element = homePageObjects.getLocationInputEditText();
+//        element.clear();
+//        Assert.assertEquals(element.getText(),"Enter Shop Location");
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 13)
+//    public void verifyEnteringTextInLocationInputBox() throws Exception {
+//        int randomIndex = random.nextInt(readJSONFile.getLocationData(app, "locationTerm").size());
+//        String locationName = String.valueOf(readJSONFile.getLocationData(app, "locationTerm").get(randomIndex));
+//        homePageObjects.enterLocation(locationName);
+//        sleep(2000);
+//        WebElement element = homePageObjects.getLocationInputEditText();
+//        Assert.assertEquals(element.getText(),locationName);
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 8)
+//    public void verifyLocateMeText(){
+//        WebElement element = homePageObjects.getLocateMeTextElement();
+//        Assert.assertEquals(element.getText(),"Locate Me");
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 9)
+//    public void verifyLocateMeButtonClickable(){
+//        WebElement element = homePageObjects.getLocateMeTextElement();
+//        Assert.assertEquals(element.getAttribute("clickable"),"true");
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 10)
+//    public void verifyTextOfNextButtonInLocationPage(){
+//        WebElement element = homePageObjects.getNextButtonInLocationPageElement();
+//        Assert.assertEquals(element.getText(),"NEXT");
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 11)
+//    public void verifyNextButtonInLocationPageClickable(){
+//        WebElement element = homePageObjects.getNextButtonInLocationPageElement();
+//        Assert.assertEquals(element.getAttribute("clickable"),"true");
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SANITY,CoreConstants.GROUP_REGRESSION},priority = 14)
+//    public void verifyAddNewAddressPageTitle(){
+//        homePageObjects.clickFirstSuggestionInLocationList();
+//        homePageObjects.clickOnLocationNextButton();
+//        sleep(1000);
+//        Assert.assertEquals(pageTitleElement.getText(),"Add New Address");
+//    }
 
     @AfterSuite(alwaysRun = true)
     public void editAddressPageAfterSuite(){
