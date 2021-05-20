@@ -296,117 +296,117 @@ public class SmokeFlow extends AndroidBaseClass {
         pdp.verifyPlaceOrderThroughPDP();
     }
 
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
-    public void verifyPriceMismatch(){
-        sleep(1000);
-        discountedPrice_myBag = myBagPageObjects.getDiscountedPrice(productName);
-        Assert.assertEquals(discountedPrice,discountedPrice_myBag);
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
-    public void verifyProductIncrementInMyBag() throws Exception {
-             myBag.myBagBeforeClass();
-            myBag.verifyItemIncrementFunctionalityOnMyBag();
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
-    public void verifyApplyShippingChargeInMyBag()
-    {
-        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
-        { myBag.verifyApplyingShippingCharges();}
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
-    public void verifyPlaceOrderInMyBag()
-    {
-        myBag.verifyPlaceOrderInMyBag();
-        sleep(2000);
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 19)
-    public void verifyDeletingCodDisabledProductInAddress()
-    {  //sleep(4000);
-        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
-        {
-        myBag.deleteProductWithCODDisabled();
-        }
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 20)
-    public void verifySelectAddress() {
-        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
-            myBag.verifyProceedToPaymentByCreatingNewAddress();
-        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
-            myBag.verifySelectAddressInMyBag();
-            myBag.verifyCheckoutProceedInMyBag();
-            sleep(2000);
-        }
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 21)
-    public void verifyProceedToPaymentInAddress()
-    {
-//        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
-//            myBag.verifyCheckoutProceedInMyBag();
-//        sleep(3000);}
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 22)
-    public void verifyCheckoutWithCOD()
-    {
-        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
-            sleep(3500);
-//             myBag.verifyProceedPaymentWithoutChangeAddress();
-//             if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
-//                 paymentModePageObjects.closeJoinPrimoPage();
-//             }
-//         }
-//         sleep(6000);
-    //{       sleep(3500);
-            myBag.verifyProceedPaymentWithoutChangeAddress();
-            //sleep(2000);
-    }
-    }
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 23)
-    public void verifyOrderIdInOrderSuccessfulPage() {
-        orderSuccessFulPageObjects.clickOnClickHereButton();
-
-    }
-
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 24)
-    public void verifyOrderInMyOrders() throws Exception{
-//        //Assert That Control is in MyOrdersPage
-//        //Identify Order Number
-//        myOrders.myOrdersBeforeClass();
-//        orderDetails.clickOnOrderItemByIndex(0);
-//                //(PropertyReader.getValueOfKey(PropertyReader.Keys.ORDER_NUMBER));
-//        // Verify Order
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 15)
+//    public void verifyPriceMismatch(){
+//        sleep(1000);
+//        discountedPrice_myBag = myBagPageObjects.getDiscountedPrice(productName);
+//        Assert.assertEquals(discountedPrice,discountedPrice_myBag);
+//    }
 //
-//        // Come Back to HomePage
-//        for(int i=0;i<2;i++){
-//            new MyActions().clickOnHardKeyBack();
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 16)
+//    public void verifyProductIncrementInMyBag() throws Exception {
+//             myBag.myBagBeforeClass();
+//            myBag.verifyItemIncrementFunctionalityOnMyBag();
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 17)
+//    public void verifyApplyShippingChargeInMyBag()
+//    {
+//        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
+//        { myBag.verifyApplyingShippingCharges();}
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 18)
+//    public void verifyPlaceOrderInMyBag()
+//    {
+//        myBag.verifyPlaceOrderInMyBag();
+//        sleep(2000);
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 19)
+//    public void verifyDeletingCodDisabledProductInAddress()
+//    {  //sleep(4000);
+//        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER))
+//        {
+//        myBag.deleteProductWithCODDisabled();
 //        }
-    }
-
-
-    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 25)
-    public void verifyLogout() throws Exception {
-        if(host.equalsIgnoreCase("Local")){
-            // Do nothing
-        }else {
-            //sleep(2800);
-            logout.logoutBeforeClass();
-            if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
-                actionBarObjects.clickOnBackButton();
-                sleep(1000);
-                actionBarObjects.clickOnBackButton();
-            }
-            logout.verifyLogoutFunctionality();
-        }
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 20)
+//    public void verifySelectAddress() {
+//        if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+//            myBag.verifyProceedToPaymentByCreatingNewAddress();
+//        }else if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)){
+//            myBag.verifySelectAddressInMyBag();
+//            myBag.verifyCheckoutProceedInMyBag();
+//            sleep(2000);
 //        }
-    }
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 21)
+//    public void verifyProceedToPaymentInAddress()
+//    {
+////        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)){
+////            myBag.verifyCheckoutProceedInMyBag();
+////        sleep(3000);}
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 22)
+//    public void verifyCheckoutWithCOD()
+//    {
+//        if(app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+//            sleep(3500);
+////             myBag.verifyProceedPaymentWithoutChangeAddress();
+////             if (app.equalsIgnoreCase(CoreConstants.APP_MOKAM)) {
+////                 paymentModePageObjects.closeJoinPrimoPage();
+////             }
+////         }
+////         sleep(6000);
+//    //{       sleep(3500);
+//            myBag.verifyProceedPaymentWithoutChangeAddress();
+//            //sleep(2000);
+//    }
+//    }
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE},priority = 23)
+//    public void verifyOrderIdInOrderSuccessfulPage() {
+//        orderSuccessFulPageObjects.clickOnClickHereButton();
+//
+//    }
+//
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 24)
+//    public void verifyOrderInMyOrders() throws Exception{
+////        //Assert That Control is in MyOrdersPage
+////        //Identify Order Number
+////        myOrders.myOrdersBeforeClass();
+////        orderDetails.clickOnOrderItemByIndex(0);
+////                //(PropertyReader.getValueOfKey(PropertyReader.Keys.ORDER_NUMBER));
+////        // Verify Order
+////
+////        // Come Back to HomePage
+////        for(int i=0;i<2;i++){
+////            new MyActions().clickOnHardKeyBack();
+////        }
+//    }
+//
+//
+//    @Test(groups = {CoreConstants.GROUP_SMOKE}, priority = 25)
+//    public void verifyLogout() throws Exception {
+//        if(host.equalsIgnoreCase("Local")){
+//            // Do nothing
+//        }else {
+//            //sleep(2800);
+//            logout.logoutBeforeClass();
+//            if (app.equalsIgnoreCase(CoreConstants.APP_RESELLER)) {
+//                actionBarObjects.clickOnBackButton();
+//                sleep(1000);
+//                actionBarObjects.clickOnBackButton();
+//            }
+//            logout.verifyLogoutFunctionality();
+//        }
+////        }
+//    }
 
 
     @AfterSuite(alwaysRun = true)
