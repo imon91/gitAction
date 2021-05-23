@@ -49,6 +49,7 @@ public class MyShopsPageObjects extends RedXWebBaseClass
         shopModule = xpathSetter("//div[@class='shoplist']/div/div//p[text()='" + name + "']/..");
         myActions.action_click(shopModule);
         sleep(1000);
+        new LoginPageObjects(driver).clickCloseModalButton();
     }
 
     public void clickShopByIndex(int index)

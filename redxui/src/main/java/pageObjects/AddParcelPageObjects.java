@@ -160,7 +160,7 @@ public class AddParcelPageObjects extends RedXBaseClass
         clickProductCategoryDropDown();
         productCategoryDropDownOptions = xpathListSetter("//android.widget.ScrollView//android.widget.TextView");
         int size = productCategoryDropDownOptions.size();
-        int index = random.nextInt(size);
+        int index = random.nextInt(size-1);
         System.out.println("Size : " + size);
         System.out.println("Index : " + index);
         System.out.println("Selected Category : " + myActions.action_getText(productCategoryDropDownOptions.get(index)));
@@ -274,15 +274,11 @@ public class AddParcelPageObjects extends RedXBaseClass
     public List<String> createParcelCautionMessages()
     {
         List<String> cautionMessages = new ArrayList<>();
-        WebElement nameCautionMessage = xpathSetter("//android.widget.TextView[@index='3']");
-        WebElement phoneCautionMessage = xpathSetter("//android.widget.TextView[@index='8']");
-        WebElement cashCautionMessage = xpathSetter("//android.widget.TextView[@index='9']");
-        WebElement sellingPriceCautionMessage = xpathSetter("//android.widget.TextView[@index='12']");
-        WebElement addressCautionMessage = xpathSetter("//android.widget.TextView[@index='16']");
+        WebElement nameCautionMessage = xpathSetter("//android.widget.TextView[@index='7']");
+        WebElement phoneCautionMessage = xpathSetter("//android.widget.TextView[@index='14']");
+        WebElement addressCautionMessage = xpathSetter("//android.widget.TextView[@index='21']");
         cautionMessages.add(myActions.action_getText(nameCautionMessage));
         cautionMessages.add(myActions.action_getText(phoneCautionMessage));
-        cautionMessages.add(myActions.action_getText(cashCautionMessage));
-        cautionMessages.add(myActions.action_getText(sellingPriceCautionMessage));
         cautionMessages.add(myActions.action_getText(addressCautionMessage));
         return cautionMessages;
     }

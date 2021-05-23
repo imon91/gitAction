@@ -28,6 +28,7 @@ public class DashboardPageObjects extends  SapBaseClass{
     private WebElement dashboardModule;
     private WebElement logisticsModule;
     private WebElement importParcelsModule;
+    private WebElement pickupModule;
     private WebElement receiveModule;
     private WebElement dispatchModule;
     private WebElement downloadModule;
@@ -59,14 +60,17 @@ public class DashboardPageObjects extends  SapBaseClass{
         myActions.action_click(importParcelsModule);
     }
 
+    public void clickPickupModule()
+    {
+        pickupModule = xpathSetter("//a[@href='/logistics/pickup']");
+        myActions.action_click(pickupModule);
+    }
+
     public void clickReceiveModule()
     {
         receiveModule = xpathSetter("//a[@href='/logistics/receive']");
         myActions.action_click(receiveModule);
-        sleep(2000);
-        actions.sendKeys(Keys.ESCAPE).build().perform();
-        sleep(1000);
-        actions.sendKeys(Keys.ESCAPE).build().perform();
+        skipReconcileReminder();
     }
 
     public void clickDispatchModule()
@@ -85,6 +89,14 @@ public class DashboardPageObjects extends  SapBaseClass{
     {
         deliveryModule = xpathSetter("//a[@href='/logistics/delivery']");
         myActions.action_click(deliveryModule);
+    }
+
+    public void skipReconcileReminder()
+    {
+        sleep(2000);
+        actions.sendKeys(Keys.ESCAPE).build().perform();
+        sleep(1000);
+        actions.sendKeys(Keys.ESCAPE).build().perform();
     }
 }
 
