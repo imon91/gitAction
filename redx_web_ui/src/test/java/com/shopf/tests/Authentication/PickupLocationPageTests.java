@@ -23,7 +23,7 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
     private PickupLocationPageObjects.EditPickupLocationPageObjects editPickupLocationPageObjects;
 
     private GetRedxApiResponse getRedxApiResponse;
-    private ShopInfoModel shopInfoModel;
+    private ShopStoresInfoModel shopStoresInfoModel;
 
     private TestRailDataBuilder testRailDataBuilder = TestRailDataBuilder.getInstance();
 
@@ -44,7 +44,7 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         editPickupLocationPageObjects = pickupLocationPageObjects.new EditPickupLocationPageObjects();
 
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
-        shopInfoModel = new ShopInfoModel();
+        shopStoresInfoModel = new ShopStoresInfoModel();
 
         actionBarObjects.changeShop(shopName);
         setImplicitWait(10000);
@@ -52,7 +52,7 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
         actionBarObjects.clickOnPickupLocationDropDown();
 
         shopId = getRedxApiResponse.getShopId(shopName);
-        shopInfoModel = getRedxApiResponse.shopInfoGetCall(shopId);
+        shopStoresInfoModel = getRedxApiResponse.shopStoresInfoGetCall(shopId);
 
         index = pickupLocationPageObjects.getRandomLocation();
         System.out.println("API Index : " + (index-2));
@@ -79,7 +79,7 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Pickup Name Value");
         String uiValue = pickupLocationPageObjects.getPickupName(index);
-        String apiValue = shopInfoModel.getBody().get(index-2).getNAME();
+        String apiValue = shopStoresInfoModel.getBody().get(index-2).getNAME();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
         Assert.assertEquals(uiValue,apiValue);
@@ -93,7 +93,7 @@ public class PickupLocationPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Pickup Address Value");
         String uiValue = pickupLocationPageObjects.getPickupAddress(index);
-        String apiValue = shopInfoModel.getBody().get(index-2).getADDRESS();
+        String apiValue = shopStoresInfoModel.getBody().get(index-2).getADDRESS();
         System.out.println("Value in UI : " + uiValue);
         System.out.println("Value in API : " + apiValue);
         Assert.assertEquals(uiValue,apiValue);
