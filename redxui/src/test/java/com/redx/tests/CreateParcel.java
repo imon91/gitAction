@@ -96,6 +96,8 @@ public class CreateParcel extends RedXBaseClass
         List<String> cautionMessages = new ArrayList<>();
         cautionMessages.add("Name is required");
         cautionMessages.add("Phone is required");
+        cautionMessages.add("Cash amount is required");
+        cautionMessages.add("Selling price is required");
         cautionMessages.add("Address is required");
         Assert.assertEquals(cautionMessages,addParcelPageObjects.createParcelCautionMessages());
     }

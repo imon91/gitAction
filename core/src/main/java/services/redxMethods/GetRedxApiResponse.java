@@ -32,22 +32,14 @@ public class GetRedxApiResponse {
         return shopListModel;
     }
 
-    public ShopInfoModel shopInfoModel(int shopId)
+    public ShopInfoModel shopInfoGetCall(int shopId)
     {
-        String shopInfoGetCall = EndPoints.VERSION1 + EndPoints.SHOP + shopId + "/public-info";
-        Response shopInfoResponse = shopUpPostMan.getCall(shopInfoGetCall);
-        ShopInfoModel shopInfoModel = gson.fromJson(shopInfoResponse.getBody().asString(),ShopInfoModel.class);
-        return shopInfoModel;
-    }
-
-    public ShopStoresInfoModel shopStoresInfoGetCall(int shopId)
-    {
-        String shopStoresInfoGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.SHOP_STORES + shopId;
-        Response getShopInfoResponse = shopUpPostMan.getCall(shopStoresInfoGetCall);
+        String shopInfoGetCall = EndPoints.VERSION1 + EndPoints.LOGISTICS + EndPoints.SHOP_STORES + shopId;
+        Response getShopInfoResponse = shopUpPostMan.getCall(shopInfoGetCall);
         System.out.println(getShopInfoResponse.getBody().asString());
-        ShopStoresInfoModel shopStoresInfoModel = gson.fromJson(getShopInfoResponse.getBody().asString(), ShopStoresInfoModel.class);
-        System.out.println("Locations : " + shopStoresInfoModel.getBody().size());
-        return shopStoresInfoModel;
+        ShopInfoModel shopInfoModel = gson.fromJson(getShopInfoResponse.getBody().asString(),ShopInfoModel.class);
+        System.out.println("Locations : " + shopInfoModel.getBody().size());
+        return shopInfoModel;
     }
 
     public AreaTreeModel areaTreeGetCall()
@@ -389,14 +381,14 @@ public class GetRedxApiResponse {
 
     public int getStoreId(String shopName,String storeName)
     {
-        ShopStoresInfoModel shopStoresInfoModel = shopStoresInfoGetCall(getShopId(shopName));
-        int storeSize = shopStoresInfoModel.getBody().size();
+        ShopInfoModel shopInfoModel = shopInfoGetCall(getShopId(shopName));
+        int storeSize = shopInfoModel.getBody().size();
         int storeId = 0;
         for(int i=0;i<storeSize;i++)
         {
-            if(shopStoresInfoModel.getBody().get(i).getNAME().equalsIgnoreCase(storeName))
+            if(shopInfoModel.getBody().get(i).getNAME().equalsIgnoreCase(storeName))
             {
-                storeId = shopStoresInfoModel.getBody().get(i).getID();
+                storeId = shopInfoModel.getBody().get(i).getID();
                 break;
             }
         }
@@ -405,15 +397,15 @@ public class GetRedxApiResponse {
 
     public String getStoreAddress(String shopName,String storeName)
     {
-        ShopStoresInfoModel shopStoresInfoModel = shopStoresInfoGetCall(getShopId(shopName));
-        int storeSize = shopStoresInfoModel.getBody().size();
+        ShopInfoModel shopInfoModel = shopInfoGetCall(getShopId(shopName));
+        int storeSize = shopInfoModel.getBody().size();
         System.out.println("Store Size : " + storeSize);
         String storeAddress = new String();
         for(int i=0;i<storeSize;i++)
         {
-            if(shopStoresInfoModel.getBody().get(i).getNAME().equalsIgnoreCase(storeName))
+            if(shopInfoModel.getBody().get(i).getNAME().equalsIgnoreCase(storeName))
             {
-                storeAddress = shopStoresInfoModel.getBody().get(i).getADDRESS();
+                storeAddress = shopInfoModel.getBody().get(i).getADDRESS();
                 System.out.println("Store Address : " + storeAddress);
                 break;
             }

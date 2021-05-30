@@ -45,7 +45,6 @@ public class AuthenticationTests extends RedXWebBaseClass {
         loginPageObjects.performAuthentication("0140112218","6666","8");
 //        System.out.println(driver.manage().getCookies().toString());
         String url = driver.getCurrentUrl();
-        loginPageObjects.clickCloseModalButton();
         System.out.println("Current URL : " + url);
         Assert.assertEquals(url,"https://redx.shopups1.xyz/dashboard/");
     }

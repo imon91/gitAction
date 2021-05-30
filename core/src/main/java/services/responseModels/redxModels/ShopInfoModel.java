@@ -1,16 +1,17 @@
 package services.responseModels.redxModels;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ShopInfoModel {
 
     /**
      * isError : false
-     * body : {"shop":{"ID":648299,"PAGE_ID":null,"SHOP_NAME":"RedX Web Sanity Test Shop","SHOP_ADDRESS":"Dhandamoni","SHOP_PHONE":"01401122188","POLICY":"","MINIMUM_DELIVERY_CHARGE":0,"MAXIMUM_DELIVERY_CHARGE":0,"DISCOUNTS":null,"MINIMUM_ORDER":0,"MESSENGER":null,"GUEST_PURCHASE":true,"BKASH":"disabled","PAYMENT_ENABLED":false,"INT_SHIPPING_ENABLED":false,"SUPER_SELLER":false,"CTA":false,"SHOP_EMAIL":"shopup@gmail.com","VACATION_MODE":false,"VACATION_MESSAGE":null,"AREA_ID":2,"PICKUP_ADDRESS":"Dhandamoni","PICKUP_AREA":null,"PICKUP_PHONE":"8801401122188","BKASH_ENABLED":false,"SELF_BKASH_ENABLED":false,"CREDIT_CARD_ENABLED":false,"SOURCE_SELLER":false,"IS_RESELLER_SOURCE_SELLER":false,"BUSINESS_TYPE":"others","SELF_EXCHANGE_RATE":95,"SHOPUP_EXCHANGE_RATE":99}}
+     * body : [{"ID":64285,"SHOP_ID":648299,"NAME":"Dhanmondi","ADDRESS":"Dhanmondi","AREA_NAME":"Dhanmondi","AREA_ID":2,"PHONE":"8801401122188","STATUS":"active","IS_PICKUP_ENABLED":1,"IS_RETURN_ENABLED":1,"IS_DEFAULT_RETURN_STORE":0,"CREATED_AT":"2021-02-23T05:43:13.000Z","UPDATED_AT":"2021-02-25T09:19:14.000Z"},{"ID":64286,"SHOP_ID":648299,"NAME":"CWH","ADDRESS":"CWH","AREA_NAME":"CWH","AREA_ID":448,"PHONE":"8801401122188","STATUS":"active","IS_PICKUP_ENABLED":1,"IS_RETURN_ENABLED":1,"IS_DEFAULT_RETURN_STORE":0,"CREATED_AT":"2021-02-23T05:43:55.000Z","UPDATED_AT":"2021-02-23T05:43:55.000Z"}]
      */
 
     private boolean isError;
-    private BodyBean body;
+    private List<BodyBean> body;
 
     public boolean isIsError() {
         return isError;
@@ -20,353 +21,148 @@ public class ShopInfoModel {
         this.isError = isError;
     }
 
-    public BodyBean getBody() {
+    public List<BodyBean> getBody() {
         return body;
     }
 
-    public void setBody(BodyBean body) {
+    public void setBody(List<BodyBean> body) {
         this.body = body;
     }
 
     public static class BodyBean implements Serializable {
         /**
-         * shop : {"ID":648299,"PAGE_ID":null,"SHOP_NAME":"RedX Web Sanity Test Shop","SHOP_ADDRESS":"Dhandamoni","SHOP_PHONE":"01401122188","POLICY":"","MINIMUM_DELIVERY_CHARGE":0,"MAXIMUM_DELIVERY_CHARGE":0,"DISCOUNTS":null,"MINIMUM_ORDER":0,"MESSENGER":null,"GUEST_PURCHASE":true,"BKASH":"disabled","PAYMENT_ENABLED":false,"INT_SHIPPING_ENABLED":false,"SUPER_SELLER":false,"CTA":false,"SHOP_EMAIL":"shopup@gmail.com","VACATION_MODE":false,"VACATION_MESSAGE":null,"AREA_ID":2,"PICKUP_ADDRESS":"Dhandamoni","PICKUP_AREA":null,"PICKUP_PHONE":"8801401122188","BKASH_ENABLED":false,"SELF_BKASH_ENABLED":false,"CREDIT_CARD_ENABLED":false,"SOURCE_SELLER":false,"IS_RESELLER_SOURCE_SELLER":false,"BUSINESS_TYPE":"others","SELF_EXCHANGE_RATE":95,"SHOPUP_EXCHANGE_RATE":99}
+         * ID : 64285
+         * SHOP_ID : 648299
+         * NAME : Dhanmondi
+         * ADDRESS : Dhanmondi
+         * AREA_NAME : Dhanmondi
+         * AREA_ID : 2
+         * PHONE : 8801401122188
+         * STATUS : active
+         * IS_PICKUP_ENABLED : 1
+         * IS_RETURN_ENABLED : 1
+         * IS_DEFAULT_RETURN_STORE : 0
+         * CREATED_AT : 2021-02-23T05:43:13.000Z
+         * UPDATED_AT : 2021-02-25T09:19:14.000Z
          */
 
-        private ShopBean shop;
+        private int ID;
+        private int SHOP_ID;
+        private String NAME;
+        private String ADDRESS;
+        private String AREA_NAME;
+        private int AREA_ID;
+        private String PHONE;
+        private String STATUS;
+        private int IS_PICKUP_ENABLED;
+        private int IS_RETURN_ENABLED;
+        private int IS_DEFAULT_RETURN_STORE;
+        private String CREATED_AT;
+        private String UPDATED_AT;
 
-        public ShopBean getShop() {
-            return shop;
+        public int getID() {
+            return ID;
         }
 
-        public void setShop(ShopBean shop) {
-            this.shop = shop;
+        public void setID(int ID) {
+            this.ID = ID;
         }
 
-        public static class ShopBean implements Serializable {
-            /**
-             * ID : 648299
-             * PAGE_ID : null
-             * SHOP_NAME : RedX Web Sanity Test Shop
-             * SHOP_ADDRESS : Dhandamoni
-             * SHOP_PHONE : 01401122188
-             * POLICY :
-             * MINIMUM_DELIVERY_CHARGE : 0
-             * MAXIMUM_DELIVERY_CHARGE : 0
-             * DISCOUNTS : null
-             * MINIMUM_ORDER : 0
-             * MESSENGER : null
-             * GUEST_PURCHASE : true
-             * BKASH : disabled
-             * PAYMENT_ENABLED : false
-             * INT_SHIPPING_ENABLED : false
-             * SUPER_SELLER : false
-             * CTA : false
-             * SHOP_EMAIL : shopup@gmail.com
-             * VACATION_MODE : false
-             * VACATION_MESSAGE : null
-             * AREA_ID : 2
-             * PICKUP_ADDRESS : Dhandamoni
-             * PICKUP_AREA : null
-             * PICKUP_PHONE : 8801401122188
-             * BKASH_ENABLED : false
-             * SELF_BKASH_ENABLED : false
-             * CREDIT_CARD_ENABLED : false
-             * SOURCE_SELLER : false
-             * IS_RESELLER_SOURCE_SELLER : false
-             * BUSINESS_TYPE : others
-             * SELF_EXCHANGE_RATE : 95
-             * SHOPUP_EXCHANGE_RATE : 99
-             */
-
-            private int ID;
-            private Object PAGE_ID;
-            private String SHOP_NAME;
-            private String SHOP_ADDRESS;
-            private String SHOP_PHONE;
-            private String POLICY;
-            private int MINIMUM_DELIVERY_CHARGE;
-            private int MAXIMUM_DELIVERY_CHARGE;
-            private Object DISCOUNTS;
-            private int MINIMUM_ORDER;
-            private Object MESSENGER;
-            private boolean GUEST_PURCHASE;
-            private String BKASH;
-            private boolean PAYMENT_ENABLED;
-            private boolean INT_SHIPPING_ENABLED;
-            private boolean SUPER_SELLER;
-            private boolean CTA;
-            private String SHOP_EMAIL;
-            private boolean VACATION_MODE;
-            private Object VACATION_MESSAGE;
-            private int AREA_ID;
-            private String PICKUP_ADDRESS;
-            private Object PICKUP_AREA;
-            private String PICKUP_PHONE;
-            private boolean BKASH_ENABLED;
-            private boolean SELF_BKASH_ENABLED;
-            private boolean CREDIT_CARD_ENABLED;
-            private boolean SOURCE_SELLER;
-            private boolean IS_RESELLER_SOURCE_SELLER;
-            private String BUSINESS_TYPE;
-            private int SELF_EXCHANGE_RATE;
-            private int SHOPUP_EXCHANGE_RATE;
-
-            public int getID() {
-                return ID;
-            }
-
-            public void setID(int ID) {
-                this.ID = ID;
-            }
-
-            public Object getPAGE_ID() {
-                return PAGE_ID;
-            }
-
-            public void setPAGE_ID(Object PAGE_ID) {
-                this.PAGE_ID = PAGE_ID;
-            }
-
-            public String getSHOP_NAME() {
-                return SHOP_NAME;
-            }
-
-            public void setSHOP_NAME(String SHOP_NAME) {
-                this.SHOP_NAME = SHOP_NAME;
-            }
-
-            public String getSHOP_ADDRESS() {
-                return SHOP_ADDRESS;
-            }
-
-            public void setSHOP_ADDRESS(String SHOP_ADDRESS) {
-                this.SHOP_ADDRESS = SHOP_ADDRESS;
-            }
-
-            public String getSHOP_PHONE() {
-                return SHOP_PHONE;
-            }
-
-            public void setSHOP_PHONE(String SHOP_PHONE) {
-                this.SHOP_PHONE = SHOP_PHONE;
-            }
-
-            public String getPOLICY() {
-                return POLICY;
-            }
-
-            public void setPOLICY(String POLICY) {
-                this.POLICY = POLICY;
-            }
-
-            public int getMINIMUM_DELIVERY_CHARGE() {
-                return MINIMUM_DELIVERY_CHARGE;
-            }
-
-            public void setMINIMUM_DELIVERY_CHARGE(int MINIMUM_DELIVERY_CHARGE) {
-                this.MINIMUM_DELIVERY_CHARGE = MINIMUM_DELIVERY_CHARGE;
-            }
-
-            public int getMAXIMUM_DELIVERY_CHARGE() {
-                return MAXIMUM_DELIVERY_CHARGE;
-            }
-
-            public void setMAXIMUM_DELIVERY_CHARGE(int MAXIMUM_DELIVERY_CHARGE) {
-                this.MAXIMUM_DELIVERY_CHARGE = MAXIMUM_DELIVERY_CHARGE;
-            }
-
-            public Object getDISCOUNTS() {
-                return DISCOUNTS;
-            }
-
-            public void setDISCOUNTS(Object DISCOUNTS) {
-                this.DISCOUNTS = DISCOUNTS;
-            }
-
-            public int getMINIMUM_ORDER() {
-                return MINIMUM_ORDER;
-            }
-
-            public void setMINIMUM_ORDER(int MINIMUM_ORDER) {
-                this.MINIMUM_ORDER = MINIMUM_ORDER;
-            }
-
-            public Object getMESSENGER() {
-                return MESSENGER;
-            }
-
-            public void setMESSENGER(Object MESSENGER) {
-                this.MESSENGER = MESSENGER;
-            }
-
-            public boolean isGUEST_PURCHASE() {
-                return GUEST_PURCHASE;
-            }
-
-            public void setGUEST_PURCHASE(boolean GUEST_PURCHASE) {
-                this.GUEST_PURCHASE = GUEST_PURCHASE;
-            }
-
-            public String getBKASH() {
-                return BKASH;
-            }
-
-            public void setBKASH(String BKASH) {
-                this.BKASH = BKASH;
-            }
-
-            public boolean isPAYMENT_ENABLED() {
-                return PAYMENT_ENABLED;
-            }
-
-            public void setPAYMENT_ENABLED(boolean PAYMENT_ENABLED) {
-                this.PAYMENT_ENABLED = PAYMENT_ENABLED;
-            }
-
-            public boolean isINT_SHIPPING_ENABLED() {
-                return INT_SHIPPING_ENABLED;
-            }
-
-            public void setINT_SHIPPING_ENABLED(boolean INT_SHIPPING_ENABLED) {
-                this.INT_SHIPPING_ENABLED = INT_SHIPPING_ENABLED;
-            }
-
-            public boolean isSUPER_SELLER() {
-                return SUPER_SELLER;
-            }
-
-            public void setSUPER_SELLER(boolean SUPER_SELLER) {
-                this.SUPER_SELLER = SUPER_SELLER;
-            }
-
-            public boolean isCTA() {
-                return CTA;
-            }
-
-            public void setCTA(boolean CTA) {
-                this.CTA = CTA;
-            }
-
-            public String getSHOP_EMAIL() {
-                return SHOP_EMAIL;
-            }
-
-            public void setSHOP_EMAIL(String SHOP_EMAIL) {
-                this.SHOP_EMAIL = SHOP_EMAIL;
-            }
-
-            public boolean isVACATION_MODE() {
-                return VACATION_MODE;
-            }
-
-            public void setVACATION_MODE(boolean VACATION_MODE) {
-                this.VACATION_MODE = VACATION_MODE;
-            }
-
-            public Object getVACATION_MESSAGE() {
-                return VACATION_MESSAGE;
-            }
-
-            public void setVACATION_MESSAGE(Object VACATION_MESSAGE) {
-                this.VACATION_MESSAGE = VACATION_MESSAGE;
-            }
-
-            public int getAREA_ID() {
-                return AREA_ID;
-            }
-
-            public void setAREA_ID(int AREA_ID) {
-                this.AREA_ID = AREA_ID;
-            }
-
-            public String getPICKUP_ADDRESS() {
-                return PICKUP_ADDRESS;
-            }
-
-            public void setPICKUP_ADDRESS(String PICKUP_ADDRESS) {
-                this.PICKUP_ADDRESS = PICKUP_ADDRESS;
-            }
-
-            public Object getPICKUP_AREA() {
-                return PICKUP_AREA;
-            }
-
-            public void setPICKUP_AREA(Object PICKUP_AREA) {
-                this.PICKUP_AREA = PICKUP_AREA;
-            }
-
-            public String getPICKUP_PHONE() {
-                return PICKUP_PHONE;
-            }
-
-            public void setPICKUP_PHONE(String PICKUP_PHONE) {
-                this.PICKUP_PHONE = PICKUP_PHONE;
-            }
-
-            public boolean isBKASH_ENABLED() {
-                return BKASH_ENABLED;
-            }
-
-            public void setBKASH_ENABLED(boolean BKASH_ENABLED) {
-                this.BKASH_ENABLED = BKASH_ENABLED;
-            }
-
-            public boolean isSELF_BKASH_ENABLED() {
-                return SELF_BKASH_ENABLED;
-            }
-
-            public void setSELF_BKASH_ENABLED(boolean SELF_BKASH_ENABLED) {
-                this.SELF_BKASH_ENABLED = SELF_BKASH_ENABLED;
-            }
-
-            public boolean isCREDIT_CARD_ENABLED() {
-                return CREDIT_CARD_ENABLED;
-            }
-
-            public void setCREDIT_CARD_ENABLED(boolean CREDIT_CARD_ENABLED) {
-                this.CREDIT_CARD_ENABLED = CREDIT_CARD_ENABLED;
-            }
-
-            public boolean isSOURCE_SELLER() {
-                return SOURCE_SELLER;
-            }
-
-            public void setSOURCE_SELLER(boolean SOURCE_SELLER) {
-                this.SOURCE_SELLER = SOURCE_SELLER;
-            }
-
-            public boolean isIS_RESELLER_SOURCE_SELLER() {
-                return IS_RESELLER_SOURCE_SELLER;
-            }
-
-            public void setIS_RESELLER_SOURCE_SELLER(boolean IS_RESELLER_SOURCE_SELLER) {
-                this.IS_RESELLER_SOURCE_SELLER = IS_RESELLER_SOURCE_SELLER;
-            }
-
-            public String getBUSINESS_TYPE() {
-                return BUSINESS_TYPE;
-            }
-
-            public void setBUSINESS_TYPE(String BUSINESS_TYPE) {
-                this.BUSINESS_TYPE = BUSINESS_TYPE;
-            }
-
-            public int getSELF_EXCHANGE_RATE() {
-                return SELF_EXCHANGE_RATE;
-            }
-
-            public void setSELF_EXCHANGE_RATE(int SELF_EXCHANGE_RATE) {
-                this.SELF_EXCHANGE_RATE = SELF_EXCHANGE_RATE;
-            }
-
-            public int getSHOPUP_EXCHANGE_RATE() {
-                return SHOPUP_EXCHANGE_RATE;
-            }
-
-            public void setSHOPUP_EXCHANGE_RATE(int SHOPUP_EXCHANGE_RATE) {
-                this.SHOPUP_EXCHANGE_RATE = SHOPUP_EXCHANGE_RATE;
-            }
+        public int getSHOP_ID() {
+            return SHOP_ID;
+        }
+
+        public void setSHOP_ID(int SHOP_ID) {
+            this.SHOP_ID = SHOP_ID;
+        }
+
+        public String getNAME() {
+            return NAME;
+        }
+
+        public void setNAME(String NAME) {
+            this.NAME = NAME;
+        }
+
+        public String getADDRESS() {
+            return ADDRESS;
+        }
+
+        public void setADDRESS(String ADDRESS) {
+            this.ADDRESS = ADDRESS;
+        }
+
+        public String getAREA_NAME() {
+            return AREA_NAME;
+        }
+
+        public void setAREA_NAME(String AREA_NAME) {
+            this.AREA_NAME = AREA_NAME;
+        }
+
+        public int getAREA_ID() {
+            return AREA_ID;
+        }
+
+        public void setAREA_ID(int AREA_ID) {
+            this.AREA_ID = AREA_ID;
+        }
+
+        public String getPHONE() {
+            return PHONE;
+        }
+
+        public void setPHONE(String PHONE) {
+            this.PHONE = PHONE;
+        }
+
+        public String getSTATUS() {
+            return STATUS;
+        }
+
+        public void setSTATUS(String STATUS) {
+            this.STATUS = STATUS;
+        }
+
+        public int getIS_PICKUP_ENABLED() {
+            return IS_PICKUP_ENABLED;
+        }
+
+        public void setIS_PICKUP_ENABLED(int IS_PICKUP_ENABLED) {
+            this.IS_PICKUP_ENABLED = IS_PICKUP_ENABLED;
+        }
+
+        public int getIS_RETURN_ENABLED() {
+            return IS_RETURN_ENABLED;
+        }
+
+        public void setIS_RETURN_ENABLED(int IS_RETURN_ENABLED) {
+            this.IS_RETURN_ENABLED = IS_RETURN_ENABLED;
+        }
+
+        public int getIS_DEFAULT_RETURN_STORE() {
+            return IS_DEFAULT_RETURN_STORE;
+        }
+
+        public void setIS_DEFAULT_RETURN_STORE(int IS_DEFAULT_RETURN_STORE) {
+            this.IS_DEFAULT_RETURN_STORE = IS_DEFAULT_RETURN_STORE;
+        }
+
+        public String getCREATED_AT() {
+            return CREATED_AT;
+        }
+
+        public void setCREATED_AT(String CREATED_AT) {
+            this.CREATED_AT = CREATED_AT;
+        }
+
+        public String getUPDATED_AT() {
+            return UPDATED_AT;
+        }
+
+        public void setUPDATED_AT(String UPDATED_AT) {
+            this.UPDATED_AT = UPDATED_AT;
         }
     }
 }
+

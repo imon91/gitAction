@@ -190,10 +190,6 @@ public class GetDriverFromCore {
                     .equalsIgnoreCase(CoreConstants.APP_RED_X)){
                 caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "RedX-UI");
                 caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "RedXWebApplicationBuild");
-            }else if(System.getProperty(BuildParameterKeys.KEY_APP)
-                .equalsIgnoreCase(CoreConstants.APP_SAP)){
-            caps.setCapability(BrowserStackCapabilities.KEY_PROJECT, "Sap-UI");
-            caps.setCapability(BrowserStackCapabilities.KEY_BUILD, "SapWebApplicationBuild");
             }
             caps.setCapability(BrowserStackCapabilities.KEY_NAME, "WebApplicationTest");
             caps.setCapability(BrowserStackCapabilities.KEY_BROWSER_STACK_VIDEO, CoreConstants.TRUE);
