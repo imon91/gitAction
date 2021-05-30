@@ -3,8 +3,6 @@ package pageObjects;
 import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 
 import java.util.List;
@@ -28,7 +26,6 @@ public class LoginPageObjects extends RedXWebBaseClass {
     private List<WebElement> editOTPText;
     private WebElement submitOTPButton;
     private WebElement loginWithPasswordIcon;
-    private WebElement modalCloseButton;
 
     private WebElement signUpPhoneNumber;
     private WebElement joinAsMerchantButton;
@@ -83,19 +80,6 @@ public class LoginPageObjects extends RedXWebBaseClass {
         joinAsMerchantButton = xpathSetter("//form/button");
         myActions.action_click(joinAsMerchantButton);
     }
-
-    public void clickCloseModalButton()
-    {
-        try {
-            new WebDriverWait(driver,2).until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ant-modal-content']")));
-            modalCloseButton = xpathPresenceSetter("//span[text()='Close']/..");
-            myActions.action_click(modalCloseButton);
-        } catch (Exception e)
-        {
-            System.out.println("Modal Not Found : " + e);
-        }
-    }
-
 
 
 
