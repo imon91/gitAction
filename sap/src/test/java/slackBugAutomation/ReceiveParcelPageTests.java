@@ -14,6 +14,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     private WebDriver driver;
     private DashboardPageObjects dashboardPageObjects;
     private ReceiveModulePageObjects receiveModulePageObjects;
+    private SellerParcelPageObjects sellerParcelPageObjects;
     private GetRedxApiResponse getRedxApiResponse;
     private CreateParcelModel createParcelModel;
 
@@ -28,6 +29,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
         driver = getBaseDriver();
         dashboardPageObjects = new DashboardPageObjects(driver);
         receiveModulePageObjects = new ReceiveModulePageObjects(driver);
+        sellerParcelPageObjects = new SellerParcelPageObjects(driver);
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
         hubName = PropertyReader.getValueOfKey(PropertyReader.Keys.DELIVERY_FLOW_HUB_NAME);
@@ -48,8 +50,8 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     public void verifySelectSellerParcelShopFunctionality()
     {
         System.out.println("Verifying Select Seller Parcel Shop Functionality");
-        receiveModulePageObjects.receiveSellerParcels(shopName);
-        String title = receiveModulePageObjects.getTitleValue();
+        receiveModulePageObjects.viewSellerParcels(shopName, getRedxApiResponse.getShopId(shopName));
+        String title = sellerParcelPageObjects.getTitleValue();
         System.out.println("Title : " + title);
         Assert.assertTrue(title.contains(shopName));
     }
@@ -58,8 +60,8 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     public void verifyScanCodeFunctionality()
     {
         System.out.println("Verifying Scan Code Functionality");
-        receiveModulePageObjects.enterScanCodeInput(trackingId);
-        String scannedId = receiveModulePageObjects.getScannedParcelIdValue();
+        sellerParcelPageObjects.enterScanCodeInput(trackingId);
+        String scannedId = sellerParcelPageObjects.getTrackingIdValue("scanned",1);
         Assert.assertEquals(scannedId,trackingId);
     }
 
@@ -67,7 +69,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     public void verifySendToSortingFunctionality()
     {
         System.out.println("Verifying Send To Sorting Functionality");
-        receiveModulePageObjects.clickSendToSorting();
+        sellerParcelPageObjects.clickSendToSorting();
         //Assert
     }
 

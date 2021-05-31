@@ -13,7 +13,10 @@
         <classes>
             <class name="SetUpTests"></class>
             <class name="com.shopf.tests.authentication.LoginTests"></class>
-            <class name="com.shopf.tests.pagewise.PickupPageTests"></class>
+<!--            <class name="com.shopf.tests.pagewise.PickupPageTests"></class>-->
+<!--            <class name="com.shopf.tests.pagewise.ReceiveParcelPageTests"></class>-->
+            <class name="com.shopf.tests.pagewise.ReceiveSellerParcelPageTests"></class>
         </classes>
+
     </test>
 </suite>

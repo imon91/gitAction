@@ -3,6 +3,7 @@ package services.sapMethods;
 import com.google.gson.Gson;
 import dataParcer.CSVParser;
 import io.restassured.RestAssured;
+import io.restassured.mapper.ObjectMapper;
 import io.restassured.response.Response;
 import javafx.util.Pair;
 import org.json.simple.JSONObject;
@@ -24,6 +25,30 @@ public class GetSapApiResponses {
         shopUpPostMan = new ShopUpPostMan(module);
         random = new Random();
         gson = new Gson();
+    }
+
+    public ShopNameListModel shopNameListGetCall()
+    {
+        String shopNameListGetCall = "https://sap.shopups1.xyz/api/shop/shops-name";
+        Response  shopNameListResponse = shopUpPostMan.getCall(shopNameListGetCall);
+        ShopNameListModel shopNameListModel = gson.fromJson(shopNameListResponse.getBody().asString(),ShopNameListModel.class);
+        return shopNameListModel;
+    }
+
+    public ShopInfoModel shopInfoGetCall(int shopId)
+    {
+        String shopInfoGetCall = "https://sap.shopups1.xyz/api/shop/shops-details?shop=" + shopId;
+        Response shopInfoResponse = shopUpPostMan.getCall(shopInfoGetCall);
+        ShopInfoModel shopInfoModel = gson.fromJson(shopInfoResponse.getBody().asString(),ShopInfoModel.class);
+        return shopInfoModel;
+    }
+
+    public ShopStoreInfoModel shopStoreInfoGetCall(int shopId)
+    {
+        String shopStoreInfoGetCall = "https://apiredx.shopups1.xyz/v1/logistics/shop-stores/" + shopId;
+        Response shopStoreInfoResponse = shopUpPostMan.getCall(shopStoreInfoGetCall);
+        ShopStoreInfoModel shopStoreInfoModel  = gson.fromJson(shopStoreInfoResponse.getBody().asString(),ShopStoreInfoModel.class);
+        return  shopStoreInfoModel;
     }
 
     /*----------Authentication----------*/
@@ -113,6 +138,16 @@ public class GetSapApiResponses {
         return param;
     }
 
+    /*----------Create Parcel----------*/
+
+    public CreateParcelModel createParcelPostCall(int shopId,Map createParcelBody)
+    {
+        String createParcelPostCall = "https://shopups1.xyz/v1/admin/shop/" + shopId + "/logistics/parcels";
+        Response createParcelResponse = shopUpPostMan.postCall(createParcelPostCall, createParcelBody);
+        CreateParcelModel createParcelModel = gson.fromJson(createParcelResponse.getBody().asString(),CreateParcelModel.class);
+        return createParcelModel;
+    }
+
     /*----------Receive Hub Parcel----------*/
 
     public ReceiveParcelsListModel getParcelsReceiveHub(int shopId)
@@ -120,7 +155,7 @@ public class GetSapApiResponses {
         System.out.println("Getting Parcels List of shop " + shopId + " in Receive Module");
         String receiveParcelsPostCall = "https://sap.shopups1.xyz/api/logistics/parcels?filterOutProblematic=true&limit=5000&offset=0&page=1&parcelType=regular&shop=" + shopId + "&status=pickup-pending&status=pickup-in-progress&status=picked-up";
         Response receiveParcelsResponse = shopUpPostMan.getCall(receiveParcelsPostCall);
-        System.out.println(receiveParcelsResponse.getBody().asString());
+//        System.out.println(receiveParcelsResponse.getBody().asString());
         ReceiveParcelsListModel receiveParcelsModel = gson.fromJson(receiveParcelsResponse.getBody().asString(),ReceiveParcelsListModel.class);
         return receiveParcelsModel;
     }
@@ -283,7 +318,15 @@ public class GetSapApiResponses {
         return pickupAgentResponse;
     }
 
-    /*--------------------Hubs--------------------*/
+    /*--------------------Area Management--------------------*/
+
+    public DistrictListModel districtListGetCall()
+    {
+        String districtListGetCall = "https://sap.shopups1.xyz/api/districts";
+        Response districtListResponse = shopUpPostMan.getCall(districtListGetCall);
+        DistrictListModel districtListModel = gson.fromJson(districtListResponse.getBody().asString(),DistrictListModel.class);
+        return districtListModel;
+    }
 
     public HubListModel hubListGetCall()
     {
@@ -486,6 +529,28 @@ public class GetSapApiResponses {
         } else return null;
     }
 
+    public Pair<Integer,String> getRandomAgent(int hubId,String type)
+    {
+        AgentsListModel agentsListModel = agentListGetCall(hubId);
+        int count = 0;
+        int index,size = agentsListModel.getAgents().size();
+        if(size!=0)
+        {
+            while (true){
+                index = random.nextInt(size);
+                count++;
+                if(agentsListModel.getAgents().get(index).getAgentType().equalsIgnoreCase(type))
+                    break;
+                if(count>size){System.out.println("Loop Count Greater than Size"); return null;}
+            }
+            int agentId = agentsListModel.getAgents().get(index).getId();
+            String agentName = agentsListModel.getAgents().get(index).getName();
+            System.out.println("Agent Name : " + agentName);
+            System.out.println("Agent Type : " + agentsListModel.getAgents().get(index).getAgentType());
+            return new Pair<Integer,String>(agentId,agentName);
+        } else return null;
+    }
+
     public int getAgentId(String hubName, String agentName)
     {
         int hubId = getHubId(hubName);
@@ -526,5 +591,37 @@ public class GetSapApiResponses {
                 return i;
         }
         return -1;
+    }
+
+    public Pair<Integer,String> getRandomShop()
+    {
+        ShopNameListModel shopNameListModel = shopNameListGetCall();
+        int size = shopNameListModel.getCount();
+        int index = random.nextInt(size);
+        int shopId = shopNameListModel.getShops().get(index).getId();
+        String shopName = shopNameListModel.getShops().get(index).getName();
+        System.out.println("Shop Name : " + shopName);
+        System.out.println("Shop Id : " + shopId);
+        return new Pair<>(shopId,shopName);
+    }
+
+    public Pair<Integer,String> getRandomStore(int shopId)
+    {
+        ShopStoreInfoModel shopStoreInfoModel = shopStoreInfoGetCall(shopId);
+        int size = shopStoreInfoModel.getBody().size();
+        int index= random.nextInt(size);
+        int storeId = shopStoreInfoModel.getBody().get(index).getID();
+        String storeName = shopStoreInfoModel.getBody().get(index).getNAME();
+        return  new Pair<>(storeId,storeName);
+    }
+
+    public int getRandomDistrict()
+    {
+        DistrictListModel districtListModel= districtListGetCall();
+        int size = districtListModel.getDistricts().size();
+        int index = random.nextInt(size);
+        int districtId = districtListModel.getDistricts().get(index).getId();
+        System.out.println("District Id : " + districtId);
+        return districtId;
     }
 }

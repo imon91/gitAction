@@ -383,4 +383,13 @@ public class PickupPageTests extends SapBaseClass {
         Assert.assertEquals(status,"picked-up");
         Assert.assertEquals(parcelPickedUpCount,String.valueOf(parcelCount));
     }
+
+    @AfterClass(alwaysRun = true)
+    public void pickupPageTestsAfterClass()
+    {
+        System.out.println("Pickup Page Tests After Class");
+        dashboardPageObjects.clickShopUpLogo();
+        dashboardPageObjects.clickLogisticsModule();
+        dashboardPageObjects.clickLogisticsModule();
+    }
 }
