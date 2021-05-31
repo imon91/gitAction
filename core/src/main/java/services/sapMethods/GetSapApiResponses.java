@@ -3,9 +3,7 @@ package services.sapMethods;
 import com.google.gson.Gson;
 import dataParcer.CSVParser;
 import io.restassured.RestAssured;
-import io.restassured.mapper.ObjectMapper;
 import io.restassured.response.Response;
-import javafx.util.Pair;
 import org.json.simple.JSONObject;
 import services.responseModels.sapModels.*;
 import services.serviceUtils.ShopUpPostMan;
@@ -468,7 +466,7 @@ public class GetSapApiResponses {
         return parcelActions;
     }
 
-    public Pair<Integer,String> getRandomHub()
+    public Map getRandomHub()
     {
         HubListModel hubListModel = hubListGetCall();
         int size = hubListModel.getHubs().size();
@@ -476,7 +474,10 @@ public class GetSapApiResponses {
         int hubId = hubListModel.getHubs().get(index).getId();
         String hubName = hubListModel.getHubs().get(index).getHubName();
         System.out.println("Hub Name : " + hubName);
-        return new Pair<Integer,String>(hubId,hubName);
+        Map map = new HashMap();
+        map.put("id",hubId);
+        map.put("name",hubName);
+        return  map;
     }
 
     public String getHubName(int hubId)
@@ -515,7 +516,7 @@ public class GetSapApiResponses {
         return hubId;
     }
 
-    public Pair<Integer,String> getRandomAgent(int hubId)
+    public Map getRandomAgent(int hubId)
     {
         AgentsListModel agentsListModel = agentListGetCall(hubId);
         int size = agentsListModel.getAgents().size();
@@ -525,11 +526,14 @@ public class GetSapApiResponses {
             int agentId = agentsListModel.getAgents().get(index).getId();
             String agentName = agentsListModel.getAgents().get(index).getName();
             System.out.println("Agent Name : " + agentName);
-            return new Pair<Integer,String>(agentId,agentName);
+            Map map = new HashMap();
+            map.put("id",agentId);
+            map.put("name",agentName);
+            return  map;
         } else return null;
     }
 
-    public Pair<Integer,String> getRandomAgent(int hubId,String type)
+    public Map getRandomAgent(int hubId,String type)
     {
         AgentsListModel agentsListModel = agentListGetCall(hubId);
         int count = 0;
@@ -547,7 +551,10 @@ public class GetSapApiResponses {
             String agentName = agentsListModel.getAgents().get(index).getName();
             System.out.println("Agent Name : " + agentName);
             System.out.println("Agent Type : " + agentsListModel.getAgents().get(index).getAgentType());
-            return new Pair<Integer,String>(agentId,agentName);
+            Map map = new HashMap();
+            map.put("id",agentId);
+            map.put("name",agentName);
+            return  map;
         } else return null;
     }
 
@@ -593,7 +600,7 @@ public class GetSapApiResponses {
         return -1;
     }
 
-    public Pair<Integer,String> getRandomShop()
+    public Map getRandomShop()
     {
         ShopNameListModel shopNameListModel = shopNameListGetCall();
         int size = shopNameListModel.getCount();
@@ -602,17 +609,23 @@ public class GetSapApiResponses {
         String shopName = shopNameListModel.getShops().get(index).getName();
         System.out.println("Shop Name : " + shopName);
         System.out.println("Shop Id : " + shopId);
-        return new Pair<>(shopId,shopName);
+        Map map = new HashMap();
+        map.put("id",shopId);
+        map.put("name",shopName);
+        return  map;
     }
 
-    public Pair<Integer,String> getRandomStore(int shopId)
+    public Map getRandomStore(int shopId)
     {
         ShopStoreInfoModel shopStoreInfoModel = shopStoreInfoGetCall(shopId);
         int size = shopStoreInfoModel.getBody().size();
         int index= random.nextInt(size);
         int storeId = shopStoreInfoModel.getBody().get(index).getID();
         String storeName = shopStoreInfoModel.getBody().get(index).getNAME();
-        return  new Pair<>(storeId,storeName);
+        Map map = new HashMap();
+        map.put("id",storeId);
+        map.put("name",storeName);
+        return  map;
     }
 
     public int getRandomDistrict()

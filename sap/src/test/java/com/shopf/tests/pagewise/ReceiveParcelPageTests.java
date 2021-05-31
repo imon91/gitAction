@@ -1,13 +1,14 @@
 package com.shopf.tests.pagewise;
 
 import coreUtils.CoreConstants;
-import javafx.util.Pair;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
 import services.sapMethods.GetSapApiResponses;
 import utils.SapBaseClass;
+
+import java.util.Map;
 
 public class ReceiveParcelPageTests extends SapBaseClass {
 
@@ -16,18 +17,11 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     private ReceiveModulePageObjects receiveModulePageObjects;
     private GetSapApiResponses getSapApiResponses;
 
-    private Pair<Integer,String> hubDetails;
-    private Pair<Integer,String> shopDetails;
-    private Pair<Integer,String> deliveryAgentDetails;
-    private Pair<Integer,String> pickupAgentDetails;
+    private Map hubDetails,shopDetails,deliveryAgentDetails,pickupAgentDetails;
     private String motherHub = "Tejgaon Hub (Mother Hub)";
-    private String hubName;
-    private String parcelHubName;
-    private String shopName;
-    private String deliveryAgentName;
-    private String pickupAgentName;
-    private int hubId;
-    private int shopId;
+    private String hubName,parcelHubName,shopName;
+    private String deliveryAgentName,pickupAgentName;
+    private int hubId,shopId;
 
     @BeforeClass(alwaysRun = true)
     public void receiveParcelPageTestsBeforeClass() throws Exception
@@ -39,13 +33,13 @@ public class ReceiveParcelPageTests extends SapBaseClass {
         getSapApiResponses = new GetSapApiResponses("sap");
 
         hubDetails = getSapApiResponses.getRandomHub();
-        hubId = hubDetails.getKey();
-        hubName = hubDetails.getValue();
+        hubId = (int) hubDetails.get("id");
+        hubName = (String) hubDetails.get("name");
         if(hubName.equalsIgnoreCase(motherHub))
-            parcelHubName = getSapApiResponses.getRandomHub().getValue();
+            parcelHubName = (String) getSapApiResponses.getRandomHub().get("name");
         shopDetails = getSapApiResponses.getRandomShop();
-        shopId = shopDetails.getKey();
-        shopName = shopDetails.getValue();
+        shopId = (int) shopDetails.get("id");
+        shopName = (String) shopDetails.get("name");
 
         deliveryAgentDetails = getSapApiResponses.getRandomAgent(hubId,"delivery");
         pickupAgentDetails = getSapApiResponses.getRandomAgent(hubId,"pickup");
@@ -127,7 +121,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     {
         System.out.println("Verifying View Delivery Agents Parcels Functionality");
         try {
-            deliveryAgentName = deliveryAgentDetails.getValue();
+            deliveryAgentName = (String) deliveryAgentDetails.get("name");
             receiveModulePageObjects.chooseDeliveryAgent(deliveryAgentName);
             String title = receiveModulePageObjects.getTitleValue("h3");
             System.out.println("Title : " + title);
@@ -144,7 +138,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     {
         System.out.println("Verifying View PickUp Agents Parcels Functionality");
         try{
-            pickupAgentName = pickupAgentDetails.getValue();
+            pickupAgentName = (String) pickupAgentDetails.get("name");
             receiveModulePageObjects.choosePickupAgent(pickupAgentName);
             String title = receiveModulePageObjects.getTitleValue("h4");
             System.out.println("Title : " + title);

@@ -1,7 +1,6 @@
 package com.shopf.tests.pagewise;
 
 import coreUtils.CoreConstants;
-import javafx.util.Pair;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -26,7 +25,7 @@ public class ReceiveSellerParcelPageTests extends SapBaseClass {
     private ShopInfoModel shopInfoModel;
     private ReceiveParcelsListModel receiveParcelsListModel;
 
-    private Pair<Integer,String> hubDetails,shopDetails,storeDetails;
+    private Map hubDetails,shopDetails,storeDetails;
     private String hubName,shopName,storeName,trackingId,parcelHubName;
     private int hubId,shopId,storeId,districtId,parcelHubId,uiIndex,apiIndex;
     private int weight,areaId,cash,value,invoiceNumber;
@@ -45,12 +44,12 @@ public class ReceiveSellerParcelPageTests extends SapBaseClass {
         getSapApiResponses = new GetSapApiResponses("sap");
 
         hubDetails = getSapApiResponses.getRandomHub();
-        hubId = hubDetails.getKey();
-        hubName = hubDetails.getValue();
+        hubId = (int) hubDetails.get("id");
+        hubName = (String) hubDetails.get("name");
 
         shopDetails = getSapApiResponses.getRandomShop();
-        shopId = shopDetails.getKey();
-        shopName = shopDetails.getValue();
+        shopId = (int) shopDetails.get("id");
+        shopName = (String) shopDetails.get("name");
 
         shopInfoModel = getSapApiResponses.shopInfoGetCall(shopId);
 
@@ -91,8 +90,8 @@ public class ReceiveSellerParcelPageTests extends SapBaseClass {
         parcelHubId = areaHubModel.getAreas().get(area).getHubId();
         parcelHubName = getSapApiResponses.getHubName(hubId);
         storeDetails = getSapApiResponses.getRandomStore(shopId);
-        storeId = storeDetails.getKey();
-        storeName = storeDetails.getValue();
+        storeId = (int) storeDetails.get("id");
+        storeName = (String) storeDetails.get("name");
         cash = random.nextInt(10000);
         value = random.nextInt(10000);
         invoiceNumber = random.nextInt(1000000)+100000;
