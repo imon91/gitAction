@@ -79,6 +79,7 @@ public class CreateParcel extends RedXBaseClass
 //        homePageObjects.clickChooseShopModule();
 //        chooseShopModule.selectShopByText("ashok shops");
         homePageObjects.clickDeliverYourParcelModule();
+        sleep(500);
         Assert.assertEquals(addParcelPageObjects.getPageTitle(),"Add parcel");
         addParcelPageObjects.addParcel();
         Assert.assertEquals(homePageObjects.getToastMessage(),"1 parcels added");
