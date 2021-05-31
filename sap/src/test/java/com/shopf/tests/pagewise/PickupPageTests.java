@@ -8,7 +8,6 @@ import org.testng.annotations.*;
 import pageObjects.*;
 import services.redxMethods.*;
 import services.sapMethods.*;
-import services.responseModels.redxModels.*;
 import services.responseModels.sapModels.*;
 import utils.*;
 
@@ -29,7 +28,7 @@ public class PickupPageTests extends SapBaseClass {
     private GetRedxApiResponse getRedxApiResponse;
 
     private PickupModel pickupModel;
-    private ShopStoresInfoModel shopStoresInfoModel;
+    private ShopStoreInfoModel shopStoreInfoModel;
 
     private String shopName = "SAP Sanity Test Shop";
     private String storeName,hubName,agentName;
@@ -54,7 +53,7 @@ public class PickupPageTests extends SapBaseClass {
         getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
         shopId = getRedxApiResponse.getShopId(shopName);
-        shopStoresInfoModel = getRedxApiResponse.shopStoresInfoGetCall(shopId);
+        shopStoreInfoModel = getSapApiResponses.shopStoreInfoGetCall(shopId);
 
         dashboardPageObjects.clickLogisticsModule();
         dashboardPageObjects.clickPickupModule();
@@ -66,12 +65,12 @@ public class PickupPageTests extends SapBaseClass {
     {System.out.println("\n /****************************************************************************************************/ \n");}
 
     public void createPickupData() {
-        int stores = shopStoresInfoModel.getBody().size();
+        int stores = shopStoreInfoModel.getBody().size();
         store = random.nextInt(stores);
-        storeName = shopStoresInfoModel.getBody().get(store).getNAME();
-        storeId = shopStoresInfoModel.getBody().get(store).getID();
+        storeName = shopStoreInfoModel.getBody().get(store).getNAME();
+        storeId = shopStoreInfoModel.getBody().get(store).getID();
         parcelCount = random.nextInt(10)+1;
-        hubId = getSapApiResponses.getHubId(1, shopStoresInfoModel.getBody().get(store).getAREA_ID());
+        hubId = getSapApiResponses.getHubId(1, shopStoreInfoModel.getBody().get(store).getAREA_ID());
         hubName = getSapApiResponses.getHubName(hubId);
     }
 
