@@ -48,15 +48,18 @@ task sapUiTest(type: Test) {
         testLogging.showStandardStreams = true
         systemProperties project.properties.subMap(["Host","Os","OSv","Br","BRv","App","Env","Trigger"])
         def smoke = project.hasProperty("Smoke")
+        def sanity = project.hasProperty("Sanity")
         def integration = project.hasProperty("Int")
         def functional = project.hasProperty("Fun")
         def regression = project.hasProperty("Reg")
-        def sameBulkIdIssueFixAutomation = project.hasProperty("SBIA")
         def bulkParcelStatusUpdate = project.hasProperty("BPSU")
         def slackBug = project.hasProperty("SlackBug")
 
         if (smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
+        }
+        if (sanity) {
+            suites "src/test/resources/mySuites/sanitySuite.xml"
         }
         if (integration) {
             suites "src/test/resources/mySuites/integrationSuite.xml"
@@ -66,9 +69,6 @@ task sapUiTest(type: Test) {
         }
         if (regression) {
             suites "src/test/resources/mySuites/regressionSuite.xml"
-        }
-        if(sameBulkIdIssueFixAutomation){
-            suites "src/test/resources/mySuites/sameBulkIdIssueApiAutomation.xml"
         }
         if(bulkParcelStatusUpdate){
             suites "src/test/resources/mySuites/bulkParcelStatusUpdateAutomation.xml"
