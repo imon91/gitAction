@@ -1,7 +1,6 @@
 package com.shopf.tests.pagewise;
 
 import coreUtils.*;
-import javafx.util.*;
 import org.openqa.selenium.*;
 import org.testng.*;
 import org.testng.annotations.*;
@@ -33,7 +32,7 @@ public class PickupPageTests extends SapBaseClass {
     private String shopName = "SAP Sanity Test Shop";
     private String storeName,hubName,agentName;
     private int shopId,storeId,hubId,agentId,store,pickupIndex,parcelCount;
-    private Pair<Integer,String> hubDetails,agentDetails;
+    private Map hubDetails,agentDetails;
 
     @BeforeClass(alwaysRun = true)
     public void pickupPageTestsBeforeClass() throws Exception
@@ -79,8 +78,8 @@ public class PickupPageTests extends SapBaseClass {
     {
         System.out.println("Verifying Hub Filter Functionality");
         hubDetails = getSapApiResponses.getRandomHub();
-        hubId = hubDetails.getKey();
-        hubName = hubDetails.getValue();
+        hubId = (int) hubDetails.get("id");
+        hubName = (String) hubDetails.get("name");
         pickupModulePageObjects.selectHubFilter(hubName);
         pickupModel = getSapApiResponses.pickupGetCall(String.valueOf(hubId),"","");
         int uiValue = pickupModulePageObjects.getPickupPointsValue();
@@ -110,8 +109,8 @@ public class PickupPageTests extends SapBaseClass {
         System.out.println("Verifying Agent Filter Functionality");
         agentDetails = getSapApiResponses.getRandomAgent(hubId);
         try {
-            agentId = agentDetails.getKey();
-            agentName = agentDetails.getValue();
+            agentId = (int) agentDetails.get("id");
+            agentName = (String) agentDetails.get("name");
             pickupModulePageObjects.selectAgentFilter(agentName);
             pickupModel = getSapApiResponses.pickupGetCall(String.valueOf(hubId),String.valueOf(agentId),"");
             int uiValue = pickupModulePageObjects.getPickupPointsValue();
@@ -340,8 +339,8 @@ public class PickupPageTests extends SapBaseClass {
     {
         System.out.println("Verifying Select Agent Functionality");
         agentDetails = getSapApiResponses.getRandomAgent(hubId);
-        agentId = agentDetails.getKey();
-        agentName = agentDetails.getValue();
+        agentId = (int) agentDetails.get("id");
+        agentName = (String) agentDetails.get("name");
         pickupDetailsPageObjects.assignAgent(1,agentName);
 
         pickupModulePageObjects.selectHubFilter(hubName);

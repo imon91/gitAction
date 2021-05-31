@@ -287,9 +287,9 @@ public class ReceiveModulePageObjects extends SapBaseClass {
             while (check)
             {
                 WebDriverWait wait = new WebDriverWait(driver,30);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='ng-binding']")));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='panels']//div[contains(@class,'ng-binding')]")));
                 sleep(2000);
-                count = driver.findElement(By.xpath("//div[@class='ng-binding']"));
+                count = driver.findElement(By.xpath("//div[@class='panels']//div[contains(@class,'ng-binding')]"));
 //                System.out.println("isBusy Text :" + count.getText() + ".");
                 if(count.getText().equalsIgnoreCase("0 /"))
                 {
