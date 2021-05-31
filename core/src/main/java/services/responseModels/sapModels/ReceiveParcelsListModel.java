@@ -2,6 +2,7 @@ package services.responseModels.sapModels;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Random;
 
 public class ReceiveParcelsListModel {
 
@@ -247,7 +248,7 @@ public class ReceiveParcelsListModel {
         private int shopStoreId;
         private int cash;
         private int shopupCharge;
-        private int shopupCodCharge;
+        private float shopupCodCharge;
         private int shopupReturnCharge;
         private String sellerPhone;
         private int isResellerShop;
@@ -946,11 +947,11 @@ public class ReceiveParcelsListModel {
             this.shopupCharge = shopupCharge;
         }
 
-        public int getShopupCodCharge() {
+        public float getShopupCodCharge() {
             return shopupCodCharge;
         }
 
-        public void setShopupCodCharge(int shopupCodCharge) {
+        public void setShopupCodCharge(float shopupCodCharge) {
             this.shopupCodCharge = shopupCodCharge;
         }
 
@@ -1153,5 +1154,16 @@ public class ReceiveParcelsListModel {
         public void setParcel_id(int parcel_id) {
             this.parcel_id = parcel_id;
         }
+    }
+
+    public int getIndex(ReceiveParcelsListModel receiveParcelsListModel,String tracking)
+    {
+        int size = receiveParcelsListModel.getParcels().size();
+        for(int i =0;i<size;i++)
+        {
+            if(receiveParcelsListModel.getParcels().get(i).getId().equalsIgnoreCase(tracking))
+                return i;
+        }
+        return -1;
     }
 }

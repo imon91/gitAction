@@ -2,7 +2,10 @@ package pageObjects;
 
 import auth.CookieManager;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 
 import java.util.List;
@@ -12,12 +15,14 @@ public class LoginPageObjects extends RedXWebBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
+    private Actions actions;
     private String ck;
 
     public LoginPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements((driver), this);
         myActions = new MyActions();
+        actions = new Actions(driver);
     }
 
     private WebElement merchantLoginButton;
@@ -26,6 +31,7 @@ public class LoginPageObjects extends RedXWebBaseClass {
     private List<WebElement> editOTPText;
     private WebElement submitOTPButton;
     private WebElement loginWithPasswordIcon;
+    private WebElement modalCloseButton;
 
     private WebElement signUpPhoneNumber;
     private WebElement joinAsMerchantButton;
@@ -80,6 +86,18 @@ public class LoginPageObjects extends RedXWebBaseClass {
         joinAsMerchantButton = xpathSetter("//form/button");
         myActions.action_click(joinAsMerchantButton);
     }
+
+    public void clickCloseModalButton()
+    {
+        try {
+            sleep(2000);
+            actions.sendKeys(Keys.ESCAPE).build().perform();
+        } catch (Exception e)
+        {
+            System.out.println("Modal Not Found : " + e);
+        }
+    }
+
 
 
 
