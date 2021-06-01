@@ -279,7 +279,7 @@ public class HomePageObjects extends RedXWebBaseClass{
 
     public void waitForLoading()
     {
-        while (driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/dashboard/"))
+        while (driver.getCurrentUrl().equalsIgnoreCase(RedXWebUrlUtils.dashboardUrl))
             sleep(100);
     }
 

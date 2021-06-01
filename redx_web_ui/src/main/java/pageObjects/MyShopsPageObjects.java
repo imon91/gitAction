@@ -712,35 +712,35 @@ public class MyShopsPageObjects extends RedXWebBaseClass
                                 chooseProductTypeDropDown(input[i]);
                                 break;
                             case "N/A":
-                                break;
-                            default : chooseProductTypeDropDown(input[i]);
+                                clickProductTypeDropDown();
+                            default : clickProductTypeDropDown();
                         }
                         break;
                     case 11:
                         switch (input[i])
                         {
                             case "N/A":
-                                enterPasswordInput(input[i]);
-                                clearPasswordInput();
+//                                enterPasswordInput(input[i]);
+//                                clearPasswordInput();
                                 break;
-                            default : enterPasswordInput(input[i]);
+//                            default : enterPasswordInput(input[i]);
                         }
                         break;
                     case 12:
                         switch (input[i])
                         {
                             case "N/A":
-                                enterConfirmPasswordInput("N/");
-                                clearConfirmPasswordInput();
+//                                enterConfirmPasswordInput("N/");
+//                                clearConfirmPasswordInput();
                                 break;
-                            default : enterConfirmPasswordInput(input[i]);
+//                            default : enterConfirmPasswordInput(input[i]);
                         }
                         break;
                     case 13:
-                        enterReferredByInput(input[i]);
+//                        enterReferredByInput(input[i]);
                         break;
                     case 14:
-                        enterReferrerCodeInput(input[i]);
+//                        enterReferrerCodeInput(input[i]);
                         break;
                 }
             }
@@ -755,10 +755,10 @@ public class MyShopsPageObjects extends RedXWebBaseClass
             errorMsgs.add(getShopAddressErrorMessage());
             errorMsgs.add(getPickupAddressErrorMessage());
             errorMsgs.add(getPickupPhoneErrorMessage());
-            errorMsgs.add(getPasswordErrorMessage());
-            errorMsgs.add(getConfirmPasswordErrorMessage());
-            errorMsgs.add(getReferredByErrorMessage());
-            errorMsgs.add(getReferrerCodeErrorMessage());
+//            errorMsgs.add(getPasswordErrorMessage());
+//            errorMsgs.add(getConfirmPasswordErrorMessage());
+//            errorMsgs.add(getReferredByErrorMessage());
+//            errorMsgs.add(getReferrerCodeErrorMessage());
             return errorMsgs;
         }
     }

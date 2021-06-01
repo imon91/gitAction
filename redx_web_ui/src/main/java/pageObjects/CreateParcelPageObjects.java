@@ -769,7 +769,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
     public void waitForLoading()
     {
-        while(driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/create-parcel/"))
+        while(driver.getCurrentUrl().equalsIgnoreCase(RedXWebUrlUtils.createParcelUrl))
             sleep(100);
     }
 
@@ -1014,7 +1014,7 @@ public class CreateParcelPageObjects extends RedXWebBaseClass {
 
         public void waitForLoading()
         {
-            while(driver.getCurrentUrl().contains("https://redx.shopups1.xyz/parcel-success/"))
+            while(driver.getCurrentUrl().contains(RedXWebUrlUtils.parcelSuccessUrl))
                 sleep(100);
         }
     }

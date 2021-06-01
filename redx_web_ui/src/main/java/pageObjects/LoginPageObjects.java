@@ -4,8 +4,6 @@ import auth.CookieManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 
 import java.util.List;
@@ -160,7 +158,7 @@ public class LoginPageObjects extends RedXWebBaseClass {
     public void waitForLoading()
     {
         int count =0;
-        while(!driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/dashboard/"))
+        while(!driver.getCurrentUrl().equalsIgnoreCase(RedXWebUrlUtils.dashboardUrl))
         {
             sleep(100);
             count++;

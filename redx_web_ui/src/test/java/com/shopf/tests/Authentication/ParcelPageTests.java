@@ -413,7 +413,7 @@ public class ParcelPageTests extends RedXWebBaseClass {
     {
         System.out.println("Verifying Parcel Id Functionality");
         String parcelId = parcelsListPageObjects.getParcelIdValue(index);
-        String assertUrl = "https://redx.shopups1.xyz/track-parcel/?trackingId=" + parcelId + "&shopId=" + shopId;
+        String assertUrl = RedXWebUrlUtils.trackParcelUrl + "?trackingId=" + parcelId + "&shopId=" + shopId;
         System.out.println("Parcel Id : " + parcelId);
         parcelsListPageObjects.clickParcelIdButton(index);
         parcelsListPageObjects.waitForLoading();
