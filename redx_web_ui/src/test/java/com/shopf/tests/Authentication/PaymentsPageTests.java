@@ -515,6 +515,6 @@ public class PaymentsPageTests extends RedXWebBaseClass {
         paymentDetailsPageObjects.clickBackButton();
         String url = driver.getCurrentUrl();
         System.out.println("URL : " + url);
-        Assert.assertEquals(url,"https://redx.shopups1.xyz/payments/");
+        Assert.assertEquals(url,RedXWebUrlUtils.paymentsUrl);
     }
 }

@@ -2,8 +2,6 @@ package pageObjects;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.*;
 
 
@@ -135,6 +133,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
         createParcelLink = xpathSetter("//div[@class='nav-links display-on-desktop']/a[5]");
         myActions.action_click("//div[@class='nav-links display-on-desktop']/a[5]");
         waitForLoading();
+        myActions.action_click(xpathSetter("//span[@class='ant-notification-close-x']//i"));
         sleep(1000);
     }
 
@@ -242,7 +241,7 @@ public class ActionBarObjects extends RedXWebBaseClass{
 
     public void waitForLoading()
     {
-        while (driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/dashboard/"))
+        while (driver.getCurrentUrl().equalsIgnoreCase(RedXWebUrlUtils.dashboardUrl))
             sleep(100);
     }
 

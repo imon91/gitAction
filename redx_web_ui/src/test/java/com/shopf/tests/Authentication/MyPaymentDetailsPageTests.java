@@ -104,7 +104,7 @@ public class MyPaymentDetailsPageTests extends RedXWebBaseClass {
         myPaymentDetailsPageObjects.clickChangePaymentLink();
         String currentUrl = driver.getCurrentUrl();
         System.out.println("Current URl : " + currentUrl);
-        Assert.assertEquals(currentUrl,"https://redx.shopups1.xyz/update-shop-payment/");
+        Assert.assertEquals(currentUrl,RedXWebUrlUtils.updateShopPaymentUrl);
     }
 
     @TestRails(caseId = "338")

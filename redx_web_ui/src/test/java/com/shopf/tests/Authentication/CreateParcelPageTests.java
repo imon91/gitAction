@@ -88,7 +88,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         actionBarObjects.clickOnCreateParcelButton();
         setImplicitWait(10000);
 
-        Assert.assertEquals(url,"https://redx.shopups1.xyz/shop-list/");
+        Assert.assertEquals(url,RedXWebUrlUtils.shopListUrl);
     }
 
     @TestRails(caseId = "113")
@@ -123,7 +123,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         actionBarObjects.clickOnCreateParcelButton();
         setImplicitWait(10000);
 
-        Assert.assertEquals(url,"https://redx.shopups1.xyz/parcel-import-bulk/");
+        Assert.assertEquals(url,RedXWebUrlUtils.parcelImportBulkUrl);
     }
 
     @TestRails(caseId = "115")
@@ -329,7 +329,7 @@ public class CreateParcelPageTests extends RedXWebBaseClass {
         parcelSuccessPageObjects.clickRequestNewParcelButton();
         String url = driver.getCurrentUrl();
         System.out.println("Current URL : " + url);
-        Assert.assertEquals(url,"https://redx.shopups1.xyz/create-parcel/");
+        Assert.assertEquals(url,RedXWebUrlUtils.createParcelUrl);
     }
 }
 

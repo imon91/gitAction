@@ -66,7 +66,7 @@ public class HomePageTests extends RedXWebBaseClass {
     public void verifySearchBarParcelIdFunctionality()
     {
         String parcelId = "21A224WE3K6AU";
-        String assertUrl = "https://redx.shopups1.xyz/track-parcel/?trackingId=" + parcelId + "&shopId=" + shopId;
+        String assertUrl = RedXWebUrlUtils.trackParcelUrl + "?trackingId=" + parcelId + "&shopId=" + shopId;
         System.out.println("Verifying Search Bar Parcel ID Functionality");
         String toastMsg = actionBarObjects.searchParcels(parcelId);
 //        System.out.println("Toast Message : " + toastMsg);
@@ -83,7 +83,7 @@ public class HomePageTests extends RedXWebBaseClass {
     public void verifyTrackParcelFunctionality()
     {
         System.out.println("Verifying Track Parcel Functionality");
-        String assertUrl = "https://redx.shopups1.xyz/track-parcel/?trackingId=&shopId=" + shopId;
+        String assertUrl = RedXWebUrlUtils.trackParcelUrl + "?trackingId=&shopId=" + shopId;
         actionBarObjects.clickTrackParcelButton();
         String url = driver.getCurrentUrl();
         System.out.println("Current Url : " + url);
@@ -100,7 +100,7 @@ public class HomePageTests extends RedXWebBaseClass {
         System.out.println("Current URL : " + driver.getCurrentUrl());
         actionBarObjects.clickParcelsLink();
         System.out.println("URL after clicking Parcels : " + driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/parcel-list/");
+        Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.parcelListUrl);
     }
 
     @TestRails(caseId = "25")
@@ -113,7 +113,7 @@ public class HomePageTests extends RedXWebBaseClass {
         System.out.println("Current URL : " + driver.getCurrentUrl());
         actionBarObjects.clickOnDashboardLink();
         System.out.println("URL after clicking Dashboard : " + driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/dashboard/");
+        Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.dashboardUrl);
     }
 
     @TestRails(caseId = "28")
@@ -126,7 +126,7 @@ public class HomePageTests extends RedXWebBaseClass {
         System.out.println("Current URL : " + driver.getCurrentUrl());
         actionBarObjects.clickPaymentsLink();
         System.out.println("URL after clicking Payments : " + driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/payments/");
+        Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.paymentsUrl);
     }
 
     @TestRails(caseId = "19")
@@ -139,7 +139,7 @@ public class HomePageTests extends RedXWebBaseClass {
         System.out.println("Current URL : " + driver.getCurrentUrl());
         actionBarObjects.clickOnRedXlogo();
         System.out.println("URL After Clicking Logo : " + driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/dashboard/");
+        Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.dashboardUrl);
     }
 
     @TestRails(caseId = "27")
@@ -152,7 +152,7 @@ public class HomePageTests extends RedXWebBaseClass {
         System.out.println("Current URL : " + driver.getCurrentUrl());
         actionBarObjects.clickCouponLink();
         System.out.println("URL after clicking Coupon : " + driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/coupon/");
+        Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.couponUrl);
         switchToDashboard();
     }
 
@@ -166,7 +166,7 @@ public class HomePageTests extends RedXWebBaseClass {
         System.out.println("Current URL : " + driver.getCurrentUrl());
         actionBarObjects.clickOnCreateParcelButton();
         System.out.println("URL after clicking Create Parcel : " + driver.getCurrentUrl());
-        Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/create-parcel/");
+        Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.createParcelUrl);
         switchToDashboard();
     }
 
@@ -180,7 +180,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             actionBarObjects.clickOnDropDownMyShopButton();
             System.out.println("URL after clicking My Shops DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/shop-list/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.shopListUrl);
             switchToDashboard();
         }
 
@@ -194,7 +194,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             actionBarObjects.clickOnPickupLocationDropDown();
             System.out.println("URL after clicking My Shops DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/pickup-locations/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.pickupLocationsUrl);
             switchToDashboard();
         }
 
@@ -208,7 +208,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             actionBarObjects.clickOnMyPaymentDetailsDropDown();
             System.out.println("URL after clicking My Payment Details DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/shop-payment/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.shopPaymentUrl);
             switchToDashboard();
         }
 
@@ -222,7 +222,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             actionBarObjects.clickOnNotificationSettingsDropDown();
             System.out.println("URL after clicking Notification Settings DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/notification-settings/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.notificationSettingsUrl);
             switchToDashboard();
         }
 
@@ -236,7 +236,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             actionBarObjects.clickOnCoverageAreaDropDown();
             System.out.println("URL after clicking Coverage Area DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/coverage-area/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.coverageAreaUrl);
             switchToDashboard();
         }
 
@@ -250,7 +250,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             actionBarObjects.clickOnChangePasswordDropDown();
             System.out.println("URL after clicking Change Password DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/change-password/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.changePasswordUrl);
             switchToDashboard();
         }
 
@@ -264,7 +264,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             actionBarObjects.clickOnCreditHistoryDropDown();
             System.out.println("URL after clicking Credit History DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/credit-history/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.creditHistoryUrl);
             switchToDashboard();
         }
 
@@ -290,7 +290,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("URL after clicking Tutorials DropDown : " + url);
             driver.close();
             driver.switchTo().window(parentWindow);
-            Assert.assertEquals(url,"https://www.youtube.com/channel/UCm8-BBWm89zLCqjFQgqJPwQ");
+            Assert.assertEquals(url,RedXWebUrlUtils.tutorialsUrl);
         }
 
         @TestRails(caseId = "53")
@@ -304,7 +304,7 @@ public class HomePageTests extends RedXWebBaseClass {
             actionBarObjects.clickOnLogoutDropDown();
             setImplicitWait(1000);
             System.out.println("URL after clicking Logout DropDown : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.baseUrl);
         }
 
         @TestRails(caseId = "39")
@@ -348,7 +348,7 @@ public class HomePageTests extends RedXWebBaseClass {
             System.out.println("Current URL : " + driver.getCurrentUrl());
             homePageObjects.clickRedxCreditButton();
             System.out.println("URL after clicking RedX Credit : " + driver.getCurrentUrl());
-            Assert.assertEquals(driver.getCurrentUrl(),"https://redx.shopups1.xyz/credit-history/");
+            Assert.assertEquals(driver.getCurrentUrl(),RedXWebUrlUtils.creditHistoryUrl);
             switchToDashboard();
         }
 

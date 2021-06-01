@@ -104,6 +104,6 @@ public class ChangePasswordPageTests extends RedXWebBaseClass {
         changePasswordPageObjects.clickResetButton();
         String  currentUrl = driver.getCurrentUrl();
         System.out.println("Current URL : " + currentUrl);
-        Assert.assertEquals(currentUrl,"https://redx.shopups1.xyz/forgot-password/");
+        Assert.assertEquals(currentUrl,RedXWebUrlUtils.forgotPasswordUrl);
     }
 }

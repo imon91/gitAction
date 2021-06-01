@@ -660,7 +660,7 @@ public class ParcelPageObjects extends RedXWebBaseClass{
         }
         public void waitForLoading()
         {
-            while (driver.getCurrentUrl().equalsIgnoreCase("https://redx.shopups1.xyz/parcel-list/"))
+            while (driver.getCurrentUrl().equalsIgnoreCase(RedXWebUrlUtils.parcelListUrl))
                 sleep(100);
         }
     }

@@ -85,7 +85,7 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         forgotPasswordPageObjects.clickLoginWithOtp();
         String  currentUrl = driver.getCurrentUrl();
         System.out.println("Current URL : " + currentUrl);
-        Assert.assertEquals(currentUrl,"https://redx.shopups1.xyz/login/");
+        Assert.assertEquals(currentUrl,RedXWebUrlUtils.loginUrl);
         driver.navigate().back();
     }
 
@@ -197,6 +197,6 @@ public class ForgotPasswordPageTests extends RedXWebBaseClass {
         resetPasswordSuccessPageObjects.clickReturnToLoginButton();
         String  currentUrl = driver.getCurrentUrl();
         System.out.println("Current URL : " + currentUrl);
-        Assert.assertEquals(currentUrl,"https://redx.shopups1.xyz/login/?password=true");
+        Assert.assertEquals(currentUrl,RedXWebUrlUtils.loginUrl + "?password=true");
     }
 }
