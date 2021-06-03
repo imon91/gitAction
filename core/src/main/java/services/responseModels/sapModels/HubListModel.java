@@ -12,6 +12,7 @@ public class HubListModel {
 
     private boolean error;
     private List<HubsBean> hubs;
+    private List<BodyBean> body;
 
     public boolean isError() {
         return error;
@@ -27,6 +28,50 @@ public class HubListModel {
 
     public void setHubs(List<HubsBean> hubs) {
         this.hubs = hubs;
+    }
+
+    public List<BodyBean> getBody() {
+        return body;
+    }
+
+    public void setBody(List<BodyBean> body) {
+        this.body = body;
+    }
+
+    public static class BodyBean implements Serializable {
+        /**
+         * ID : 101
+         * HUB_NAME : Hathazari Hub
+         * IS_MH : 0
+         */
+
+        private int ID;
+        private String HUB_NAME;
+        private int IS_MH;
+
+        public int getID() {
+            return ID;
+        }
+
+        public void setID(int ID) {
+            this.ID = ID;
+        }
+
+        public String getHUB_NAME() {
+            return HUB_NAME;
+        }
+
+        public void setHUB_NAME(String HUB_NAME) {
+            this.HUB_NAME = HUB_NAME;
+        }
+
+        public int getIS_MH() {
+            return IS_MH;
+        }
+
+        public void setIS_MH(int IS_MH) {
+            this.IS_MH = IS_MH;
+        }
     }
 
     public static class HubsBean implements Serializable {

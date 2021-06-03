@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import pageObjects.logistics.ReceiveFromDeliveryAgentsPageObjects;
 import utils.*;
 
 import java.util.Random;

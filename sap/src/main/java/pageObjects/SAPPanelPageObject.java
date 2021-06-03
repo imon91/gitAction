@@ -55,7 +55,7 @@ public class SAPPanelPageObject extends SapBaseClass {
 
     public void clickLoginButton()
     {
-        loginButton = xpathSetter("//div[@class='panel-body'][2]/button");
+        loginButton = xpathSetter("//div[@class='panel-body'][2]//button");
 //      loginButton = xpathSetter(driver,"//div[@class='panel-body'][2]/button");
 //      loginButton = driver.findElement(By.xpath("//div[@class='panel-body'][2]/button"));
         myActions.action_click(loginButton);

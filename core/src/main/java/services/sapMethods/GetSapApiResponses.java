@@ -334,10 +334,19 @@ public class GetSapApiResponses {
         return hubListModel;
     }
 
+    public HubListModel hubListGetCall(int currentHubId,String type)
+    {
+        String hubListGetCall = "https://shopups1.xyz/v4/logistics/hubs?currentHubId=" + currentHubId + "&type=" + type;
+        Response hubListResponse = shopUpPostMan.getCall(hubListGetCall);
+        HubListModel hubListModel = gson.fromJson(hubListResponse.getBody().asString(),HubListModel.class);
+        return hubListModel;
+    }
+
     public AreaHubModel areaHubListGetCall(int districtId)
     {
         String areaHubListGetCall = "https://sap.shopups1.xyz/api/districts/" + districtId + "/area-hub";
         Response areaHubListResponse = shopUpPostMan.getCall(areaHubListGetCall);
+        System.out.println(areaHubListResponse.asString());
         AreaHubModel areaHubModel = gson.fromJson(areaHubListResponse.getBody().asString(),AreaHubModel.class);
         return areaHubModel;
     }
@@ -473,6 +482,28 @@ public class GetSapApiResponses {
         int index = random.nextInt(size);
         int hubId = hubListModel.getHubs().get(index).getId();
         String hubName = hubListModel.getHubs().get(index).getHubName();
+        System.out.println("Hub Name : " + hubName);
+        Map map = new HashMap();
+        map.put("id",hubId);
+        map.put("name",hubName);
+        return  map;
+    }
+
+    public Map getRandomHub(int currentHubId)
+    {
+        String type = new String();
+        switch (currentHubId) {
+            case 7 :
+                type = "sub_hubs";
+                break;
+            case 8 :
+                type = "hubs";
+        }
+        HubListModel hubListModel = hubListGetCall(currentHubId,type);
+        int size = hubListModel.getBody().size();
+        int index = random.nextInt(size);
+        int hubId = hubListModel.getBody().get(index).getID();
+        String hubName = hubListModel.getBody().get(index).getHUB_NAME();
         System.out.println("Hub Name : " + hubName);
         Map map = new HashMap();
         map.put("id",hubId);

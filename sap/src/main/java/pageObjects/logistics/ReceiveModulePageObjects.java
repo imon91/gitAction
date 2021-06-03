@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.logistics;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
@@ -49,13 +49,13 @@ public class ReceiveModulePageObjects extends SapBaseClass {
 
     public void clickDropDownOption(String option)
     {
-        dropDownOption = xpathSetter("//strong[text()='" + option + "']/..");
+        dropDownOption = xpathSetter("//strong[text()='" + option.trim() + "']/..");
         myActions.action_click(dropDownOption);
     }
 
     public void clickDropDownOptionByTitle(String option)
     {
-        dropDownOption = xpathSetter("//a[contains(@title,'" + option + "')]");
+        dropDownOption = xpathSetter("//a[contains(@title,'" + option.trim() + "')]");
         myActions.action_click(dropDownOption);
     }
 
@@ -77,7 +77,7 @@ public class ReceiveModulePageObjects extends SapBaseClass {
     {
         sellerParcelShopInput = xpathSetter("//input[@placeholder='Select shop']");
         myActions.action_click(sellerParcelShopInput);
-        myActions.action_sendKeys(sellerParcelShopInput,shopName);
+        myActions.action_sendKeys(sellerParcelShopInput,String.valueOf(shopId));
         clickDropDownOptionByTitle(String.valueOf(shopId));
     }
 
@@ -85,7 +85,7 @@ public class ReceiveModulePageObjects extends SapBaseClass {
     {
         viewSellerParcelsButton = xpathSetter("//div[@ng-show='ownHubId'][1]/div[1]//button[text()='View Parcels']");
         myActions.action_click(viewSellerParcelsButton);
-        new SellerParcelPageObjects(driver).waitForLoading();
+        new ReceiveSellerParcelPageObjects(driver).waitForLoading();
     }
 
     public void enterHubParcelHubInput(String hubName)
@@ -188,7 +188,7 @@ public class ReceiveModulePageObjects extends SapBaseClass {
     {
         reversePickupShopInput = xpathSetter("//input[@placeholder='Choose shop']");
         myActions.action_click(reversePickupShopInput);
-        myActions.action_sendKeys(reversePickupShopInput,shopName);
+        myActions.action_sendKeys(reversePickupShopInput,String.valueOf(shopId));
         clickDropDownOptionByTitle(String.valueOf(shopId));
     }
 

@@ -1,19 +1,20 @@
-package pageObjects;
+package pageObjects.logistics;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.*;
 import org.openqa.selenium.support.ui.*;
 import utils.*;
 
 import java.util.*;
 
-public class SellerParcelPageObjects extends SapBaseClass {
+public class ReceiveSellerParcelPageObjects extends SapBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
     private Random random;
 
-    public SellerParcelPageObjects(WebDriver driver) {
+    public ReceiveSellerParcelPageObjects(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         myActions = new MyActions();
@@ -108,9 +109,24 @@ public class SellerParcelPageObjects extends SapBaseClass {
         closeErrorMessage();
     }
 
+    public void enterScanInvoiceNumberInput(String invoice)
+    {
+        invoiceIdSearchInput = xpathSetter("//input[@placeholder='Scan Invoice Number']");
+        myActions.action_sendKeys(invoiceIdSearchInput,invoice);
+        invoiceIdSearchInput.sendKeys(Keys.ENTER);
+        closeErrorMessage();
+    }
+
     public void enterScanCodeInput(String trackingId)
     {
         scannedCodeInput = xpathSetter("//input[@placeholder='Scanned code']");
+        myActions.action_sendKeys(scannedCodeInput,trackingId);
+        scannedCodeInput.sendKeys(Keys.ENTER);
+    }
+
+    public void enterScannedParcelIdInput(String trackingId)
+    {
+        scannedCodeInput = xpathSetter("//input[@placeholder='Scanned parcel id']");
         myActions.action_sendKeys(scannedCodeInput,trackingId);
         scannedCodeInput.sendKeys(Keys.ENTER);
     }
@@ -184,6 +200,7 @@ public class SellerParcelPageObjects extends SapBaseClass {
         areaInput.clear();
         myActions.action_sendKeys(areaInput,area);
         clickDropDownOption(area);
+        sleep(1000);
     }
 
     public String getAreaValue(String section,int index)
@@ -240,7 +257,7 @@ public class SellerParcelPageObjects extends SapBaseClass {
 
     public void clickReturnButton(String section,int index)
     {
-        returnButton = xpathSetter("//section[@class='" + section + "-section']//div[contains(@class,'fresh-parcel')][" + index + "]//button[text()='Returned']");
+        returnButton = xpathSetter("//section[@class='" + section + "-section']//div[contains(@class,'fresh-parcel')][" + index + "]//button[contains(text(),'Return')]");
         myActions.action_click(returnButton);
     }
 
@@ -402,6 +419,160 @@ public class SellerParcelPageObjects extends SapBaseClass {
             enterSellingPriceInput(inputs[7]);
             enterInvoiceInput(inputs[8]);
             clickSubmitButton();
+        }
+    }
+
+    public class MotherHubScannedParcelPageObjects
+    {
+        /*---------------Elements---------------*/
+
+        private WebElement scannedParcelCount;
+        private WebElement scannedParcelHub;
+
+        private WebElement sendToSortingButton;
+        private WebElement viewParcelsButton;
+
+        private WebElement phoneValue;
+        private WebElement trackingIdValue;
+        private WebElement customerNameValue;
+        private WebElement cashValue;
+        private WebElement addressValue;
+        private WebElement invoiceValue;
+        private WebElement createdDateValue;
+        private WebElement areaInput;
+        private WebElement partnerDropDown;
+        private List<WebElement> partnerDropDownOptions;
+        private WebElement partnerValue;
+        private WebElement weightInput;
+        private WebElement hubValue;
+
+        private WebElement moveButton;
+
+        /*---------------Actions---------------*/
+
+        public String getScannedParcelHubValue(int index)
+        {
+            scannedParcelHub = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//h4");
+            String value = myActions.action_getText(scannedParcelHub);
+            return value.substring(5);
+        }
+
+        public String getScannedParcelCountValue(int index)
+        {
+            scannedParcelCount = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//p");
+            String value = myActions.action_getText(scannedParcelCount);
+            return value.substring(14);
+        }
+
+        public void clickSendToSortingButton(int index)
+        {
+            sendToSortingButton = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//button[contains(text(),'Send to sorting')]");
+            myActions.action_click(sendToSortingButton);
+        }
+
+        public void clickViewParcelsButton(int index)
+        {
+            viewParcelsButton = xpathSetter("//section[@class='scanned-section']//div[contains(@class,'fresh-parcel')][" + index + "]//button[contains(text(),'View parcels')]");
+            myActions.action_click(viewParcelsButton);
+        }
+
+        public String getParcelPhoneValue(int index)
+        {
+            phoneValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//h4");
+            String value = myActions.action_getText(phoneValue);
+            String[] values = value.split(" ");
+            return values[0];
+        }
+
+        public String getTrackingIdValue(int index)
+        {
+            trackingIdValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//h4/small");
+            return myActions.action_getText(trackingIdValue);
+        }
+
+        public String getCustomerNameValue(int index)
+        {
+            customerNameValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//p[@class='name ng-binding']");
+            return myActions.action_getText(customerNameValue);
+        }
+
+        public String getCashValue(int index)
+        {
+            cashValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//p[contains(text(),'Cash')]");
+            String value = myActions.action_getText(cashValue);
+            return value.substring(7);
+        }
+
+        public String getAddressValue(int index)
+        {
+            addressValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//p[@class='address ng-binding'][1]");
+            return myActions.action_getText(addressValue);
+        }
+
+        public String getInvoiceIdValue(int index)
+        {
+            invoiceValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//b[text()='Merchant Invoice ID:']/..");
+            String value = myActions.action_getText(invoiceValue);
+            return value.substring(21);
+        }
+
+        public void enterAreaInput(int index,String area)
+        {
+            areaInput = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//input[@placeholder='Select Area']");
+            areaInput.clear();
+            myActions.action_sendKeys(areaInput,area);
+            clickDropDownOption(area);
+            sleep(1000);
+        }
+
+        public String getAreaValue(int index)
+        {
+            areaInput = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//input[@placeholder='Select Area']");
+            return areaInput.getAttribute("value");
+        }
+
+        public void clickPartnerDropDown(int index)
+        {
+            partnerDropDown = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//select");
+            myActions.action_click(partnerDropDown);
+        }
+
+        public String chooseRandomPartnerDropDownOption(int index)
+        {
+            clickPartnerDropDown(index);
+            partnerDropDownOptions = xpathListSetter("");
+            int size = partnerDropDownOptions.size();
+            int option = random.nextInt(size);
+            String partner = myActions.action_getText(partnerDropDownOptions.get(option));
+            myActions.action_click(partnerDropDownOptions.get(option));
+            return partner;
+        }
+
+        public String getPartnerValue(int index)
+        {
+            partnerValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//select/option[@selected]");
+            return myActions.action_getText(partnerValue);
+        }
+
+        public String getWeightValue(int index)
+        {
+            weightInput = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//div[@class='label-weight']/../input");
+            return weightInput.getAttribute("value");
+        }
+
+        public String getHubValue(int index)
+        {
+            hubValue = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//h5[@class='ng-binding']");
+            String value = myActions.action_getText(hubValue);
+            return value.substring(5);
+        }
+
+        public void clickMoveButton(int index)
+        {
+            myActions.action_click(xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]"));
+            moveButton = xpathSetter("//div[@class='modal-content']//div[contains(@class,'fresh-parcel')][" + index + "]//button");
+            myActions.action_click(moveButton);
+            new Actions(driver).sendKeys(Keys.ESCAPE).build().perform();
         }
     }
 }

@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.logistics;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
