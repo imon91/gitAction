@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.testng.*;
 import org.testng.annotations.*;
 import pageObjects.*;
+import pageObjects.logistics.PickupModulePageObjects;
 import services.redxMethods.*;
 import services.sapMethods.*;
 import services.responseModels.sapModels.*;
@@ -234,7 +235,7 @@ public class PickupPageTests extends SapBaseClass {
         String apiValue = pickupModel.getShops().get(pickupIndex).getAGENT_NAME();
         System.out.println("Ui Value : " + uiValue);
         System.out.println("Api Value : " + apiValue);
-        Assert.assertEquals(uiValue,apiValue);
+        Assert.assertEquals(uiValue,apiValue.trim());
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY},priority = 65)

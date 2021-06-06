@@ -5,9 +5,12 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
+import pageObjects.logistics.ReceiveModulePageObjects;
 import services.sapMethods.GetSapApiResponses;
 import utils.SapBaseClass;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class ReceiveParcelPageTests extends SapBaseClass {
@@ -18,7 +21,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     private GetSapApiResponses getSapApiResponses;
 
     private Map hubDetails,shopDetails,deliveryAgentDetails,pickupAgentDetails;
-    private String motherHub = "Tejgaon Hub (Mother Hub)";
+    private List<String> motherHub = Arrays.asList("Tejgaon Hub (Mother Hub)","Chittagong Hub");
     private String hubName,parcelHubName,shopName;
     private String deliveryAgentName,pickupAgentName;
     private int hubId,shopId;
@@ -35,8 +38,8 @@ public class ReceiveParcelPageTests extends SapBaseClass {
         hubDetails = getSapApiResponses.getRandomHub();
         hubId = (int) hubDetails.get("id");
         hubName = (String) hubDetails.get("name");
-        if(hubName.equalsIgnoreCase(motherHub))
-            parcelHubName = (String) getSapApiResponses.getRandomHub().get("name");
+        if(motherHub.contains(hubName))
+            parcelHubName = (String) getSapApiResponses.getRandomHub(hubId).get("name");
         shopDetails = getSapApiResponses.getRandomShop();
         shopId = (int) shopDetails.get("id");
         shopName = (String) shopDetails.get("name");
@@ -70,21 +73,21 @@ public class ReceiveParcelPageTests extends SapBaseClass {
         String title = receiveModulePageObjects.getTitleValue("h3");
         System.out.println("Title : " + title);
         receiveModulePageObjects.clickBackButton();
-        Assert.assertTrue(title.contains(shopName));
+        Assert.assertTrue(title.contains(shopName.trim()));
     }
 
     @Test(groups = {CoreConstants.GROUP_SANITY},priority = 103)
     public void verifyViewHubParcelsFunctionality()
     {
         System.out.println("Verifying View Hub Parcels Functionality");
-        if(hubName.equalsIgnoreCase(motherHub))
+        if(motherHub.contains(hubName))
             receiveModulePageObjects.enterHubParcelHubInput(parcelHubName);
         receiveModulePageObjects.clickViewHubParcelsButton();
         String title = receiveModulePageObjects.getTitleValue("h3");
         System.out.println("Title : " + title);
 //        receiveModulePageObjects.clickBackButton();
         driver.navigate().back();
-        if(hubName.equalsIgnoreCase(motherHub)) {
+        if(motherHub.contains(hubName)) {
             Assert.assertTrue(title.contains(parcelHubName));
         } else Assert.assertEquals(title,"Receive - Hub parcels");
     }
@@ -92,14 +95,20 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     @Test(groups = {CoreConstants.GROUP_SANITY},priority = 104)
     public void verifyViewMotherHubParcelsFunctionality()
     {
-        if(hubName.equalsIgnoreCase(motherHub)) {
+        if(motherHub.contains(hubName)) {
             System.out.println("Verifying View Mother Hub Parcels Functionality");
             receiveModulePageObjects.clickViewMotherHubParcelsButton();
             String title = receiveModulePageObjects.getTitleValue("h3");
             System.out.println("Title : " + title);
 //            receiveModulePageObjects.clickBackButton();
             driver.navigate().back();
-            Assert.assertEquals(title, "Receive - Hub parcels From Chittagong Hub (NEW)");
+            switch (hubId) {
+                case 7 :
+                    Assert.assertEquals(title, "Receive - Hub parcels from " + motherHub.get(0) + " (NEW)");
+                    break;
+                case 8 :
+                    Assert.assertEquals(title, "Receive - Hub parcels from " + motherHub.get(1) + " (NEW)");
+            }
         } else System.out.println("Chosen Hub is not Mother Hub");
     }
 
@@ -107,7 +116,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     public void verifyViewResellerParcelsFunctionality()
     {
         System.out.println("Verifying View Reseller Parcels Functionality");
-        if(hubName.equalsIgnoreCase(motherHub)) {
+        if(motherHub.contains(hubName)) {
             receiveModulePageObjects.clickViewResellerParcelsButton();
             String title = receiveModulePageObjects.getTitleValue();
             System.out.println("Title : " + title);
@@ -126,7 +135,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
             String title = receiveModulePageObjects.getTitleValue("h3");
             System.out.println("Title : " + title);
             receiveModulePageObjects.clickBackButton();
-            Assert.assertTrue(title.contains(deliveryAgentName));
+            Assert.assertTrue(title.contains(deliveryAgentName.trim()));
         } catch (NullPointerException e) {
             System.out.println("Absence of Agent to perform action");
         }
@@ -143,7 +152,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
             String title = receiveModulePageObjects.getTitleValue("h4");
             System.out.println("Title : " + title);
             receiveModulePageObjects.clickBackButton();
-            Assert.assertTrue(title.contains(pickupAgentName));
+            Assert.assertTrue(title.contains(pickupAgentName.trim()));
         } catch (NullPointerException e) {
             System.out.println("Absence of Agent to perform action");
         }
@@ -175,7 +184,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     public void verifyViewProblematicHubReturnedParcelsFunctionality()
     {
         System.out.println("Verifying View Problematic Hub Returned Parcels Functionality");
-        if(hubName.equalsIgnoreCase(motherHub)){
+        if(motherHub.contains(hubName)){
             receiveModulePageObjects.enterProblematicHubParcelHubInput(parcelHubName);
             receiveModulePageObjects.clickViewProblematicHubReturnedParcelsButton();
             String title = receiveModulePageObjects.getProblematicHubParcelTitleValue();
@@ -189,7 +198,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     public void verifyViewProblematicHubAreaChangedParcelsFunctionality()
     {
         System.out.println("Verifying View Problematic Hub Area Changed Parcels Functionality");
-        if(hubName.equalsIgnoreCase(motherHub)){
+        if(motherHub.contains(hubName)){
             receiveModulePageObjects.enterProblematicHubParcelHubInput(parcelHubName);
             receiveModulePageObjects.clickViewProblematicHubAreaChangedParcelsButton();
             String title = receiveModulePageObjects.getProblematicHubParcelTitleValue();
@@ -203,7 +212,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
     public void verifyViewPartnerParcelsFunctionality()
     {
         System.out.println("Verify View Partner Parcels Functionality");
-        if(hubName.equalsIgnoreCase(motherHub)){
+        if(motherHub.contains(hubName)){
             String partner = receiveModulePageObjects.selectPartnerParcelDropDownOption();
             String title = receiveModulePageObjects.getTitleValue();
             System.out.println("Title : " + title);
@@ -221,7 +230,7 @@ public class ReceiveParcelPageTests extends SapBaseClass {
         String title = receiveModulePageObjects.getTitleValue("h3");
         System.out.println("Title : " + title);
         receiveModulePageObjects.clickBackButton();
-        Assert.assertTrue(title.contains(shopName));
+        Assert.assertTrue(title.contains(shopName.trim()));
     }
 
     @AfterClass(alwaysRun = true)
