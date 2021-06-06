@@ -155,4 +155,12 @@ public class ActionBarObjects extends AndroidBaseClass {
         return bagImageButton;
     }
 
+    public WebElement getAddressContainerElement(){
+        return xpathSetter("//android.widget.LinearLayout[@resource-id='"+packageName+":id/address_details_container']");
+    }
+
+    public void clickAddressContainer(){
+        getAddressContainerElement().click();
+    }
+
 }

@@ -47,12 +47,15 @@ public class LoginScreen extends AndroidBaseClass {
                 .performAuthentication();
         pageInitializer();
         softAssert = new SoftAssert();
-        loginPageObjects.performAuthentication("1877755590","666666");
+        loginPageObjects.performAuthentication("1877755530","666666");
         sleep(4000);
         try {
-            homePageObjects.selectAddress(0);
+            if (androidDriver.currentActivity().equalsIgnoreCase(CoreConstants.ANDROID_PROFILE_ACTIVITY)) {
+                homePageObjects.selectAddress(0);
+            }
         } catch (Exception e){
-            homePageObjects.createNewAddress();
+//            homePageObjects.createNewAddress();
+            System.out.println("User has only 1 address");
         }
 //        xpathSetter("//androidx.cardview.widget.CardView[@index='0']/android.view.ViewGroup[@index='0']").click();
 //        address.addressBeforeClass();
