@@ -274,16 +274,17 @@ public class AddParcelPageObjects extends RedXBaseClass
     public List<String> createParcelCautionMessages()
     {
         List<String> cautionMessages = new ArrayList<>();
-        WebElement nameCautionMessage = xpathSetter("//android.widget.TextView[@index='3']");
-        WebElement phoneCautionMessage = xpathSetter("//android.widget.TextView[@index='8']");
-        WebElement cashCautionMessage = xpathSetter("//android.widget.TextView[@index='9']");
-        WebElement sellingPriceCautionMessage = xpathSetter("//android.widget.TextView[@index='12']");
-        WebElement addressCautionMessage = xpathSetter("//android.widget.TextView[@index='16']");
+        WebElement nameCautionMessage = xpathSetter("//android.widget.TextView[@index='7']");
+        WebElement phoneCautionMessage = xpathSetter("//android.widget.TextView[@index='14']");
+        WebElement addressCautionMessage = xpathSetter("//android.widget.TextView[@index='21']");
+        WebElement areaCautionMessage = xpathSetter("//android.widget.TextView[@index='6']");
+//        WebElement sellingPriceCautionMessage = xpathSetter("//android.widget.TextView[@index='12']");
+
         cautionMessages.add(myActions.action_getText(nameCautionMessage));
         cautionMessages.add(myActions.action_getText(phoneCautionMessage));
-        cautionMessages.add(myActions.action_getText(cashCautionMessage));
-        cautionMessages.add(myActions.action_getText(sellingPriceCautionMessage));
         cautionMessages.add(myActions.action_getText(addressCautionMessage));
+        cautionMessages.add(myActions.action_getText(areaCautionMessage));
+//        cautionMessages.add(myActions.action_getText(sellingPriceCautionMessage));
         return cautionMessages;
     }
 
