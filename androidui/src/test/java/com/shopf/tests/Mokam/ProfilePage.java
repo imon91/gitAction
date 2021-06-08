@@ -35,7 +35,7 @@ public class ProfilePage extends AndroidBaseClass {
         serviceRequestLayer.getControlOverAuthentication().performAuthentication();
         random = new Random();
         softAssert = new SoftAssert();
-        loginPageObjects.performAuthentication("18777555\0","666666");
+        loginPageObjects.performAuthentication("1877755590","666666");
         sleep(4000);
         try {
             if (androidDriver.currentActivity().equalsIgnoreCase(CoreConstants.ANDROID_PROFILE_ACTIVITY)) {
