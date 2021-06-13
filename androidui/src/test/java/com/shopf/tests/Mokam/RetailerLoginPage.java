@@ -38,7 +38,7 @@ public class RetailerLoginPage extends AndroidBaseClass {
     public String resendOTPText = "Resend OTP";
     public String proceedButtonText = "PROCEED";
     public String editMobileNumberText = "EDIT MOBILE NUMBER" ;
-    public String validMobileNumber = "8801877755590";
+    public String validMobileNumber = "8801877755530";
     public String validSRMobileNumber = "1877775590";
     public String validOTP = "666666";
     public String invalidMobileNumber = "187775590";
