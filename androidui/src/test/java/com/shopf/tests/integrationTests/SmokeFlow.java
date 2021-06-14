@@ -126,7 +126,7 @@ public class SmokeFlow extends AndroidBaseClass {
                 mobileNumber = "1877775590";
                 otp = "666666";}
             }catch (Exception e){
-            mobileNumber = "1877755590";
+            mobileNumber = "1877755530";
             otp = "666666";}
         }
 
