@@ -6,7 +6,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
-import pageObjects.logistics.ReceiveFromDeliveryAgentsPageObjects;
+import pageObjects.logistics.ReceiveDeliveryAgentsParcelPageObjects;
+import pageObjects.logistics.ReceiveModulePageObjects;
 import services.redxMethods.GetRedxApiResponse;
 import services.sapMethods.GetSapApiResponses;
 import services.responseModels.sapModels.ReceiveParcelsListModel;
@@ -20,11 +21,12 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
     private Actions actions;
     private SAPPanelPageObject sapPanelPageObject;
     private DashboardPageObjects dashboardPageObjects;
-    private ReceiveFromDeliveryAgentsPageObjects receiveFromDeliveryAgentsPageObjects;
-    private ReceiveFromDeliveryAgentsPageObjects.HoldModulePageObjects holdModulePageObjects;
-    private ReceiveFromDeliveryAgentsPageObjects.AreaChangeModulePageObjects areaChangeModulePageObjects;
-    private ReceiveFromDeliveryAgentsPageObjects.ReturnedModulePageObjects returnedModulePageObjects;
-    private ReceiveFromDeliveryAgentsPageObjects.DeliveredModulePageObjects deliveredModulePageObjects;
+    private ReceiveModulePageObjects receiveModulePageObjects;
+    private ReceiveDeliveryAgentsParcelPageObjects receiveDeliveryAgentsParcelPageObjects;
+    private ReceiveDeliveryAgentsParcelPageObjects.HoldModalPageObjects holdModalPageObjects;
+    private ReceiveDeliveryAgentsParcelPageObjects.AreaChangeModalPageObjects areaChangeModalPageObjects;
+    private ReceiveDeliveryAgentsParcelPageObjects.ReturnedModalPageObjects returnedModalPageObjects;
+    private ReceiveDeliveryAgentsParcelPageObjects.DeliveredModalPageObjects deliveredModalPageObjects;
 
     private GetRedxApiResponse getRedxApiResponse;
     private GetSapApiResponses getSapApiResponses;
@@ -66,12 +68,13 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
         actions = new Actions(driver);
         sapPanelPageObject = new SAPPanelPageObject(driver);
         dashboardPageObjects = new DashboardPageObjects(driver);
-        receiveFromDeliveryAgentsPageObjects = new ReceiveFromDeliveryAgentsPageObjects(driver);
+        receiveModulePageObjects = new ReceiveModulePageObjects(driver);
+        receiveDeliveryAgentsParcelPageObjects = new ReceiveDeliveryAgentsParcelPageObjects(driver);
         receiveParcelsListModel = new ReceiveParcelsListModel();
-        holdModulePageObjects = receiveFromDeliveryAgentsPageObjects.new HoldModulePageObjects();
-        areaChangeModulePageObjects = receiveFromDeliveryAgentsPageObjects.new AreaChangeModulePageObjects();
-        returnedModulePageObjects = receiveFromDeliveryAgentsPageObjects.new ReturnedModulePageObjects();
-        deliveredModulePageObjects = receiveFromDeliveryAgentsPageObjects.new DeliveredModulePageObjects();
+        holdModalPageObjects = receiveDeliveryAgentsParcelPageObjects.new HoldModalPageObjects();
+        areaChangeModalPageObjects = receiveDeliveryAgentsParcelPageObjects.new AreaChangeModalPageObjects();
+        returnedModalPageObjects = receiveDeliveryAgentsParcelPageObjects.new ReturnedModalPageObjects();
+        deliveredModalPageObjects = receiveDeliveryAgentsParcelPageObjects.new DeliveredModalPageObjects();
 
         cookie = sapPanelPageObject.performAuthentication("01401122188","6666");
         System.out.println("Cookie : " + cookie);
@@ -102,7 +105,7 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
         invoiceNumbers = getSapApiResponses.uploadFilePostCall(shopId,filePath);
         System.out.println("\n Invoice Numbers : " + invoiceNumbers.toString() + "\n");
 
-        receiveFromDeliveryAgentsPageObjects.chooseHubInput(hubName);
+        receiveModulePageObjects.enterHubInput(hubName);
 
         receiveParcelsListModel = getSapApiResponses.getParcelsReceiveHub(shopId);
         int parcelSize = receiveParcelsListModel.getParcels().size();
@@ -122,8 +125,8 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
         System.out.println("\n Tracking Ids :" + trackingIds.toString() + "\n");
 
         getSapApiResponses.receiveParcels(trackingIds);
-        getSapApiResponses.assignAgent(trackingIds);
-        getSapApiResponses.dispatchParcelsToAgent(trackingIds);
+        getSapApiResponses.assignAgent(trackingIds,2638,"Abdul Alim - kalabagan",1);
+        getSapApiResponses.dispatchParcelsToAgent(trackingIds,2638,1);
 
         System.out.println("\n /****************************************************************************************************/ \n");
     }
@@ -169,22 +172,21 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+        receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickCashReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickCashReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Delivery Current Date Time : " + currentDateTime);
         for(i=0;i<deliveredParcels;i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println("Hold Current Date Time : " + currentDateTime);
         for(i=deliveredParcels;i<trackingIds.size();i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
@@ -243,13 +245,12 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+        receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Current Date Time : " + currentDateTime);
         for(i=0;i<trackingIds.size();i++)
@@ -306,13 +307,12 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+        receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Current Date Time : " + currentDateTime);
         for(i=0;i<trackingIds.size();i++)
@@ -367,22 +367,21 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+        receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickCashReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickCashReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Delivery Current Date Time : " + currentDateTime);
         for(i=0;i<deliveredParcels;i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println("Returned Current Date Time : " + currentDateTime);
         for(i=deliveredParcels;i<trackingIds.size();i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
@@ -435,22 +434,22 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickCashReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickCashReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Delivery Current Date Time : " + currentDateTime);
         for(i=0;i<deliveredParcels;i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println("Area Current Date Time : " + currentDateTime);
         for(i=deliveredParcels;i<trackingIds.size();i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
@@ -505,13 +504,13 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Current Date Time : " + currentDateTime);
         for(i=0;i<trackingIds.size();i++)
@@ -569,22 +568,22 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickCashReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickCashReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Delivery Current Date Time : " + currentDateTime);
         for(i=holdParcels;i<trackingIds.size();i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println("Hold Current Date Time : " + currentDateTime);
         for(i=0;i<holdParcels;i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
@@ -643,13 +642,13 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Current Date Time : " + currentDateTime);
         for(i=0;i<trackingIds.size();i++)
@@ -706,13 +705,13 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Current Date Time : " + currentDateTime);
         for(i=0;i<trackingIds.size();i++)
@@ -767,22 +766,22 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickCashReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickCashReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Delivery Current Date Time : " + currentDateTime);
         for(i=returnedParcels;i<trackingIds.size();i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println("Returned Current Date Time : " + currentDateTime);
         for(i=0;i<returnedParcels;i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
@@ -835,22 +834,22 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickCashReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickCashReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Delivery Current Date Time : " + currentDateTime);
         for(i=areaChangeParcels;i<trackingIds.size();i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println("Area Current Date Time : " + currentDateTime);
         for(i=0;i<areaChangeParcels;i++)
             parcelActionsUiValue.get(i).put("CLOSING_TIME",currentDateTime);
@@ -905,13 +904,13 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
             parcelActionsUiValue.add(parcels);
         }
 
-        receiveFromDeliveryAgentsPageObjects.chooseAgent(agent);
-        receiveFromDeliveryAgentsPageObjects.clickParcelsButton();
+                receiveModulePageObjects.chooseDeliveryAgent(agent);
 
-        receiveFromDeliveryAgentsPageObjects.clickParcelReceivedButton();
-        receiveFromDeliveryAgentsPageObjects.clickYesButton();
 
-        currentDateTime = receiveFromDeliveryAgentsPageObjects.getCurrentDateTime();
+        receiveDeliveryAgentsParcelPageObjects.clickParcelReceivedButton();
+        receiveDeliveryAgentsParcelPageObjects.clickYesButton();
+
+        currentDateTime = receiveDeliveryAgentsParcelPageObjects.getCurrentDateTime();
         System.out.println();
         System.out.println("Current Date Time : " + currentDateTime);
         for(i=0;i<trackingIds.size();i++)

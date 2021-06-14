@@ -25,8 +25,6 @@ public class PickupPageTests extends SapBaseClass {
     private PickupModulePageObjects.ActionsPageObjects actionsPageObjects;
 
     private GetSapApiResponses getSapApiResponses;
-    private GetRedxApiResponse getRedxApiResponse;
-
     private PickupModel pickupModel;
     private ShopStoreInfoModel shopStoreInfoModel;
 
@@ -50,10 +48,11 @@ public class PickupPageTests extends SapBaseClass {
         actionsPageObjects = pickupModulePageObjects.new ActionsPageObjects();
 
         getSapApiResponses = new GetSapApiResponses("sap");
-        getRedxApiResponse = new GetRedxApiResponse("redxweb");
 
-        shopId = getRedxApiResponse.getShopId(shopName);
+        shopId = getSapApiResponses.getShopId(shopName);
         shopStoreInfoModel = getSapApiResponses.shopStoreInfoGetCall(shopId);
+
+        System.out.println("Navigating to Pickup Page");
 
         dashboardPageObjects.clickLogisticsModule();
         dashboardPageObjects.clickPickupModule();

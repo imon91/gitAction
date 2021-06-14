@@ -14,10 +14,7 @@
             <class name="SetUpTests"></class>
             <class name="com.shopf.tests.authentication.LoginTests"></class>
 <!--            <class name="slackBugAutomation.downloadOptionOrderTests"></class>-->
-<!--            <class name="slackBugAutomation.ExchangeReturnTests"></class>-->
-            <class name="slackBugAutomation.ReceiveParcelPageTests"></class>
             <class name="slackBugAutomation.DispatchParcelPageTests"></class>
-            <class name="slackBugAutomation.ReceiveProblematicParcelPageTests"></class>
             <class name="slackBugAutomation.DeliveryPageTests"></class>
         </classes>
     </test>
