@@ -18,11 +18,11 @@ public class SetUpTests extends SapBaseClass {
         setImplicitWait(10000);
         driver.get(getSapBaseUrl());
         setImplicitWait(10000);
-        new WebDriverWait(driver,10).until(ExpectedConditions.alertIsPresent());
-        System.out.println(driver.switchTo().alert().getText());
-        driver.switchTo().alert().accept();
-        new WebDriverWait(driver,10).until(ExpectedConditions.alertIsPresent());
-        driver.switchTo().alert().accept();
+//        new WebDriverWait(driver,10).until(ExpectedConditions.alertIsPresent());
+//        System.out.println(driver.switchTo().alert().getText());
+//        driver.switchTo().alert().accept();
+//        new WebDriverWait(driver,10).until(ExpectedConditions.alertIsPresent());
+//        driver.switchTo().alert().accept();
         driver.manage().window().maximize();
         sapPanelPageObject = new SAPPanelPageObject(driver);
     }

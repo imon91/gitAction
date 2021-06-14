@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import services.responseModels.sapModels.*;
 import services.serviceUtils.ShopUpPostMan;
 
+import java.awt.geom.Area;
 import java.util.*;
 
 public class GetSapApiResponses {
@@ -23,6 +24,14 @@ public class GetSapApiResponses {
         shopUpPostMan = new ShopUpPostMan(module);
         random = new Random();
         gson = new Gson();
+    }
+
+    public ShopDetailsModel shopDetailsGetCall(int limit)
+    {
+        String shopDetailsGetCall = "https://sap.shopups1.xyz/api/shop/shops-details?limit=" + limit;
+        Response shopDetailsResponse = shopUpPostMan.getCall(shopDetailsGetCall);
+        ShopDetailsModel shopDetailsModel = gson.fromJson(shopDetailsResponse.getBody().asString(),ShopDetailsModel.class);
+        return  shopDetailsModel;
     }
 
     public ShopNameListModel shopNameListGetCall()
@@ -47,6 +56,14 @@ public class GetSapApiResponses {
         Response shopStoreInfoResponse = shopUpPostMan.getCall(shopStoreInfoGetCall);
         ShopStoreInfoModel shopStoreInfoModel  = gson.fromJson(shopStoreInfoResponse.getBody().asString(),ShopStoreInfoModel.class);
         return  shopStoreInfoModel;
+    }
+
+    public AreaQueryModel areaQueryGetCall(String query)
+    {
+        String areaQueryGetCall = "https://sap.shopups1.xyz/api/area/search?q=" + query;
+        Response areaQueryResponse = shopUpPostMan.getCall(areaQueryGetCall);
+        AreaQueryModel areaQueryModel = gson.fromJson(areaQueryResponse.getBody().asString(),AreaQueryModel.class);
+        return areaQueryModel;
     }
 
     /*----------Authentication----------*/
@@ -142,6 +159,7 @@ public class GetSapApiResponses {
     {
         String createParcelPostCall = "https://shopups1.xyz/v1/admin/shop/" + shopId + "/logistics/parcels";
         Response createParcelResponse = shopUpPostMan.postCall(createParcelPostCall, createParcelBody);
+        System.out.println(createParcelResponse.asString());
         CreateParcelModel createParcelModel = gson.fromJson(createParcelResponse.getBody().asString(),CreateParcelModel.class);
         return createParcelModel;
     }
@@ -158,7 +176,7 @@ public class GetSapApiResponses {
         return receiveParcelsModel;
     }
 
-    public void receiveParcels(List<String> parcelIds)
+    public void receiveParcels(List<String> trackingIds)
     {
         System.out.println("\nReceiving Parcels\n");
         String action = "received-from-seller";
@@ -167,29 +185,29 @@ public class GetSapApiResponses {
 //        List<HashMap<String, Object>> parcels = CSVParser.getHashListForDataPath(filePath);
         List<HashMap<String, Object>> parcels = new ArrayList<>();
 
-        for(int i =0; i<parcelIds.size();i++)
+        for(int i =0; i<trackingIds.size();i++)
         {
             HashMap<String, Object> parcel = new HashMap<>();
-            parcel.put("id",parcelIds.get(i));
+            parcel.put("id",trackingIds.get(i));
             parcel.put("currentStatus","ready-for-delivery");
             parcel.put("oldStatus","pickup-pending");
             parcel.put("sourceHubId",1);
             parcel.put("currentPartnerId",3);
             parcels.add(parcel);
-//            parcels.get(i).put("id",parcelIds.get(i));
+//            parcels.get(i).put("id",trackingIds.get(i));
         }
         bulkStatusPutCall(parcels,action);
     }
 
     /*----------Dispatch To Agent----------*/
 
-    public void assignAgent(List<String> parcelIds)
+    public void assignAgent(List<String> parcelIds,int agentId,String agentName,int hubId)
     {
         System.out.println("\nAssigning Agent to Parcels\n");
-        String assignAgentPostCall = "https://shopups1.xyz/v1/logistics/auto-rider-assignment/common/assign-agents/1";
+        String assignAgentPostCall = "https://shopups1.xyz/v1/logistics/auto-rider-assignment/common/assign-agents/" + hubId;
         Map data = new HashMap();
-        data.put("id",2638);
-        data.put("name","Abdul Alim - kalabagan");
+        data.put("id",agentId);
+        data.put("name",agentName);
         data.put("parcels",parcelIds);
         Map assignAgentBody = new HashMap();
         assignAgentBody.put("type","assign");
@@ -197,13 +215,11 @@ public class GetSapApiResponses {
         Response response = shopUpPostMan.postCall(assignAgentPostCall,assignAgentBody);
     }
 
-    public void dispatchParcelsToAgent(List<String> parcelIds)
+    public void dispatchParcelsToAgent(List<String> parcelIds,int deliveryAgentId,int sourceHubId)
     {
         System.out.println("\nDispatching Parcels To Agent\n");
         String action = "dispatched-to-agent";
-        String dir = System.getProperty("user.dir");
-        String filePath = dir + "/src/test/resources/testData/dispatchAgentData.csv";
-//        List<HashMap<String, Object>> parcels = CSVParser.getHashListForDataPath(filePath);
+
         List<HashMap<String, Object>> parcels = new ArrayList<>();
 
         for(int i =0; i<parcelIds.size();i++)
@@ -212,8 +228,8 @@ public class GetSapApiResponses {
             parcel.put("id",parcelIds.get(i));
             parcel.put("currentStatus","delivery-in-progress");
             parcel.put("oldStatus","ready-for-delivery");
-            parcel.put("deliveryAgentId",2638);
-            parcel.put("sourceHubId",1);
+            parcel.put("deliveryAgentId",deliveryAgentId);
+            parcel.put("sourceHubId",sourceHubId);
             parcels.add(parcel);
 //            parcels.get(i).put("id",parcelIds.get(i));
         }
@@ -235,6 +251,14 @@ public class GetSapApiResponses {
     }
 
     /*----------Receive Problematic Parcels From Agents----------*/
+
+    public ReceiveDeliveryAgentsParcelListModel deliveryAgentProblematicParcelsListGetCall(int deliveryAgentId)
+    {
+        String deliveryAgentsProblematicParcelsListGetCall = "https://sap.shopups1.xyz/api/logistics/parcels?deliveryAgentId=" + deliveryAgentId + "&filterOutProblematic=true&limit=5000&offset=0&page=1&phone=&status=delivery-in-progress&status=delivered&status=agent-returning&status=agent-hold-returning&status=agent-area-change";
+        Response deliveryAgentsProblematicParcelsListResponse = shopUpPostMan.getCall(deliveryAgentsProblematicParcelsListGetCall);
+        ReceiveDeliveryAgentsParcelListModel receiveDeliveryAgentsParcelListModel = gson.fromJson(deliveryAgentsProblematicParcelsListResponse.getBody().asString(),ReceiveDeliveryAgentsParcelListModel.class);
+        return  receiveDeliveryAgentsParcelListModel;
+    }
 
     public Response reasonsListGetCall(String category)
     {
@@ -352,6 +376,14 @@ public class GetSapApiResponses {
     }
 
     /*--------------------Agents--------------------*/
+
+    public AgentControlListModel agentControlListGetCall(int hubId)
+    {
+        String agentControlListGetCall = "https://sap.shopups1.xyz/api/user/agent?hubId=" + hubId + "&limit=999999&status=active";
+        Response agentControlListResponse = shopUpPostMan.getCall(agentControlListGetCall);
+        AgentControlListModel agentControlListModel = gson.fromJson(agentControlListResponse.getBody().asString(),AgentControlListModel.class);
+        return agentControlListModel;
+    }
 
     public AgentsListModel agentListGetCall(int hubId)
     {
@@ -589,6 +621,36 @@ public class GetSapApiResponses {
         } else return null;
     }
 
+    public Map getRandomAgentAndShop(int hubId,String agentType)
+    {
+        AgentControlListModel agentControlListModel = agentControlListGetCall(hubId);
+        Map details = new HashMap();
+        int agentId,shopId;
+        String agentName,shopName;
+        int agents = agentControlListModel.getAgents().size();
+        for(int i =0;i<agents;i++)
+        {
+            if(agentControlListModel.getAgents().get(i).getAgentType().equalsIgnoreCase(agentType))
+            {
+                agentId = agentControlListModel.getAgents().get(i).getId();
+                agentName = agentControlListModel.getAgents().get(i).getName();
+                shopId = agentControlListModel.getAgents().get(i).getShopId();
+                shopName = agentControlListModel.getAgents().get(i).getShopName();
+                details.put("agentId",agentId);
+                details.put("agentName",agentName);
+                details.put("shopId",shopId);
+                details.put("shopName",shopName);
+                System.out.println(details.toString());
+                if(shopId==0)
+                    continue;
+                else break;
+            }
+        }
+        return details;
+    }
+
+
+
     public int getAgentId(String hubName, String agentName)
     {
         int hubId = getHubId(hubName);
@@ -646,6 +708,39 @@ public class GetSapApiResponses {
         return  map;
     }
 
+    public int getShopId(String shopName)
+    {
+        System.out.println("Getting Shop Id of : " + shopName);
+        ShopNameListModel shopNameListModel = shopNameListGetCall();
+        int shopSize = shopNameListModel.getShops().size();
+        System.out.println("Shop Size : " + shopSize);
+        int shopId = 0;
+        for(int i=0;i<shopSize;i++)
+        {
+            if(shopNameListModel.getShops().get(i).getName().equalsIgnoreCase(shopName)) {
+                shopId = shopNameListModel.getShops().get(i).getId();
+                System.out.println("Shop Id : " + shopId);
+                break;
+            }
+        }
+        return shopId;
+    }
+
+    public Map getStore(int shopId,String area)
+    {
+        Map storeDetails = new HashMap();
+        ShopStoreInfoModel shopStoreInfoModel = shopStoreInfoGetCall(shopId);
+        int size = shopStoreInfoModel.getBody().size();
+        for(int i=0;i<size;i++)
+        {
+            if (shopStoreInfoModel.getBody().get(i).getAREA_NAME().equalsIgnoreCase(area)) {
+                storeDetails.put("id",shopStoreInfoModel.getBody().get(i).getID());
+                storeDetails.put("name",shopStoreInfoModel.getBody().get(i).getNAME());
+            }
+        }
+        return storeDetails;
+    }
+
     public Map getRandomStore(int shopId)
     {
         ShopStoreInfoModel shopStoreInfoModel = shopStoreInfoGetCall(shopId);
@@ -659,6 +754,19 @@ public class GetSapApiResponses {
         return  map;
     }
 
+    public Map getRandomStoreWithArea(int shopId)
+    {
+        ShopStoreInfoModel shopStoreInfoModel = shopStoreInfoGetCall(shopId);
+        int size = shopStoreInfoModel.getBody().size();
+        int index= random.nextInt(size);
+        Map map = new HashMap();
+        map.put("storeId",shopStoreInfoModel.getBody().get(index).getID());
+        map.put("storeName",shopStoreInfoModel.getBody().get(index).getNAME());
+        map.put("areaId",shopStoreInfoModel.getBody().get(index).getAREA_ID());
+        map.put("areaName",shopStoreInfoModel.getBody().get(index).getAREA_NAME());
+        return  map;
+    }
+
     public int getRandomDistrict()
     {
         DistrictListModel districtListModel= districtListGetCall();
@@ -667,5 +775,41 @@ public class GetSapApiResponses {
         int districtId = districtListModel.getDistricts().get(index).getId();
         System.out.println("District Id : " + districtId);
         return districtId;
+    }
+
+    public Map getHubDetails(int areaId)
+    {
+        int hubId = 0;
+        String hubName = null;
+        Map hubDetails = new HashMap();
+        for(int i=1;i<65;i++) {
+            AreaHubModel areaHubModel = areaHubListGetCall(i);
+            int areas = areaHubModel.getAreas().size();
+            for(int j=0;j<areas;j++) {
+                if(areaHubModel.getAreas().get(j).getAreaId()==areaId) {
+                    hubId = areaHubModel.getAreas().get(j).getHubId();
+                    break;
+                }
+            }
+            if(hubId!=0) {
+                hubName = getHubName(hubId);
+                break;
+            }
+        }
+        hubDetails.put("id",hubId);
+        hubDetails.put("name",hubName);
+        return hubDetails;
+    }
+
+    public Map getRandomArea()
+    {
+        Map areaDetails = new HashMap();
+        AreaQueryModel areaQueryModel = areaQueryGetCall("");
+        int areas = areaQueryModel.getAreas().size();
+        int area = random.nextInt(areas);
+        areaDetails.put("areaId",areaQueryModel.getAreas().get(area).getId());
+        areaDetails.put("areaName",areaQueryModel.getAreas().get(area).getName());
+        System.out.println(Arrays.asList(areaDetails));
+        return areaDetails;
     }
 }

@@ -70,6 +70,8 @@ public class ReceiveSellerParcelPageTests extends SapBaseClass {
 
         receiveParcelsListModel = getSapApiResponses.getParcelsReceiveHub(shopId);
 
+        System.out.println("Navigating to Receive Seller Parcels Page");
+
         dashboardPageObjects.clickLogisticsModule();
         dashboardPageObjects.clickReceiveModule();
 
@@ -114,7 +116,6 @@ public class ReceiveSellerParcelPageTests extends SapBaseClass {
     {
         System.out.println("Creating Single Parcel");
         setDataForCreateSingleParcel();
-        int i = 0;
         Map parcel = new HashMap();
         List<Map> parcels = new ArrayList<>();
         parcel.put("SHOP_ID",shopId);
@@ -134,13 +135,10 @@ public class ReceiveSellerParcelPageTests extends SapBaseClass {
         Map createParcelBody = new HashMap();
         createParcelBody.put("parcels",parcels);
         CreateParcelModel createParcelModel = getSapApiResponses.createParcelPostCall(shopId,createParcelBody);
+
         if(createParcelModel.isIsError()==true)
-        {
-            i++;
-            if(i<5)
                 createSingleParcel();
-            else System.out.println("Could not Create Parcel");
-        }
+
         trackingId = createParcelModel.getBody().getTrackingId();
         System.out.println("Tracking Id : " + trackingId);
     }

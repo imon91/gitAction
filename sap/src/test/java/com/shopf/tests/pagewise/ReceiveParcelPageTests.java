@@ -47,6 +47,8 @@ public class ReceiveParcelPageTests extends SapBaseClass {
         deliveryAgentDetails = getSapApiResponses.getRandomAgent(hubId,"delivery");
         pickupAgentDetails = getSapApiResponses.getRandomAgent(hubId,"pickup");
 
+        System.out.println("Navigating to Receive Parcel Page");
+
         dashboardPageObjects.clickLogisticsModule();
         dashboardPageObjects.clickReceiveModule();
     }
