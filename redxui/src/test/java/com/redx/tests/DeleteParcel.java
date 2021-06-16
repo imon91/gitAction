@@ -82,6 +82,7 @@ public class DeleteParcel extends RedXBaseClass {
         homePageObjects.clickChooseShopModule();
         chooseShopModule.selectShopByText("ashok shops");
         sleep(2000);
+        homePageObjects.clickSkipIntroButton();
     }
 
 

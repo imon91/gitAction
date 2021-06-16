@@ -80,6 +80,7 @@ public class SetUpTests extends RedXBaseClass {
         System.out.println("Verifying Shop Name");
         homePageObjects.clickChooseShopModule();
         chooseShopModule.selectShopByText("ashok shops");
+        homePageObjects.clickSkipIntroButton();
         try {
             assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.SHOP_NAME);
         } catch (Exception e) {

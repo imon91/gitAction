@@ -40,8 +40,11 @@ public class Authentication extends RedXBaseClass
         pageInitializer();
         switchFromWebToNative();
         sleep(8000);
-        try{WebElement updateButton = idSetter("android:id/button1");
-            myActions.action_click(updateButton);}catch (Exception e){System.out.println("No update button");}
+        try {
+            WebElement updateButton = idSetter("android:id/button1");
+            myActions.action_click(updateButton);
+            sleep(2000);
+        }catch (Exception e){System.out.println("No update button");}
         sleep(3000);
     }
 

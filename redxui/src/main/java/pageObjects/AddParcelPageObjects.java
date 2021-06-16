@@ -283,7 +283,7 @@ public class AddParcelPageObjects extends RedXBaseClass
         cautionMessages.add(myActions.action_getText(nameCautionMessage));
         cautionMessages.add(myActions.action_getText(phoneCautionMessage));
         cautionMessages.add(myActions.action_getText(addressCautionMessage));
-        cautionMessages.add(myActions.action_getText(areaCautionMessage));
+//        cautionMessages.add(myActions.action_getText(areaCautionMessage));
 //        cautionMessages.add(myActions.action_getText(sellingPriceCautionMessage));
         return cautionMessages;
     }

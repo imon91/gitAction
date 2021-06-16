@@ -19,6 +19,7 @@ public class HomePageObjects extends RedXBaseClass
     private WebElement chooseShopModule;
     private WebElement toastMessage;
     private WebElement currentShopName;
+    private WebElement skipIntroButton;
 
     /*----------Actions----------*/
 
@@ -62,6 +63,23 @@ public class HomePageObjects extends RedXBaseClass
     {
         toastMessage = xpathSetter("//android.widget.TextView[@text='1 parcels added']");
         return myActions.action_getText(toastMessage);
+    }
+
+    public void clickSkipIntroButton()
+    {
+        int index = 5;
+        while (true)
+        {
+            try {
+                skipIntroButton = xpathPresenceSetter("//android.view.ViewGroup[@index='" + index + "']/android.widget.TextView[@index='0']");
+                myActions.action_click(skipIntroButton);
+            } catch (Exception e) {
+                System.out.println("Exception : " + e);
+                if(index==3)
+                    break;
+                index = 3;
+            }
+        }
     }
 
 
