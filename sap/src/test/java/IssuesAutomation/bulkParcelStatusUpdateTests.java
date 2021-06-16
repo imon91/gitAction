@@ -6,8 +6,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
-import pageObjects.logistics.ReceiveDeliveryAgentsParcelPageObjects;
-import pageObjects.logistics.ReceiveModulePageObjects;
+import pageObjects.logistics.Receive.ReceiveDeliveryAgentsParcelPageObjects;
+import pageObjects.logistics.Receive.ReceiveModulePageObjects;
 import services.redxMethods.GetRedxApiResponse;
 import services.sapMethods.GetSapApiResponses;
 import services.responseModels.sapModels.ReceiveParcelsListModel;
@@ -124,7 +124,7 @@ public class bulkParcelStatusUpdateTests extends SapBaseClass {
         trackingIds = getSapApiResponses.getTrackingIds(receiveParcelsListModel,invoiceNumbers);
         System.out.println("\n Tracking Ids :" + trackingIds.toString() + "\n");
 
-        getSapApiResponses.receiveParcels(trackingIds);
+        getSapApiResponses.receiveParcels(trackingIds,1,3);
         getSapApiResponses.assignAgent(trackingIds,2638,"Abdul Alim - kalabagan",1);
         getSapApiResponses.dispatchParcelsToAgent(trackingIds,2638,1);
 

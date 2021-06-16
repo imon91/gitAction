@@ -1,4 +1,4 @@
-package pageObjects.logistics;
+package pageObjects.logistics.Receive;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.*;
@@ -28,6 +28,7 @@ public class ReceiveModulePageObjects extends SapBaseClass {
     private WebElement viewSellerParcelsButton;
     private WebElement hubParcelsHubInput;
     private WebElement viewHubParcelsButton;
+    private WebElement motherHubParcelsInput;
     private WebElement viewMotherHubParcelsButton;
     private WebElement viewResellerParcelsButton;
 
@@ -101,6 +102,13 @@ public class ReceiveModulePageObjects extends SapBaseClass {
         viewHubParcelsButton = xpathSetter("//div[@ng-show='ownHubId'][1]/div[2]//div[not(contains(@class,'ng-hide'))]/button[@class='btn btn-primary']");
         myActions.action_click(viewHubParcelsButton);
         new HubParcelsPageObjects().waitForLoading();
+    }
+
+    public void enterMotherHubParcelsInput(String hubName)
+    {
+        motherHubParcelsInput = xpathSetter("//div[@ng-show='ownHubId'][1]//div[2]/div/input[contains(@placeholder,'Choose Mother hub')]");
+        myActions.action_sendKeys(motherHubParcelsInput,hubName);
+        clickDropDownOptionByTitle(hubName);
     }
 
     public void clickViewMotherHubParcelsButton()

@@ -46,7 +46,7 @@ public class DashboardPageObjects extends  SapBaseClass{
 
     public void clickLogisticsModule()
     {
-        logisticsModule = xpathSetter("//ul/li[9]//a[contains(text(),'Logistics')]");
+        logisticsModule = xpathSetter("//ul/li[10]//a[contains(text(),'Logistics')]");
         myActions.action_click(logisticsModule);
     }
 
@@ -73,6 +73,7 @@ public class DashboardPageObjects extends  SapBaseClass{
     {
         dispatchModule = xpathSetter("//a[@href='/logistics/dispatch-station']");
         myActions.action_click(dispatchModule);
+        skipReconcileReminder();
     }
 
     public void clickDownloadModule()

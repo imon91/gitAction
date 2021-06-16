@@ -1,4 +1,4 @@
-package pageObjects.logistics;
+package pageObjects.logistics.Receive;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
