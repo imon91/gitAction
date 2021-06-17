@@ -246,8 +246,8 @@ public class AddParcelPageObjects extends RedXBaseClass
         System.out.println("Area List Size: " + areaList().size());
         index = random.nextInt(areaList().size());
         selectAreaById(areaList(),index);
-        selectParcelType(parcelTypes[i]);
         scrollIntoView();
+        selectParcelType(parcelTypes[i]);
         chooseProductCategory();
         enterCash("350");
         enterSellingPrice("500");
