@@ -6,7 +6,8 @@ import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
-import pageObjects.logistics.*;
+import pageObjects.logistics.Receive.ReceiveDeliveryAgentsParcelPageObjects;
+import pageObjects.logistics.Receive.ReceiveModulePageObjects;
 import services.responseModels.sapModels.*;
 import services.sapMethods.GetSapApiResponses;
 import utils.*;
@@ -177,7 +178,7 @@ public class ReceiveDeliveryAgentsParcelPageTests extends SapBaseClass {
             trackingIds.add(createSingleParcel());
         }
 
-        getSapApiResponses.receiveParcels(trackingIds);
+        getSapApiResponses.receiveParcels(trackingIds,1,3);
         getSapApiResponses.assignAgent(trackingIds,deliveryAgentId,deliveryAgentName,hubId);
         getSapApiResponses.dispatchParcelsToAgent(trackingIds,deliveryAgentId,hubId);
     }
@@ -631,8 +632,8 @@ public class ReceiveDeliveryAgentsParcelPageTests extends SapBaseClass {
         }
 
     @AfterClass(alwaysRun = true)
-    public void receiveProblematicParcelPageTestsAfterClass() {
-        System.out.println("Receive Problematic Parcel Page Tests After Class");
+    public void receiveDeliveryAgentParcelPageTestsAfterClass() {
+        System.out.println("Receive Delivery Agent Parcel Page Tests After Class");
         dashboardPageObjects.clickShopUpLogo();
     }
 }

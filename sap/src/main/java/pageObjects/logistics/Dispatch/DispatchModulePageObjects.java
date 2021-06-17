@@ -1,4 +1,4 @@
-package pageObjects;
+package pageObjects.logistics.Dispatch;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -19,37 +19,43 @@ public class DispatchModulePageObjects extends SapBaseClass {
 
     private WebDriver driver;
     private MyActions myActions;
-    private DashboardPageObjects dashboardPageObjects;
     private Actions actions;
 
     public DispatchModulePageObjects (WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver,this);
         myActions = new MyActions();
-        dashboardPageObjects = new DashboardPageObjects(driver);
         actions = new Actions(driver);
     }
 
     /*----------Elements----------*/
 
-    private WebElement notifyCancelClickButton;
     private WebElement hubInput;
-    private WebElement hubOption;
-    private WebElement setHubOption;
-    private WebElement dispatchToSubHub;
-    private WebElement dispatchToSubHubParcels;
+
+    private WebElement dispatchToSubHubInput;
+
     private List<WebElement> leftPanelViewParcels;
     private List<WebElement> modalParcelId;
     private WebElement scanBulkIdInput;
     private WebElement isBusy;
 
+    private WebElement dropDownOption;
+    private WebElement titleValue;
+    private WebElement backButton;
+
 
     /*----------Actions----------*/
 
-    public void clickNotifyCancelClickButton()
+    public void clickDropDownOption(String option)
     {
-        notifyCancelClickButton = xpathSetter("//button[text()='Later']");
-        myActions.action_click(notifyCancelClickButton);
+        dropDownOption = xpathSetter("//strong[text()='" + option.trim() + "']/..");
+        myActions.action_click(dropDownOption);
+    }
+
+    public void clickDropDownOptionByTitle(String option)
+    {
+        dropDownOption = xpathSetter("//a[contains(@title,'" + option.trim() + "')]");
+        myActions.action_click(dropDownOption);
     }
 
     public void enterHubInput(String hubName)
@@ -57,36 +63,48 @@ public class DispatchModulePageObjects extends SapBaseClass {
         hubInput = xpathSetter("//input[@placeholder='Search hub']");
         hubInput.clear();
         myActions.action_sendKeys(hubInput,hubName);
-        hubInput.sendKeys(Keys.ENTER);
+        clickDropDownOptionByTitle(hubName);
     }
 
-    public void clickHubOption()
+    public String getHubFilterValue()
     {
-        hubOption = xpathSetter("//select[@ng-model='ownHubId']");
-        myActions.action_click(hubOption);
+        hubInput = xpathSetter("//input[@placeholder='Search hub']");
+        return hubInput.getAttribute("value");
     }
 
-    public void selectHubOption(String hubName)
+    public void enterDispatchToSubHubInput(String hubName)
     {
-        clickHubOption();
-        setHubOption = xpathSetter("//option[@label='"+ hubName +"']");
-        myActions.action_click(setHubOption);
-    }
-
-    public void chooseDispatchToSubHub(String hubName)
-    {
-        dispatchToSubHub = xpathSetter("//div[@ng-if='ownHubId && !ownHub.isVirtual']//input[@placeholder='Choose hub']");
-        myActions.action_click(dispatchToSubHub);
-        myActions.action_sendKeys(dispatchToSubHub,hubName);
+        dispatchToSubHubInput = xpathSetter("//div[@ng-if='ownHubId && !ownHub.isVirtual']//input[@placeholder='Choose hub']");
+        myActions.action_click(dispatchToSubHubInput);
+        myActions.action_sendKeys(dispatchToSubHubInput,hubName);
         sleep(1000);
-        dispatchToSubHub.sendKeys(Keys.ENTER);
+        clickDropDownOptionByTitle(hubName);
     }
 
-    public void clickDispatchToSubHubParcels()
+    public String getTitleValue(String tag)
     {
-        dispatchToSubHubParcels = xpathSetter("//div[@ng-show='ownHubId === mainHubId && chosenHub.id']/button[contains(text(),'Parcels')]");
-        myActions.action_click(dispatchToSubHubParcels);
+        titleValue = xpathSetter("//" + tag + "[@class='ng-binding']");
+        return myActions.action_getText(titleValue);
     }
+
+    public String getTitleValue()
+    {
+        titleValue = xpathSetter("//h3");
+        return myActions.action_getText("//h3");
+    }
+
+    public String getProblematicHubParcelTitleValue()
+    {
+        titleValue = xpathSetter("//h3/span[not(contains(@class,'ng-hide'))]");
+        return myActions.action_getText(titleValue);
+    }
+
+    public void clickBackButton()
+    {
+        backButton = xpathSetter("//a[@ng-click='goBack()']");
+        myActions.action_click(backButton);
+    }
+
 
     public List<WebElement> setViewParcels()
     {
@@ -109,12 +127,6 @@ public class DispatchModulePageObjects extends SapBaseClass {
     }
 
     /*----------Functions----------*/
-
-    public void chooseHub(String hubName)
-    {
-        clickHubOption();
-        selectHubOption(hubName);
-    }
 
     public String selectBulkParcel(List<String> parcelIds) throws AWTException {
         List<WebElement> bulkParcels = setViewParcels();
@@ -193,16 +205,37 @@ public class DispatchModulePageObjects extends SapBaseClass {
         System.out.println("parcelIds : " + parcelIds);
         System.out.println("Sub Hub Name : " + subHubName);
 
-        dashboardPageObjects.clickDispatchModule();
-
-        chooseHub(hubName);
-        chooseDispatchToSubHub(subHubName);
-        clickDispatchToSubHubParcels();
+        enterHubInput(hubName);
+        enterDispatchToSubHubInput(subHubName);
         checkLoading();
         bulkIdValue = selectBulkParcel(parcelIds);
         clickEscViaRobotClass();
 
         return bulkIdValue;
+    }
+
+    public class DispatchSubHubPageObjects
+    {
+        /*----------Elements----------*/
+
+        private WebElement scannedCodeInput;
+        private WebElement dispatchButton;
+
+        /*----------Actions----------*/
+
+        public void enterScannedCodeInput(String trackingId)
+        {
+            scannedCodeInput = xpathSetter("//input[@placeholder='Scanned code']");
+            myActions.action_sendKeys(scannedCodeInput,trackingId);
+            scannedCodeInput.sendKeys(Keys.ENTER);
+        }
+
+        public void clickDispatchButton(int index)
+        {
+            dispatchButton = xpathSetter("//div[@class='fresh-parcel ng-scope']//button[contains(text(),'DISPATCH')]");
+            myActions.action_click(dispatchButton);
+        }
+
     }
 
     public class DispatchAgentPageObjects

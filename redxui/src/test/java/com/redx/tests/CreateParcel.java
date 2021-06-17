@@ -92,13 +92,14 @@ public class CreateParcel extends RedXBaseClass
     {System.out.println("verification of mandatory field caution message popUp was called");
         homePageObjects.clickChooseShopModule();
         chooseShopModule.selectShopByText("ashok shops");
+        homePageObjects.clickSkipIntroButton();
     homePageObjects.clickDeliverYourParcelModule();
     addParcelPageObjects.clickConfirmButton();
         List<String> cautionMessages = new ArrayList<>();
         cautionMessages.add("Name is required");
         cautionMessages.add("Phone is required");
         cautionMessages.add("Address is required");
-        cautionMessages.add("Area is required");
+//        cautionMessages.add("Area is required");
 //        cautionMessages.add("Selling price is required");
         Assert.assertEquals(addParcelPageObjects.createParcelCautionMessages(),cautionMessages);
     }

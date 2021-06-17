@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
-import pageObjects.logistics.ReceiveModulePageObjects;
+import pageObjects.logistics.Receive.ReceiveModulePageObjects;
 import services.sapMethods.GetSapApiResponses;
 import utils.SapBaseClass;
 

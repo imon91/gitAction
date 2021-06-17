@@ -146,6 +146,7 @@ public class ParcelDetails extends RedXBaseClass {
         System.out.println("Verify 'Call RedX'Option on Details page");
         homePageObjects.clickChooseShopModule();
         chooseShopModule.selectShopByText("ashok shops");
+        homePageObjects.clickSkipIntroButton();
         int index;
         String assertVariable = null;
         String parcelStatus = null;

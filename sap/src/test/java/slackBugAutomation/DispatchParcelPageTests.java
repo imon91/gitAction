@@ -5,7 +5,7 @@ import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pageObjects.*;
-import pageObjects.DispatchModulePageObjects;
+import pageObjects.logistics.Dispatch.DispatchModulePageObjects;
 import utils.*;
 
 public class DispatchParcelPageTests extends SapBaseClass {

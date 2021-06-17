@@ -161,6 +161,26 @@ public class RedXBaseClass extends GetDriverFromCore{
         return null;
     }
 
+    public static WebElement xpathPresenceSetter(String xpath){
+        try {
+            new WebDriverWait(getBaseDriver(),2)
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+            return getBaseDriver().findElement(By.xpath(xpath));
+        }catch (Exception e){
+            System.out.println(e);
+            if(e.getMessage().contains("NoSuchElementException")){
+                int loop=0;
+                while(loop<3){
+                    sleep(100);
+                    xpathListSetter(xpath);
+                    loop++;
+                }
+            }
+
+        }
+        return null;
+    }
+
 
     public static List<WebElement> xpathListSetter(String xpath){
         try {

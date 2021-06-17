@@ -176,7 +176,17 @@ public class GetSapApiResponses {
         return receiveParcelsModel;
     }
 
-    public void receiveParcels(List<String> trackingIds)
+    public ReceiveParcelsListModel getReceiveMotherHubParcels(int sourceHubId,int destinationHubId)
+    {
+        System.out.println("Getting Mother Hub Parcels List in Receive Module");
+        String receiveParcelsPostCall = "https://sap.shopups1.xyz/api/logistics/parcels?destinationHubId=" + destinationHubId + "&filterOutProblematic=true&offset=0&page=1&sourceHubId=" + sourceHubId + "&status=hub-transfer";
+        Response receiveParcelsResponse = shopUpPostMan.getCall(receiveParcelsPostCall);
+//        System.out.println(receiveParcelsResponse.getBody().asString());
+        ReceiveParcelsListModel receiveParcelsModel = gson.fromJson(receiveParcelsResponse.getBody().asString(),ReceiveParcelsListModel.class);
+        return receiveParcelsModel;
+    }
+
+    public void receiveParcels(List<String> trackingIds,int sourceHubId,int currentPartnerId)
     {
         System.out.println("\nReceiving Parcels\n");
         String action = "received-from-seller";
@@ -191,8 +201,8 @@ public class GetSapApiResponses {
             parcel.put("id",trackingIds.get(i));
             parcel.put("currentStatus","ready-for-delivery");
             parcel.put("oldStatus","pickup-pending");
-            parcel.put("sourceHubId",1);
-            parcel.put("currentPartnerId",3);
+            parcel.put("sourceHubId",sourceHubId);
+            parcel.put("currentPartnerId",currentPartnerId);
             parcels.add(parcel);
 //            parcels.get(i).put("id",trackingIds.get(i));
         }
@@ -811,5 +821,15 @@ public class GetSapApiResponses {
         areaDetails.put("areaName",areaQueryModel.getAreas().get(area).getName());
         System.out.println(Arrays.asList(areaDetails));
         return areaDetails;
+    }
+
+    public String getBulkTransferId(String trackingId,int sourceHubId, int destinationId)
+    {
+        ReceiveParcelsListModel receiveParcelsListModel = getReceiveMotherHubParcels(sourceHubId,destinationId);
+        int parcels =receiveParcelsListModel.getParcels().size();
+        for(int i=0; i<parcels;i++)
+            if(receiveParcelsListModel.getParcels().get(i).getId().equalsIgnoreCase(trackingId))
+                return (String) receiveParcelsListModel.getParcels().get(i).getBulkTransferId();
+            return null;
     }
 }

@@ -6,7 +6,9 @@
     </listeners>
     <test name="IntegrationTests">
         <classes>
-
+            <class name="SetUpTests"></class>
+            <class name="com.shopf.tests.authentication.LoginTests"></class>
+            <class name="com.shopf.tests.integrationTests.DispatchSubHubParcelPageTests"></class>
         </classes>
     </test>
 </suite>

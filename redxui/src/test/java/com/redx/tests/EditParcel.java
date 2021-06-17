@@ -96,6 +96,7 @@ public class EditParcel extends RedXBaseClass
         homePageObjects.clickChooseShopModule();
         chooseShopModule.selectShopByText("ashok shops");
         sleep(2000);
+        homePageObjects.clickSkipIntroButton();
     }
 
 
