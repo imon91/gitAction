@@ -76,13 +76,21 @@ public class CreateParcel extends RedXBaseClass
     public void createNewParcel()
     {
         System.out.println("Creating New Parcel");
+        String assertVariable = null;
 //        homePageObjects.clickChooseShopModule();
 //        chooseShopModule.selectShopByText("ashok shops");
         homePageObjects.clickDeliverYourParcelModule();
         sleep(500);
         Assert.assertEquals(addParcelPageObjects.getPageTitle(),"Add parcel");
         addParcelPageObjects.addParcel();
-        Assert.assertEquals(homePageObjects.getToastMessage(),"1 parcels added");
+        try {
+            assertVariable = PropertyReader.getValueOfKey(PropertyReader.Keys.SHOP_NAME);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Shop Name cannot be read from Properties");
+        }
+        Assert.assertEquals(homePageObjects.getCurrentShopName(),assertVariable);
+//        Assert.assertEquals(homePageObjects.getToastMessage(),"1 parcels added");
     }
 
     @Test(  groups = {CoreConstants.GROUP_SANITY},

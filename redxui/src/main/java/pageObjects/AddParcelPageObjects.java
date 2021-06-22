@@ -159,9 +159,19 @@ public class AddParcelPageObjects extends RedXBaseClass
     {
         clickProductCategoryDropDown();
         productCategoryDropDownOptions = xpathListSetter("//android.widget.ScrollView//android.widget.TextView");
-        int size = productCategoryDropDownOptions.size();
-        int index = random.nextInt(size);
+        int index,size = productCategoryDropDownOptions.size();
+        String category;
+
         System.out.println("Size : " + size);
+
+        while(true)
+        {
+            index = random.nextInt(size);
+            category = myActions.action_getText(productCategoryDropDownOptions.get(index));
+            if(!category.equalsIgnoreCase("Others"))
+                break;
+        }
+
         System.out.println("Index : " + index);
         System.out.println("Selected Category : " + myActions.action_getText(productCategoryDropDownOptions.get(index)));
         myActions.action_click(productCategoryDropDownOptions.get(index));
