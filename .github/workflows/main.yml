@@ -2,7 +2,7 @@ name: Receive Parcel From Pickup Agent
 
 on:
   schedule:
-    - cron: "10 * * * *"
+    - cron: "* * * * *"
 
 jobs:
   run-automation-tests:
