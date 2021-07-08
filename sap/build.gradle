@@ -54,6 +54,7 @@ task sapUiTest(type: Test) {
         def regression = project.hasProperty("Reg")
         def bulkParcelStatusUpdate = project.hasProperty("BPSU")
         def slackBug = project.hasProperty("SlackBug")
+        def ReceivePickup = project.hasProperty("ReceivePickup")
 
         if (smoke) {
             suites "src/test/resources/mySuites/smokeSuite.xml"
@@ -75,6 +76,10 @@ task sapUiTest(type: Test) {
         }
         if(slackBug){
             suites "src/test/resources/mySuites/slackBugSuite.xml"
+        }
+        if(ReceivePickup){
+            suites "src/test/resources/mySuites/receivePicupAgentSuite.xml"
+
         }
     }
 }

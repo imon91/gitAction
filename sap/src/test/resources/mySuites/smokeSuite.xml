@@ -12,7 +12,7 @@
         </groups>
         <classes>
 <!--            <class name="com.shopf.tests.authentication.LoginTests"></class>-->
-            <class name="IssuesAutomation.LoginErrorMessageTests"></class>
+<!--            <class name="IssuesAutomation.LoginErrorMessageTests"></class>-->
         </classes>
     </test>
 </suite>

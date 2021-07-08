@@ -13,13 +13,9 @@
         <classes>
             <class name="SetUpTests"></class>
             <class name="com.shopf.tests.authentication.LoginTests"></class>
-<!--            <class name="com.shopf.tests.pagewise.ReceiveProblematicPickupAgentTests"></class>-->
+            <class name="com.shopf.tests.pagewise.ReceiveProblematicPickupAgentTests"></class>
 
 
-            <class name="com.shopf.tests.pagewise.PickupPageTests"></class>
-            <class name="com.shopf.tests.pagewise.ReceiveParcelPageTests"></class>
-            <class name="com.shopf.tests.pagewise.ReceiveSellerParcelPageTests"></class>
-            <class name="com.shopf.tests.pagewise.ReceiveDeliveryAgentsParcelPageTests"></class>
         </classes>
 
     </test>

@@ -3,12 +3,10 @@ package services.sapMethods;
 import com.google.gson.Gson;
 import dataParcer.CSVParser;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
+import io.restassured.response.*;
 import org.json.simple.JSONObject;
 import services.responseModels.sapModels.*;
-import services.serviceUtils.ShopUpPostMan;
-
-import java.awt.geom.Area;
+import services.serviceUtils.*;
 import java.util.*;
 
 public class GetSapApiResponses {
@@ -402,6 +400,130 @@ public class GetSapApiResponses {
         AgentsListModel agentsListModel = gson.fromJson(agentListResponse.getBody().asString(),AgentsListModel.class);
         return agentsListModel;
     }
+    /*----------Parcel Received ----------*/
+
+    public void cashReceive(int hubId,List<String>trackingIds){
+       //String url = "https://shopups1.xyz/v2/logistics/bulk-status-updates";
+
+        String action = "received-problematic-parcel";
+
+        List<HashMap<String, Object>> parcels = new ArrayList<>();
+
+        for(int i =0; i<trackingIds.size();i++)
+        {
+            HashMap<String, Object> parcel = new HashMap<>();
+            parcel.put("id",trackingIds.get(i));
+            parcel.put("currentStatus","shopup-returning");
+            parcel.put("oldStatus","agent-returning");
+            //parcel.put("sourceHubId",(reasonId.get(i)));
+            parcel.put("sourceHubId",hubId);
+            parcels.add(parcel);
+           //System.out.println(trackingIds.get(i)+"from api page"+reasonId.get(i));
+//            parcels.get(i).put("id",parcelIds.get(i));
+        }
+        cashReceivePutCall(parcels,action);
+
+
+    }
+   public void cashReceivePutCall(List<HashMap<String, Object>> parcels, String action){
+       String bulkStatusUrl = "https://shopups1.xyz/v2/logistics/bulk-status-updates";
+       Map bulkStatusBody = new HashMap();
+       bulkStatusBody.put("parcels",parcels);
+       bulkStatusBody.put("action",action);
+       bulkStatusBody.put("lineHaulId",null);
+       bulkStatusBody.put("forceNewBulkTransferId",null);
+       Response response = shopUpPostMan.putCall(bulkStatusUrl,bulkStatusBody);
+       System.out.println("Parcel Receive api "+bulkStatusBody);
+
+
+   }
+   public void dispatchProblematicPracelAssigntoAgent(List<String> trackingIds,int pickupAgentId){
+     String assignUrl =  "https://sap.shopups1.xyz/api/logistics/parcel/assign-delivery/"+pickupAgentId;
+       Map data = new HashMap();
+       data.put("parcels",trackingIds);
+       Response response = shopUpPostMan.putCall(assignUrl,data);
+       System.out.println(response.getStatusCode());
+       System.out.println(response.getStatusCode());
+
+   }
+
+
+   public void returnProblematicParcelDispatch(int hubId,List<String>trackingIds,int currentPartnerId,int picKupagentId){
+
+       String action = "return-parcel-dispatched-to-agent";
+
+       List<HashMap<String, Object>> parcels = new ArrayList<>();
+
+       for(int i =0; i<trackingIds.size();i++)
+
+       {
+
+           HashMap<String, Object> parcel = new HashMap<>();
+           parcel.put("id",trackingIds.get(i));
+           parcel.put("currentStatus","return-in-progress");
+           parcel.put("oldStatus","shopup-returning");
+           parcel.put("deliveryAgentId",picKupagentId);
+           parcel.put("sourceHubId",hubId);
+           parcel.put("currentPartnerId",currentPartnerId);
+           parcels.add(parcel);
+
+       }
+       problematicParcelDispatchPutApi(action,parcels);
+   }
+
+   public void problematicParcelDispatchPutApi(String action,List<HashMap<String, Object>> parcels){
+       String bulkStatusUrl = "https://shopups1.xyz/v2/logistics/bulk-status-updates";
+       Map bulkStatusBody = new HashMap();
+       bulkStatusBody.put("parcels",parcels);
+       bulkStatusBody.put("action",action);
+       bulkStatusBody.put("lineHaulId",null);
+       bulkStatusBody.put("forceNewBulkTransferId",null);
+
+       Response response = shopUpPostMan.putCall(bulkStatusUrl,bulkStatusBody);
+       System.out.println(response.getStatusCode());
+       System.out.println(response.getBody());
+
+   }
+
+
+    public ReceiveDeliveryAgentsParcelListModel pickupAgentProblematicParcelsListGetCall(int pickupAgentId,int hubId)
+    {
+        String deliveryAgentsProblematicParcelsListGetCall = "https://sap.shopups1.xyz/api/logistics/parcels?deliveryAgentId="+pickupAgentId+"&filterOutProblematic=true&limit=8000&offset=0&page=1&phone=&pickUpHubId="+hubId+"&status=return-in-progress&status=return-hold-returning&status=return-problematic-returning&status=agent-returned";
+        Response deliveryAgentsProblematicParcelsListResponse = shopUpPostMan.getCall(deliveryAgentsProblematicParcelsListGetCall);
+        ReceiveDeliveryAgentsParcelListModel receiveDeliveryAgentsParcelListModel = gson.fromJson(deliveryAgentsProblematicParcelsListResponse.getBody().asString(),ReceiveDeliveryAgentsParcelListModel.class);
+        return  receiveDeliveryAgentsParcelListModel;
+    }
+
+
+  public void receivedParcelToSeller(List<String>trackingIds,int currentPartnerId,int sourceHubId){
+        String action = "parcel-returned-to-seller";
+         List<HashMap<String, Object>> parcels = new ArrayList<>();
+         for(int i =0; i<trackingIds.size();i++) {
+          HashMap<String, Object> parcel = new HashMap<>();
+          parcel.put("id", trackingIds.get(i));
+          parcel.put("currentStatus", "agent-returned");
+          parcel.put("currentPartnerId", currentPartnerId);
+          parcel.put("oldStatus", "return-in-progress");
+          parcel.put("sourceHubId", sourceHubId);
+          parcels.add(parcel);
+      }
+        receivedParcelToSellerPutAPi(action,parcels);
+
+
+  }
+  public void receivedParcelToSellerPutAPi(String action,List<HashMap<String, Object>> parcels){
+   String bulkStatusUrl = "https://shopups1.xyz/v2/logistics/bulk-status-updates";
+      Map bulkStatusBody = new HashMap();
+      bulkStatusBody.put("parcels",parcels);
+      bulkStatusBody.put("action",action);
+      Response response = shopUpPostMan.putCall(bulkStatusUrl,bulkStatusBody);
+      System.out.println(response.getStatusCode());
+      System.out.println(response.getBody().asString());
+
+  }
+
+
+
 
     /*----------Functions----------*/
 

@@ -170,7 +170,7 @@ public class SapBaseClass extends GetDriverFromCore {
 
     public static List<WebElement> xpathListSetter(String xpath){
         try {
-            new WebDriverWait(getBaseDriver(),30)
+            new WebDriverWait(getBaseDriver(),60)
                     .until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
             return getBaseDriver().findElements(By.xpath(xpath));
         }catch (Exception e){
