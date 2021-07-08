@@ -1,0 +1,75 @@
+name: Receive Parcel From Pickup Agent
+
+on: [push]
+
+
+jobs:
+  run-automation-tests:
+    name: Test Pickup Agent Pages
+    runs-on: ubuntu-20.04
+    container:
+      image: vooniksre/selenium-node-chrome:3.141.59
+      options: --user 0
+    steps:
+      - name: Checkout automation repository
+        uses: actions/checkout@v2
+        with:
+          ref: 'development'
+ 
+      - name: Install Google Chrome # Using shell script to install Google Chrome
+        run: |
+         chmod +x ./scripts/InstallChrome.sh
+          ./scripts/InstallChrome.sh
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+
+      - name: Run sanity tests
+        continue-on-error: true
+        id: sanityTest
+        run: |
+          /opt/bin/entry_point.sh &
+          ./gradlew :sap:sapUiTest -PHost=local -PApp=Sap -PEnv=Stage -PReceivePickup
+
+      - name: Send failure email
+        if: steps.sanityTest.outcome != 'success'
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.SMTP_USERNAME}}
+          password: ${{secrets.SMTP_PASSWORD}}
+          subject: FAILED Job ${{github.workflow}} ${{github.run_number}}
+          # Literal body:
+          # body: Build job of ${{github.repository}} completed successfully!
+          # Read file contents as body:
+          body: file://./sap/build/reports/tests/sapUiTest/SanityTestSuite/SanityTests.html
+          to: tasnim.hosen@shopf.co
+          from: Github Actions
+          # Optional content type (defaults to text/plain):
+          content_type: text/html
+          # Optional converting Markdown to HTML (set content_type to text/html too):
+          convert_markdown: true
+          # Optional attachments:
+          # attachments: attachments.zip,git.diff,./dist/static/main.js
+      - name: Send Success email
+        if: steps.sanityTest.outcome == 'success'
+        uses: dawidd6/action-send-mail@v2
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{secrets.SMTP_USERNAME}}
+          password: ${{secrets.SMTP_PASSWORD}}
+          subject: SUCCESSFUL Job ${{github.workflow}} ${{github.run_number}}
+          # Literal body:
+          # body: Build job of ${{github.repository}} completed successfully!
+          # Read file contents as body:
+          body: file://./sap/build/reports/tests/sapUiTest/SanityTestSuite/SanityTests.html
+          to: tasnim.hosen@shopf.co
+          from: Github Actions
+          # Optional content type (defaults to text/plain):
+          content_type: text/html
+          # Optional converting Markdown to HTML (set content_type to text/html too):
+          convert_markdown: true
+          # Optional attachments:
+          # attachments: attachments.zip,git.diff,./dist/static/main.js
