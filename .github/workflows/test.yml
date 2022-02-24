@@ -6,7 +6,7 @@ on: [push]
 jobs:
   run-automation-tests:
     name: Test Pickup Agent Pages
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     container:
       image: vooniksre/selenium-node-chrome:3.141.59
       options: --user 0
